@@ -37,5 +37,13 @@ class User extends Authenticatable
      * The attributes that should be cast.
      *
      * @var array<string, string>
+     */ /**
+     * Get the password for the user.
+     *
+     * @return string
      */
+    public function getAuthPassword()
+    {
+        return $this->password;
+    }
 }

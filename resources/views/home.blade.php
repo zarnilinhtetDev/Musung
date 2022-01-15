@@ -2,6 +2,12 @@
 
 @section('content')
 <div class="container">
+    @admin
+    Admin
+    @endadmin
+    @operator
+    Operator
+    @endoperator
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
