@@ -21,10 +21,10 @@
                             <a class="sidebar-link" href="{{ url('/member') }}">Member</a>
                         </li>
                         <li class="custom-li">
-                            <a class="sidebar-link" href="#">Operator</a>
+                            <a class="sidebar-link" href="{{ url('/operator') }}">Operator</a>
                         </li>
                         <li class="custom-li">
-                            <a class="sidebar-link" href="#">Line Manager</a>
+                            <a class="sidebar-link" href="{{ url('/line_manager') }}">Line Manager</a>
                         </li>
                     </ul>
                 </li>
@@ -51,10 +51,13 @@
                     </a>
                     <ul class="collapse" id="line" role="list">
                         <li class="custom-li">
-                            <a class="sidebar-link" href="#">Line Detail</a>
+                            <a class="sidebar-link" href="{{ url('/line_detail') }}">Line Detail</a>
                         </li>
                         <li class="custom-li">
-                            <a class="sidebar-link" href="#">Line Setting</a>
+                            <a class="sidebar-link" href="{{ url('/line_manager_detail') }}">Line Manager Detail</a>
+                        </li>
+                        <li class="custom-li">
+                            <a class="sidebar-link" href="{{ url('/line_setting') }}">Line Setting</a>
                         </li>
                     </ul>
                 </li>
@@ -67,41 +70,43 @@
             <button type="button" id="sidebarCollapse" class="btn">
                 <i class="fas fa-bars fa-lg"></i>
             </button>
-            <div class="nav-heading">
-                <a class="navbar-brand text-white" href="{{ url('/home') }}">
+            <div class="nav-heading text-center">
+                <a class="navbar-brand text-white fw-bold" href="{{ url('/home') }}">
                     MUSAN Garment All Line Target and Actual Production Data
                 </a>
             </div>
-            <!-- Right Side Of Navbar -->
-            <ul class="navbar-nav ms-auto">
-                <!-- Authentication Links -->
-                @guest
-                @if (Route::has('login'))
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                </li>
-                @endif
+            <div>
+                <!-- Right Side Of Navbar -->
+                <ul class="navbar-nav ms-auto">
+                    <!-- Authentication Links -->
+                    @guest
+                    @if (Route::has('login'))
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                    </li>
+                    @endif
 
-                {{-- @if (Route::has('register'))
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                </li>
-                @endif --}}
-                @else
-                <li class="nav-item dropdown">
-                    <button onclick="myFunction()" class="dropbtn">{{ Auth::user()->name }}</button>
-                    <div id="myDropdown" class="dropdown-content dropdown-content-2">
-                        <a class="dropdown-item text-danger" href="{{ route('logout') }}" onclick="event.preventDefault();
+                    {{-- @if (Route::has('register'))
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                    </li>
+                    @endif --}}
+                    @else
+                    <li class="nav-item dropdown">
+                        <button onclick="myFunction()" class="dropbtn">{{ Auth::user()->name }}</button>
+                        <div id="myDropdown" class="dropdown-content dropdown-content-2">
+                            <a class="dropdown-item text-danger" href="{{ route('logout') }}" onclick="event.preventDefault();
                                     document.getElementById('logout-form').submit();">
-                            {{ __('Logout') }}
-                        </a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                            @csrf
-                        </form>
-                    </div>
-                </li>
-                @endguest
-            </ul>
+                                {{ __('Logout') }}
+                            </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
+                        </div>
+                    </li>
+                    @endguest
+                </ul>
+            </div>
         </nav>
         <div class="container-fluid mobile-heading">
             <h3 style="background-color:#6495ed; color: #fff; padding: 0.5rem; border-radius: 8px;">MUSAN Garment All

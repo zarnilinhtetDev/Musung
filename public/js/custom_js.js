@@ -17,3 +17,16 @@ window.onclick = function (event) {
         }
     }
 };
+
+$(document).ready(function () {
+    $(".sidebar-link").on("click", function () {
+        $(".collapse").collapse("hide");
+    });
+    $("#myInput").on("keyup", function () {
+        var value = $(this).val().toLowerCase();
+        $("#myTable tr").filter(function () {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+        });
+    });
+    $("#datepicker").datepicker();
+});

@@ -41,21 +41,23 @@
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="css/styles.css" rel="stylesheet">
-
 </head>
 
 <body>
     <div id="app">
         <main class="">
+            @if(request()->is('/'))
             @yield('content')
+            @else
+            @yield('content')
+            @include('layouts.navbar_sidebar')
+            @endif
         </main>
     </div>
 
 </body>
-<script>
-    $(document).ready(function () {
+{{-- $(document).ready(function () {
 $("#datepicker").datepicker();
-});
-</script>
+}); --}}
 
 </html>

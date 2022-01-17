@@ -5,15 +5,8 @@
 // $hash = Hash::make('mtkMTK123#');
 // echo $hash;
 @endphp
-@extends('layouts.navbar_sidebar')
 @section('content_2')
 <div class="container">
-    {{-- @admin
-    Admin
-    @endadmin
-    @operator
-    Operator
-    @endoperator --}}
     <div class="container-fluid">
         <div class="row">
             <div class="col-6 col-md-4 dropdown">

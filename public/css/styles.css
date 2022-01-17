@@ -1,6 +1,14 @@
 html, body {
     background-color: #fff !important;
+    overflow: auto;
+}
+
+p {
     font-family: 'Poppins', sans-serif;
+    font-size: 1.1em;
+    font-weight: 300;
+    line-height: 1.7em;
+    color: #999;
 }
 
 /*======================
@@ -61,19 +69,18 @@ html, body {
 }
 
 #sidebarCollapse {
-    background-color: #ececec;
-
+    background-color: #6495ed;
+    color: #fff;
 }
 
 .navbar {
-    padding: 5px 10px;
+    padding: 10px;
     background: #fff;
     border: none;
     border-radius: 0;
     margin-bottom: 40px;
     -webkit-box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
     box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
-    background-color: #6495ed !important;
 }
 
 .navbar-btn {
@@ -251,11 +258,11 @@ a[data-toggle="collapse"] {
 
 .dropbtn {
     color: white;
-    padding: 16px;
+    padding: 8px;
     font-size: 16px;
     border: none;
-    background-color: #6c757d;
-    border-radius: 10px;
+    background-color: #6495ed;
+    border-radius: 5px;
     width: 100%;
 }
 
@@ -440,6 +447,20 @@ a[data-toggle="collapse"] {
     color: #fff;
 }
 
+table {
+    white-space: nowrap !important;
+}
+
+.tr-2 {
+    background-color: #829ab2;
+    color: #eee;
+}
+
+.nav-heading {
+    background-color: #6495ed;
+    border-radius: 5px;
+}
+
 @media (min-width: 280px) {
     .login-card-img {
         display: none;
@@ -473,7 +494,7 @@ a[data-toggle="collapse"] {
     .nav-heading {
         display: block;
         width: 50%;
-        padding: 5px;
+        padding: 8px;
     }
 
     .mobile-heading {
