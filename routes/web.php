@@ -21,3 +21,9 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/line_history', function () {
+    return view('line_history');
+});
+Route::get('/member', function () {
+    return view('member');
+});

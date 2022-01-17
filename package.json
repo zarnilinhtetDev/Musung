@@ -26,6 +26,7 @@
     },
     "dependencies": {
         "@vue/compiler-sfc": "^3.2.26",
+        "vanillajs-datepicker": "^1.2.0",
         "vue-moments-ago": "^0.2.0",
         "vue-router": "^3.5.3"
     }
