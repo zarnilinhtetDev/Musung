@@ -51,6 +51,9 @@
                     </a>
                     <ul class="collapse" id="line" role="list">
                         <li class="custom-li">
+                            <a class="sidebar-link" href="{{ url('/line_entry') }}">Line Entry</a>
+                        </li>
+                        <li class="custom-li">
                             <a class="sidebar-link" href="{{ url('/line_detail') }}">Line Detail</a>
                         </li>
                         <li class="custom-li">

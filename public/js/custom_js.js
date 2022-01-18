@@ -18,6 +18,26 @@ window.onclick = function (event) {
     }
 };
 
+var options = {
+    chart: {
+        type: "bar",
+        stackType: "100%",
+    },
+    series: [
+        {
+            name: "sales",
+            data: [30, 40, 45, 50, 49, 60, 70, 91, 100],
+        },
+    ],
+    xaxis: {
+        categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999],
+    },
+};
+
+var chart = new ApexCharts(document.querySelector("#target_chart"), options);
+
+chart.render();
+
 $(document).ready(function () {
     $(".sidebar-link").on("click", function () {
         $(".collapse").collapse("hide");
@@ -28,5 +48,16 @@ $(document).ready(function () {
             $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
         });
     });
-    $("#datepicker").datepicker();
+
+    $("#tab-content .div_1").hide();
+    $("#tab-content .div_1:first").show();
+
+    $("#nav li").click(function () {
+        $("#nav li a").removeClass("active");
+        $(this).find("a").addClass("active");
+        $("#tab-content .div_1").hide();
+
+        var indexer = $(this).index(); //gets the current index of (this) which is #nav li
+        $("#tab-content .div_1:eq(" + indexer + ")").fadeIn(); //uses whatever index the link has to open the corresponding box
+    });
 });

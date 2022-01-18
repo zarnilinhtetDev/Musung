@@ -429,6 +429,35 @@ a[data-toggle="collapse"] {
     color: #6495ed;
 }
 
+ul.horizontal-slide {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    white-space: nowrap;
+    overflow-x: auto;
+}
+
+ul.horizontal-slide li[class*="span"] {
+    display: inline-block;
+    float: none;
+}
+
+ul.horizontal-slide li[class*="span"]:first-child {
+    margin-left: 0;
+}
+
+.span2 {
+    background: #6495ed;
+    border-radius: 3px;
+}
+
+.span2 p {
+    color: #fff;
+    font-weight: 500;
+    margin: 0;
+    padding: 8px;
+}
+
 /****** DatePicker *********/
 
 /* Adapts a floating label for use with a left-handed input group icon */
@@ -460,6 +489,53 @@ table {
     background-color: #6495ed;
     border-radius: 5px;
 }
+
+/***** Menu Tabs ****/
+
+#nav {
+    overflow: hidden;
+    padding-left: 0;
+}
+
+#nav li {
+    float: left;
+    list-style: none;
+    background: #EEE;
+}
+
+#nav li a {
+    padding: 10px;
+    border-top: 1px solid #ededed;
+    border-right: 1px solid #ededed;
+    display: block;
+    background: #ededed;
+    width: 8rem;
+    text-align: center;
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 3px;
+    color: #6495ed
+}
+
+#nav li:first-child a {
+    border-left: 1px solid #CCC;
+}
+
+#tab-content {
+    border: 1px solid #CCC;
+    padding: 10px;
+    width: 100%;
+    margin-top: -1px;
+    -moz-border-radius: 0 0 5px 5px;
+}
+
+#nav li a.active {
+    background: #6495ed;
+    margin-bottom: -3px;
+    color: #fff;
+}
+
+/***** Menu Tabs End ****/
 
 @media (min-width: 280px) {
     .login-card-img {
@@ -500,11 +576,23 @@ table {
     .mobile-heading {
         display: none;
     }
+
+    .modal-dialog {
+        max-width: 750px !important;
+    }
 }
 
-@media (min-width: 992px) {}
+@media (min-width: 992px) {
+    .modal-dialog {
+        max-width: 950px !important;
+    }
+}
 
-@media (min-width: 1024px) {}
+@media (min-width: 1024px) {
+    .modal-dialog {
+        max-width: 1024px !important;
+    }
+}
 
 .login-card-footer-nav a {
     font-size: 14px;
