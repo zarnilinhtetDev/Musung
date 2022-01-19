@@ -1,3 +1,10 @@
+@php
+if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on')
+{ $protocol = "https://".$_SERVER['HTTP_HOST']; }
+else{
+$protocol='http://'.$_SERVER['HTTP_HOST'];
+}
+@endphp
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
