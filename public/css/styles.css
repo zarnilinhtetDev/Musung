@@ -139,8 +139,7 @@ p {
 }
 
 #sidebar ul li>ul li {
-    font-size: 14px;
-    background-color: #6495ed;
+    font-size: 0.8rem;
     border-radius: 3px;
 }
 
@@ -547,6 +546,25 @@ table {
     color: #fff;
 }
 
+.div-bg-1 {
+    background-color: #ececec;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.table-dash tbody td {
+    padding: 0;
+}
+
+.btn-mode {
+    position: fixed;
+    bottom: 1rem;
+    right: 0.3rem;
+    height: 2.5rem;
+    z-index: 3;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
 /***** Menu Tabs End ****/
 
 @media (min-width: 280px) {
@@ -559,12 +577,22 @@ table {
     }
 
     .mobile-heading {
+        margin-top: 1rem;
         display: block;
         text-align: center;
     }
 
     .panel-body {
         overflow-x: scroll;
+    }
+
+    #live_bar_chart {
+        min-height: 350px !important;
+    }
+
+    .top-3 {
+        margin-top: 0.5rem !important;
+        margin-bottom: 0.5rem !important;
     }
 }
 
@@ -597,6 +625,9 @@ table {
         max-width: 750px !important;
     }
 
+    .top-3 {
+        margin: 0 !important;
+    }
 }
 
 @media (min-width: 992px) {
@@ -613,11 +644,7 @@ table {
     }
 }
 
-@media(min-width:1025px) {
-    .panel-body {
-        overflow-x: hidden;
-    }
-}
+@media(min-width:1025px) {}
 
 .login-card-footer-nav a {
     font-size: 14px;

@@ -69,13 +69,16 @@
     </nav>
     <!-- Page Content  -->
     <div id="content" class="container-fluid" style="padding:0;">
-        <nav class="navbar navbar-light bg-transparent" style="margin-bottom:10px;">
+        <button class="btn btn-mode" type="button" id="btn_navbar_close" href="#collapse_div">
+            <span class="text-white">Hide Navigation Bar</span>
+        </button>
+        <nav class="navbar navbar-light bg-transparent" style="margin-bottom:10px;" id="collapse_div">
             <button type="button" id="sidebarCollapse" class="btn">
                 <i class="fas fa-bars fa-lg"></i>
             </button>
             <div class="nav-heading text-center">
                 <a class="navbar-brand text-white fw-bold" href="{{ url('/home') }}">
-                    MUSAN Garment All Line Target and Actual Production Data
+                    MUSAN Garment Line Target and Production Data
                 </a>
             </div>
             <div>
@@ -112,8 +115,8 @@
             </div>
         </nav>
         <div class="container-fluid mobile-heading">
-            <h3 style="background-color:#6495ed; color: #fff; padding: 0.5rem; border-radius: 8px;">MUSAN Garment All
-                Line Target and Actual Production Data</h3>
+            <h3 style="background-color:#6495ed; color: #fff; padding: 0.5rem; border-radius: 8px;">MUSAN Garment Line
+                Target and Production Data</h3>
         </div>
         @yield('content_2')
     </div>

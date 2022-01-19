@@ -8,7 +8,7 @@
 
         <div class="container-fluid row p-0 m-0">
             <div class="col-12 col-md-6 my-3">
-                <ul class="horizontal-slide" style="" id="tabs">
+                <ul class="horizontal-slide" id="tabs">
                     <li class="span2">
                         <p>Date - 1.1.2022</p>
                     </li>
@@ -23,7 +23,7 @@
         </div>
 
         <div id="tabmenu" class="container-fluid my-3 p-0">
-            <ul class="horizontal-slide" id="nav">
+            <ul class="horizontal-slide" style="width:100%;overflow-x:scroll;" id="nav">
                 <li class="span2">
                     <a href="#" class="active">Line 1</a>
                 </li>
