@@ -476,6 +476,15 @@ ul.horizontal-slide li[class*="span"]:first-child {
     color: #fff;
 }
 
+.icon-btn-one-2 {
+    background-color: #ffd416;
+}
+
+.icon-btn-one-2:hover {
+    background-color: #6495ed;
+}
+
+
 table {
     white-space: nowrap !important;
 }
@@ -483,6 +492,10 @@ table {
 .tr-2 {
     background-color: #829ab2;
     color: #eee;
+}
+
+.tr-3 {
+    background-color: #6495ed;
 }
 
 .nav-heading {
@@ -498,7 +511,6 @@ table {
 }
 
 #nav li {
-    float: left;
     list-style: none;
     background: #EEE;
 }
@@ -550,6 +562,10 @@ table {
         display: block;
         text-align: center;
     }
+
+    .panel-body {
+        overflow-x: scroll;
+    }
 }
 
 @media (min-width: 320px) {}
@@ -580,17 +596,26 @@ table {
     .modal-dialog {
         max-width: 750px !important;
     }
+
 }
 
 @media (min-width: 992px) {
     .modal-dialog {
         max-width: 950px !important;
     }
+
+
 }
 
 @media (min-width: 1024px) {
     .modal-dialog {
         max-width: 1024px !important;
+    }
+}
+
+@media(min-width:1025px) {
+    .panel-body {
+        overflow-x: hidden;
     }
 }
 

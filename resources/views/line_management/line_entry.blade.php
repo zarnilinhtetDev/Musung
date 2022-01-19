@@ -58,8 +58,8 @@
                                 <input class="icon-btn-one btn my-2 w-50" type="submit" value="Save" name="submit" />
                             </div>
                         </div>
-                        <div class="col-12 col-md-6">
-                            <div class="container-fluid m-0 rounded-3 shadow-lg">
+                        <div class="col-12 col-md-6 p-0">
+                            <div class="container-fluid m-0 rounded-3 shadow-lg p-0">
                                 <h1 class="fw-bold heading-text fs-3 p-2">Target and Actual Chart</h1>
                                 <div id="target_chart">
                                 </div>

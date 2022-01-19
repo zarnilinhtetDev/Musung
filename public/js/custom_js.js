@@ -17,21 +17,62 @@ window.onclick = function (event) {
         }
     }
 };
-
 var options = {
     chart: {
+        width: "100%",
+        height: 380,
         type: "bar",
-        stackType: "100%",
+    },
+    colors: ["#ffd416", "#6495ed"],
+    plotOptions: {
+        bar: {
+            horizontal: false,
+        },
+    },
+    dataLabels: {
+        enabled: false,
+    },
+    stroke: {
+        width: 1,
+        colors: ["#fff"],
     },
     series: [
-        {
-            name: "sales",
-            data: [30, 40, 45, 50, 49, 60, 70, 91, 100],
-        },
+        { name: "Target", data: [100, 100, 100, 100, 100, 100, 100] },
+        { name: "Actual", data: [44, 55, 41, 64, 22, 43, 21] },
     ],
     xaxis: {
-        categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999],
+        categories: [
+            "Line 1",
+            "Line 2",
+            "Line 3",
+            "Line 4",
+            "Line 5",
+            "Line 6",
+            "Line 7",
+        ],
     },
+    yaxis: {
+        max: 100,
+    },
+    legend: {
+        position: "bottom",
+        verticalAlign: "top",
+    },
+    responsive: [
+        {
+            breakpoint: 1000,
+            options: {
+                plotOptions: {
+                    bar: {
+                        horizontal: true,
+                    },
+                },
+                legend: {
+                    position: "bottom",
+                },
+            },
+        },
+    ],
 };
 
 var chart = new ApexCharts(document.querySelector("#target_chart"), options);

@@ -29,4 +29,5 @@ Route::view('/line_detail', 'line_management.detail')->middleware('auth');
 Route::view('/line_manager_detail', 'line_management.manager_detail')->middleware('auth');
 Route::view('/line_setting', 'line_management.setting')->middleware('auth');
 
+Route::view('/live_dash', 'target_line.live_dash')->middleware('auth');
 Route::view('/line_history', 'target_line.line_history')->middleware('auth');

@@ -36,7 +36,7 @@
                     </a>
                     <ul class="collapse" id="target" role="list">
                         <li class="custom-li">
-                            <a class="sidebar-link" href="#">Today Lines</a>
+                            <a class="sidebar-link" href="{{ url('/live_dash') }}">Today Lines</a>
                         </li>
                         <li class="custom-li">
                             <a class="sidebar-link" href="{{ url('/line_history') }}">Line History</a>
