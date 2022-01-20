@@ -8,7 +8,7 @@
             </div>
             <ul class="list-unstyled components mb-5">
                 <li class="active">
-                    <a href="#" class="sidebar-link"><span class="fa fa-home mr-3"></span>Dashboard</a>
+                    <a href="{{ url('/home') }}" class="sidebar-link"><span class="fa fa-home mr-3"></span>Dashboard</a>
                 </li>
                 <li>
                     <a class="sidebar-link" href="#account_management" data-bs-toggle="collapse" aria-expanded="false"
@@ -19,12 +19,6 @@
                     <ul class="collapse" id="account_management" role="list">
                         <li class="custom-li">
                             <a class="sidebar-link" href="{{ url('/member') }}">Member</a>
-                        </li>
-                        <li class="custom-li">
-                            <a class="sidebar-link" href="{{ url('/operator') }}">Operator</a>
-                        </li>
-                        <li class="custom-li">
-                            <a class="sidebar-link" href="{{ url('/line_manager') }}">Line Manager</a>
                         </li>
                     </ul>
                 </li>

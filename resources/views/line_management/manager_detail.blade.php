@@ -4,7 +4,7 @@
 @section('content_2')
 <div class="container">
     <div class="container-fluid">
-        <h1 class="fw-bold heading-text">Line Manager</h1>
+        <h1 class="fw-bold heading-text">Line Manager Detail</h1>
 
         <div class="form-group pull-right">
             <input class="form-control" id="myInput" type="text" placeholder="Search">

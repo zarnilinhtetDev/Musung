@@ -26,8 +26,6 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
 
 Route::view('/member', 'acc_management.member')->middleware('auth');
-Route::view('/operator', 'acc_management.operator')->middleware('auth');
-Route::view('/line_manager', 'acc_management.line_manager')->middleware('auth');
 
 Route::view('/line_entry', 'line_management.line_entry')->middleware('auth');
 Route::view('/line_detail', 'line_management.detail')->middleware('auth');
