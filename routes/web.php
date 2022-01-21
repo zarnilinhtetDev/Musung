@@ -28,9 +28,7 @@ Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
 Route::view('/member', 'acc_management.member')->middleware('auth');
 
 Route::get('/line_entry', 'DataController@index');
-Route::post('/line_entry', 'DataController@postData')->name('line_entry');
-Route::put('/line_entry', 'DataController@putDataOne');
-Route::put('/line_entry', 'DataController@putData');
+Route::post('/line_entry', 'DataController@postData')->name('line_entry_post');
 
 Route::view('/line_detail', 'line_management.detail')->middleware('auth');
 Route::view('/line_manager_detail', 'line_management.manager_detail')->middleware('auth');

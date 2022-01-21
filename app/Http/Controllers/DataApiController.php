@@ -22,11 +22,11 @@ class DataApiController extends Controller
         $target = $request->target;
         $actual_target = $request->actual_target;
 
-        $sql = DB::insert('INSERT INTO data (user_id,time_id,line_id,target,actual_target,create_date) VALUES (?,?,?,?,?,?)', [$user_id, $time_id, $line_id, $target, $actual_target, NOW()]);
-        DB::disconnect('musung');
-        if ($sql == true) {
-            return response()->json(['success' => 'ok']);
-        }
+        // $sql = DB::insert('INSERT INTO data (user_id,time_id,line_id,target,actual_target,create_date) VALUES (?,?,?,?,?,?)', [$user_id, $time_id, $line_id, $target, $actual_target, NOW()]);
+        // DB::disconnect('musung');
+        // if ($sql == true) {
+        //     return response()->json(['success' => 'ok']);
+        // }
     }
     public function putData(Request $request)
     {

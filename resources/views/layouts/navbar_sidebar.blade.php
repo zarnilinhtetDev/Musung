@@ -149,13 +149,17 @@
                         @endif --}}
                         @else
                         <li class="nav-item dropdown w-50 mx-auto p-2">
-                            {{-- <button onclick="myFunction()" class="dropbtn">{{ Auth::user()->name }} <i
-                                    class="fas fa-arrow-down text-white"></i></button> --}}
-                            <a class="dropdown-item bg-danger rounded-2 text-white" href="{{ route('logout') }}"
-                                onclick="event.preventDefault();
+                            <button onclick="myFunction()" class="dropbtn">{{ Auth::user()->name }} <i
+                                    class="fas fa-arrow-down text-white"></i></button>
+                            <div id="myDropdown" class="dropdown-content dropdown-content-2">
+                                <a class="dropdown-item text-danger" href="{{ route('logout') }}" onclick="event.preventDefault();
                                     document.getElementById('logout-form').submit();">
-                                Logout
-                            </a>
+                                    Logout
+                                </a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
+                            </div>
                         </li>
                         @endguest
                     </ul>

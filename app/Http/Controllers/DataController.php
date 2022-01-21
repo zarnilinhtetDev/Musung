@@ -35,40 +35,57 @@ class DataController extends Controller
     }
     public function postData()
     {
-        $user_id = request()->get('user_id');
-        $time = request()->get('time_id');
-        $line = request()->get('line_id');
-        $target = request()->get('target');
-        $actual = request()->get('actual');
+        // $user_id = request()->get('user_id');
+        // $time = request()->get('time_id');
+        // $line = request()->get('line_id');
+        // $target = request()->get('target');
+        // $actual = request()->get('actual');
+        // $status = request()->get('status');
+        // $data_id = request()->get('data_id');
 
-        @$data_id = request()->get('data_id');
-        $status = request()->get('status');
-        if ($status == 1) {
-            $sql = DB::update("UPDATE data SET actual_target=?,update_date=? WHERE data_id=?", [$actual, NOW(), $data_id]);
-            return redirect('/line_entry?status=updated');
-        } else {
-            $sql = DB::insert("INSERT INTO data (user_id,time_id,line_id,target,actual_target,create_date) VALUES (?,?,?,?,?,?)", [$user_id, $time, $line, $target, $actual, NOW()]);
-            $sql2 = DB::update("UPDATE time SET status=1 WHERE time_id=?", [$time]);
-            if ($sql == true) {
-                if ($sql2 == true) {
-                    return redirect('/line_entry?status=created');
-                }
-            }
-        }
-    }
-    public function putDataOne(Request $request)
-    {
-        $user_id = request()->get('user_id');
-        $time = request()->get('time');
-        $target = request()->get('target');
-        $actual = request()->get('actual');
+        // $status_one = request()->get('status_one');
+        // $data_id_one = request()->get('data_id_one');
+        // $target_one = request()->get('target_one');
+        // $actual_one = request()->get('actual_one');
+        // $time_id_one = request()->get('time_id_one');
 
-        return $time;
+        return redirect('www.google.com');
+        // if ($status_one == 1) {
+        //     $sql = DB::update("UPDATE data SET actual_target=?,update_date=? WHERE data_id=?", [$actual_one, NOW(), $data_id_one]);
+        // }
 
-        // $sql = DB::insert("INSERT INTO employees (first_name,last_name,company,department, email,phone,address,created_at) VALUES (?,?,?,?,?,?,?,?)", [$first_name, $last_name, $company, $department, $email, $phone, $address, $date]);
-        // DB::disconnect('company');
+        // if ($status_one == 2) {
+        //     $sql_2 = DB::insert("INSERT INTO data (user_id,time_id,line_id,target,actual_target,create_date) VALUES (?,?,?,?,?,?)", [$user_id, $time, $line, $target, $actual, NOW()]);
+        //     if ($sql_2 == false) {
+        //         return redirect('/line_entry?status=error');
+        //     }
+        //     if ($sql_2 == true) {
+        //         // $sql_2 = DB::update("UPDATE time SET time.status=0 WHERE time.time_id=$time_id_one");
+        //         // if ($sql_2 == true) {
+        //         //     $sql_3 = DB::update("UPDATE time SET time.status=1 WHERE time.time_id=$time");
+        //         //     if ($sql_3 == true) {
+        //         //         return redirect('/line_entry?status=created');
+        //         //     }
+        //         // }
+        //     }
+        // }
+
+        // return "User ID = " . $user_id . "<br/>" . "Time = " . $time . "<br/>" . "Line ID = " . $line . "<br/>" . "Target = " . $target . "<br/>" . "Actual = " . $actual . "<br/>" . "Status_one = " . $status_one . "<br/>" . "Data_one" . $data_id_one . "<br/>" . "Target_one = " . $target_one . "<br/>" . "Actual_one = " . $actual_one . "<br/>" . "Time_id_one = " . $time_id_one . "<br/>";
+
+        //
+        // $sql2 = DB::update("UPDATE time SET status=1 WHERE time_id=?", [$time]);
         // if ($sql == true) {
-        //     return redirect('/employee?status=created');
+        //     if ($sql2 == true) {
+        //         return redirect('/line_entry?status=created');
+        //     }
+        // }
+        // @$data_id = request()->get('data_id');
+        // $status = request()->get('status');
+        // if ($status == 1) {
+        //     $sql = DB::update("UPDATE data SET actual_target=?,update_date=? WHERE data_id=?", [$actual, NOW(), $data_id]);
+        //     return redirect('/line_entry?status=updated');
+        // } else {
+
         // }
     }
 }

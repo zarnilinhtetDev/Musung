@@ -4,38 +4,38 @@
 @section('content_2')
 <div class="container">
     <script>
-        ///// Numpad /////
-        // Set NumPad defaults for jQuery mobile.
-        // These defaults will be applied to all NumPads within this document!
-        $.fn.numpad.defaults.gridTpl = '<table class="table modal-content"></table>';
-        $.fn.numpad.defaults.backgroundTpl = '<div class="modal-backdrop in"></div>';
-        $.fn.numpad.defaults.displayTpl = '<input type="text" class="form-control" />';
-        $.fn.numpad.defaults.buttonNumberTpl =
-            '<button type="button" class="btn btn-default"></button>';
-        $.fn.numpad.defaults.buttonFunctionTpl =
-            '<button type="button" class="btn" style="width: 100%;"></button>';
-        $.fn.numpad.defaults.onKeypadCreate = function () {
-            $(this).find(".done").addClass("btn-primary");
-        };
+        // ///// Numpad /////
+        // // Set NumPad defaults for jQuery mobile.
+        // // These defaults will be applied to all NumPads within this document!
+        // $.fn.numpad.defaults.gridTpl = '<table class="table modal-content"></table>';
+        // $.fn.numpad.defaults.backgroundTpl = '<div class="modal-backdrop in"></div>';
+        // $.fn.numpad.defaults.displayTpl = '<input type="text" class="form-control" />';
+        // $.fn.numpad.defaults.buttonNumberTpl =
+        //     '<button type="button" class="btn btn-default"></button>';
+        // $.fn.numpad.defaults.buttonFunctionTpl =
+        //     '<button type="button" class="btn" style="width: 100%;"></button>';
+        // $.fn.numpad.defaults.onKeypadCreate = function () {
+        //     $(this).find(".done").addClass("btn-primary");
+        // };
 
-        // Instantiate NumPad once the page is ready to be shown
-        $(document).ready(function () {
-            $("#text-basic").numpad();
-            $("#password").numpad({
-                displayTpl: '<input class="form-control" type="password" />',
-                hidePlusMinusButton: true,
-                hideDecimalButton: true,
-            });
-            $("#numpadButton-btn").numpad({
-                target: $("#numpadButton"),
-            });
-            $("#numpad4div").numpad();
-            $("#numpad4column .qtyInput").numpad();
+        // // Instantiate NumPad once the page is ready to be shown
+        // $(document).ready(function () {
+        //     $("#text-basic").numpad();
+        //     $("#password").numpad({
+        //         displayTpl: '<input class="form-control" type="password" />',
+        //         hidePlusMinusButton: true,
+        //         hideDecimalButton: true,
+        //     });
+        //     $("#numpadButton-btn").numpad({
+        //         target: $("#numpadButton"),
+        //     });
+        //     $("#numpad4div").numpad();
+        //     $("#numpad4column .qtyInput").numpad();
 
-            $("#numpad4column tr").on("click", function (e) {
-                $(this).find(".qtyInput").numpad("open");
-            });
-        });
+        //     $("#numpad4column tr").on("click", function (e) {
+        //         $(this).find(".qtyInput").numpad("open");
+        //     });
+        // });
     </script>
     @php
     $json = json_decode($responseBody,true);
@@ -78,79 +78,80 @@
                                 <div class="col">Target</div>
                                 <div class="col">Actual</div>
                             </div>
-                            @php
-                            for($i=0;$i<count($json);$i++){$data_id=$json[$i]['data_id']; $status=$json[$i]['status'];
-                                $time_name=$json[$i]['time_name'];$line_name=$json[$i]['line_name'];
-                                $target=$json[$i]['target']; $actual=$json[$i]['actual_target'];
-                                $time_id=$json[$i]['time_id']; $line_id=$json[$i]['line_id']; if($status=='0' ){ @endphp
-                                <div class="row container-fluid p-0 my-2">
-                                <div class="col">
-                                    <input class="btn btn-secondary text-center text-white fw-bold w-100" type="text"
-                                        value="@php echo $time_name; @endphp" name="time" readonly />
-                                </div>
-                                <div class="col-2 text-center m-auto">
-                                    <span class="fw-bolder">=</span>
-                                </div>
-                                <div class="col">
-                                    <input type="number" class="form-control" value="@php echo $actual; @endphp"
-                                        name="actual" readonly />
-                                </div>
-                                <div class="col">
-                                    <input class="btn text-center text-dark fw-bold w-100"
-                                        style="background-color:#ececec;" type="text" value="@php echo $target; @endphp"
-                                        name="target" readonly />
-                                </div>
+                            <form action="{{ route('line_entry_post') }}" action="POST">
+
+                                @for($i=0;$i<count($json);$i++) @php $data_id=$json[$i]['data_id'];
+                                    $status=$json[$i]['status'];
+                                    $time_name=$json[$i]['time_name'];$line_name=$json[$i]['line_name'];
+                                    $target=$json[$i]['target']; $actual=$json[$i]['actual_target'];
+                                    $time_id=$json[$i]['time_id']; $line_id=$json[$i]['line_id']; @endphp
+                                    @if($status=='0' ) <div class="row container-fluid p-0 my-2">
+                                    <div class="col">
+                                        <input class="btn btn-secondary text-center text-white fw-bold w-100"
+                                            type="text" value="{{ $time_name }}" readonly />
+                                    </div>
+                                    <div class="col-2 text-center m-auto">
+                                        <span class="fw-bolder">=</span>
+                                    </div>
+                                    <div class="col">
+                                        <input type="number" class="form-control" value="{{ $actual }}" readonly />
+                                    </div>
+                                    <div class="col">
+                                        <input class="btn text-center text-dark fw-bold w-100"
+                                            style="background-color:#ececec;" type="text" value="{{ $target }}"
+                                            readonly />
+                                    </div>
                         </div>
 
-                        @php }
+                        @endif
 
-                        if($status=='1'){ @endphp
-                        <form action="{{ route('line_entry') }}" action="POST">
-                            <input type="hidden" name="status" value="1" />
-                            <input type="hidden" name="data_id" value="{{ $data_id }}" />
-                            <div class="row container-fluid p-0 my-2">
-                                <div class="col">
-                                    <input class="btn btn-secondary text-center text-white fw-bold w-100" type="text"
-                                        value="@php echo $time_name; @endphp" name="time" readonly />
-                                </div>
-                                <div class="col-2 text-center m-auto">
-                                    <span class="fw-bolder">=</span>
-                                </div>
-                                <div class="col">
-                                    <input type="number" class="form-control" value="@php echo $actual; @endphp"
-                                        name="actual" />
-                                </div>
-                                <div class="col">
-                                    <input class="btn text-center text-dark fw-bold w-100"
-                                        style="background-color:#ececec;" type="text" value="{{ $target }}"
-                                        name="target" readonly />
-                                </div>
+                        @if($status=='1')
+                        <input type="hidden" name="status_one" value="1" />
+                        <input type="hidden" name="data_id_one" value="{{ $data_id }}" />
+                        <input type="hidden" name="time_id_one" value="{{ $time_id }}" />
+                        <div class="row container-fluid p-0 my-2">
+                            <div class="col">
+                                <input class="btn btn-secondary text-center text-white fw-bold w-100" type="text"
+                                    value="{{ $time_name }}" name="time_one" readonly />
                             </div>
-                        </form>
-                        @php }
-                        if($status=='2'){ @endphp
-                        <form action="{{ route('line_entry') }}" method="POST">
-                            <input type="hidden" name="user_id" value="{{ Auth::user()->id }}" />
-                            <input type="hidden" name="line_id" value="{{ $line_id }}" />
-                            <input type="hidden" name="time_id" value="{{ $time_id }}" />
-                            <div class="row container-fluid p-0 my-2">
-                                <div class="col">
-                                    <input class="btn btn-secondary text-center text-white fw-bold w-100" type="text"
-                                        value="8:30" name="time" readonly />
-                                </div>
-                                <div class="col-2 text-center m-auto">
-                                    <span class="fw-bolder">=</span>
-                                </div>
-                                <div class="col">
-                                    <input type="number" class="form-control" id="text-basic"
-                                        placeholder="Enter a number" name="actual" />
-                                </div>
-                                <div class="col">
-                                    <input class="btn text-center text-dark fw-bold w-100"
-                                        style="background-color:#ececec;" type="text" value="100" name="target"
-                                        readonly />
-                                </div>
+                            <div class="col-2 text-center m-auto">
+                                <span class="fw-bolder">=</span>
                             </div>
+                            <div class="col">
+                                <input type="number" class="form-control" value="{{ $actual }}" name="actual_one" />
+                            </div>
+                            <div class="col">
+                                <input class="btn text-center text-dark fw-bold w-100" style="background-color:#ececec;"
+                                    type="text" value="{{ $target }}" name="target_one" readonly />
+                            </div>
+                        </div>
+                        @endif
+
+                        @if($status=='2')
+                        <input type="hidden" name="user_id" value="{{ Auth::user()->id }}" />
+                        <input type="hidden" name="line_id" value="{{ $line_id }}" />
+                        <input type="hidden" name="time_id" value="{{ $time_id }}" />
+                        <input type="hidden" name="status" value="{{ $status }}" />
+                        <input type="hidden" name="data_id" value="{{ $data_id }}" />
+                        <div class="row container-fluid p-0 my-2">
+                            <div class="col">
+                                <input class="btn btn-secondary text-center text-white fw-bold w-100" type="text"
+                                    value="{{ $time_name }}" name="time" readonly />
+                            </div>
+                            <div class="col-2 text-center m-auto">
+                                <span class="fw-bolder">=</span>
+                            </div>
+                            <div class="col">
+                                <input type="number" class="form-control" id="text-basic" placeholder="Enter a number"
+                                    name="actual" />
+                            </div>
+                            <div class="col">
+                                <input class="btn text-center text-dark fw-bold w-100" style="background-color:#ececec;"
+                                    type="text" value="100" name="target" readonly />
+                            </div>
+                        </div>
+                        @endif
+                        @endfor
                     </div>
                     <div class="col-12 col-md-6 p-0">
                         <div class="text-center my-4">
@@ -158,8 +159,6 @@
                         </div>
                     </div>
                     </form>
-                    @php }
-                    } @endphp
                 </div>
             </div>
         </div>
