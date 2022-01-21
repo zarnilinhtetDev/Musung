@@ -23,6 +23,7 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="js/custom_js.js" defer></script>
+    <script src="js/jquery_numpad.js" defer></script>
 
 
     <!-- Fonts -->
@@ -43,6 +44,7 @@
     <!-- Styles -->
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="css/jquery_numpad.css" rel="stylesheet">
     <link href="css/styles.css" rel="stylesheet">
 </head>
 

@@ -2,10 +2,11 @@
 
 @section('content')
 @php
-// $hash = Hash::make('mtkMTK123#');
+// $hash = Hash::make('1111');
 // echo $hash;
 @endphp
 @section('content_2')
+@admin
 <div class="container">
     <div class="container-fluid">
         <div class="row">
@@ -34,6 +35,13 @@
         </div>
     </div>
 </div>
+@endadmin
+
+@line_manager
+<script type="text/javascript">
+    window.location = "{{url('line_entry')}}";
+</script>
+@endline_manager
 @endsection
 
 @endsection

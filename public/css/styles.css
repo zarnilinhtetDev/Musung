@@ -74,7 +74,7 @@ p {
 }
 
 .navbar {
-    padding: 10px;
+    padding: 0 10px;
     background: #fff;
     border: none;
     border-radius: 0;
@@ -575,6 +575,12 @@ table {
         display: none;
     }
 
+    .nav-heading-2 {
+        display: block;
+        padding: 0.8rem;
+        margin: 0.8rem
+    }
+
     .mobile-heading {
         margin-top: 1rem;
         display: block;
@@ -628,13 +634,13 @@ table {
         margin: 0 !important;
     }
 
-    div, table {
+    /* div, table {
         overflow: hidden !important;
     }
 
     div:hover, table:hover {
         overflow-y: scroll !important;
-    }
+    } */
 }
 
 @media (min-width: 992px) {

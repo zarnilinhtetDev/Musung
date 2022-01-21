@@ -1,4 +1,6 @@
 <div class="wrapper d-flex align-items-stretch">
+
+    @admin
     <nav id="sidebar" class="active">
         <div class="p-4">
             <div class="sidebar-header">
@@ -60,8 +62,7 @@
                 </li>
             </ul>
         </div>
-    </nav>
-    <!-- Page Content  -->
+    </nav> <!-- Page Content  -->
     <div id="content" class="container-fluid" style="padding:0;">
         <button class="btn btn-mode" type="button" id="btn_navbar_close" href="#collapse_div">
             <span class="text-white">Hide Navigation Bar</span>
@@ -72,7 +73,7 @@
             </button>
             <div class="nav-heading text-center">
                 <a class="navbar-brand text-white fw-bold" href="{{ url('/home') }}">
-                    MUSAN Garment Line Target and Production Data
+                    MUSUNG Garment Line Target and Production Data
                 </a>
             </div>
             <div>
@@ -98,7 +99,7 @@
                         <div id="myDropdown" class="dropdown-content dropdown-content-2">
                             <a class="dropdown-item text-danger" href="{{ route('logout') }}" onclick="event.preventDefault();
                                     document.getElementById('logout-form').submit();">
-                                {{ __('Logout') }}
+                                Logout
                             </a>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                 @csrf
@@ -110,9 +111,59 @@
             </div>
         </nav>
         <div class="container-fluid mobile-heading">
-            <h3 style="background-color:#6495ed; color: #fff; padding: 0.5rem; border-radius: 8px;">MUSAN Garment Line
+            <h3 style="background-color:#6495ed; color: #fff; padding: 0.5rem; border-radius: 8px;">MUSUNG Garment Line
                 Target and Production Data</h3>
         </div>
         @yield('content_2')
     </div>
+    @endadmin
+
+    @line_manager
+    <!-- Page Content  -->
+    <div id="content" class="container-fluid" style="padding:0;">
+        <div class="container-fluid p-0" style="margin-bottom:10px;" id="collapse_div">
+            <div class="row">
+                <div class="col-10 col-md-10 text-center m-auto my-2">
+                    <div class="nav-heading nav-heading-2 text-center m-auto">
+                        <a class="navbar-brand text-white fw-bold" href="{{ url('/home') }}">
+                            MUSUNG Garment Line Target and Production Data
+                        </a>
+                    </div>
+
+                </div>
+                <div class="col">
+                    <!-- Right Side Of Navbar -->
+                    <ul class="navbar-nav">
+                        <!-- Authentication Links -->
+                        @guest
+                        @if (Route::has('login'))
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                        </li>
+                        @endif
+
+                        {{-- @if (Route::has('register'))
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                        </li>
+                        @endif --}}
+                        @else
+                        <li class="nav-item dropdown w-50 mx-auto p-2">
+                            {{-- <button onclick="myFunction()" class="dropbtn">{{ Auth::user()->name }} <i
+                                    class="fas fa-arrow-down text-white"></i></button> --}}
+                            <a class="dropdown-item bg-danger rounded-2 text-white" href="{{ route('logout') }}"
+                                onclick="event.preventDefault();
+                                    document.getElementById('logout-form').submit();">
+                                Logout
+                            </a>
+                        </li>
+                        @endguest
+                    </ul>
+                </div>
+            </div>
+        </div>
+        @yield('content_2')
+    </div>
+    @endline_manager
+
 </div>

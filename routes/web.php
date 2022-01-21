@@ -27,10 +27,26 @@ Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
 
 Route::view('/member', 'acc_management.member')->middleware('auth');
 
-Route::view('/line_entry', 'line_management.line_entry')->middleware('auth');
+Route::get('/line_entry', 'DataController@index');
+Route::post('/line_entry', 'DataController@postData')->name('line_entry');
+Route::put('/line_entry', 'DataController@putDataOne');
+Route::put('/line_entry', 'DataController@putData');
+
 Route::view('/line_detail', 'line_management.detail')->middleware('auth');
 Route::view('/line_manager_detail', 'line_management.manager_detail')->middleware('auth');
 Route::view('/line_setting', 'line_management.setting')->middleware('auth');
 
 Route::view('/live_dash', 'target_line.live_dash')->middleware('auth');
 Route::view('/line_history', 'target_line.line_history')->middleware('auth');
+
+
+//// API Routes /////
+Route::get('/api/data', 'DataApiController@getData');
+Route::get('/api/data_status_zero', 'DataApiController@getDataStatusZero');
+Route::post('/api/data', 'DataApiController@postData');
+Route::put('/api/data', 'DataApiController@putData');
+
+
+Route::get('/api/time', 'TimeApiController@getTime');
+Route::post('/api/time', 'TimeApiController@postTime');
+Route::put('/api/time', 'TimeApiController@putTime');
