@@ -240,4 +240,28 @@ $(document).ready(function () {
             }
         });
     });
+    let min = 60;
+
+    let time = $("input[id=last-input]").last().val();
+
+    $("input[id=add-time]").val(addtime(time, min));
+    function addtime(time, hour) {
+        let times = time.split(":");
+        //clear here more than 24 hours
+        min = min % (24 * 60);
+        times[0] = parseInt(times[0]) + parseInt(min / 60);
+        times[1] = parseInt(times[1]) + (min % 60);
+        //here control if hour and minutes reach max
+        if (times[1] >= 60) {
+            times[1] = 0;
+            times[0]++;
+        }
+        times[0] >= 24 ? (times[0] -= 24) : null;
+
+        //here control if less than 10 then put 0 frond them
+        times[0] < 10 ? (times[0] = "0" + times[0]) : null;
+        times[1] < 10 ? (times[1] = "0" + times[1]) : null;
+
+        return times.join(":");
+    }
 });

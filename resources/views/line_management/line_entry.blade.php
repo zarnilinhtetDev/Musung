@@ -56,8 +56,7 @@
             </div>
             <div class="col text-center text-md-start">
                 <h1 class="fs-3 fw-bolder">Target = <span class="text-white bg-danger p-2 rounded-2">@php
-                        $target =
-                        $json[0]['target'];
+                        $target = 1000;
                         echo $target; @endphp</span></h1>
             </div>
         </div>
@@ -78,7 +77,8 @@
                                 <div class="col">Target</div>
                                 <div class="col">Actual</div>
                             </div>
-                            <form action="{{ route('line_entry_post') }}" action="POST">
+                            <form action="{{ url('line_entry_post') }}" action="POST">
+
 
                                 @for($i=0;$i<count($json);$i++) @php $data_id=$json[$i]['data_id'];
                                     $status=$json[$i]['status'];
@@ -112,7 +112,7 @@
                         <div class="row container-fluid p-0 my-2">
                             <div class="col">
                                 <input class="btn btn-secondary text-center text-white fw-bold w-100" type="text"
-                                    value="{{ $time_name }}" name="time_one" readonly />
+                                    value="{{ $time_name }}" name="time_one" id="last-input" readonly />
                             </div>
                             <div class="col-2 text-center m-auto">
                                 <span class="fw-bolder">=</span>
@@ -136,7 +136,7 @@
                         <div class="row container-fluid p-0 my-2">
                             <div class="col">
                                 <input class="btn btn-secondary text-center text-white fw-bold w-100" type="text"
-                                    value="{{ $time_name }}" name="time" readonly />
+                                    value="{{ $time_name }}" name="time" id="last-input" readonly />
                             </div>
                             <div class="col-2 text-center m-auto">
                                 <span class="fw-bolder">=</span>
@@ -152,6 +152,7 @@
                         </div>
                         @endif
                         @endfor
+                        <input type="hidden" id="add-time" name="add_time" />
                     </div>
                     <div class="col-12 col-md-6 p-0">
                         <div class="text-center my-4">
