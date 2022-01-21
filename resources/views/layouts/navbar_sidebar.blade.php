@@ -93,7 +93,8 @@
                     @endif --}}
                     @else
                     <li class="nav-item dropdown">
-                        <button onclick="myFunction()" class="dropbtn">{{ Auth::user()->name }}</button>
+                        <button onclick="myFunction()" class="dropbtn">{{ Auth::user()->name }} <i
+                                class="fas fa-arrow-down text-white"></i></button>
                         <div id="myDropdown" class="dropdown-content dropdown-content-2">
                             <a class="dropdown-item text-danger" href="{{ route('logout') }}" onclick="event.preventDefault();
                                     document.getElementById('logout-form').submit();">

@@ -627,6 +627,14 @@ table {
     .top-3 {
         margin: 0 !important;
     }
+
+    div, table {
+        overflow: hidden !important;
+    }
+
+    div:hover, table:hover {
+        overflow-y: scroll !important;
+    }
 }
 
 @media (min-width: 992px) {
