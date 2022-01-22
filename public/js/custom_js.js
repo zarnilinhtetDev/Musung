@@ -209,7 +209,7 @@ $(document).ready(function () {
     $("#tab-content .div_1").hide();
     $("#tab-content .div_1:first").show();
 
-    $("#nav li").click(function () {
+    $("#nav li.span2").click(function () {
         $("#nav li a").removeClass("active");
         $(this).find("a").addClass("active");
         $("#tab-content .div_1").hide();

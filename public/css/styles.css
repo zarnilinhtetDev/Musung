@@ -90,6 +90,10 @@ p {
     border: none;
 }
 
+.navbar-brand-line {
+    white-space: unset;
+}
+
 .wrapper {
     display: flex;
     align-items: stretch;
@@ -445,12 +449,12 @@ ul.horizontal-slide li[class*="span"]:first-child {
     margin-left: 0;
 }
 
-.span2 {
+.span2, .span3 {
     background: #6495ed;
     border-radius: 3px;
 }
 
-.span2 p {
+.span2 p, .span3 p {
     color: #fff;
     font-weight: 500;
     margin: 0;

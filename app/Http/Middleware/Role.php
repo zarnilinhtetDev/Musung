@@ -22,6 +22,9 @@ class Role
         if (Auth::user()->role == 1) {
             return $next($request);
         }
+        if (Auth::user()->role == 2) {
+            return $next($request);
+        }
         return redirect('home')->with('error', 'Permission Denied!!! You do not have access.');
     }
 }

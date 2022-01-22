@@ -6,14 +6,21 @@
     @php
     $json = json_decode($responseBody,true);
     @endphp
-    <div class="container-fluid">
+    <div class="container-fluid p-0">
         <h1 class="fw-bold heading-text">Line Entry</h1>
 
         <div class="container-fluid row p-0 m-0">
             <div class="col-12 col-md-6 my-3 p-0">
                 <ul class="horizontal-slide" id="tabs">
                     <li class="span2">
-                        <p>Date - 1.1.2022</p>
+                        <p>Date -
+                            @php
+                            $date_string = date("d.m.y"); echo $date_string;
+                            @endphp
+                        </p>
+                    </li>
+                    <li class="span2">
+                        <p>8:30 AM - 6:00 PM</p>
                     </li>
                 </ul>
             </div>
@@ -29,7 +36,7 @@
                 <li class="span2">
                     <a href="#" class="active">Line 1</a>
                 </li>
-                <li class="span2 bg-primary">
+                <li class="span3 bg-primary">
                     <p>{{ Auth::user()->name }}</p>
                 </li>
             </ul>
@@ -121,7 +128,7 @@
                         @endfor
                         <input type="hidden" id="add-time" name="add_time" />
                     </div>
-                    <div class="col-12 col-md-6 p-0">
+                    <div class="col-12 col-md-6 p-0 m-auto">
                         <div id="numeric">
                             <table class="table-numeric">
                                 <tbody>

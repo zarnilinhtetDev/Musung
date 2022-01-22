@@ -121,50 +121,26 @@
     @line_manager
     <!-- Page Content  -->
     <div id="content" class="container-fluid" style="padding:0;">
-        <div class="container-fluid p-0" style="margin-bottom:10px;" id="collapse_div">
-            <div class="row">
-                <div class="col-10 col-md-10 text-center m-auto">
-                    <div class="nav-heading nav-heading-2 text-center m-auto w-75">
-                        <a class="navbar-brand text-white fw-bold" href="{{ url('/home') }}">
-                            MUSUNG Garment Line Target and Production Data
-                        </a>
-                    </div>
-
+        <nav class="navbar navbar-expand-lg my-2">
+            <div class="container-fluid">
+                <div class="nav-heading nav-heading-2 text-center m-auto w-75">
+                    <a class="navbar-brand navbar-brand-line text-white fw-bold" href="{{ url('/home') }}">
+                        MUSUNG Garment Line Target and Production Data
+                    </a>
                 </div>
-                <div class="col">
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav">
-                        <!-- Authentication Links -->
-                        @guest
-                        @if (Route::has('login'))
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                        </li>
-                        @endif
 
-                        {{-- @if (Route::has('register'))
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                        </li>
-                        @endif --}}
-                        @else
-                        <li class="nav-item dropdown w-100 mx-auto p-2">
-                            <div class="bg-danger">
-                                <a class="dropdown-item text-white" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                document.getElementById('logout-form').submit();">
-                                    Logout
-                                </a>
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                    @csrf
-                                </form>
-                            </div>
-
-                        </li>
-                        @endguest
-                    </ul>
+                <div class="bg-danger">
+                    <a class="dropdown-item text-white" href="{{ route('logout') }}" onclick="event.preventDefault();
+                    document.getElementById('logout-form').submit();">
+                        Logout
+                    </a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
                 </div>
             </div>
-        </div>
+        </nav>
+
         @yield('content_2')
     </div>
     @endline_manager
