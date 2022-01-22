@@ -21,8 +21,8 @@ class DataController extends Controller
     }
     public function index()
     {
-        $request = Request::create('/api/data', 'GET');
-        $request2 = Request::create('/api/data_status_zero', 'GET');
+        $request = Request::create('https://musung-production.herokuapp.com/api/data', 'GET');
+        $request2 = Request::create('https://musung-production.herokuapp.com/api/data_status_zero', 'GET');
 
 
         $response = Route::dispatch($request);
