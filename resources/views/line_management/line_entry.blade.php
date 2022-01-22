@@ -84,7 +84,7 @@
                                 <span class="fw-bolder">=</span>
                             </div>
                             <div class="col">
-                                <input class="input-numeric-one form-control" type="number" mame="actual_one"
+                                <input class="input-numeric-one form-control" type="number" name="actual_one"
                                     name="actual" value="{{ $actual }}" readonly />
                             </div>
                             <div class="col">
@@ -109,7 +109,7 @@
                                 <span class="fw-bolder">=</span>
                             </div>
                             <div class="col">
-                                <input class="input-numeric form-control" type="number" mame="actual" name="actual"
+                                <input class="input-numeric form-control" type="number" name="actual"
                                     placeholder="Number" readonly />
                             </div>
                             <div class="col">
