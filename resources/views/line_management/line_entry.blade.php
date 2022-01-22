@@ -2,7 +2,7 @@
 
 @section('content')
 @section('content_2')
-<div class="container">
+<div class="container-fluid">
     @php
     $json = json_decode($responseBody,true);
     @endphp
@@ -14,9 +14,6 @@
                 <ul class="horizontal-slide" id="tabs">
                     <li class="span2">
                         <p>Date - 1.1.2022</p>
-                    </li>
-                    <li class="span2">
-                        <p>{{ Auth::user()->name }}</p>
                     </li>
                 </ul>
             </div>
@@ -31,6 +28,9 @@
             <ul class="horizontal-slide" id="nav">
                 <li class="span2">
                     <a href="#" class="active">Line 1</a>
+                </li>
+                <li class="span2 bg-primary">
+                    <p>{{ Auth::user()->name }}</p>
                 </li>
             </ul>
             <div id="tab-content">
