@@ -123,8 +123,8 @@
     <div id="content" class="container-fluid" style="padding:0;">
         <div class="container-fluid p-0" style="margin-bottom:10px;" id="collapse_div">
             <div class="row">
-                <div class="col-10 col-md-10 text-center m-auto my-2">
-                    <div class="nav-heading nav-heading-2 text-center m-auto">
+                <div class="col-10 col-md-10 text-center m-auto">
+                    <div class="nav-heading nav-heading-2 text-center m-auto w-75">
                         <a class="navbar-brand text-white fw-bold" href="{{ url('/home') }}">
                             MUSUNG Garment Line Target and Production Data
                         </a>
@@ -148,18 +148,17 @@
                         </li>
                         @endif --}}
                         @else
-                        <li class="nav-item dropdown w-50 mx-auto p-2">
-                            <button onclick="myFunction()" class="dropbtn">{{ Auth::user()->name }} <i
-                                    class="fas fa-arrow-down text-white"></i></button>
-                            <div id="myDropdown" class="dropdown-content dropdown-content-2">
-                                <a class="dropdown-item text-danger" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                    document.getElementById('logout-form').submit();">
+                        <li class="nav-item dropdown w-100 mx-auto p-2">
+                            <div class="bg-danger">
+                                <a class="dropdown-item text-white" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                document.getElementById('logout-form').submit();">
                                     Logout
                                 </a>
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                     @csrf
                                 </form>
                             </div>
+
                         </li>
                         @endguest
                     </ul>

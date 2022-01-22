@@ -44,7 +44,7 @@
         <h1 class="fw-bold heading-text">Line Entry</h1>
 
         <div class="container-fluid row p-0 m-0">
-            <div class="col-12 col-md-6 my-3">
+            <div class="col-12 col-md-6 my-3 p-0">
                 <ul class="horizontal-slide" id="tabs">
                     <li class="span2">
                         <p>Date - 1.1.2022</p>
@@ -54,7 +54,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="col text-center text-md-start">
+            <div class="col text-center text-md-start m-auto">
                 <h1 class="fs-3 fw-bolder">Target = <span class="text-white bg-danger p-2 rounded-2">@php
                         $target = 1000;
                         echo $target; @endphp</span></h1>
@@ -118,7 +118,8 @@
                                 <span class="fw-bolder">=</span>
                             </div>
                             <div class="col">
-                                <input type="number" class="form-control" value="{{ $actual }}" name="actual_one" />
+                                <input class="input-numeric-one form-control" type="number" mame="actual_one"
+                                    name="actual" value="{{ $actual }}" readonly />
                             </div>
                             <div class="col">
                                 <input class="btn text-center text-dark fw-bold w-100" style="background-color:#ececec;"
@@ -142,8 +143,8 @@
                                 <span class="fw-bolder">=</span>
                             </div>
                             <div class="col">
-                                <input type="number" class="form-control" id="text-basic" placeholder="Enter a number"
-                                    name="actual" />
+                                <input class="input-numeric form-control" type="number" mame="actual" name="actual"
+                                    placeholder="Number" readonly />
                             </div>
                             <div class="col">
                                 <input class="btn text-center text-dark fw-bold w-100" style="background-color:#ececec;"
@@ -155,6 +156,58 @@
                         <input type="hidden" id="add-time" name="add_time" />
                     </div>
                     <div class="col-12 col-md-6 p-0">
+                        <div id="numeric">
+                            <table class="table-numeric">
+                                <tbody>
+                                    <tr>
+                                        <td><button type="button" class="key" data-key="1">1</button></td>
+                                        <td><button type="button" class="key" data-key="2">2</button></td>
+                                        <td><button type="button" class="key" data-key="3">3</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td><button type="button" class="key" data-key="4">4</button></td>
+                                        <td><button type="button" class="key" data-key="5">5</button></td>
+                                        <td><button type="button" class="key" data-key="6">6</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td><button type="button" class="key" data-key="7">7</button></td>
+                                        <td><button type="button" class="key" data-key="8">8</button></td>
+                                        <td><button type="button" class="key" data-key="9">9</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td><button type="button" class="key-del" disabled>Del</button></td>
+                                        <td><button type="button" class="key" data-key="0">0</button></td>
+                                        <td><button type="button" class="key-clear" disabled>Clear</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="numeric_one" style="display:none;">
+                            <table class="table-numeric">
+                                <tbody>
+                                    <tr>
+                                        <td><button type="button" class="key-one" data-key="1">1</button></td>
+                                        <td><button type="button" class="key-one" data-key="2">2</button></td>
+                                        <td><button type="button" class="key-one" data-key="3">3</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td><button type="button" class="key-one" data-key="4">4</button></td>
+                                        <td><button type="button" class="key-one" data-key="5">5</button></td>
+                                        <td><button type="button" class="key-one" data-key="6">6</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td><button type="button" class="key-one" data-key="7">7</button></td>
+                                        <td><button type="button" class="key-one" data-key="8">8</button></td>
+                                        <td><button type="button" class="key-one" data-key="9">9</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td><button type="button" class="key-del-one" disabled>Del</button></td>
+                                        <td><button type="button" class="key-one" data-key="0">0</button></td>
+                                        <td><button type="button" class="key-clear-one" disabled>Clear</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                         <div class="text-center my-4">
                             <input class="icon-btn-one btn my-2 w-50" type="submit" value="Save" name="submit" />
                         </div>

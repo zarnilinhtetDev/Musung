@@ -51,26 +51,36 @@ class DataController extends Controller
 
         $add_time = request()->get('add_time');
 
-        $sql_time = DB::insert('INSERT INTO time (time_name,status) VALUES(?,2)', [$add_time]);
 
-        if ($sql_time == true) {
-            $sql = DB::selectOne("SELECT time_id FROM time WHERE time_name='$add_time' AND status=2");
-            $time_id = $sql->time_id;
-            if ($status_one == 1) {
-                $sql = DB::update("UPDATE data SET actual_target=?,update_date=? WHERE data_id=?", [$actual_one, NOW(), $data_id_one]);
-            }
-            if ($status == 2) {
-                $sql_2 = DB::insert("INSERT INTO data (user_id,time_id,line_id,target,actual_target,create_date) VALUES (?,?,?,?,?,?)", [$user_id, $time_id, $line, $target, $actual, NOW()]);
-                if ($sql_2 == true) {
-                    $sql_2 = DB::update("UPDATE time SET time.status=0 WHERE time.time_id=$time_id_one");
+        if ($actual != "") {
+            $sql_time = DB::insert('INSERT INTO time (time_name,status) VALUES(?,2)', [$add_time]);
+
+            if ($sql_time == true) {
+                $sql = DB::selectOne("SELECT time_id FROM time WHERE time_name='$add_time' AND status=2");
+                $time_id = $sql->time_id;
+                if ($status_one == 1) {
+                    $sql_5 = DB::update("UPDATE data SET actual_target=?,update_date=? WHERE data_id=?", [$actual_one, NOW(), $data_id_one]);
+                }
+                if ($status == 2) {
+                    $sql_2 = DB::insert("INSERT INTO data (user_id,time_id,line_id,target,actual_target,create_date) VALUES (?,?,?,?,?,?)", [$user_id, $time_id, $line, $target, $actual, NOW()]);
                     if ($sql_2 == true) {
-                        $sql_3 = DB::update("UPDATE time SET time.status=1 WHERE time.time_id=$time");
+
+                        $sql_temp = DB::update("UPDATE data SET actual_target=? WHERE data_id=?", [$actual, $data_id]);
+
+                        $sql_3 = DB::update("UPDATE time SET time.status=0 WHERE time.time_id=$time_id_one");
                         if ($sql_3 == true) {
-                            return redirect('/line_entry?status=created');
+                            $sql_4 = DB::update("UPDATE time SET time.status=1 WHERE time.time_id=$time");
+                            if ($sql_4 == true) {
+                                return redirect('/line_entry?status=created');
+                            }
                         }
                     }
                 }
             }
+        }
+        if ($actual == "") {
+            $sql_5 = DB::update("UPDATE data SET actual_target=?,update_date=? WHERE data_id=?", [$actual_one, NOW(), $data_id_one]);
+            return redirect('/line_entry?status=updated');
         }
     }
 }

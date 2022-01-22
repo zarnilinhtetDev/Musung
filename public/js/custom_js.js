@@ -264,4 +264,105 @@ $(document).ready(function () {
 
         return times.join(":");
     }
+
+    $(".input-numeric-one").focus(function () {
+        $("#numeric").hide();
+        $("#numeric_one").show();
+        $(document).on("change", ".input-numeric-one", function () {
+            var input = $(".input-numeric-one");
+            var nonKeys = $(".key-del-one, .key-clear-one");
+            var inputValue = input.val();
+
+            if (inputValue == "") {
+                nonKeys.prop("disabled", true);
+            } else {
+                nonKeys.prop("disabled", false);
+            }
+        });
+
+        // $(document).on("click focus", ".input-numeric-one", function () {
+        //     var parents = $(this).parents(".input-numeric-container");
+        //     var data = parents.attr("data-numeric");
+
+        //     if (data) {
+        //         if (data == "hidden") {
+        //             parents.find(".table-numeric").show();
+        //         }
+        //     }
+        // });
+
+        //key numeric
+        $(document).on("click", ".key-one", function () {
+            var number = $(this).attr("data-key");
+            var input = $(".input-numeric-one");
+            var inputValue = input.val();
+
+            input.val(inputValue + number).change();
+        });
+
+        //delete
+        $(document).on("click", ".key-del-one", function () {
+            var input = $(".input-numeric-one");
+            var inputValue = input.val();
+
+            input.val(inputValue.slice(0, -1)).change();
+        });
+
+        //clear
+        $(document).on("click", ".key-clear-one", function () {
+            var input = $(".input-numeric-one");
+
+            input.val("").change();
+        });
+    });
+    $(".input-numeric").focus(function () {
+        $("#numeric_one").hide();
+        $("#numeric").show();
+        $(document).on("change", ".input-numeric", function () {
+            var input = $(".input-numeric");
+            var nonKeys = $(".key-del, .key-clear");
+            var inputValue = input.val();
+
+            if (inputValue == "") {
+                nonKeys.prop("disabled", true);
+            } else {
+                nonKeys.prop("disabled", false);
+            }
+        });
+
+        $(document).on("click focus", ".input-numeric", function () {
+            var parents = $(this).parents(".input-numeric-container");
+            var data = parents.attr("data-numeric");
+
+            if (data) {
+                if (data == "hidden") {
+                    parents.find(".table-numeric").show();
+                }
+            }
+        });
+
+        //key numeric
+        $(document).on("click", ".key", function () {
+            var number = $(this).attr("data-key");
+            var input = $(".input-numeric");
+            var inputValue = input.val();
+
+            input.val(inputValue + number).change();
+        });
+
+        //delete
+        $(document).on("click", ".key-del", function () {
+            var input = $(".input-numeric");
+            var inputValue = input.val();
+
+            input.val(inputValue.slice(0, -1)).change();
+        });
+
+        //clear
+        $(document).on("click", ".key-clear", function () {
+            var input = $(".input-numeric");
+
+            input.val("").change();
+        });
+    });
 });
