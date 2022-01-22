@@ -2,8 +2,8 @@
 
 @section('content')
 @php
-$hash = Hash::make('1111');
-echo $hash;
+// $hash = Hash::make('1111');
+// echo $hash;
 @endphp
 <main class="d-flex align-items-center min-vh-100 py-3 py-md-0">
     <div class="container">
