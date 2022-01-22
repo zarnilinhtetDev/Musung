@@ -17,12 +17,12 @@
                     <div class="card-body">
                         <div class="brand-wrapper">
                             <div class="row">
-                                <div class="col-2">
+                                {{-- <div class="col-2">
                                     <img src="https://www.nawpic.com/media/2020/mountain-nawpic-5.jpg"
                                         alt="company_logo" class="logo" />
-                                </div>
-                                <div class="col">
-                                    <span class="h2 fw-bolder" style="color:#6495ed;">Musung Garment</span>
+                                </div> --}}
+                                <div class="col m-auto">
+                                    <span class="h3 fw-bolder" style="color:#6495ed;">Musung Garment</span>
                                 </div>
                             </div>
                         </div>
