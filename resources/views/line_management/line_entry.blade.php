@@ -67,7 +67,8 @@
                                         <span class="fw-bolder">=</span>
                                     </div>
                                     <div class="col">
-                                        <input type="number" class="form-control" value="{{ $actual }}" readonly />
+                                        <input type="number" class="form-control text-center" value="{{ $actual }}"
+                                            style="background-color:#607a9f !important; color:#fff;" readonly />
                                     </div>
                                     <div class="col">
                                         <input class="btn text-center text-dark fw-bold w-100"
@@ -91,8 +92,9 @@
                                 <span class="fw-bolder">=</span>
                             </div>
                             <div class="col">
-                                <input class="input-numeric-one form-control" type="number" name="actual_one"
-                                    name="actual" value="{{ $actual }}" readonly />
+                                <input class="input-numeric-one form-control text-center" type="number"
+                                    style="background: #6ec33c !important;color:#fff;" name="actual_one" name="actual"
+                                    value="{{ $actual }}" readonly />
                             </div>
                             <div class="col">
                                 <input class="btn text-center text-dark fw-bold w-100" style="background-color:#ececec;"
@@ -116,8 +118,8 @@
                                 <span class="fw-bolder">=</span>
                             </div>
                             <div class="col">
-                                <input class="input-numeric form-control" type="number" name="actual"
-                                    placeholder="Number" readonly />
+                                <input class="input-numeric form-control text-center" type="number" name="actual"
+                                    style="background: #6ec33c !important;color:#fff;" placeholder="Number" readonly />
                             </div>
                             <div class="col">
                                 <input class="btn text-center text-dark fw-bold w-100" style="background-color:#ececec;"
