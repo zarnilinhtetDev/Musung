@@ -151,6 +151,7 @@ class ComposerStaticInitc0b888793009922a59235191e8990fbc
         ),
         'E' => 
         array (
+            'Ejarnutowski\\LaravelApiKey\\' => 27,
             'Egulias\\EmailValidator\\' => 23,
         ),
         'D' => 
@@ -456,6 +457,10 @@ class ComposerStaticInitc0b888793009922a59235191e8990fbc
         'Facade\\FlareClient\\' => 
         array (
             0 => __DIR__ . '/..' . '/facade/flare-client-php/src',
+        ),
+        'Ejarnutowski\\LaravelApiKey\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/ejarnutowski/laravel-api-key/src',
         ),
         'Egulias\\EmailValidator\\' => 
         array (
@@ -845,6 +850,16 @@ class ComposerStaticInitc0b888793009922a59235191e8990fbc
         'Egulias\\EmailValidator\\Warning\\QuotedString' => __DIR__ . '/..' . '/egulias/email-validator/src/Warning/QuotedString.php',
         'Egulias\\EmailValidator\\Warning\\TLD' => __DIR__ . '/..' . '/egulias/email-validator/src/Warning/TLD.php',
         'Egulias\\EmailValidator\\Warning\\Warning' => __DIR__ . '/..' . '/egulias/email-validator/src/Warning/Warning.php',
+        'Ejarnutowski\\LaravelApiKey\\Console\\Commands\\ActivateApiKey' => __DIR__ . '/..' . '/ejarnutowski/laravel-api-key/src/Console/Commands/ActivateApiKey.php',
+        'Ejarnutowski\\LaravelApiKey\\Console\\Commands\\DeactivateApiKey' => __DIR__ . '/..' . '/ejarnutowski/laravel-api-key/src/Console/Commands/DeactivateApiKey.php',
+        'Ejarnutowski\\LaravelApiKey\\Console\\Commands\\DeleteApiKey' => __DIR__ . '/..' . '/ejarnutowski/laravel-api-key/src/Console/Commands/DeleteApiKey.php',
+        'Ejarnutowski\\LaravelApiKey\\Console\\Commands\\GenerateApiKey' => __DIR__ . '/..' . '/ejarnutowski/laravel-api-key/src/Console/Commands/GenerateApiKey.php',
+        'Ejarnutowski\\LaravelApiKey\\Console\\Commands\\ListApiKeys' => __DIR__ . '/..' . '/ejarnutowski/laravel-api-key/src/Console/Commands/ListApiKeys.php',
+        'Ejarnutowski\\LaravelApiKey\\Http\\Middleware\\AuthorizeApiKey' => __DIR__ . '/..' . '/ejarnutowski/laravel-api-key/src/Http/Middleware/AuthorizeApiKey.php',
+        'Ejarnutowski\\LaravelApiKey\\Models\\ApiKey' => __DIR__ . '/..' . '/ejarnutowski/laravel-api-key/src/Models/ApiKey.php',
+        'Ejarnutowski\\LaravelApiKey\\Models\\ApiKeyAccessEvent' => __DIR__ . '/..' . '/ejarnutowski/laravel-api-key/src/Models/ApiKeyAccessEvent.php',
+        'Ejarnutowski\\LaravelApiKey\\Models\\ApiKeyAdminEvent' => __DIR__ . '/..' . '/ejarnutowski/laravel-api-key/src/Models/ApiKeyAdminEvent.php',
+        'Ejarnutowski\\LaravelApiKey\\Providers\\ApiKeyServiceProvider' => __DIR__ . '/..' . '/ejarnutowski/laravel-api-key/src/Providers/ApiKeyServiceProvider.php',
         'Facade\\FlareClient\\Api' => __DIR__ . '/..' . '/facade/flare-client-php/src/Api.php',
         'Facade\\FlareClient\\Concerns\\HasContext' => __DIR__ . '/..' . '/facade/flare-client-php/src/Concerns/HasContext.php',
         'Facade\\FlareClient\\Concerns\\UsesTime' => __DIR__ . '/..' . '/facade/flare-client-php/src/Concerns/UsesTime.php',

@@ -195,6 +195,12 @@ var chart_2 = new ApexCharts(
 );
 chart_2.render();
 
+function toggle_div_fun(id) {
+    var divelement = document.getElementById(id);
+    if (divelement.style.display == "none") divelement.style.display = "block";
+    else divelement.style.display = "none";
+}
+
 $(document).ready(function () {
     $(".sidebar-link").on("click", function () {
         $(".collapse").collapse("hide");

@@ -22,7 +22,9 @@ class DataController extends Controller
     public function index()
     {
         $request = Request::create('/api/data', 'GET');
+        // $request->headers->set('X-Authorization', 'wAH2k5uRc2Sgsz8gm3rdq0eEUHchz2syWHfLuLoCEWXpyCtkers4a1OeIGL1CST0');
         $request2 = Request::create('/api/data_status_zero', 'GET');
+        // $request2->headers->set('X-Authorization', 'wAH2k5uRc2Sgsz8gm3rdq0eEUHchz2syWHfLuLoCEWXpyCtkers4a1OeIGL1CST0');
 
 
         $response = Route::dispatch($request);

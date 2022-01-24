@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '5d7fb6d4801ac987b527915ed7b481e20505c6ca',
+        'reference' => 'eea9a880d09154fbcb1deef8392ceaba57f78ca8',
         'name' => 'laravel/laravel',
         'dev' => true,
     ),
@@ -92,6 +92,15 @@
             'install_path' => __DIR__ . '/../egulias/email-validator',
             'aliases' => array(),
             'reference' => '0dbf5d78455d4d6a41d186da50adc1122ec066f4',
+            'dev_requirement' => false,
+        ),
+        'ejarnutowski/laravel-api-key' => array(
+            'pretty_version' => '1.0.4',
+            'version' => '1.0.4.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../ejarnutowski/laravel-api-key',
+            'aliases' => array(),
+            'reference' => '81ac0a4732d1a6b515f2d8ea6f4419aed7451393',
             'dev_requirement' => false,
         ),
         'facade/flare-client-php' => array(
@@ -400,7 +409,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '5d7fb6d4801ac987b527915ed7b481e20505c6ca',
+            'reference' => 'eea9a880d09154fbcb1deef8392ceaba57f78ca8',
             'dev_requirement' => false,
         ),
         'laravel/sail' => array(
