@@ -67,9 +67,9 @@ class DataController extends Controller
 
                         $sql_temp = DB::update("UPDATE data SET actual_target=? WHERE data_id=?", [$actual, $data_id]);
 
-                        $sql_3 = DB::update("UPDATE time SET time.status=0 WHERE time.time_id=$time_id_one");
+                        $sql_3 = DB::update("UPDATE time SET status=0 WHERE time_id=$time_id_one");
                         if ($sql_3 == true) {
-                            $sql_4 = DB::update("UPDATE time SET time.status=1 WHERE time.time_id=$time");
+                            $sql_4 = DB::update("UPDATE time SET status=1 WHERE time_id=$time");
                             if ($sql_4 == true) {
                                 return redirect('/line_entry?status=created');
                             }
