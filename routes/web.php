@@ -25,7 +25,10 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
 
-Route::view('/member', 'acc_management.member')->middleware('auth');
+Route::get('/member', 'UserController@index');
+Route::get('/member_post', 'UserController@postUser')->middleware('auth');
+Route::get('/member_put', 'UserController@putUser')->middleware('auth');
+Route::get('/member_delete/{id}', 'UserController@deleteUser')->middleware('auth');
 
 Route::get('/line_entry', 'DataController@index');
 Route::get('/line_entry_post', 'DataController@postData')->name('line_entry_post');
@@ -39,12 +42,20 @@ Route::view('/line_history', 'target_line.line_history')->middleware('auth');
 
 
 //// API Routes /////
+
+//// Line Entry ////
 Route::get('/api/data', 'DataApiController@getData');
 Route::get('/api/data_status_zero', 'DataApiController@getDataStatusZero');
 Route::post('/api/data', 'DataApiController@postData');
 Route::put('/api/data', 'DataApiController@putData');
 
-
+/// Time ////
 Route::get('/api/time', 'TimeApiController@getTime');
 Route::post('/api/time', 'TimeApiController@postTime');
 Route::put('/api/time', 'TimeApiController@putTime');
+
+//// User ////
+Route::get('/api/user', 'UserApiController@getUser');
+Route::post('/api/user', 'UserApiController@postUser');
+Route::put('/api/user', 'UserApiController@putUser');
+Route::put('/api/user_delete', 'UserApiController@deleteUser');

@@ -8,10 +8,7 @@ use Illuminate\Support\Facades\DB;
 
 class DataApiController extends Controller
 {
-    public function __construct()
-    {
-        // $this->middleware('auth.apikey');
-    }
+
     public function getData()
     {
         $sql = DB::select('SELECT time.time_name,time.status,line.line_id,line.line_name,data.data_id,data.user_id,data.time_id,data.line_id,data.target,data.actual_target,data.create_date,data.update_date FROM data,time,line WHERE time.time_id=data.time_id AND line.line_id=data.line_id ORDER BY TIME.time_id ASC');

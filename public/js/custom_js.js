@@ -200,7 +200,14 @@ function toggle_div_fun(id) {
     if (divelement.style.display == "none") divelement.style.display = "block";
     else divelement.style.display = "none";
 }
-
+function toggleMe() {
+    var text = document.getElementById("password2");
+    var password_div = document.getElementById("password-div");
+    password_div.style.display =
+        window.getComputedStyle(password_div, null).display === "none"
+            ? "block"
+            : "none";
+}
 $(document).ready(function () {
     $(".sidebar-link").on("click", function () {
         $(".collapse").collapse("hide");

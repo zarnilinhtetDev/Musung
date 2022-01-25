@@ -63,8 +63,11 @@
             </ul>
         </div>
         <div class="">
-            <div>
-                <button onclick="toggle_div_fun('sectiontohide');" class="dropbtn">{{ Auth::user()->name }}
+            <div class="">
+                <button onclick="toggle_div_fun('sectiontohide');"
+                    class="d-flex align-items-center justify-content-evenly w-100 text-start border-0">
+                    <i class="fas fa-user-circle fa-3x"></i><span style="word-break: break-word;">{{ Auth::user()->name
+                        }}</span>
                     <i class="fas fa-arrow-up"></i>
                 </button>
             </div>
