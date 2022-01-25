@@ -33,20 +33,35 @@ class UserController extends Controller
     }
     public function postUser()
     {
-        $request = Request::create(
-            '/api/user',
-            'POST',
-            [
-                'name' => request()->get('name'),
-                'username' => request()->get('username'),
-                'password' =>  Hash::make(request()->get('password')),
-                'email' => request()->get('email'),
-                'role' => request()->get('role'),
-                'line_id' => request()->get('line'),
-                'note' => request()->get('note'),
-            ]
-        );
-        $response = Route::dispatch($request);
+        $name = request()->get('name');
+        $u_name = request()->get('username');
+        $password = request()->get('password');
+        $email = request()->get('email');
+        $role = request()->get('role');
+        $line_id = request()->get('line');
+        $note = request()->get('note');
+
+        // $request = Request::create(
+        //     '/api/user',
+        //     'POST',
+        //     [
+        //         'name' => request()->get('name'),
+        //         'username' => request()->get('username'),
+        //         'password' =>  Hash::make(request()->get('password')),
+        //         'email' => request()->get('email'),
+        //         'role' => request()->get('role'),
+        //         'line_id' => request()->get('line'),
+        //         'note' => request()->get('note'),
+        //     ]
+        // );
+        // $response = Route::dispatch($request);
+
+        $sql = DB::insert("INSERT INTO users (name,username,password,email,role,line_id,status,note,created_at) VALUES (?,?,?,?,?,?,?,?,NOW())", [$name, $u_name, $password, $email, $role, $line_id, 0, $note]);
+        DB::disconnect('musung');
+        if ($sql == true) {
+            return response()->json(['create' => 'ok']);
+        }
+
 
         return redirect('/member');
     }
