@@ -59,11 +59,8 @@ class UserController extends Controller
         $sql = DB::insert("INSERT INTO users (name,username,password,email,role,line_id,status,note,created_at) VALUES (?,?,?,?,?,?,?,?,NOW())", [$name, $u_name, $password, $email, $role, $line_id, 0, $note]);
         DB::disconnect('musung');
         if ($sql == true) {
-            return response()->json(['create' => 'ok']);
+            return redirect('/member');
         }
-
-
-        return redirect('/member');
     }
     public function putUser()
     {
