@@ -13,23 +13,23 @@
             <div class="col-6 col-md-4 dropdown">
                 <button class="dropbtn">Account Management</button>
                 <div class="dropdown-content">
-                    <a href="index.php?link=web_view">Member</a>
-                    <a href="index.php?link=web_product">Operator</a>
-                    <a class="sidebar-link" href="index.php?link=product_photo">Line Manager</a>
+                    <a href="{{ url('/member') }}">Member</a>
                 </div>
             </div>
             <div class="col-6 col-md-4 dropdown">
                 <button class="dropbtn">Target Lines</button>
                 <div class="dropdown-content">
-                    <a href="index.php?link=member&role=all&r_id=0">Today Lines</a>
-                    <a href="index.php?link=driver">Line History</a>
+                    <a href="{{ url('live_dash') }}">Today Lines</a>
+                    <a href="{{ url('line_history') }}">Line History</a>
                 </div>
             </div>
             <div class="col-6 col-md-4 dropdown">
                 <button class="dropbtn">Line Management</button>
                 <div class="dropdown-content">
-                    <a href="#">Line Detail</a>
-                    <a href="#">Line Setting</a>
+                    <a href="{{ url('line_entry') }}">Line Entry</a>
+                    <a href="{{ url('line_detail') }}">Line Detail</a>
+                    <a href="{{ url('line_manager_detail') }}">Line Manager Detail</a>
+                    <a href="{{ url('line_setting') }}">Line Setting</a>
                 </div>
             </div>
         </div>

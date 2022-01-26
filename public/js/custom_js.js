@@ -209,6 +209,51 @@ function toggleMe() {
             : "none";
 }
 $(document).ready(function () {
+    $("#exampleModal2").on("show.bs.modal", function () {
+        //// TextArea Count /////
+        var maxChars = 150;
+        var textLength = 0;
+        var comment = "";
+        var outOfChars = textLength + " character left";
+
+        /* initalize for when no data is in localStorage */
+        var count = maxChars;
+        $("#characterLeft").text(count + " characters left");
+
+        /* fix val so it counts carriage returns */
+        $.valHooks.textarea = {
+            get: function (e) {
+                return e.value.replace(/\r?\n/g, "\r\n");
+            },
+        };
+
+        function checkCount() {
+            textLength = $("#comment").val().length;
+            if (textLength >= maxChars) {
+                $("#characterLeft").text(outOfChars);
+            } else {
+                count = maxChars - textLength;
+                $("#characterLeft").text(count + " characters left");
+            }
+        }
+
+        /* on keyUp: update #characterLeft as well as count & comment in localStorage */
+        $("#comment").keyup(function () {
+            checkCount();
+            comment = $(this).val();
+            localStorage.setItem("comment", comment);
+        });
+
+        /* on pageload: get check for comment text in localStorage, if found update comment & count */
+        // if (localStorage.getItem("comment") != null) {
+        //     $("#comment").text(localStorage.getItem("comment"));
+        //     checkCount();
+        // }
+
+        //TextArea Count End///
+    });
+});
+$(document).ready(function () {
     $(".sidebar-link").on("click", function () {
         $(".collapse").collapse("hide");
     });
@@ -378,11 +423,14 @@ $(document).ready(function () {
             input.val("").change();
         });
     });
+});
+
+$(document).ready(function () {
     //// TextArea Count /////
     var maxChars = 150;
     var textLength = 0;
     var comment = "";
-    var outOfChars = maxChars + " characters";
+    var outOfChars = textLength + " character left";
 
     /* initalize for when no data is in localStorage */
     var count = maxChars;
@@ -413,8 +461,10 @@ $(document).ready(function () {
     });
 
     /* on pageload: get check for comment text in localStorage, if found update comment & count */
-    if (localStorage.getItem("comment") != null) {
-        $("#comment").text(localStorage.getItem("comment"));
-        checkCount();
-    }
+    // if (localStorage.getItem("comment") != null) {
+    //     $("#comment").text(localStorage.getItem("comment"));
+    //     checkCount();
+    // }
+
+    //TextArea Count End///
 });

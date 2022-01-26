@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class LoginController extends Controller
 {
@@ -36,5 +38,24 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+    protected function authenticated($request, $user)
+    {
+        if ($user->is_delete == 0) {
+            $sql = DB::table('users')->where('id', $user->id)->update(['active_status' => 0]);
+            DB::disconnect('musung');
+        }
+        if ($user->is_delete == 1) {
+            Auth::logout();
+            return redirect(url('/'))->with('error', 'Your account has been deleted.');
+        }
+    }
+    public function logout()
+    {
+        $sql = DB::table('users')->where('id', Auth::user()->id)->update(['active_status' => 1]);
+        DB::disconnect('musung');
+
+        Auth::logout();
+        return redirect(url('/'));
     }
 }

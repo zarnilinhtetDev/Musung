@@ -133,7 +133,8 @@
                                 <div class="row g-3 my-2">
                                     <div class="col-12 col-md-4">
                                         <label>Note</label>
-                                        <textarea class="form-control" name="note" placeholder="Note"></textarea>
+                                        <textarea class="form-control" name="note" placeholder="Note" id="comment"
+                                            maxlength="150"></textarea> <span id="characterLeft"></span>
                                     </div>
                                 </div>
                             </div>
@@ -315,10 +316,17 @@
                                                 class='fas fa-pencil-alt'></i></a>
                                     </td>
                                     <td>
+                                        @if ($is_delete==0)
                                         <a class='btn btn-danger text-white'
                                             href='{{ url("/member_delete") }}/{{ $u_id }}'
                                             onclick="return confirm('Confirm deleting member?')"><i
                                                 class="fas fa-trash"></i></a>
+                                        @elseif($is_delete==1)
+                                        <a class='btn btn-success text-white'
+                                            href='{{ url("/member_undo") }}/{{ $u_id }}'
+                                            onclick="return confirm('Confirm restoring member?')"><i
+                                                class="fas fa-undo"></i></a>
+                                        @endif
                                     </td>
                                     </tr>
                                     @endif
@@ -382,10 +390,17 @@
                                                 class='fas fa-pencil-alt'></i></a>
                                     </td>
                                     <td>
+                                        @if ($is_delete==0)
                                         <a class='btn btn-danger text-white'
                                             href='{{ url("/member_delete") }}/{{ $u_id }}'
                                             onclick="return confirm('Confirm deleting member?')"><i
                                                 class="fas fa-trash"></i></a>
+                                        @elseif($is_delete==1)
+                                        <a class='btn btn-success text-white'
+                                            href='{{ url("/member_undo") }}/{{ $u_id }}'
+                                            onclick="return confirm('Confirm restoring member?')"><i
+                                                class="fas fa-undo"></i></a>
+                                        @endif
                                     </td>
                                     </tr>
                                     @endif
@@ -451,10 +466,17 @@
                                                 class='fas fa-pencil-alt'></i></a>
                                     </td>
                                     <td>
+                                        @if ($is_delete==0)
                                         <a class='btn btn-danger text-white'
                                             href='{{ url("/member_delete") }}/{{ $u_id }}'
                                             onclick="return confirm('Confirm deleting member?')"><i
                                                 class="fas fa-trash"></i></a>
+                                        @elseif($is_delete==1)
+                                        <a class='btn btn-success text-white'
+                                            href='{{ url("/member_undo") }}/{{ $u_id }}'
+                                            onclick="return confirm('Confirm restoring member?')"><i
+                                                class="fas fa-undo"></i></a>
+                                        @endif
                                     </td>
                                     </tr>
                                     @endif
