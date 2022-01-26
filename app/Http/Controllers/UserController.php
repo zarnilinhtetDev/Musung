@@ -116,4 +116,19 @@ class UserController extends Controller
 
         return redirect('/member');
     }
+    public function undoUser()
+    {
+        $id = request()->get('id');
+
+        $request = Request::create(
+            '/api/user_undo',
+            'PUT',
+            [
+                'id' => request()->get('id'),
+            ]
+        );
+        $response = Route::dispatch($request);
+
+        return redirect('/member');
+    }
 }

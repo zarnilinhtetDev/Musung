@@ -29,6 +29,7 @@ Route::get('/member', 'UserController@index');
 Route::get('/member_post', 'UserController@postUser')->middleware('auth');
 Route::get('/member_put', 'UserController@putUser')->middleware('auth');
 Route::get('/member_delete/{id}', 'UserController@deleteUser')->middleware('auth');
+Route::get('/member_undo/{id}', 'UserController@undoUser')->middleware('auth');
 
 Route::get('/line_entry', 'DataController@index');
 Route::get('/line_entry_post', 'DataController@postData')->name('line_entry_post');
@@ -59,3 +60,4 @@ Route::get('/api/user', 'UserApiController@getUser');
 Route::post('/api/user', 'UserApiController@postUser');
 Route::put('/api/user', 'UserApiController@putUser');
 Route::put('/api/user_delete', 'UserApiController@deleteUser');
+Route::put('/api/user_undo', 'UserApiController@undoUser');

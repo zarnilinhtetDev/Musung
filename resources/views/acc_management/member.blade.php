@@ -73,7 +73,7 @@
             </div>
             <div class="col-12 col-md-6 m-auto text-center">
                 <input class="icon-btn-one btn my-2" type="submit" value="Update Account" name="submit" />
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <a href="{{ url('member') }}" class="btn-secondary btn my-2">Cancel</a>
             </div>
         </form>
         @endif
@@ -178,6 +178,11 @@
             <div class="form-group pull-right mt-3">
                 <input class="form-control" id="myInput" type="text" placeholder="Search">
             </div>
+
+            @php
+            $json = json_decode($responseBody,true);
+            $num = 1;
+            @endphp
             <div id="tab-content">
                 <div id="tab1" class="div_1">
                     <div style="overflow: auto;max-width:100%;max-height:600px;">
@@ -199,10 +204,7 @@
                                 </tr>
                             </thead>
                             <tbody id="myTable">
-                                @php
-                                $json = json_decode($responseBody,true);
-                                $num = 1;
-                                @endphp
+
                                 @for($i=0;$i<count($json);$i++) @php $u_id=$json[$i]['id']; $name=$json[$i]['name'];
                                     $u_name=$json[$i]['username']; $p_word=$json[$i]['password'];
                                     $email=$json[$i]['email']; $remark=$json[$i]['remark']; $role=$json[$i]['role'];
@@ -240,13 +242,19 @@
                                                 class='fas fa-pencil-alt'></i></a>
                                     </td>
                                     <td>
+                                        @if ($is_delete==0)
                                         <a class='btn btn-danger text-white'
                                             href='{{ url("/member_delete") }}/{{ $u_id }}'
                                             onclick="return confirm('Confirm deleting member?')"><i
                                                 class="fas fa-trash"></i></a>
+                                        @elseif($is_delete==1)
+                                        <a class='btn btn-success text-white'
+                                            href='{{ url("/member_undo") }}/{{ $u_id }}'
+                                            onclick="return confirm('Confirm restoring member?')"><i
+                                                class="fas fa-undo"></i></a>
+                                        @endif
                                     </td>
                                     </tr>
-
                                     @endfor
                             </tbody>
                         </table>
@@ -258,10 +266,10 @@
                             <thead>
                                 <tr class="tr-2">
                                     <th scope="col">No.</th>
+                                    <th scope="col">Status</th>
                                     <th scope="col">Name</th>
                                     <th scope="col">Role</th>
                                     <th scope="col">User Name</th>
-                                    <th scope="col">Password</th>
                                     <th scope="col">Email</th>
                                     <th scope="col">Remark</th>
                                     <th scope="col">Create Date</th>
@@ -271,25 +279,50 @@
                                 </tr>
                             </thead>
                             <tbody id="myTable">
-                                <tr>
-                                    <td>1</td>
-                                    <td>User 1</td>
-                                    <td>Admin</td>
-                                    <td>user1</td>
-                                    <td>password</td>
-                                    <td>test@gmail.com</td>
-                                    <td>Remark</td>
-                                    <td>2021-01-17</td>
-                                    <td>-</td>
-                                    <td><a class='btn btn-primary text-white' href='#'><i
+                                @for($i=0;$i<count($json);$i++) @php $u_id=$json[$i]['id']; $name=$json[$i]['name'];
+                                    $u_name=$json[$i]['username']; $p_word=$json[$i]['password'];
+                                    $email=$json[$i]['email']; $remark=$json[$i]['remark']; $role=$json[$i]['role'];
+                                    $line=$json[$i]['line_id']; $status=$json[$i]['active_status'];
+                                    $is_delete=$json[$i]['is_delete']; $created_at=$json[$i]['created_at'];
+                                    $updated_at=$json[$i]['updated_at']; @endphp @if($role==0) <tr>
+                                    <td>{{ $num++ }}</td>
+                                    <td>
+                                        @if ($status==0)
+                                        <span><i class="fas fa-circle text-success"></i></span>
+                                        @elseif($status==1)
+                                        <span><i class="fas fa-circle text-danger"></i></span>
+                                        @endif
+                                    </td>
+                                    <td>{{ $name }}</td>
+                                    <td>
+                                        @if ($role==0)
+                                        <span>Admin</span>
+                                        @elseif($role==1)
+                                        <span>Operator</span>
+                                        @elseif($role=2)
+                                        <span>Line Manager</span>
+                                        @endif
+                                    </td>
+                                    <td>{{ $u_name }}</td>
+                                    <td>{{ $email }}</td>
+                                    <td>{{ $remark }}</td>
+                                    <td>{{ $created_at }}</td>
+                                    <td>{{ $updated_at }}</td>
+                                    <td>
+                                        <a class='btn btn-primary text-white'
+                                            href="{{ url('/member')}}?edit=1&id={{ $u_id
+                                        }}&name={{ $name }}&u_name={{ $u_name }}&p_word={{ $p_word }}&email={{ $email }}&remark={{ $remark }}&role={{ $role }}&line={{ $line }}&status={{ $status }}"><i
                                                 class='fas fa-pencil-alt'></i></a>
                                     </td>
                                     <td>
-                                        <a class='btn btn-danger text-white' href='#'
+                                        <a class='btn btn-danger text-white'
+                                            href='{{ url("/member_delete") }}/{{ $u_id }}'
                                             onclick="return confirm('Confirm deleting member?')"><i
                                                 class="fas fa-trash"></i></a>
                                     </td>
-                                </tr>
+                                    </tr>
+                                    @endif
+                                    @endfor
                             </tbody>
                         </table>
                     </div>
@@ -300,10 +333,10 @@
                             <thead>
                                 <tr class="tr-2">
                                     <th scope="col">No.</th>
+                                    <th scope="col">Status</th>
                                     <th scope="col">Name</th>
                                     <th scope="col">Role</th>
                                     <th scope="col">User Name</th>
-                                    <th scope="col">Password</th>
                                     <th scope="col">Email</th>
                                     <th scope="col">Remark</th>
                                     <th scope="col">Create Date</th>
@@ -313,25 +346,50 @@
                                 </tr>
                             </thead>
                             <tbody id="myTable">
-                                <tr>
-                                    <td>1</td>
-                                    <td>User 1</td>
-                                    <td>Operator</td>
-                                    <td>user1</td>
-                                    <td>password</td>
-                                    <td>test@gmail.com</td>
-                                    <td>Remark</td>
-                                    <td>2021-01-17</td>
-                                    <td>-</td>
-                                    <td><a class='btn btn-primary text-white' href='#'><i
+                                @for($i=0;$i<count($json);$i++) @php $u_id=$json[$i]['id']; $name=$json[$i]['name'];
+                                    $u_name=$json[$i]['username']; $p_word=$json[$i]['password'];
+                                    $email=$json[$i]['email']; $remark=$json[$i]['remark']; $role=$json[$i]['role'];
+                                    $line=$json[$i]['line_id']; $status=$json[$i]['active_status'];
+                                    $is_delete=$json[$i]['is_delete']; $created_at=$json[$i]['created_at'];
+                                    $updated_at=$json[$i]['updated_at']; @endphp @if($role==1) <tr>
+                                    <td>{{ $num++ }}</td>
+                                    <td>
+                                        @if ($status==0)
+                                        <span><i class="fas fa-circle text-success"></i></span>
+                                        @elseif($status==1)
+                                        <span><i class="fas fa-circle text-danger"></i></span>
+                                        @endif
+                                    </td>
+                                    <td>{{ $name }}</td>
+                                    <td>
+                                        @if ($role==0)
+                                        <span>Admin</span>
+                                        @elseif($role==1)
+                                        <span>Operator</span>
+                                        @elseif($role=2)
+                                        <span>Line Manager</span>
+                                        @endif
+                                    </td>
+                                    <td>{{ $u_name }}</td>
+                                    <td>{{ $email }}</td>
+                                    <td>{{ $remark }}</td>
+                                    <td>{{ $created_at }}</td>
+                                    <td>{{ $updated_at }}</td>
+                                    <td>
+                                        <a class='btn btn-primary text-white'
+                                            href="{{ url('/member')}}?edit=1&id={{ $u_id
+                                        }}&name={{ $name }}&u_name={{ $u_name }}&p_word={{ $p_word }}&email={{ $email }}&remark={{ $remark }}&role={{ $role }}&line={{ $line }}&status={{ $status }}"><i
                                                 class='fas fa-pencil-alt'></i></a>
                                     </td>
                                     <td>
-                                        <a class='btn btn-danger text-white' href='#'
+                                        <a class='btn btn-danger text-white'
+                                            href='{{ url("/member_delete") }}/{{ $u_id }}'
                                             onclick="return confirm('Confirm deleting member?')"><i
                                                 class="fas fa-trash"></i></a>
                                     </td>
-                                </tr>
+                                    </tr>
+                                    @endif
+                                    @endfor
                             </tbody>
                         </table>
                     </div>
@@ -342,11 +400,11 @@
                             <thead>
                                 <tr class="tr-2">
                                     <th scope="col">No.</th>
+                                    <th scope="col">Status</th>
                                     <th scope="col">Name</th>
                                     <th scope="col">Role</th>
                                     <th scope="col">Line Name</th>
                                     <th scope="col">User Name</th>
-                                    <th scope="col">Password</th>
                                     <th scope="col">Email</th>
                                     <th scope="col">Remark</th>
                                     <th scope="col">Create Date</th>
@@ -356,26 +414,51 @@
                                 </tr>
                             </thead>
                             <tbody id="myTable">
-                                <tr>
-                                    <td>1</td>
-                                    <td>User 1</td>
-                                    <td>Line Manager</td>
-                                    <td>Line 1</td>
-                                    <td>user1</td>
-                                    <td>password</td>
-                                    <td>test@gmail.com</td>
-                                    <td>Remark</td>
-                                    <td>2021-01-17</td>
-                                    <td>-</td>
-                                    <td><a class='btn btn-primary text-white' href='#'><i
+                                @for($i=0;$i<count($json);$i++) @php $u_id=$json[$i]['id']; $name=$json[$i]['name'];
+                                    $u_name=$json[$i]['username']; $p_word=$json[$i]['password'];
+                                    $email=$json[$i]['email']; $remark=$json[$i]['remark']; $role=$json[$i]['role'];
+                                    $line=$json[$i]['line_id']; $status=$json[$i]['active_status'];
+                                    $is_delete=$json[$i]['is_delete']; $created_at=$json[$i]['created_at'];
+                                    $updated_at=$json[$i]['updated_at']; @endphp @if($role==2) <tr>
+                                    <td>{{ $num++ }}</td>
+                                    <td>
+                                        @if ($status==0)
+                                        <span><i class="fas fa-circle text-success"></i></span>
+                                        @elseif($status==1)
+                                        <span><i class="fas fa-circle text-danger"></i></span>
+                                        @endif
+                                    </td>
+                                    <td>{{ $name }}</td>
+                                    <td>
+                                        @if ($role==0)
+                                        <span>Admin</span>
+                                        @elseif($role==1)
+                                        <span>Operator</span>
+                                        @elseif($role=2)
+                                        <span>Line Manager</span>
+                                        @endif
+                                    </td>
+                                    <td>{{ $line }}</td>
+                                    <td>{{ $u_name }}</td>
+                                    <td>{{ $email }}</td>
+                                    <td>{{ $remark }}</td>
+                                    <td>{{ $created_at }}</td>
+                                    <td>{{ $updated_at }}</td>
+                                    <td>
+                                        <a class='btn btn-primary text-white'
+                                            href="{{ url('/member')}}?edit=1&id={{ $u_id
+                                        }}&name={{ $name }}&u_name={{ $u_name }}&p_word={{ $p_word }}&email={{ $email }}&remark={{ $remark }}&role={{ $role }}&line={{ $line }}&status={{ $status }}"><i
                                                 class='fas fa-pencil-alt'></i></a>
                                     </td>
                                     <td>
-                                        <a class='btn btn-danger text-white' href='#'
+                                        <a class='btn btn-danger text-white'
+                                            href='{{ url("/member_delete") }}/{{ $u_id }}'
                                             onclick="return confirm('Confirm deleting member?')"><i
                                                 class="fas fa-trash"></i></a>
                                     </td>
-                                </tr>
+                                    </tr>
+                                    @endif
+                                    @endfor
                             </tbody>
                         </table>
                     </div>

@@ -57,4 +57,13 @@ class UserApiController extends Controller
             return response()->json(['soft_delete' => 'ok']);
         }
     }
+    public function undoUser(Request $request)
+    {
+        $id = $request->id;
+        $sql = DB::update("UPDATE users SET is_delete=0 WHERE id=?", [$id]);
+        DB::disconnect('musung');
+        if ($sql == true) {
+            return response()->json(['undo' => 'ok']);
+        }
+    }
 }
