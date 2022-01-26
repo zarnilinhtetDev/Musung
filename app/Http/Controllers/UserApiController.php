@@ -25,7 +25,7 @@ class UserApiController extends Controller
         $role = $request->role;
         $line_id = $request->line_id;
         $note = $request->note;
-        $sql = DB::insert("INSERT INTO users (name,username,password,email,role,line_id,status,remark,created_at) VALUES (?,?,?,?,?,?,?,?,NOW())", [$name, $username, $password, $email, $role, $line_id, 0, $note]);
+        $sql = DB::insert("INSERT INTO users (name,username,password,email,role,line_id,remark,created_at) VALUES (?,?,?,?,?,?,?,NOW())", [$name, $username, $password, $email, $role, $line_id, $note]);
         DB::disconnect('musung');
         if ($sql == true) {
             return response()->json(['create' => 'ok']);

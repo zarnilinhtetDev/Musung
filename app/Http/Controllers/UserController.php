@@ -56,7 +56,7 @@ class UserController extends Controller
         // );
         // $response = Route::dispatch($request);
 
-        $sql = DB::insert("INSERT INTO users (name,username,password,email,role,line_id,status,remark,created_at) VALUES (?,?,?,?,?,?,?,?,NOW())", [$name, $u_name, $password, $email, $role, $line_id, 0, $note]);
+        $sql = DB::insert("INSERT INTO users (name,username,password,email,role,line_id,remark,created_at) VALUES (?,?,?,?,?,?,?,NOW())", [$name, $u_name, $password, $email, $role, $line_id, $note]);
         DB::disconnect('musung');
         if ($sql == true) {
             return redirect('/member');
