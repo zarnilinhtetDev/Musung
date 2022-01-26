@@ -51,7 +51,7 @@ class UserApiController extends Controller
     public function deleteUser(Request $request)
     {
         $id = $request->id;
-        $sql = DB::update("UPDATE users SET status=1 WHERE id=?", [$id]);
+        $sql = DB::update("UPDATE users SET is_delete=1 WHERE id=?", [$id]);
         DB::disconnect('musung');
         if ($sql == true) {
             return response()->json(['soft_delete' => 'ok']);
