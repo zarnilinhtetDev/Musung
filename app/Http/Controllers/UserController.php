@@ -35,7 +35,7 @@ class UserController extends Controller
     {
         $name = request()->get('name');
         $u_name = request()->get('username');
-        $password = request()->get('password');
+        $password = Hash::make(request()->get('password'));
         $email = request()->get('email');
         $role = request()->get('role');
         $line_id = request()->get('line');
@@ -56,7 +56,7 @@ class UserController extends Controller
         // );
         // $response = Route::dispatch($request);
 
-        $sql = DB::insert("INSERT INTO users (name,username,password,email,role,line_id,status,note,created_at) VALUES (?,?,?,?,?,?,?,?,NOW())", [$name, $u_name, $password, $email, $role, $line_id, 0, $note]);
+        $sql = DB::insert("INSERT INTO users (name,username,password,email,role,line_id,status,remark,created_at) VALUES (?,?,?,?,?,?,?,?,NOW())", [$name, $u_name, $password, $email, $role, $line_id, 0, $note]);
         DB::disconnect('musung');
         if ($sql == true) {
             return redirect('/member');
@@ -66,8 +66,8 @@ class UserController extends Controller
     {
         $name = request()->get('name');
         $username = request()->get('username');
-        $password = request()->get('password');
-        $password_2 = request()->get('password2');
+        $password = Hash::make(request()->get('password'));
+        $password_2 = Hash::make(request()->get('password2'));
         $email = request()->get('email');
         $role = request()->get('role');
         $line_id = request()->get('line');
@@ -91,11 +91,11 @@ class UserController extends Controller
         // $response = Route::dispatch($request);
 
         if ($password_2 == "") {
-            $sql = DB::update("UPDATE users SET name=?,username=?,password=?,email=?,role=?,line_id=?,note=?,updated_at=? WHERE id=?", [$name, $username, $password, $email, $role, $line_id, $note, NOW(), $user_id]);
+            $sql = DB::update("UPDATE users SET name=?,username=?,password=?,email=?,role=?,line_id=?,remark=?,updated_at=? WHERE id=?", [$name, $username, $password, $email, $role, $line_id, $note, NOW(), $user_id]);
             DB::disconnect('musung');
         }
         if ($password_2 != "") {
-            $sql = DB::update("UPDATE users SET name=?,username=?,password=?,email=?,role=?,line_id=?,note=?,updated_at=? WHERE id=?", [$name, $username, $password_2, $email, $role, $line_id, $note, NOW(), $user_id]);
+            $sql = DB::update("UPDATE users SET name=?,username=?,password=?,email=?,role=?,line_id=?,remark=?,updated_at=? WHERE id=?", [$name, $username, $password_2, $email, $role, $line_id, $note, NOW(), $user_id]);
             DB::disconnect('musung');
         }
 

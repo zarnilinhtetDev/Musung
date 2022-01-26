@@ -43,7 +43,11 @@
                     <div class="col-12 col-md-4">
                         <label>Role</label>​
                         <select class="form-control" name="role">
-                            <option value="{{ $_GET['role'] }}">{{ $_GET['role'] }}</option>
+                            <option value="{{ $_GET['role'] }}">
+                                @if ($_GET['role']==0) Admin
+                                @elseif ($_GET['role']==1) Operator
+                                @elseif ($_GET['role']==2) Line Manager
+                                @endif</option>
                             <option value="0">Admin</option>
                             <option value="1">Operator</option>
                             <option value="2">Line Manager</option>
@@ -62,7 +66,8 @@
                 <div class="row g-3 my-2">
                     <div class="col-12 col-md-4">
                         <label>Note</label>
-                        <textarea class="form-control" name="note" placeholder="Note">{{ $_GET['note'] }}</textarea>
+                        <textarea class="form-control" name="note" placeholder="Note" id="comment"
+                            maxlength="150">{{ $_GET['remark'] }}</textarea> <span id="characterLeft"></span>
                     </div>
                 </div>
             </div>
@@ -185,7 +190,6 @@
                                     <th scope="col">Role</th>
                                     <th scope="col">Line Name</th>
                                     <th scope="col">User Name</th>
-                                    <th scope="col">Password</th>
                                     <th scope="col">Email</th>
                                     <th scope="col">Remark</th>
                                     <th scope="col">Create Date</th>
@@ -201,25 +205,38 @@
                                 @endphp
                                 @for($i=0;$i<count($json);$i++) @php $u_id=$json[$i]['id']; $name=$json[$i]['name'];
                                     $u_name=$json[$i]['username']; $p_word=$json[$i]['password'];
-                                    $email=$json[$i]['email']; $note=$json[$i]['note']; $role=$json[$i]['role'];
-                                    $line=$json[$i]['line_id']; $status=$json[$i]['status'];
-                                    $created_at=$json[$i]['created_at']; $updated_at=$json[$i]['updated_at']; @endphp
-                                    <tr>
+                                    $email=$json[$i]['email']; $remark=$json[$i]['remark']; $role=$json[$i]['role'];
+                                    $line=$json[$i]['line_id']; $status=$json[$i]['active_status'];
+                                    $is_delete=$json[$i]['is_delete']; $created_at=$json[$i]['created_at'];
+                                    $updated_at=$json[$i]['updated_at']; @endphp <tr>
                                     <td>{{ $num++ }}</td>
-                                    <td>{{ $status }}</td>
+                                    <td>
+                                        @if ($status==0)
+                                        <span><i class="fas fa-circle text-success"></i></span>
+                                        @elseif($status==1)
+                                        <span><i class="fas fa-circle text-danger"></i></span>
+                                        @endif
+                                    </td>
                                     <td>{{ $name }}</td>
-                                    <td>{{ $role }}</td>
+                                    <td>
+                                        @if ($role==0)
+                                        <span>Admin</span>
+                                        @elseif($role==1)
+                                        <span>Operator</span>
+                                        @elseif($role=2)
+                                        <span>Line Manager</span>
+                                        @endif
+                                    </td>
                                     <td>{{ $line }}</td>
                                     <td>{{ $u_name }}</td>
-                                    <td>{{ $p_word }}</td>
                                     <td>{{ $email }}</td>
-                                    <td>{{ $note }}</td>
+                                    <td>{{ $remark }}</td>
                                     <td>{{ $created_at }}</td>
                                     <td>{{ $updated_at }}</td>
                                     <td>
                                         <a class='btn btn-primary text-white'
                                             href="{{ url('/member')}}?edit=1&id={{ $u_id
-                                        }}&name={{ $name }}&u_name={{ $u_name }}&p_word={{ $p_word }}&email={{ $email }}&note={{ $note }}&role={{ $role }}&line={{ $line }}&status={{ $status }}"><i
+                                        }}&name={{ $name }}&u_name={{ $u_name }}&p_word={{ $p_word }}&email={{ $email }}&remark={{ $remark }}&role={{ $role }}&line={{ $line }}&status={{ $status }}"><i
                                                 class='fas fa-pencil-alt'></i></a>
                                     </td>
                                     <td>

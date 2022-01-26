@@ -168,6 +168,11 @@ a {
     color: #6495ed;
 }
 
+#characterLeft {
+    margin-top: 10px;
+    display: block;
+}
+
 .custom-li .sidebar-link {
     color: #333 !important;
     background-color: #ededed !important;
