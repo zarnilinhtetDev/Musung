@@ -26,6 +26,8 @@ $json2 = json_decode($responseBody2,true); @endphp
                     <div class="modal-content">
                         <div class="modal-body">
                             <input type="hidden" name="l_id" id="l_id">
+                            <input type="hidden" id="s_time" />
+                            <input type="hidden" id="e_time" />
                             <div class="mt-2 mb-4">
                                 <h1 class="fw-bold heading-text" id="l_setting_name"></h1>
                             </div>
@@ -35,8 +37,9 @@ $json2 = json_decode($responseBody2,true); @endphp
                                     <select class="form-control" name="type" required>
                                         <option> </option>
                                         @for($i=0;$i<count($json2);$i++) @php $u_id=$json2[$i]['id'];
-                                            $u_name=$json2[$i]['name']; @endphp <option value="{{$u_id}}">{{$u_name}}
-                                            </option> @endfor
+                                            $u_name=$json2[$i]['name'];$u_role=$json2[$i]['role']; @endphp
+                                            @if($u_role==2) <option value="{{$u_id}}">{{$u_name}}
+                                            </option> @endif @endfor
                                     </select>
                                 </div>
                                 <div class=" col-12 col-md-4 mt-0">
@@ -45,29 +48,29 @@ $json2 = json_decode($responseBody2,true); @endphp
                                 </div>
                                 <div class="col-12 col-md-4 mt-0">
                                     <label>Total Working Hour(s)</label>
-                                    <input type="text" class="form-control" name="password" placeholder="7 Hours"
-                                        required />
+                                    <input type="text" class="form-control" name="" placeholder="7 Hours" id="work_hour"
+                                        required readonly />
                                 </div>
                             </div>
                             <div class="row g-3 my-2">
                                 <div class="col-12 col-md-4 mt-0">
                                     <label>Starting Time</label>​<br />
-                                    <input type="time" class="form-control" id="appt" name="appt" required>
+                                    <input type="time" class="form-control" id="start_time" name="appt" id="" required>
                                 </div>
                                 <div class="col-12 col-md-4 mt-0">
                                     <label>Lunch Time</label>​<br />
                                     <div class="row">
                                         <div class="col-6">
-                                            <input type="time" class="form-control" id="appt" name="appt" required>
+                                            <input type="time" class="form-control" name="appt" required>
                                         </div>
                                         <div class="col-6">
-                                            <input type="time" class="form-control" id="appt" name="appt" required>
+                                            <input type="time" class="form-control" name="appt" required>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-4 mt-0">
                                     <label>Ending Time</label>​<br />
-                                    <input type="time" class="form-control" id="appt" name="appt" required>
+                                    <input type="time" class="form-control" id="end_time" required>
                                 </div>
                             </div>
                             <div class="row g-3 my-2">

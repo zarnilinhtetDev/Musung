@@ -208,6 +208,31 @@ function toggleMe() {
             ? "block"
             : "none";
 }
+
+$(document).ready(function () {
+    //// Show Hide Navbar
+    $("#btn_navbar_close").click(function () {
+        //get collapse content selector
+        var collapse_content_selector = $(this).attr("href");
+        console.log(collapse_content_selector);
+
+        //make the collapse content to be shown or hide
+        var toggle_switch = $(this);
+        $(collapse_content_selector).toggle(function () {
+            if ($(this).css("display") == "none") {
+                //change the button label to be 'Show'
+                toggle_switch.html(
+                    "<span class='text-white'>Show Navigation Bar</span>"
+                );
+            } else {
+                //change the button label to be 'Hide'
+                toggle_switch.html(
+                    "<span class='text-white'>Hide Navigation Bar</span>"
+                );
+            }
+        });
+    });
+});
 var LineModal = document.getElementById("LineModal");
 LineModal.addEventListener("show.bs.modal", function (event) {
     // Button that triggered the modal
@@ -221,6 +246,37 @@ LineModal.addEventListener("show.bs.modal", function (event) {
 
     l_id_input.value = l_id;
     l_setting_name.innerHTML = l_name;
+});
+
+///// Time Diff in Line Setting /////
+$(document).ready(function () {
+    $("#LineModal").on("show.bs.modal", function () {
+        $("#start_time").on("change", function () {
+            var start_time = $("#start_time").val();
+            $("#s_time").val(start_time);
+            $("#end_time").on("change", function () {
+                var end_time = $("#end_time").val();
+                $("#e_time").val(end_time);
+
+                var start = $("#s_time").val();
+                var end = $("#e_time").val();
+
+                s = start.split(":");
+                e = end.split(":");
+
+                min = e[1] - s[1];
+                hour_carry = 0;
+                if (min < 0) {
+                    min += 60;
+                    hour_carry += 1;
+                }
+                hour = e[0] - s[0] - hour_carry;
+                diff = hour + ":" + min + " Hours";
+
+                $("#work_hour").val(diff);
+            });
+        });
+    });
 });
 $(document).ready(function () {
     $("#exampleModal2").on("show.bs.modal", function () {
@@ -290,28 +346,6 @@ $(document).ready(function () {
         $("#tab-content .div_1:eq(" + indexer + ")").fadeIn(); //uses whatever index the link has to open the corresponding box
     });
 
-    //// Show Hide Navbar
-    $("#btn_navbar_close").click(function () {
-        //get collapse content selector
-        var collapse_content_selector = $(this).attr("href");
-        console.log(collapse_content_selector);
-
-        //make the collapse content to be shown or hide
-        var toggle_switch = $(this);
-        $(collapse_content_selector).toggle(function () {
-            if ($(this).css("display") == "none") {
-                //change the button label to be 'Show'
-                toggle_switch.html(
-                    "<span class='text-white'>Show Navigation Bar</span>"
-                );
-            } else {
-                //change the button label to be 'Hide'
-                toggle_switch.html(
-                    "<span class='text-white'>Hide Navigation Bar</span>"
-                );
-            }
-        });
-    });
     let min = 60;
 
     let time = $("input[id=last-input]").last().val();

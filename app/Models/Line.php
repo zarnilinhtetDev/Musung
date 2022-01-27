@@ -10,4 +10,5 @@ class Line extends Model
     use HasFactory;
     protected $table = 'line';
     protected $fillable = ['l_name', 'l_pos', 'created_at', 'updated_at'];
+    protected $primaryKey = 'l_id';
 }
