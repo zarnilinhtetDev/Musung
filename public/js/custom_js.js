@@ -208,7 +208,20 @@ function toggleMe() {
             ? "block"
             : "none";
 }
+$(document).ready(function () {
+    ////Tabs Change////
+    $("#tab-content .div_1").hide();
+    $("#tab-content .div_1:first").show();
 
+    $("#nav li.span2").click(function () {
+        $("#nav li a").removeClass("active");
+        $(this).find("a").addClass("active");
+        $("#tab-content .div_1").hide();
+
+        var indexer = $(this).index(); //gets the current index of (this) which is #nav li
+        $("#tab-content .div_1:eq(" + indexer + ")").fadeIn(); //uses whatever index the link has to open the corresponding box
+    });
+});
 $(document).ready(function () {
     //// Show Hide Navbar
     $("#btn_navbar_close").click(function () {
@@ -332,18 +345,6 @@ $(document).ready(function () {
         $("#myTable tr").filter(function () {
             $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
         });
-    });
-
-    $("#tab-content .div_1").hide();
-    $("#tab-content .div_1:first").show();
-
-    $("#nav li.span2").click(function () {
-        $("#nav li a").removeClass("active");
-        $(this).find("a").addClass("active");
-        $("#tab-content .div_1").hide();
-
-        var indexer = $(this).index(); //gets the current index of (this) which is #nav li
-        $("#tab-content .div_1:eq(" + indexer + ")").fadeIn(); //uses whatever index the link has to open the corresponding box
     });
 
     let min = 60;
