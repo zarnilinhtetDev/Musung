@@ -24,12 +24,16 @@ class UserController extends Controller
     {
 
         $request = Request::create('/api/user', 'GET');
+        $request2 = Request::create('/api/line', 'GET');
         // $request->headers->set('X-Authorization', 'wAH2k5uRc2Sgsz8gm3rdq0eEUHchz2syWHfLuLoCEWXpyCtkers4a1OeIGL1CST0');
 
+
         $response = Route::dispatch($request);
+        $response2 = Route::dispatch($request2);
 
         $responseBody = $response->getContent();
-        return view('acc_management.member', compact('responseBody'));
+        $responseBody2 = $response2->getContent();
+        return view('acc_management.member', compact('responseBody', 'responseBody2'));
     }
     public function postUser()
     {

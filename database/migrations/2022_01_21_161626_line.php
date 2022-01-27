@@ -14,8 +14,10 @@ class Line extends Migration
     public function up()
     {
         Schema::create('line', function (Blueprint $table) {
-            $table->id('line_id');
-            $table->string('line_name');
+            $table->id('l_id');
+            $table->string('l_name');
+            $table->integer('l_pos');
+            $table->integer('is_delete')->default(0)->nullable();
             $table->timestamps();
         });
     }

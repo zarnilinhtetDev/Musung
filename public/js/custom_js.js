@@ -208,6 +208,20 @@ function toggleMe() {
             ? "block"
             : "none";
 }
+var LineModal = document.getElementById("LineModal");
+LineModal.addEventListener("show.bs.modal", function (event) {
+    // Button that triggered the modal
+    var button = event.relatedTarget;
+    // Extract info from data-bs-* attributes
+    var l_id = button.getAttribute("data-bs-l-id");
+    var l_name = button.getAttribute("data-bs-l-name");
+
+    var l_id_input = document.getElementById("l_id");
+    var l_setting_name = document.getElementById("l_setting_name");
+
+    l_id_input.value = l_id;
+    l_setting_name.innerHTML = l_name;
+});
 $(document).ready(function () {
     $("#exampleModal2").on("show.bs.modal", function () {
         //// TextArea Count /////

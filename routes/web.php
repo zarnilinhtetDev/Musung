@@ -34,9 +34,15 @@ Route::get('/member_undo/{id}', 'UserController@undoUser')->middleware('auth');
 Route::get('/line_entry', 'DataController@index');
 Route::get('/line_entry_post', 'DataController@postData')->name('line_entry_post');
 
-Route::view('/line_detail', 'line_management.detail')->middleware('auth');
+Route::get('/line_detail', 'LineController@index')->middleware('auth');
+Route::post('/line_detail_post', 'LineController@postLine')->middleware('auth');
+Route::post('/line_detail_put', 'LineController@putLine')->middleware('auth');
+Route::get('/line_detail_delete', 'LineController@softDelete')->middleware('auth');
+Route::get('/line_detail_undo', 'LineController@undoLine')->middleware('auth');
+
 Route::view('/line_manager_detail', 'line_management.manager_detail')->middleware('auth');
-Route::view('/line_setting', 'line_management.setting')->middleware('auth');
+
+Route::get('/line_setting', 'LineController@setting')->middleware('auth');
 
 Route::view('/live_dash', 'target_line.live_dash')->middleware('auth');
 Route::view('/line_history', 'target_line.line_history')->middleware('auth');
@@ -61,3 +67,9 @@ Route::post('/api/user', 'UserApiController@postUser');
 Route::put('/api/user', 'UserApiController@putUser');
 Route::put('/api/user_delete', 'UserApiController@deleteUser');
 Route::put('/api/user_undo', 'UserApiController@undoUser');
+
+//// Line Detail ////
+Route::get('/api/line', 'LineApiController@getLine');
+Route::post('/api/line', 'LineApiController@postLine');
+Route::put('/api/line', 'LineApiController@putLine');
+Route::put('/api/line_delete', 'LineApiController@softDelete');

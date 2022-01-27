@@ -2,6 +2,8 @@
 
 @section('content')
 @section('content_2')
+
+@php $json2=json_decode($responseBody2,true); @endphp
 <div class="container-fluid">
     <div class="container-fluid">
         @if (@$_GET['edit'] != "" && @$_GET['edit'] == "1")
@@ -56,10 +58,14 @@
                     <div class="col-12 col-md-4">
                         <label>Line Name</label>​
                         <select class="form-control" name="line">
-                            <option value="{{ $_GET['line'] }}">{{ $_GET['line'] }} </option>
-                            <option value="0">Line 1</option>
-                            <option value="1">Line 2</option>
-                            <option value="2">Line 3</option>
+                            <option value="{{ $_GET['line'] }}">
+                                @for($i = 0; $i < count($json2); $i++) @php
+                                    $l_id=$json2[$i]['l_id'];$l_name=$json2[$i]['l_name']; @endphp
+                                    @if($l_id==$_GET['line']) {{ $l_name }} @endif @endfor</option>
+                                    @for($i = 0; $i < count($json2); $i++) @php $l_id=$json2[$i]['l_id'];
+                                        $l_name=$json2[$i]['l_name']; @endphp <option value="{{ $l_id }}">{{
+                                        $l_name }}
+                            </option> @endfor
                         </select>
                     </div>
                 </div>
@@ -86,7 +92,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-body">
-                        <form action="{{ url('member_post') }}" action="POST">
+                        <form action="{{ url('member_post') }}" method="GET">
                             <div class="my-4">
                                 <h1 class="fw-bold heading-text">Member Registration</h1>
                                 <div class="row g-3 my-2">
@@ -124,9 +130,10 @@
                                         <label>Line Name</label>​
                                         <select class="form-control" name="line">
                                             <option> </option>
-                                            <option value="0">Line 1</option>
-                                            <option value="1">Line 2</option>
-                                            <option value="2">Line 3</option>
+                                            @for($i = 0; $i < count($json2); $i++) @php $l_id=$json2[$i]['l_id'];
+                                                $l_name=$json2[$i]['l_name']; @endphp <option value="{{ $l_id }}">{{
+                                                $l_name }} @endfor
+                                                </option>
                                         </select>
                                     </div>
                                 </div>
@@ -230,7 +237,10 @@
                                         <span>Line Manager</span>
                                         @endif
                                     </td>
-                                    <td>{{ $line }}</td>
+                                    <td>
+                                        @for($j=0;$j<count($json2);$j++) @php $l_id=$json2[$j]['l_id'];
+                                            $l_name=$json2[$j]['l_name']; @endphp @if($line==$l_id) {{ $l_name }} @endif
+                                            @endfor</td>
                                     <td>{{ $u_name }}</td>
                                     <td>{{ $email }}</td>
                                     <td>{{ $remark }}</td>
