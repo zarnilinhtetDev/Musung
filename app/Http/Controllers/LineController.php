@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Models\Line;
 
+
 class LineController extends Controller
 {
     public function __construct()
@@ -32,23 +33,6 @@ class LineController extends Controller
 
         return view('line_management.detail', compact('responseBody'));
     }
-
-    /////View for Line Setting
-    public function setting()
-    {
-        $request = Request::create('/api/line', 'GET');
-        $request2 = Request::create('/api/user', 'GET');
-        // $request->headers->set('X-Authorization', 'wAH2k5uRc2Sgsz8gm3rdq0eEUHchz2syWHfLuLoCEWXpyCtkers4a1OeIGL1CST0');
-
-        $response = Route::dispatch($request);
-        $response2 = Route::dispatch($request2);
-
-        $responseBody = $response->getContent();
-        $responseBody2 = $response2->getContent();
-
-        return view('line_management.setting', compact('responseBody', 'responseBody2'));
-    }
-
 
     public function postLine()
     {

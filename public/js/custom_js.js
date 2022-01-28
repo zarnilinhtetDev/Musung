@@ -253,12 +253,15 @@ LineModal.addEventListener("show.bs.modal", function (event) {
     // Extract info from data-bs-* attributes
     var l_id = button.getAttribute("data-bs-l-id");
     var l_name = button.getAttribute("data-bs-l-name");
+    var l_status = button.getAttribute("data-bs-l-status");
 
     var l_id_input = document.getElementById("l_id");
     var l_setting_name = document.getElementById("l_setting_name");
+    var l_status_input = document.getElementById("l_status");
 
     l_id_input.value = l_id;
     l_setting_name.innerHTML = l_name;
+    l_status_input.innerHTML = l_status;
 });
 
 ///// Time Diff in Line Setting /////
@@ -284,7 +287,7 @@ $(document).ready(function () {
                     hour_carry += 1;
                 }
                 hour = e[0] - s[0] - hour_carry;
-                diff = hour + ":" + min + " Hours";
+                diff = hour + ":" + min;
 
                 $("#work_hour").val(diff);
             });

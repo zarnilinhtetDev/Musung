@@ -18,6 +18,7 @@ class Line extends Migration
             $table->string('l_name');
             $table->integer('l_pos');
             $table->integer('is_delete')->default(0)->nullable();
+            $table->integer('a_status')->nullable();
             $table->timestamps();
         });
     }
