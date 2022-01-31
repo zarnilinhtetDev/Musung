@@ -38,8 +38,7 @@ class LineController extends Controller
     {
         $name = request()->post('l_name');
         $pos = request()->post('l_pos');
-        $created_at = NOW();
-        $line_model = Line::create(['l_name' => $name, 'l_pos' => $pos, 'created_at' => $created_at]);
+        $line_model = Line::create(['l_name' => $name, 'l_pos' => $pos, 'created_at' => NOW()]);
         if ($line_model == true) {
             return redirect('/line_detail?status=create_ok');
         }

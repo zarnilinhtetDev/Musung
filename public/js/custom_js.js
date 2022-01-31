@@ -195,6 +195,13 @@ var chart_2 = new ApexCharts(
 );
 chart_2.render();
 
+$("#myInput").on("keyup", function () {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function () {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+    });
+});
+
 function toggle_div_fun(id) {
     var divelement = document.getElementById(id);
     if (divelement.style.display == "none") divelement.style.display = "block";
@@ -255,15 +262,12 @@ LineModal.addEventListener("show.bs.modal", function (event) {
     var l_name = button.getAttribute("data-bs-l-name");
     var l_status = button.getAttribute("data-bs-l-status");
 
-    var l_id_input = document.getElementById("l_id");
-    var l_setting_name = document.getElementById("l_setting_name");
-    var l_status_input = document.getElementById("l_status");
+    var l_id_input = document.getElementById("l_id_2");
+    var l_setting_name_2 = document.getElementById("l_setting_name_2");
 
     l_id_input.value = l_id;
-    l_setting_name.innerHTML = l_name;
-    l_status_input.innerHTML = l_status;
+    l_setting_name_2.innerHTML = l_name;
 });
-
 ///// Time Diff in Line Setting /////
 $(document).ready(function () {
     $("#LineModal").on("show.bs.modal", function () {
@@ -342,12 +346,6 @@ $(document).ready(function () {
 $(document).ready(function () {
     $(".sidebar-link").on("click", function () {
         $(".collapse").collapse("hide");
-    });
-    $("#myInput").on("keyup", function () {
-        var value = $(this).val().toLowerCase();
-        $("#myTable tr").filter(function () {
-            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
-        });
     });
 
     let min = 60;
@@ -475,6 +473,29 @@ $(document).ready(function () {
             input.val("").change();
         });
     });
+});
+$(".extra-fields-customer").click(function () {
+    $(".customer_records").clone().appendTo(".customer_records_dynamic");
+    $(".customer_records_dynamic .customer_records").addClass("single remove");
+    $(".single .extra-fields-customer").remove();
+    $(".single").append(
+        '<a href="#" class="remove-field btn-remove-customer">Remove Fields</a>'
+    );
+    $(".customer_records_dynamic > .single").attr("class", "remove");
+
+    $(".customer_records_dynamic > .remove").css("margin", "1rem 0");
+
+    $(".customer_records_dynamic input").each(function () {
+        var count = 0;
+        var fieldname = $(this).attr("name");
+        $(this).attr("name", fieldname + count);
+        count++;
+    });
+});
+
+$(document).on("click", ".remove-field", function (e) {
+    $(this).parent(".remove").remove();
+    e.preventDefault();
 });
 
 $(document).ready(function () {

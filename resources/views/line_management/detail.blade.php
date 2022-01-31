@@ -6,7 +6,18 @@
     <div class="container-fluid">
         <h1 class="fw-bold heading-text">Line Detail</h1>
         @if (@$_GET['edit'] != "" && @$_GET['edit'] == "1")
+        <div class="d-flex flex-row-reverse">
+            @if (@$_GET['is_delete']==0)
+            <a class='btn btn-danger text-white' href='{{ url("/line_detail_delete") }}?id={{ $_GET["id"] }}'
+                onclick="return confirm('Confirm deleting line?')">Deactivate Line</a>
+            @elseif(@$_GET['is_delete']==1)
+            <a class='btn btn-success text-white' href='{{ url("/line_detail_undo") }}?id={{ $_GET["id"] }}'
+                onclick="return confirm('Confirm restoring line?')">Activate Line</a>
+            @endif
+
+        </div>
         <form action="{{ url('line_detail_put') }}" method="POST">
+
             <input type="hidden" name="l_id" value="{{ @$_GET['id'] }}">
             <div class="my-4">
                 <div class="row g-3 my-2">
@@ -81,7 +92,6 @@
                         <th scope="col">Create Date</th>
                         <th scope="col">Update Date</th>
                         <th scope="col">Edit</th>
-                        <th scope="col" style="border-top-right-radius: 0.8rem;">Delete</th>
                     </tr>
                 </thead>
                 <tbody id="myTable">
@@ -102,25 +112,13 @@
                             <td>{{ $updated_at }}</td>
                             <td>
                                 <a class='btn btn-primary text-white'
-                                    href="{{ url('/line_detail')}}?edit=1&id={{ $l_id }}&name={{ $l_name }}&pos={{ $l_pos }}"><i
+                                    href="{{ url('/line_detail')}}?edit=1&id={{ $l_id }}&name={{ $l_name }}&pos={{ $l_pos }}&is_delete={{ $is_delete }}"><i
                                         class='fas fa-pencil-alt'></i></a>
-                            </td>
-                            <td>
-                                @if ($is_delete==0)
-                                <a class='btn btn-danger text-white'
-                                    href='{{ url("/line_detail_delete") }}?id={{ $l_id }}'
-                                    onclick="return confirm('Confirm deleting line?')"><i class="fas fa-trash"></i></a>
-                                @elseif($is_delete==1)
-                                <a class='btn btn-success text-white'
-                                    href='{{ url("/line_detail_undo") }}?id={{ $l_id }}'
-                                    onclick="return confirm('Confirm restoring line?')"><i class="fas fa-undo"></i></a>
-                                @endif
                             </td>
                             </tr>
 
                             @endfor
                             @endif
-
                 </tbody>
             </table>
         </div>

@@ -8,10 +8,18 @@
     <div class="container-fluid">
         @if (@$_GET['edit'] != "" && @$_GET['edit'] == "1")
         <form action="{{ url('member_put') }}" action="POST">
-            <input type="hidden" name="password" value="{{ $_GET['p_word'] }}" />
             <input type="hidden" name="id" value="{{ $_GET['id'] }}" />
             <div class="my-4">
                 <h1 class="fw-bold heading-text">Member Edit</h1>
+                <div class="d-flex flex-row-reverse">
+                    @if ($_GET['is_delete']==0)
+                    <a class='btn btn-danger text-white' href='{{ url("/member_delete") }}/{{ $_GET["id"] }}'
+                        onclick="return confirm('Confirm deleting member?')">Deactivate User</a>
+                    @elseif($_GET['is_delete']==1)
+                    <a class='btn btn-success text-white' href='{{ url("/member_undo") }}/{{ $_GET["id"] }}'
+                        onclick="return confirm('Confirm restoring member?')">Activate User</a>
+                    @endif
+                </div>
                 <div class="row g-3 my-2">
                     <div class="col-12 col-md-4">
                         <label>Name</label>​
@@ -208,7 +216,6 @@
                                     <th scope="col">Create Date</th>
                                     <th scope="col">Update Date</th>
                                     <th scope="col">Edit</th>
-                                    <th scope="col">Delete</th>
                                 </tr>
                             </thead>
                             <tbody id="myTable">
@@ -249,21 +256,8 @@
                                     <td>
                                         <a class='btn btn-primary text-white'
                                             href="{{ url('/member')}}?edit=1&id={{ $u_id
-                                        }}&name={{ $name }}&u_name={{ $u_name }}&p_word={{ $p_word }}&email={{ $email }}&remark={{ $remark }}&role={{ $role }}&line={{ $line }}&status={{ $status }}"><i
+                                        }}&name={{ $name }}&u_name={{ $u_name }}&email={{ $email }}&remark={{ $remark }}&role={{ $role }}&line={{ $line }}&status={{ $status }}&is_delete={{ $is_delete }}"><i
                                                 class='fas fa-pencil-alt'></i></a>
-                                    </td>
-                                    <td>
-                                        @if ($is_delete==0)
-                                        <a class='btn btn-danger text-white'
-                                            href='{{ url("/member_delete") }}/{{ $u_id }}'
-                                            onclick="return confirm('Confirm deleting member?')"><i
-                                                class="fas fa-trash"></i></a>
-                                        @elseif($is_delete==1)
-                                        <a class='btn btn-success text-white'
-                                            href='{{ url("/member_undo") }}/{{ $u_id }}'
-                                            onclick="return confirm('Confirm restoring member?')"><i
-                                                class="fas fa-undo"></i></a>
-                                        @endif
                                     </td>
                                     </tr>
                                     @endfor
@@ -286,7 +280,6 @@
                                     <th scope="col">Create Date</th>
                                     <th scope="col">Update Date</th>
                                     <th scope="col">Edit</th>
-                                    <th scope="col">Delete</th>
                                 </tr>
                             </thead>
                             <tbody id="myTable">
@@ -325,19 +318,6 @@
                                         }}&name={{ $name }}&u_name={{ $u_name }}&p_word={{ $p_word }}&email={{ $email }}&remark={{ $remark }}&role={{ $role }}&line={{ $line }}&status={{ $status }}"><i
                                                 class='fas fa-pencil-alt'></i></a>
                                     </td>
-                                    <td>
-                                        @if ($is_delete==0)
-                                        <a class='btn btn-danger text-white'
-                                            href='{{ url("/member_delete") }}/{{ $u_id }}'
-                                            onclick="return confirm('Confirm deleting member?')"><i
-                                                class="fas fa-trash"></i></a>
-                                        @elseif($is_delete==1)
-                                        <a class='btn btn-success text-white'
-                                            href='{{ url("/member_undo") }}/{{ $u_id }}'
-                                            onclick="return confirm('Confirm restoring member?')"><i
-                                                class="fas fa-undo"></i></a>
-                                        @endif
-                                    </td>
                                     </tr>
                                     @endif
                                     @endfor
@@ -360,7 +340,6 @@
                                     <th scope="col">Create Date</th>
                                     <th scope="col">Update Date</th>
                                     <th scope="col">Edit</th>
-                                    <th scope="col">Delete</th>
                                 </tr>
                             </thead>
                             <tbody id="myTable">
@@ -399,19 +378,6 @@
                                         }}&name={{ $name }}&u_name={{ $u_name }}&p_word={{ $p_word }}&email={{ $email }}&remark={{ $remark }}&role={{ $role }}&line={{ $line }}&status={{ $status }}"><i
                                                 class='fas fa-pencil-alt'></i></a>
                                     </td>
-                                    <td>
-                                        @if ($is_delete==0)
-                                        <a class='btn btn-danger text-white'
-                                            href='{{ url("/member_delete") }}/{{ $u_id }}'
-                                            onclick="return confirm('Confirm deleting member?')"><i
-                                                class="fas fa-trash"></i></a>
-                                        @elseif($is_delete==1)
-                                        <a class='btn btn-success text-white'
-                                            href='{{ url("/member_undo") }}/{{ $u_id }}'
-                                            onclick="return confirm('Confirm restoring member?')"><i
-                                                class="fas fa-undo"></i></a>
-                                        @endif
-                                    </td>
                                     </tr>
                                     @endif
                                     @endfor
@@ -435,7 +401,6 @@
                                     <th scope="col">Create Date</th>
                                     <th scope="col">Update Date</th>
                                     <th scope="col">Edit</th>
-                                    <th scope="col">Delete</th>
                                 </tr>
                             </thead>
                             <tbody id="myTable">
@@ -474,19 +439,6 @@
                                             href="{{ url('/member')}}?edit=1&id={{ $u_id
                                         }}&name={{ $name }}&u_name={{ $u_name }}&p_word={{ $p_word }}&email={{ $email }}&remark={{ $remark }}&role={{ $role }}&line={{ $line }}&status={{ $status }}"><i
                                                 class='fas fa-pencil-alt'></i></a>
-                                    </td>
-                                    <td>
-                                        @if ($is_delete==0)
-                                        <a class='btn btn-danger text-white'
-                                            href='{{ url("/member_delete") }}/{{ $u_id }}'
-                                            onclick="return confirm('Confirm deleting member?')"><i
-                                                class="fas fa-trash"></i></a>
-                                        @elseif($is_delete==1)
-                                        <a class='btn btn-success text-white'
-                                            href='{{ url("/member_undo") }}/{{ $u_id }}'
-                                            onclick="return confirm('Confirm restoring member?')"><i
-                                                class="fas fa-undo"></i></a>
-                                        @endif
                                     </td>
                                     </tr>
                                     @endif
