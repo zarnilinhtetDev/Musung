@@ -315,7 +315,7 @@
                                     <td>
                                         <a class='btn btn-primary text-white'
                                             href="{{ url('/member')}}?edit=1&id={{ $u_id
-                                        }}&name={{ $name }}&u_name={{ $u_name }}&p_word={{ $p_word }}&email={{ $email }}&remark={{ $remark }}&role={{ $role }}&line={{ $line }}&status={{ $status }}"><i
+                                        }}&name={{ $name }}&u_name={{ $u_name }}&p_word={{ $p_word }}&email={{ $email }}&remark={{ $remark }}&role={{ $role }}&line={{ $line }}&status={{ $status }}&is_delete={{ $is_delete }}"><i
                                                 class='fas fa-pencil-alt'></i></a>
                                     </td>
                                     </tr>
@@ -375,7 +375,7 @@
                                     <td>
                                         <a class='btn btn-primary text-white'
                                             href="{{ url('/member')}}?edit=1&id={{ $u_id
-                                        }}&name={{ $name }}&u_name={{ $u_name }}&p_word={{ $p_word }}&email={{ $email }}&remark={{ $remark }}&role={{ $role }}&line={{ $line }}&status={{ $status }}"><i
+                                        }}&name={{ $name }}&u_name={{ $u_name }}&p_word={{ $p_word }}&email={{ $email }}&remark={{ $remark }}&role={{ $role }}&line={{ $line }}&status={{ $status }}&is_delete={{ $is_delete }}"><i
                                                 class='fas fa-pencil-alt'></i></a>
                                     </td>
                                     </tr>
@@ -437,7 +437,7 @@
                                     <td>
                                         <a class='btn btn-primary text-white'
                                             href="{{ url('/member')}}?edit=1&id={{ $u_id
-                                        }}&name={{ $name }}&u_name={{ $u_name }}&p_word={{ $p_word }}&email={{ $email }}&remark={{ $remark }}&role={{ $role }}&line={{ $line }}&status={{ $status }}"><i
+                                        }}&name={{ $name }}&u_name={{ $u_name }}&p_word={{ $p_word }}&email={{ $email }}&remark={{ $remark }}&role={{ $role }}&line={{ $line }}&status={{ $status }}&is_delete={{ $is_delete }}"><i
                                                 class='fas fa-pencil-alt'></i></a>
                                     </td>
                                     </tr>
