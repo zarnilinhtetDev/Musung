@@ -268,6 +268,21 @@ LineModal.addEventListener("show.bs.modal", function (event) {
     l_id_input.value = l_id;
     l_setting_name_2.innerHTML = l_name;
 });
+var i = 1;
+$("#add_product_detail").click(function () {
+    i++;
+    $("#dynamic_field").append(
+        '<tr id="row' +
+            i +
+            '"><td><label>Category</label> <select class="form-control" name="category[]" required><option></option><option value="0">Coat</option><option value="1">Shirt</option><option value="2">Trousers</option></select></td><td><label>Product Name</label><input type="text" class="form-control" name="p_name[]" placeholder="Musung Shirt" required /></td><td><label>Target</label><input type="text" class="form-control" name="category_target[]" placeholder="Target" required /></td><td><br/><button type="button" name="remove" id="' +
+            i +
+            '" class="btn btn-danger btn_remove">X</button></td></tr>'
+    );
+});
+$(document).on("click", ".btn_remove", function () {
+    var button_id = $(this).attr("id");
+    $("#row" + button_id + "").remove();
+});
 ///// Time Diff in Line Setting /////
 $(document).ready(function () {
     $("#LineModal").on("show.bs.modal", function () {
@@ -474,24 +489,6 @@ $(document).ready(function () {
         });
     });
 });
-$(".extra-fields-customer").click(function () {
-    $(".customer_records").clone().appendTo(".customer_records_dynamic");
-    $(".customer_records_dynamic .customer_records").addClass("single remove");
-    $(".single .extra-fields-customer").remove();
-    $(".single").append(
-        '<a href="#" class="remove-field btn-remove-customer">Remove Fields</a>'
-    );
-    $(".customer_records_dynamic > .single").attr("class", "remove");
-
-    $(".customer_records_dynamic > .remove").css("margin", "1rem 0");
-
-    $(".customer_records_dynamic input").each(function () {
-        var count = 0;
-        var fieldname = $(this).attr("name");
-        $(this).attr("name", fieldname + count);
-        count++;
-    });
-});
 
 $(document).on("click", ".remove-field", function (e) {
     $(this).parent(".remove").remove();
@@ -540,4 +537,6 @@ $(document).ready(function () {
     // }
 
     //TextArea Count End///
+
+    //// New Dynamic Line for p_detail in LineSetting /////
 });

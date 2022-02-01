@@ -36,6 +36,8 @@ return array(
     'App\\Http\\Middleware\\VerifyCsrfToken' => $baseDir . '/app/Http/Middleware/VerifyCsrfToken.php',
     'App\\Models\\Line' => $baseDir . '/app/Models/Line.php',
     'App\\Models\\LineAssign' => $baseDir . '/app/Models/LineAssign.php',
+    'App\\Models\\OverTime' => $baseDir . '/app/Models/OverTime.php',
+    'App\\Models\\ProductDetail' => $baseDir . '/app/Models/ProductDetail.php',
     'App\\Models\\User' => $baseDir . '/app/Models/User.php',
     'App\\Providers\\AppServiceProvider' => $baseDir . '/app/Providers/AppServiceProvider.php',
     'App\\Providers\\AuthServiceProvider' => $baseDir . '/app/Providers/AuthServiceProvider.php',
