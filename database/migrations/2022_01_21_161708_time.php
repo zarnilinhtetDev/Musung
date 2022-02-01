@@ -16,7 +16,10 @@ class Time extends Migration
         Schema::create('time', function (Blueprint $table) {
             $table->id('time_id');
             $table->string('time_name');
-            $table->integer('status');
+            $table->integer('status')->nullable();
+            $table->integer('line_id');
+            $table->integer('assign_id');
+            $table->integer('div_target');
         });
     }
 

@@ -11,6 +11,7 @@ use App\Models\LineAssign;
 use App\Models\Line;
 use App\Models\OverTime;
 use App\Models\ProductDetail;
+use App\Models\Time;
 use DateTime;
 use DateInterval;
 use DatePeriod;
@@ -69,66 +70,98 @@ class LineAssignController extends Controller
         $to_time = strtotime($e_time);
         $lunch_from_time = strtotime($lunch_start);
         $lunch_to_time = strtotime($lunch_end);
-        $hour_diff = round((($to_time - $from_time) - ($lunch_to_time - $lunch_from_time)) / 3600, 1);
-        echo $hour_diff . "<br/>";
-
+        // $hour_diff = round((($to_time - $from_time) - ($lunch_to_time - $lunch_from_time)) / 3600, 1);
+        // echo $hour_diff;
         $minute = date("H:i", $progress * 60);
-        $s_time_minute = date("H:i", $from_time);
-        echo $s_time_minute . "<br/>";
-        echo $minute . "<br/>";
 
         $begin_from_time = date('H:i', $from_time);
         $end_lunch_from_time = date('H:i', $lunch_from_time);
+        $end_to_time = date('H:i', $to_time);
 
         $begin = new DateTime($begin_from_time);
-        $end = new DateTime($end_lunch_from_time);
+        $lunch_begin = new DateTime($end_lunch_from_time);
+        $end_time = new DateTime($end_to_time);
         $interval = DateInterval::createFromDateString($progress . ' min');
 
-        $times    = new DatePeriod($begin, $interval, $end);
+        $times = new DatePeriod($begin, $interval, $lunch_begin);  //// Add progress min to start_time until lunch_start_time
 
         foreach ($times as $time) {
-            echo $time->add($interval)->format('H:i'), "\n";
-            if ($time > $end) {
-                break;
+            $timeArr[] = $time->add($interval)->format('H:i');
+        }
+        print_r($timeArr) . '<br>';
+        $endOfArray = end($timeArr);
+        $endOfArray_to_date = date('H:i', strtotime($endOfArray));
+        if ($endOfArray_to_date > $end_lunch_from_time) { ///// Pop last item if greater than lunch_start_time
+            array_pop($timeArr);
+        }
+        $num_TimeArray = count($timeArr);
+        $target_division_1 = round(($target / $num_TimeArray), 0);
+
+        //// loop for Lunch End Time to End Time
+        $total_time = strtotime($endOfArray_to_date) + strtotime($minute) + ($lunch_to_time - $lunch_from_time);
+        $lunch_end_time =  date('H:i', $total_time);
+        $lunch_end_time_to_period = new DateTime($lunch_end_time);
+        echo $lunch_end_time;
+
+        $cal_end_time = new DatePeriod($lunch_end_time_to_period, $interval, $end_time);
+        foreach ($cal_end_time as $cal) {
+            $endTimeArr[] = $cal->add($interval)->format('H:i');
+        }
+        $endOfEndTimeArr = end($endTimeArr);
+        $endOfEndTimeArr_to_date = date('H:i', strtotime($endOfEndTimeArr));
+        if ($endOfEndTimeArr_to_date > $end_time) { ///// Pop last item if greater than lunch_start_time
+            array_pop($endTimeArr);
+        }
+        $num_EndTimeArray = count($endTimeArr);
+        $target_division_2 = round(($target / $num_EndTimeArray), 0);
+
+        $total_division = ($target_division_1 + $target_division_2) - $target;
+
+
+        // echo $endOfArray . "<br/>" . $minute;
+
+        $line = Line::where('l_id', $l_id)->update(['a_status' => 1]); ///// Update status to line_id in line table
+        if ($line == true) {
+            $line_assign = LineAssign::create(['user_id' => $line_manager, 'l_id' => $l_id, 'main_target' => $target, 's_time' => $s_time, 'e_time' => $e_time, 'lunch_s_time' => $lunch_start, 'lunch_e_time' => $lunch_end, 'cal_work_min' => $progress, 't_work_hr' => $work_hour, 'created_at' => NOW()]);
+
+            if ($line_assign == true) {
+                $assign_id = LineAssign::select('assign_id')->where('l_id', $l_id)->where('user_id', $line_manager)->first();  ///// Get assign_id from line_assign table
+                if ($assign_id == true) {
+                    $assign_id = $assign_id->assign_id;
+                    if ($num_TimeArray > 0) {
+                        for ($j = 0; $j < $num_TimeArray; $j++) { ///// Insert data [] to time table
+                            Time::create([
+                                'time_name' => $timeArr[$j], 'line_id' => $l_id,
+                                'assign_id' => $assign_id,
+                                'div_target' => $total_division,
+                            ]);
+                        }
+                    }
+                    if ($num_EndTimeArray > 0) {
+                        for ($k = 0; $k < $num_EndTimeArray; $k++) { ///// Insert data [] to time table
+                            Time::create([
+                                'time_name' => $endTimeArr[$k], 'line_id' => $l_id,
+                                'assign_id' => $assign_id,
+                                'div_target' => $total_division,
+                            ]);
+                        }
+                    }
+                    if ($number > 0) {
+                        for ($i = 0; $i < $number; $i++) {  ///// Insert data [] to p_detail table
+                            if (trim($category[$i] != '')) {
+                                $category_id = $category[$i];
+                                $category_target_name = $category_target[$i];
+                                $product_name = $p_name[$i];
+                                $category_assign = ProductDetail::create(['assign_id' => $assign_id, 'l_id' => $l_id, 'p_cat_id' => $category_id, 'p_name' => $product_name, 'quantity' => $category_target_name, 'created_at' => NOW()]);
+                            }
+                        }
+                        if ($category_assign == true) {
+                            return redirect('/line_setting?status=create_ok');
+                        }
+                    }
+                }
             }
         }
-
-        // for ($k = $from_time; $k < $lunch_from_time; $k++) {
-        //     $minute_addition = strtotime($s_time_minute) + strtotime($minute);
-        //     $s_time_minute_2 = date("H:i", $minute_addition);
-        //     echo $s_time_minute_2 . "<br/>";
-        // }
-        // if (strtotime($lunch_start) > strtotime($s_time_minute_2)) {
-        //     echo "true";
-        // } else {
-        //     echo "false";
-        // }
-
-
-        // $line = Line::where('l_id', $l_id)->update(['a_status' => 1]);
-        // if ($line == true) {
-        //     $line_assign = LineAssign::create(['user_id' => $line_manager, 'l_id' => $l_id, 'main_target' => $target, 's_time' => $s_time, 'e_time' => $e_time, 'lunch_s_time' => $lunch_start, 'lunch_e_time' => $lunch_end, 'cal_work_min' => $progress, 't_work_hr' => $work_hour, 'created_at' => NOW()]);
-
-        //     if ($line_assign == true) {
-        //         $assign_id = LineAssign::select('assign_id')->where('l_id', $l_id)->where('user_id', $line_manager)->first();
-        //         if ($assign_id == true) {
-        //             $assign_id = $assign_id->assign_id;
-        //             if ($number > 0) {
-        //                 for ($i = 0; $i < $number; $i++) {
-        //                     if (trim($category[$i] != '')) {
-        //                         $category_id = $category[$i];
-        //                         $category_target_name = $category_target[$i];
-        //                         $product_name = $p_name[$i];
-        //                         $category_assign = ProductDetail::create(['assign_id' => $assign_id, 'l_id' => $l_id, 'p_cat_id' => $category_id, 'p_name' => $product_name, 'quantity' => $category_target_name, 'created_at' => NOW()]);
-        //                     }
-        //                 }
-        //                 if ($category_assign == true) {
-        //                     return redirect('/line_setting?status=create_ok');
-        //                 }
-        //             }
-        //         }
-        //     }
-        // }
     }
 
     public function postLineOverTimeSetting()
