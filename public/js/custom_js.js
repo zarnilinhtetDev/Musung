@@ -253,6 +253,8 @@ $(document).ready(function () {
         });
     });
 });
+
+///insert data into LineModal of Line Setting
 var LineModal = document.getElementById("LineModal");
 LineModal.addEventListener("show.bs.modal", function (event) {
     // Button that triggered the modal
@@ -268,6 +270,7 @@ LineModal.addEventListener("show.bs.modal", function (event) {
     l_id_input.value = l_id;
     l_setting_name_2.innerHTML = l_name;
 });
+
 var i = 1;
 $("#add_product_detail").click(function () {
     i++;
@@ -285,6 +288,23 @@ $(document).on("click", ".btn_remove", function () {
 });
 ///// Time Diff in Line Setting /////
 $(document).ready(function () {
+    // var LineEntryModal = document.getElementById(
+    //     "LineEntryModal<?php echo $time_id; ?>"
+    // );
+    // LineEntryModal.addEventListener("show.bs.modal", function (event) {
+    //     var inputs = $("#p_detail_actual_target");
+    //     inputs.keyup(function () {
+    //         var sum = 0;
+    //         inputs.each(function () {
+    //             sum += Number($(this).val());
+    //         });
+    //         $("#actual_target").text(sum);
+    //         $("#actual_percentage").text(
+    //             (sum / "<?php echo $div_target; ?>") * 100
+    //         );
+    //     });
+    // });
+
     $("#LineModal").on("show.bs.modal", function () {
         $("#start_time").on("change", function () {
             var start_time = $("#start_time").val();

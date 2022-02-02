@@ -24,6 +24,7 @@ class LineAssign extends Migration
             $table->string('lunch_e_time');
             $table->integer('cal_work_min');
             $table->string('t_work_hr');
+            $table->string('assign_date');
             $table->timestamps();
         });
     }

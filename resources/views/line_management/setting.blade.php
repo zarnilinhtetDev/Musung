@@ -6,7 +6,6 @@
 $json2 = json_decode($responseBody2,true); ////User DB
 $num = 1;
 @endphp
-
 <div class="container">
     <div class="container-fluid">
         <h1 class="fw-bold heading-text">Line Setting</h1>
@@ -227,7 +226,7 @@ $num = 1;
                                         </option> @endif @endfor
                                 </select>
                             </div>
-                            <div class=" col-12 col-md-4 mt-0">
+                            <div class="col-12 col-md-4 mt-0">
                                 <label>Target</label>
                                 <input type="text" class="form-control" name="target" placeholder="100" required />
                             </div>
