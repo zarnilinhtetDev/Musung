@@ -107,7 +107,7 @@
                                         @endphp
                                         <tr>
                                             <td>{{ $time_name }}</td>
-                                            <td>{{ $category }}</td>
+                                            <td>{{ $p_cat_id }}</td>
                                             <td>{{ $time_name }}</td>
                                             <td>{{ $time_name }}</td>
                                             <td>{{ $time_name }}</td>
