@@ -31,7 +31,7 @@ Route::get('/member_put', 'UserController@putUser')->middleware('auth');
 Route::get('/member_delete/{id}', 'UserController@deleteUser')->middleware('auth');
 Route::get('/member_undo/{id}', 'UserController@undoUser')->middleware('auth');
 
-Route::get('/line_entry', 'DataController@index');
+Route::get('/line_entry', 'LineEntryController@index');
 Route::get('/line_entry_post', 'DataController@postData')->name('line_entry_post');
 
 Route::get('/line_detail', 'LineController@index')->middleware('auth');

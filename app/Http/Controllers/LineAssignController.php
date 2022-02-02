@@ -70,8 +70,7 @@ class LineAssignController extends Controller
         $to_time = strtotime($e_time);
         $lunch_from_time = strtotime($lunch_start);
         $lunch_to_time = strtotime($lunch_end);
-        // $hour_diff = round((($to_time - $from_time) - ($lunch_to_time - $lunch_from_time)) / 3600, 1);
-        // echo $hour_diff;
+
         $minute = date("H:i", $progress * 60);
 
         $begin_from_time = date('H:i', $from_time);
@@ -88,37 +87,65 @@ class LineAssignController extends Controller
         foreach ($times as $time) {
             $timeArr[] = $time->add($interval)->format('H:i');
         }
-        print_r($timeArr) . '<br>';
         $endOfArray = end($timeArr);
         $endOfArray_to_date = date('H:i', strtotime($endOfArray));
         if ($endOfArray_to_date > $end_lunch_from_time) { ///// Pop last item if greater than lunch_start_time
             array_pop($timeArr);
         }
         $num_TimeArray = count($timeArr);
-        $target_division_1 = round(($target / $num_TimeArray), 0);
 
         //// loop for Lunch End Time to End Time
         $total_time = strtotime($endOfArray_to_date) + strtotime($minute) + ($lunch_to_time - $lunch_from_time);
         $lunch_end_time =  date('H:i', $total_time);
         $lunch_end_time_to_period = new DateTime($lunch_end_time);
-        echo $lunch_end_time;
+        // echo $lunch_end_time;
 
         $cal_end_time = new DatePeriod($lunch_end_time_to_period, $interval, $end_time);
+
+        $endTimeArr[] = $lunch_end_time;
         foreach ($cal_end_time as $cal) {
             $endTimeArr[] = $cal->add($interval)->format('H:i');
         }
         $endOfEndTimeArr = end($endTimeArr);
         $endOfEndTimeArr_to_date = date('H:i', strtotime($endOfEndTimeArr));
-        if ($endOfEndTimeArr_to_date > $end_time) { ///// Pop last item if greater than lunch_start_time
-            array_pop($endTimeArr);
-        }
+
         $num_EndTimeArray = count($endTimeArr);
-        $target_division_2 = round(($target / $num_EndTimeArray), 0);
 
-        $total_division = ($target_division_1 + $target_division_2) - $target;
+        if ($endOfEndTimeArr > $end_time->format('H:i')) {
+            array_pop($endTimeArr);
+            $getMinuteEndTimeArr = (strtotime($endOfEndTimeArr) - $to_time) / 60;
+            $diffEndTime = strtotime($endOfEndTimeArr) - strtotime(date("H:i", $getMinuteEndTimeArr * 60));
+            $diffEndTime_to_date =  date("H:i", $diffEndTime);
+            $endTimeArr[] = $diffEndTime_to_date;
+        }
+        $totalTimeArr = array_merge($timeArr, $endTimeArr);
+        $countTotalTimeArr = count($totalTimeArr);
 
+        // print_r($totalTimeArr);
 
-        // echo $endOfArray . "<br/>" . $minute;
+        $total_division = round(($target / $countTotalTimeArr), 0);
+        $total_division_2 = $total_division;
+        $total_division_3 = $total_division;
+
+        $num_1 = 0;
+        while ($num_1 < $countTotalTimeArr) {
+            $div_target[] = $total_division;
+            $total_division += $total_division_2;
+            $num_1++;
+        }
+        $end_div_target = end($div_target);
+        if ($end_div_target > $target) {
+            array_pop($div_target);
+            $div_target[] = $target;
+        }
+        $num_2 = 0;
+        while ($num_2 < $countTotalTimeArr) {
+            $target_for_line_entry[] = $total_division_3;
+            $num_2++;
+        }
+
+        // $hour_diff = round((($to_time - $from_time) - ($lunch_to_time - $lunch_from_time)) / 3600, 1);
+        // echo $hour_diff;
 
         $line = Line::where('l_id', $l_id)->update(['a_status' => 1]); ///// Update status to line_id in line table
         if ($line == true) {
@@ -128,21 +155,13 @@ class LineAssignController extends Controller
                 $assign_id = LineAssign::select('assign_id')->where('l_id', $l_id)->where('user_id', $line_manager)->first();  ///// Get assign_id from line_assign table
                 if ($assign_id == true) {
                     $assign_id = $assign_id->assign_id;
-                    if ($num_TimeArray > 0) {
-                        for ($j = 0; $j < $num_TimeArray; $j++) { ///// Insert data [] to time table
+                    if ($countTotalTimeArr > 0) {
+                        for ($j = 0; $j < $countTotalTimeArr; $j++) { ///// Insert data [] to time table
                             Time::create([
-                                'time_name' => $timeArr[$j], 'line_id' => $l_id,
+                                'time_name' => $totalTimeArr[$j], 'line_id' => $l_id,
                                 'assign_id' => $assign_id,
-                                'div_target' => $total_division,
-                            ]);
-                        }
-                    }
-                    if ($num_EndTimeArray > 0) {
-                        for ($k = 0; $k < $num_EndTimeArray; $k++) { ///// Insert data [] to time table
-                            Time::create([
-                                'time_name' => $endTimeArr[$k], 'line_id' => $l_id,
-                                'assign_id' => $assign_id,
-                                'div_target' => $total_division,
+                                'div_target' => $div_target[$j],
+                                'actual_target_entry' => $target_for_line_entry[$j],
                             ]);
                         }
                     }
