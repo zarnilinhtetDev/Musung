@@ -20,6 +20,7 @@ class Time extends Migration
             $table->integer('line_id');
             $table->integer('assign_id');
             $table->integer('div_target');
+            $table->integer('actual_target_entry');
         });
     }
 
