@@ -1,14 +1,38 @@
 @extends('layouts.app')
-
 @section('content')
-
 @section('content_2')
 
 <div class="container-fluid">
+    @php
+    $json_encode = json_encode($responseBody);
+    $json_decode = json_decode($json_encode);
+    @endphp
+    @foreach($json_decode as $d)
+    @php
+    $line_id = $d->l_id;
+    $line_name = $d->l_name;
+    $a_id=$d->assign_id;
+    $main_target=$d->main_target;
+    $s_time = $d->s_time;
+    $e_time=$d->e_time;
+    $lunch_s_time=$d->lunch_s_time;
+    $lunch_e_time=$d->lunch_e_time;
+    $time_id=$d->time_id;
+    $time_name=$d->time_name;
+    $line_status=$d->status;
+    $div_target=$d->div_target;
+    $actual_target=$d->actual_target_entry;
+    $assign_date = $d->assign_date;
+
+    $date_string = date("d.m.Y");
+
+    @endphp
+    @endforeach
+
     <div class="container-fluid">
         <ul class="horizontal-slide" style="" id="tabs">
             <li class="span2 bg-transparent">
-                <input class="icon-btn-one btn my-2" type="submit" value="Date - 1.1.2022" />
+                <input class="icon-btn-one btn my-2" type="submit" value="Date - {{ $date_string }}" />
             </li>
             <li class="span2 bg-transparent">
                 <input class="icon-btn-one icon-btn-one-2 btn my-2" type="submit" value="Export to Excel"
@@ -24,1302 +48,48 @@
                         <tr class="tr-2 tr-3">
                             <th scope="col">Line</th>
                             <th scope="col">Target</th>
-                            <th scope="col">8:30</th>
-                            <th scope="col">9:30</th>
-                            <th scope="col">10:30</th>
-                            <th scope="col">11:30</th>
-                            <th scope="col">12:30</th>
-                            <th scope="col">1:00</th>
-                            <th scope="col">2:00</th>
-                            <th scope="col">3:00</th>
-                            <th scope="col">4:00</th>
-                            <th scope="col">5:00</th>
-                            <th scope="col">6:00</th>
+                            @foreach($time as $t)
+                            <th scope="col">{{ $t->time_name }}</th>
+                            @endforeach
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach ($getLine as $g_line)
+                        @php
+                        $g_line_id=$g_line->l_id;
+                        $g_line_name = $g_line->l_name;
+                        @endphp
                         <tr>
-                            <td>
-                                1
-                            </td>
-                            <td class="p-0">
-                                <table class="w-100 text-center">
-                                    <tr>
-                                        <td>1</td>
-                                    </tr>
-                                    <tr class="bg-success text-white">
-                                        <td>1</td>
-                                    </tr>
-                                    <tr class="bg-success text-white">
-                                        <td>100%</td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td class="p-0">
-                                <table class="w-100 text-center">
-                                    <tr>
-                                        <td>2</td>
-                                        <td>3</td>
-                                    </tr>
-                                    <tr class="text-white">
-                                        <td class="bg-danger">1</td>
-                                        <td class="bg-danger">2</td>
-                                    </tr>
-                                    <tr class="text-white">
-                                        <td colspan="2" class="bg-danger">66.7%</td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td class="p-0">
-                                <table class="w-100 text-center">
-                                    <tr>
-                                        <td>1</td>
-                                        <td>4</td>
-                                    </tr>
-                                    <tr class="text-white">
-                                        <td class="bg-success">2</td>
-                                        <td class="bg-success">4</td>
-                                    </tr>
-                                    <tr class="bg-success text-white">
-                                        <td colspan="2">100%</td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td class="p-0">
-                                <table class="w-100 text-center">
-                                    <tr>
-                                        <td>1</td>
-                                        <td>5</td>
-                                    </tr>
-                                    <tr class="text-white">
-                                        <td class="bg-danger">2</td>
-                                        <td class="bg-danger">4</td>
-                                    </tr>
-                                    <tr class="bg-danger text-white">
-                                        <td colspan="2">100%</td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td class="p-0">
-                                <table class="w-100 text-center">
-                                    <tr>
-                                        <td>1</td>
-                                        <td>6</td>
-                                    </tr>
-                                    <tr class="text-white">
-                                        <td class="bg-success">2</td>
-                                        <td class="bg-success">4</td>
-                                    </tr>
-                                    <tr class="bg-success text-white">
-                                        <td colspan="2">100%</td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td class="p-0">
-                                <table class="w-100 text-center">
-                                    <tr>
-                                        <td>1</td>
-                                        <td>7</td>
-                                    </tr>
-                                    <tr class="text-white">
-                                        <td class="bg-success">2</td>
-                                        <td class="bg-success">4</td>
-                                    </tr>
-                                    <tr class="bg-success text-white">
-                                        <td colspan="2">100%</td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td class="p-0">
-                                <table class="w-100 text-center">
-                                    <tr>
-                                        <td>1</td>
-                                        <td>8</td>
-                                    </tr>
-                                    <tr class="text-white">
-                                        <td class="bg-danger">2</td>
-                                        <td class="bg-danger">4</td>
-                                    </tr>
-                                    <tr class="bg-danger text-white">
-                                        <td colspan="2">100%</td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td class="p-0">
-                                <table class="w-100 text-center">
-                                    <tr>
-                                        <td>1</td>
-                                        <td>9</td>
-                                    </tr>
-                                    <tr class="text-white">
-                                        <td class="bg-success">2</td>
-                                        <td class="bg-success">4</td>
-                                    </tr>
-                                    <tr class="bg-success text-white">
-                                        <td colspan="2">100%</td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td class="p-0">
-                                <table class="w-100 text-center">
-                                    <tr>
-                                        <td>1</td>
-                                        <td>10</td>
-                                    </tr>
-                                    <tr class="text-white">
-                                        <td class="bg-danger">2</td>
-                                        <td class="bg-danger">4</td>
-                                    </tr>
-                                    <tr class="bg-danger text-white">
-                                        <td colspan="2">100%</td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td class="p-0">
-                                <table class="w-100 text-center">
-                                    <tr>
-                                        <td>1</td>
-                                        <td>11</td>
-                                    </tr>
-                                    <tr class="text-white">
-                                        <td class="bg-success">2</td>
-                                        <td class="bg-success">4</td>
-                                    </tr>
-                                    <tr class="bg-success text-white">
-                                        <td colspan="2">100%</td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td class="p-0">
-                                <table class="w-100 text-center">
-                                    <tr>
-                                        <td>1</td>
-                                        <td>12</td>
-                                    </tr>
-                                    <tr class="text-white">
-                                        <td class="bg-success">2</td>
-                                        <td class="bg-success">4</td>
-                                    </tr>
-                                    <tr class="bg-success text-white">
-                                        <td colspan="2">100%</td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td class="p-0">
-                                <table class="w-100 text-center">
-                                    <tr>
-                                        <td>1</td>
-                                        <td>13</td>
-                                    </tr>
-                                    <tr class="text-white">
-                                        <td class="bg-success">2</td>
-                                        <td class="bg-success">4</td>
-                                    </tr>
-                                    <tr class="bg-success text-white">
-                                        <td colspan="2">100%</td>
-                                    </tr>
-                                </table>
-                            </td>
+                            <td>{{ $g_line_name }}</td>
+                            @foreach($json_decode as $d)
+                            @php
+                            $line_id = $d->l_id;
+                            $line_name = $d->l_name;
+                            $a_id=$d->assign_id;
+                            $main_target=$d->main_target;
+                            $s_time = $d->s_time;
+                            $e_time=$d->e_time;
+                            $lunch_s_time=$d->lunch_s_time;
+                            $lunch_e_time=$d->lunch_e_time;
+                            $time_id=$d->time_id;
+                            $time_name=$d->time_name;
+                            $line_status=$d->status;
+                            $div_target=$d->div_target;
+                            $actual_target=$d->actual_target_entry;
+                            $assign_date = $d->assign_date;
+
+                            $date_string = date("d.m.Y");
+
+                            @endphp
+
+                            @if($g_line_id==$line_id)
+                            <td>{{ $main_target }}</td>
+                            @endif
+                            @endforeach
                         </tr>
-                        <tr>
-                            <td>
-                                3
-                            </td>
-                            <td class="p-0">
-                                <table class="w-100 text-center">
-                                    <tr>
-                                        <td>1</td>
-                                    </tr>
-                                    <tr class="bg-success text-white">
-                                        <td>1</td>
-                                    </tr>
-                                    <tr class="bg-success text-white">
-                                        <td>100%</td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td class="p-0">
-                                <table class="w-100 text-center">
-                                    <tr>
-                                        <td>2</td>
-                                        <td>3</td>
-                                    </tr>
-                                    <tr class="text-white">
-                                        <td class="bg-danger">1</td>
-                                        <td class="bg-danger">2</td>
-                                    </tr>
-                                    <tr class="text-white">
-                                        <td colspan="2" class="bg-danger">66.7%</td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td class="p-0">
-                                <table class="w-100 text-center">
-                                    <tr>
-                                        <td>1</td>
-                                        <td>4</td>
-                                    </tr>
-                                    <tr class="text-white">
-                                        <td class="bg-success">2</td>
-                                        <td class="bg-success">4</td>
-                                    </tr>
-                                    <tr class="bg-success text-white">
-                                        <td colspan="2">100%</td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td class="p-0">
-                                <table class="w-100 text-center">
-                                    <tr>
-                                        <td>1</td>
-                                        <td>5</td>
-                                    </tr>
-                                    <tr class="text-white">
-                                        <td class="bg-danger">2</td>
-                                        <td class="bg-danger">4</td>
-                                    </tr>
-                                    <tr class="bg-danger text-white">
-                                        <td colspan="2">100%</td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td class="p-0">
-                                <table class="w-100 text-center">
-                                    <tr>
-                                        <td>1</td>
-                                        <td>6</td>
-                                    </tr>
-                                    <tr class="text-white">
-                                        <td class="bg-success">2</td>
-                                        <td class="bg-success">4</td>
-                                    </tr>
-                                    <tr class="bg-success text-white">
-                                        <td colspan="2">100%</td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td class="p-0">
-                                <table class="w-100 text-center">
-                                    <tr>
-                                        <td>1</td>
-                                        <td>7</td>
-                                    </tr>
-                                    <tr class="text-white">
-                                        <td class="bg-success">2</td>
-                                        <td class="bg-success">4</td>
-                                    </tr>
-                                    <tr class="bg-success text-white">
-                                        <td colspan="2">100%</td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td class="p-0">
-                                <table class="w-100 text-center">
-                                    <tr>
-                                        <td>1</td>
-                                        <td>8</td>
-                                    </tr>
-                                    <tr class="text-white">
-                                        <td class="bg-danger">2</td>
-                                        <td class="bg-danger">4</td>
-                                    </tr>
-                                    <tr class="bg-danger text-white">
-                                        <td colspan="2">100%</td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td class="p-0">
-                                <table class="w-100 text-center">
-                                    <tr>
-                                        <td>1</td>
-                                        <td>9</td>
-                                    </tr>
-                                    <tr class="text-white">
-                                        <td class="bg-success">2</td>
-                                        <td class="bg-success">4</td>
-                                    </tr>
-                                    <tr class="bg-success text-white">
-                                        <td colspan="2">100%</td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td class="p-0">
-                                <table class="w-100 text-center">
-                                    <tr>
-                                        <td>1</td>
-                                        <td>10</td>
-                                    </tr>
-                                    <tr class="text-white">
-                                        <td class="bg-danger">2</td>
-                                        <td class="bg-danger">4</td>
-                                    </tr>
-                                    <tr class="bg-danger text-white">
-                                        <td colspan="2">100%</td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td class="p-0">
-                                <table class="w-100 text-center">
-                                    <tr>
-                                        <td>1</td>
-                                        <td>11</td>
-                                    </tr>
-                                    <tr class="text-white">
-                                        <td class="bg-success">2</td>
-                                        <td class="bg-success">4</td>
-                                    </tr>
-                                    <tr class="bg-success text-white">
-                                        <td colspan="2">100%</td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td class="p-0">
-                                <table class="w-100 text-center">
-                                    <tr>
-                                        <td>1</td>
-                                        <td>12</td>
-                                    </tr>
-                                    <tr class="text-white">
-                                        <td class="bg-success">2</td>
-                                        <td class="bg-success">4</td>
-                                    </tr>
-                                    <tr class="bg-success text-white">
-                                        <td colspan="2">100%</td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td class="p-0">
-                                <table class="w-100 text-center">
-                                    <tr>
-                                        <td>1</td>
-                                        <td>13</td>
-                                    </tr>
-                                    <tr class="text-white">
-                                        <td class="bg-success">2</td>
-                                        <td class="bg-success">4</td>
-                                    </tr>
-                                    <tr class="bg-success text-white">
-                                        <td colspan="2">100%</td>
-                                    </tr>
-                                </table>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                4
-                            </td>
-                            <td class="p-0">
-                                <table class="w-100 text-center">
-                                    <tr>
-                                        <td>1</td>
-                                    </tr>
-                                    <tr class="bg-success text-white">
-                                        <td>1</td>
-                                    </tr>
-                                    <tr class="bg-success text-white">
-                                        <td>100%</td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td class="p-0">
-                                <table class="w-100 text-center">
-                                    <tr>
-                                        <td>2</td>
-                                        <td>3</td>
-                                    </tr>
-                                    <tr class="text-white">
-                                        <td class="bg-danger">1</td>
-                                        <td class="bg-danger">2</td>
-                                    </tr>
-                                    <tr class="text-white">
-                                        <td colspan="2" class="bg-danger">66.7%</td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td class="p-0">
-                                <table class="w-100 text-center">
-                                    <tr>
-                                        <td>1</td>
-                                        <td>4</td>
-                                    </tr>
-                                    <tr class="text-white">
-                                        <td class="bg-success">2</td>
-                                        <td class="bg-success">4</td>
-                                    </tr>
-                                    <tr class="bg-success text-white">
-                                        <td colspan="2">100%</td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td class="p-0">
-                                <table class="w-100 text-center">
-                                    <tr>
-                                        <td>1</td>
-                                        <td>5</td>
-                                    </tr>
-                                    <tr class="text-white">
-                                        <td class="bg-danger">2</td>
-                                        <td class="bg-danger">4</td>
-                                    </tr>
-                                    <tr class="bg-danger text-white">
-                                        <td colspan="2">100%</td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td class="p-0">
-                                <table class="w-100 text-center">
-                                    <tr>
-                                        <td>1</td>
-                                        <td>6</td>
-                                    </tr>
-                                    <tr class="text-white">
-                                        <td class="bg-success">2</td>
-                                        <td class="bg-success">4</td>
-                                    </tr>
-                                    <tr class="bg-success text-white">
-                                        <td colspan="2">100%</td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td class="p-0">
-                                <table class="w-100 text-center">
-                                    <tr>
-                                        <td>1</td>
-                                        <td>7</td>
-                                    </tr>
-                                    <tr class="text-white">
-                                        <td class="bg-success">2</td>
-                                        <td class="bg-success">4</td>
-                                    </tr>
-                                    <tr class="bg-success text-white">
-                                        <td colspan="2">100%</td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td class="p-0">
-                                <table class="w-100 text-center">
-                                    <tr>
-                                        <td>1</td>
-                                        <td>8</td>
-                                    </tr>
-                                    <tr class="text-white">
-                                        <td class="bg-danger">2</td>
-                                        <td class="bg-danger">4</td>
-                                    </tr>
-                                    <tr class="bg-danger text-white">
-                                        <td colspan="2">100%</td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td class="p-0">
-                                <table class="w-100 text-center">
-                                    <tr>
-                                        <td>1</td>
-                                        <td>9</td>
-                                    </tr>
-                                    <tr class="text-white">
-                                        <td class="bg-success">2</td>
-                                        <td class="bg-success">4</td>
-                                    </tr>
-                                    <tr class="bg-success text-white">
-                                        <td colspan="2">100%</td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td class="p-0">
-                                <table class="w-100 text-center">
-                                    <tr>
-                                        <td>1</td>
-                                        <td>10</td>
-                                    </tr>
-                                    <tr class="text-white">
-                                        <td class="bg-danger">2</td>
-                                        <td class="bg-danger">4</td>
-                                    </tr>
-                                    <tr class="bg-danger text-white">
-                                        <td colspan="2">100%</td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td class="p-0">
-                                <table class="w-100 text-center">
-                                    <tr>
-                                        <td>1</td>
-                                        <td>11</td>
-                                    </tr>
-                                    <tr class="text-white">
-                                        <td class="bg-success">2</td>
-                                        <td class="bg-success">4</td>
-                                    </tr>
-                                    <tr class="bg-success text-white">
-                                        <td colspan="2">100%</td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td class="p-0">
-                                <table class="w-100 text-center">
-                                    <tr>
-                                        <td>1</td>
-                                        <td>12</td>
-                                    </tr>
-                                    <tr class="text-white">
-                                        <td class="bg-success">2</td>
-                                        <td class="bg-success">4</td>
-                                    </tr>
-                                    <tr class="bg-success text-white">
-                                        <td colspan="2">100%</td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td class="p-0">
-                                <table class="w-100 text-center">
-                                    <tr>
-                                        <td>1</td>
-                                        <td>13</td>
-                                    </tr>
-                                    <tr class="text-white">
-                                        <td class="bg-success">2</td>
-                                        <td class="bg-success">4</td>
-                                    </tr>
-                                    <tr class="bg-success text-white">
-                                        <td colspan="2">100%</td>
-                                    </tr>
-                                </table>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                4S
-                            </td>
-                            <td class="p-0">
-                                <table class="w-100 text-center">
-                                    <tr>
-                                        <td>1</td>
-                                    </tr>
-                                    <tr class="bg-success text-white">
-                                        <td>1</td>
-                                    </tr>
-                                    <tr class="bg-success text-white">
-                                        <td>100%</td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td class="p-0">
-                                <table class="w-100 text-center">
-                                    <tr>
-                                        <td>2</td>
-                                        <td>3</td>
-                                    </tr>
-                                    <tr class="text-white">
-                                        <td class="bg-danger">1</td>
-                                        <td class="bg-danger">2</td>
-                                    </tr>
-                                    <tr class="text-white">
-                                        <td colspan="2" class="bg-danger">66.7%</td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td class="p-0">
-                                <table class="w-100 text-center">
-                                    <tr>
-                                        <td>1</td>
-                                        <td>4</td>
-                                    </tr>
-                                    <tr class="text-white">
-                                        <td class="bg-success">2</td>
-                                        <td class="bg-success">4</td>
-                                    </tr>
-                                    <tr class="bg-success text-white">
-                                        <td colspan="2">100%</td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td class="p-0">
-                                <table class="w-100 text-center">
-                                    <tr>
-                                        <td>1</td>
-                                        <td>5</td>
-                                    </tr>
-                                    <tr class="text-white">
-                                        <td class="bg-danger">2</td>
-                                        <td class="bg-danger">4</td>
-                                    </tr>
-                                    <tr class="bg-danger text-white">
-                                        <td colspan="2">100%</td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td class="p-0">
-                                <table class="w-100 text-center">
-                                    <tr>
-                                        <td>1</td>
-                                        <td>6</td>
-                                    </tr>
-                                    <tr class="text-white">
-                                        <td class="bg-success">2</td>
-                                        <td class="bg-success">4</td>
-                                    </tr>
-                                    <tr class="bg-success text-white">
-                                        <td colspan="2">100%</td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td class="p-0">
-                                <table class="w-100 text-center">
-                                    <tr>
-                                        <td>1</td>
-                                        <td>7</td>
-                                    </tr>
-                                    <tr class="text-white">
-                                        <td class="bg-success">2</td>
-                                        <td class="bg-success">4</td>
-                                    </tr>
-                                    <tr class="bg-success text-white">
-                                        <td colspan="2">100%</td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td class="p-0">
-                                <table class="w-100 text-center">
-                                    <tr>
-                                        <td>1</td>
-                                        <td>8</td>
-                                    </tr>
-                                    <tr class="text-white">
-                                        <td class="bg-danger">2</td>
-                                        <td class="bg-danger">4</td>
-                                    </tr>
-                                    <tr class="bg-danger text-white">
-                                        <td colspan="2">100%</td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td class="p-0">
-                                <table class="w-100 text-center">
-                                    <tr>
-                                        <td>1</td>
-                                        <td>9</td>
-                                    </tr>
-                                    <tr class="text-white">
-                                        <td class="bg-success">2</td>
-                                        <td class="bg-success">4</td>
-                                    </tr>
-                                    <tr class="bg-success text-white">
-                                        <td colspan="2">100%</td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td class="p-0">
-                                <table class="w-100 text-center">
-                                    <tr>
-                                        <td>1</td>
-                                        <td>10</td>
-                                    </tr>
-                                    <tr class="text-white">
-                                        <td class="bg-danger">2</td>
-                                        <td class="bg-danger">4</td>
-                                    </tr>
-                                    <tr class="bg-danger text-white">
-                                        <td colspan="2">100%</td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td class="p-0">
-                                <table class="w-100 text-center">
-                                    <tr>
-                                        <td>1</td>
-                                        <td>11</td>
-                                    </tr>
-                                    <tr class="text-white">
-                                        <td class="bg-success">2</td>
-                                        <td class="bg-success">4</td>
-                                    </tr>
-                                    <tr class="bg-success text-white">
-                                        <td colspan="2">100%</td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td class="p-0">
-                                <table class="w-100 text-center">
-                                    <tr>
-                                        <td>1</td>
-                                        <td>12</td>
-                                    </tr>
-                                    <tr class="text-white">
-                                        <td class="bg-success">2</td>
-                                        <td class="bg-success">4</td>
-                                    </tr>
-                                    <tr class="bg-success text-white">
-                                        <td colspan="2">100%</td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td class="p-0">
-                                <table class="w-100 text-center">
-                                    <tr>
-                                        <td>1</td>
-                                        <td>13</td>
-                                    </tr>
-                                    <tr class="text-white">
-                                        <td class="bg-success">2</td>
-                                        <td class="bg-success">4</td>
-                                    </tr>
-                                    <tr class="bg-success text-white">
-                                        <td colspan="2">100%</td>
-                                    </tr>
-                                </table>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                5A
-                            </td>
-                            <td class="p-0">
-                                <table class="w-100 text-center">
-                                    <tr>
-                                        <td>1</td>
-                                    </tr>
-                                    <tr class="bg-success text-white">
-                                        <td>1</td>
-                                    </tr>
-                                    <tr class="bg-success text-white">
-                                        <td>100%</td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td class="p-0">
-                                <table class="w-100 text-center">
-                                    <tr>
-                                        <td>2</td>
-                                        <td>3</td>
-                                    </tr>
-                                    <tr class="text-white">
-                                        <td class="bg-danger">1</td>
-                                        <td class="bg-danger">2</td>
-                                    </tr>
-                                    <tr class="text-white">
-                                        <td colspan="2" class="bg-danger">66.7%</td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td class="p-0">
-                                <table class="w-100 text-center">
-                                    <tr>
-                                        <td>1</td>
-                                        <td>4</td>
-                                    </tr>
-                                    <tr class="text-white">
-                                        <td class="bg-success">2</td>
-                                        <td class="bg-success">4</td>
-                                    </tr>
-                                    <tr class="bg-success text-white">
-                                        <td colspan="2">100%</td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td class="p-0">
-                                <table class="w-100 text-center">
-                                    <tr>
-                                        <td>1</td>
-                                        <td>5</td>
-                                    </tr>
-                                    <tr class="text-white">
-                                        <td class="bg-danger">2</td>
-                                        <td class="bg-danger">4</td>
-                                    </tr>
-                                    <tr class="bg-danger text-white">
-                                        <td colspan="2">100%</td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td class="p-0">
-                                <table class="w-100 text-center">
-                                    <tr>
-                                        <td>1</td>
-                                        <td>6</td>
-                                    </tr>
-                                    <tr class="text-white">
-                                        <td class="bg-success">2</td>
-                                        <td class="bg-success">4</td>
-                                    </tr>
-                                    <tr class="bg-success text-white">
-                                        <td colspan="2">100%</td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td class="p-0">
-                                <table class="w-100 text-center">
-                                    <tr>
-                                        <td>1</td>
-                                        <td>7</td>
-                                    </tr>
-                                    <tr class="text-white">
-                                        <td class="bg-success">2</td>
-                                        <td class="bg-success">4</td>
-                                    </tr>
-                                    <tr class="bg-success text-white">
-                                        <td colspan="2">100%</td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td class="p-0">
-                                <table class="w-100 text-center">
-                                    <tr>
-                                        <td>1</td>
-                                        <td>8</td>
-                                    </tr>
-                                    <tr class="text-white">
-                                        <td class="bg-danger">2</td>
-                                        <td class="bg-danger">4</td>
-                                    </tr>
-                                    <tr class="bg-danger text-white">
-                                        <td colspan="2">100%</td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td class="p-0">
-                                <table class="w-100 text-center">
-                                    <tr>
-                                        <td>1</td>
-                                        <td>9</td>
-                                    </tr>
-                                    <tr class="text-white">
-                                        <td class="bg-success">2</td>
-                                        <td class="bg-success">4</td>
-                                    </tr>
-                                    <tr class="bg-success text-white">
-                                        <td colspan="2">100%</td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td class="p-0">
-                                <table class="w-100 text-center">
-                                    <tr>
-                                        <td>1</td>
-                                        <td>10</td>
-                                    </tr>
-                                    <tr class="text-white">
-                                        <td class="bg-danger">2</td>
-                                        <td class="bg-danger">4</td>
-                                    </tr>
-                                    <tr class="bg-danger text-white">
-                                        <td colspan="2">100%</td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td class="p-0">
-                                <table class="w-100 text-center">
-                                    <tr>
-                                        <td>1</td>
-                                        <td>11</td>
-                                    </tr>
-                                    <tr class="text-white">
-                                        <td class="bg-success">2</td>
-                                        <td class="bg-success">4</td>
-                                    </tr>
-                                    <tr class="bg-success text-white">
-                                        <td colspan="2">100%</td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td class="p-0">
-                                <table class="w-100 text-center">
-                                    <tr>
-                                        <td>1</td>
-                                        <td>12</td>
-                                    </tr>
-                                    <tr class="text-white">
-                                        <td class="bg-success">2</td>
-                                        <td class="bg-success">4</td>
-                                    </tr>
-                                    <tr class="bg-success text-white">
-                                        <td colspan="2">100%</td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td class="p-0">
-                                <table class="w-100 text-center">
-                                    <tr>
-                                        <td>1</td>
-                                        <td>13</td>
-                                    </tr>
-                                    <tr class="text-white">
-                                        <td class="bg-success">2</td>
-                                        <td class="bg-success">4</td>
-                                    </tr>
-                                    <tr class="bg-success text-white">
-                                        <td colspan="2">100%</td>
-                                    </tr>
-                                </table>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                5S
-                            </td>
-                            <td class="p-0">
-                                <table class="w-100 text-center">
-                                    <tr>
-                                        <td>1</td>
-                                    </tr>
-                                    <tr class="bg-success text-white">
-                                        <td>1</td>
-                                    </tr>
-                                    <tr class="bg-success text-white">
-                                        <td>100%</td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td class="p-0">
-                                <table class="w-100 text-center">
-                                    <tr>
-                                        <td>2</td>
-                                        <td>3</td>
-                                    </tr>
-                                    <tr class="text-white">
-                                        <td class="bg-danger">1</td>
-                                        <td class="bg-danger">2</td>
-                                    </tr>
-                                    <tr class="text-white">
-                                        <td colspan="2" class="bg-danger">66.7%</td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td class="p-0">
-                                <table class="w-100 text-center">
-                                    <tr>
-                                        <td>1</td>
-                                        <td>4</td>
-                                    </tr>
-                                    <tr class="text-white">
-                                        <td class="bg-success">2</td>
-                                        <td class="bg-success">4</td>
-                                    </tr>
-                                    <tr class="bg-success text-white">
-                                        <td colspan="2">100%</td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td class="p-0">
-                                <table class="w-100 text-center">
-                                    <tr>
-                                        <td>1</td>
-                                        <td>5</td>
-                                    </tr>
-                                    <tr class="text-white">
-                                        <td class="bg-danger">2</td>
-                                        <td class="bg-danger">4</td>
-                                    </tr>
-                                    <tr class="bg-danger text-white">
-                                        <td colspan="2">100%</td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td class="p-0">
-                                <table class="w-100 text-center">
-                                    <tr>
-                                        <td>1</td>
-                                        <td>6</td>
-                                    </tr>
-                                    <tr class="text-white">
-                                        <td class="bg-success">2</td>
-                                        <td class="bg-success">4</td>
-                                    </tr>
-                                    <tr class="bg-success text-white">
-                                        <td colspan="2">100%</td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td class="p-0">
-                                <table class="w-100 text-center">
-                                    <tr>
-                                        <td>1</td>
-                                        <td>7</td>
-                                    </tr>
-                                    <tr class="text-white">
-                                        <td class="bg-success">2</td>
-                                        <td class="bg-success">4</td>
-                                    </tr>
-                                    <tr class="bg-success text-white">
-                                        <td colspan="2">100%</td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td class="p-0">
-                                <table class="w-100 text-center">
-                                    <tr>
-                                        <td>1</td>
-                                        <td>8</td>
-                                    </tr>
-                                    <tr class="text-white">
-                                        <td class="bg-danger">2</td>
-                                        <td class="bg-danger">4</td>
-                                    </tr>
-                                    <tr class="bg-danger text-white">
-                                        <td colspan="2">100%</td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td class="p-0">
-                                <table class="w-100 text-center">
-                                    <tr>
-                                        <td>1</td>
-                                        <td>9</td>
-                                    </tr>
-                                    <tr class="text-white">
-                                        <td class="bg-success">2</td>
-                                        <td class="bg-success">4</td>
-                                    </tr>
-                                    <tr class="bg-success text-white">
-                                        <td colspan="2">100%</td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td class="p-0">
-                                <table class="w-100 text-center">
-                                    <tr>
-                                        <td>1</td>
-                                        <td>10</td>
-                                    </tr>
-                                    <tr class="text-white">
-                                        <td class="bg-danger">2</td>
-                                        <td class="bg-danger">4</td>
-                                    </tr>
-                                    <tr class="bg-danger text-white">
-                                        <td colspan="2">100%</td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td class="p-0">
-                                <table class="w-100 text-center">
-                                    <tr>
-                                        <td>1</td>
-                                        <td>11</td>
-                                    </tr>
-                                    <tr class="text-white">
-                                        <td class="bg-success">2</td>
-                                        <td class="bg-success">4</td>
-                                    </tr>
-                                    <tr class="bg-success text-white">
-                                        <td colspan="2">100%</td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td class="p-0">
-                                <table class="w-100 text-center">
-                                    <tr>
-                                        <td>1</td>
-                                        <td>12</td>
-                                    </tr>
-                                    <tr class="text-white">
-                                        <td class="bg-success">2</td>
-                                        <td class="bg-success">4</td>
-                                    </tr>
-                                    <tr class="bg-success text-white">
-                                        <td colspan="2">100%</td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td class="p-0">
-                                <table class="w-100 text-center">
-                                    <tr>
-                                        <td>1</td>
-                                        <td>13</td>
-                                    </tr>
-                                    <tr class="text-white">
-                                        <td class="bg-success">2</td>
-                                        <td class="bg-success">4</td>
-                                    </tr>
-                                    <tr class="bg-success text-white">
-                                        <td colspan="2">100%</td>
-                                    </tr>
-                                </table>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                8
-                            </td>
-                            <td class="p-0">
-                                <table class="w-100 text-center">
-                                    <tr>
-                                        <td>1</td>
-                                    </tr>
-                                    <tr class="bg-success text-white">
-                                        <td>1</td>
-                                    </tr>
-                                    <tr class="bg-success text-white">
-                                        <td>100%</td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td class="p-0">
-                                <table class="w-100 text-center">
-                                    <tr>
-                                        <td>2</td>
-                                        <td>3</td>
-                                    </tr>
-                                    <tr class="text-white">
-                                        <td class="bg-danger">1</td>
-                                        <td class="bg-danger">2</td>
-                                    </tr>
-                                    <tr class="text-white">
-                                        <td colspan="2" class="bg-danger">66.7%</td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td class="p-0">
-                                <table class="w-100 text-center">
-                                    <tr>
-                                        <td>1</td>
-                                        <td>4</td>
-                                    </tr>
-                                    <tr class="text-white">
-                                        <td class="bg-success">2</td>
-                                        <td class="bg-success">4</td>
-                                    </tr>
-                                    <tr class="bg-success text-white">
-                                        <td colspan="2">100%</td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td class="p-0">
-                                <table class="w-100 text-center">
-                                    <tr>
-                                        <td>1</td>
-                                        <td>5</td>
-                                    </tr>
-                                    <tr class="text-white">
-                                        <td class="bg-danger">2</td>
-                                        <td class="bg-danger">4</td>
-                                    </tr>
-                                    <tr class="bg-danger text-white">
-                                        <td colspan="2">100%</td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td class="p-0">
-                                <table class="w-100 text-center">
-                                    <tr>
-                                        <td>1</td>
-                                        <td>6</td>
-                                    </tr>
-                                    <tr class="text-white">
-                                        <td class="bg-success">2</td>
-                                        <td class="bg-success">4</td>
-                                    </tr>
-                                    <tr class="bg-success text-white">
-                                        <td colspan="2">100%</td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td class="p-0">
-                                <table class="w-100 text-center">
-                                    <tr>
-                                        <td>1</td>
-                                        <td>7</td>
-                                    </tr>
-                                    <tr class="text-white">
-                                        <td class="bg-success">2</td>
-                                        <td class="bg-success">4</td>
-                                    </tr>
-                                    <tr class="bg-success text-white">
-                                        <td colspan="2">100%</td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td class="p-0">
-                                <table class="w-100 text-center">
-                                    <tr>
-                                        <td>1</td>
-                                        <td>8</td>
-                                    </tr>
-                                    <tr class="text-white">
-                                        <td class="bg-danger">2</td>
-                                        <td class="bg-danger">4</td>
-                                    </tr>
-                                    <tr class="bg-danger text-white">
-                                        <td colspan="2">100%</td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td class="p-0">
-                                <table class="w-100 text-center">
-                                    <tr>
-                                        <td>1</td>
-                                        <td>9</td>
-                                    </tr>
-                                    <tr class="text-white">
-                                        <td class="bg-success">2</td>
-                                        <td class="bg-success">4</td>
-                                    </tr>
-                                    <tr class="bg-success text-white">
-                                        <td colspan="2">100%</td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td class="p-0">
-                                <table class="w-100 text-center">
-                                    <tr>
-                                        <td>1</td>
-                                        <td>10</td>
-                                    </tr>
-                                    <tr class="text-white">
-                                        <td class="bg-danger">2</td>
-                                        <td class="bg-danger">4</td>
-                                    </tr>
-                                    <tr class="bg-danger text-white">
-                                        <td colspan="2">100%</td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td class="p-0">
-                                <table class="w-100 text-center">
-                                    <tr>
-                                        <td>1</td>
-                                        <td>11</td>
-                                    </tr>
-                                    <tr class="text-white">
-                                        <td class="bg-success">2</td>
-                                        <td class="bg-success">4</td>
-                                    </tr>
-                                    <tr class="bg-success text-white">
-                                        <td colspan="2">100%</td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td class="p-0">
-                                <table class="w-100 text-center">
-                                    <tr>
-                                        <td>1</td>
-                                        <td>12</td>
-                                    </tr>
-                                    <tr class="text-white">
-                                        <td class="bg-success">2</td>
-                                        <td class="bg-success">4</td>
-                                    </tr>
-                                    <tr class="bg-success text-white">
-                                        <td colspan="2">100%</td>
-                                    </tr>
-                                </table>
-                            </td>
-                            <td class="p-0">
-                                <table class="w-100 text-center">
-                                    <tr>
-                                        <td>1</td>
-                                        <td>13</td>
-                                    </tr>
-                                    <tr class="text-white">
-                                        <td class="bg-success">2</td>
-                                        <td class="bg-success">4</td>
-                                    </tr>
-                                    <tr class="bg-success text-white">
-                                        <td colspan="2">100%</td>
-                                    </tr>
-                                </table>
-                            </td>
-                        </tr>
-                        <tr>
+                        @endforeach
+
+                        {{-- <tr>
                             <td>
                                 Mini
                             </td>
@@ -1684,7 +454,7 @@
                                     </tr>
                                 </table>
                             </td>
-                        </tr>
+                        </tr> --}}
                     </tbody>
                 </table>
             </div>
@@ -1904,3 +674,198 @@
 @endsection
 
 @endsection
+
+
+{{--
+
+@foreach($json_decode as $d)
+@php
+$line_id = $d->l_id;
+$line_name = $d->l_name;
+$a_id=$d->assign_id;
+$main_target=$d->main_target;
+$s_time = $d->s_time;
+$e_time=$d->e_time;
+$lunch_s_time=$d->lunch_s_time;
+$lunch_e_time=$d->lunch_e_time;
+$time_id=$d->time_id;
+$time_name=$d->time_name;
+$line_status=$d->status;
+$div_target=$d->div_target;
+$actual_target=$d->actual_target_entry;
+$user_id = $d->id;
+$user_name = $d->name;
+$div_actual_target = $d->div_actual_target;
+$div_actual_percent = $d->div_actual_percent;
+@endphp
+@if ($line_id_1 == $line_id)
+<td class="p-0">
+    1
+</td>
+<td class="p-0">
+    <table class="w-100 text-center">
+        <tr>
+            <td>2</td>
+            <td>3</td>
+        </tr>
+        <tr class="text-white">
+            <td class="bg-danger">1</td>
+            <td class="bg-danger">2</td>
+        </tr>
+        <tr class="text-white">
+            <td colspan="2" class="bg-danger">66.7%</td>
+        </tr>
+    </table>
+</td>
+<td class="p-0">
+    <table class="w-100 text-center">
+        <tr>
+            <td>1</td>
+            <td>4</td>
+        </tr>
+        <tr class="text-white">
+            <td class="bg-success">2</td>
+            <td class="bg-success">4</td>
+        </tr>
+        <tr class="bg-success text-white">
+            <td colspan="2">100%</td>
+        </tr>
+    </table>
+</td>
+<td class="p-0">
+    <table class="w-100 text-center">
+        <tr>
+            <td>1</td>
+            <td>5</td>
+        </tr>
+        <tr class="text-white">
+            <td class="bg-danger">2</td>
+            <td class="bg-danger">4</td>
+        </tr>
+        <tr class="bg-danger text-white">
+            <td colspan="2">100%</td>
+        </tr>
+    </table>
+</td>
+<td class="p-0">
+    <table class="w-100 text-center">
+        <tr>
+            <td>1</td>
+            <td>6</td>
+        </tr>
+        <tr class="text-white">
+            <td class="bg-success">2</td>
+            <td class="bg-success">4</td>
+        </tr>
+        <tr class="bg-success text-white">
+            <td colspan="2">100%</td>
+        </tr>
+    </table>
+</td>
+<td class="p-0">
+    <table class="w-100 text-center">
+        <tr>
+            <td>1</td>
+            <td>7</td>
+        </tr>
+        <tr class="text-white">
+            <td class="bg-success">2</td>
+            <td class="bg-success">4</td>
+        </tr>
+        <tr class="bg-success text-white">
+            <td colspan="2">100%</td>
+        </tr>
+    </table>
+</td>
+<td class="p-0">
+    <table class="w-100 text-center">
+        <tr>
+            <td>1</td>
+            <td>8</td>
+        </tr>
+        <tr class="text-white">
+            <td class="bg-danger">2</td>
+            <td class="bg-danger">4</td>
+        </tr>
+        <tr class="bg-danger text-white">
+            <td colspan="2">100%</td>
+        </tr>
+    </table>
+</td>
+<td class="p-0">
+    <table class="w-100 text-center">
+        <tr>
+            <td>1</td>
+            <td>9</td>
+        </tr>
+        <tr class="text-white">
+            <td class="bg-success">2</td>
+            <td class="bg-success">4</td>
+        </tr>
+        <tr class="bg-success text-white">
+            <td colspan="2">100%</td>
+        </tr>
+    </table>
+</td>
+<td class="p-0">
+    <table class="w-100 text-center">
+        <tr>
+            <td>1</td>
+            <td>10</td>
+        </tr>
+        <tr class="text-white">
+            <td class="bg-danger">2</td>
+            <td class="bg-danger">4</td>
+        </tr>
+        <tr class="bg-danger text-white">
+            <td colspan="2">100%</td>
+        </tr>
+    </table>
+</td>
+<td class="p-0">
+    <table class="w-100 text-center">
+        <tr>
+            <td>1</td>
+            <td>11</td>
+        </tr>
+        <tr class="text-white">
+            <td class="bg-success">2</td>
+            <td class="bg-success">4</td>
+        </tr>
+        <tr class="bg-success text-white">
+            <td colspan="2">100%</td>
+        </tr>
+    </table>
+</td>
+<td class="p-0">
+    <table class="w-100 text-center">
+        <tr>
+            <td>1</td>
+            <td>12</td>
+        </tr>
+        <tr class="text-white">
+            <td class="bg-success">2</td>
+            <td class="bg-success">4</td>
+        </tr>
+        <tr class="bg-success text-white">
+            <td colspan="2">100%</td>
+        </tr>
+    </table>
+</td>
+<td class="p-0">
+    <table class="w-100 text-center">
+        <tr>
+            <td>1</td>
+            <td>13</td>
+        </tr>
+        <tr class="text-white">
+            <td class="bg-success">2</td>
+            <td class="bg-success">4</td>
+        </tr>
+        <tr class="bg-success text-white">
+            <td colspan="2">100%</td>
+        </tr>
+    </table>
+</td>
+@endif
+@endforeach --}}

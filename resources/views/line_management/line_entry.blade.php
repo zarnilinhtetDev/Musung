@@ -121,26 +121,25 @@
                                         $actual_target=$d->actual_target_entry;
                                         $user_id = $d->id;
                                         $user_name = $d->name;
-
-
-                                        $data_detail_decode = json_decode(json_encode($data_detail));
-                                        foreach($data_detail_decode as $dd){
-                                        $data_id =$dd->data_id;
-                                        $data_time_id = $dd->time_id;
-                                        $data_div_actual_target = $dd->div_actual_target;
-                                        $data_div_actual_percentage = $dd->div_actual_percent;
-                                        }
+                                        $div_actual_target = $d->div_actual_target;
+                                        $div_actual_percent = $d->div_actual_percent;
                                         @endphp
                                         <tr>
                                             <td>{{ $time_name }}</td>
                                             <td><span id="div_target_{{ $time_id }}">{{ $div_target }}</span></td>
                                             <td>
+                                                @if ($div_actual_target!='')
+                                                {{ $div_actual_target }}
+                                                @elseif($div_actual_target=='')
                                                 <span id="actual_target_{{ $time_id }}"></span>
+                                                @endif
                                             </td>
                                             <td>
-
-                                                <span id="actual_percentage_{{ $time_id }}"></span>
-
+                                                @if ($div_actual_percent!='')
+                                                {{ $div_actual_percent }} %
+                                                @elseif($div_actual_percent=='') <span
+                                                    id="actual_percentage_{{ $time_id }}"></span>
+                                                @endif
                                             </td>
                                             <td> <button type="button" class="btn btn-primary w-75"
                                                     data-bs-toggle="modal"
@@ -195,7 +194,12 @@
                                                                                     placeholder="100" required />
                                                                             </div>
                                                                         </div>
-                                                                    </div> <input type="hidden" name="p_detail_id[]"
+                                                                    </div>
+                                                                    <input type="hidden" name="assign_date"
+                                                                        value="{{ $date_string }}" />
+                                                                    <input type="hidden" name="line_id"
+                                                                        value="{{ $p_detail_l_id }}" />
+                                                                    <input type="hidden" name="p_detail_id[]"
                                                                         value="{{ $p_detail_id }}" />
                                                                     @endforeach
                                                                     <input type="hidden" name="time_id"
