@@ -6,6 +6,8 @@
     @php
     $json_encode = json_encode($responseBody);
     $json_decode = json_decode($json_encode);
+
+
     // print_r($json_decode);
     @endphp
     @foreach($json_decode as $d)
@@ -119,6 +121,15 @@
                                         $actual_target=$d->actual_target_entry;
                                         $user_id = $d->id;
                                         $user_name = $d->name;
+
+
+                                        $data_detail_decode = json_decode(json_encode($data_detail));
+                                        foreach($data_detail_decode as $dd){
+                                        $data_id =$dd->data_id;
+                                        $data_time_id = $dd->time_id;
+                                        $data_div_actual_target = $dd->div_actual_target;
+                                        $data_div_actual_percentage = $dd->div_actual_percent;
+                                        }
                                         @endphp
                                         <tr>
                                             <td>{{ $time_name }}</td>
@@ -126,7 +137,11 @@
                                             <td>
                                                 <span id="actual_target_{{ $time_id }}"></span>
                                             </td>
-                                            <td><span id="actual_percentage_{{ $time_id }}"></span></td>
+                                            <td>
+
+                                                <span id="actual_percentage_{{ $time_id }}"></span>
+
+                                            </td>
                                             <td> <button type="button" class="btn btn-primary w-75"
                                                     data-bs-toggle="modal"
                                                     data-bs-target="#LineEntryModal<?php echo $time_id; ?>"
@@ -180,15 +195,15 @@
                                                                                     placeholder="100" required />
                                                                             </div>
                                                                         </div>
-                                                                    </div> <input type="text" name="p_detail_id[]"
+                                                                    </div> <input type="hidden" name="p_detail_id[]"
                                                                         value="{{ $p_detail_id }}" />
                                                                     @endforeach
-                                                                    <input type="text" name="time_id"
+                                                                    <input type="hidden" name="time_id"
                                                                         value="{{ $time_id }}" />
-                                                                    <input type="text"
+                                                                    <input type="hidden"
                                                                         name="div_actual_target_input_{{ $time_id }}"
                                                                         id="div_actual_target_input_{{ $time_id }}" />
-                                                                    <input type="text"
+                                                                    <input type="hidden"
                                                                         name="div_actual_percent_input_{{ $time_id }}"
                                                                         id="div_actual_percent_input_{{ $time_id }}" />
                                                                 </div>

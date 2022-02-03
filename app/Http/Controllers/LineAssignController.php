@@ -33,7 +33,7 @@ class LineAssignController extends Controller
     {
         $line_assign = LineAssign::all();
         $overTime = OverTime::all();
-        $line_assign_2 = DB::select('SELECT "line_assign".assign_id,"line_assign".user_id,"line_assign".l_id,"line_assign".main_target,"line_assign".s_time,"line_assign".e_time,"line_assign".lunch_s_time,"line".a_status,"line_assign".lunch_e_time,"line_assign".cal_work_min,"line_assign".t_work_hr,"line_assign".created_at,"line_assign".updated_at,"line".l_name,"line".l_pos,"users".id,"users".name,"line_assign".assign_date FROM line_assign,line,users,p_detail WHERE "line".a_status=1 AND "line".is_delete=0 AND "line_assign".user_id="users".id AND "line_assign".l_id="line".l_id AND "line_assign".l_id="p_detail".l_id ORDER BY "line_assign".assign_id ASC');
+        $line_assign_2 = DB::select('SELECT line_assign.assign_id,line_assign.user_id,line_assign.l_id,line_assign.main_target,line_assign.s_time,line_assign.e_time,line_assign.lunch_s_time,line.a_status,line_assign.lunch_e_time,line_assign.cal_work_min,line_assign.t_work_hr,line_assign.created_at,line_assign.updated_at,line.l_name,line.l_pos,users.id,users.name,line_assign.assign_date FROM line_assign,line,users,p_detail WHERE line.a_status=1 AND line.is_delete=0 AND line_assign.user_id=users.id AND line_assign.l_id=line.l_id AND line_assign.l_id=p_detail.l_id ORDER BY line_assign.assign_id ASC');
         $p_detail = ProductDetail::select(
             'p_detail_id',
             'assign_id',
