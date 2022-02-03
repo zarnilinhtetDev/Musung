@@ -6,7 +6,7 @@
     @php
     $json_encode = json_encode($responseBody);
     $json_decode = json_decode($json_encode);
-    print_r($json_decode);
+    // print_r($json_decode);
     @endphp
     @foreach($json_decode as $d)
     @php
@@ -22,10 +22,6 @@
     $time_name=$d->time_name;
     $line_status=$d->status;
     $div_target=$d->div_target;
-    $p_detail_id=$d->p_detail_id;
-    $p_cat_id=$d->p_cat_id;
-    $p_name=$d->p_name;
-    $qty = $d->quantity;
     $actual_target=$d->actual_target_entry;
     $user_id = $d->id;
     $user_name = $d->name;
@@ -49,7 +45,9 @@
     @endforeach
 
     @if($line_visible == 'no')
-    <h1 class="display-6 text-danger fw-bold">No</h1>
+    <div class="container text-center mt-3">
+        <h3 class="fs-2 text-danger fw-bold">Line is not yet opened by OPERATOR, please check later !!</h3>
+    </div>
     @endif
     @if($line_visible=='yes')
     <div class="container-fluid p-0">
@@ -113,10 +111,6 @@
                                         $time_name=$d->time_name;
                                         $line_status=$d->status;
                                         $div_target=$d->div_target;
-                                        $p_detail_id=$d->p_detail_id;
-                                        $p_cat_id=$d->p_cat_id;
-                                        $p_name=$d->p_name;
-                                        $qty = $d->quantity;
                                         $actual_target=$d->actual_target_entry;
                                         $user_id = $d->id;
                                         $user_name = $d->name;
@@ -125,14 +119,14 @@
                                             <td>{{ $time_name }}</td>
                                             <td>{{ $div_target }}</td>
                                             <td>
-                                                <span id="actual_target"></span>
+                                                <span id="actual_target_{{ $time_id }}"></span>
                                             </td>
-                                            <td><span id="actual_percentage"></span></td>
+                                            <td><span id="actual_percentage_{{ $time_id }}"></span></td>
                                             <td> <button type="button" class="btn btn-primary w-75"
                                                     data-bs-toggle="modal"
                                                     data-bs-target="#LineEntryModal<?php echo $time_id; ?>"
                                                     data-bs-time-id="{{ $time_id }}"
-                                                    data-bs-time-name="{{ $time_name }}">
+                                                    data-bs-time-name="{{ $time_name }}" id="toggle_btn_{{ $time_id }}">
                                                     Fill
                                                 </button>
                                             </td>
@@ -142,89 +136,96 @@
                                             aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h1 class="fw-bold heading-text">{{ $time_name }}</h1>
-                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                            aria-label="Close"></button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <div class="container-fluid">
-                                                            <div class="row">
-                                                                @foreach($p_detail as $detail)
-                                                                @php $p_detail_id =
-                                                                $detail->p_detail_id;$p_detail_assign_id=
-                                                                $detail->assign_id;$p_detail_l_id=$detail->l_id;
-                                                                $p_detail_p_cat_id
-                                                                =$detail->p_cat_id;$p_detail_p_name
-                                                                =$detail->p_name;$p_detail_qty=$detail->quantity;
-                                                                @endphp
-                                                                <div class="col-12 my-2">
-                                                                    <div class="row container-fluid">
-                                                                        <div class="col-12 col-md-4 m-auto">
-                                                                            <h5 class="fw-bold heading-text">{{
-                                                                                $p_detail_p_name }}</h5>
-                                                                        </div>
-                                                                        <div class="col-12 col-md-4">
-                                                                            <label>Target</label>
-                                                                            <input type="number" class="form-control"
-                                                                                name="target" value={{ $p_detail_qty }}
-                                                                                readonly />
-                                                                        </div>
-                                                                        <div class="col-12 col-md-4">
-                                                                            <label>Actual</label>
-                                                                            <input type="number" class="form-control"
-                                                                                name="p_detail_actual_target"
-                                                                                id="p_detail_actual_target"
-                                                                                placeholder="100" required />
+                                                    <form action="" method="POST">
+                                                        <div class="modal-header">
+                                                            <h1 class="fw-bold heading-text">{{ $time_name }}</h1>
+                                                            <button type="button" class="btn-close"
+                                                                data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div class="container-fluid">
+                                                                <div class="row">
+                                                                    @foreach($p_detail as $detail)
+                                                                    @php $p_detail_id =
+                                                                    $detail->p_detail_id;$p_detail_assign_id=
+                                                                    $detail->assign_id;$p_detail_l_id=$detail->l_id;
+                                                                    $p_detail_p_cat_id
+                                                                    =$detail->p_cat_id;$p_detail_p_name
+                                                                    =$detail->p_name;$p_detail_qty=$detail->quantity;
+                                                                    @endphp
+                                                                    <div class="col-12 my-2">
+                                                                        <div class="row container-fluid">
+                                                                            <div class="col-12 col-md-4 m-auto">
+                                                                                <h5 class="fw-bold heading-text">{{
+                                                                                    $p_detail_p_name }}</h5>
+                                                                            </div>
+                                                                            <div class="col-12 col-md-4">
+                                                                                <label>Target</label>
+                                                                                <input type="number"
+                                                                                    class="form-control" name="target"
+                                                                                    value={{ $p_detail_qty }}
+                                                                                    readonly />
+                                                                            </div>
+                                                                            <div class="col-12 col-md-4">
+                                                                                <label>Actual</label>
+                                                                                <input type="number"
+                                                                                    class="form-control"
+                                                                                    name="p_detail_actual_target"
+                                                                                    id="p_detail_actual_target_{{ $time_id }}"
+                                                                                    placeholder="100" required />
+                                                                            </div>
                                                                         </div>
                                                                     </div>
+                                                                    @endforeach
                                                                 </div>
 
-                                                                @endforeach
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary"
-                                                            data-bs-dismiss="modal">Close</button>
-                                                        <button type="button" class="btn btn-primary">Save
-                                                            changes</button>
-                                                    </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">Close</button>
+                                                            <button type="button" class="btn btn-primary">Save
+                                                            </button>
+                                                        </div>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </div>
+                                        <script>
+                                            $("#toggle_btn_<?php echo $time_id; ?>").click(function() {
+                                                var p_detail_number = "<?php echo $time_id; ?>";(p_detail_number);
+                                                calculateSum();
+                                                $(".modal-content #p_detail_actual_target_"+p_detail_number).on(
+                                                    "keydown keyup",
+                                                    function () {
+                                                        calculateSum();
+                                                    }
+                                                );
+                                                function calculateSum() {
+                                                    var sum = 0;
+                                                    var p_detail_number = "<?php echo $time_id; ?>";(p_detail_number);
+
+                                                    //iterate through each textboxes and add the values
+                                                    $(".modal-content #p_detail_actual_target_"+p_detail_number).each(function () {
+                                                        //add only if the value is number
+                                                        if (!isNaN(this.value) && this.value.length != 0) {
+                                                            sum += parseFloat(this.value);
+                                                            $(this).css("background-color", "#FEFFB0");
+                                                        } else if (this.value.length != 0) {
+                                                            $(this).css("background-color", "red");
+                                                        }
+                                                    });
+
+                                                    $("#actual_target_"+p_detail_number).html(sum.toFixed(0));
+                                                    $("#actual_percentage_" +p_detail_number).text(((sum / "<?php echo $div_target; ?>") * 100).toFixed(0) + "%");
+                                                }
+                                            });
+                                        </script>
                                         @endforeach
                                     </tbody>
                                 </table>
                             </div>
-                            <script>
-                                $(document).ready(function () {
-                                    calculateSum();
 
-                                    $(".modal-content #p_detail_actual_target").on(
-                                        "keydown keyup",
-                                        function () {
-                                            calculateSum();
-                                        }
-                                    );
-                                    function calculateSum() {
-                                        var sum = 0;
-                                        //iterate through each textboxes and add the values
-                                        $(".modal-content #p_detail_actual_target").each(function () {
-                                            //add only if the value is number
-                                            if (!isNaN(this.value) && this.value.length != 0) {
-                                                sum += parseFloat(this.value);
-                                                $(this).css("background-color", "#FEFFB0");
-                                            } else if (this.value.length != 0) {
-                                                $(this).css("background-color", "red");
-                                            }
-                                        });
-
-                                        $("#actual_target").html(sum.toFixed(0));
-                                        $("#actual_percentage").text((sum / "<?php echo $div_target; ?>") * 100 + "%");
-                                    }
-                                });
-                            </script>
                             {{-- <div class=" row container-fluid p-0 m-0">
                                 <div class="col">Time</div>
                                 <div class="col-2"></div>
