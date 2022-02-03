@@ -150,13 +150,13 @@ $num = 1;
                                         </thead>
                                         @php $number = 1; @endphp
                                         <tbody id="myTable">
-                                            @foreach($line_assign_2 as $l_2)
-                                            @if ($l_2->l_id==$l_id)
+                                            @foreach($p_detail as $p)
+                                            @if ($p->l_id==$l_id)
                                             <tr>
                                                 <td>{{ $number++ }}</td>
-                                                <td>{{ $l_2->p_name }}</td>
-                                                <td>{{ $l_2->p_cat_id }}</td>
-                                                <td>{{ $l_2->quantity }}</td>
+                                                <td>{{ $p->p_name }}</td>
+                                                <td>{{ $p->p_cat_id }}</td>
+                                                <td>{{ $p->quantity }}</td>
                                             </tr>
                                             @endif
                                             @endforeach

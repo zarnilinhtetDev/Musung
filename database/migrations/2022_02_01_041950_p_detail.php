@@ -19,7 +19,8 @@ class PDetail extends Migration
             $table->integer('l_id');
             $table->integer('p_cat_id');
             $table->string('p_name');
-            $table->string('quantity');
+            $table->integer('quantity');
+            $table->integer('p_actual_target');
             $table->timestamps();
         });
     }

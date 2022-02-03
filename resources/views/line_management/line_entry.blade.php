@@ -44,6 +44,11 @@
     @endphp
     @endforeach
 
+    @if(empty($json_decode))
+    <div class="container text-center mt-3">
+        <h3 class="fs-2 text-danger fw-bold">Line is not yet opened by OPERATOR, please check later !!</h3>
+    </div>
+    @elseif(!empty($json_decode))
     @if($line_visible == 'no')
     <div class="container text-center mt-3">
         <h3 class="fs-2 text-danger fw-bold">Line is not yet opened by OPERATOR, please check later !!</h3>
@@ -117,7 +122,7 @@
                                         @endphp
                                         <tr>
                                             <td>{{ $time_name }}</td>
-                                            <td>{{ $div_target }}</td>
+                                            <td><span id="div_target_{{ $time_id }}">{{ $div_target }}</span></td>
                                             <td>
                                                 <span id="actual_target_{{ $time_id }}"></span>
                                             </td>
@@ -136,7 +141,7 @@
                                             aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
-                                                    <form action="" method="POST">
+                                                    <form action="{{ url('line_entry_post') }}" method="POST">
                                                         <div class="modal-header">
                                                             <h1 class="fw-bold heading-text">{{ $time_name }}</h1>
                                                             <button type="button" class="btn-close"
@@ -170,21 +175,29 @@
                                                                                 <label>Actual</label>
                                                                                 <input type="number"
                                                                                     class="form-control"
-                                                                                    name="p_detail_actual_target"
+                                                                                    name="p_detail_actual_target[]"
                                                                                     id="p_detail_actual_target_{{ $time_id }}"
                                                                                     placeholder="100" required />
                                                                             </div>
                                                                         </div>
-                                                                    </div>
+                                                                    </div> <input type="text" name="p_detail_id[]"
+                                                                        value="{{ $p_detail_id }}" />
                                                                     @endforeach
+                                                                    <input type="text" name="time_id"
+                                                                        value="{{ $time_id }}" />
+                                                                    <input type="text"
+                                                                        name="div_actual_target_input_{{ $time_id }}"
+                                                                        id="div_actual_target_input_{{ $time_id }}" />
+                                                                    <input type="text"
+                                                                        name="div_actual_percent_input_{{ $time_id }}"
+                                                                        id="div_actual_percent_input_{{ $time_id }}" />
                                                                 </div>
-
                                                             </div>
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary"
                                                                 data-bs-dismiss="modal">Close</button>
-                                                            <button type="button" class="btn btn-primary">Save
+                                                            <button type="submit" class="btn btn-primary">Save
                                                             </button>
                                                         </div>
                                                     </form>
@@ -193,33 +206,36 @@
                                         </div>
                                         <script>
                                             $("#toggle_btn_<?php echo $time_id; ?>").click(function() {
-                                                var p_detail_number = "<?php echo $time_id; ?>";(p_detail_number);
-                                                calculateSum();
-                                                $(".modal-content #p_detail_actual_target_"+p_detail_number).on(
-                                                    "keydown keyup",
-                                                    function () {
-                                                        calculateSum();
-                                                    }
-                                                );
-                                                function calculateSum() {
-                                                    var sum = 0;
                                                     var p_detail_number = "<?php echo $time_id; ?>";(p_detail_number);
-
-                                                    //iterate through each textboxes and add the values
-                                                    $(".modal-content #p_detail_actual_target_"+p_detail_number).each(function () {
-                                                        //add only if the value is number
-                                                        if (!isNaN(this.value) && this.value.length != 0) {
-                                                            sum += parseFloat(this.value);
-                                                            $(this).css("background-color", "#FEFFB0");
-                                                        } else if (this.value.length != 0) {
-                                                            $(this).css("background-color", "red");
+                                                    calculateSum();
+                                                    $(".modal-content #p_detail_actual_target_"+p_detail_number).on(
+                                                        "keydown keyup",
+                                                        function () {
+                                                            calculateSum();
                                                         }
-                                                    });
+                                                    );
+                                                    function calculateSum() {
+                                                        var sum = 0;
+                                                        var p_detail_number = "<?php echo $time_id; ?>";
 
-                                                    $("#actual_target_"+p_detail_number).html(sum.toFixed(0));
-                                                    $("#actual_percentage_" +p_detail_number).text(((sum / "<?php echo $div_target; ?>") * 100).toFixed(0) + "%");
-                                                }
-                                            });
+                                                        //iterate through each textboxes and add the values
+                                                        $(".modal-content #p_detail_actual_target_"+p_detail_number).each(function () {
+                                                            //add only if the value is number
+                                                            if (!isNaN(this.value) && this.value.length != 0) {
+                                                                sum += parseFloat(this.value);
+                                                                $(this).css("background-color", "#FEFFB0");
+                                                            } else if (this.value.length != 0) {
+                                                                $(this).css("background-color", "red");
+                                                            }
+                                                        });
+
+                                                        $("#actual_target_"+p_detail_number).html(sum.toFixed(0));
+                                                        $("#actual_percentage_" +p_detail_number).text(((sum / "<?php echo $div_target; ?>") * 100).toFixed(0) + "%");
+
+                                                        $("#div_actual_target_input_"+p_detail_number).val($("#actual_target_"+p_detail_number).text());
+                                                        $("#div_actual_percent_input_"+p_detail_number).val($("#actual_percentage_"+p_detail_number).text());
+                                                    }
+                                                });
                                         </script>
                                         @endforeach
                                     </tbody>
@@ -387,6 +403,9 @@
         </div>
     </div>
     @endif
+    @endif
+
+
 </div>
 @endsection
 

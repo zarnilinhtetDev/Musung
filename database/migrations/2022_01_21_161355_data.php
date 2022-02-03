@@ -15,12 +15,10 @@ class Data extends Migration
     {
         Schema::create('data', function (Blueprint $table) {
             $table->id('data_id');
-            $table->integer('user_id');
+            $table->integer('p_detail_id');
             $table->integer('time_id');
-            $table->integer('line_id');
-            $table->integer('target');
-            $table->integer('actual_target');
-            $table->timestamps();
+            $table->integer('div_actual_target');
+            $table->integer('div_actual_percent');
         });
     }
 
