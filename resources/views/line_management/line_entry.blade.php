@@ -42,7 +42,7 @@
     $l_name = $line_name;
     $line_visible='yes';
     }
-    if($date_string==$assign_date && $user_id != Auth::user()->id){
+    if($date_string==$assign_date && $user_id != Auth::user()->id || $date_string!=$assign_date){
     $line_visible='no';
     }
     @endphp
