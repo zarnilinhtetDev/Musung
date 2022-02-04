@@ -58,32 +58,131 @@
                         @php
                         $g_line_id=$g_line->l_id;
                         $g_line_name = $g_line->l_name;
+                        $g_main_target = $g_line->main_target;
                         @endphp
                         <tr>
                             <td>{{ $g_line_name }}</td>
-                            @foreach($json_decode as $d)
-                            @php
-                            $line_id = $d->l_id;
-                            $line_name = $d->l_name;
-                            $a_id=$d->assign_id;
-                            $main_target=$d->main_target;
-                            $s_time = $d->s_time;
-                            $e_time=$d->e_time;
-                            $lunch_s_time=$d->lunch_s_time;
-                            $lunch_e_time=$d->lunch_e_time;
-                            $time_id=$d->time_id;
-                            $time_name=$d->time_name;
-                            $line_status=$d->status;
-                            $div_target=$d->div_target;
-                            $actual_target=$d->actual_target_entry;
-                            $assign_date = $d->assign_date;
+                            <td> {{ $g_main_target }}</td>
 
-                            $date_string = date("d.m.Y");
-
+                            @foreach($time_2 as $t_2)
+                            @if($g_line_id==$t_2->line_id)
+                            @php $current_target = $t_2->time_id;
+                            $prev_target = ((int)$current_target)-1;
                             @endphp
+                            <td>
+                                <table class="w-100 text-center">
+                                    <tr>
+                                        <td><span id="new_div_target_{{ $t_2->time_id }}">{{ $t_2->actual_target_entry
+                                                }}</span></td>
+                                        <td><span id="div_target_{{ $t_2->time_id }}">{{ $t_2->div_target }}</span></td>
+                                    </tr>
+                                    <tr class="text-white">
+                                        <td id="td_div_actual_target_{{ $t_2->time_id }}">
+                                            <span id="div_actual_target_{{ $t_2->time_id }}">{{
+                                                $t_2->div_actual_target }}</span>
+                                        </td>
+                                        <td id="td_div_actual_target_total_{{ $t_2->time_id }}"><span
+                                                id="div_actual_target_total_{{ $t_2->time_id }}"></span></td>
+                                    </tr>
+                                    <tr class="text-white">
+                                        <td id="td_div_actual_target_percent_{{ $t_2->time_id }}" colspan="2"><span
+                                                id="div_actual_target_percent_{{ $t_2->time_id }}"></span>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <script>
+                                    var prev_target = parseInt($("#div_actual_target_<?php echo $prev_target; ?>").text());
+                                    // console.log(prev_target);
+var current_target = parseInt($("#div_actual_target_<?php echo $current_target; ?>").text());
 
-                            @if($g_line_id==$line_id)
-                            <td>{{ $main_target }}</td>
+
+var total = prev_target+current_target;
+var current_target_total = $("#div_actual_target_total_<?php echo $current_target; ?>");
+
+if(Number.isNaN(total)){
+    current_target_total.text('');
+}
+if(!Number.isNaN(total)){
+    current_target_total.text(total);
+}
+
+var new_div_actual_target_total_prev = $("#div_actual_target_total_<?php echo $prev_target; ?>").text();
+var new_div_actual_target_prev = $("#div_actual_target_<?php echo $prev_target; ?>").text();
+var new_div_actual_target_current = $("#div_actual_target_<?php echo $current_target; ?>").text();
+if(new_div_actual_target_total_prev==''){
+    // console.log(new_div_actual_target_prev);
+    // console.log("Current" + new_div_actual_target_current);
+   var new_total = parseInt(new_div_actual_target_prev) + parseInt(new_div_actual_target_current);
+   console.log(new_total);
+}
+//// Last Written Code Before Meething 14:40 4.2.2022(DD-MM--YY)
+
+
+var div_target = parseInt($("#div_target_<?php echo $current_target; ?>").text());
+var div_actual_target_total = parseInt($("#div_actual_target_total_<?php echo $current_target; ?>").text());
+var percentage =(div_actual_target_total / div_target) * 100;
+var div_actual_target_percent = $("#div_actual_target_percent_<?php echo $current_target; ?>");
+var new_div_target = $("#new_div_target_<?php echo $current_target; ?>").text();
+var div_actual_target = parseInt($("#div_actual_target_<?php echo $current_target; ?>").text());
+
+if(Number.isNaN(div_actual_target_total)){
+    if(div_actual_target==''){
+        // console.log('h');
+    }
+    if(div_actual_target!=''){
+        // console.log(div_actual_target);
+        var new_percent = (div_actual_target/div_target) * 100;
+        if(Number.isNaN(new_percent)){
+            div_actual_target_percent.text("");
+        }if(!Number.isNaN(new_percent)){
+            div_actual_target_percent.text(new_percent);
+            if(parseInt(div_actual_target_percent.text()) >= 100){
+       $("#td_div_actual_target_percent_<?php echo $current_target; ?>").css('background-color','green');
+    } if(parseInt(div_actual_target_percent.text()) <= 100){
+       $("#td_div_actual_target_percent_<?php echo $current_target; ?>").css('background-color','red');
+    }
+
+    div_actual_target_percent.append('%');
+        }
+    }
+}
+if(!Number.isNaN(div_actual_target_total)){
+if(Number.isNaN(percentage)){
+div_actual_target_percent.text("");
+}
+if(!Number.isNaN(percentage)){
+    div_actual_target_percent.text(percentage);
+    if(parseInt(div_actual_target_percent.text()) >= 100){
+       $("#td_div_actual_target_percent_<?php echo $current_target; ?>").css('background-color','green');
+    } if(parseInt(div_actual_target_percent.text()) <= 100){
+       $("#td_div_actual_target_percent_<?php echo $current_target; ?>").css('background-color','red');
+    }
+
+    div_actual_target_percent.append('%');
+}
+}
+
+
+if(parseInt(new_div_target) < parseInt(div_actual_target)){
+    $("#td_div_actual_target_<?php echo $current_target; ?>").css('background-color','red');
+}
+if(parseInt(new_div_target) < parseInt(div_actual_target)){
+    $("#td_div_actual_target_<?php echo $current_target; ?>").css('background-color','green');
+}
+
+if(parseInt(div_target) > parseInt(div_actual_target_total)){
+    $("#td_div_actual_target_total_<?php echo $current_target; ?>").css('background-color','red');
+}
+if(parseInt(div_target) < parseInt(div_actual_target_total)){
+    $("#td_div_actual_target_total_<?php echo $current_target; ?>").css('background-color','green');
+}
+
+
+                                </script>
+                            </td>
+                            {{-- <td>
+                                {{ $t_2->actual_target_entry }}
+                            </td> --}}
                             @endif
                             @endforeach
                         </tr>

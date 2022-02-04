@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\ProductDetail;
 use App\Models\Line;
+use App\Models\LineAssign;
 use App\Models\Time;
 
 class LiveDashController extends Controller
@@ -37,14 +38,15 @@ class LiveDashController extends Controller
             'quantity'
         )->orderBy('p_detail_id', 'asc')->get();
         $line = Line::where('a_status', 1)->orderBy('l_pos', 'asc')->get();
-        $time = Time::select('time_name')->groupBy('time_name')->get();
+        $time = Time::select('time_name')->groupBy('time_name')->orderBy('time_name', 'asc')->get();
+        $time_2 = Time::select('time_id', 'time_name', 'line_id', 'assign_id', 'status', 'div_target', 'div_actual_target', 'div_actual_percent', 'actual_target_entry')->orderBy('time_id', 'asc')->get();
         $getLine = DB::select('SELECT "line".l_id,"line".l_name,"line_assign".assign_id,"line_assign".main_target,"line_assign".s_time,"line_assign".e_time,"line_assign".lunch_s_time,"line_assign".lunch_e_time,"line_assign".assign_date,"users".id,"users".name
         FROM line
         JOIN line_assign ON "line_assign".l_id = "line".l_id
         JOIN users ON "users".id= "line_assign".user_id
-        WHERE "line".a_status=1');
+        WHERE "line".a_status=1 ORDER BY "line".l_pos ASC');
         DB::disconnect('musung');
 
-        return view('target_line.live_dash', compact('responseBody', 'p_detail', 'line', 'getLine', 'time'));
+        return view('target_line.live_dash', compact('responseBody', 'p_detail', 'line', 'getLine', 'time', 'time_2'));
     }
 }
