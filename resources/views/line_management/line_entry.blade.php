@@ -191,7 +191,7 @@
                                                                                     class="form-control"
                                                                                     name="p_detail_actual_target[]"
                                                                                     id="p_detail_actual_target_{{ $time_id }}"
-                                                                                    placeholder="100" required />
+                                                                                    placeholder="0" required />
                                                                             </div>
                                                                         </div>
                                                                     </div>
