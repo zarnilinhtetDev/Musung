@@ -22,13 +22,13 @@ class LineEntryController extends Controller
     public function index()
     {
         $u_id = Auth::user()->id;
-        $responseBody = DB::select('SELECT line.l_id,line.l_name,line_assign.assign_id,line_assign.main_target,line_assign.s_time,line_assign.e_time,line_assign.lunch_s_time,line_assign.lunch_e_time,line_assign.assign_date,time.time_id,time.time_name,time.status,time.div_target,time.actual_target_entry,users.id,users.name,time.div_actual_target,time.div_actual_percent
+        $responseBody = DB::select('SELECT "line".l_id,"line".l_name,"line_assign".assign_id,"line_assign".main_target,"line_assign".s_time,"line_assign".e_time,"line_assign".lunch_s_time,"line_assign".lunch_e_time,"line_assign".assign_date,"time".time_id,"time".time_name,"time".status,"time".div_target,"time".actual_target_entry,"users".id,"users".name,"time".div_actual_target,"time".div_actual_percent
         FROM line
-        JOIN line_assign ON line_assign.l_id = line.l_id
-        JOIN time ON time.line_id = line_assign.l_id
-        JOIN users ON users.id= line_assign.user_id
-        WHERE users.id=2
-        ORDER BY time.time_id ASC');
+        JOIN line_assign ON "line_assign".l_id = "line".l_id
+        JOIN time ON "time".line_id = "line_assign".l_id
+        JOIN users ON "users".id= "line_assign".user_id
+        WHERE "users".id=2
+        ORDER BY "time".time_id ASC');
         $p_detail = ProductDetail::select(
             'p_detail_id',
             'assign_id',
