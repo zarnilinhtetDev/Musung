@@ -19,7 +19,7 @@ if (App::environment('production')) {
 |
 */
 
-Route::view('/', 'auth.login');
+Route::view('/', 'auth.login')->name('login_1');
 
 Auth::routes();
 

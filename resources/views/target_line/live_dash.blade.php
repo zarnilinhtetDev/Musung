@@ -62,7 +62,7 @@
                         @endphp
                         <tr>
                             <td>{{ $g_line_name }}</td>
-                            <td> {{ $g_main_target }}</td>
+                            <td><span id="g_main_target_{{ $g_line_id }}">{{ $g_main_target }}</span></td>
 
                             @foreach($time_2 as $t_2)
                             @if($g_line_id==$t_2->line_id)
@@ -82,7 +82,8 @@
                                                 $t_2->div_actual_target }}</span>
                                         </td>
                                         <td id="td_div_actual_target_total_{{ $t_2->time_id }}"><span
-                                                id="div_actual_target_total_{{ $t_2->time_id }}"></span></td>
+                                                id="div_actual_target_total_{{ $t_2->time_id }}"
+                                                class="div_actual_target_total_{{ $g_line_id }}"></span></td>
                                     </tr>
                                     <tr class="text-white">
                                         <td id="td_div_actual_target_percent_{{ $t_2->time_id }}" colspan="2"><span
@@ -92,9 +93,7 @@
                                 </table>
                                 <script>
                                     var prev_target = parseInt($("#div_actual_target_<?php echo $prev_target; ?>").text());
-                                    // console.log(prev_target);
 var current_target = parseInt($("#div_actual_target_<?php echo $current_target; ?>").text());
-
 
 var total = prev_target+current_target;
 var current_target_total = $("#div_actual_target_total_<?php echo $current_target; ?>");
@@ -107,31 +106,30 @@ if(!Number.isNaN(total)){
 }
 
 var new_div_actual_target_total_prev = $("#div_actual_target_total_<?php echo $prev_target; ?>").text();
+var new_div_actual_target_total_current = $("#div_actual_target_total_<?php echo $current_target; ?>");
 var new_div_actual_target_prev = $("#div_actual_target_<?php echo $prev_target; ?>").text();
 var new_div_actual_target_current = $("#div_actual_target_<?php echo $current_target; ?>").text();
-if(new_div_actual_target_total_prev==''){
-    // console.log(new_div_actual_target_prev);
-    // console.log("Current" + new_div_actual_target_current);
-   var new_total = parseInt(new_div_actual_target_prev) + parseInt(new_div_actual_target_current);
-   console.log(new_total);
-}
-//// Last Written Code Before Meething 14:40 4.2.2022(DD-MM--YY)
 
+if(new_div_actual_target_total_prev!=''){
+   var new_total = parseInt(new_div_actual_target_total_prev) + parseInt(new_div_actual_target_current);
+   if(Number.isNaN(new_total)){
+    new_div_actual_target_total_current.text("");
+    }
+    if(!Number.isNaN(new_total)){
+        new_div_actual_target_total_current.text(new_total);
+    }
+}
 
 var div_target = parseInt($("#div_target_<?php echo $current_target; ?>").text());
 var div_actual_target_total = parseInt($("#div_actual_target_total_<?php echo $current_target; ?>").text());
-var percentage =(div_actual_target_total / div_target) * 100;
+var percentage =(parseFloat(div_actual_target_total / div_target).toFixed(1)) * 100;
 var div_actual_target_percent = $("#div_actual_target_percent_<?php echo $current_target; ?>");
 var new_div_target = $("#new_div_target_<?php echo $current_target; ?>").text();
 var div_actual_target = parseInt($("#div_actual_target_<?php echo $current_target; ?>").text());
 
 if(Number.isNaN(div_actual_target_total)){
-    if(div_actual_target==''){
-        // console.log('h');
-    }
     if(div_actual_target!=''){
-        // console.log(div_actual_target);
-        var new_percent = (div_actual_target/div_target) * 100;
+        var new_percent = (parseFloat(div_actual_target/div_target).toFixed(1)) * 100;
         if(Number.isNaN(new_percent)){
             div_actual_target_percent.text("");
         }if(!Number.isNaN(new_percent)){
@@ -177,12 +175,13 @@ if(parseInt(div_target) < parseInt(div_actual_target_total)){
     $("#td_div_actual_target_total_<?php echo $current_target; ?>").css('background-color','green');
 }
 
+//// Last Written Code Before 14:40 4.2.2022(DD-MM--YY)
+
+
+
 
                                 </script>
                             </td>
-                            {{-- <td>
-                                {{ $t_2->actual_target_entry }}
-                            </td> --}}
                             @endif
                             @endforeach
                         </tr>
@@ -577,16 +576,14 @@ if(parseInt(div_target) < parseInt(div_actual_target_total)){
                             <thead>
                                 <tr class="tr-2 tr-3">
                                     <th scope="col">Line Name</th>
-                                    <th scope="col">Line 1</th>
-                                    <th scope="col">Line 3</th>
-                                    <th scope="col">Line 4</th>
-                                    <th scope="col">Line 4S</th>
-                                    <th scope="col">Line 5A</th>
-                                    <th scope="col">Line 5</th>
-                                    <th scope="col">Line 5S</th>
-                                    <th scope="col">Line 8</th>
-                                    <th scope="col">Line Mini</th>
-                                    <th scope="col">Line Total</th>
+                                    @foreach ($getLine as $g_line)
+                                    @php
+                                    $g_line_id=$g_line->l_id;
+                                    $g_line_name = $g_line->l_name;
+                                    $g_main_target = $g_line->main_target;
+                                    @endphp
+                                    <th scope="col">{{ $g_line_name }}</th>
+                                    @endforeach
                                 </tr>
                             </thead>
                             <tbody>
@@ -594,106 +591,89 @@ if(parseInt(div_target) < parseInt(div_actual_target_total)){
                                     <th>
                                         Target
                                     </th>
-                                    <td>
-                                        370
+                                    @foreach ($getLine as $g_line)
+                                    @php
+                                    $g_line_id=$g_line->l_id;
+                                    $g_line_name = $g_line->l_name;
+                                    $g_main_target = $g_line->main_target;
+                                    @endphp
+                                    <td id="td_main_target_actual_chart_{{ $g_line_id }}">
+                                        <span id="main_target_actual_chart_{{ $g_line_id }}"></span>
                                     </td>
-                                    <td>
-                                        224
-                                    </td>
-                                    <td>
-                                        315
-                                    </td>
-                                    <td>
-                                        405
-                                    </td>
-                                    <td>
-                                        564
-                                    </td>
-                                    <td>
-                                        871
-                                    </td>
-                                    <td>
-                                        809
-                                    </td>
-                                    <td>
-                                        286
-                                    </td>
-                                    <td>
-                                        188
-                                    </td>
-                                    <td>
-                                        4032
-                                    </td>
+                                    <script>
+                                        var g_main_target = $("#g_main_target_{{ $g_line_id }}").text();
+                                        var main_target_actual_chart = $("#main_target_actual_chart_{{ $g_line_id }}");
+                                        main_target_actual_chart.text(g_main_target);
+                                    </script>
+                                    @endforeach
                                 </tr>
                                 <tr>
                                     <th>
                                         Actual
                                     </th>
-                                    <td>
-                                        332
+                                    @foreach ($getLine as $g_line)
+                                    @php
+                                    $g_line_id=$g_line->l_id;
+                                    $g_line_name = $g_line->l_name;
+                                    $g_main_target = $g_line->main_target;
+                                    @endphp
+                                    <td id="td_actual_target_actual_chart_{{ $g_line_id }}" class="text-white">
+                                        <span id="actual_target_actual_chart_{{ $g_line_id }}"></span>
                                     </td>
-                                    <td>
-                                        111
-                                    </td>
-                                    <td>
-                                        278
-                                    </td>
-                                    <td>
-                                        240
-                                    </td>
-                                    <td>
-                                        385
-                                    </td>
-                                    <td>
-                                        770
-                                    </td>
-                                    <td>
-                                        340
-                                    </td>
-                                    <td>
-                                        173
-                                    </td>
-                                    <td>
-                                        148
-                                    </td>
-                                    <td>
-                                        2777
-                                    </td>
+                                    <script>
+                                        var div_actual_target = $(".div_actual_target_total_{{ $g_line_id }}");
+var actual_target_array = [];
+for(var i = 0; i < div_actual_target.length; i++){
+    actual_target_array.push($(div_actual_target[i]).text());
+}
+var newActualTargetArray = actual_target_array.filter(function(v){return v!==''});
+var lastActualTargetItem = newActualTargetArray[newActualTargetArray.length - 1];
+
+var actual_target_actual_chart = $("#actual_target_actual_chart_{{ $g_line_id }}");
+actual_target_actual_chart.text(lastActualTargetItem);
+if(parseInt(actual_target_actual_chart.text()) >= parseInt(g_main_target)){
+       $("#td_actual_target_actual_chart_{{ $g_line_id }}").css('background-color','green');
+    }
+    if(parseInt(actual_target_actual_chart.text()) <= parseInt(g_main_target)){
+        $("#td_actual_target_actual_chart_{{ $g_line_id }}").css('background-color','red');
+}
+                                    </script>
+                                    @endforeach
                                 </tr>
                                 <tr>
                                     <th>
                                         %
                                     </th>
-                                    <td>
-                                        90%
+                                    @foreach ($getLine as $g_line)
+                                    @php
+                                    $g_line_id=$g_line->l_id;
+                                    $g_line_name = $g_line->l_name;
+                                    $g_main_target = $g_line->main_target;
+                                    @endphp
+                                    <td id="td_actual_percent_actual_chart_{{ $g_line_id }}" class="text-white">
+                                        <span id="actual_target_percent_actual_chart_{{ $g_line_id }}"></span>
                                     </td>
-                                    <td>
-                                        50%
-                                    </td>
-                                    <td>
-                                        88%
-                                    </td>
-                                    <td>
-                                        59%
-                                    </td>
-                                    <td>
-                                        68%
-                                    </td>
-                                    <td>
-                                        88%
-                                    </td>
-                                    <td>
-                                        42%
-                                    </td>
-                                    <td>
-                                        60%
-                                    </td>
-                                    <td>
-                                        79%
-                                    </td>
-                                    <td>
-                                        69%
-                                    </td>
+                                    <script>
+                                        var main_target_actual_chart_val = parseInt($("#main_target_actual_chart_{{ $g_line_id }}").text());
+                                        var actual_target_actual_chart_val = parseInt($("#actual_target_actual_chart_{{ $g_line_id }}").text());
+                                        var actual_target_percent_actual_chart = $("#actual_target_percent_actual_chart_{{ $g_line_id }}");
+
+                                        var actual_percent_val =(actual_target_actual_chart_val / main_target_actual_chart_val) * 100;
+                                        if(Number.isNaN(actual_percent_val)){
+                                        actual_target_percent_actual_chart.text('');
+                                        }
+                                        if(!Number.isNaN(actual_percent_val)){
+                                            actual_percent_val = actual_percent_val;
+                                        actual_target_percent_actual_chart.text(actual_percent_val);
+                                        if(parseInt(actual_target_percent_actual_chart.text()) >= 100){
+       $("#td_actual_percent_actual_chart_{{ $g_line_id }}").css('background-color','green');
+    } if(parseInt(actual_target_percent_actual_chart.text()) <= 100){
+        $("#td_actual_percent_actual_chart_{{ $g_line_id }}").css('background-color','red');
+    }
+                                        actual_target_percent_actual_chart.append('%');
+                                        }
+                                    </script>
+                                    @endforeach
                                 </tr>
                             </tbody>
                         </table>

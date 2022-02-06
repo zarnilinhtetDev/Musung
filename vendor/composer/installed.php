@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'eea9a880d09154fbcb1deef8392ceaba57f78ca8',
+        'reference' => 'ef414ddc79f409c968c6a6afa6974b70b84a6331',
         'name' => 'laravel/laravel',
         'dev' => true,
     ),
@@ -409,7 +409,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'eea9a880d09154fbcb1deef8392ceaba57f78ca8',
+            'reference' => 'ef414ddc79f409c968c6a6afa6974b70b84a6331',
             'dev_requirement' => false,
         ),
         'laravel/sail' => array(
@@ -840,6 +840,15 @@
             'install_path' => __DIR__ . '/../ramsey/uuid',
             'aliases' => array(),
             'reference' => 'fc9bb7fb5388691fd7373cd44dcb4d63bbcf24df',
+            'dev_requirement' => false,
+        ),
+        'renatomarinho/laravel-page-speed' => array(
+            'pretty_version' => '2.0.0',
+            'version' => '2.0.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../renatomarinho/laravel-page-speed',
+            'aliases' => array(),
+            'reference' => '5c807f04831a6ab99fd089c9b83fb3b5a9472d9b',
             'dev_requirement' => false,
         ),
         'rhumsaa/uuid' => array(

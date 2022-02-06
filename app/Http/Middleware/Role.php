@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\Auth;
+use App\Providers\RouteServiceProvider;
 
 class Role
 {
@@ -24,9 +25,6 @@ class Role
         }
         if (Auth::user()->role == 2) {
             return $next($request);
-        }
-        if (Auth::user()->role == "") {
-            return redirect('home')->with('error', 'Permission Denied!!! You do not have access.');
         }
     }
 }
