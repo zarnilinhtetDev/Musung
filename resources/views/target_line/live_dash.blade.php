@@ -24,11 +24,11 @@
     $actual_target=$d->actual_target_entry;
     $assign_date = $d->assign_date;
 
-    $date_string = date("d.m.Y");
+    // $date_string = date("d.m.Y");
 
     @endphp
     @endforeach
-
+    @php $date_string = date("d.m.Y"); @endphp
     <div class="container-fluid">
         <ul class="horizontal-slide" style="" id="tabs">
             <li class="span2 bg-transparent">
@@ -161,7 +161,7 @@ if(!Number.isNaN(percentage)){
 }
 
 
-if(parseInt(new_div_target) < parseInt(div_actual_target)){
+if(parseInt(new_div_target) > parseInt(div_actual_target)){
     $("#td_div_actual_target_<?php echo $current_target; ?>").css('background-color','red');
 }
 if(parseInt(new_div_target) < parseInt(div_actual_target)){

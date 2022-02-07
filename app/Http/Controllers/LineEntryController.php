@@ -27,7 +27,7 @@ class LineEntryController extends Controller
         JOIN line_assign ON "line_assign".l_id = "line".l_id
         JOIN time ON "time".line_id = "line_assign".l_id
         JOIN users ON "users".id= "line_assign".user_id
-        WHERE "users".id=2
+        WHERE "users".id=' . $u_id . '
         ORDER BY "time".time_id ASC');
         $p_detail = ProductDetail::select(
             'p_detail_id',

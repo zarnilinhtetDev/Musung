@@ -7,8 +7,6 @@
     $json_encode = json_encode($responseBody);
     $json_decode = json_decode($json_encode);
 
-
-    // print_r($json_decode);
     @endphp
     @foreach($json_decode as $d)
     @php
