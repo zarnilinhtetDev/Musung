@@ -122,18 +122,18 @@ if(new_div_actual_target_total_prev!=''){
 
 var div_target = parseInt($("#div_target_<?php echo $current_target; ?>").text());
 var div_actual_target_total = parseInt($("#div_actual_target_total_<?php echo $current_target; ?>").text());
-var percentage =(parseFloat(div_actual_target_total / div_target).toFixed(1)) * 100;
+var percentage =(div_actual_target_total / div_target) * 100;
 var div_actual_target_percent = $("#div_actual_target_percent_<?php echo $current_target; ?>");
 var new_div_target = $("#new_div_target_<?php echo $current_target; ?>").text();
 var div_actual_target = parseInt($("#div_actual_target_<?php echo $current_target; ?>").text());
 
 if(Number.isNaN(div_actual_target_total)){
     if(div_actual_target!=''){
-        var new_percent = (parseFloat(div_actual_target/div_target).toFixed(1)) * 100;
+        var new_percent = (div_actual_target/div_target) * 100;
         if(Number.isNaN(new_percent)){
             div_actual_target_percent.text("");
         }if(!Number.isNaN(new_percent)){
-            div_actual_target_percent.text(new_percent);
+            div_actual_target_percent.text(new_percent.toFixed(1));
             if(parseInt(div_actual_target_percent.text()) >= 100){
        $("#td_div_actual_target_percent_<?php echo $current_target; ?>").css('background-color','green');
     } if(parseInt(div_actual_target_percent.text()) <= 100){
@@ -149,10 +149,10 @@ if(Number.isNaN(percentage)){
 div_actual_target_percent.text("");
 }
 if(!Number.isNaN(percentage)){
-    div_actual_target_percent.text(percentage);
+    div_actual_target_percent.text(percentage.toFixed(1));
     if(parseInt(div_actual_target_percent.text()) >= 100){
        $("#td_div_actual_target_percent_<?php echo $current_target; ?>").css('background-color','green');
-    } if(parseInt(div_actual_target_percent.text()) <= 100){
+    } if(parseInt(div_actual_target_percent.text()) < 100){
        $("#td_div_actual_target_percent_<?php echo $current_target; ?>").css('background-color','red');
     }
 
@@ -174,11 +174,6 @@ if(parseInt(div_target) > parseInt(div_actual_target_total)){
 if(parseInt(div_target) < parseInt(div_actual_target_total)){
     $("#td_div_actual_target_total_<?php echo $current_target; ?>").css('background-color','green');
 }
-
-//// Last Written Code Before 14:40 4.2.2022(DD-MM--YY)
-
-
-
 
                                 </script>
                             </td>
@@ -561,7 +556,13 @@ if(parseInt(div_target) < parseInt(div_actual_target_total)){
             <div class="container-fluid p-0 h-100">
                 <div class="div-bg-1 h-100">
                     <h1 class="fw-bold heading-text fs-3 p-2">Today's Percentage Chart</h1>
-                    <div id="live_bar_chart"></div>
+                    {{-- <div id="live_bar_chart"></div> --}}
+                    <div id="live_bar_chart_2">
+                        {!! $percent_chart->container() !!}
+                        <script src="{{ $percent_chart->cdn() }}"></script>
+
+                        {!! $percent_chart->script() !!}
+                    </div>
                 </div>
             </div>
         </div>
@@ -582,7 +583,8 @@ if(parseInt(div_target) < parseInt(div_actual_target_total)){
                                     $g_line_name = $g_line->l_name;
                                     $g_main_target = $g_line->main_target;
                                     @endphp
-                                    <th scope="col">{{ $g_line_name }}</th>
+                                    <th scope="col"><span class="actual_target_div_{{ $g_line_id }}">{{ $g_line_name
+                                            }}</span></th>
                                     @endforeach
                                 </tr>
                             </thead>
@@ -598,7 +600,8 @@ if(parseInt(div_target) < parseInt(div_actual_target_total)){
                                     $g_main_target = $g_line->main_target;
                                     @endphp
                                     <td id="td_main_target_actual_chart_{{ $g_line_id }}">
-                                        <span id="main_target_actual_chart_{{ $g_line_id }}"></span>
+                                        <span id="main_target_actual_chart_{{ $g_line_id }}"
+                                            class="actual_target_div_{{ $g_line_id }}"></span>
                                     </td>
                                     <script>
                                         var g_main_target = $("#g_main_target_{{ $g_line_id }}").text();
@@ -617,8 +620,9 @@ if(parseInt(div_target) < parseInt(div_actual_target_total)){
                                     $g_line_name = $g_line->l_name;
                                     $g_main_target = $g_line->main_target;
                                     @endphp
-                                    <td id="td_actual_target_actual_chart_{{ $g_line_id }}" class="text-white">
-                                        <span id="actual_target_actual_chart_{{ $g_line_id }}"></span>
+                                    <td id="td_actual_target_actual_chart_{{ $g_line_id }}">
+                                        <span id="actual_target_actual_chart_{{ $g_line_id }}"
+                                            class="text-white actual_target_div_{{ $g_line_id }}"></span>
                                     </td>
                                     <script>
                                         var div_actual_target = $(".div_actual_target_total_{{ $g_line_id }}");
@@ -651,7 +655,8 @@ if(parseInt(actual_target_actual_chart.text()) >= parseInt(g_main_target)){
                                     $g_main_target = $g_line->main_target;
                                     @endphp
                                     <td id="td_actual_percent_actual_chart_{{ $g_line_id }}" class="text-white">
-                                        <span id="actual_target_percent_actual_chart_{{ $g_line_id }}"></span>
+                                        <span id="actual_target_percent_actual_chart_{{ $g_line_id }}"
+                                            class="actual_target_div_{{ $g_line_id }}"></span>
                                     </td>
                                     <script>
                                         var main_target_actual_chart_val = parseInt($("#main_target_actual_chart_{{ $g_line_id }}").text());
@@ -664,7 +669,7 @@ if(parseInt(actual_target_actual_chart.text()) >= parseInt(g_main_target)){
                                         }
                                         if(!Number.isNaN(actual_percent_val)){
                                             actual_percent_val = actual_percent_val;
-                                        actual_target_percent_actual_chart.text(actual_percent_val);
+                                        actual_target_percent_actual_chart.text(actual_percent_val.toFixed(1));
                                         if(parseInt(actual_target_percent_actual_chart.text()) >= 100){
        $("#td_actual_percent_actual_chart_{{ $g_line_id }}").css('background-color','green');
     } if(parseInt(actual_target_percent_actual_chart.text()) <= 100){
@@ -686,62 +691,33 @@ if(parseInt(actual_target_actual_chart.text()) >= parseInt(g_main_target)){
                     <div class="panel-body">
                         <table class="table table-hover table-striped table-bordered text-center">
                             <tbody>
+                                <script>
+                                    var array_class = [];
+                                </script>
+                                @php $list_num = 1; @endphp
+                                @foreach($top_line as $t_data)
+                                @php $g_line_id=$t_data->line_id; @endphp
                                 <tr class="bg-success">
-                                    <th class="text-white">
-                                        Top 1
+                                    <th id="top_name_{{ $g_line_id }}" class="text-white">
+                                        Top {{ $list_num }}
                                     </th>
                                     <td class="text-white">
-                                        Line 1
+                                        <span id="top_line_name_{{ $g_line_id }}">{{ $t_data->l_name }}</span>
                                     </td>
                                     <td class="text-white">
-                                        332
+                                        <span id="top_actual_target_{{ $g_line_id }}">{{ $t_data->total_actual }}</span>
                                     </td>
                                     <td class="text-white">
-                                        90%
+                                        <span id="top_actual_percent_{{ $g_line_id }}"></span>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <th>
-                                        Top 2
-                                    </th>
-                                    <td>
-                                        Line 5
-                                    </td>
-                                    <td>
-                                        770
-                                    </td>
-                                    <td>
-                                        88%
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>
-                                        Top 3
-                                    </th>
-                                    <td>
-                                        Line 4
-                                    </td>
-                                    <td>
-                                        278
-                                    </td>
-                                    <td>
-                                        70%
-                                    </td>
-                                </tr>
-                                <tr class="bg-danger text-white">
-                                    <th>
-                                        Last
-                                    </th>
-                                    <td>
-                                        Line 5S
-                                    </td>
-                                    <td>
-                                        340
-                                    </td>
-                                    <td>
-                                        40%
-                                    </td>
-                                </tr>
+                                @php $list_num++; @endphp
+                                <script>
+                                    var top_percent = $("#actual_target_percent_actual_chart_{{ $g_line_id }}").text();
+                                    var top_actual_percent = $("#top_actual_percent_{{ $g_line_id }}");
+                                    top_actual_percent.text(top_percent);
+                                </script>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -753,198 +729,3 @@ if(parseInt(actual_target_actual_chart.text()) >= parseInt(g_main_target)){
 @endsection
 
 @endsection
-
-
-{{--
-
-@foreach($json_decode as $d)
-@php
-$line_id = $d->l_id;
-$line_name = $d->l_name;
-$a_id=$d->assign_id;
-$main_target=$d->main_target;
-$s_time = $d->s_time;
-$e_time=$d->e_time;
-$lunch_s_time=$d->lunch_s_time;
-$lunch_e_time=$d->lunch_e_time;
-$time_id=$d->time_id;
-$time_name=$d->time_name;
-$line_status=$d->status;
-$div_target=$d->div_target;
-$actual_target=$d->actual_target_entry;
-$user_id = $d->id;
-$user_name = $d->name;
-$div_actual_target = $d->div_actual_target;
-$div_actual_percent = $d->div_actual_percent;
-@endphp
-@if ($line_id_1 == $line_id)
-<td class="p-0">
-    1
-</td>
-<td class="p-0">
-    <table class="w-100 text-center">
-        <tr>
-            <td>2</td>
-            <td>3</td>
-        </tr>
-        <tr class="text-white">
-            <td class="bg-danger">1</td>
-            <td class="bg-danger">2</td>
-        </tr>
-        <tr class="text-white">
-            <td colspan="2" class="bg-danger">66.7%</td>
-        </tr>
-    </table>
-</td>
-<td class="p-0">
-    <table class="w-100 text-center">
-        <tr>
-            <td>1</td>
-            <td>4</td>
-        </tr>
-        <tr class="text-white">
-            <td class="bg-success">2</td>
-            <td class="bg-success">4</td>
-        </tr>
-        <tr class="bg-success text-white">
-            <td colspan="2">100%</td>
-        </tr>
-    </table>
-</td>
-<td class="p-0">
-    <table class="w-100 text-center">
-        <tr>
-            <td>1</td>
-            <td>5</td>
-        </tr>
-        <tr class="text-white">
-            <td class="bg-danger">2</td>
-            <td class="bg-danger">4</td>
-        </tr>
-        <tr class="bg-danger text-white">
-            <td colspan="2">100%</td>
-        </tr>
-    </table>
-</td>
-<td class="p-0">
-    <table class="w-100 text-center">
-        <tr>
-            <td>1</td>
-            <td>6</td>
-        </tr>
-        <tr class="text-white">
-            <td class="bg-success">2</td>
-            <td class="bg-success">4</td>
-        </tr>
-        <tr class="bg-success text-white">
-            <td colspan="2">100%</td>
-        </tr>
-    </table>
-</td>
-<td class="p-0">
-    <table class="w-100 text-center">
-        <tr>
-            <td>1</td>
-            <td>7</td>
-        </tr>
-        <tr class="text-white">
-            <td class="bg-success">2</td>
-            <td class="bg-success">4</td>
-        </tr>
-        <tr class="bg-success text-white">
-            <td colspan="2">100%</td>
-        </tr>
-    </table>
-</td>
-<td class="p-0">
-    <table class="w-100 text-center">
-        <tr>
-            <td>1</td>
-            <td>8</td>
-        </tr>
-        <tr class="text-white">
-            <td class="bg-danger">2</td>
-            <td class="bg-danger">4</td>
-        </tr>
-        <tr class="bg-danger text-white">
-            <td colspan="2">100%</td>
-        </tr>
-    </table>
-</td>
-<td class="p-0">
-    <table class="w-100 text-center">
-        <tr>
-            <td>1</td>
-            <td>9</td>
-        </tr>
-        <tr class="text-white">
-            <td class="bg-success">2</td>
-            <td class="bg-success">4</td>
-        </tr>
-        <tr class="bg-success text-white">
-            <td colspan="2">100%</td>
-        </tr>
-    </table>
-</td>
-<td class="p-0">
-    <table class="w-100 text-center">
-        <tr>
-            <td>1</td>
-            <td>10</td>
-        </tr>
-        <tr class="text-white">
-            <td class="bg-danger">2</td>
-            <td class="bg-danger">4</td>
-        </tr>
-        <tr class="bg-danger text-white">
-            <td colspan="2">100%</td>
-        </tr>
-    </table>
-</td>
-<td class="p-0">
-    <table class="w-100 text-center">
-        <tr>
-            <td>1</td>
-            <td>11</td>
-        </tr>
-        <tr class="text-white">
-            <td class="bg-success">2</td>
-            <td class="bg-success">4</td>
-        </tr>
-        <tr class="bg-success text-white">
-            <td colspan="2">100%</td>
-        </tr>
-    </table>
-</td>
-<td class="p-0">
-    <table class="w-100 text-center">
-        <tr>
-            <td>1</td>
-            <td>12</td>
-        </tr>
-        <tr class="text-white">
-            <td class="bg-success">2</td>
-            <td class="bg-success">4</td>
-        </tr>
-        <tr class="bg-success text-white">
-            <td colspan="2">100%</td>
-        </tr>
-    </table>
-</td>
-<td class="p-0">
-    <table class="w-100 text-center">
-        <tr>
-            <td>1</td>
-            <td>13</td>
-        </tr>
-        <tr class="text-white">
-            <td class="bg-success">2</td>
-            <td class="bg-success">4</td>
-        </tr>
-        <tr class="bg-success text-white">
-            <td colspan="2">100%</td>
-        </tr>
-    </table>
-</td>
-@endif
-@endforeach --}}

@@ -178,6 +178,7 @@ class ComposerStaticInitc0b888793009922a59235191e8990fbc
         'A' => 
         array (
             'Asm89\\Stack\\' => 12,
+            'ArielMejiaDev\\LarapexCharts\\' => 28,
             'App\\' => 4,
         ),
     );
@@ -519,6 +520,10 @@ class ComposerStaticInitc0b888793009922a59235191e8990fbc
         array (
             0 => __DIR__ . '/..' . '/asm89/stack-cors/src',
         ),
+        'ArielMejiaDev\\LarapexCharts\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/arielmejiadev/larapex-charts/src',
+        ),
         'App\\' => 
         array (
             0 => __DIR__ . '/../..' . '/app',
@@ -536,6 +541,8 @@ class ComposerStaticInitc0b888793009922a59235191e8990fbc
     );
 
     public static $classMap = array (
+        'App\\Charts\\LiveDashPercentChart' => __DIR__ . '/../..' . '/app/Charts/LiveDashPercentChart.php',
+        'App\\Console\\Commands\\ChartMakeCommand' => __DIR__ . '/../..' . '/app/Console/Commands/ChartMakeCommand.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Http\\Controllers\\Auth\\ConfirmPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ConfirmPasswordController.php',
@@ -580,6 +587,23 @@ class ComposerStaticInitc0b888793009922a59235191e8990fbc
         'App\\Providers\\BroadcastServiceProvider' => __DIR__ . '/../..' . '/app/Providers/BroadcastServiceProvider.php',
         'App\\Providers\\EventServiceProvider' => __DIR__ . '/../..' . '/app/Providers/EventServiceProvider.php',
         'App\\Providers\\RouteServiceProvider' => __DIR__ . '/../..' . '/app/Providers/RouteServiceProvider.php',
+        'ArielMejiaDev\\LarapexCharts\\AreaChart' => __DIR__ . '/..' . '/arielmejiadev/larapex-charts/src/AreaChart.php',
+        'ArielMejiaDev\\LarapexCharts\\BarChart' => __DIR__ . '/..' . '/arielmejiadev/larapex-charts/src/BarChart.php',
+        'ArielMejiaDev\\LarapexCharts\\Contracts\\MustAddComplexData' => __DIR__ . '/..' . '/arielmejiadev/larapex-charts/src/Contracts/MustAddComplexData.php',
+        'ArielMejiaDev\\LarapexCharts\\Contracts\\MustAddSimpleData' => __DIR__ . '/..' . '/arielmejiadev/larapex-charts/src/Contracts/MustAddSimpleData.php',
+        'ArielMejiaDev\\LarapexCharts\\DonutChart' => __DIR__ . '/..' . '/arielmejiadev/larapex-charts/src/DonutChart.php',
+        'ArielMejiaDev\\LarapexCharts\\Facades\\LarapexChart' => __DIR__ . '/..' . '/arielmejiadev/larapex-charts/src/Facades/LarapexChart.php',
+        'ArielMejiaDev\\LarapexCharts\\HeatMapChart' => __DIR__ . '/..' . '/arielmejiadev/larapex-charts/src/HeatMapChart.php',
+        'ArielMejiaDev\\LarapexCharts\\HorizontalBar' => __DIR__ . '/..' . '/arielmejiadev/larapex-charts/src/HorizontalBar.php',
+        'ArielMejiaDev\\LarapexCharts\\LarapexChart' => __DIR__ . '/..' . '/arielmejiadev/larapex-charts/src/LarapexChart.php',
+        'ArielMejiaDev\\LarapexCharts\\LarapexChartsServiceProvider' => __DIR__ . '/..' . '/arielmejiadev/larapex-charts/src/LarapexChartsServiceProvider.php',
+        'ArielMejiaDev\\LarapexCharts\\LineChart' => __DIR__ . '/..' . '/arielmejiadev/larapex-charts/src/LineChart.php',
+        'ArielMejiaDev\\LarapexCharts\\PieChart' => __DIR__ . '/..' . '/arielmejiadev/larapex-charts/src/PieChart.php',
+        'ArielMejiaDev\\LarapexCharts\\PolarAreaChart' => __DIR__ . '/..' . '/arielmejiadev/larapex-charts/src/PolarAreaChart.php',
+        'ArielMejiaDev\\LarapexCharts\\RadarChart' => __DIR__ . '/..' . '/arielmejiadev/larapex-charts/src/RadarChart.php',
+        'ArielMejiaDev\\LarapexCharts\\RadialChart' => __DIR__ . '/..' . '/arielmejiadev/larapex-charts/src/RadialChart.php',
+        'ArielMejiaDev\\LarapexCharts\\Traits\\ComplexChartDataAggregator' => __DIR__ . '/..' . '/arielmejiadev/larapex-charts/src/Traits/ComplexChartDataAggregator.php',
+        'ArielMejiaDev\\LarapexCharts\\Traits\\SimpleChartDataAggregator' => __DIR__ . '/..' . '/arielmejiadev/larapex-charts/src/Traits/SimpleChartDataAggregator.php',
         'Asm89\\Stack\\Cors' => __DIR__ . '/..' . '/asm89/stack-cors/src/Cors.php',
         'Asm89\\Stack\\CorsService' => __DIR__ . '/..' . '/asm89/stack-cors/src/CorsService.php',
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',

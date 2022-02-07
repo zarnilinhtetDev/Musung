@@ -5,11 +5,20 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'ef414ddc79f409c968c6a6afa6974b70b84a6331',
+        'reference' => '1e7a1b71a363d916a01343a48c2ba6964c80351d',
         'name' => 'laravel/laravel',
         'dev' => true,
     ),
     'versions' => array(
+        'arielmejiadev/larapex-charts' => array(
+            'pretty_version' => '3.0.1',
+            'version' => '3.0.1.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../arielmejiadev/larapex-charts',
+            'aliases' => array(),
+            'reference' => '56fc693dc27c7eda0b9925c905a4d34ce5d9669f',
+            'dev_requirement' => false,
+        ),
         'asm89/stack-cors' => array(
             'pretty_version' => 'v2.0.5',
             'version' => '2.0.5.0',
@@ -409,7 +418,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'ef414ddc79f409c968c6a6afa6974b70b84a6331',
+            'reference' => '1e7a1b71a363d916a01343a48c2ba6964c80351d',
             'dev_requirement' => false,
         ),
         'laravel/sail' => array(

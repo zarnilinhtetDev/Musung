@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\ProductDetail;
 use App\Models\Line;
-use App\Models\LineAssign;
 use App\Models\Time;
+use App\Charts\LiveDashPercentChart;
 
 class LiveDashController extends Controller
 {
@@ -21,7 +20,7 @@ class LiveDashController extends Controller
             return $next($request);
         });
     }
-    public function index()
+    public function index(LiveDashPercentChart $percent_chart)
     {
         $u_id = Auth::user()->id;
         $responseBody = DB::select('SELECT "line".l_id,"line".l_name,"line_assign".assign_id,"line_assign".main_target,"line_assign".s_time,"line_assign".e_time,"line_assign".lunch_s_time,"line_assign".lunch_e_time,"line_assign".assign_date,"time".time_id,"time".time_name,"time".status,"time".div_target,"time".actual_target_entry,"time".div_actual_target,"time".div_actual_percent
@@ -45,8 +44,16 @@ class LiveDashController extends Controller
         JOIN line_assign ON "line_assign".l_id = "line".l_id
         JOIN users ON "users".id= "line_assign".user_id
         WHERE "line".a_status=1 ORDER BY "line".l_pos ASC');
+        $top_line = DB::select('SELECT "time".line_id,"line".l_name,SUM("time".div_actual_target) AS total_actual
+        FROM time,line WHERE "time".line_id="line".l_id AND div_actual_percent IS NOT NULL GROUP BY
+        "time".line_id,"line".l_name ORDER BY SUM("time".div_actual_target) DESC LIMIT 3');
+
         DB::disconnect('musung');
 
-        return view('target_line.live_dash', compact('responseBody', 'p_detail', 'line', 'getLine', 'time', 'time_2'));
+        return view(
+            'target_line.live_dash',
+            compact('responseBody', 'p_detail', 'line', 'getLine', 'time', 'time_2', 'top_line'),
+            ['percent_chart' => $percent_chart->build()]
+        );
     }
 }

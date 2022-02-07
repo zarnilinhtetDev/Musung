@@ -53,6 +53,7 @@ class LineEntryController extends Controller
         $number = count($p_detail_id_arr);
 
         $explode_percent = explode("%", $div_actual_percent);
+
         if ($number > 0) {
             for ($i = 0; $i < $number; $i++) { ///// Insert data [] to p_detail & time table
                 $product_detail = ProductDetail::where('p_detail_id', $p_detail_id_arr[$i])->update(['p_actual_target' => $p_detail_actual_target_arr[$i]]);

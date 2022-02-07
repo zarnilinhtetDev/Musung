@@ -121,10 +121,12 @@
                                         $user_name = $d->name;
                                         $div_actual_target = $d->div_actual_target;
                                         $div_actual_percent = $d->div_actual_percent;
+                                        $actual_target_entry = $d->actual_target_entry;
                                         @endphp
                                         <tr>
                                             <td>{{ $time_name }}</td>
-                                            <td><span id="div_target_{{ $time_id }}">{{ $div_target }}</span></td>
+                                            <td><span id="div_target_{{ $time_id }}">{{ $actual_target_entry }}</span>
+                                            </td>
                                             <td>
                                                 @if ($div_actual_target!='')
                                                 {{ $div_actual_target }}
@@ -202,10 +204,10 @@
                                                                     @endforeach
                                                                     <input type="hidden" name="time_id"
                                                                         value="{{ $time_id }}" />
-                                                                    <input type="hidden"
+                                                                    <input type="text"
                                                                         name="div_actual_target_input_{{ $time_id }}"
                                                                         id="div_actual_target_input_{{ $time_id }}" />
-                                                                    <input type="hidden"
+                                                                    <input type="text"
                                                                         name="div_actual_percent_input_{{ $time_id }}"
                                                                         id="div_actual_percent_input_{{ $time_id }}" />
                                                                 </div>
@@ -247,7 +249,7 @@
                                                         });
 
                                                         $("#actual_target_"+p_detail_number).html(sum.toFixed(0));
-                                                        $("#actual_percentage_" +p_detail_number).text(((sum / "<?php echo $div_target; ?>") * 100).toFixed(0) + "%");
+                                                        $("#actual_percentage_" +p_detail_number).text(((sum / "<?php echo $actual_target_entry; ?>") * 100).toFixed(0) + "%");
 
                                                         $("#div_actual_target_input_"+p_detail_number).val($("#actual_target_"+p_detail_number).text());
                                                         $("#div_actual_percent_input_"+p_detail_number).val($("#actual_percentage_"+p_detail_number).text());
