@@ -171,7 +171,10 @@
                                                                     $p_detail_p_cat_id
                                                                     =$detail->p_cat_id;$p_detail_p_name
                                                                     =$detail->p_name;$p_detail_qty=$detail->quantity;
+                                                                    $p_detail_time_id = $detail->time_id;
                                                                     @endphp
+
+                                                                    @if($time_id == $p_detail_time_id)
                                                                     <div class="col-12 my-2">
                                                                         <div class="row container-fluid">
                                                                             <div class="col-12 col-md-4 m-auto">
@@ -201,6 +204,7 @@
                                                                         value="{{ $p_detail_l_id }}" />
                                                                     <input type="hidden" name="p_detail_id[]"
                                                                         value="{{ $p_detail_id }}" />
+                                                                    @endif
                                                                     @endforeach
                                                                     <input type="hidden" name="time_id"
                                                                         value="{{ $time_id }}" />
@@ -210,6 +214,7 @@
                                                                     <input type="text"
                                                                         name="div_actual_percent_input_{{ $time_id }}"
                                                                         id="div_actual_percent_input_{{ $time_id }}" />
+
                                                                 </div>
                                                             </div>
                                                         </div>

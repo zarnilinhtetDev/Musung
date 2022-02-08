@@ -43,7 +43,7 @@
     <div class="row container-fluid p-0 my-3 mx-auto">
         <div class="col-12 col-md-8">
             <div class="panel-body">
-                <table class="table table-hover table-striped table-bordered text-center table-dash">
+                <table class="table table-hover table-striped table-bordered text-center table-dash" id="live_dash_1">
                     <thead>
                         <tr class="tr-2 tr-3">
                             <th scope="col">Line</th>
@@ -629,7 +629,6 @@ if(parseInt(div_target) <= parseInt(div_actual_target_total)){
                                         var div_actual_target = $(".div_actual_target_total_{{ $g_line_id }}");
                                         if(div_actual_target.text()==''){
                                         var front_div_actual_target = $(".div_actual_target_{{ $g_line_id }}");
-console.log(front_div_actual_target);
 var actual_target_array = [];
 for(var i = 0; i < front_div_actual_target.length; i++){
     actual_target_array.push($(front_div_actual_target[i]).text());

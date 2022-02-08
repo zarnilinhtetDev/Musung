@@ -195,6 +195,20 @@ window.onclick = function (event) {
 // );
 // chart_2.render();
 
+//// Refresh Every x second for #live_dash_1 in live_dash.blade
+$(document).ready(function () {
+    function refresh() {
+        var live_dash_1 = $("#live_dash_1");
+        divHtml = live_dash_1.html();
+
+        live_dash_1.html(divHtml);
+    }
+
+    setInterval(function () {
+        refresh();
+    }, 60000); //300000 is 5minutes in m
+});
+
 $("#myInput").on("keyup", function () {
     var value = $(this).val().toLowerCase();
     $("#myTable tr").filter(function () {

@@ -21,6 +21,7 @@ class LineEntryController extends Controller
     }
     public function index()
     {
+        $date_string = date("d.m.Y");
         $u_id = Auth::user()->id;
         $responseBody = DB::select('SELECT "line".l_id,"line".l_name,"line_assign".assign_id,"line_assign".main_target,"line_assign".s_time,"line_assign".e_time,"line_assign".lunch_s_time,"line_assign".lunch_e_time,"line_assign".assign_date,"time".time_id,"time".time_name,"time".status,"time".div_target,"time".actual_target_entry,"users".id,"users".name,"time".div_actual_target,"time".div_actual_percent
         FROM line
@@ -29,14 +30,12 @@ class LineEntryController extends Controller
         JOIN users ON "users".id= "line_assign".user_id
         WHERE "users".id=' . $u_id . '
         ORDER BY "time".time_id ASC');
-        $p_detail = ProductDetail::select(
-            'p_detail_id',
-            'assign_id',
-            'l_id',
-            'p_cat_id',
-            'p_name',
-            'quantity'
-        )->orderBy('p_detail_id', 'asc')->get();
+        $p_detail = DB::select('SELECT "p_detail".p_detail_id,"p_detail".assign_id,"p_detail".l_id,
+        "p_detail".p_cat_id,"p_detail".p_name,"p_detail".quantity,"time".time_id FROM p_detail
+        JOIN time ON "time".assign_id="p_detail".assign_id AND "time".line_id="p_detail".l_id
+        JOIN line_assign ON "line_assign".assign_id="p_detail".assign_id
+        AND "line_assign".assign_date=\'' . $date_string . '\'
+        ORDER BY p_detail_id ASC');
         DB::disconnect('musung');
 
         return view('line_management.line_entry', compact('responseBody', 'p_detail'));
