@@ -78,7 +78,8 @@
                                     </tr>
                                     <tr class="text-white">
                                         <td id="td_div_actual_target_{{ $t_2->time_id }}">
-                                            <span id="div_actual_target_{{ $t_2->time_id }}">{{
+                                            <span id="div_actual_target_{{ $t_2->time_id }}"
+                                                class="div_actual_target_{{ $g_line_id }}">{{
                                                 $t_2->div_actual_target }}</span>
                                         </td>
                                         <td id="td_div_actual_target_total_{{ $t_2->time_id }}"><span
@@ -571,7 +572,7 @@ if(parseInt(div_target) <= parseInt(div_actual_target_total)){
         <div class="row">
             <div class="col-12 col-md-8">
                 <div class="div-bg-1">
-                    <h1 class="fw-bold heading-text fs-3 p-2">Actual Percentage Chart</h1>
+                    <h1 class="fw-bold heading-text fs-3 p-2">Actual Percentage Data</h1>
                     <div class="panel-body">
                         <table class="table table-hover table-striped table-bordered text-center">
                             <thead>
@@ -626,6 +627,26 @@ if(parseInt(div_target) <= parseInt(div_actual_target_total)){
                                     </td>
                                     <script>
                                         var div_actual_target = $(".div_actual_target_total_{{ $g_line_id }}");
+                                        if(div_actual_target.text()==''){
+                                        var front_div_actual_target = $(".div_actual_target_{{ $g_line_id }}");
+console.log(front_div_actual_target);
+var actual_target_array = [];
+for(var i = 0; i < front_div_actual_target.length; i++){
+    actual_target_array.push($(front_div_actual_target[i]).text());
+}
+var newActualTargetArray = actual_target_array.filter(function(v){return v!==''});
+var lastActualTargetItem = newActualTargetArray[newActualTargetArray.length - 1];
+
+var actual_target_actual_chart = $("#actual_target_actual_chart_{{ $g_line_id }}");
+actual_target_actual_chart.text(lastActualTargetItem);
+if(parseInt(actual_target_actual_chart.text()) >= parseInt(g_main_target)){
+       $("#td_actual_target_actual_chart_{{ $g_line_id }}").css('background-color','green');
+    }
+    if(parseInt(actual_target_actual_chart.text()) <= parseInt(g_main_target)){
+        $("#td_actual_target_actual_chart_{{ $g_line_id }}").css('background-color','red');
+}
+                                        }
+                                        if(div_actual_target.text()!=''){
 var actual_target_array = [];
 for(var i = 0; i < div_actual_target.length; i++){
     actual_target_array.push($(div_actual_target[i]).text());
@@ -641,6 +662,7 @@ if(parseInt(actual_target_actual_chart.text()) >= parseInt(g_main_target)){
     if(parseInt(actual_target_actual_chart.text()) <= parseInt(g_main_target)){
         $("#td_actual_target_actual_chart_{{ $g_line_id }}").css('background-color','red');
 }
+                                        }
                                     </script>
                                     @endforeach
                                 </tr>
