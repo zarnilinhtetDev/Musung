@@ -719,17 +719,17 @@ if(parseInt(actual_target_actual_chart.text()) >= parseInt(g_main_target)){
                                 @php $list_num = 1; @endphp
                                 @foreach($top_line as $t_data)
                                 @php $g_line_id=$t_data->line_id; @endphp
-                                <tr class="bg-success">
-                                    <th id="top_name_{{ $g_line_id }}" class="text-white">
+                                <tr id="tr_top_{{ $g_line_id }}">
+                                    <th id="top_name_{{ $g_line_id }}">
                                         Top {{ $list_num }}
                                     </th>
-                                    <td class="text-white">
+                                    <td>
                                         <span id="top_line_name_{{ $g_line_id }}">{{ $t_data->l_name }}</span>
                                     </td>
-                                    <td class="text-white">
+                                    <td>
                                         <span id="top_actual_target_{{ $g_line_id }}">{{ $t_data->total_actual }}</span>
                                     </td>
-                                    <td class="text-white">
+                                    <td>
                                         <span id="top_actual_percent_{{ $g_line_id }}"></span>
                                     </td>
                                 </tr>
@@ -738,6 +738,14 @@ if(parseInt(actual_target_actual_chart.text()) >= parseInt(g_main_target)){
                                     var top_percent = $("#actual_target_percent_actual_chart_{{ $g_line_id }}").text();
                                     var top_actual_percent = $("#top_actual_percent_{{ $g_line_id }}");
                                     top_actual_percent.text(top_percent);
+
+                                    $top_1 = $("#tr_top_1");
+                                    $top_1_th = $("#top_name_1");
+                                    $top_1_td = $("#tr_top_1 td");
+
+                                    $top_1.css('background-color','green');
+                                    $top_1_th.css('color','white');
+                                    $top_1_td.css('color','white');
                                 </script>
                                 @endforeach
                             </tbody>
