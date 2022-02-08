@@ -41,7 +41,9 @@ class LiveDashController extends Controller
         $line = DB::select('SELECT "line".l_id,"line".l_name FROM line,line_assign WHERE "line".a_status=1 AND "line".is_delete=0 AND "line".l_id="line_assign".l_id AND "line_assign".assign_date=\'' . $date_string . '\' ORDER BY "line".l_pos ASC');
         // Line::table()->where('a_status', 1)->orderBy('l_pos', 'asc')->get();
 
-        $time = DB::select('SELECT "time".time_name FROM time,line_assign WHERE "time".assign_id="line_assign".assign_id AND "line_assign".assign_date=\'' . $date_string . '\' ORDER BY "time".time_id ASC');
+        $time = DB::select('SELECT time_name FROM time
+        JOIN line_assign ON "time".assign_id="line_assign".assign_id AND
+        "line_assign".assign_date=\'' . $date_string . '\' GROUP BY time_name ORDER BY time_name ASC');
         // Time::select('time_name')->groupBy('time_name')->orderBy('time_name', 'asc')->get();
 
         $time_2 = DB::select('SELECT "time".time_id,"time".time_name,"time".line_id,"time".assign_id,"time".status,"time".div_target,"time".div_actual_target,"time".div_actual_percent,"time".actual_target_entry FROM time,line_assign WHERE "time".assign_id="line_assign".assign_id AND "line_assign".assign_date=\'' . $date_string . '\' ORDER BY "time".time_id ASC');

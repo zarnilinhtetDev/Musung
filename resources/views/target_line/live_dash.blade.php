@@ -136,7 +136,7 @@ if(Number.isNaN(div_actual_target_total)){
             div_actual_target_percent.text(new_percent.toFixed(1));
             if(parseInt(div_actual_target_percent.text()) >= 100){
        $("#td_div_actual_target_percent_<?php echo $current_target; ?>").css('background-color','green');
-    } if(parseInt(div_actual_target_percent.text()) <= 100){
+    } if(parseInt(div_actual_target_percent.text()) < 100){
        $("#td_div_actual_target_percent_<?php echo $current_target; ?>").css('background-color','red');
     }
 
@@ -164,14 +164,14 @@ if(!Number.isNaN(percentage)){
 if(parseInt(new_div_target) > parseInt(div_actual_target)){
     $("#td_div_actual_target_<?php echo $current_target; ?>").css('background-color','red');
 }
-if(parseInt(new_div_target) < parseInt(div_actual_target)){
+if(parseInt(new_div_target) <= parseInt(div_actual_target)){
     $("#td_div_actual_target_<?php echo $current_target; ?>").css('background-color','green');
 }
 
 if(parseInt(div_target) > parseInt(div_actual_target_total)){
     $("#td_div_actual_target_total_<?php echo $current_target; ?>").css('background-color','red');
 }
-if(parseInt(div_target) < parseInt(div_actual_target_total)){
+if(parseInt(div_target) <= parseInt(div_actual_target_total)){
     $("#td_div_actual_target_total_<?php echo $current_target; ?>").css('background-color','green');
 }
 
