@@ -204,9 +204,26 @@ $(document).ready(function () {
         live_dash_1.html(divHtml);
     }
 
+    function liveDashDigitalClock() {
+        var d = Date.now(); /* midnight in China on April 13th */
+        console.log(
+            d.toLocaleString("en-US", {
+                timeZone: "Asia/Yangon",
+            })
+        );
+
+        // var digitalClock = $("#digital-clock");
+
+        // digitalClock.html(timeString);
+    }
+
     setInterval(function () {
         refresh();
-    }, 60000); //300000 is 5minutes in m
+    }, 60000); //300000 is 5minutes in minute
+
+    // setInterval(function () {
+    //     liveDashDigitalClock();
+    // }, 1000);
 });
 
 $("#myInput").on("keyup", function () {

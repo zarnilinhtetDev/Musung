@@ -54,6 +54,11 @@
         <h3 class="fs-2 text-danger fw-bold">Line is not yet opened by OPERATOR, please check later !!</h3>
     </div>
     @endif
+
+    {{-- For Dynamic Digital Clock written in custom_js.js --}}
+    <div id="digital-clock">
+    </div>
+
     @if($line_visible=='yes')
     <div class="container-fluid p-0">
         <h1 class="fw-bold heading-text">Line Entry</h1>
