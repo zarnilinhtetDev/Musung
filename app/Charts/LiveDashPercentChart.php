@@ -35,7 +35,7 @@ class LiveDashPercentChart
         return $this->percent_chart->horizontalBarChart()
             ->setTitle('Target and Actual Target')
             // ->setSubtitle('Wins during season 2021.')
-            ->setColors(['#FFC107', '#D32F2F'])
+            ->setColors(['#FFD416', '#6495ed'])
             ->addData('Actual Target', $arr)
             ->addData('Target', $line_assign)
             ->setXAxis($line);

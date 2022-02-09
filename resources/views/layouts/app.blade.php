@@ -47,6 +47,7 @@
     <link href="css/jquery_numpad.css" rel="stylesheet">
     <link href="css/styles.css" rel="stylesheet">
     <link rel="shortcut icon" href="https://img.icons8.com/emoji/48/000000/desktop-computer.png">
+    @livewireStyles
 </head>
 
 <body>
@@ -60,7 +61,8 @@
             @endif
         </main>
     </div>
-
+    @stack('div-1-script')
+    @livewireScripts
 </body>
 {{-- $(document).ready(function () {
 $("#datepicker").datepicker();

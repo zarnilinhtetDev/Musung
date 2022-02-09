@@ -6,6 +6,7 @@
 // echo $hash;
 @endphp
 @section('content_2')
+
 @admin
 <div class="container">
     <div class="container-fluid">

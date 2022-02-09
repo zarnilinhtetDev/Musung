@@ -5,6 +5,8 @@
 @section('content_2')
 
 <div class="container">
+
+    <livewire:live-dash />
     <div class="container-fluid">
         <h1 class="fw-bold heading-text">Line History</h1>
         <div class="my-4">

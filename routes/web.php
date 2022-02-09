@@ -4,20 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\URL;
-
-if (App::environment('production')) {
-    URL::forceScheme('https');
-}
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+use App\Http\Livewire\LiveDash;
 
 Route::view('/', 'auth.login')->name('login_1');
 
@@ -49,6 +36,11 @@ Route::post('/line_assign_overtime_post', 'LineAssignController@postLineOverTime
 
 Route::get('/live_dash', 'LiveDashController@index')->middleware('auth');
 Route::view('/line_history', 'target_line.line_history')->middleware('auth');
+
+
+
+//// LiveWire /////
+Route::get('/live_dash_1', [LiveDash::class, 'render'])->middleware('auth');
 
 
 //// API Routes /////
