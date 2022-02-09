@@ -220,10 +220,6 @@ $(document).ready(function () {
     setInterval(function () {
         refresh();
     }, 60000); //300000 is 5minutes in minute
-
-    // setInterval(function () {
-    //     liveDashDigitalClock();
-    // }, 1000);
 });
 
 $("#myInput").on("keyup", function () {

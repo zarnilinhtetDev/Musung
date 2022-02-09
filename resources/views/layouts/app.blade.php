@@ -61,8 +61,8 @@
             @endif
         </main>
     </div>
-    @stack('div-1-script')
     @livewireScripts
+    @stack('scripts')
 </body>
 {{-- $(document).ready(function () {
 $("#datepicker").datepicker();
