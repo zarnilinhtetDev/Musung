@@ -1,9 +1,10 @@
 <div wire:poll.1000ms>
-    hello
-    {!! $percent_chart->container() !!}
-</div>
+    {{ $percent_chart->container() }}
 
+
+    {!! $percent_chart->script() !!}
+</div>
 @push('scripts')
 <script src="{{ $percent_chart->cdn() }}"></script>
-{!! $percent_chart->script() !!}
+
 @endpush
