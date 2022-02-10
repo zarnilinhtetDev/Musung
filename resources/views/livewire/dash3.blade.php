@@ -10,8 +10,8 @@
                     @php $list_num = 1; @endphp
                     @foreach($top_line as $t_data)
                     @php $g_line_id=$t_data->line_id; @endphp
-                    <tr id="tr_top_{{ $g_line_id }}">
-                        <th id="top_name_{{ $g_line_id }}">
+                    <tr id="tr_top">
+                        <th id="top_name">
                             Top {{ $list_num }}
                         </th>
                         <td>
@@ -26,17 +26,16 @@
                     </tr>
                     @php $list_num++; @endphp
                     <script>
-                        window.addEventListener('initSomething3', event => { var top_percent = $("#actual_target_percent_actual_chart_{{ $g_line_id }}").text();
+                        window.addEventListener('initSomething3', event => {
+                            var top_percent = $("#actual_target_percent_actual_chart_{{ $g_line_id }}").text();
                         var top_actual_percent = $("#top_actual_percent_{{ $g_line_id }}");
                         top_actual_percent.text(top_percent);
-
-                        $top_1 = $("#tr_top_1");
-                        $top_1_th = $("#top_name_1");
-                        $top_1_td = $("#tr_top_1 td");
+                        $top_1 = $("#tr_top")
+                        $top_1_th = $("#top_name");
+                        $top_1_td = $("#tr_top td")
 
                         $top_1.css('background-color','green');
-                        $top_1_th.css('color','white');
-                        $top_1_td.css('color','white');});
+                    });
                     </script>
                     @endforeach
                 </tbody>

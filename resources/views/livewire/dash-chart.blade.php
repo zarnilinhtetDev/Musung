@@ -1,4 +1,4 @@
-<div wire:poll.1000ms>
+<div wire:poll.300000ms>
     {{ $percent_chart->container() }}
 
 

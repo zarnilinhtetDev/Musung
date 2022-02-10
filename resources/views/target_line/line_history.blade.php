@@ -18,6 +18,8 @@
         </div>
     </div>
 </div>
+{{--
+<livewire:live-wire /> --}}
 @endsection
 
 @endsection

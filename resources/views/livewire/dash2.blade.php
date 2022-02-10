@@ -57,6 +57,9 @@
                         </td>
                         <script>
                             window.addEventListener('initSomething2', event => {
+                                var g_main_target = $("#g_main_target_{{ $g_line_id }}").text();
+                            var main_target_actual_chart = $("#main_target_actual_chart_{{ $g_line_id }}");
+                            main_target_actual_chart.text(g_main_target);
                                 var div_actual_target = $(".div_actual_target_total_{{ $g_line_id }}");
                             if(div_actual_target.text()==''){
                             var front_div_actual_target = $(".div_actual_target_{{ $g_line_id }}");

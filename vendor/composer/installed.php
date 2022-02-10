@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '4cb3703bba34f0001c725a56942e6704977d4be4',
+        'reference' => 'be2b908760fcade2ee2fa68450bac7c570ed56f8',
         'name' => 'laravel/laravel',
         'dev' => true,
     ),
@@ -17,6 +17,15 @@
             'install_path' => __DIR__ . '/../arielmejiadev/larapex-charts',
             'aliases' => array(),
             'reference' => '56fc693dc27c7eda0b9925c905a4d34ce5d9669f',
+            'dev_requirement' => false,
+        ),
+        'asantibanez/livewire-charts' => array(
+            'pretty_version' => 'v2.3.0',
+            'version' => '2.3.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../asantibanez/livewire-charts',
+            'aliases' => array(),
+            'reference' => '582ad340ddf0d138df67319073886f9314cccd0a',
             'dev_requirement' => false,
         ),
         'asm89/stack-cors' => array(
@@ -418,7 +427,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '4cb3703bba34f0001c725a56942e6704977d4be4',
+            'reference' => 'be2b908760fcade2ee2fa68450bac7c570ed56f8',
             'dev_requirement' => false,
         ),
         'laravel/sail' => array(
