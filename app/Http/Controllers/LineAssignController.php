@@ -31,6 +31,23 @@ class LineAssignController extends Controller
     /////View for Line Setting
     public function index()
     {
+        /// Change line_status to 0 if current date is not equal to assign_date
+        // $line_assign_status = DB::select('SELECT "line".l_id,"line_assign".assign_date,"line".a_status FROM line_assign
+        // JOIN line ON "line".l_id = "line_assign".l_id ORDER BY "line_assign".l_id ASC');
+        // $line_status = Line::select('l_id', 'a_status')->get();
+
+        // $json_decode = json_decode(json_encode($line_assign_status), true);
+
+        // $date_string = date("d.m.Y");
+        // for ($i = 0; $i < count($json_decode); $i++) {
+        //     $assign_date = $json_decode[$i]['assign_date'];
+        //     $l_id = $json_decode[$i]['l_id'];
+        //     if ($assign_date != $date_string) {
+        //         Line::where('l_id', $l_id)->update(['a_status' => 0]);
+        //     }
+        // }
+        /// Change line_status to 0 if current date is not equal to assign_date End
+
         $line_assign = LineAssign::all();
         $overTime = OverTime::all();
         $line_assign_2 = DB::select('SELECT "line_assign".assign_id,"line_assign".user_id,"line_assign".l_id,"line_assign".main_target,"line_assign".s_time,"line_assign".e_time,"line_assign".lunch_s_time,"line".a_status,"line_assign".lunch_e_time,"line_assign".cal_work_min,"line_assign".t_work_hr,"line_assign".created_at,"line_assign".updated_at,"line".l_name,"line".l_pos,"users".id,"users".name,"line_assign".assign_date FROM line_assign,line,users,p_detail WHERE "line".a_status=1 AND "line".is_delete=0 AND "line_assign".user_id="users".id AND "line_assign".l_id="line".l_id AND "line_assign".l_id="p_detail".l_id ORDER BY "line_assign".assign_id ASC');

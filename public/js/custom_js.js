@@ -195,33 +195,6 @@ window.onclick = function (event) {
 // );
 // chart_2.render();
 
-//// Refresh Every x second for #live_dash_1 in live_dash.blade
-$(document).ready(function () {
-    function refresh() {
-        var live_dash_1 = $("#live_dash_1");
-        divHtml = live_dash_1.html();
-
-        live_dash_1.html(divHtml);
-    }
-
-    function liveDashDigitalClock() {
-        var d = Date.now(); /* midnight in China on April 13th */
-        console.log(
-            d.toLocaleString("en-US", {
-                timeZone: "Asia/Yangon",
-            })
-        );
-
-        // var digitalClock = $("#digital-clock");
-
-        // digitalClock.html(timeString);
-    }
-
-    setInterval(function () {
-        refresh();
-    }, 60000); //300000 is 5minutes in minute
-});
-
 $("#myInput").on("keyup", function () {
     var value = $(this).val().toLowerCase();
     $("#myTable tr").filter(function () {
@@ -281,6 +254,21 @@ $(document).ready(function () {
     });
 });
 
+var i = 1;
+$("#add_product_detail").click(function () {
+    i++;
+    $("#dynamic_field").append(
+        '<tr id="row' +
+            i +
+            '"><td><label>Category</label> <select class="form-control" name="category[]" required><option></option><option value="0">Coat</option><option value="1">Shirt</option><option value="2">Trousers</option></select></td><td><label>Product Name</label><input type="text" class="form-control" name="p_name[]" placeholder="Musung Shirt" required /></td><td><label>Target</label><input type="text" class="form-control" name="category_target[]" id="setting_target" placeholder="Target" required /></td><td><br/><button type="button" name="remove" id="' +
+            i +
+            '" class="btn btn-danger btn_remove">X</button></td></tr>'
+    );
+});
+$(document).on("click", ".btn_remove", function () {
+    var button_id = $(this).attr("id");
+    $("#row" + button_id + "").remove();
+});
 ///insert data into LineModal of Line Setting
 var LineModal = document.getElementById("LineModal");
 LineModal.addEventListener("show.bs.modal", function (event) {
@@ -297,41 +285,23 @@ LineModal.addEventListener("show.bs.modal", function (event) {
     l_id_input.value = l_id;
     l_setting_name_2.innerHTML = l_name;
 });
+$(document).ready(function () {
+    var target_setting = $("#setting_target");
+    target_setting.on("keyup", function () {
+        target_setting.each(function (index) {
+            console.log($(this).val());
+        });
+    });
+    var dynamic_field = $("#dynamic_field #setting_target");
+    dynamic_field.on("keyup", function () {
+        dynamic_field.each(function (index) {
+            console.log($(this).val());
+        });
+    });
+});
 
-var i = 1;
-$("#add_product_detail").click(function () {
-    i++;
-    $("#dynamic_field").append(
-        '<tr id="row' +
-            i +
-            '"><td><label>Category</label> <select class="form-control" name="category[]" required><option></option><option value="0">Coat</option><option value="1">Shirt</option><option value="2">Trousers</option></select></td><td><label>Product Name</label><input type="text" class="form-control" name="p_name[]" placeholder="Musung Shirt" required /></td><td><label>Target</label><input type="text" class="form-control" name="category_target[]" placeholder="Target" required /></td><td><br/><button type="button" name="remove" id="' +
-            i +
-            '" class="btn btn-danger btn_remove">X</button></td></tr>'
-    );
-});
-$(document).on("click", ".btn_remove", function () {
-    var button_id = $(this).attr("id");
-    $("#row" + button_id + "").remove();
-});
 ///// Time Diff in Line Setting /////
 $(document).ready(function () {
-    // var LineEntryModal = document.getElementById(
-    //     "LineEntryModal<?php echo $time_id; ?>"
-    // );
-    // LineEntryModal.addEventListener("show.bs.modal", function (event) {
-    //     var inputs = $("#p_detail_actual_target");
-    //     inputs.keyup(function () {
-    //         var sum = 0;
-    //         inputs.each(function () {
-    //             sum += Number($(this).val());
-    //         });
-    //         $("#actual_target").text(sum);
-    //         $("#actual_percentage").text(
-    //             (sum / "<?php echo $div_target; ?>") * 100
-    //         );
-    //     });
-    // });
-
     $("#LineModal").on("show.bs.modal", function () {
         $("#start_time").on("change", function () {
             var start_time = $("#start_time").val();
@@ -449,17 +419,6 @@ $(document).ready(function () {
                 nonKeys.prop("disabled", false);
             }
         });
-
-        // $(document).on("click focus", ".input-numeric-one", function () {
-        //     var parents = $(this).parents(".input-numeric-container");
-        //     var data = parents.attr("data-numeric");
-
-        //     if (data) {
-        //         if (data == "hidden") {
-        //             parents.find(".table-numeric").show();
-        //         }
-        //     }
-        // });
 
         //key numeric
         $(document).on("click", ".key-one", function () {

@@ -27,8 +27,6 @@ Route::post('/line_detail_put', 'LineController@putLine')->middleware('auth');
 Route::get('/line_detail_delete', 'LineController@softDelete')->middleware('auth');
 Route::get('/line_detail_undo', 'LineController@undoLine')->middleware('auth');
 
-Route::view('/line_manager_detail', 'line_management.manager_detail')->middleware('auth');
-
 Route::get('/line_setting', 'LineAssignController@index')->middleware('auth');
 
 Route::post('/line_assign_post', 'LineAssignController@postLineSetting')->middleware('auth');

@@ -53,9 +53,6 @@
                             <a class="sidebar-link" href="{{ url('/line_detail') }}">Line Detail</a>
                         </li>
                         <li class="custom-li">
-                            <a class="sidebar-link" href="{{ url('/line_manager_detail') }}">Line Manager Detail</a>
-                        </li>
-                        <li class="custom-li">
                             <a class="sidebar-link" href="{{ url('/line_setting') }}">Line Setting</a>
                         </li>
                     </ul>

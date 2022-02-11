@@ -283,8 +283,8 @@ $num = 1;
                                         </td>
                                         <td>
                                             <label>Target</label>
-                                            <input type="text" class="form-control" name="category_target[]"
-                                                placeholder="Target" required />
+                                            <input type="text" class="form-control" id="setting_target"
+                                                name="category_target[]" placeholder="Target" required />
                                         </td>
                                         <td>
                                             <br />

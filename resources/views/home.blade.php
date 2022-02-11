@@ -29,7 +29,6 @@
                 <div class="dropdown-content">
                     <a href="{{ url('line_entry') }}">Line Entry</a>
                     <a href="{{ url('line_detail') }}">Line Detail</a>
-                    <a href="{{ url('line_manager_detail') }}">Line Manager Detail</a>
                     <a href="{{ url('line_setting') }}">Line Setting</a>
                 </div>
             </div>
