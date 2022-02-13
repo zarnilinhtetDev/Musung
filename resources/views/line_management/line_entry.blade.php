@@ -55,16 +55,12 @@
     </div>
     @endif
 
-    {{-- For Dynamic Digital Clock written in custom_js.js --}}
-    <div id="digital-clock">
-    </div>
-
     @if($line_visible=='yes')
     <div class="container-fluid p-0">
         <h1 class="fw-bold heading-text">Line Entry</h1>
 
         <div class="container-fluid row p-0 m-0">
-            <div class="col-12 col-md-6 my-3 p-0">
+            <div class="col-12 col-md-4 my-3 p-0">
                 <ul class="horizontal-slide" id="tabs">
                     <li class="span2">
                         <p>Date - {{ $date_string }} </p>
@@ -74,11 +70,33 @@
                     </li>
                 </ul>
             </div>
-            <div class="col text-center text-md-start m-auto">
-                <h1 class="fs-3 fw-bolder">Target = <span class="text-white bg-danger p-2 rounded-2">
-                        {{ $m_target }}</span></h1>
+            <div class="col text-center text-md-start">
+                <div class="row m-0 p-0">
+                    <div class="col-4">
+                        <div id="digital-clock" class="text-white bg-secondary rounded-2 p-2 fs-5 text-center">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <h1 class="fs-3 fw-bolder">Target = <span class="text-white bg-danger p-2 rounded-2">
+                                {{ $m_target }}</span></h1>
+                    </div>
+                </div>
             </div>
         </div>
+        <script>
+            /// Live Clock in line_entry.blade
+            function showTime() {
+                var date = new Date().toLocaleTimeString(
+                    "en-US",
+                    Intl.DateTimeFormat().resolvedOptions().timeZone
+                );
+
+                document.getElementById("digital-clock").innerHTML = date;
+            }
+            setInterval(showTime, 1000);
+
+            /// Live Clock in line_entry.blade End
+        </script>
 
         <div id="tabmenu" class="container-fluid my-3 p-0">
             <ul class="horizontal-slide" id="nav">

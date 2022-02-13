@@ -31,34 +31,46 @@ class LineAssignController extends Controller
     /////View for Line Setting
     public function index()
     {
+        $date_string = date("d.m.Y");
+
         /// Change line_status to 0 if current date is not equal to assign_date
-        // $line_assign_status = DB::select('SELECT "line".l_id,"line_assign".assign_date,"line".a_status FROM line_assign
-        // JOIN line ON "line".l_id = "line_assign".l_id ORDER BY "line_assign".l_id ASC');
-        // $line_status = Line::select('l_id', 'a_status')->get();
+        $line_assign_status = DB::select('SELECT "line".l_id,"line_assign".assign_date,"line".a_status FROM line_assign
+         JOIN line ON "line".l_id = "line_assign".l_id ORDER BY "line_assign".assign_date ASC');
+        $line_status = Line::select('l_id', 'a_status')->get();
 
-        // $json_decode = json_decode(json_encode($line_assign_status), true);
+        $json_decode = json_decode(json_encode($line_assign_status), true);
 
-        // $date_string = date("d.m.Y");
-        // for ($i = 0; $i < count($json_decode); $i++) {
-        //     $assign_date = $json_decode[$i]['assign_date'];
-        //     $l_id = $json_decode[$i]['l_id'];
-        //     if ($assign_date != $date_string) {
-        //         Line::where('l_id', $l_id)->update(['a_status' => 0]);
-        //     }
-        // }
+        for ($i = 0; $i < count($json_decode); $i++) {
+            $assign_date = $json_decode[$i]['assign_date'];
+            $l_id = $json_decode[$i]['l_id'];
+
+            if ($assign_date != $date_string) {
+                Line::where('l_id', $l_id)->update(['a_status' => 0]);
+            }
+            if ($assign_date == $date_string) {
+                Line::where('l_id', $l_id)->update(['a_status' => 1]);
+            }
+        }
         /// Change line_status to 0 if current date is not equal to assign_date End
 
         $line_assign = LineAssign::all();
         $overTime = OverTime::all();
-        $line_assign_2 = DB::select('SELECT "line_assign".assign_id,"line_assign".user_id,"line_assign".l_id,"line_assign".main_target,"line_assign".s_time,"line_assign".e_time,"line_assign".lunch_s_time,"line".a_status,"line_assign".lunch_e_time,"line_assign".cal_work_min,"line_assign".t_work_hr,"line_assign".created_at,"line_assign".updated_at,"line".l_name,"line".l_pos,"users".id,"users".name,"line_assign".assign_date FROM line_assign,line,users,p_detail WHERE "line".a_status=1 AND "line".is_delete=0 AND "line_assign".user_id="users".id AND "line_assign".l_id="line".l_id AND "line_assign".l_id="p_detail".l_id ORDER BY "line_assign".assign_id ASC');
-        $p_detail = ProductDetail::select(
-            'p_detail_id',
-            'assign_id',
-            'l_id',
-            'p_cat_id',
-            'p_name',
-            'quantity'
-        )->orderBy('p_detail_id', 'asc')->get();
+        $line_assign_2 = DB::select('SELECT DISTINCT "line_assign".assign_id,"line_assign".user_id,"line_assign".l_id,"line_assign".main_target,"line_assign".s_time,"line_assign".e_time,"line_assign".lunch_s_time,"line".a_status,"line_assign".lunch_e_time,"line_assign".cal_work_min,"line_assign".t_work_hr,"line_assign".created_at,"line_assign".updated_at,"line".l_name,"line".l_pos,"users".id,"users".name,"line_assign".assign_date
+        FROM line_assign,line,users,p_detail WHERE "line".a_status=1 AND "line".is_delete=0 AND "line_assign".user_id="users".id
+        AND "line_assign".l_id="line".l_id AND "line_assign".l_id="p_detail".l_id AND "line_assign".assign_date= \'' . $date_string . '\'
+        ORDER BY "line_assign".assign_id ASC');
+        $p_detail = DB::select('SELECT "p_detail".p_detail_id,"p_detail".assign_id,"p_detail".l_id,
+        "p_detail".p_cat_id,"p_detail".p_name,"p_detail".quantity FROM p_detail
+        JOIN line_assign ON "line_assign".assign_id="p_detail".assign_id AND
+        "line_assign".assign_date=\'' . $date_string . '\'
+        ORDER BY p_detail_id ASC');
+
+        $p_detail = DB::select('SELECT "p_detail".p_detail_id,"p_detail".assign_id,"p_detail".l_id,
+        "p_detail".p_cat_id,"p_detail".p_name,"p_detail".quantity,"time".time_id FROM p_detail
+        JOIN time ON "time".assign_id="p_detail".assign_id AND "time".line_id="p_detail".l_id
+        JOIN line_assign ON "line_assign".assign_id="p_detail".assign_id
+        AND "line_assign".assign_date=\'' . $date_string . '\'
+        ORDER BY p_detail_id ASC');
 
         $request = Request::create('/api/line', 'GET');
         $request2 = Request::create('/api/user', 'GET');
@@ -80,7 +92,7 @@ class LineAssignController extends Controller
         $line_manager = request()->post('l_manager');
         $s_time = request()->post('start_time');
         $e_time = request()->post('end_time');
-        $target = request()->post('target');
+        // $target = request()->post('target');
         $work_hour = request()->post('work_hour');
         $lunch_start = request()->post('lunch_start');
         $lunch_end = request()->post('lunch_end');
@@ -90,6 +102,8 @@ class LineAssignController extends Controller
         $category_target = request()->post('category_target');
         $p_name = request()->post('p_name');
         $number = count($category);
+
+        $t_category_target =  array_sum($category_target);
 
         $from_time = strtotime($s_time);
         $to_time = strtotime($e_time);
@@ -148,7 +162,7 @@ class LineAssignController extends Controller
 
         // print_r($totalTimeArr);
 
-        $total_division = round(($target / $countTotalTimeArr), 0);
+        $total_division = round(($t_category_target / $countTotalTimeArr), 0);
         $total_division_2 = $total_division;
         $total_division_3 = $total_division;
 
@@ -159,9 +173,9 @@ class LineAssignController extends Controller
             $num_1++;
         }
         $end_div_target = end($div_target);
-        if ($end_div_target > $target) {
+        if ($end_div_target > $t_category_target) {
             array_pop($div_target);
-            $div_target[] = $target;
+            $div_target[] = $t_category_target;
         }
         $num_2 = 0;
         while ($num_2 < $countTotalTimeArr) {
@@ -176,7 +190,7 @@ class LineAssignController extends Controller
 
         $line = Line::where('l_id', $l_id)->update(['a_status' => 1]); ///// Update status to line_id in line table
         if ($line == true) {
-            $line_assign = LineAssign::create(['user_id' => $line_manager, 'l_id' => $l_id, 'main_target' => $target, 's_time' => $s_time, 'e_time' => $e_time, 'lunch_s_time' => $lunch_start, 'lunch_e_time' => $lunch_end, 'cal_work_min' => $progress, 't_work_hr' => $work_hour, 'assign_date' => $date_string, 'created_at' => NOW()]);
+            $line_assign = LineAssign::create(['user_id' => $line_manager, 'l_id' => $l_id, 'main_target' => $t_category_target, 's_time' => $s_time, 'e_time' => $e_time, 'lunch_s_time' => $lunch_start, 'lunch_e_time' => $lunch_end, 'cal_work_min' => $progress, 't_work_hr' => $work_hour, 'assign_date' => $date_string, 'created_at' => NOW()]);
 
             if ($line_assign == true) {
                 $assign_id = LineAssign::select('assign_id')->where('l_id', $l_id)->where('user_id', $line_manager)->first();  ///// Get assign_id from line_assign table
