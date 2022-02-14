@@ -103,8 +103,9 @@
                         @if ($count > 0)
                         @for($i=0;$i<count($json);$i++) @php $l_id=$json[$i]['l_id'];
                             $l_name=$json[$i]['l_name'];$l_pos=$json[$i]['l_pos'];
-                            $is_delete=$json[$i]['is_delete'];$created_at=$json[$i]['created_at'];
-                            $updated_at=$json[$i]['updated_at'] @endphp <tr>
+                            $is_delete=$json[$i]['is_delete'];$created_at=date('Y-m-d h:i:s',
+                            strtotime($json[$i]['created_at'])); $updated_at=date('Y-m-d h:i:s',
+                            strtotime($json[$i]['updated_at'])) @endphp <tr>
                             <td>{{ $num++ }}</td>
                             <td>{{ $l_name }}</td>
                             <td>{{ $l_pos }}</td>

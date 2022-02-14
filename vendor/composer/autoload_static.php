@@ -553,6 +553,8 @@ class ComposerStaticInitc0b888793009922a59235191e8990fbc
 
     public static $classMap = array (
         'App\\Charts\\LiveDashPercentChart' => __DIR__ . '/../..' . '/app/Charts/LiveDashPercentChart.php',
+        'App\\Charts\\ReportDashAreaChart' => __DIR__ . '/../..' . '/app/Charts/ReportDashAreaChart.php',
+        'App\\Charts\\ReportDashCategoryChart' => __DIR__ . '/../..' . '/app/Charts/ReportDashCategoryChart.php',
         'App\\Console\\Commands\\ChartMakeCommand' => __DIR__ . '/../..' . '/app/Console/Commands/ChartMakeCommand.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
@@ -571,6 +573,7 @@ class ComposerStaticInitc0b888793009922a59235191e8990fbc
         'App\\Http\\Controllers\\LineController' => __DIR__ . '/../..' . '/app/Http/Controllers/LineController.php',
         'App\\Http\\Controllers\\LineEntryController' => __DIR__ . '/../..' . '/app/Http/Controllers/LineEntryController.php',
         'App\\Http\\Controllers\\LiveDashController' => __DIR__ . '/../..' . '/app/Http/Controllers/LiveDashController.php',
+        'App\\Http\\Controllers\\ReportDashController' => __DIR__ . '/../..' . '/app/Http/Controllers/ReportDashController.php',
         'App\\Http\\Controllers\\TimeApiController' => __DIR__ . '/../..' . '/app/Http/Controllers/TimeApiController.php',
         'App\\Http\\Controllers\\UserApiController' => __DIR__ . '/../..' . '/app/Http/Controllers/UserApiController.php',
         'App\\Http\\Controllers\\UserController' => __DIR__ . '/../..' . '/app/Http/Controllers/UserController.php',
@@ -580,6 +583,7 @@ class ComposerStaticInitc0b888793009922a59235191e8990fbc
         'App\\Http\\Livewire\\Dash3' => __DIR__ . '/../..' . '/app/Http/Livewire/Dash3.php',
         'App\\Http\\Livewire\\DashChart' => __DIR__ . '/../..' . '/app/Http/Livewire/DashChart.php',
         'App\\Http\\Livewire\\LiveWire' => __DIR__ . '/../..' . '/app/Http/Livewire/LiveWire.php',
+        'App\\Http\\Livewire\\SelectBoxSetting' => __DIR__ . '/../..' . '/app/Http/Livewire/SelectBoxSetting.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',
         'App\\Http\\Middleware\\EncryptCookies' => __DIR__ . '/../..' . '/app/Http/Middleware/EncryptCookies.php',
         'App\\Http\\Middleware\\PreventRequestsDuringMaintenance' => __DIR__ . '/../..' . '/app/Http/Middleware/PreventRequestsDuringMaintenance.php',

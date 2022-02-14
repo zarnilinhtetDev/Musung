@@ -7,6 +7,8 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'App\\Charts\\LiveDashPercentChart' => $baseDir . '/app/Charts/LiveDashPercentChart.php',
+    'App\\Charts\\ReportDashAreaChart' => $baseDir . '/app/Charts/ReportDashAreaChart.php',
+    'App\\Charts\\ReportDashCategoryChart' => $baseDir . '/app/Charts/ReportDashCategoryChart.php',
     'App\\Console\\Commands\\ChartMakeCommand' => $baseDir . '/app/Console/Commands/ChartMakeCommand.php',
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
@@ -25,6 +27,7 @@ return array(
     'App\\Http\\Controllers\\LineController' => $baseDir . '/app/Http/Controllers/LineController.php',
     'App\\Http\\Controllers\\LineEntryController' => $baseDir . '/app/Http/Controllers/LineEntryController.php',
     'App\\Http\\Controllers\\LiveDashController' => $baseDir . '/app/Http/Controllers/LiveDashController.php',
+    'App\\Http\\Controllers\\ReportDashController' => $baseDir . '/app/Http/Controllers/ReportDashController.php',
     'App\\Http\\Controllers\\TimeApiController' => $baseDir . '/app/Http/Controllers/TimeApiController.php',
     'App\\Http\\Controllers\\UserApiController' => $baseDir . '/app/Http/Controllers/UserApiController.php',
     'App\\Http\\Controllers\\UserController' => $baseDir . '/app/Http/Controllers/UserController.php',
@@ -34,6 +37,7 @@ return array(
     'App\\Http\\Livewire\\Dash3' => $baseDir . '/app/Http/Livewire/Dash3.php',
     'App\\Http\\Livewire\\DashChart' => $baseDir . '/app/Http/Livewire/DashChart.php',
     'App\\Http\\Livewire\\LiveWire' => $baseDir . '/app/Http/Livewire/LiveWire.php',
+    'App\\Http\\Livewire\\SelectBoxSetting' => $baseDir . '/app/Http/Livewire/SelectBoxSetting.php',
     'App\\Http\\Middleware\\Authenticate' => $baseDir . '/app/Http/Middleware/Authenticate.php',
     'App\\Http\\Middleware\\EncryptCookies' => $baseDir . '/app/Http/Middleware/EncryptCookies.php',
     'App\\Http\\Middleware\\PreventRequestsDuringMaintenance' => $baseDir . '/app/Http/Middleware/PreventRequestsDuringMaintenance.php',

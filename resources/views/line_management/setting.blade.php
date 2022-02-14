@@ -253,7 +253,7 @@ $num = 1;
                     <div class="col-12 col-md-4">
                         <label>Add Category</label>​
                         <input type="text" class="form-control" name="new_category_name" id="new_category_name"
-                            placeholder="Type Here" required />
+                            placeholder="Type Here" />
                     </div>
                     <div class="col">
                         <br />

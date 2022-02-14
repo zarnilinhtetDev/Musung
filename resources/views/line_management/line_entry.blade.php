@@ -237,7 +237,6 @@
                                                                     <input type="hidden"
                                                                         name="div_actual_percent_input_{{ $time_id }}"
                                                                         id="div_actual_percent_input_{{ $time_id }}" />
-
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -264,6 +263,7 @@
                                                     function calculateSum() {
                                                         var sum = 0;
                                                         var p_detail_number = "<?php echo $time_id; ?>";
+                                                        var div_target = parseInt($("#div_target_"+p_detail_number).text());
 
                                                         //iterate through each textboxes and add the values
                                                         $(".modal-content #p_detail_actual_target_"+p_detail_number).each(function () {
@@ -274,10 +274,11 @@
                                                             } else if (this.value.length != 0) {
                                                                 $(this).css("background-color", "red");
                                                             }
-                                                        });
+                                            });
+                                                       var cal_percent= ((sum / "<?php echo $actual_target_entry; ?>") * 100).toFixed(0) + "%";
 
                                                         $("#actual_target_"+p_detail_number).html(sum.toFixed(0));
-                                                        $("#actual_percentage_" +p_detail_number).text(((sum / "<?php echo $actual_target_entry; ?>") * 100).toFixed(0) + "%");
+                                                        $("#actual_percentage_" +p_detail_number).text(cal_percent);
 
                                                         $("#div_actual_target_input_"+p_detail_number).val($("#actual_target_"+p_detail_number).text());
                                                         $("#div_actual_percent_input_"+p_detail_number).val($("#actual_percentage_"+p_detail_number).text());

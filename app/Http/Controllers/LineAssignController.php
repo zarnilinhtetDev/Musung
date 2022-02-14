@@ -184,7 +184,6 @@ class LineAssignController extends Controller
             $target_for_line_entry[] = $total_division_3;
             $num_2++;
         }
-
         $date_string = date("d.m.Y");
 
         // $hour_diff = round((($to_time - $from_time) - ($lunch_to_time - $lunch_from_time)) / 3600, 1);
@@ -196,14 +195,14 @@ class LineAssignController extends Controller
             $line_assign = LineAssign::create(['user_id' => $line_manager, 'l_id' => $l_id, 'main_target' => $t_category_target, 's_time' => $s_time, 'e_time' => $e_time, 'lunch_s_time' => $lunch_start, 'lunch_e_time' => $lunch_end, 'cal_work_min' => $progress, 't_work_hr' => $work_hour, 'assign_date' => $date_string, 'created_at' => NOW()]);
 
             if ($line_assign == true) {
-                //  $l_id,$line_manager
-                $assign_id = LineAssign::select('assign_id')->where('l_id', 4)->where('user_id', 4)->orderBy('assign_id', 'desc')->first();  ///// Get assign_id from line_assign table
+                $assign_id = LineAssign::select('assign_id')->where('l_id', $l_id)->where('user_id', $line_manager)->orderBy('assign_id', 'desc')->first();  ///// Get assign_id from line_assign table
                 if ($assign_id == true) {
                     $assign_id = $assign_id->assign_id;
                     if ($countTotalTimeArr > 0) {
                         for ($j = 0; $j < $countTotalTimeArr; $j++) { ///// Insert data [] to time table
                             Time::create([
-                                'time_name' => $totalTimeArr[$j], 'line_id' => $l_id,
+                                'time_name' => $totalTimeArr[$j],
+                                'line_id' => $l_id,
                                 'assign_id' => $assign_id,
                                 'div_target' => $div_target[$j],
                                 'actual_target_entry' => $target_for_line_entry[$j],
