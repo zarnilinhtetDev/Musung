@@ -10,7 +10,7 @@ class UserApiController extends Controller
 {
     public function getUser()
     {
-        $sql = DB::select("SELECT id,name,username,password,email,role,line_id,active_status,is_delete,remark,created_at,updated_at FROM users ORDER BY id ASC");
+        $sql = DB::select("SELECT id,name,username,password,email,role,line_id,active_status,is_delete,is_assigned,remark,created_at,updated_at FROM users ORDER BY id ASC");
         DB::disconnect('musung');
         if ($sql == true) {
             return response()->json($sql);

@@ -15,6 +15,8 @@ use App\Models\Time;
 use DateTime;
 use DateInterval;
 use DatePeriod;
+use App\Models\User;
+use App\Models\ProductCategory;
 
 class LineAssignController extends Controller
 {
@@ -65,8 +67,8 @@ class LineAssignController extends Controller
         "line_assign".assign_date=\'' . $date_string . '\'
         ORDER BY p_detail_id ASC');
 
-        $p_detail = DB::select('SELECT "p_detail".p_detail_id,"p_detail".assign_id,"p_detail".l_id,
-        "p_detail".p_cat_id,"p_detail".p_name,"p_detail".quantity,"time".time_id FROM p_detail
+        $p_detail = DB::select('SELECT DISTINCT "p_detail".p_detail_id,"p_detail".assign_id,"p_detail".l_id,
+        "p_detail".p_cat_id,"p_detail".p_name,"p_detail".quantity FROM p_detail
         JOIN time ON "time".assign_id="p_detail".assign_id AND "time".line_id="p_detail".l_id
         JOIN line_assign ON "line_assign".assign_id="p_detail".assign_id
         AND "line_assign".assign_date=\'' . $date_string . '\'
@@ -152,7 +154,7 @@ class LineAssignController extends Controller
 
         if ($endOfEndTimeArr > $end_time->format('H:i')) {
             array_pop($endTimeArr);
-            $getMinuteEndTimeArr = (strtotime($endOfEndTimeArr) - $to_time) / 60;
+            -$getMinuteEndTimeArr = (strtotime($endOfEndTimeArr) - $to_time) / 60;
             $diffEndTime = strtotime($endOfEndTimeArr) - strtotime(date("H:i", $getMinuteEndTimeArr * 60));
             $diffEndTime_to_date =  date("H:i", $diffEndTime);
             $endTimeArr[] = $diffEndTime_to_date;
@@ -188,12 +190,14 @@ class LineAssignController extends Controller
         // $hour_diff = round((($to_time - $from_time) - ($lunch_to_time - $lunch_from_time)) / 3600, 1);
         // echo $hour_diff;
 
+        $user = User::where('id', $line_manager)->update(['is_assigned' => 1]);
         $line = Line::where('l_id', $l_id)->update(['a_status' => 1]); ///// Update status to line_id in line table
         if ($line == true) {
             $line_assign = LineAssign::create(['user_id' => $line_manager, 'l_id' => $l_id, 'main_target' => $t_category_target, 's_time' => $s_time, 'e_time' => $e_time, 'lunch_s_time' => $lunch_start, 'lunch_e_time' => $lunch_end, 'cal_work_min' => $progress, 't_work_hr' => $work_hour, 'assign_date' => $date_string, 'created_at' => NOW()]);
 
             if ($line_assign == true) {
-                $assign_id = LineAssign::select('assign_id')->where('l_id', $l_id)->where('user_id', $line_manager)->first();  ///// Get assign_id from line_assign table
+                //  $l_id,$line_manager
+                $assign_id = LineAssign::select('assign_id')->where('l_id', 4)->where('user_id', 4)->orderBy('assign_id', 'desc')->first();  ///// Get assign_id from line_assign table
                 if ($assign_id == true) {
                     $assign_id = $assign_id->assign_id;
                     if ($countTotalTimeArr > 0) {
@@ -203,6 +207,7 @@ class LineAssignController extends Controller
                                 'assign_id' => $assign_id,
                                 'div_target' => $div_target[$j],
                                 'actual_target_entry' => $target_for_line_entry[$j],
+                                'assign_date' => $date_string,
                             ]);
                         }
                     }
@@ -234,5 +239,10 @@ class LineAssignController extends Controller
         if ($overTime == true) {
             return redirect('/line_setting?status=overtime_create_ok');
         }
+    }
+    public function createCategory()
+    {
+        $cat_name = request()->post('cat_name');
+        ProductCategory::create(['p_cat_name' => $cat_name]);
     }
 }

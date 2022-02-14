@@ -231,10 +231,10 @@
                                                                     @endforeach
                                                                     <input type="hidden" name="time_id"
                                                                         value="{{ $time_id }}" />
-                                                                    <input type="text"
+                                                                    <input type="hidden"
                                                                         name="div_actual_target_input_{{ $time_id }}"
                                                                         id="div_actual_target_input_{{ $time_id }}" />
-                                                                    <input type="text"
+                                                                    <input type="hidden"
                                                                         name="div_actual_percent_input_{{ $time_id }}"
                                                                         id="div_actual_percent_input_{{ $time_id }}" />
 

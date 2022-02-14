@@ -33,6 +33,7 @@ return array(
     'App\\Http\\Livewire\\Dash2' => $baseDir . '/app/Http/Livewire/Dash2.php',
     'App\\Http\\Livewire\\Dash3' => $baseDir . '/app/Http/Livewire/Dash3.php',
     'App\\Http\\Livewire\\DashChart' => $baseDir . '/app/Http/Livewire/DashChart.php',
+    'App\\Http\\Livewire\\LiveWire' => $baseDir . '/app/Http/Livewire/LiveWire.php',
     'App\\Http\\Middleware\\Authenticate' => $baseDir . '/app/Http/Middleware/Authenticate.php',
     'App\\Http\\Middleware\\EncryptCookies' => $baseDir . '/app/Http/Middleware/EncryptCookies.php',
     'App\\Http\\Middleware\\PreventRequestsDuringMaintenance' => $baseDir . '/app/Http/Middleware/PreventRequestsDuringMaintenance.php',

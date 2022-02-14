@@ -23,6 +23,7 @@ class CreateUsersTable extends Migration
             $table->integer('line_id')->nullable();
             $table->tinyInteger('active_status')->nullable();
             $table->tinyInteger('is_delete')->nullable();
+            $table->tinyInteger('is_assigned')->nullable();
             $table->string('remark')->nullable();
             $table->timestamps();
         });

@@ -57,6 +57,11 @@
                         </li>
                     </ul>
                 </li>
+                <li>
+                    <a class="sidebar-link" href="{{ url('/report') }}"> <i class="fas fa-user"></i>
+                        Report
+                    </a>
+                </li>
             </ul>
         </div>
         <div class="">

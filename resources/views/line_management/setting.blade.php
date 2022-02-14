@@ -171,25 +171,6 @@ $num = 1;
                         </div>
                     </div>
             </div>
-            <script>
-                var LineModalActive = document.getElementById(
-                            "LineModalActive<?php echo $l_id; ?>"
-                            );
-                                LineModalActive.addEventListener("show.bs.modal", function (event) {
-                                // // Button that triggered the modal
-                                // var button = event.relatedTarget;
-                                // // Extract info from data-bs-* attributes
-                                // var l_id_active = button.getAttribute("data-bs-l-id-active");
-                                // var l_name_active = button.getAttribute("data-bs-l-name-active");
-                                // var l_status_active = button.getAttribute("data-bs-l-status-active");
-
-                                // var l_id_setting_active = document.getElementById("l_id_setting_active");
-                                // var l_setting_name_active = document.getElementById("l_setting_name_active");
-
-                                // l_id_setting_active.value = l_id_active;
-                                // l_setting_name_active.innerHTML = l_name_active;
-                                });
-            </script>
             @elseif($a_status==0)
             <!-- Button trigger modal -->
             <button type="button" class="btn btn-secondary w-75" data-bs-toggle="modal" data-bs-target="#LineModal"
@@ -202,7 +183,8 @@ $num = 1;
         @endfor
     </div>
     <!-- Modal -->
-    <div class="modal fade" id="LineModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="LineModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+        aria-labelledby="exampleModalToggleLabel" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-body text-start">
@@ -220,16 +202,17 @@ $num = 1;
                                 <select class="form-control" name="l_manager" required>
                                     <option> </option>
                                     @for($i=0;$i<count($json2);$i++) @php $u_id=$json2[$i]['id'];
-                                        $u_name=$json2[$i]['name'];$u_role=$json2[$i]['role']; @endphp @if($u_role==2)
-                                        <option value="{{$u_id}}">
+                                        $u_name=$json2[$i]['name'];$u_role=$json2[$i]['role'];
+                                        $is_assigned=$json2[$i]['is_assigned'] @endphp @if($u_role==2 &&
+                                        $is_assigned!=1) <option value="{{$u_id}}">
                                         {{$u_name}}
                                         </option> @endif @endfor
                                 </select>
                             </div>
-                            <div class="col-12 col-md-4 mt-0">
+                            {{-- <div class="col-12 col-md-4 mt-0">
                                 <label>Target</label>
                                 <input type="text" class="form-control" name="target" placeholder="100" required />
-                            </div>
+                            </div> --}}
                             <div class="col-12 col-md-4 mt-0">
                                 <label>Total Working Hour(s)</label>
                                 <input type="text" class="form-control" name="work_hour" placeholder="7 Hours"
@@ -239,22 +222,24 @@ $num = 1;
                         <div class="row g-3 my-2">
                             <div class="col-12 col-md-4 mt-0">
                                 <label>Starting Time</label>​<br />
-                                <input type="time" class="form-control" id="start_time" name="start_time" required>
+                                <input type="time" class="form-control" id="start_time" name="start_time" step="300"
+                                    required>
                             </div>
                             <div class="col-12 col-md-4 mt-0">
                                 <label>Lunch Time</label>​<br />
                                 <div class="row">
                                     <div class="col-6">
-                                        <input type="time" class="form-control" name="lunch_start" required>
+                                        <input type="time" class="form-control" name="lunch_start" step="300" required>
                                     </div>
                                     <div class="col-6">
-                                        <input type="time" class="form-control" name="lunch_end" required>
+                                        <input type="time" class="form-control" name="lunch_end" step="300" required>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-12 col-md-4 mt-0">
                                 <label>Ending Time</label>​<br />
-                                <input type="time" class="form-control" id="end_time" name="end_time" required>
+                                <input type="time" class="form-control" id="end_time" name="end_time" step="300"
+                                    required>
                             </div>
                         </div>
                         <div class="row g-3 my-2">
@@ -263,118 +248,72 @@ $num = 1;
                                 <input type="number" class="form-control" name="progress" placeholder="30" required />
                             </div>
                         </div>
-                        <div class="row g-3 my-2">
-                            <div style="overflow: auto;max-width:100%;max-height:600px;padding:0.5rem;">
-                                <table class="table" id="dynamic_field">
-                                    <tr>
-                                        <td>
-                                            <label>Category</label>
-                                            <select class="form-control" name="category[]" required>
-                                                <option></option>
-                                                <option value="0">Coat</option>
-                                                <option value="1">Shirt</option>
-                                                <option value="2">Trousers</option>
-                                            </select>
-                                        </td>
-                                        <td>
-                                            <label>Product Name</label>
-                                            <input type="text" class="form-control" name="p_name[]"
-                                                placeholder="Musung Shirt" required />
-                                        </td>
-                                        <td>
-                                            <label>Target</label>
-                                            <input type="text" class="form-control" id="setting_target"
-                                                name="category_target[]" placeholder="Target" required />
-                                        </td>
-                                        <td>
-                                            <br />
-                                            <button type="button" name="add" id="add_product_detail"
-                                                class="btn btn-success"><i
-                                                    class="fas fa-plus-square fa-lg"></i></button>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-6 m-auto text-center">
-                            <input class="icon-btn-one btn my-2" type="submit" value="Submit" name="submit" />
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        </div>
-                    </form>
                 </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-6 col-md-3 text-center">
-        <!-- Button trigger modal -->
-        <button type="button" class="btn btn-success w-75" data-bs-toggle="modal" data-bs-target="#exampleModal2">
-            Line 2
-        </button>
-    </div>
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModal2Label" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <div class="mt-2 mb-4">
-                        <h1 class="fw-bold heading-text">Line 1 Assign <span class="text-success">(Already
-                                Assigned)</span></h1>
+                <div class="row g-3 my-2 mx-2">
+                    <div class="col-12 col-md-4">
+                        <label>Add Category</label>​
+                        <input type="text" class="form-control" name="new_category_name" id="new_category_name"
+                            placeholder="Type Here" required />
                     </div>
-                    <div class="my-4">
-                        <div class="row g-3 my-2">
-                            <div class="col-12 col-md-4 mt-0">
-                                <label>Over Time (minute)</label>​
-                                <input type="text" class="form-control" name="target" placeholder="30" required />
-                            </div>
-                            <div class=" col-12 col-md-4 mt-0">
-                                <label>Over Time Target</label>
-                                <input type="text" class="form-control" name="target" placeholder="100" required />
-                            </div>
-                            <div class="col-12 col-md-4">
-                                <input class="icon-btn-one btn my-2" type="submit" value="Submit" name="submit" />
-                            </div>
-                        </div>
-
+                    <div class="col">
+                        <br />
+                        <button class="btn btn-primary w-25" id="new_category_btn">Add New Category</button>
                     </div>
-
-                    <div style="overflow: auto;max-width:100%;max-height:550px;padding:0.5rem;">
-                        <h1 class="fw-bold heading-text fs-4">Over Time Details
-                        </h1>
-                        <table class="table table-striped my-2  tableFixHead results p-0">
-                            <thead>
-                                <tr class="tr-2">
-                                    <th scope="col" style="border-top-left-radius: 0.8rem;">
-                                        No.</th>
-                                    <th scope="col">Over Time (minute)</th>
-                                    <th scope="col" style="border-top-right-radius: 0.8rem;">
-                                        Over Time
-                                        Target</th>
-                                </tr>
-                            </thead>
-                            <tbody id="myTable">
-                                <tr>
-                                    <td>1</td>
-                                    <td>30</td>
-                                    <td>100</td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>30</td>
-                                    <td>50</td>
-                                </tr>
-                            </tbody>
+                </div>
+                <script>
+                    $("#new_category_btn").click(function(e) {
+    e.preventDefault();
+    $.ajax({
+        type: "POST",
+        url: "{{ url('create_category') }}",
+        data: {
+            cat_name: $("#new_category_name").val(),
+        },
+        success: function(result) {
+            console.log(result);
+            alert('Category Added');
+        },
+        error: function(result) {
+            alert('Error creating category');
+        }
+    });
+});
+                </script>
+                <div class="row g-3 my-2">
+                    <div style="overflow: auto;max-width:100%;max-height:600px;padding:0.5rem;">
+                        <table class="table" id="dynamic_field">
+                            <tr>
+                                <td>
+                                    <label>Category</label>
+                                    <livewire:select-box-setting />
+                                </td>
+                                <td>
+                                    <label>Product Name</label>
+                                    <input type="text" class="form-control" name="p_name[]" placeholder="Musung Shirt"
+                                        required />
+                                </td>
+                                <td>
+                                    <label>Target</label>
+                                    <input type="text" class="form-control" id="setting_target" name="category_target[]"
+                                        placeholder="Target" required />
+                                </td>
+                                <td>
+                                    <br />
+                                    <button type="button" name="add" id="add_product_detail" class="btn btn-success"><i
+                                            class="fas fa-plus-square fa-lg"></i></button>
+                                </td>
+                            </tr>
                         </table>
                     </div>
-                    <div class="col-12 col-md-6 m-auto text-center">
-                        <button type="button" class="btn btn-secondary w-75" data-bs-dismiss="modal">Close</button>
-                    </div>
                 </div>
+                <div class="col-12 col-md-6 m-auto text-center">
+                    <input class="icon-btn-one btn my-2" type="submit" value="Submit" name="submit" />
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+                </form>
             </div>
         </div>
     </div>
-</div>
-</div>
 </div>
 @endsection
 

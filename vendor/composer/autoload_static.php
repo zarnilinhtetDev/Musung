@@ -579,6 +579,7 @@ class ComposerStaticInitc0b888793009922a59235191e8990fbc
         'App\\Http\\Livewire\\Dash2' => __DIR__ . '/../..' . '/app/Http/Livewire/Dash2.php',
         'App\\Http\\Livewire\\Dash3' => __DIR__ . '/../..' . '/app/Http/Livewire/Dash3.php',
         'App\\Http\\Livewire\\DashChart' => __DIR__ . '/../..' . '/app/Http/Livewire/DashChart.php',
+        'App\\Http\\Livewire\\LiveWire' => __DIR__ . '/../..' . '/app/Http/Livewire/LiveWire.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',
         'App\\Http\\Middleware\\EncryptCookies' => __DIR__ . '/../..' . '/app/Http/Middleware/EncryptCookies.php',
         'App\\Http\\Middleware\\PreventRequestsDuringMaintenance' => __DIR__ . '/../..' . '/app/Http/Middleware/PreventRequestsDuringMaintenance.php',
