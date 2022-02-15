@@ -186,9 +186,6 @@ class LineAssignController extends Controller
         }
         $date_string = date("d.m.Y");
 
-        // $hour_diff = round((($to_time - $from_time) - ($lunch_to_time - $lunch_from_time)) / 3600, 1);
-        // echo $hour_diff;
-
         $user = User::where('id', $line_manager)->update(['is_assigned' => 1]);
         $line = Line::where('l_id', $l_id)->update(['a_status' => 1]); ///// Update status to line_id in line table
         if ($line == true) {

@@ -11,5 +11,4 @@ class Time extends Model
     protected $table = 'time';
     protected $fillable = ['time_name', 'status', 'line_id', 'assign_id', 'div_target', 'actual_target_entry', 'assign_date'];
     protected $primaryKey = 'time_id';
-    public $timestamps = false;
 }

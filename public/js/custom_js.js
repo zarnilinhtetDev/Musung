@@ -77,17 +77,6 @@ $(document).ready(function () {
     });
 });
 
-var i = 1;
-$("#add_product_detail").click(function () {
-    i++;
-    $("#dynamic_field").append(
-        '<tr id="row' +
-            i +
-            '"><td><label>Category</label> <select class="form-control" name="category[]" required><option></option><option value="0">Coat</option><option value="1">Shirt</option><option value="2">Trousers</option></select></td><td><label>Product Name</label><input type="text" class="form-control" name="p_name[]" placeholder="Musung Shirt" required /></td><td><label>Target</label><input type="text" class="form-control" name="category_target[]" id="setting_target" placeholder="Target" required /></td><td><br/><button type="button" name="remove" id="' +
-            i +
-            '" class="btn btn-danger btn_remove">X</button></td></tr>'
-    );
-});
 $(document).on("click", ".btn_remove", function () {
     var button_id = $(this).attr("id");
     $("#row" + button_id + "").remove();
@@ -108,21 +97,17 @@ LineModal.addEventListener("show.bs.modal", function (event) {
     l_id_input.value = l_id;
     l_setting_name_2.innerHTML = l_name;
 });
-
-$(document).ready(function () {
-    var target_setting = $("#setting_target");
-    target_setting.on("keyup", function () {
-        target_setting.each(function (index) {
-            console.log($(this).val());
-        });
-    });
-    var dynamic_field = $("#dynamic_field #setting_target");
-    dynamic_field.on("keyup", function () {
-        dynamic_field.each(function (index) {
-            console.log($(this).val());
-        });
-    });
-});
+// var i = 1;
+// $("#add_product_detail").click(function () {
+//     i++;
+//     $("#dynamic_field").append(
+//         '<tr id="row' +
+//             i +
+//             '"><td><label>Category</label><select class="form-control" name="category[]" required><option></option><option value="2">Hello</option></select></td><td><label>Product Name</label><input type="text" class="form-control" name="p_name_1[]" placeholder="Musung Shirt" required /></td><td><label>Target</label><input type="text" class="form-control" name="category_target[]" id="setting_target" placeholder="Target" required /></td><td><br/><button type="button" name="remove" id="' +
+//             i +
+//             '" class="btn btn-danger btn_remove">X</button></td></tr>'
+//     );
+// });
 
 ///// Time Diff in Line Setting /////
 $(document).ready(function () {

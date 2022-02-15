@@ -68,6 +68,7 @@
     </div>
     @livewireScripts
     @stack('scripts')
+    @stack('select-box-scripts')
 
     <livewire:scripts />
 
