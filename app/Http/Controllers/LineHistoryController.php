@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Charts\LiveDashPercentChart;
+use App\Models\LineAssign;
+use App\Models\Line;
 
 class LineHistoryController extends Controller
 {
@@ -18,7 +21,7 @@ class LineHistoryController extends Controller
             return $next($request);
         });
     }
-    public function index()
+    public function index(LiveDashPercentChart $percent_chart)
     {
         $getDate =  request()->post('date_name');
         $date_string = date("d.m.Y", strtotime($getDate));
@@ -202,8 +205,82 @@ class LineHistoryController extends Controller
     </table>
         </div>
     </div>
-    <div class="col">hello</div>
-</div>
+    <div class="col-12 col-md-4 p-sm-0 p-md-auto my-sm-2 my-md-0 top-3">
+    <h1 class="fw-bold heading-text fs-3 p-0">Target and Actual Target Chart</h1>
+    <div id="history_chart"></div> </div>';
+
+        $line_assign_apex_chart = LineAssign::select('main_target')->orderBy('l_id', 'asc')->where('assign_date', $date_string)->get();
+
+        $line_apex_chart = Line::select('l_name')->where('a_status', 1)->orderBy('l_pos', 'asc')->get();
+
+        $time_apex_chart = DB::select('SELECT SUM("time".div_actual_target) AS total_actual_target FROM time
+        JOIN line_assign ON "line_assign".l_id = "time".line_id AND "line_assign".assign_date="time".assign_date AND
+        "line_assign".assign_date=\'' . $date_string . '\'
+        GROUP BY "time".line_id ORDER BY "time".line_id ASC');
+
+        $arr_decode = json_decode(json_encode($time_apex_chart), true);
+
+        $line_assign_apex_chart_decode = json_decode(json_encode($line_assign_apex_chart), true);
+
+?>
+        <script>
+            var options = {
+                series: [{
+                    name: "Actual Target",
+                    data: [<?php for ($i = 0; $i < count($arr_decode); $i++) {
+                                $total_actual_target = $arr_decode[$i]['total_actual_target'];
+                                echo $total_actual_target . ',';
+                            } ?>]
+                }, {
+                    name: "Target",
+                    data: [<?php for ($j = 0; $j < count($line_assign_apex_chart_decode); $j++) {
+                                echo $line_assign_apex_chart_decode[$j]['main_target'] . ',';
+                            } ?>]
+                }, ],
+                chart: {
+                    type: "bar",
+                    height: 350
+                },
+                plotOptions: {
+                    bar: {
+                        horizontal: true,
+                    },
+                },
+                dataLabels: {
+                    enabled: true,
+                },
+                stroke: {
+                    show: true,
+                    width: 2,
+                    colors: ["transparent"]
+                },
+                xaxis: {
+                    categories: [<?php $line_apex_chart_decode = json_decode($line_apex_chart, true);
+                                    for ($z = 0; $z < count($line_apex_chart_decode); $z++) {
+                                        echo '"' . $line_apex_chart_decode[$z]['l_name'] . '"' . ',';
+                                    } ?>],
+                    title: {
+                        text: "Target and Actual Target"
+                    }
+                },
+                fill: {
+                    opacity: 1
+                },
+                // tooltip: {
+                //     y: {
+                //         formatter: function(val) {
+                //             return "$ " + val + " thousands"
+                //         }
+                //     }
+                // }
+            };
+
+            var chart = new ApexCharts(document.querySelector("#history_chart"), options);
+
+            chart.render();
+        </script>
+<?php
+        echo '</div>
 <div class="container-fluid p-0 my-3">
     <div class="row">
         <div class="col-12 col-md-8">
