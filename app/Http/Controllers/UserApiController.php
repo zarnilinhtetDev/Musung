@@ -10,7 +10,7 @@ class UserApiController extends Controller
 {
     public function getUser()
     {
-        $sql = DB::select("SELECT id,name,username,password,email,role,line_id,active_status,is_delete,is_assigned,remark,created_at,updated_at FROM users ORDER BY id ASC");
+        $sql = DB::select("SELECT id,name,username,password,email,role,line_id,active_status,is_delete,remark,created_at,updated_at FROM users ORDER BY id ASC");
         DB::disconnect('musung');
         if ($sql == true) {
             return response()->json($sql);
@@ -25,7 +25,7 @@ class UserApiController extends Controller
         $role = $request->role;
         $line_id = $request->line_id;
         $note = $request->note;
-        $sql = DB::insert("INSERT INTO users (name,username,password,email,role,line_id,active_statusis_delete,remark,created_at) VALUES (?,?,?,?,?,?,?,?,?,NOW())", [$name, $username, $password, $email, $role, $line_id, 1, 0, $note]);
+        $sql = DB::insert("INSERT INTO users (name,username,password,email,role,line_id,active_status,is_delete,remark,created_at) VALUES (?,?,?,?,?,?,?,?,?,NOW())", [$name, $username, $password, $email, $role, $line_id, 1, 0, $note]);
         DB::disconnect('musung');
         if ($sql == true) {
             return response()->json(['create' => 'ok']);

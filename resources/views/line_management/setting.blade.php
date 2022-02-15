@@ -3,7 +3,7 @@
 @section('content')
 @section('content_2')
 @php $json = json_decode($responseBody,true); ///Line DB
-$json2 = json_decode($responseBody2,true); ////User DB
+$json2 = json_decode(json_encode($responseBody2),true); ////User DB
 $num = 1;
 @endphp
 <div class="container">
@@ -202,9 +202,8 @@ $num = 1;
                                 <select class="form-control" name="l_manager" required>
                                     <option> </option>
                                     @for($i=0;$i<count($json2);$i++) @php $u_id=$json2[$i]['id'];
-                                        $u_name=$json2[$i]['name'];$u_role=$json2[$i]['role'];
-                                        $is_assigned=$json2[$i]['is_assigned'] @endphp @if($u_role==2 &&
-                                        $is_assigned!=1) <option value="{{$u_id}}">
+                                        $u_name=$json2[$i]['name'];$u_role=$json2[$i]['role']; @endphp @if($u_role==2)
+                                        <option value="{{$u_id}}">
                                         {{$u_name}}
                                         </option> @endif @endfor
                                 </select>

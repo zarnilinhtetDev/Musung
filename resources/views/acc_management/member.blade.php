@@ -127,7 +127,7 @@
                                     </div>
                                     <div class="col-12 col-md-4">
                                         <label>Role</label>​
-                                        <select class="form-control" name="role">
+                                        <select class="form-control" name="role" required>
                                             <option> </option>
                                             <option value="0">Admin</option>
                                             <option value="1">Operator</option>

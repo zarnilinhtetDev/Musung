@@ -75,14 +75,12 @@ class LineAssignController extends Controller
         ORDER BY p_detail_id ASC');
 
         $request = Request::create('/api/line', 'GET');
-        $request2 = Request::create('/api/user', 'GET');
-        // $request->headers->set('X-Authorization', 'wAH2k5uRc2Sgsz8gm3rdq0eEUHchz2syWHfLuLoCEWXpyCtkers4a1OeIGL1CST0');
 
         $response = Route::dispatch($request);
-        $response2 = Route::dispatch($request2);
 
         $responseBody = $response->getContent();
-        $responseBody2 = $response2->getContent();
+        $responseBody2 = DB::select('SELECT id,NAME,role FROM users WHERE id NOT IN (SELECT user_id FROM line_assign WHERE assign_date=\'' . $date_string . '\')');
+
 
         DB::disconnect('musung');
 
@@ -186,7 +184,6 @@ class LineAssignController extends Controller
         }
         $date_string = date("d.m.Y");
 
-        $user = User::where('id', $line_manager)->update(['is_assigned' => 1]);
         $line = Line::where('l_id', $l_id)->update(['a_status' => 1]); ///// Update status to line_id in line table
         if ($line == true) {
             $line_assign = LineAssign::create(['user_id' => $line_manager, 'l_id' => $l_id, 'main_target' => $t_category_target, 's_time' => $s_time, 'e_time' => $e_time, 'lunch_s_time' => $lunch_start, 'lunch_e_time' => $lunch_end, 'cal_work_min' => $progress, 't_work_hr' => $work_hour, 'assign_date' => $date_string, 'created_at' => NOW()]);

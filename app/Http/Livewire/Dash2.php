@@ -20,10 +20,8 @@ class Dash2 extends Component
         $time = DB::select('SELECT time_name FROM time
         JOIN line_assign ON "time".assign_id="line_assign".assign_id AND
         "line_assign".assign_date=\'' . $date_string . '\' GROUP BY time_name ORDER BY time_name ASC');
-        // Time::select('time_name')->groupBy('time_name')->orderBy('time_name', 'asc')->get();
 
         $time_2 = DB::select('SELECT "time".time_id,"time".time_name,"time".line_id,"time".assign_id,"time".status,"time".div_target,"time".div_actual_target,"time".div_actual_percent,"time".actual_target_entry FROM time,line_assign WHERE "time".assign_id="line_assign".assign_id AND "line_assign".assign_date=\'' . $date_string . '\' ORDER BY "time".time_id ASC');
-        //  Time::select('time_id', 'time_name', 'line_id', 'assign_id', 'status', 'div_target', 'div_actual_target', 'div_actual_percent', 'actual_target_entry')->orderBy('time_id', 'asc')->get();
 
         $getLine = DB::select('SELECT "line".l_id,"line".l_name,"line_assign".assign_id,"line_assign".main_target,"line_assign".s_time,"line_assign".e_time,"line_assign".lunch_s_time,"line_assign".lunch_e_time,"line_assign".assign_date,"users".id,"users".name
         FROM line
