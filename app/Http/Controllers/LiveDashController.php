@@ -28,7 +28,7 @@ class LiveDashController extends Controller
         "time".actual_target_entry,"time".div_actual_target,"time".div_actual_percent
                 FROM line
                 JOIN line_assign ON "line_assign".l_id = "line".l_id AND "line_assign".assign_date=\'' . $date_string . '\'
-                JOIN time ON "time".line_id = "line_assign".l_id ORDER BY "time".time_id ASC');
+                JOIN time ON "time".line_id = "line_assign".l_id WHERE "line".is_delete = 0 ORDER BY "time".time_id ASC');
 
         $p_detail = DB::select('SELECT "p_detail".p_detail_id,"p_detail".assign_id,"p_detail".l_id,"p_detail".p_cat_id,"p_detail".p_name,"p_detail".quantity FROM p_detail,line_assign WHERE "p_detail".assign_id="line_assign".assign_id AND "line_assign".assign_date=\'' . $date_string . '\' ORDER BY "p_detail".p_detail_id ASC');
 

@@ -4,6 +4,14 @@
 @section('content_2')
 <div class="container">
     <div class="container-fluid">
+        @error('error')
+        <p class="text-danger fw-bold text-center my-3">{{ $message }}</p>
+        @enderror
+
+        @error('success')
+        <p class="text-success fw-bold text-center my-3">{{ $message }}</p>
+        @enderror
+
         <h1 class="fw-bold heading-text">Line Detail</h1>
         @if (@$_GET['edit'] != "" && @$_GET['edit'] == "1")
         <div class="d-flex flex-row-reverse">

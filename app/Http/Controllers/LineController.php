@@ -37,12 +37,26 @@ class LineController extends Controller
     public function postLine()
     {
         $name = request()->post('l_name');
-        $pos = request()->post('l_pos');
-        $line_model = Line::create(['l_name' => $name, 'l_pos' => $pos, 'created_at' => NOW()]);
-        if ($line_model == true) {
-            return redirect('/line_detail?status=create_ok');
+        $name_str_replace = str_replace(' ', '', strtolower($name));
+
+        $line_select = Line::select('l_name')->get()->toArray();
+        $arr = [];
+        $decode = json_decode(json_encode($line_select), true);
+        for ($i = 0; $i < count($decode); $i++) {
+            $arr[] = str_replace(' ', '', strtolower($decode[$i]['l_name']));
+        }
+
+        if (stripos(json_encode($arr), $name_str_replace) !== false) {
+            return redirect()->back()->withErrors(['error' => 'Line name already exists !!!']);
+        } else {
+            $pos = request()->post('l_pos');
+            $line_model = Line::create(['l_name' => $name, 'l_pos' => $pos, 'created_at' => NOW()]);
+            if ($line_model == true) {
+                return redirect()->back()->withErrors(['success' => 'Line Created Successfully !!!']);
+            }
         }
     }
+
     public function putLine()
     {
         $id = request()->post('l_id');

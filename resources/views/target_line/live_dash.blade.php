@@ -29,16 +29,36 @@
     @endphp
     @endforeach
     @php $date_string = date("d.m.Y"); @endphp
-    <div class="container-fluid">
-        <ul class="horizontal-slide" style="" id="tabs">
-            <li class="span2 bg-transparent">
-                <input class="icon-btn-one btn my-2" type="submit" value="Date - {{ $date_string }}" />
-            </li>
-            <li class="span2 bg-transparent">
-                <input class="icon-btn-one icon-btn-one-2 btn my-2" type="submit" value="Export to Excel"
-                    name="submit" />
-            </li>
-        </ul>
+    <div class="row container-fluid">
+        <div class="col-12 col-md-6">
+            <ul class="horizontal-slide" style="" id="tabs">
+                <li class="span2 bg-transparent">
+                    <input class="icon-btn-one btn my-2" type="submit" value="Date - {{ $date_string }}" />
+                </li>
+                <li class="span2 bg-transparent">
+                    <input class="icon-btn-one icon-btn-one-2 btn my-2" type="submit" value="Export to Excel"
+                        name="submit" />
+                </li>
+            </ul>
+        </div>
+        <div class="col-12 col-md-6 my-auto text-center text-md-start">
+            <div id="digital-clock-2" class="p-2 fs-2 fw-bold">
+            </div>
+            <script>
+                /// Live Clock in line_entry.blade
+                function showTime() {
+                    var date = new Date().toLocaleTimeString(
+                        "en-US",
+                        Intl.DateTimeFormat().resolvedOptions().timeZone
+                    );
+
+                    document.getElementById("digital-clock-2").innerHTML = date;
+                }
+                setInterval(showTime, 1000);
+
+                /// Live Clock in line_entry.blade End
+            </script>
+        </div>
     </div>
     <div class="row container-fluid p-0 my-3 mx-auto">
         <livewire:dash1 />

@@ -74,11 +74,7 @@ class LineAssignController extends Controller
         AND "line_assign".assign_date=\'' . $date_string . '\'
         ORDER BY p_detail_id ASC');
 
-        $request = Request::create('/api/line', 'GET');
-
-        $response = Route::dispatch($request);
-
-        $responseBody = $response->getContent();
+        $responseBody = Line::select('l_id', 'l_name', 'l_pos', 'a_status', 'is_delete')->where('is_delete', 0)->orderBy('l_pos', 'asc')->get();
         $responseBody2 = DB::select('SELECT id,NAME,role FROM users WHERE id NOT IN (SELECT user_id FROM line_assign WHERE assign_date=\'' . $date_string . '\')');
 
 
