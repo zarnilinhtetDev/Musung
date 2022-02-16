@@ -9,7 +9,7 @@
                     </script>
                     @php $list_num = 1; @endphp
                     @foreach($top_line as $t_data)
-                    @php $g_line_id=$t_data->line_id; @endphp
+                    @php $g_line_id=$t_data->l_id; @endphp
                     <tr id="tr_top">
                         <th id="top_name">
                             Top {{ $list_num }}
