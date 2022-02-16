@@ -21,6 +21,7 @@ class PDetail extends Migration
             $table->string('p_name');
             $table->integer('quantity');
             $table->integer('p_actual_target')->nullable();
+            $table->integer('cat_actual_target')->nullable();
             $table->timestamps();
         });
     }

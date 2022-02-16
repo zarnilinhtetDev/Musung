@@ -56,6 +56,14 @@ class LineEntryController extends Controller
 
         if ($number > 0) {
             for ($i = 0; $i < $number; $i++) { ///// Insert data [] to p_detail & time table
+                $product_detail_select = ProductDetail::where('p_detail_id', $p_detail_id_arr[$i])->first();
+                if ($product_detail_select->cat_actual_target == '') {
+                    ProductDetail::where('p_detail_id', $p_detail_id_arr[$i])->update(['cat_actual_target' => $p_detail_actual_target_arr[$i]]);
+                } else {
+                    $total = $product_detail_select->cat_actual_target + $p_detail_actual_target_arr[$i];
+                    ProductDetail::where('p_detail_id', $p_detail_id_arr[$i])->update(['cat_actual_target' => $total]);
+                }
+
                 $product_detail = ProductDetail::where('p_detail_id', $p_detail_id_arr[$i])->update(['p_actual_target' => $p_detail_actual_target_arr[$i]]);
                 if ($product_detail == true) {
                     Time::where('time_id', $time_id)->update(['status' => 1, 'div_actual_target' => $div_actual_target, 'div_actual_percent' => $explode_percent[0]]);
