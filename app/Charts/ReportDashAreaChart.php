@@ -43,7 +43,7 @@ class ReportDashAreaChart
 
         $time = DB::select('SELECT SUM("time".div_actual_target) AS t_actual_target FROM time
         WHERE DATE("time".created_at) >= DATE(NOW()) - INTERVAL \'30\' DAY
-        GROUP BY "time".assign_date');
+        GROUP BY "time".assign_date ORDER BY "time".assign_date ASC');
 
         $time_decode = json_decode(json_encode($time), true);
         $time_arr = [];

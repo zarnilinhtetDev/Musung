@@ -45,9 +45,23 @@ class LineHistoryController extends Controller
           WHERE "time".div_actual_percent IS NOT NULL
           GROUP BY "time".line_id,"line".l_name ORDER BY SUM("time".div_actual_target) DESC LIMIT 3');
 
+        $line_assign_apex_chart = LineAssign::select('main_target')->orderBy('l_id', 'asc')->where('assign_date', $date_string)->get();
+
+        $line_apex_chart = Line::select('l_name')->where('a_status', 1)->orderBy('l_pos', 'asc')->get();
+
+        $time_apex_chart = DB::select('SELECT SUM("time".div_actual_target) AS total_actual_target FROM time
+        JOIN line_assign ON "line_assign".l_id = "time".line_id AND "line_assign".assign_date="time".assign_date AND
+        "line_assign".assign_date=\'' . $date_string . '\'
+        GROUP BY "time".line_id ORDER BY "time".line_id ASC');
+
+        $arr_decode = json_decode(json_encode($time_apex_chart), true);
+
+        $line_assign_apex_chart_decode = json_decode(json_encode($line_assign_apex_chart), true);
+
         DB::disconnect('musung');
 
-        echo '<div class="container-fluid">
+        if ($time == true && $time_2 == true && $getLine == true && $top_line == true && $line_assign_apex_chart == true && $line_apex_chart == true && $time_apex_chart == true) {
+            echo '<div class="container-fluid">
         <ul class="horizontal-slide" style="" id="tabs">
             <li class="span2 bg-transparent">
                 <input class="icon-btn-one btn my-2" type="submit" value="Date - ' . $getDate . '" />
@@ -69,27 +83,27 @@ class LineHistoryController extends Controller
                 <th scope="col">Line</th>
                 <th scope="col">Target</th>';
 
-        foreach ($time as $t) {
-            echo '<th scope="col">' . $t->time_name . '</th>';
-        }
-        echo '</tr>
+            foreach ($time as $t) {
+                echo '<th scope="col">' . $t->time_name . '</th>';
+            }
+            echo '</tr>
         </thead>
         <tbody>';
-        foreach ($getLine as $g_line) {
-            $g_line_id = $g_line->l_id;
-            $g_line_name = $g_line->l_name;
-            $g_main_target = $g_line->main_target;
+            foreach ($getLine as $g_line) {
+                $g_line_id = $g_line->l_id;
+                $g_line_name = $g_line->l_name;
+                $g_main_target = $g_line->main_target;
 
-            echo '<tr>
+                echo '<tr>
                 <td>' . $g_line_name . '</td>
                 <td><span id="g_main_target_' . $g_line_id . '">' . $g_main_target . '</span></td>';
 
-            foreach ($time_2 as $t_2) {
-                if ($g_line_id == $t_2->line_id) {
-                    $current_target = $t_2->time_id;
-                    $prev_target = ((int)$current_target) - 1;
+                foreach ($time_2 as $t_2) {
+                    if ($g_line_id == $t_2->line_id) {
+                        $current_target = $t_2->time_id;
+                        $prev_target = ((int)$current_target) - 1;
 
-                    echo '<td>
+                        echo '<td>
                             <table class="w-100 text-center">
                                 <tr>
                                     <td><span id="new_div_target_' . $t_2->time_id . '">' . $t_2->actual_target_entry . '</span></td>
@@ -197,11 +211,11 @@ class LineHistoryController extends Controller
         }
                             </script>
                         </td>';
+                    }
                 }
+                echo '</tr>';
             }
-            echo '</tr>';
-        }
-        echo '</tbody>
+            echo '</tbody>
     </table>
         </div>
     </div>
@@ -209,78 +223,67 @@ class LineHistoryController extends Controller
     <h1 class="fw-bold heading-text fs-3 p-0">Target and Actual Target Chart</h1>
     <div id="history_chart"></div> </div>';
 
-        $line_assign_apex_chart = LineAssign::select('main_target')->orderBy('l_id', 'asc')->where('assign_date', $date_string)->get();
 
-        $line_apex_chart = Line::select('l_name')->where('a_status', 1)->orderBy('l_pos', 'asc')->get();
-
-        $time_apex_chart = DB::select('SELECT SUM("time".div_actual_target) AS total_actual_target FROM time
-        JOIN line_assign ON "line_assign".l_id = "time".line_id AND "line_assign".assign_date="time".assign_date AND
-        "line_assign".assign_date=\'' . $date_string . '\'
-        GROUP BY "time".line_id ORDER BY "time".line_id ASC');
-
-        $arr_decode = json_decode(json_encode($time_apex_chart), true);
-
-        $line_assign_apex_chart_decode = json_decode(json_encode($line_assign_apex_chart), true);
 
 ?>
-        <script>
-            var options = {
-                series: [{
-                    name: "Actual Target",
-                    data: [<?php for ($i = 0; $i < count($arr_decode); $i++) {
-                                $total_actual_target = $arr_decode[$i]['total_actual_target'];
-                                echo $total_actual_target . ',';
-                            } ?>]
-                }, {
-                    name: "Target",
-                    data: [<?php for ($j = 0; $j < count($line_assign_apex_chart_decode); $j++) {
-                                echo $line_assign_apex_chart_decode[$j]['main_target'] . ',';
-                            } ?>]
-                }, ],
-                chart: {
-                    type: "bar",
-                    height: 350
-                },
-                plotOptions: {
-                    bar: {
-                        horizontal: true,
+            <script>
+                var options = {
+                    series: [{
+                        name: "Actual Target",
+                        data: [<?php for ($i = 0; $i < count($arr_decode); $i++) {
+                                    $total_actual_target = $arr_decode[$i]['total_actual_target'];
+                                    echo $total_actual_target . ',';
+                                } ?>]
+                    }, {
+                        name: "Target",
+                        data: [<?php for ($j = 0; $j < count($line_assign_apex_chart_decode); $j++) {
+                                    echo $line_assign_apex_chart_decode[$j]['main_target'] . ',';
+                                } ?>]
+                    }, ],
+                    chart: {
+                        type: "bar",
+                        height: 350
                     },
-                },
-                dataLabels: {
-                    enabled: true,
-                },
-                stroke: {
-                    show: true,
-                    width: 2,
-                    colors: ["transparent"]
-                },
-                xaxis: {
-                    categories: [<?php $line_apex_chart_decode = json_decode($line_apex_chart, true);
-                                    for ($z = 0; $z < count($line_apex_chart_decode); $z++) {
-                                        echo '"' . $line_apex_chart_decode[$z]['l_name'] . '"' . ',';
-                                    } ?>],
-                    title: {
-                        text: "Target and Actual Target"
-                    }
-                },
-                fill: {
-                    opacity: 1
-                },
-                // tooltip: {
-                //     y: {
-                //         formatter: function(val) {
-                //             return "$ " + val + " thousands"
-                //         }
-                //     }
-                // }
-            };
+                    plotOptions: {
+                        bar: {
+                            horizontal: true,
+                        },
+                    },
+                    dataLabels: {
+                        enabled: true,
+                    },
+                    stroke: {
+                        show: true,
+                        width: 2,
+                        colors: ["transparent"]
+                    },
+                    xaxis: {
+                        categories: [<?php $line_apex_chart_decode = json_decode($line_apex_chart, true);
+                                        for ($z = 0; $z < count($line_apex_chart_decode); $z++) {
+                                            echo '"' . $line_apex_chart_decode[$z]['l_name'] . '"' . ',';
+                                        } ?>],
+                        title: {
+                            text: "Target and Actual Target"
+                        }
+                    },
+                    fill: {
+                        opacity: 1
+                    },
+                    // tooltip: {
+                    //     y: {
+                    //         formatter: function(val) {
+                    //             return "$ " + val + " thousands"
+                    //         }
+                    //     }
+                    // }
+                };
 
-            var chart = new ApexCharts(document.querySelector("#history_chart"), options);
+                var chart = new ApexCharts(document.querySelector("#history_chart"), options);
 
-            chart.render();
-        </script>
+                chart.render();
+            </script>
 <?php
-        echo '</div>
+            echo '</div>
 <div class="container-fluid p-0 my-3">
     <div class="row">
         <div class="col-12 col-md-8">
@@ -291,24 +294,24 @@ class LineHistoryController extends Controller
                 <thead>
                     <tr class="tr-2 tr-3">
                         <th scope="col">Line Name</th>';
-        foreach ($getLine as $g_line) {
-            $g_line_id = $g_line->l_id;
-            $g_line_name = $g_line->l_name;
-            $g_main_target = $g_line->main_target;
-            echo '<th scope="col"><span class="actual_target_div_' . $g_line_id . '">' . $g_line_name . '</span></th>';
-        }
-        echo '</tr>
+            foreach ($getLine as $g_line) {
+                $g_line_id = $g_line->l_id;
+                $g_line_name = $g_line->l_name;
+                $g_main_target = $g_line->main_target;
+                echo '<th scope="col"><span class="actual_target_div_' . $g_line_id . '">' . $g_line_name . '</span></th>';
+            }
+            echo '</tr>
                 </thead>
                 <tbody>
                     <tr>
                         <th>
                             Target
                         </th>';
-        foreach ($getLine as $g_line) {
-            $g_line_id = $g_line->l_id;
-            $g_line_name = $g_line->l_name;
-            $g_main_target = $g_line->main_target;
-            echo '<td id="td_main_target_actual_chart_' . $g_line_id . '">
+            foreach ($getLine as $g_line) {
+                $g_line_id = $g_line->l_id;
+                $g_line_name = $g_line->l_name;
+                $g_main_target = $g_line->main_target;
+                echo '<td id="td_main_target_actual_chart_' . $g_line_id . '">
                                 <span id="main_target_actual_chart_' . $g_line_id . '"
                                     class="actual_target_div_' . $g_line_id . '"></span>
                             </td>
@@ -317,18 +320,18 @@ class LineHistoryController extends Controller
                                 var main_target_actual_chart = $("#main_target_actual_chart_' . $g_line_id . '");
                                 main_target_actual_chart.text(g_main_target);
                             </script>';
-        }
-        echo '</tr>
+            }
+            echo '</tr>
                     <tr>
                         <th>
                             Actual
                         </th>';
-        foreach ($getLine as $g_line) {
-            $g_line_id = $g_line->l_id;
-            $g_line_name = $g_line->l_name;
-            $g_main_target = $g_line->main_target;
+            foreach ($getLine as $g_line) {
+                $g_line_id = $g_line->l_id;
+                $g_line_name = $g_line->l_name;
+                $g_main_target = $g_line->main_target;
 
-            echo '<td id="td_actual_target_actual_chart_' . $g_line_id . '">
+                echo '<td id="td_actual_target_actual_chart_' . $g_line_id . '">
                                 <span id="actual_target_actual_chart_' . $g_line_id . '"
                                     class="text-white actual_target_div_' . $g_line_id . '"></span>
                             </td>
@@ -373,18 +376,18 @@ class LineHistoryController extends Controller
     }
                                 }
                             </script>';
-        }
-        echo '</tr>
+            }
+            echo '</tr>
                         <tr>
                             <th>
                                 %
                             </th>';
-        foreach ($getLine as $g_line) {
-            $g_line_id = $g_line->l_id;
-            $g_line_name = $g_line->l_name;
-            $g_main_target = $g_line->main_target;
+            foreach ($getLine as $g_line) {
+                $g_line_id = $g_line->l_id;
+                $g_line_name = $g_line->l_name;
+                $g_main_target = $g_line->main_target;
 
-            echo '<td id="td_actual_percent_actual_chart_' . $g_line_id . '" class="text-white">
+                echo '<td id="td_actual_percent_actual_chart_' . $g_line_id . '" class="text-white">
                                 <span id="actual_target_percent_actual_chart_' . $g_line_id . '"
                                     class="actual_target_div_' . $g_line_id . '"></span>
                             </td>
@@ -421,8 +424,8 @@ class LineHistoryController extends Controller
                                 actual_target_percent_actual_chart.append("%");
                             }
                                 </script>';
-        }
-        echo '</tr>
+            }
+            echo '</tr>
                 </tbody>
             </table>
         </div>
@@ -437,10 +440,10 @@ class LineHistoryController extends Controller
                     <script>
                         var array_class = [];
                     </script>';
-        $list_num = 1;
-        foreach ($top_line as $t_data) {
-            $g_line_id = $t_data->line_id;
-            echo '<tr id="tr_top">
+            $list_num = 1;
+            foreach ($top_line as $t_data) {
+                $g_line_id = $t_data->line_id;
+                echo '<tr id="tr_top">
                             <th id="top_name">
                                 Top ' . $list_num . '
                             </th>
@@ -454,8 +457,8 @@ class LineHistoryController extends Controller
                                 <span id="top_actual_percent_' . $g_line_id . '"></span>
                             </td>
                         </tr>';
-            $list_num++;
-            echo '<script>
+                $list_num++;
+                echo '<script>
                                 var top_percent = $("#actual_target_percent_actual_chart_' . $g_line_id . '").text();
                             var top_actual_percent = $("#top_actual_percent_' . $g_line_id . '");
                             top_actual_percent.text(top_percent);
@@ -465,13 +468,16 @@ class LineHistoryController extends Controller
 
                             $top_1.css("background-color","green");
                         </script>';
-        }
-        echo '</tbody>
+            }
+            echo '</tbody>
             </table>
         </div>
     </div>
         </div>
     </div>
 </div>';
+        } else {
+            echo "<span class='text-danger fw-bold'>No Result Found</span>";
+        }
     }
 }

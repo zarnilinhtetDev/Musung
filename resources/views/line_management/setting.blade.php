@@ -288,7 +288,7 @@ $num = 1;
                                 </td>
                                 <td>
                                     <label>Product Name</label>
-                                    <input type="text" class="form-control" name="p_name_1[]" placeholder="Musung Shirt"
+                                    <input type="text" class="form-control" name="p_name[]" placeholder="Musung Shirt"
                                         required />
                                 </td>
                                 <td>
