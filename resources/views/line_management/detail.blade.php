@@ -89,12 +89,14 @@
         <div class="form-group pull-right">
             <input class="form-control" id="myInput" type="text" placeholder="Search">
         </div>
-        @php $json=json_decode($responseBody,true); $num = 1; @endphp
+        @php $json=json_decode($responseBody,true); $num = 1;
+        @endphp
         <div style="overflow: auto;max-width:100%;max-height:600px;padding:0.5rem;">
             <table class="table table-striped my-4 tableFixHead results p-0">
                 <thead>
                     <tr class="tr-2">
                         <th scope="col" style="border-top-left-radius: 0.8rem;">No.</th>
+                        <th scope="col">Status</th>
                         <th scope="col">Line Name</th>
                         <th scope="col">Position</th>
                         <th scope="col">Create Date</th>
@@ -112,20 +114,31 @@
                         @for($i=0;$i<count($json);$i++) @php $l_id=$json[$i]['l_id'];
                             $l_name=$json[$i]['l_name'];$l_pos=$json[$i]['l_pos'];
                             $is_delete=$json[$i]['is_delete'];$created_at=date('Y-m-d h:i:s',
-                            strtotime($json[$i]['created_at'])); $updated_at=date('Y-m-d h:i:s',
-                            strtotime($json[$i]['updated_at'])) @endphp <tr>
+                            strtotime($json[$i]['created_at'])); $updated_at=$json[$i]['updated_at']; @endphp <tr>
                             <td>{{ $num++ }}</td>
+                            <td>
+                                @if($is_delete==0)
+                                <span class="text-success">Active</span>
+                                @elseif($is_delete==1)
+                                <span class="text-danger">Deactive</span>
+                                @endif
+                            </td>
                             <td>{{ $l_name }}</td>
                             <td>{{ $l_pos }}</td>
                             <td>{{ $created_at }}</td>
-                            <td>{{ $updated_at }}</td>
+                            <td>
+                                @if($updated_at=="")
+
+                                @else
+                                {{ date('Y-m-d h:i:s', strtotime($updated_at)) }}
+                                @endif
+                            </td>
                             <td>
                                 <a class='btn btn-primary text-white'
                                     href="{{ url('/line_detail')}}?edit=1&id={{ $l_id }}&name={{ $l_name }}&pos={{ $l_pos }}&is_delete={{ $is_delete }}"><i
                                         class='fas fa-pencil-alt'></i></a>
                             </td>
                             </tr>
-
                             @endfor
                             @endif
                 </tbody>

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Models\Line;
+use Illuminate\Support\Facades\DB;
 
 
 class LineController extends Controller
@@ -50,7 +51,7 @@ class LineController extends Controller
             return redirect()->back()->withErrors(['error' => 'Line name already exists !!!']);
         } else {
             $pos = request()->post('l_pos');
-            $line_model = Line::create(['l_name' => $name, 'l_pos' => $pos, 'created_at' => NOW()]);
+            $line_model = DB::insert('INSERT INTO line (l_name, l_pos, created_at) VALUES (?, ?, ?)', [$name, $pos, NOW()]);
             if ($line_model == true) {
                 return redirect()->back()->withErrors(['success' => 'Line Created Successfully !!!']);
             }
@@ -63,7 +64,7 @@ class LineController extends Controller
         $name = request()->post('l_name');
         $pos = request()->post('l_pos');
 
-        $line_model = Line::where('l_id', $id)->update(['l_name' => $name, 'l_pos' => $pos]);
+        $line_model = DB::update('UPDATE line SET l_name = ?, l_pos = ?, updated_at = ? WHERE l_id = ?', [$name, $pos, NOW(), $id]);
         if ($line_model == true) {
             return redirect('/line_detail?status=update_ok');
         }
