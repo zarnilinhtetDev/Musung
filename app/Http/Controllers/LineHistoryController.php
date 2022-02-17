@@ -66,37 +66,38 @@ class LineHistoryController extends Controller
             <li class="span2 bg-transparent">
                 <input class="icon-btn-one btn my-2" type="submit" value="Date - ' . $getDate . '" />
             </li>
-            <li class="span2 bg-transparent">
-                <input class="icon-btn-one icon-btn-one-2 btn my-2" type="submit" value="Export to Excel"
-                    name="submit" />
+            <li class="span2 bg-transparent">';
+?>
+            <button onclick="tablesToExcel(['history_dash_1','history_dash_2','history_dash_3'], ['Table1','Table2','Table3'], '<?php echo $getDate; ?>.xls', 'Excel')" class="icon-btn-one icon-btn-one-2 btn my-2">Export to Excel</button>
             </li>
-        </ul>
-    </div>
+            </ul>
+            </div>
 
-    <div class="row container-fluid p-0 my-3 mx-auto">
+            <?php echo '<div class="row container-fluid p-0 my-3 mx-auto">
 
-    <div class="col-12 col-md-8 p-sm-0 p-md-auto my-sm-2 my-md-0 top-3">
-    <div class="panel-body">
-    <table class="table table-hover table-striped table-bordered text-center table-dash" id="live_dash_1">
-        <thead>
-            <tr class="tr-2 tr-3">
-                <th scope="col">Line</th>
-                <th scope="col">Target</th>';
+                <div class="col-12 col-md-8 p-sm-0 p-md-auto my-sm-2 my-md-0 top-3">
+                    <div class="panel-body">
+                        <table class="table table-hover table-striped table-bordered text-center table-dash" id="history_dash_1">
+                            <thead>
+                                <tr class="tr-2 tr-3">
+                                    <th scope="col">Line</th>
+                                    <th scope="col">Target</th>';
 
             foreach ($time as $t) {
                 echo '<th scope="col">' . $t->time_name . '</th>';
             }
-            echo '</tr>
-        </thead>
-        <tbody>';
+            echo '
+                                </tr>
+                            </thead>
+                            <tbody>';
             foreach ($getLine as $g_line) {
                 $g_line_id = $g_line->l_id;
                 $g_line_name = $g_line->l_name;
                 $g_main_target = $g_line->main_target;
 
                 echo '<tr>
-                <td>' . $g_line_name . '</td>
-                <td><span id="g_main_target_' . $g_line_id . '">' . $g_main_target . '</span></td>';
+                                    <td>' . $g_line_name . '</td>
+                                    <td><span id="g_main_target_' . $g_line_id . '">' . $g_main_target . '</span></td>';
 
                 foreach ($time_2 as $t_2) {
                     if ($g_line_id == $t_2->line_id) {
@@ -104,128 +105,127 @@ class LineHistoryController extends Controller
                         $prev_target = ((int)$current_target) - 1;
 
                         echo '<td>
-                            <table class="w-100 text-center">
-                                <tr>
-                                    <td><span id="new_div_target_' . $t_2->time_id . '">' . $t_2->actual_target_entry . '</span></td>
-                                    <td><span id="div_target_' . $t_2->time_id . '">' . $t_2->div_target . '</span>
-                                    </td>
-                                </tr>
-                                <tr class="text-white">
-                                    <td id="td_div_actual_target_' . $t_2->time_id . '">
-                                        <span id="div_actual_target_' . $t_2->time_id . '"
-                                            class="div_actual_target_' . $g_line_id . '">' . $t_2->div_actual_target . '</span>
-                                    </td>
-                                    <td id="td_div_actual_target_total_' . $t_2->time_id . '"><span
-                                            id="div_actual_target_total_' . $t_2->time_id . '"
-                                            class="div_actual_target_total_' . $g_line_id . '"></span></td>
-                                </tr>
-                                <tr class="text-white">
-                                    <td id="td_div_actual_target_percent_' . $t_2->time_id . '" colspan="2"><span
-                                            id="div_actual_target_percent_' . $t_2->time_id . '"></span>
-                                    </td>
-                                </tr>
-                            </table>
+                                        <table class="w-100 text-center table table-bordered m-0">
+                                            <tr>
+                                                <td><span id="new_div_target_' . $t_2->time_id . '">' . $t_2->actual_target_entry . '</span></td>
+                                                <td><span id="div_target_' . $t_2->time_id . '">' . $t_2->div_target . '</span>
+                                                </td>
+                                            </tr>
+                                            <tr class="text-white">
+                                                <td id="td_div_actual_target_' . $t_2->time_id . '">
+                                                    <span id="div_actual_target_' . $t_2->time_id . '" class="div_actual_target_' . $g_line_id . '">' . $t_2->div_actual_target . '</span>
+                                                </td>
+                                                <td id="td_div_actual_target_total_' . $t_2->time_id . '"><span id="div_actual_target_total_' . $t_2->time_id . '" class="div_actual_target_total_' . $g_line_id . '"></span></td>
+                                            </tr>
+                                            <tr class="text-white">
+                                                <td id="td_div_actual_target_percent_' . $t_2->time_id . '" colspan="2"><span id="div_actual_target_percent_' . $t_2->time_id . '"></span>
+                                                </td>
+                                            </tr>
+                                        </table>
 
-                            <script>
+                                        <script>
                                             var prev_target = parseInt($("#div_actual_target_' . $prev_target . '").text());
-        var current_target = parseInt($("#div_actual_target_' . $current_target . '").text());
+                                            var current_target = parseInt($("#div_actual_target_' . $current_target . '").text());
 
-        var total = prev_target+current_target;
-        var current_target_total = $("#div_actual_target_total_' . $current_target . '");
+                                            var total = prev_target + current_target;
+                                            var current_target_total = $("#div_actual_target_total_' . $current_target . '");
 
-        if(Number.isNaN(total)){
-        current_target_total.text("");
-        }
-        if(!Number.isNaN(total)){
-        current_target_total.text(total);
-        }
+                                            if (Number.isNaN(total)) {
+                                                current_target_total.text("");
+                                            }
+                                            if (!Number.isNaN(total)) {
+                                                current_target_total.text(total);
+                                            }
 
-        var new_div_actual_target_total_prev = $("#div_actual_target_total_' . $prev_target . '").text();
-        var new_div_actual_target_total_current = $("#div_actual_target_total_' . $current_target . '");
-        var new_div_actual_target_prev = $("#div_actual_target_' . $prev_target . '").text();
-        var new_div_actual_target_current = $("#div_actual_target_' . $current_target . '").text();
+                                            var new_div_actual_target_total_prev = $("#div_actual_target_total_' . $prev_target . '").text();
+                                            var new_div_actual_target_total_current = $("#div_actual_target_total_' . $current_target . '");
+                                            var new_div_actual_target_prev = $("#div_actual_target_' . $prev_target . '").text();
+                                            var new_div_actual_target_current = $("#div_actual_target_' . $current_target . '").text();
 
-        if(new_div_actual_target_total_prev!=""){
-        var new_total = parseInt(new_div_actual_target_total_prev) + parseInt(new_div_actual_target_current);
-        if(Number.isNaN(new_total)){
-        new_div_actual_target_total_current.text("");
-        }
-        if(!Number.isNaN(new_total)){
-            new_div_actual_target_total_current.text(new_total);
-        }
-        }
+                                            if (new_div_actual_target_total_prev != "") {
+                                                var new_total = parseInt(new_div_actual_target_total_prev) + parseInt(new_div_actual_target_current);
+                                                if (Number.isNaN(new_total)) {
+                                                    new_div_actual_target_total_current.text("");
+                                                }
+                                                if (!Number.isNaN(new_total)) {
+                                                    new_div_actual_target_total_current.text(new_total);
+                                                }
+                                            }
 
-        var div_target = parseInt($("#div_target_' . $current_target . '").text());
-        var div_actual_target_total = parseInt($("#div_actual_target_total_' . $current_target . '").text());
-        var percentage =(div_actual_target_total / div_target) * 100;
-        var div_actual_target_percent = $("#div_actual_target_percent_' . $current_target . '");
-        var new_div_target = $("#new_div_target_' . $current_target . '").text();
-        var div_actual_target = parseInt($("#div_actual_target_' . $current_target . '").text());
+                                            var div_target = parseInt($("#div_target_' . $current_target . '").text());
+                                            var div_actual_target_total = parseInt($("#div_actual_target_total_' . $current_target . '").text());
+                                            var percentage = (div_actual_target_total / div_target) * 100;
+                                            var div_actual_target_percent = $("#div_actual_target_percent_' . $current_target . '");
+                                            var new_div_target = $("#new_div_target_' . $current_target . '").text();
+                                            var div_actual_target = parseInt($("#div_actual_target_' . $current_target . '").text());
 
-        if(Number.isNaN(div_actual_target_total)){
-        if(div_actual_target!=""){
-            var new_percent = (div_actual_target/div_target) * 100;
-            if(Number.isNaN(new_percent)){
-                div_actual_target_percent.text("");
-            }if(!Number.isNaN(new_percent)){
-                div_actual_target_percent.text(new_percent.toFixed(1));
-                if(parseInt(div_actual_target_percent.text()) >= 100){
-           $("#td_div_actual_target_percent_' . $current_target . '").css("background-color","green");
-        } if(parseInt(div_actual_target_percent.text()) < 100){
-           $("#td_div_actual_target_percent_' . $current_target . '").css("background-color","red");
-        }
+                                            if (Number.isNaN(div_actual_target_total)) {
+                                                if (div_actual_target != "") {
+                                                    var new_percent = (div_actual_target / div_target) * 100;
+                                                    if (Number.isNaN(new_percent)) {
+                                                        div_actual_target_percent.text("");
+                                                    }
+                                                    if (!Number.isNaN(new_percent)) {
+                                                        div_actual_target_percent.text(new_percent.toFixed(1));
+                                                        if (parseInt(div_actual_target_percent.text()) >= 100) {
+                                                            $("#td_div_actual_target_percent_' . $current_target . '").css("background-color", "green");
+                                                        }
+                                                        if (parseInt(div_actual_target_percent.text()) < 100) {
+                                                            $("#td_div_actual_target_percent_' . $current_target . '").css("background-color", "red");
+                                                        }
 
-        div_actual_target_percent.append("%");
-            }
-        }
-        }
-        if(!Number.isNaN(div_actual_target_total)){
-        if(Number.isNaN(percentage)){
-        div_actual_target_percent.text("");
-        }
-        if(!Number.isNaN(percentage)){
-        div_actual_target_percent.text(percentage.toFixed(1));
-        if(parseInt(div_actual_target_percent.text()) >= 100){
-           $("#td_div_actual_target_percent_' . $current_target . '").css("background-color","green");
-        } if(parseInt(div_actual_target_percent.text()) < 100){
-           $("#td_div_actual_target_percent_' . $current_target . '").css("background-color","red");
-        }
+                                                        div_actual_target_percent.append("%");
+                                                    }
+                                                }
+                                            }
+                                            if (!Number.isNaN(div_actual_target_total)) {
+                                                if (Number.isNaN(percentage)) {
+                                                    div_actual_target_percent.text("");
+                                                }
+                                                if (!Number.isNaN(percentage)) {
+                                                    div_actual_target_percent.text(percentage.toFixed(1));
+                                                    if (parseInt(div_actual_target_percent.text()) >= 100) {
+                                                        $("#td_div_actual_target_percent_' . $current_target . '").css("background-color", "green");
+                                                    }
+                                                    if (parseInt(div_actual_target_percent.text()) < 100) {
+                                                        $("#td_div_actual_target_percent_' . $current_target . '").css("background-color", "red");
+                                                    }
 
-        div_actual_target_percent.append("%");
-        }
-        }
+                                                    div_actual_target_percent.append("%");
+                                                }
+                                            }
 
 
-        if(parseInt(new_div_target) > parseInt(div_actual_target)){
-        $("#td_div_actual_target_' . $current_target . '").css("background-color","red");
-        }
-        if(parseInt(new_div_target) <= parseInt(div_actual_target)){
-        $("#td_div_actual_target_' . $current_target . '").css("background-color","green");
-        }
+                                            if (parseInt(new_div_target) > parseInt(div_actual_target)) {
+                                                $("#td_div_actual_target_' . $current_target . '").css("background-color", "red");
+                                            }
+                                            if (parseInt(new_div_target) <= parseInt(div_actual_target)) {
+                                                $("#td_div_actual_target_' . $current_target . '").css("background-color", "green");
+                                            }
 
-        if(parseInt(div_target) > parseInt(div_actual_target_total)){
-        $("#td_div_actual_target_total_' . $current_target . '").css("background-color","red");
-        }
-        if(parseInt(div_target) <= parseInt(div_actual_target_total)){
-        $("#td_div_actual_target_total_' . $current_target . '").css("background-color","green");
-        }
-                            </script>
-                        </td>';
+                                            if (parseInt(div_target) > parseInt(div_actual_target_total)) {
+                                                $("#td_div_actual_target_total_' . $current_target . '").css("background-color", "red");
+                                            }
+                                            if (parseInt(div_target) <= parseInt(div_actual_target_total)) {
+                                                $("#td_div_actual_target_total_' . $current_target . '").css("background-color", "green");
+                                            }
+                                        </script>
+                                    </td>';
                     }
                 }
-                echo '</tr>';
+                echo '
+                                </tr>';
             }
             echo '</tbody>
-    </table>
-        </div>
-    </div>
-    <div class="col-12 col-md-4 p-sm-0 p-md-auto my-sm-2 my-md-0 top-3">
-    <h1 class="fw-bold heading-text fs-3 p-0">Target and Actual Target Chart</h1>
-    <div id="history_chart"></div> </div>';
+                        </table>
+                    </div>
+                </div>
+                <div class="col-12 col-md-4 p-sm-0 p-md-2 my-sm-2 my-md-0 top-3">
+                    <h1 class="fw-bold heading-text fs-3 p-0">Target and Actual Target Chart</h1>
+                    <div id="history_chart"></div>
+                </div>';
 
-
-
-?>
+            ?>
             <script>
                 var options = {
                     series: [{
@@ -242,7 +242,7 @@ class LineHistoryController extends Controller
                     }, ],
                     chart: {
                         type: "bar",
-                        height: 350
+                        height: 350,background: '#fff'
                     },
                     plotOptions: {
                         bar: {
@@ -290,7 +290,7 @@ class LineHistoryController extends Controller
         <div class="div-bg-1">
         <h1 class="fw-bold heading-text fs-3 p-2">Actual Percentage Data</h1>
         <div class="panel-body">
-            <table class="table table-hover table-striped table-bordered text-center">
+            <table class="table table-hover table-striped table-bordered text-center" id="history_dash_2">
                 <thead>
                     <tr class="tr-2 tr-3">
                         <th scope="col">Line Name</th>';
@@ -435,7 +435,7 @@ class LineHistoryController extends Controller
         <div class="div-bg-1">
         <h1 class="fw-bold heading-text fs-3 p-2">Top 3 Lines and Last Line Data</h1>
         <div class="panel-body">
-            <table class="table table-hover table-striped table-bordered text-center">
+            <table class="table table-hover table-striped table-bordered text-center" id="history_dash_3">
                 <tbody>
                     <script>
                         var array_class = [];
@@ -479,5 +479,68 @@ class LineHistoryController extends Controller
         } else {
             echo "<span class='text-danger fw-bold'>No Result Found</span>";
         }
+
+        ?>
+        <script>
+      var tablesToExcel = (function() {
+    var uri = 'data:application/vnd.ms-excel;base64,'
+    , tmplWorkbookXML = '<?xml version="1.0"?><?mso-application progid="Excel.Sheet"?><Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet" xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet">'
+      + '<DocumentProperties xmlns="urn:schemas-microsoft-com:office:office"><Author>Axel Richter</Author><Created>{created}</Created></DocumentProperties>'
+      + '<Styles>'
+      + '<Style ss:ID="Currency"><NumberFormat ss:Format="Currency"></NumberFormat></Style>'
+      + '<Style ss:ID="Date"><NumberFormat ss:Format="Medium Date"></NumberFormat></Style>'
+      + '</Styles>'
+      + '{worksheets}</Workbook>'
+    , tmplWorksheetXML = '<Worksheet ss:Name="{nameWS}"><Table>{rows}</Table></Worksheet>'
+    , tmplCellXML = '<Cell{attributeStyleID}{attributeFormula}><Data ss:Type="{nameType}">{data}</Data></Cell>'
+    , base64 = function(s) { return window.btoa(unescape(encodeURIComponent(s))) }
+    , format = function(s, c) { return s.replace(/{(\w+)}/g, function(m, p) { return c[p]; }) }
+    return function(tables, wsnames, wbname, appname) {
+      var ctx = "";
+      var workbookXML = "";
+      var worksheetsXML = "";
+      var rowsXML = "";
+
+      for (var i = 0; i < tables.length; i++) {
+        if (!tables[i].nodeType) tables[i] = document.getElementById(tables[i]);
+        for (var j = 0; j < tables[i].rows.length; j++) {
+          rowsXML += '<Row>'
+          for (var k = 0; k < tables[i].rows[j].cells.length; k++) {
+            var dataType = tables[i].rows[j].cells[k].getAttribute("data-type");
+            var dataStyle = tables[i].rows[j].cells[k].getAttribute("data-style");
+            var dataValue = tables[i].rows[j].cells[k].getAttribute("data-value");
+            dataValue = (dataValue)?dataValue:tables[i].rows[j].cells[k].innerHTML;
+            var dataFormula = tables[i].rows[j].cells[k].getAttribute("data-formula");
+            dataFormula = (dataFormula)?dataFormula:(appname=='Calc' && dataType=='DateTime')?dataValue:null;
+            ctx = {  attributeStyleID: (dataStyle=='Currency' || dataStyle=='Date')?' ss:StyleID="'+dataStyle+'"':''
+                   , nameType: (dataType=='Number' || dataType=='DateTime' || dataType=='Boolean' || dataType=='Error')?dataType:'String'
+                   , data: (dataFormula)?'':dataValue
+                   , attributeFormula: (dataFormula)?' ss:Formula="'+dataFormula+'"':''
+                  };
+            rowsXML += format(tmplCellXML, ctx);
+          }
+          rowsXML += '</Row>'
+        }
+        ctx = {rows: rowsXML, nameWS: wsnames[i] || 'Sheet' + i};
+        worksheetsXML += format(tmplWorksheetXML, ctx);
+        rowsXML = "";
+      }
+
+      ctx = {created: (new Date()).getTime(), worksheets: worksheetsXML};
+      workbookXML = format(tmplWorkbookXML, ctx);
+
+// console.log(workbookXML);
+
+      var link = document.createElement("A");
+      link.href = uri + base64(workbookXML);
+      link.download = wbname || 'Workbook.xls';
+      link.target = '_blank';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+  })();
+</script>
+<?php
     }
 }

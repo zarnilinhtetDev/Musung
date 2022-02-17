@@ -62,7 +62,7 @@
     </div>
     <div class="row container-fluid p-0 my-3 mx-auto">
         <livewire:dash1 />
-        <div class="col-12 col-md-4 p-sm-0 p-md-auto my-sm-2 my-md-0 top-3">
+        <div class="col-12 col-md-4 p-sm-0 p-md-2 my-sm-2 my-md-0 top-3 custom-live-dash">
             <livewire:dash-chart />
         </div>
     </div>

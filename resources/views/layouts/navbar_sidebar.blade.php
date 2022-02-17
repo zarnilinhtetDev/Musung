@@ -62,6 +62,11 @@
                         Report
                     </a>
                 </li>
+                <li>
+                    <a class="sidebar-link" href="{{ url('/theme_setting') }}"> <i class="fas fa-user"></i>
+                        Change Theme
+                    </a>
+                </li>
             </ul>
         </div>
         <div class="">
@@ -102,7 +107,7 @@
                     </span> --}}
                 </div>
                 <div class="mx-3 not-mobile">
-                    <a class="fw-bolder fs-5 my-auto" href="{{ url('/home') }}" style="color:#6495ed;">
+                    <a class="fw-bolder fs-5 my-auto navbar-heading-text" href="{{ url('/home') }}">
                         MUSUNG Garment Line Target and Production Data
                     </a>
                 </div>

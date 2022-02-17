@@ -24,7 +24,7 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="js/custom_js.js" defer></script>
     <script src="js/jquery_numpad.js" defer></script>
-
+    <script src="js/theme_setting.js" defer></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -41,10 +41,10 @@
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"
         integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous">
     </script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/fontawesome.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <!-- Select2 JS -->
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
-
 
     <!-- Styles -->
 
@@ -52,6 +52,9 @@
     <link href="css/jquery_numpad.css" rel="stylesheet">
     <link href="css/styles.css" rel="stylesheet">
     <link rel="shortcut icon" href="https://img.icons8.com/emoji/48/000000/desktop-computer.png">
+
+    <!-- For Theme Setting --->
+    <link rel="stylesheet" id="switcher-id" href="">
     @livewireStyles
 </head>
 

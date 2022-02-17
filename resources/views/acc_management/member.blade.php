@@ -184,7 +184,7 @@
                 </div>
                 <div class="col text-center my-2 m-auto">
                     <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-primary w-75" data-bs-toggle="modal"
+                    <button type="button" class="btn w-75 custom-btn-theme" data-bs-toggle="modal"
                         data-bs-target="#exampleModal2">
                         Create New Member
                     </button>
@@ -254,7 +254,7 @@
                                     <td>{{ $created_at }}</td>
                                     <td>{{ $updated_at }}</td>
                                     <td>
-                                        <a class='btn btn-primary text-white'
+                                        <a class='btn custom-btn-theme text-white'
                                             href="{{ url('/member')}}?edit=1&id={{ $u_id
                                         }}&name={{ $name }}&u_name={{ $u_name }}&email={{ $email }}&remark={{ $remark }}&role={{ $role }}&line={{ $line }}&status={{ $status }}&is_delete={{ $is_delete }}"><i
                                                 class='fas fa-pencil-alt'></i></a>
@@ -313,7 +313,7 @@
                                     <td>{{ $created_at }}</td>
                                     <td>{{ $updated_at }}</td>
                                     <td>
-                                        <a class='btn btn-primary text-white'
+                                        <a class='btn custom-btn-theme text-white'
                                             href="{{ url('/member')}}?edit=1&id={{ $u_id
                                         }}&name={{ $name }}&u_name={{ $u_name }}&p_word={{ $p_word }}&email={{ $email }}&remark={{ $remark }}&role={{ $role }}&line={{ $line }}&status={{ $status }}&is_delete={{ $is_delete }}"><i
                                                 class='fas fa-pencil-alt'></i></a>
@@ -373,7 +373,7 @@
                                     <td>{{ $created_at }}</td>
                                     <td>{{ $updated_at }}</td>
                                     <td>
-                                        <a class='btn btn-primary text-white'
+                                        <a class='btn custom-btn-theme text-white'
                                             href="{{ url('/member')}}?edit=1&id={{ $u_id
                                         }}&name={{ $name }}&u_name={{ $u_name }}&p_word={{ $p_word }}&email={{ $email }}&remark={{ $remark }}&role={{ $role }}&line={{ $line }}&status={{ $status }}&is_delete={{ $is_delete }}"><i
                                                 class='fas fa-pencil-alt'></i></a>
@@ -435,7 +435,7 @@
                                     <td>{{ $created_at }}</td>
                                     <td>{{ $updated_at }}</td>
                                     <td>
-                                        <a class='btn btn-primary text-white'
+                                        <a class='btn custom-btn-theme text-white'
                                             href="{{ url('/member')}}?edit=1&id={{ $u_id
                                         }}&name={{ $name }}&u_name={{ $u_name }}&p_word={{ $p_word }}&email={{ $email }}&remark={{ $remark }}&role={{ $role }}&line={{ $line }}&status={{ $status }}&is_delete={{ $is_delete }}"><i
                                                 class='fas fa-pencil-alt'></i></a>

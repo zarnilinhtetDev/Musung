@@ -1,0 +1,11 @@
+:root {
+    --back-color: #fed7e2;
+    --primary-color: #702459;
+    --header-back: #874f5e;
+    --header-text: #eee;
+}
+
+body {
+    background-color: var(--back-color);
+    color: var(--primary-color);
+}

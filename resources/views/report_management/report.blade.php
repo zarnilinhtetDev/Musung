@@ -6,16 +6,10 @@
 
 <div class="row container-fluid">
     <div class="col-12 col-md-6 my-4 bg-white rounded shadow" id="production_chart">
-        {{-- {!! $chart->container() !!} --}}
     </div>
-    <div class="col-12 col-md-6 my-4" id="product_chart">
-        {{-- {!! $category_chart->container() !!} --}}
+    <div class="col-12 col-md-6 my-auto" id="product_chart">
     </div>
 </div>
-{{-- <script src="{{ $chart->cdn() }}"></script>
-{{ $chart->script() }}
-<script src="{{ $category_chart->cdn() }}"></script>
-{{ $category_chart->script() }} --}}
 
 <script>
     var options = {
@@ -108,6 +102,7 @@ echo $cat_actual . ',';
   chart: {
       width:'100%',
       height:'80%',
+      background: '#fff',
       type: 'pie',toolbar: {
     show: true
 },

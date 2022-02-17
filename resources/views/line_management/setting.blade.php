@@ -256,7 +256,7 @@ $num = 1;
                     </div>
                     <div class="col">
                         <br />
-                        <button class="btn btn-primary w-25" id="new_category_btn">Add New Category</button>
+                        <button class="btn custom-btn-theme w-25" id="new_category_btn">Add New Category</button>
                     </div>
                 </div>
                 <script>
@@ -281,7 +281,7 @@ $num = 1;
                 <div class="row g-3 my-2">
                     <div style="overflow: auto;max-width:100%;max-height:600px;padding:0.5rem;">
                         <table class="table" id="dynamic_field">
-                            <tr>
+                            <tr class="setting-tr">
                                 <td>
                                     <label>Category</label>
                                     <livewire:select-box-setting />

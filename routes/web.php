@@ -41,6 +41,9 @@ Route::get('/report', 'ReportDashController@index')->middleware('auth');
 /// History
 Route::post('/history', 'LineHistoryController@index')->middleware('auth');
 
+/// Theme Setting
+Route::view('/theme_setting', 'theme_setting.theme_setting')->middleware('auth');
+
 //// LiveWire /////
 Route::get('/live_dash_1', [LiveDash::class, 'render'])->middleware('auth');
 

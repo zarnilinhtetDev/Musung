@@ -50,7 +50,7 @@
         @if (@$_GET['edit'] == "" )
         <!-- Button trigger modal -->
         <div class="my-2">
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#LineDetail">
+            <button type="button" class="btn custom-btn-theme" data-bs-toggle="modal" data-bs-target="#LineDetail">
                 Create New Line
             </button>
         </div>
@@ -134,7 +134,7 @@
                                 @endif
                             </td>
                             <td>
-                                <a class='btn btn-primary text-white'
+                                <a class='btn custom-btn-theme text-white'
                                     href="{{ url('/line_detail')}}?edit=1&id={{ $l_id }}&name={{ $l_name }}&pos={{ $l_pos }}&is_delete={{ $is_delete }}"><i
                                         class='fas fa-pencil-alt'></i></a>
                             </td>
