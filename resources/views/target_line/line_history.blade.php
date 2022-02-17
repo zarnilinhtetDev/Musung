@@ -31,6 +31,7 @@ success: function(result) {
 $("#ajax_load_div").html(result);
 },
 error: function(result) {
+    console.log(result);
     alert('error');
 }
 });
