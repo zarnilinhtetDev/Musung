@@ -23,7 +23,7 @@ class LineHistoryController extends Controller
     }
     public function index(LiveDashPercentChart $percent_chart)
     {
-        $getDate =  request()->post('date_name');
+        $getDate =  request()->get('date_name');
         $date_string = date("d.m.Y", strtotime($getDate));
 
         $time = DB::select('SELECT time_name FROM time
