@@ -46,7 +46,7 @@ Route::view('/theme_setting', 'theme_setting.theme_setting')->middleware('auth')
 Route::get('/live_dash_1', [LiveDash::class, 'render'])->middleware('auth');
 
 /// History
-Route::post('/history', 'LineHistoryController@index')->middleware('cors');
+Route::get('/history', 'LineHistoryController@index')->middleware('cors');
 
 //// API Routes /////
 
