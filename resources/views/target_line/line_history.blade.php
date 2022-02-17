@@ -22,7 +22,7 @@
     $("#btn_history_submit").click(function(e) {
 e.preventDefault();
 $.ajax({
-type: "GET",
+type: "POST",
 url: "{{ url('history') }}",
 data: {
 date_name: $("#date").val(),
