@@ -297,7 +297,10 @@ legend: {
           },
     },
     },
-        };
+    tooltip: {
+    theme: 'dark'
+  },
+    };
 
     var chart = new ApexCharts(document.querySelector("#production_chart"), options);
     chart.render();
@@ -495,7 +498,9 @@ responsive: [{
     },
     legend: {
       position: 'bottom'
-    },
+    },tooltip: {
+    theme: 'dark'
+  },
   }
 }]
 };

@@ -4,8 +4,8 @@
     <nav id="sidebar" class="d-flex flex-column flex-shrink-0 justify-content-between active">
         <div class="p-4">
             <div class="sidebar-header">
-                <a href="#"><img src="https://www.nawpic.com/media/2020/mountain-nawpic-5.jpg"
-                        class="img-fluid rounded-3" alt="Company Logo" width="200" height="auto" />
+                <a href="#"><img src="img/logo_2.png" class="img-fluid rounded-3" alt="Company Logo" width="200"
+                        height="auto" />
                 </a>
             </div>
             <ul class="nav nav-pills flex-column list-unstyled components mb-5">
@@ -108,12 +108,13 @@
                 </div>
                 <div class="mx-3 not-mobile">
                     <a class="fw-bolder fs-5 my-auto navbar-heading-text" href="{{ url('/home') }}">
+                        <img src="img/logo_2.png" class="img-fluid rounded-3" alt="Company Logo" width="60"
+                            height="auto" />
                         MUSUNG Garment Line Target and Production Data
                     </a>
                 </div>
                 <div class="mx-2 mobile">
-                    <img src="https://www.nawpic.com/media/2020/mountain-nawpic-5.jpg" class="img-fluid rounded-3"
-                        alt="Company Logo" width="60" height="auto" />
+                    <img src="img/logo_2.png" class="img-fluid rounded-3" alt="Company Logo" width="60" height="auto" />
                 </div>
             </div>
         </nav>

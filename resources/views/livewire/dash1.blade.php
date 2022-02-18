@@ -18,8 +18,9 @@
                 $g_main_target = $g_line->main_target;
                 @endphp
                 <tr>
-                    <td>{{ $g_line_name }}</td>
-                    <td><span id="g_main_target_{{ $g_line_id }}">{{ $g_main_target }}</span></td>
+                    <td style="vertical-align: middle;">{{ $g_line_name }}</td>
+                    <td style="vertical-align: middle;"><span id="g_main_target_{{ $g_line_id }}">{{ $g_main_target
+                            }}</span></td>
 
                     @foreach($time_2 as $t_2)
                     @if($g_line_id==$t_2->line_id)
@@ -27,7 +28,7 @@
                     $prev_target = ((int)$current_target)-1;
                     @endphp
                     <td>
-                        <table class="w-100 text-center">
+                        <table class="w-100 text-center table table-bordered m-0">
                             <tr>
                                 <td><span id="new_div_target_{{ $t_2->time_id }}">{{
                                         $t_2->actual_target_entry

@@ -10,17 +10,15 @@
         <div class="card login-card">
             <div class="row no-gutters">
                 <div class="col-md-5 m-auto">
-                    <img src="https://www.nawpic.com/media/2020/mountain-nawpic-5.jpg" alt="company_logo"
-                        class="login-card-img img-fluid p-3" />
+                    <img src="img/logo.png" alt="company_logo" class="login-card-img img-fluid p-3" />
                 </div>
                 <div class=" col-md-7">
                     <div class="card-body">
                         <div class="brand-wrapper">
                             <div class="row">
-                                {{-- <div class="col-2">
-                                    <img src="https://www.nawpic.com/media/2020/mountain-nawpic-5.jpg"
-                                        alt="company_logo" class="logo" />
-                                </div> --}}
+                                <div class="col-2">
+                                    <img src="img/logo_2.png" alt="company_logo" class="logo" />
+                                </div>
                                 <div class="col m-auto">
                                     <span class="h3 fw-bolder login-heading-text">Musung
                                         Garment</span>
