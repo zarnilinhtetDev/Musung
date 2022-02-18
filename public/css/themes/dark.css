@@ -13,6 +13,12 @@ body {
     color: var(--primary-color);
 }
 
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: var(--color-2);
+    border-radius: 10px;
+}
+
 .card {
     background-color: var(--nav-back);
 }
@@ -127,7 +133,11 @@ body {
 }
 
 tr {
-    background-color: var(--header-text);
+    background-color: var(--nav-back);
+}
+
+th, td {
+    color: var(--header-text) !important;
 }
 
 .icon-btn-one {
@@ -157,4 +167,12 @@ tr {
 
 .custom-live-dash {
     background-color: var(--header-text);
+}
+
+.apexcharts-menu.apexcharts-menu-open {
+    background-color: #082032;
+}
+
+.apexcharts-menu-item:hover {
+    color: #082032;
 }

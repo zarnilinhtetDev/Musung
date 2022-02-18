@@ -10,6 +10,27 @@ html, body {
     overflow: auto !important;
 }
 
+/**** Scrollbar Start ****/
+
+/* width */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: var(--light);
+    border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/**** Scrollbar End *****/
+
 /******* Theme Setting Start *******/
 
 .switch {

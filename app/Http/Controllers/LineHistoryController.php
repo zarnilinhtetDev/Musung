@@ -24,7 +24,6 @@ class LineHistoryController extends Controller
     public function index(LiveDashPercentChart $percent_chart)
     {
         $getDate =  request()->post('date_name');
-        echo $getDate;
         $date_string = date("d.m.Y", strtotime($getDate));
 
         $time = DB::select('SELECT time_name FROM time
@@ -97,8 +96,8 @@ class LineHistoryController extends Controller
                 $g_main_target = $g_line->main_target;
 
                 echo '<tr>
-                                    <td>' . $g_line_name . '</td>
-                                    <td><span id="g_main_target_' . $g_line_id . '">' . $g_main_target . '</span></td>';
+                                    <td style="vertical-align: middle;">' . $g_line_name . '</td>
+                                    <td style="vertical-align: middle;"><span id="g_main_target_' . $g_line_id . '">' . $g_main_target . '</span></td>';
 
                 foreach ($time_2 as $t_2) {
                     if ($g_line_id == $t_2->line_id) {
