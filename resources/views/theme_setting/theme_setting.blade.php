@@ -14,7 +14,7 @@
             <div data-theme="dark" class="switch shadow rounded btn text-white" id="switch-4">Dark Mode</div>
         </div>
         <div class="col-6 col-md-3">
-            <div data-theme="sky" class="switch shadow rounded btn text-white" id="switch-2">Sky Mode</div>
+            <div data-theme="gray" class="switch shadow rounded btn text-white" id="switch-2">Gray Mode</div>
         </div>
         <div class="col-6 col-md-3">
             <div data-theme="purple" class="switch shadow rounded btn text-white" id="switch-3">Purple Mode</div>

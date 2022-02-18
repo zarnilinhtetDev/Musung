@@ -1,6 +1,6 @@
 :root {
     --light: #ffffff;
-    --sky: #7f9cf5;
+    --gray: #a8a9ad;
     --purple: #97266d;
     --dark: #2C394B;
 }
@@ -51,7 +51,7 @@ html, body {
 }
 
 #switch-2 {
-    background-color: var(--sky);
+    background-color: var(--gray);
 }
 
 #switch-3 {
@@ -513,6 +513,7 @@ a[data-toggle="collapse"] {
 
 .heading-text {
     color: #6495ed;
+    font-weight: bold;
 }
 
 ul.horizontal-slide {

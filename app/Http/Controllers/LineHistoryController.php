@@ -36,7 +36,7 @@ class LineHistoryController extends Controller
         FROM line
         JOIN line_assign ON "line_assign".l_id = "line".l_id
         JOIN users ON "users".id= "line_assign".user_id
-        WHERE "line".a_status=1 AND "line_assign".assign_date=\'' . $date_string . '\' ORDER BY "line".l_pos ASC');
+        WHERE "line_assign".assign_date=\'' . $date_string . '\' ORDER BY "line".l_pos ASC');
 
         $top_line = DB::select('SELECT "time".line_id,"line".l_name,SUM("time".div_actual_target) AS total_actual FROM time
           JOIN line ON "line".l_id="time".line_id

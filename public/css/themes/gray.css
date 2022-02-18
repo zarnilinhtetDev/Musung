@@ -1,0 +1,202 @@
+:root {
+    --back-color: #838996;
+    --primary-color: #f9ffee;
+    --header-back: #1a1d24;
+    --header-text: #fff;
+    --nav-back: #2a3439;
+    --color-1: #2a3439;
+    --color-2: #a8a9ad;
+}
+
+body {
+    background-color: var(--back-color);
+    color: var(--primary-color);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: var(--color-2);
+    border-radius: 10px;
+}
+
+.card {
+    background-color: var(--nav-back);
+}
+
+.login-card {
+    box-shadow: none;
+}
+
+.login-heading-text {
+    color: var(--color-2);
+}
+
+.login-card-description, .forgot-btn {
+    color: var(--header-text);
+}
+
+.login-card .login-btn {
+    background-color: var(--color-2);
+    color: var(--nav-back);
+}
+
+.temp-color {
+    background-color: var(--back-color);
+}
+
+.navbar {
+    background: var(--nav-back);
+}
+
+.navbar-heading-text {
+    color: var(--header-text);
+}
+
+.navbar-heading-text:hover {
+    color: var(--color-2);
+}
+
+#sidebarCollapse {
+    background-color: var(--header-text);
+    color: var(--back-color);
+}
+
+#sidebar {
+    background: var(--nav-back);
+}
+
+#sidebar ul li a {
+    padding: 10px 0;
+    display: block;
+    color: var(--header-text);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    text-decoration: none;
+}
+
+#sidebar ul li.active>a {
+    color: var(--color-2);
+}
+
+.custom-li .sidebar-link {
+    font-size: 0.9rem;
+    color: var(--header-text);
+    background-color: transparent;
+}
+
+.custom-li .sidebar-link:hover {
+    color: var(--back-color);
+    background-color: var(--color-2);
+}
+
+.sidebar-link:hover {
+    background-color: var(--color-2);
+}
+
+.dropbtn {
+    background-color: var(--nav-back);
+}
+
+.dropdown-content {
+    background-color: var(--header-text);
+}
+
+.dropdown-content a {
+    color: var(--nav-back);
+}
+
+.heading-text {
+    color: var(--header-text);
+}
+
+#nav li a.active {
+    background: var(--nav-back);
+}
+
+
+#nav li a {
+    background: var(--header-text);
+    color: var(--nav-back);
+}
+
+.custom-btn-theme {
+    background-color: var(--color-2);
+}
+
+.custom-btn-theme:hover {
+    background-color: var(--nav-back);
+    color: var(--header-text);
+}
+
+.tr-2 {
+    background-color: var(--nav-back);
+    color: var(--header-text);
+}
+
+tr {
+    background-color: var(--nav-back);
+}
+
+th, td {
+    color: var(--header-text) !important;
+}
+
+.icon-btn-one {
+    background-color: var(--color-2);
+}
+
+.icon-btn-one:hover {
+    background-color: var(--nav-back);
+    color: #fff;
+}
+
+.modal-content {
+    background-color: var(--nav-back);
+}
+
+.setting-tr {
+    background-color: var(--nav-back);
+}
+
+.setting-tr label {
+    color: var(--header-text);
+}
+
+.div-bg-1 {
+    background-color: transparent;
+}
+
+.custom-live-dash {
+    background-color: var(--header-text);
+}
+
+.apexcharts-menu.apexcharts-menu-open {
+    background-color: #082032;
+}
+
+.apexcharts-menu-item:hover {
+    color: #082032;
+}
+
+.apexcharts-zoom-icon.apexcharts-selected svg {
+    fill: #68e397 !important;
+}
+
+.apexcharts-zoomin-icon svg {
+    fill: #68e397 !important;
+}
+
+.apexcharts-zoomout-icon svg {
+    fill: #68e397 !important;
+}
+
+.apexcharts-zoom-icon svg {
+    fill: #68e397 !important;
+}
+
+.apexcharts-reset-icon svg {
+    fill: #68e397 !important;
+}
+
+.apexcharts-menu-icon svg {
+    fill: #68e397 !important;
+}
