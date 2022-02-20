@@ -188,66 +188,71 @@ $num = 1;
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-body text-start">
-                    <form action="{{ url('line_assign_post') }}" method="POST">
-                        <input type="hidden" name="l_id" id="l_id_2">
-                        <input type="hidden" id="s_time" />
-                        <input type="hidden" id="e_time" />
+                    {{-- <form action="{{ url('line_assign_post') }}" method="POST" id="line_assign_post"> --}}
+                        <form method="POST" id="line_assign_post">
+                            <input type="hidden" name="l_id" id="l_id_2">
+                            <input type="hidden" id="s_time" />
+                            <input type="hidden" id="e_time" />
 
-                        <div class="mt-2 mb-4">
-                            <h1 class="fw-bold heading-text" id="l_setting_name_2"></h1>
-                        </div>
-                        <div class="row g-3 my-2">
-                            <div class="col-12 col-md-4 mt-0">
-                                <label>Line Manager</label>​
-                                <select class="form-control" name="l_manager" required>
-                                    <option> </option>
-                                    @for($i=0;$i<count($json2);$i++) @php $u_id=$json2[$i]['id'];
-                                        $u_name=$json2[$i]['name'];$u_role=$json2[$i]['role']; @endphp @if($u_role==2)
-                                        <option value="{{$u_id}}">
-                                        {{$u_name}}
-                                        </option> @endif @endfor
-                                </select>
+                            <div class="mt-2 mb-4">
+                                <h1 class="fw-bold heading-text" id="l_setting_name_2"></h1>
                             </div>
-                            {{-- <div class="col-12 col-md-4 mt-0">
-                                <label>Target</label>
-                                <input type="text" class="form-control" name="target" placeholder="100" required />
-                            </div> --}}
-                            <div class="col-12 col-md-4 mt-0">
-                                <label>Total Working Hour(s)</label>
-                                <input type="text" class="form-control" name="work_hour" placeholder="7 Hours"
-                                    id="work_hour" required readonly />
-                            </div>
-                        </div>
-                        <div class="row g-3 my-2">
-                            <div class="col-12 col-md-4 mt-0">
-                                <label>Starting Time</label>​<br />
-                                <input type="time" class="form-control" id="start_time" name="start_time" step="300"
-                                    required>
-                            </div>
-                            <div class="col-12 col-md-4 mt-0">
-                                <label>Lunch Time</label>​<br />
-                                <div class="row">
-                                    <div class="col-6">
-                                        <input type="time" class="form-control" name="lunch_start" step="300" required>
-                                    </div>
-                                    <div class="col-6">
-                                        <input type="time" class="form-control" name="lunch_end" step="300" required>
-                                    </div>
+                            <div class="row g-3 my-2">
+                                <div class="col-12 col-md-4 mt-0">
+                                    <label>Line Manager</label>​
+                                    <select class="form-control" name="l_manager" required>
+                                        <option> </option>
+                                        @for($i=0;$i<count($json2);$i++) @php $u_id=$json2[$i]['id'];
+                                            $u_name=$json2[$i]['name'];$u_role=$json2[$i]['role']; @endphp
+                                            @if($u_role==2) <option value="{{$u_id}}">
+                                            {{$u_name}}
+                                            </option> @endif @endfor
+                                    </select>
+                                </div>
+                                {{-- <div class="col-12 col-md-4 mt-0">
+                                    <label>Target</label>
+                                    <input type="text" class="form-control" name="target" placeholder="100" required />
+                                </div> --}}
+                                <div class="col-12 col-md-4 mt-0">
+                                    <label>Total Working Hour(s)</label>
+                                    <input type="text" class="form-control" name="work_hour" placeholder="7 Hours"
+                                        id="work_hour" required readonly />
                                 </div>
                             </div>
-                            <div class="col-12 col-md-4 mt-0">
-                                <label>Ending Time</label>​<br />
-                                <input type="time" class="form-control" id="end_time" name="end_time" step="300"
-                                    required>
+                            <div class="row g-3 my-2">
+                                <div class="col-12 col-md-4 mt-0">
+                                    <label>Starting Time</label>​<br />
+                                    <input type="time" class="form-control" id="start_time" name="start_time" step="300"
+                                        required>
+                                </div>
+                                <div class="col-12 col-md-4 mt-0">
+                                    <label>Lunch Time</label>​<br />
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <input type="time" class="form-control" name="lunch_start" step="300"
+                                                required>
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="time" class="form-control" name="lunch_end" step="300"
+                                                required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-4 mt-0">
+                                    <label>Ending Time</label>​<br />
+                                    <input type="time" class="form-control" id="end_time" name="end_time" step="300"
+                                        required>
+                                </div>
                             </div>
-                        </div>
-                        <div class="row g-3 my-2">
-                            <div class="col-12 col-md-4 mt-0">
-                                <label>Work Progress by (minute)</label>​
-                                <input type="number" class="form-control" name="progress" placeholder="30" required />
+                            <div class="row g-3 my-2">
+                                <div class="col-12 col-md-4 mt-0">
+                                    <label>Work Progress by (minute)</label>​
+                                    <input type="number" class="form-control" name="progress" placeholder="30"
+                                        required />
+                                </div>
                             </div>
-                        </div>
                 </div>
+
                 <div class="row g-3 my-2 mx-2">
                     <div class="col-12 col-md-4">
                         <label>Add Category</label>​
@@ -288,8 +293,8 @@ $num = 1;
                                 </td>
                                 <td>
                                     <label>Product Name</label>
-                                    <input type="text" class="form-control" name="p_name[]" placeholder="Musung Shirt"
-                                        required />
+                                    <input type="text" class="form-control" id="p_name" name="p_name[]"
+                                        placeholder="Musung Shirt" required />
                                 </td>
                                 <td>
                                     <label>Target</label>
@@ -305,11 +310,52 @@ $num = 1;
                         </table>
                     </div>
                 </div>
+
                 <div class="col-12 col-md-6 m-auto text-center">
                     <input class="icon-btn-one btn my-2" type="submit" value="Submit" name="submit" />
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
                 </form>
+                <script>
+                    $("#line_assign_post").submit(function(e) {
+    e.preventDefault();
+
+    // Get NON-INPUT table cell data
+    var box = {};
+    var boxes = [];
+        $('#dynamic_field .setting-tr').each(function() {
+            var category_select = $('#category_select', this).val();
+            var p_name = $('#p_name', this).val();
+            var category_target = $('#setting_target', this).val();
+    box = {
+        category_select: category_select,
+        p_name: p_name,
+        category_target: category_target
+    }
+    boxes.push(box);
+        });
+
+    // Get all INPUT form data and organize as array
+    var formData = $(this).serializeArray();
+
+    // // Encode with JSON
+    var subArray = JSON.stringify(boxes);
+
+    // // Add to formData array
+    formData.push({name: 'sub', value: subArray});
+console.log(formData);
+    // Submit with AJAX
+    $.ajax({
+        type: "POST",
+        url: "{{ url('line_assign_post') }}",
+        data: formData,
+        type: 'post',
+        success: function(data) {
+            location.reload();
+        }
+    });
+});
+                </script>
             </div>
         </div>
     </div>

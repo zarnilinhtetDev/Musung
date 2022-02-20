@@ -29,7 +29,7 @@ class LineEntryController extends Controller
         JOIN time ON "time".line_id = "line_assign".l_id AND "time".assign_id="line_assign".assign_id
         JOIN users ON "users".id= "line_assign".user_id
         WHERE "users".id=' . $u_id . '
-        ORDER BY "time".time_id ASC');
+        ORDER BY "time".time_id DESC OFFSET 1');
 
         $p_detail = DB::select('SELECT "p_detail".p_detail_id,"p_detail".assign_id,"p_detail".l_id,
         "p_detail".p_cat_id,"p_detail".p_name,"p_detail".quantity,"time".time_id FROM p_detail

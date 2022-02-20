@@ -28,7 +28,7 @@ class LineHistoryController extends Controller
 
         $time = DB::select('SELECT time_name FROM time
         JOIN line_assign ON "time".assign_id="line_assign".assign_id AND
-        "line_assign".assign_date=\'' . $date_string . '\' GROUP BY time_name ORDER BY time_name ASC');
+        "line_assign".assign_date=\'' . $date_string . '\' GROUP BY time_name ORDER BY time_name DESC OFFSET 1');
 
         $time_2 = DB::select('SELECT "time".time_id,"time".time_name,"time".line_id,"time".assign_id,"time".status,"time".div_target,"time".div_actual_target,"time".div_actual_percent,"time".actual_target_entry FROM time,line_assign WHERE "time".assign_id="line_assign".assign_id AND "line_assign".assign_date=\'' . $date_string . '\' ORDER BY "time".time_id ASC');
 
@@ -36,7 +36,10 @@ class LineHistoryController extends Controller
         FROM line
         JOIN line_assign ON "line_assign".l_id = "line".l_id
         JOIN users ON "users".id= "line_assign".user_id
-        WHERE "line_assign".assign_date=\'' . $date_string . '\' ORDER BY "line".l_pos ASC');
+		JOIN time ON "time".line_id="line".l_id
+        WHERE "line".a_status=1 AND "line_assign".assign_date=\'' . $date_string . '\' AND "time".assign_date=\'' . $date_string . '\'
+		GROUP BY "line".l_id,"line_assign".assign_id,"users".id
+		ORDER BY "line".l_pos ASC');
 
         $top_line = DB::select('SELECT "time".line_id,"line".l_name,SUM("time".div_actual_target) AS total_actual FROM time
           JOIN line ON "line".l_id="time".line_id
@@ -83,7 +86,7 @@ class LineHistoryController extends Controller
                                     <th scope="col">Line</th>
                                     <th scope="col">Target</th>';
 
-            foreach ($time as $t) {
+            foreach (array_reverse($time) as $t) {
                 echo '<th scope="col">' . $t->time_name . '</th>';
             }
             echo '
@@ -100,7 +103,7 @@ class LineHistoryController extends Controller
                                     <td style="vertical-align: middle;"><span id="g_main_target_' . $g_line_id . '">' . $g_main_target . '</span></td>';
 
                 foreach ($time_2 as $t_2) {
-                    if ($g_line_id == $t_2->line_id) {
+                    if ($g_line_id == $t_2->line_id && $t_2->time_name != 'temp') {
                         $current_target = $t_2->time_id;
                         $prev_target = ((int)$current_target) - 1;
 

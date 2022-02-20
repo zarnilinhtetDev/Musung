@@ -5,7 +5,7 @@
 <div class="container-fluid">
     @php
     $json_encode = json_encode($responseBody);
-    $json_decode = json_decode($json_encode);
+    $json_decode = array_reverse(json_decode($json_encode));
 
     @endphp
     @foreach($json_decode as $d)

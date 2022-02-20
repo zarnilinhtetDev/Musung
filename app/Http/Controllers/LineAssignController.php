@@ -61,11 +61,6 @@ class LineAssignController extends Controller
         FROM line_assign,line,users,p_detail WHERE "line".a_status=1 AND "line".is_delete=0 AND "line_assign".user_id="users".id
         AND "line_assign".l_id="line".l_id AND "line_assign".l_id="p_detail".l_id AND "line_assign".assign_date= \'' . $date_string . '\'
         ORDER BY "line_assign".assign_id ASC');
-        $p_detail = DB::select('SELECT "p_detail".p_detail_id,"p_detail".assign_id,"p_detail".l_id,
-        "p_detail".p_cat_id,"p_detail".p_name,"p_detail".quantity FROM p_detail
-        JOIN line_assign ON "line_assign".assign_id="p_detail".assign_id AND
-        "line_assign".assign_date=\'' . $date_string . '\'
-        ORDER BY p_detail_id ASC');
 
         $p_detail = DB::select('SELECT DISTINCT "p_detail".p_detail_id,"p_detail".assign_id,"p_detail".l_id,
         "p_detail".p_cat_id,"p_detail".p_name,"p_detail".quantity FROM p_detail
@@ -74,13 +69,15 @@ class LineAssignController extends Controller
         AND "line_assign".assign_date=\'' . $date_string . '\'
         ORDER BY p_detail_id ASC');
 
+        $p_detail_2 = ProductCategory::all();
+
         $responseBody = Line::select('l_id', 'l_name', 'l_pos', 'a_status', 'is_delete')->where('is_delete', 0)->orderBy('l_pos', 'asc')->get();
         $responseBody2 = DB::select('SELECT id,NAME,role FROM users WHERE id NOT IN (SELECT user_id FROM line_assign WHERE assign_date=\'' . $date_string . '\')');
 
 
         DB::disconnect('musung');
 
-        return view('line_management.setting', compact('responseBody', 'responseBody2', 'line_assign', 'line_assign_2', 'overTime', 'p_detail'));
+        return view('line_management.setting', compact('responseBody', 'responseBody2', 'line_assign', 'line_assign_2', 'overTime', 'p_detail', 'p_detail_2'));
     }
     public function postLineSetting()
     {
@@ -94,11 +91,29 @@ class LineAssignController extends Controller
         $lunch_end = request()->post('lunch_end');
         $progress = request()->post('progress');
 
-        $category = request()->post('category');
-        $category_target = request()->post('category_target');
-        $p_name = request()->post('p_name');
-        $number = count($category);
+        // $category = request()->post('category');
+        // $category_target = request()->post('category_target');
+        // $p_name = request()->post('p_name');
+        // $number = count($category);
 
+
+        // $category_1 = request()->post('category_1');
+        // $p_name_1 = request()->post('p_name_1');
+        // $category_target_1 = request()->post('category_target_1');
+
+        $category = [];
+        $p_name = [];
+        $category_target = [];
+        $sub = json_decode(request()->post('sub'), true);
+        for ($x = 0; $x < count($sub); $x++) {
+            $category[] = $sub[$x]['category_select'];
+            $p_name[] = $sub[$x]['p_name'];
+            $category_target[] = $sub[$x]['category_target'];
+        }
+        // print_r($category) . "<br/>";
+        // print_r($p_name) . "<br/>";
+        // print_r($category_target) . "<br/>";
+        $number = count($category);
         $t_category_target =  array_sum($category_target);
 
         $from_time = strtotime($s_time);
@@ -199,6 +214,14 @@ class LineAssignController extends Controller
                                 'assign_date' => $date_string,
                             ]);
                         }
+                        Time::create([
+                            'time_name' => 'temp',
+                            'line_id' => $l_id,
+                            'assign_id' => $assign_id,
+                            'div_target' => 0,
+                            'actual_target_entry' => 0,
+                            'assign_date' => $date_string,
+                        ]);
                     }
                     if ($number > 0) {
                         for ($i = 0; $i < $number; $i++) {  ///// Insert data [] to p_detail table
