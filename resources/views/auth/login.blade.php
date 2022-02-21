@@ -10,7 +10,7 @@
         <div class="card login-card">
             <div class="row no-gutters">
                 <div class="col-md-5 m-auto">
-                    <img src="img/logo.png" alt="company_logo" class="login-card-img img-fluid p-3" />
+                    <img src="" alt="company_logo" class="login-card-img img-fluid p-3" id="login-logo" />
                 </div>
                 <div class=" col-md-7">
                     <div class="card-body">

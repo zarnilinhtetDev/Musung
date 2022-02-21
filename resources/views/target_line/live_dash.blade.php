@@ -28,7 +28,8 @@
 
     @endphp
     @endforeach
-    @php $date_string = date("d.m.Y"); @endphp
+    @php $date_string = date("d.m.Y");
+    $date_string_for_export_pdf = date("Y_m_d", strtotime($date_string)); @endphp
     <div class="row container-fluid">
         <div class="col-12 col-md-6">
             <ul class="horizontal-slide" style="" id="tabs">
@@ -38,6 +39,10 @@
                 <li class="span2 bg-transparent">
                     <input class="icon-btn-one icon-btn-one-2 btn my-2" type="submit" value="Export to Excel"
                         name="submit" />
+                </li>
+                <li class="span2 bg-transparent">
+                    <button type="button" id="exportPDF" class="icon-btn-one icon-btn-one-2 btn my-2">Export to
+                        PDF</button>
                 </li>
             </ul>
         </div>
@@ -60,18 +65,50 @@
             </script>
         </div>
     </div>
-    <div class="row container-fluid p-0 my-3 mx-auto">
-        <livewire:dash1 />
-        <div class="col-12 col-md-4 p-sm-0 p-md-2 my-sm-2 my-md-0 top-3 custom-live-dash">
-            <livewire:dash-chart />
+    <div id="history_div">
+        <div class="row container-fluid p-0 my-3 mx-auto">
+            <livewire:dash1 />
+            <div class="col-12 col-md-4 p-sm-0 p-md-2 my-sm-2 my-md-0 top-3">
+                <livewire:dash-chart />
+            </div>
+        </div>
+        <div class="container-fluid p-0 my-3">
+            <div class="row">
+                <livewire:dash2 />
+                <livewire:dash3 />
+            </div>
         </div>
     </div>
-    <div class="container-fluid p-0 my-3">
-        <div class="row">
-            <livewire:dash2 />
-            <livewire:dash3 />
-        </div>
-    </div>
+    <script>
+        $("#exportPDF").click(function() {
+            var date = "<?php echo $date_string_for_export_pdf; ?>" + "_production_dashboard";
+
+            var element = document.getElementById('history_div');
+            var opt = {
+                margin: 0.1,
+                filename: date + '.pdf',
+                image: {
+                    type: 'jpeg',
+                    quality: 1
+                },
+                html2canvas: {
+                    scale: 2
+                },
+                jsPDF: {
+                    unit: 'in',
+                    format: 'a4',
+                    orientation: 'landscape'
+                },
+                enableLinks: true,
+            };
+
+            // New Promise-based usage:
+            html2pdf().set(opt).from(element).save();
+
+            // Old monolithic-style usage:
+            html2pdf(element, opt);
+        });
+    </script>
 </div>
 @endsection
 

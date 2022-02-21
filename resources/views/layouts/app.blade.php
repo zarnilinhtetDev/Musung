@@ -46,6 +46,11 @@
     <!-- Select2 JS -->
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
 
+    <!--- HTMLtoPDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
+        integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
     <!-- Styles -->
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -70,8 +75,8 @@
         </main>
     </div>
     @livewireScripts
-    @stack('scripts')
     @stack('select-box-scripts')
+    @stack('select-box-scripts-2')
 
     <livewire:scripts />
 
@@ -79,8 +84,5 @@
 
     @livewireChartsScripts
 </body>
-{{-- $(document).ready(function () {
-$("#datepicker").datepicker();
-}); --}}
 
 </html>

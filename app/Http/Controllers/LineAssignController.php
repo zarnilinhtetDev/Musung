@@ -247,10 +247,10 @@ class LineAssignController extends Controller
         $over_time_minute = request()->post('over_time_minute');
         $over_time_target = request()->post('over_time_target');
 
-        $overTime = OverTime::create(['l_id' => $l_id, 'ot_min' => $over_time_minute, 'ot_target' => $over_time_target, 'created_at' => NOW()]);
-        if ($overTime == true) {
-            return redirect('/line_setting?status=overtime_create_ok');
-        }
+        // $overTime = OverTime::create(['l_id' => $l_id, 'ot_min' => $over_time_minute, 'ot_target' => $over_time_target, 'created_at' => NOW()]);
+        // if ($overTime == true) {
+        //     return redirect('/line_setting?status=overtime_create_ok');
+        // }
     }
     public function createCategory()
     {

@@ -1,12 +1,18 @@
 <div class="col-12 col-md-8" id="live_dash_refresh" wire:poll.1000ms>
     <div class="panel-body">
+        @php $time_arr = [];
+        foreach(array_reverse($time) as $t3){
+        $time_arr[] = $t3->time_name;
+        }
+        // print_r($time_arr);
+        @endphp
         <table class="table table-hover table-striped table-bordered text-center table-dash" id="live_dash_1">
             <thead>
                 <tr class="tr-2 tr-3">
                     <th scope="col">Line</th>
                     <th scope="col">Target</th>
                     @foreach(array_reverse($time) as $t)
-                    <th scope="col">{{ $t->time_name }}</th>
+                    <th scope="col" id="th_{{ $t->time_name }}">{{ $t->time_name }}</th>
                     @endforeach
                 </tr>
             </thead>
@@ -27,7 +33,7 @@
                     @php $current_target=$t_2->time_id;
                     $prev_target = ((int)$current_target)-1;
                     @endphp
-                    <td>
+                    <td id="{{ $t_2->time_name }}">
                         <table class="w-100 text-center table table-bordered m-0">
                             <tr>
                                 <td><span id="new_div_target_{{ $t_2->time_id }}">{{

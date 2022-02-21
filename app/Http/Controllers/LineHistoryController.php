@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use App\Charts\LiveDashPercentChart;
 use App\Models\LineAssign;
 use App\Models\Line;
 
@@ -21,10 +19,11 @@ class LineHistoryController extends Controller
             return $next($request);
         });
     }
-    public function index(LiveDashPercentChart $percent_chart)
+    public function index()
     {
         $getDate =  request()->post('date_name');
         $date_string = date("d.m.Y", strtotime($getDate));
+        $date_string_for_export_pdf = date("Y_m_d", strtotime($getDate));
 
         $time = DB::select('SELECT time_name FROM time
         JOIN line_assign ON "time".assign_id="line_assign".assign_id AND
@@ -50,7 +49,7 @@ class LineHistoryController extends Controller
 
         $line_assign_apex_chart = LineAssign::select('main_target')->orderBy('l_id', 'asc')->where('assign_date', $date_string)->get();
 
-        $line_apex_chart = Line::select('l_name')->where('a_status', 1)->orderBy('l_pos', 'asc')->get();
+        $line_apex_chart = DB::select('SELECT "line".l_id,"line".l_name FROM line,line_assign WHERE "line".a_status=1 AND "line".is_delete=0 AND "line".l_id="line_assign".l_id AND "line_assign".assign_date=\'' . $date_string . '\' ORDER BY "line".l_pos ASC');
 
         $time_apex_chart = DB::select('SELECT SUM("time".div_actual_target) AS total_actual_target FROM time
         JOIN line_assign ON "line_assign".l_id = "time".line_id AND "line_assign".assign_date="time".assign_date AND
@@ -60,6 +59,7 @@ class LineHistoryController extends Controller
         $arr_decode = json_decode(json_encode($time_apex_chart), true);
 
         $line_assign_apex_chart_decode = json_decode(json_encode($line_assign_apex_chart), true);
+        $line_apex_chart_decode = json_decode(json_encode($line_apex_chart), true);
 
         DB::disconnect('musung');
 
@@ -73,10 +73,13 @@ class LineHistoryController extends Controller
 ?>
             <button onclick="tablesToExcel(['history_dash_1','history_dash_2','history_dash_3'], ['Table1','Table2','Table3'], '<?php echo $getDate; ?>.xls', 'Excel')" class="icon-btn-one icon-btn-one-2 btn my-2">Export to Excel</button>
             </li>
+            <li class="span2 bg-transparent">
+                <button type="button" id="exportPDF" class="icon-btn-one icon-btn-one-2 btn my-2">Export to PDF</button>
+            </li>
             </ul>
             </div>
 
-            <?php echo '<div class="row container-fluid p-0 my-3 mx-auto">
+            <?php echo '<div id="history_div"><div class="row container-fluid p-0 my-3 mx-auto">
 
                 <div class="col-12 col-md-8 p-sm-0 p-md-auto my-sm-2 my-md-0 top-3">
                     <div class="panel-body">
@@ -89,8 +92,7 @@ class LineHistoryController extends Controller
             foreach (array_reverse($time) as $t) {
                 echo '<th scope="col">' . $t->time_name . '</th>';
             }
-            echo '
-                                </tr>
+            echo '</tr>
                             </thead>
                             <tbody>';
             foreach ($getLine as $g_line) {
@@ -213,11 +215,11 @@ class LineHistoryController extends Controller
                                                 $("#td_div_actual_target_total_' . $current_target . '").css("background-color", "green");
                                             }
                                         </script>
-                                    </td>';
+                                    </td>
+                                ';
                     }
                 }
-                echo '
-                                </tr>';
+                echo '</tr>';
             }
             echo '</tbody>
                         </table>
@@ -230,61 +232,271 @@ class LineHistoryController extends Controller
 
             ?>
             <script>
-                var options = {
-                    series: [{
-                        name: "Actual Target",
-                        data: [<?php for ($i = 0; $i < count($arr_decode); $i++) {
-                                    $total_actual_target = $arr_decode[$i]['total_actual_target'];
-                                    echo $total_actual_target . ',';
-                                } ?>]
-                    }, {
-                        name: "Target",
-                        data: [<?php for ($j = 0; $j < count($line_assign_apex_chart_decode); $j++) {
-                                    echo $line_assign_apex_chart_decode[$j]['main_target'] . ',';
-                                } ?>]
-                    }, ],
-                    chart: {
-                        type: "bar",
-                        height: 350,
-                        background: '#fff'
-                    },
-                    plotOptions: {
-                        bar: {
-                            horizontal: true,
+                var getTheme = localStorage.getItem("style");
+                if (getTheme == 'light') {
+                    var options = {
+                        series: [{
+                            name: "Actual Target",
+                            data: [<?php for ($i = 0; $i < count($arr_decode); $i++) {
+                                        $total_actual_target = $arr_decode[$i]['total_actual_target'];
+                                        echo $total_actual_target . ',';
+                                    } ?>]
+                        }, {
+                            name: "Target",
+                            data: [<?php for ($j = 0; $j < count($line_assign_apex_chart_decode); $j++) {
+                                        echo $line_assign_apex_chart_decode[$j]['main_target'] . ',';
+                                    } ?>]
+                        }, ],
+                        chart: {
+                            type: "bar",
+                            height: 350,
+                            style: {
+                                colors: '#263238',
+                                fontSize: '12px',
+                                fontFamily: 'Helvetica, Arial, sans-serif',
+                                fontWeight: 400,
+                                cssClass: 'apexcharts-xaxis-label',
+                            },
                         },
-                    },
-                    dataLabels: {
-                        enabled: true,
-                    },
-                    stroke: {
-                        show: true,
-                        width: 2,
-                        colors: ["transparent"]
-                    },
-                    xaxis: {
-                        categories: [<?php $line_apex_chart_decode = json_decode($line_apex_chart, true);
-                                        for ($z = 0; $z < count($line_apex_chart_decode); $z++) {
-                                            echo '"' . $line_apex_chart_decode[$z]['l_name'] . '"' . ',';
-                                        } ?>],
-                        title: {
-                            text: "Target and Actual Target"
-                        }
-                    },
-                    fill: {
-                        opacity: 1
-                    },
-                    // tooltip: {
-                    //     y: {
-                    //         formatter: function(val) {
-                    //             return "$ " + val + " thousands"
-                    //         }
-                    //     }
-                    // }
-                };
+                        plotOptions: {
+                            bar: {
+                                horizontal: true,
+                            },
+                        },
+                        dataLabels: {
+                            enabled: true,
+                        },
+                        stroke: {
+                            show: true,
+                            width: 2,
+                            colors: ["transparent"]
+                        },
+                        legend: {
+                            show: true,
+                            labels: {
+                                colors: '#263238',
+                                useSeriesColors: false,
+                            },
+                        },
+                        xaxis: {
+                            categories: [<?php
+                                            for ($z = 0; $z < count($line_apex_chart_decode); $z++) {
+                                                echo '"' . $line_apex_chart_decode[$z]['l_name'] . '"' . ',';
+                                            } ?>],
+                            title: {
+                                text: "Target and Actual Target",
+                                style: {
+                                    fontSize: '14px',
+                                    fontWeight: 'bold',
+                                    color: '#263238'
+                                },
+                            },
+                            labels: {
+                                show: true,
+                                style: {
+                                    colors: '#263238',
+                                    fontSize: '12px',
+                                    fontFamily: 'Helvetica, Arial, sans-serif',
+                                    fontWeight: 400,
+                                    cssClass: 'apexcharts-xaxis-label',
+                                },
+                            },
+                        },
+                        yaxis: {
+                            labels: {
+                                show: true,
+                                style: {
+                                    colors: '#263238',
+                                },
+                            },
+                        },
+                        fill: {
+                            opacity: 1
+                        },
+                    };
 
-                var chart = new ApexCharts(document.querySelector("#history_chart"), options);
+                    var chart = new ApexCharts(document.querySelector("#history_chart"), options);
 
-                chart.render();
+                    chart.render();
+                }
+                if (getTheme == 'dark') {
+                    var options = {
+                        series: [{
+                            name: "Actual Target",
+                            data: [<?php for ($i = 0; $i < count($arr_decode); $i++) {
+                                        $total_actual_target = $arr_decode[$i]['total_actual_target'];
+                                        echo $total_actual_target . ',';
+                                    } ?>]
+                        }, {
+                            name: "Target",
+                            data: [<?php for ($j = 0; $j < count($line_assign_apex_chart_decode); $j++) {
+                                        echo $line_assign_apex_chart_decode[$j]['main_target'] . ',';
+                                    } ?>]
+                        }, ],
+                        chart: {
+                            type: "bar",
+                            height: 350,
+                            style: {
+                                colors: '#263238',
+                                fontSize: '12px',
+                                fontFamily: 'Helvetica, Arial, sans-serif',
+                                fontWeight: 400,
+                                cssClass: 'apexcharts-xaxis-label',
+                            },
+                        },
+                        plotOptions: {
+                            bar: {
+                                horizontal: true,
+                            },
+                        },
+                        dataLabels: {
+                            enabled: true,
+                        },
+                        stroke: {
+                            show: true,
+                            width: 2,
+                            colors: ["transparent"]
+                        },
+                        legend: {
+                            show: true,
+                            labels: {
+                                colors: '#fff',
+                                useSeriesColors: false,
+                            },
+                        },
+                        xaxis: {
+                            categories: [<?php
+                                            for ($z = 0; $z < count($line_apex_chart_decode); $z++) {
+                                                echo '"' . $line_apex_chart_decode[$z]['l_name'] . '"' . ',';
+                                            } ?>],
+                            title: {
+                                text: "Target and Actual Target",
+                                style: {
+                                    fontSize: '14px',
+                                    fontWeight: 'bold',
+                                    color: '#fff'
+                                },
+                            },
+                            labels: {
+                                show: true,
+                                style: {
+                                    colors: '#fff',
+                                    fontSize: '12px',
+                                    fontFamily: 'Helvetica, Arial, sans-serif',
+                                    fontWeight: 400,
+                                    cssClass: 'apexcharts-xaxis-label',
+                                },
+                            },
+                        },
+                        yaxis: {
+                            labels: {
+                                show: true,
+                                style: {
+                                    colors: '#fff',
+                                },
+                            },
+                        },
+                        tooltip: {
+                            theme: 'dark'
+                        },
+                        fill: {
+                            opacity: 1
+                        },
+                    };
+
+                    var chart = new ApexCharts(document.querySelector("#history_chart"), options);
+
+                    chart.render();
+                }
+                if (getTheme == 'gray') {
+                    var options = {
+                        series: [{
+                            name: "Actual Target",
+                            data: [<?php for ($i = 0; $i < count($arr_decode); $i++) {
+                                        $total_actual_target = $arr_decode[$i]['total_actual_target'];
+                                        echo $total_actual_target . ',';
+                                    } ?>]
+                        }, {
+                            name: "Target",
+                            data: [<?php for ($j = 0; $j < count($line_assign_apex_chart_decode); $j++) {
+                                        echo $line_assign_apex_chart_decode[$j]['main_target'] . ',';
+                                    } ?>]
+                        }, ],
+                        chart: {
+                            type: "bar",
+                            height: 350,
+                            style: {
+                                colors: '#263238',
+                                fontSize: '12px',
+                                fontFamily: 'Helvetica, Arial, sans-serif',
+                                fontWeight: 400,
+                                cssClass: 'apexcharts-xaxis-label',
+                            },
+                        },
+                        plotOptions: {
+                            bar: {
+                                horizontal: true,
+                            },
+                        },
+                        dataLabels: {
+                            enabled: true,
+                        },
+                        stroke: {
+                            show: true,
+                            width: 2,
+                            colors: ["transparent"]
+                        },
+                        legend: {
+                            show: true,
+                            labels: {
+                                colors: '#fff',
+                                useSeriesColors: false,
+                            },
+                        },
+                        xaxis: {
+                            categories: [<?php
+                                            for ($z = 0; $z < count($line_apex_chart_decode); $z++) {
+                                                echo '"' . $line_apex_chart_decode[$z]['l_name'] . '"' . ',';
+                                            } ?>],
+                            title: {
+                                text: "Target and Actual Target",
+                                style: {
+                                    fontSize: '14px',
+                                    fontWeight: 'bold',
+                                    color: '#fff'
+                                },
+                            },
+                            labels: {
+                                show: true,
+                                style: {
+                                    colors: '#fff',
+                                    fontSize: '12px',
+                                    fontFamily: 'Helvetica, Arial, sans-serif',
+                                    fontWeight: 400,
+                                    cssClass: 'apexcharts-xaxis-label',
+                                },
+                            },
+                        },
+                        yaxis: {
+                            labels: {
+                                show: true,
+                                style: {
+                                    colors: '#fff',
+                                },
+                            },
+                        },
+                        tooltip: {
+                            theme: 'dark'
+                        },
+                        fill: {
+                            opacity: 1
+                        },
+                    };
+
+                    var chart = new ApexCharts(document.querySelector("#history_chart"), options);
+
+                    chart.render();
+                }
             </script>
         <?php
             echo '</div>
@@ -479,6 +691,7 @@ class LineHistoryController extends Controller
     </div>
         </div>
     </div>
+</div>
 </div>';
         } else {
             echo "<span class='text-danger fw-bold'>No Result Found</span>";
@@ -486,6 +699,36 @@ class LineHistoryController extends Controller
 
         ?>
 
+        <script>
+            $("#exportPDF").click(function() {
+                var date = "<?php echo $date_string_for_export_pdf; ?>" + "_production_dashboard";
+
+                var element = document.getElementById('history_div');
+                var opt = {
+                    margin: 0.1,
+                    filename: date + '.pdf',
+                    image: {
+                        type: 'jpeg',
+                        quality: 1
+                    },
+                    html2canvas: {
+                        scale: 2
+                    },
+                    jsPDF: {
+                        unit: 'in',
+                        format: 'a4',
+                        orientation: 'landscape'
+                    },
+                    enableLinks: true,
+                };
+
+                // New Promise-based usage:
+                html2pdf().set(opt).from(element).save();
+
+                // Old monolithic-style usage:
+                html2pdf(element, opt);
+            });
+        </script>
 <?php
     }
 }

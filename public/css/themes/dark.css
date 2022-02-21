@@ -165,10 +165,6 @@ th, td {
     background-color: transparent;
 }
 
-.custom-live-dash {
-    background-color: var(--header-text);
-}
-
 .apexcharts-menu.apexcharts-menu-open {
     background-color: #082032;
 }

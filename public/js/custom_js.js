@@ -17,6 +17,14 @@ window.onclick = function (event) {
         }
     }
 };
+var getTheme = localStorage.getItem("style");
+
+if (getTheme == "light" || getTheme == null) {
+    $("#login-logo").attr("src", "img/logo.png");
+}
+if (getTheme == "dark" || getTheme == "gray") {
+    $("#login-logo").attr("src", "img/logo_3.png");
+}
 
 $("#myInput").on("keyup", function () {
     var value = $(this).val().toLowerCase();

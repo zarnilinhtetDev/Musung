@@ -4,7 +4,6 @@ namespace App\Charts;
 
 use ArielMejiaDev\LarapexCharts\LarapexChart;
 use App\Models\Line;
-use App\Models\Time;
 use Illuminate\Support\Facades\DB;
 use App\Models\LineAssign;
 

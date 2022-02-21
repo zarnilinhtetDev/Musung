@@ -28,7 +28,7 @@ $num = 1;
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-body text-start">
-                                    <form action="{{ url('line_assign_overtime_post') }}" method="POST">
+                                    <form action="" method="POST">
                                         <input type="hidden" name="l_id" id="l_id_setting_active" value="{{ $l_id }}">
                                         @for($k=0;$k<count($json);$k++) @php $new_l_id=$json[$k]['l_id'];
                                             $l_name=$json[$k]['l_name']; @endphp @if ($new_l_id==$l_id) <div
@@ -46,11 +46,77 @@ $num = 1;
                                         <input type="number" class="form-control" name="over_time_target"
                                             placeholder="100" required />
                                     </div>
-                                    <div class="col-12 col-md-4">
-                                        <input class="icon-btn-one btn my-2" type="submit" value="Add" name="submit" />
-                                    </div>
+                                </div>
+                                <div style="overflow: auto;max-width:100%;max-height:600px;padding:0.5rem;">
+                                    <table class="table" id="dynamic_field_2">
+                                        <tr class="setting-tr-2">
+                                            <td>
+                                                <label>Category</label>
+                                                <livewire:select-box-setting2 />
+                                            </td>
+                                            <td>
+                                                <label>Product Name</label>
+                                                <input type="text" class="form-control" id="p_name" name="p_name[]"
+                                                    placeholder="Musung Shirt" required />
+                                            </td>
+                                            <td>
+                                                <label>Target</label>
+                                                <input type="number" class="form-control" id="setting_target"
+                                                    name="category_target[]" placeholder="Target" required />
+                                            </td>
+                                            <td>
+                                                <br />
+                                                <button type="button" name="add" id="add_product_detail_2"
+                                                    class="btn btn-success"><i
+                                                        class="fas fa-plus-square fa-lg"></i></button>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="col-12 col-md-4">
+                                    <input class="icon-btn-one btn my-2" type="submit" value="Add" name="submit" />
                                 </div>
                                 </form>
+                                <script>
+                                    $("#line_assign_overtime_post").submit(function(e) {
+                    e.preventDefault();
+
+                    // Get NON-INPUT table cell data
+                    var box_2 = {};
+                    var boxes_2 = [];
+                        $('#dynamic_field_2 .setting-tr-2').each(function() {
+                            var category_select = $('#category_select', this).val();
+                            var p_name = $('#p_name', this).val();
+                            var category_target = $('#setting_target', this).val();
+                    box_2 = {
+                        category_select: category_select,
+                        p_name: p_name,
+                        category_target: category_target
+                    }
+                    boxes_2.push(box_2);
+                        });
+
+                    // Get all INPUT form data and organize as array
+                    var formData_2 = $(this).serializeArray();
+
+                    // // Encode with JSON
+                    var subArray_2 = JSON.stringify(boxes_2);
+
+                    // // Add to formData array
+                    formData_2.push({name: 'sub', value: subArray_2});
+                console.log(formData_2);
+                    // Submit with AJAX
+                    // $.ajax({
+                    //     type: "POST",
+                    //     url: "{{ url('line_assign_post') }}",
+                    //     data: formData,
+                    //     type: 'post',
+                    //     success: function(data) {
+                    //         location.reload();
+                    //     }
+                    // });
+                });
+                                </script>
 
                                 <div style="overflow: auto;max-width:100%;max-height:600px;padding:0.5rem;">
                                     <h1 class="fw-bold heading-text fs-4">Line Details</h1>
@@ -298,8 +364,8 @@ $num = 1;
                                 </td>
                                 <td>
                                     <label>Target</label>
-                                    <input type="text" class="form-control" id="setting_target" name="category_target[]"
-                                        placeholder="Target" required />
+                                    <input type="number" class="form-control" id="setting_target"
+                                        name="category_target[]" placeholder="Target" required />
                                 </td>
                                 <td>
                                     <br />
