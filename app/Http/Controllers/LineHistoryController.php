@@ -40,12 +40,14 @@ class LineHistoryController extends Controller
 		GROUP BY "line".l_id,"line_assign".assign_id,"users".id
 		ORDER BY "line".l_pos ASC');
 
-        $top_line = DB::select('SELECT "time".line_id,"line".l_name,SUM("time".div_actual_target) AS total_actual FROM time
-          JOIN line ON "line".l_id="time".line_id
-          JOIN line_assign ON "line_assign".l_id="time".line_id AND "line_assign".assign_date=\'' . $date_string . '\'
-          AND "line_assign".assign_date="time".assign_date
-          WHERE "time".div_actual_percent IS NOT NULL
-          GROUP BY "time".line_id,"line".l_name ORDER BY SUM("time".div_actual_target) DESC LIMIT 3');
+        $top_line = DB::select('SELECT line.l_id,line.l_name,line_assign.main_target AS main_target,SUM(time.div_actual_target) AS total_actual,
+        ROUND((SUM(time.div_actual_target)*100/line_assign.main_target),1) AS diff_target_percent
+        FROM line
+        INNER JOIN line_assign ON line_assign.l_id=line.l_id AND "line_assign".assign_date=\'' . $date_string . '\'
+        Inner JOIN time ON time.line_id=line_assign.l_id AND time.assign_date=\'' . $date_string . '\'
+        GROUP BY line.l_id,line.l_name,line_assign.main_target
+        ORDER BY diff_target_percent DESC
+        LIMIT 3');
 
         $line_assign_apex_chart = LineAssign::select('main_target')->orderBy('l_id', 'asc')->where('assign_date', $date_string)->get();
 
