@@ -36,8 +36,8 @@ class LineAssignController extends Controller
         $date_string = date("d.m.Y");
 
         /// Change line_status to 0 if current date is not equal to assign_date
-        $line_assign_status = DB::select('SELECT "line".l_id,"line_assign".assign_date,"line".a_status FROM line_assign
-         JOIN line ON "line".l_id = "line_assign".l_id ORDER BY "line_assign".assign_date ASC');
+        $line_assign_status = DB::select('SELECT "line_assign".assign_id,"line".l_id,"line_assign".assign_date,"line".a_status FROM line_assign
+        JOIN line ON "line".l_id = "line_assign".l_id ORDER BY "line_assign".assign_id ASC');
         $line_status = Line::select('l_id', 'a_status')->get();
 
         $json_decode = json_decode(json_encode($line_assign_status), true);
