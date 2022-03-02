@@ -36,7 +36,7 @@ class LineHistoryController extends Controller
         JOIN line_assign ON "line_assign".l_id = "line".l_id
         JOIN users ON "users".id= "line_assign".user_id
 		JOIN time ON "time".line_id="line".l_id
-        WHERE "line".a_status=1 AND "line_assign".assign_date=\'' . $date_string . '\' AND "time".assign_date=\'' . $date_string . '\'
+        WHERE "line_assign".assign_date=\'' . $date_string . '\' AND "time".assign_date=\'' . $date_string . '\'
 		GROUP BY "line".l_id,"line_assign".assign_id,"users".id
 		ORDER BY "line".l_pos ASC');
 
@@ -51,7 +51,7 @@ class LineHistoryController extends Controller
 
         $line_assign_apex_chart = LineAssign::select('main_target')->orderBy('l_id', 'asc')->where('assign_date', $date_string)->get();
 
-        $line_apex_chart = DB::select('SELECT "line".l_id,"line".l_name FROM line,line_assign WHERE "line".a_status=1 AND "line".is_delete=0 AND "line".l_id="line_assign".l_id AND "line_assign".assign_date=\'' . $date_string . '\' ORDER BY "line".l_pos ASC');
+        $line_apex_chart = DB::select('SELECT "line".l_id,"line".l_name FROM line,line_assign WHERE "line".is_delete=0 AND "line".l_id="line_assign".l_id AND "line_assign".assign_date=\'' . $date_string . '\' ORDER BY "line".l_pos ASC');
 
         $time_apex_chart = DB::select('SELECT SUM("time".div_actual_target) AS total_actual_target FROM time
         JOIN line_assign ON "line_assign".l_id = "time".line_id AND "line_assign".assign_date="time".assign_date AND
