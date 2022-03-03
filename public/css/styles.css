@@ -718,6 +718,10 @@ button[disabled] {
 
 /***** Numpad End *****/
 
+#tr-last {
+    background-color: crimson;
+}
+
 @media (min-width: 280px) {
     .login-card-img {
         display: none;

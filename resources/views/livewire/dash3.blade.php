@@ -21,23 +21,39 @@
                             <span id="top_actual_target_{{ $g_line_id }}">{{ $t_data->total_actual }}</span>
                         </td>
                         <td>
-                            <span id="top_actual_percent_{{ $g_line_id }}"></span>
+                            <span id="top_actual_percent_{{ $g_line_id }}">{{ $t_data->diff_target_percent }}%</span>
                         </td>
                     </tr>
                     @php $list_num++; @endphp
                     <script>
                         window.addEventListener('initSomething3', event => {
-                            var top_percent = $("#actual_target_percent_actual_chart_{{ $g_line_id }}").text();
-                        var top_actual_percent = $("#top_actual_percent_{{ $g_line_id }}");
-                        top_actual_percent.text(top_percent);
+                        //     var top_percent = $("#actual_target_percent_actual_chart_{{ $g_line_id }}").text();
+                        // var top_actual_percent = $("#top_actual_percent_{{ $g_line_id }}");
+                        // top_actual_percent.text(top_percent);
                         $top_1 = $("#tr_top")
-                        $top_1_th = $("#top_name");
-                        $top_1_td = $("#tr_top td")
+                        // $top_1_th = $("#top_name");
+                        // $top_1_td = $("#tr_top td")
 
                         $top_1.css('background-color','green');
                     });
                     </script>
                     @endforeach
+                    <tr id="tr-last">
+                        <th id="last_name">
+                            Last Line
+                        </th>
+                        @foreach ($last_line as $l_data)
+                        <td>
+                            <span id="">{{ $l_data->l_name }}</span>
+                        </td>
+                        <td>
+                            <span id="">{{ $l_data->total_actual }}</span>
+                        </td>
+                        <td>
+                            <span id="">{{ $l_data->diff_target_percent }}%</span>
+                        </td>
+                        @endforeach
+                    </tr>
                 </tbody>
             </table>
         </div>

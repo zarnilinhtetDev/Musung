@@ -11,6 +11,7 @@ class Dash1 extends Component
     public function dehydrate()
     {
         $this->dispatchBrowserEvent('initSomething');
+        $this->dispatchBrowserEvent('additionalInit');
     }
     public function render()
     {
@@ -33,11 +34,19 @@ class Dash1 extends Component
 		GROUP BY "line".l_id,"line_assign".assign_id,"users".id
 		ORDER BY "line".l_pos ASC');
 
+        $total_main_target = DB::select('SELECT SUM("line_assign".main_target) AS t_main_target FROM line_assign WHERE "line_assign".assign_date=\'' . $date_string . '\'');
+
+        $total_div_target = DB::select('SELECT ROW_NUMBER() OVER(ORDER BY "time".time_name ASC) AS row_num_1,SUM("time".div_target) AS t_div_target,"time".time_name FROM time WHERE "time".assign_date=\'' . $date_string . '\'
+        GROUP BY "time".time_name ORDER BY "time".time_name DESC OFFSET 1');
+
+        $total_div_actual_target = DB::select('SELECT ROW_NUMBER() OVER(ORDER BY "time".time_name ASC) AS row_num,SUM("time".div_actual_target) AS t_div_actual_target_1,"time".time_name FROM time WHERE "time".assign_date=\'' . $date_string . '\'
+        GROUP BY "time".time_name ORDER BY "time".time_name DESC OFFSET 1');
+
         DB::disconnect('musung');
 
         return view(
             'livewire.dash1',
-            compact('getLine', 'time', 'time_2'),
+            compact('getLine', 'time', 'time_2', 'total_main_target', 'total_div_target', 'total_div_actual_target'),
         );
     }
 }

@@ -149,6 +149,90 @@ $("#td_div_actual_target_total_<?php echo $current_target; ?>").css('background-
                     @endforeach
                 </tr>
                 @endforeach
+
+                <tr>
+                    <td style="vertical-align: middle;">Total</td>
+                    @foreach ($total_main_target as $t_main_target)
+                    <td style="vertical-align: middle;"><span id="">{{ $t_main_target->t_main_target }}</span></td>
+                    @endforeach
+                    @foreach(array_reverse($total_div_target) as $t_div_target)
+                    @php $total_time_name = $t_div_target->time_name;$new_num = 0; @endphp
+                    <td id="{{ $t_div_target->time_name }}">
+                        <table class="w-100 text-center table table-bordered m-0">
+                            <tr>
+                                <td><span id="new_t_div_target_num_{{ $t_div_target->row_num_1 }}">{{
+                                        $t_div_target->t_div_target }}</span></td>
+                            </tr>
+
+                            @foreach ($total_div_actual_target as $t_div_actual_target_1)
+
+                            @if($total_time_name == $t_div_actual_target_1->time_name)
+                            @php $prev_row_num = $t_div_actual_target_1->row_num - 1; @endphp
+
+                            <tr class="text-white">
+                                <input type="hidden"
+                                    id="new_t_div_actual_target_num_{{ $t_div_actual_target_1->row_num }}"
+                                    value="{{ $t_div_actual_target_1->t_div_actual_target_1 }}" />
+                                <td id="td_tmp_num_{{ $t_div_actual_target_1->row_num }}">
+                                    <span id="tmp_num_{{ $t_div_actual_target_1->row_num }}" class="">{{
+                                        $t_div_actual_target_1->t_div_actual_target_1 }}</span>
+                                </td>
+                            </tr>
+                            <tr class="text-white">
+                                <td id="total_percent_{{ $t_div_actual_target_1->row_num }}" colspan="2">
+                                </td>
+                            </tr>
+                            <script>
+                                window.addEventListener('additionalInit', event => {
+                                    var curr_target_num_val = $("#new_t_div_actual_target_num_{{ $t_div_actual_target_1->row_num }}");
+                                    var prev_target_num_val = parseInt($("#new_t_div_actual_target_num_{{ $prev_row_num }}").val());
+                                    var curr_target_val = parseInt("<?php echo $t_div_actual_target_1->t_div_actual_target_1; ?>");
+var tmp_num_val = $("#tmp_num_{{ $t_div_actual_target_1->row_num }}");
+
+                                    var total_row_num_val = prev_target_num_val + curr_target_val;
+                                    // console.log(total_row_num_val);
+
+                                    if(!Number.isNaN(total_row_num_val)){
+                                        tmp_num_val.text(total_row_num_val);
+}
+var new_t_div_target_num = parseInt($("#new_t_div_target_num_{{ $t_div_actual_target_1->row_num }}").text());
+var new_t_div_actual_target_num = parseInt($("#new_t_div_actual_target_num_{{ $t_div_actual_target_1->row_num }}").val());
+var total_percentage =(new_t_div_actual_target_num / new_t_div_target_num) * 100;
+var new_total_percent = $("#total_percent_{{ $t_div_actual_target_1->row_num }}");
+var tmp_num = $("#tmp_num_{{ $t_div_actual_target_1->row_num }}").text();
+new_total_percent.text(total_percentage.toFixed(1));
+
+
+if(parseInt(new_t_div_target_num) > parseInt(tmp_num)){
+$("#td_tmp_num_{{ $t_div_actual_target_1->row_num }}").css('background-color','red');
+}
+if(parseInt(new_t_div_target_num) <= parseInt(tmp_num)){
+$("#td_tmp_num_{{ $t_div_actual_target_1->row_num }}").css('background-color','green');
+}
+
+
+    if(Number.isNaN(total_percentage)){
+        new_total_percent.text("");
+    }
+    if(!Number.isNaN(total_percentage)){
+        new_total_percent.text(total_percentage.toFixed(1));
+        if(parseInt(new_t_div_actual_target_num) >= 100){
+   $("#total_percent_{{ $t_div_actual_target_1->row_num }}").css('background-color','green');
+} if(parseInt(new_t_div_actual_target_num) < 100){
+   $("#total_percent_{{ $t_div_actual_target_1->row_num }}").css('background-color','red');
+}
+
+new_total_percent.append('%');
+    }
+                                });
+                            </script>
+                            @endif
+
+                            @endforeach
+                        </table>
+                    </td>
+                    @endforeach
+                </tr>
             </tbody>
         </table>
     </div>
