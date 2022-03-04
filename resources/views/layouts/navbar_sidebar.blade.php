@@ -10,13 +10,21 @@
             </div>
             <ul class="nav nav-pills flex-column list-unstyled components mb-5">
                 <li class="active">
-                    <a href="{{ url('/home') }}" class="sidebar-link"><span class="fa fa-home mr-3"></span>Dashboard</a>
+                    <a href="{{ url('/home') }}" class="sidebar-link"><img src="img/icon/dashboard.png"
+                            class="img-fluid rounded-3" alt="Dashboard" width="25" height="auto" />
+                        &nbsp;Dashboard</a>
+                </li>
+                <li class="">
+                    <a href="{{ url('/menu') }}" class="sidebar-link"><img src="img/icon/home.png"
+                            class="img-fluid rounded-3" alt="Home" width="25" height="auto" /> &nbsp;Main
+                        Menu</a>
                 </li>
                 <li>
                     <a class="sidebar-link" href="#account_management" data-bs-toggle="collapse" aria-expanded="false"
                         class="dropdown-toggle">
-                        <i class="fas fa-user"></i>
-                        Account Management
+                        <img src="img/icon/team_icon.png" class="img-fluid rounded-3" alt="Team" width="25"
+                            height="auto" />
+                        &nbsp;Account Management
                     </a>
                     <ul class="collapse" id="account_management" role="list">
                         <li class="custom-li">
@@ -27,8 +35,9 @@
                 <li>
                     <a class="sidebar-link" href="#target" data-bs-toggle="collapse" aria-expanded="false"
                         class="dropdown-toggle">
-                        <i class="fas fa-user"></i>
-                        Target Lines
+                        <img src="img/icon/target_line.png" class="img-fluid rounded-3" alt="Target Line" width="25"
+                            height="auto" />
+                        &nbsp;Target Lines
                     </a>
                     <ul class="collapse" id="target" role="list">
                         <li class="custom-li">
@@ -42,8 +51,9 @@
                 <li>
                     <a class="sidebar-link" href="#line" data-bs-toggle="collapse" aria-expanded="false"
                         class="dropdown-toggle">
-                        <i class="fas fa-user"></i>
-                        Line Managment
+                        <img src="img/icon/line_manage.png" class="img-fluid rounded-3" alt="Line Management" width="25"
+                            height="auto" />
+                        &nbsp;Line Managment
                     </a>
                     <ul class="collapse" id="line" role="list">
                         <li class="custom-li">
@@ -58,13 +68,15 @@
                     </ul>
                 </li>
                 <li>
-                    <a class="sidebar-link" href="{{ url('/report') }}"> <i class="fas fa-user"></i>
-                        Report
+                    <a class="sidebar-link" href="{{ url('/report') }}"> <img src="img/icon/report.png"
+                            class="img-fluid rounded-3" alt="Report" width="25" height="auto" />
+                        &nbsp;Report
                     </a>
                 </li>
                 <li>
-                    <a class="sidebar-link" href="{{ url('/theme_setting') }}"> <i class="fas fa-user"></i>
-                        Change Theme
+                    <a class="sidebar-link" href="{{ url('/theme_setting') }}"><img src="img/icon/theme.png"
+                            class="img-fluid rounded-3" alt="Theme" width="25" height="auto" />
+                        &nbsp;Change Theme
                     </a>
                 </li>
             </ul>

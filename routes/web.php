@@ -11,6 +11,7 @@ Route::view('/', 'auth.login')->name('login_1');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
+Route::get('/menu', 'MainMenuController@index')->name('menu')->middleware('auth');
 
 Route::get('/member', 'UserController@index');
 Route::get('/member_post', 'UserController@postUser')->middleware('auth');

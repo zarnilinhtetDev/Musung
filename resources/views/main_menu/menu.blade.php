@@ -8,10 +8,7 @@
 @section('content_2')
 
 @admin
-<script type="text/javascript">
-    window.location = "{{url('live_dash')}}";
-</script>
-{{-- <div class="container">
+<div class="container">
     <div class="container-fluid">
         <div class="row">
             <div class="col-6 col-md-4 dropdown">
@@ -43,7 +40,7 @@
             </div>
         </div>
     </div>
-</div> --}}
+</div>
 @endadmin
 
 @line_manager
