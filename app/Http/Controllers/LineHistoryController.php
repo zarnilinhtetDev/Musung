@@ -346,6 +346,9 @@ class LineHistoryController extends Controller
                             name: "Actual Target",
                             data: [<?php for ($i = 0; $i < count($arr_decode); $i++) {
                                         $total_actual_target = $arr_decode[$i]['total_actual_target'];
+                                        if ($total_actual_target == '') {
+                                            echo '0,';
+                                        }
                                         echo $total_actual_target . ',';
                                     } ?>]
                         }, {
@@ -432,6 +435,9 @@ class LineHistoryController extends Controller
                             name: "Actual Target",
                             data: [<?php for ($i = 0; $i < count($arr_decode); $i++) {
                                         $total_actual_target = $arr_decode[$i]['total_actual_target'];
+                                        if ($total_actual_target == '') {
+                                            echo '0';
+                                        }
                                         echo $total_actual_target . ',';
                                     } ?>]
                         }, {
@@ -521,6 +527,9 @@ class LineHistoryController extends Controller
                             name: "Actual Target",
                             data: [<?php for ($i = 0; $i < count($arr_decode); $i++) {
                                         $total_actual_target = $arr_decode[$i]['total_actual_target'];
+                                        if ($total_actual_target == '') {
+                                            echo '0';
+                                        }
                                         echo $total_actual_target . ',';
                                     } ?>]
                         }, {

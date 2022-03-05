@@ -59,9 +59,14 @@
                     opacity: 1
                 }, series: [{
                     name: "Actual Target",
-                    data: [@for ($i = 0; $i < count($arr_decode); $i++)
-                            {{ $arr_decode[$i]['total_actual_target'] . ',' }}
-                             @endfor]
+                    data: [<?php for ($i = 0; $i < count($arr_decode); $i++) {
+                                $total_actual_target = $arr_decode[$i]['total_actual_target'];
+                                if ($arr_decode[$i]['total_actual_target'] == ''){
+                                   $total_actual_target = 0;
+                                }
+
+                                echo $total_actual_target . ',';
+                            } ?>]
                 }, {
                     name: "Target",
                     data: [<?php for ($j = 0; $j < count($line_assign_apex_chart_decode); $j++) {
@@ -145,9 +150,14 @@
                     opacity: 1
                 }, series: [{
                     name: "Actual Target",
-                    data: [@for ($i = 0; $i < count($arr_decode); $i++)
-                            {{ $arr_decode[$i]['total_actual_target'] . ',' }}
-                             @endfor]
+                    data: [<?php for ($i = 0; $i < count($arr_decode); $i++) {
+                                $total_actual_target = $arr_decode[$i]['total_actual_target'];
+                                if ($arr_decode[$i]['total_actual_target'] == ''){
+                                   $total_actual_target = 0;
+                                }
+
+                                echo $total_actual_target . ',';
+                            } ?>]
                 }, {
                     name: "Target",
                     data: [<?php for ($j = 0; $j < count($line_assign_apex_chart_decode); $j++) {
@@ -191,6 +201,10 @@
                     name: "Actual Target",
                     data: [<?php for ($i = 0; $i < count($arr_decode); $i++) {
                                 $total_actual_target = $arr_decode[$i]['total_actual_target'];
+                                if ($arr_decode[$i]['total_actual_target'] == ''){
+                                   $total_actual_target = 0;
+                                }
+
                                 echo $total_actual_target . ',';
                             } ?>]
                 }, {
