@@ -455,6 +455,12 @@
 
 
 </div>
+
+@operator
+<script type="text/javascript">
+    window.location = "{{url('menu')}}";
+</script>
+@endoperator
 @endsection
 
 @endsection

@@ -738,7 +738,7 @@ class LineHistoryController extends Controller
                                         "green"
                                     );
                                 }
-                                if (parseInt(actual_target_percent_actual_chart.text()) <= 100) {
+                                if (parseInt(actual_target_percent_actual_chart.text()) < 100) {
                                     $("#td_actual_percent_actual_chart_' . $g_line_id . '").css(
                                         "background-color",
                                         "red"

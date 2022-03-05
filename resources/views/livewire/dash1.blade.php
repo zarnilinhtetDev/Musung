@@ -172,6 +172,7 @@ $("#td_div_actual_target_total_<?php echo $current_target; ?>").css('background-
                             <tr class="text-white">
                                 <input type="hidden"
                                     id="new_t_div_actual_target_num_{{ $t_div_actual_target_1->row_num }}"
+                                    class="new_t_div_actual_target_num"
                                     value="{{ $t_div_actual_target_1->t_div_actual_target_1 }}" />
                                 <td id="td_tmp_num_{{ $t_div_actual_target_1->row_num }}">
                                     <span id="tmp_num_{{ $t_div_actual_target_1->row_num }}" class="">{{
@@ -189,6 +190,12 @@ $("#td_div_actual_target_total_<?php echo $current_target; ?>").css('background-
                                     var curr_target_val = parseInt("<?php echo $t_div_actual_target_1->t_div_actual_target_1; ?>");
 var tmp_num_val = $("#tmp_num_{{ $t_div_actual_target_1->row_num }}");
 
+
+// var sum = 0;
+// $('.new_t_div_actual_target_num').each(function(){
+//     sum += parseFloat(this.value);
+// });
+// console.log(sum);
                                     var total_row_num_val = prev_target_num_val + curr_target_val;
                                     // console.log(total_row_num_val);
 

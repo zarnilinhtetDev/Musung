@@ -3,6 +3,8 @@
 @section('content')
 @section('content_2')
 
+@admin
+
 @php $json2=json_decode($responseBody2,true); @endphp
 <div class="container-fluid">
     <div class="container-fluid">
@@ -428,7 +430,10 @@
                                         <span>Line Manager</span>
                                         @endif
                                     </td>
-                                    <td>{{ $line }}</td>
+                                    <td>
+                                        @for($j=0;$j<count($json2);$j++) @php $l_id=$json2[$j]['l_id'];
+                                            $l_name=$json2[$j]['l_name']; @endphp @if($line==$l_id) {{ $l_name }} @endif
+                                            @endfor</td>
                                     <td>{{ $u_name }}</td>
                                     <td>{{ $email }}</td>
                                     <td>{{ $remark }}</td>
@@ -452,6 +457,20 @@
 
     </div>
 </div>
+
+@endadmin
+
+@operator
+<script type="text/javascript">
+    window.location = "{{url('menu')}}";
+</script>
+@endoperator
+
+@line_manager
+<script type="text/javascript">
+    window.location = "{{url('line_entry')}}";
+</script>
+@endline_manager
 @endsection
 
 @endsection
