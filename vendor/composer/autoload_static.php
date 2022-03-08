@@ -574,6 +574,7 @@ class ComposerStaticInitc0b888793009922a59235191e8990fbc
         'App\\Http\\Controllers\\LineEntryController' => __DIR__ . '/../..' . '/app/Http/Controllers/LineEntryController.php',
         'App\\Http\\Controllers\\LineHistoryController' => __DIR__ . '/../..' . '/app/Http/Controllers/LineHistoryController.php',
         'App\\Http\\Controllers\\LiveDashController' => __DIR__ . '/../..' . '/app/Http/Controllers/LiveDashController.php',
+        'App\\Http\\Controllers\\MainMenuController' => __DIR__ . '/../..' . '/app/Http/Controllers/MainMenuController.php',
         'App\\Http\\Controllers\\ReportDashController' => __DIR__ . '/../..' . '/app/Http/Controllers/ReportDashController.php',
         'App\\Http\\Controllers\\TimeApiController' => __DIR__ . '/../..' . '/app/Http/Controllers/TimeApiController.php',
         'App\\Http\\Controllers\\UserApiController' => __DIR__ . '/../..' . '/app/Http/Controllers/UserApiController.php',

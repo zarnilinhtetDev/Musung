@@ -106,7 +106,7 @@ $num = 1;
 
                     // // Add to formData array
                     formData_2.push({name: 'sub', value: subArray_2});
-                console.log(formData_2);
+                // console.log(formData_2);
                     // Submit with AJAX
                     // $.ajax({
                     //     type: "POST",
@@ -342,7 +342,6 @@ $num = 1;
             cat_name: $("#new_category_name").val(),
         },
         success: function(result) {
-            console.log(result);
             alert('Category Added');
         },
         error: function(result) {
@@ -411,7 +410,7 @@ $num = 1;
 
     // // Add to formData array
     formData.push({name: 'sub', value: subArray});
-console.log(formData);
+// console.log(formData);
     // Submit with AJAX
     $.ajax({
         type: "POST",
@@ -419,6 +418,7 @@ console.log(formData);
         data: formData,
         type: 'post',
         success: function(data) {
+            // console.log(data);
             location.reload();
         }
     });
@@ -535,7 +535,7 @@ $num = 1;
 
                     // // Add to formData array
                     formData_2.push({name: 'sub', value: subArray_2});
-                console.log(formData_2);
+                // console.log(formData_2);
                     // Submit with AJAX
                     // $.ajax({
                     //     type: "POST",
@@ -771,7 +771,7 @@ $num = 1;
             cat_name: $("#new_category_name").val(),
         },
         success: function(result) {
-            console.log(result);
+            // console.log(result);
             alert('Category Added');
         },
         error: function(result) {
@@ -840,7 +840,7 @@ $num = 1;
 
     // // Add to formData array
     formData.push({name: 'sub', value: subArray});
-console.log(formData);
+// console.log(formData);
     // Submit with AJAX
     $.ajax({
         type: "POST",

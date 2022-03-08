@@ -198,6 +198,7 @@
                                                                     @endphp
 
                                                                     @if($time_id == $p_detail_time_id)
+
                                                                     <div class="col-12 my-2">
                                                                         <div class="row container-fluid">
                                                                             <div class="col-12 col-md-4 m-auto">
@@ -208,8 +209,17 @@
                                                                                 <label>Target</label>
                                                                                 <input type="number"
                                                                                     class="form-control" name="target"
-                                                                                    value={{ $p_detail_qty }}
-                                                                                    readonly />
+                                                                                    value=@foreach($p_detail_2 as $p_2)
+                                                                                    @php
+                                                                                    $p_2_detail_id=$p_2->p_detail_id;
+                                                                                $div_quantity = $p_2->div_quantity;
+
+                                                                                if($p_2_detail_id == $p_detail_id){
+                                                                                echo $div_quantity;
+                                                                                }
+                                                                                @endphp
+                                                                                @endforeach
+                                                                                readonly />
                                                                             </div>
                                                                             <div class="col-12 col-md-4">
                                                                                 <label>Actual</label>

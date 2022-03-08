@@ -37,9 +37,11 @@ class LineEntryController extends Controller
         JOIN line_assign ON "line_assign".assign_id="p_detail".assign_id
         AND "line_assign".assign_date=\'' . $date_string . '\'
         ORDER BY p_detail_id ASC');
+
+        $p_detail_2 = DB::select('SELECT "p_detail".assign_id,"p_detail".p_detail_id,"p_detail".div_quantity FROM p_detail');
         DB::disconnect('musung');
 
-        return view('line_management.line_entry', compact('responseBody', 'p_detail'));
+        return view('line_management.line_entry', compact('responseBody', 'p_detail', 'p_detail_2'));
     }
     public function postData()
     {

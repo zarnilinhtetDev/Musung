@@ -28,6 +28,7 @@ return array(
     'App\\Http\\Controllers\\LineEntryController' => $baseDir . '/app/Http/Controllers/LineEntryController.php',
     'App\\Http\\Controllers\\LineHistoryController' => $baseDir . '/app/Http/Controllers/LineHistoryController.php',
     'App\\Http\\Controllers\\LiveDashController' => $baseDir . '/app/Http/Controllers/LiveDashController.php',
+    'App\\Http\\Controllers\\MainMenuController' => $baseDir . '/app/Http/Controllers/MainMenuController.php',
     'App\\Http\\Controllers\\ReportDashController' => $baseDir . '/app/Http/Controllers/ReportDashController.php',
     'App\\Http\\Controllers\\TimeApiController' => $baseDir . '/app/Http/Controllers/TimeApiController.php',
     'App\\Http\\Controllers\\UserApiController' => $baseDir . '/app/Http/Controllers/UserApiController.php',

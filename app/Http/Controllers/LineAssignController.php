@@ -214,6 +214,7 @@ class LineAssignController extends Controller
                                 'assign_date' => $date_string,
                             ]);
                         }
+                        //// For temp in time_table
                         Time::create([
                             'time_name' => 'temp',
                             'line_id' => $l_id,
@@ -223,13 +224,21 @@ class LineAssignController extends Controller
                             'assign_date' => $date_string,
                         ]);
                     }
+
+
                     if ($number > 0) {
                         for ($i = 0; $i < $number; $i++) {  ///// Insert data [] to p_detail table
                             if (trim($category[$i] != '')) {
                                 $category_id = $category[$i];
                                 $category_target_name = $category_target[$i];
                                 $product_name = $p_name[$i];
-                                $category_assign = ProductDetail::create(['assign_id' => $assign_id, 'l_id' => $l_id, 'p_cat_id' => $category_id, 'p_name' => $product_name, 'quantity' => $category_target_name, 'created_at' => NOW()]);
+
+                                $time_count = DB::select("SELECT assign_id,time_name FROM time WHERE assign_id=" . $assign_id . " ORDER BY time_name DESC OFFSET 1");
+                                $time_count_decode = json_decode(json_encode($time_count), true);
+                                $count_time = count($time_count_decode);
+                                $div_target_quantity = round(($category_target[$i] / $count_time), 0);
+
+                                $category_assign = ProductDetail::create(['assign_id' => $assign_id, 'l_id' => $l_id, 'p_cat_id' => $category_id, 'p_name' => $product_name, 'quantity' => $category_target_name, 'div_quantity' => $div_target_quantity, 'created_at' => NOW()]);
                             }
                         }
                         if ($category_assign == true) {
