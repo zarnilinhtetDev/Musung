@@ -14,6 +14,9 @@
                     @foreach(array_reverse($time) as $t)
                     <th scope="col" id="th_{{ $t->time_name }}">{{ $t->time_name }}</th>
                     @endforeach
+                    <th>Total</th>
+                    <th>Rank</th>
+                    <th>%</th>
                 </tr>
             </thead>
             <tbody>
@@ -34,12 +37,13 @@
                     $prev_target = ((int)$current_target)-1;
                     @endphp
                     <td id="{{ $t_2->time_name }}">
-                        <table class="w-100 text-center table table-bordered m-0">
+                        <table class="w-100 text-center table m-0">
                             <tr>
-                                <td><span id="new_div_target_{{ $t_2->time_id }}">{{
+                                <td><span id="new_div_target_{{ $t_2->time_id }}" class="new_div_target">{{
                                         $t_2->actual_target_entry
                                         }}</span></td>
-                                <td><span id="div_target_{{ $t_2->time_id }}">{{ $t_2->div_target }}</span>
+                                <td style="display:none;"><span id="div_target_{{ $t_2->time_id }}">{{
+                                        $t_2->div_target }}</span>
                                 </td>
                             </tr>
                             <tr class="text-white">
@@ -48,7 +52,7 @@
                                         class="div_actual_target_{{ $g_line_id }}">{{
                                         $t_2->div_actual_target }}</span>
                                 </td>
-                                <td id="td_div_actual_target_total_{{ $t_2->time_id }}"><span
+                                <td style="display:none;" id="td_div_actual_target_total_{{ $t_2->time_id }}"><span
                                         id="div_actual_target_total_{{ $t_2->time_id }}"
                                         class="div_actual_target_total_{{ $g_line_id }}"></span></td>
                             </tr>
@@ -146,10 +150,98 @@ $("#td_div_actual_target_total_<?php echo $current_target; ?>").css('background-
 })
                     </script>
                     @endif
+
                     @endforeach
+                    @foreach($target_total as $t_2_total)
+                    @if ($g_line_id == $t_2_total->line_id && $t_2_total->total != 0)
+                    <td>
+                        <table class="w-100 text-center table m-0">
+                            @foreach($actual_target_total as $a_total)
+                            @if ($g_line_id == $a_total->line_id)
+                            <tr>
+                                <td><span class="t_2_total_{{ $t_2_total->line_id }}"> {{ $t_2_total->total }}</span>
+                                </td>
+                            </tr>
+                            <tr class="text-white">
+                                <td class="td_a_total_{{ $t_2_total->line_id }}">
+                                    <span class="a_total_{{ $t_2_total->line_id }}">{{ $a_total->total_actual_target
+                                        }}</span>
+                                </td>
+                            </tr>
+                            <tr class="text-white">
+                                <td class="td_t_percent_{{ $t_2_total->line_id }}">
+                                    <span class="t_percent_{{ $t_2_total->line_id }}"></span>
+                                </td>
+                            </tr>
+                            <script>
+                                window.addEventListener('additionalInit', event => {
+                                    var t_2_total = parseInt($('.t_2_total_{{ $t_2_total->line_id }}').text());
+                                    var a_total = parseInt($('.a_total_{{ $t_2_total->line_id }}').text());
+                                    var t_percent_span = $('.t_percent_{{ $t_2_total->line_id }}');
+                                    var td_t_percent = $('.td_a_total_{{ $t_2_total->line_id }}');
+                                    var td_a_percent = $('.td_t_percent_{{ $t_2_total->line_id }}');
+
+
+                                    if(parseInt(t_2_total) > parseInt(a_total)){
+                                        td_a_percent.css('background-color','red');
+                                    }
+                                    if(parseInt(t_2_total) <= parseInt(a_total)){
+                                        td_a_percent.css('background-color','green');
+                                    }
+
+                                    if (Number.isNaN(t_2_total)) {
+                                        t_percent_span.text("");
+                                    }
+                                    if (!Number.isNaN(t_2_total)) {
+                                        var t_percent = (a_total / t_2_total) * 100;
+                                        if (Number.isNaN(t_percent)) {
+                                            t_percent_span.text("");
+                                        }
+                                        if (!Number.isNaN(t_percent)) {
+                                            t_percent_span.text(t_percent.toFixed(1));
+                                            if (parseInt(t_percent_span.text()) >= 100) {
+                                                td_t_percent.css('background-color', 'green');
+                                            }
+                                            if (parseInt(t_percent_span.text()) < 100) {
+                                                td_t_percent.css('background-color', 'red');
+                                            }
+                                            t_percent_span.append('%');
+                                        }
+                                    }
+                                  });
+                            </script>
+                            @endif
+                            @endforeach
+                        </table>
+                    </td>
+                    @endif
+                    @endforeach
+
+                    @foreach($top_line as $t_line)
+                    @if ($g_line_id == $t_line->l_id)
+                    <td style="vertical-align: middle;" class="t_line_{{ $t_line->row_num }} t_line_count">{{
+                        $t_line->row_num }}
+                    </td>
+
+                    <script>
+                        window.addEventListener('additionalInit', event => {
+                            var t_line_row_num = $(".t_line_{{ $t_line->row_num }}");
+
+                            if(t_line_row_num.text()==1 || t_line_row_num.text()==2 || t_line_row_num.text()==3){
+                                t_line_row_num.css({'background-color':'green','color':'#fff'});
+                            }
+                        });
+                    </script>
+                    @endif
+                    @endforeach
+                    <script>
+                        window.addEventListener('additionalInit', event => {
+                            var t_line_count = $('.t_line_count:last').text();
+$(".t_line_" + t_line_count).css({'background-color':'red','color':'#fff'});
+                        });
+                    </script>
                 </tr>
                 @endforeach
-
                 <tr>
                     <td style="vertical-align: middle;">Total</td>
                     @foreach ($total_main_target as $t_main_target)
@@ -239,6 +331,25 @@ new_total_percent.append('%');
                         </table>
                     </td>
                     @endforeach
+                    {{-- <td>
+                        <table class="w-100 text-center table table-bordered m-0">
+                            <tr>
+                                <td>
+                                    hello
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    hello
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    hello
+                                </td>
+                            </tr>
+                        </table>
+                    </td> --}}
                 </tr>
             </tbody>
         </table>

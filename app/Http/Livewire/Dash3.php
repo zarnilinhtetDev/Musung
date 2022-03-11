@@ -17,7 +17,8 @@ class Dash3 extends Component
         $date_string = date("d.m.Y");
         $u_id = Auth::user()->id;
         $top_line = DB::select('SELECT line.l_id,line.l_name,line_assign.main_target AS main_target,SUM(time.div_actual_target) AS total_actual,
-        ROUND((SUM(time.div_actual_target)*100/line_assign.main_target),1) AS diff_target_percent
+        ROUND((SUM(time.div_actual_target)*100/line_assign.main_target),1) AS diff_target_percent,
+		ROW_NUMBER() OVER(ORDER BY  ROUND((SUM(time.div_actual_target)*100/line_assign.main_target),1) DESC) AS row_num
         FROM line
         INNER JOIN line_assign ON line_assign.l_id=line.l_id AND "line_assign".assign_date=\'' . $date_string . '\'
         Inner JOIN time ON time.line_id=line_assign.l_id AND time.assign_date=\'' . $date_string . '\'
