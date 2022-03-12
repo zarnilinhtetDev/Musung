@@ -95,10 +95,13 @@ if(!Number.isNaN(new_total)){
 
 var div_target = parseInt($("#div_target_<?php echo $current_target; ?>").text());
 var div_actual_target_total = parseInt($("#div_actual_target_total_<?php echo $current_target; ?>").text());
-var percentage =(div_actual_target_total / div_target) * 100;
-var div_actual_target_percent = $("#div_actual_target_percent_<?php echo $current_target; ?>");
+
 var new_div_target = $("#new_div_target_<?php echo $current_target; ?>").text();
 var div_actual_target = parseInt($("#div_actual_target_<?php echo $current_target; ?>").text());
+
+var percentage =(div_actual_target / new_div_target) * 100;
+var div_actual_target_percent = $("#div_actual_target_percent_<?php echo $current_target; ?>");
+
 
 if(Number.isNaN(div_actual_target_total)){
 if(div_actual_target!=''){
@@ -106,7 +109,7 @@ if(div_actual_target!=''){
     if(Number.isNaN(new_percent)){
         div_actual_target_percent.text("");
     }if(!Number.isNaN(new_percent)){
-        div_actual_target_percent.text(new_percent.toFixed(1));
+        div_actual_target_percent.text(new_percent.toFixed(0));
         if(parseInt(div_actual_target_percent.text()) >= 100){
    $("#td_div_actual_target_percent_<?php echo $current_target; ?>").css('background-color','green');
 } if(parseInt(div_actual_target_percent.text()) < 100){
@@ -122,7 +125,7 @@ if(Number.isNaN(percentage)){
 div_actual_target_percent.text("");
 }
 if(!Number.isNaN(percentage)){
-div_actual_target_percent.text(percentage.toFixed(1));
+div_actual_target_percent.text(percentage.toFixed(0));
 if(parseInt(div_actual_target_percent.text()) >= 100){
    $("#td_div_actual_target_percent_<?php echo $current_target; ?>").css('background-color','green');
 } if(parseInt(div_actual_target_percent.text()) < 100){
@@ -198,7 +201,7 @@ $("#td_div_actual_target_total_<?php echo $current_target; ?>").css('background-
                                             t_percent_span.text("");
                                         }
                                         if (!Number.isNaN(t_percent)) {
-                                            t_percent_span.text(t_percent.toFixed(1));
+                                            t_percent_span.text(t_percent.toFixed(0));
                                             if (parseInt(t_percent_span.text()) >= 100) {
                                                 td_t_percent.css('background-color', 'green');
                                             }
@@ -228,27 +231,106 @@ $("#td_div_actual_target_total_<?php echo $current_target; ?>").css('background-
                     <script>
                         window.addEventListener('additionalInit', event => {
 
-                            //// Last edit 11.03.2022 21:21
-                            var t_line_count = $('.t_line_count');
-                            var t_line_count_last = $('.t_line_count:last').text();
+                            var t_line_count = $('.t_line_count').text();
+                    var val_arr = [];
 
-                            // if(t_line_count[0].text()==''){
-                            //     var requiredElement_0 = t_line_count[0].text();
-                            //     $(".t_line_" + requiredElement_0).css({'background-color':'green','color':'#fff'});
-                            // }
-                            // if(t_line_count[1].text()==''){
-                            //     var requiredElement_1 = t_line_count[1].text();
-                            //     $(".t_line_" + requiredElement_1).css({'background-color':'green','color':'#fff'});
-                            // }
-                            // if(t_line_count[2].text()==''){
-                            //     var requiredElement_2 = t_line_count[2].text();
-                            //     $(".t_line_" + requiredElement_2).css({'background-color':'green','color':'#fff'});
-                            // }
+                    for (var i = 0; i < t_line_count.length; i++) {
+                        if (t_line_count[i] != ' ' && t_line_count[i] != '\n') {
+                            val_arr.push(parseInt(t_line_count[i]));
+                        }
+                    }
 
+                    var lowestToHighest = val_arr.sort((a, b) => a - b);
 
-                            $(".t_line_" + t_line_count_last).css({'background-color':'red','color':'#fff'});
+                    var top_1 = lowestToHighest[0];
+                    var top_2 = lowestToHighest[1];
+                    var top_3 = lowestToHighest[2];
+
+                    if(top_1 != ''){
+                        $('.t_line_' + top_1).css({
+                            'background-color': 'green',
+                            'color': '#fff'
+                        });
+                    }
+                    if(top_2 != ''){
+                        $('.t_line_' + top_2).css({
+                            'background-color': 'green',
+                            'color': '#fff'
+                        });
+                    }
+                    if(top_3 != ''){
+                        $('.t_line_' + top_3).css({
+                            'background-color': 'green',
+                            'color': '#fff'
+                        });
+                    }
+
+                    var max_num = Math.max(...val_arr);
+                    $(".t_line_" + max_num).css({
+                        'background-color': 'red',
+                        'color': '#fff'
+                    });
 
                         });
+                    </script>
+
+
+                    @foreach($top_line as $t_line)
+                    @if ($g_line_id == $t_line->l_id)
+                    <td style="vertical-align: middle;" class="t_line_{{ $t_line->row_num }} t_line_count">
+                        <span class="input_row_num_{{ $t_line->row_num }} input_row_num" style="display:none;">{{
+                            $t_line->row_num
+                            }}</span>
+                        {{
+                        $t_line->diff_target_percent }}%
+                    </td>
+
+                    @endif
+                    @endforeach
+                    <script>
+                        window.addEventListener('additionalInit', event => {
+
+        var t_line_count = $('.input_row_num').text();
+var val_arr = [];
+
+for (var i = 0; i < t_line_count.length; i++) {
+    if (t_line_count[i] != ' ' && t_line_count[i] != '\n') {
+        val_arr.push(parseInt(t_line_count[i]));
+    }
+}
+
+var lowestToHighest = val_arr.sort((a, b) => a - b);
+
+var top_1 = lowestToHighest[0];
+var top_2 = lowestToHighest[1];
+var top_3 = lowestToHighest[2];
+
+if(top_1 != ''){
+    $('.t_line_' + top_1).css({
+        'background-color': 'green',
+        'color': '#fff'
+    });
+}
+if(top_2 != ''){
+    $('.t_line_' + top_2).css({
+        'background-color': 'green',
+        'color': '#fff'
+    });
+}
+if(top_3 != ''){
+    $('.t_line_' + top_3).css({
+        'background-color': 'green',
+        'color': '#fff'
+    });
+}
+
+var max_num = Math.max(...val_arr);
+$(".t_line_" + max_num).css({
+    'background-color': 'red',
+    'color': '#fff'
+});
+
+    });
                     </script>
                 </tr>
                 @endforeach
@@ -296,7 +378,7 @@ var new_t_div_actual_target_num = parseInt($("#new_t_div_actual_target_num_{{ $t
 var total_percentage =(new_t_div_actual_target_num / new_t_div_target_num) * 100;
 var new_total_percent = $("#total_percent_{{ $t_div_actual_target_1->row_num }}");
 var tmp_num = $("#tmp_num_{{ $t_div_actual_target_1->row_num }}").text();
-new_total_percent.text(total_percentage.toFixed(1));
+new_total_percent.text(total_percentage.toFixed(0));
 
 
 if(parseInt(new_t_div_target_num) > parseInt(tmp_num)){
@@ -311,10 +393,10 @@ $("#td_tmp_num_{{ $t_div_actual_target_1->row_num }}").css('background-color','g
         new_total_percent.text("");
     }
     if(!Number.isNaN(total_percentage)){
-        new_total_percent.text(total_percentage.toFixed(1));
-        if(parseInt(new_t_div_actual_target_num) >= 100){
+        new_total_percent.text(total_percentage.toFixed(0));
+        if(parseInt(new_t_div_actual_target_num) >= parseInt(new_t_div_target_num)){
    $("#total_percent_{{ $t_div_actual_target_1->row_num }}").css('background-color','green');
-} if(parseInt(new_t_div_actual_target_num) < 100){
+} if(parseInt(new_t_div_actual_target_num) < parseInt(new_t_div_target_num)){
    $("#total_percent_{{ $t_div_actual_target_1->row_num }}").css('background-color','red');
 }
 
@@ -328,6 +410,7 @@ new_total_percent.append('%');
                         </table>
                     </td>
                     @endforeach
+
                     <td>
                         <table class="w-100 text-center table table-bordered m-0">
                             <tr>
@@ -362,16 +445,18 @@ new_total_percent.append('%');
                                 }
 
                                 var t_percent_cal = (t_overall_actual_target / t_overall_target) * 100;
-                                t_overall_percent.text(t_percent_cal.toFixed(1));
-                                if(parseInt(t_overall_actual_target) >= 100){
+                                t_overall_percent.text(t_percent_cal.toFixed(0));
+                                if(parseInt(t_overall_actual_target) >= parseInt(t_overall_target)){
                                     t_overall_percent.css('background-color','green');
-                                } if(parseInt(t_overall_actual_target) < 100){
+                                } if(parseInt(t_overall_actual_target) < parseInt(t_overall_target)){
                                     t_overall_percent.css('background-color','red');
                                 }
                                 t_overall_percent.append('%');
                         });
                         </script>
                     </td>
+                    <td style="vertical-align:middle;" class="fw-bolder">-</td>
+                    <td style="vertical-align:middle;" class="fw-bolder">-</td>
                 </tr>
             </tbody>
         </table>

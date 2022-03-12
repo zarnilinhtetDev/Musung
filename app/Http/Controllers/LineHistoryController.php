@@ -50,8 +50,8 @@ class LineHistoryController extends Controller
 		ORDER BY "line".l_pos ASC');
 
         $top_line = DB::select('SELECT line.l_id,line.l_name,line_assign.main_target AS main_target,SUM(time.div_actual_target) AS total_actual,
-        ROUND((SUM(time.div_actual_target)*100/line_assign.main_target),1) AS diff_target_percent,
-		ROW_NUMBER() OVER(ORDER BY  ROUND((SUM(time.div_actual_target)*100/line_assign.main_target),1) DESC) AS row_num
+        ROUND((SUM(time.div_actual_target)*100/line_assign.main_target),0) AS diff_target_percent,
+		ROW_NUMBER() OVER(ORDER BY  ROUND((SUM(time.div_actual_target)*100/line_assign.main_target),0) DESC) AS row_num
         FROM line
         INNER JOIN line_assign ON line_assign.l_id=line.l_id AND "line_assign".assign_date=\'' . $date_string . '\'
         Inner JOIN time ON time.line_id=line_assign.l_id AND time.assign_date=\'' . $date_string . '\'
@@ -205,10 +205,12 @@ class LineHistoryController extends Controller
 
                                             var div_target = parseInt($("#div_target_' . $current_target . '").text());
                                             var div_actual_target_total = parseInt($("#div_actual_target_total_' . $current_target . '").text());
-                                            var percentage = (div_actual_target_total / div_target) * 100;
-                                            var div_actual_target_percent = $("#div_actual_target_percent_' . $current_target . '");
+
                                             var new_div_target = $("#new_div_target_' . $current_target . '").text();
                                             var div_actual_target = parseInt($("#div_actual_target_' . $current_target . '").text());
+
+                                            var percentage = (div_actual_target / new_div_target) * 100;
+                                            var div_actual_target_percent = $("#div_actual_target_percent_' . $current_target . '");
 
                                             if (Number.isNaN(div_actual_target_total)) {
                                                 if (div_actual_target != "") {
@@ -217,7 +219,7 @@ class LineHistoryController extends Controller
                                                         div_actual_target_percent.text("");
                                                     }
                                                     if (!Number.isNaN(new_percent)) {
-                                                        div_actual_target_percent.text(new_percent.toFixed(1));
+                                                        div_actual_target_percent.text(new_percent.toFixed(0));
                                                         if (parseInt(div_actual_target_percent.text()) >= 100) {
                                                             $("#td_div_actual_target_percent_' . $current_target . '").css("background-color", "green");
                                                         }
@@ -234,7 +236,7 @@ class LineHistoryController extends Controller
                                                     div_actual_target_percent.text("");
                                                 }
                                                 if (!Number.isNaN(percentage)) {
-                                                    div_actual_target_percent.text(percentage.toFixed(1));
+                                                    div_actual_target_percent.text(percentage.toFixed(0));
                                                     if (parseInt(div_actual_target_percent.text()) >= 100) {
                                                         $("#td_div_actual_target_percent_' . $current_target . '").css("background-color", "green");
                                                     }
@@ -317,7 +319,7 @@ class LineHistoryController extends Controller
                                                     t_percent_span.text("");
                                                 }
                                                 if (!Number.isNaN(t_percent)) {
-                                                    t_percent_span.text(t_percent.toFixed(1));
+                                                    t_percent_span.text(t_percent.toFixed(0));
                                                     if (parseInt(t_percent_span.text()) >= 100) {
                                                         td_t_percent.css('background-color', 'green');
                                                     }
@@ -346,6 +348,103 @@ class LineHistoryController extends Controller
                 <?php
                     }
                 } ?>
+
+                <script>
+                    var t_line_count = $('.t_line_count').text();
+                    var val_arr = [];
+
+                    for (var i = 0; i < t_line_count.length; i++) {
+                        if (t_line_count[i] != ' ' && t_line_count[i] != '\n') {
+                            val_arr.push(parseInt(t_line_count[i]));
+                        }
+                    }
+
+                    var lowestToHighest = val_arr.sort((a, b) => a - b);
+
+                    var top_1 = lowestToHighest[0];
+                    var top_2 = lowestToHighest[1];
+                    var top_3 = lowestToHighest[2];
+
+                    if (top_1 != '') {
+                        $('.t_line_' + top_1).css({
+                            'background-color': 'green',
+                            'color': '#fff'
+                        });
+                    }
+                    if (top_2 != '') {
+                        $('.t_line_' + top_2).css({
+                            'background-color': 'green',
+                            'color': '#fff'
+                        });
+                    }
+                    if (top_3 != '') {
+                        $('.t_line_' + top_3).css({
+                            'background-color': 'green',
+                            'color': '#fff'
+                        });
+                    }
+
+                    var max_num = Math.max(...val_arr);
+                    $(".t_line_" + max_num).css({
+                        'background-color': 'red',
+                        'color': '#fff'
+                    });
+                </script>
+
+                <?php for ($h = 0; $h < count($top_line_decode); $h++) {
+                    $row_num = $top_line_decode[$h]['row_num'];
+                    $diff_target_percent = $top_line_decode[$h]['diff_target_percent'];
+                    if ($g_line_id == $top_line_decode[$h]['l_id']) { ?>
+                        <td style="vertical-align: middle;" class="t_line_<?php echo $row_num; ?> t_line_count">
+                            <span class="input_row_num_<?php echo $row_num; ?> input_row_num" style="display:none;">
+                                <?php echo $row_num; ?>
+                            </span>
+                            <?php echo $diff_target_percent; ?>%
+                        </td>
+                <?php                    }
+                }
+                ?>
+                <script>
+                    var t_line_count = $('.input_row_num').text();
+                    var val_arr = [];
+
+                    for (var i = 0; i < t_line_count.length; i++) {
+                        if (t_line_count[i] != ' ' && t_line_count[i] != '\n') {
+                            val_arr.push(parseInt(t_line_count[i]));
+                        }
+                    }
+
+                    var lowestToHighest = val_arr.sort((a, b) => a - b);
+
+                    var top_1 = lowestToHighest[0];
+                    var top_2 = lowestToHighest[1];
+                    var top_3 = lowestToHighest[2];
+
+                    if (top_1 != '') {
+                        $('.t_line_' + top_1).css({
+                            'background-color': 'green',
+                            'color': '#fff'
+                        });
+                    }
+                    if (top_2 != '') {
+                        $('.t_line_' + top_2).css({
+                            'background-color': 'green',
+                            'color': '#fff'
+                        });
+                    }
+                    if (top_3 != '') {
+                        $('.t_line_' + top_3).css({
+                            'background-color': 'green',
+                            'color': '#fff'
+                        });
+                    }
+
+                    var max_num = Math.max(...val_arr);
+                    $(".t_line_" + max_num).css({
+                        'background-color': 'red',
+                        'color': '#fff'
+                    });
+                </script>
 
                 <?php
                 echo '</tr>';
@@ -395,7 +494,7 @@ class LineHistoryController extends Controller
                             var total_percentage = (new_t_div_actual_target_num / new_t_div_target_num) * 100;
                             var new_total_percent = $("#total_percent_<?php echo $total_div_actual_target_decode[$m]['row_num']; ?>");
                             var tmp_num = $("#tmp_num_<?php echo  $total_div_actual_target_decode[$m]['row_num']; ?>").text();
-                            new_total_percent.text(total_percentage.toFixed(1));
+                            new_total_percent.text(total_percentage.toFixed(0));
 
                             if (parseInt(new_t_div_target_num) > parseInt(tmp_num)) {
                                 $("#td_tmp_num_<?php echo $total_div_actual_target_decode[$m]['row_num']; ?>").css("background-color", "red");
@@ -409,11 +508,11 @@ class LineHistoryController extends Controller
                                 new_total_percent.text("");
                             }
                             if (!Number.isNaN(total_percentage)) {
-                                new_total_percent.text(total_percentage.toFixed(1));
-                                if (parseInt(new_t_div_actual_target_num) >= 100) {
+                                new_total_percent.text(total_percentage.toFixed(0));
+                                if (parseInt(new_t_div_actual_target_num) >= parseInt(new_t_div_target_num)) {
                                     $("#total_percent_<?php echo  $total_div_actual_target_decode[$m]['row_num']; ?>").css("background-color", "green");
                                 }
-                                if (parseInt(new_t_div_actual_target_num) < 100) {
+                                if (parseInt(new_t_div_actual_target_num) < parseInt(new_t_div_target_num)) {
                                     $("#total_percent_<?php echo $total_div_actual_target_decode[$m]['row_num']; ?>").css("background-color", "red");
                                 }
 
@@ -465,16 +564,20 @@ class LineHistoryController extends Controller
                     }
 
                     var t_percent_cal = (t_overall_actual_target / t_overall_target) * 100;
-                    t_overall_percent.text(t_percent_cal.toFixed(1));
-                    if (parseInt(t_overall_actual_target) >= 100) {
+                    t_overall_percent.text(t_percent_cal.toFixed(0));
+
+
+                    if (parseInt(t_overall_actual_target) >= parseInt(t_overall_target)) {
                         t_overall_percent.css('background-color', 'green');
                     }
-                    if (parseInt(t_overall_actual_target) < 100) {
+                    if (parseInt(t_overall_actual_target) < parseInt(t_overall_target)) {
                         t_overall_percent.css('background-color', 'red');
                     }
                     t_overall_percent.append('%');
                 </script>
             </td>
+            <td style="vertical-align:middle;" class="fw-bolder">-</td>
+            <td style="vertical-align:middle;" class="fw-bolder">-</td>
             <?php
             echo '<tr/>';
             echo '</tr></tbody>
