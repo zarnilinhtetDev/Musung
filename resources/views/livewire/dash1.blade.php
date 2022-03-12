@@ -223,21 +223,31 @@ $("#td_div_actual_target_total_<?php echo $current_target; ?>").css('background-
                         $t_line->row_num }}
                     </td>
 
-                    <script>
-                        window.addEventListener('additionalInit', event => {
-                            var t_line_row_num = $(".t_line_{{ $t_line->row_num }}");
-
-                            if(t_line_row_num.text()==1 || t_line_row_num.text()==2 || t_line_row_num.text()==3){
-                                t_line_row_num.css({'background-color':'green','color':'#fff'});
-                            }
-                        });
-                    </script>
                     @endif
                     @endforeach
                     <script>
                         window.addEventListener('additionalInit', event => {
-                            var t_line_count = $('.t_line_count:last').text();
-$(".t_line_" + t_line_count).css({'background-color':'red','color':'#fff'});
+
+                            //// Last edit 11.03.2022 21:21
+                            var t_line_count = $('.t_line_count');
+                            var t_line_count_last = $('.t_line_count:last').text();
+
+                            // if(t_line_count[0].text()==''){
+                            //     var requiredElement_0 = t_line_count[0].text();
+                            //     $(".t_line_" + requiredElement_0).css({'background-color':'green','color':'#fff'});
+                            // }
+                            // if(t_line_count[1].text()==''){
+                            //     var requiredElement_1 = t_line_count[1].text();
+                            //     $(".t_line_" + requiredElement_1).css({'background-color':'green','color':'#fff'});
+                            // }
+                            // if(t_line_count[2].text()==''){
+                            //     var requiredElement_2 = t_line_count[2].text();
+                            //     $(".t_line_" + requiredElement_2).css({'background-color':'green','color':'#fff'});
+                            // }
+
+
+                            $(".t_line_" + t_line_count_last).css({'background-color':'red','color':'#fff'});
+
                         });
                     </script>
                 </tr>
@@ -259,7 +269,6 @@ $(".t_line_" + t_line_count).css({'background-color':'red','color':'#fff'});
                             @foreach ($total_div_actual_target as $t_div_actual_target_1)
 
                             @if($total_time_name == $t_div_actual_target_1->time_name)
-                            @php $prev_row_num = $t_div_actual_target_1->row_num - 1; @endphp
 
                             <tr class="text-white">
                                 <input type="hidden"
@@ -278,22 +287,10 @@ $(".t_line_" + t_line_count).css({'background-color':'red','color':'#fff'});
                             <script>
                                 window.addEventListener('additionalInit', event => {
                                     var curr_target_num_val = $("#new_t_div_actual_target_num_{{ $t_div_actual_target_1->row_num }}");
-                                    var prev_target_num_val = parseInt($("#new_t_div_actual_target_num_{{ $prev_row_num }}").val());
+
                                     var curr_target_val = parseInt("<?php echo $t_div_actual_target_1->t_div_actual_target_1; ?>");
 var tmp_num_val = $("#tmp_num_{{ $t_div_actual_target_1->row_num }}");
 
-
-// var sum = 0;
-// $('.new_t_div_actual_target_num').each(function(){
-//     sum += parseFloat(this.value);
-// });
-// console.log(sum);
-                                    var total_row_num_val = prev_target_num_val + curr_target_val;
-                                    // console.log(total_row_num_val);
-
-                                    if(!Number.isNaN(total_row_num_val)){
-                                        tmp_num_val.text(total_row_num_val);
-}
 var new_t_div_target_num = parseInt($("#new_t_div_target_num_{{ $t_div_actual_target_1->row_num }}").text());
 var new_t_div_actual_target_num = parseInt($("#new_t_div_actual_target_num_{{ $t_div_actual_target_1->row_num }}").val());
 var total_percentage =(new_t_div_actual_target_num / new_t_div_target_num) * 100;
@@ -331,25 +328,50 @@ new_total_percent.append('%');
                         </table>
                     </td>
                     @endforeach
-                    {{-- <td>
+                    <td>
                         <table class="w-100 text-center table table-bordered m-0">
                             <tr>
-                                <td>
-                                    hello
+                                @foreach($total_overall_target as $t_overall_target)
+                                <td id="t_overall_target">
+                                    {{ $t_overall_target->t_overall_target }}
                                 </td>
+                                @endforeach
                             </tr>
-                            <tr>
-                                <td>
-                                    hello
+                            <tr class="text-white">
+                                @foreach($total_overall_actual_target as $t_overall_actual_target)
+                                <td id="t_overall_actual_target">
+                                    {{ $t_overall_actual_target->t_overall_actual_target }}
                                 </td>
+                                @endforeach
                             </tr>
-                            <tr>
-                                <td>
-                                    hello
-                                </td>
+                            <tr class="text-white">
+                                <td id="t_overall_percent"></td>
                             </tr>
                         </table>
-                    </td> --}}
+                        <script>
+                            window.addEventListener('additionalInit', event => {
+                                var t_overall_target = $("#t_overall_target").text();
+                                var t_overall_actual_target = $("#t_overall_actual_target").text();
+                                var t_overall_percent = $("#t_overall_percent");
+
+                                if(parseInt(t_overall_target) > parseInt(t_overall_actual_target)){
+                                    $("#t_overall_actual_target").css('background-color','red');
+                                }
+                                if(parseInt(t_overall_target) <= parseInt(t_overall_actual_target)){
+                                    $("#t_overall_actual_target").css('background-color','green');
+                                }
+
+                                var t_percent_cal = (t_overall_actual_target / t_overall_target) * 100;
+                                t_overall_percent.text(t_percent_cal.toFixed(1));
+                                if(parseInt(t_overall_actual_target) >= 100){
+                                    t_overall_percent.css('background-color','green');
+                                } if(parseInt(t_overall_actual_target) < 100){
+                                    t_overall_percent.css('background-color','red');
+                                }
+                                t_overall_percent.append('%');
+                        });
+                        </script>
+                    </td>
                 </tr>
             </tbody>
         </table>

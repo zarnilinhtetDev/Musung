@@ -31,6 +31,15 @@ class LineHistoryController extends Controller
 
         $time_2 = DB::select('SELECT "time".time_id,"time".time_name,"time".line_id,"time".assign_id,"time".status,"time".div_target,"time".div_actual_target,"time".div_actual_percent,"time".actual_target_entry FROM time,line_assign WHERE "time".assign_id="line_assign".assign_id AND "line_assign".assign_date=\'' . $date_string . '\' ORDER BY "time".time_id ASC');
 
+        $target_total = DB::select('SELECT "time".line_id,"time".assign_id,"time".actual_target_entry,SUM("time".actual_target_entry) AS total
+        FROM time,line_assign WHERE "time".assign_id="line_assign".assign_id
+        AND "line_assign".assign_date=\'' . $date_string . '\'
+               GROUP BY "time".assign_id,"time".line_id,"time".actual_target_entry');
+
+        $actual_target_total = DB::select('SELECT "time".line_id,"time".assign_id,SUM("time".div_actual_target) AS total_actual_target
+        FROM time,line_assign WHERE "time".assign_id="line_assign".assign_id AND "line_assign".assign_date=\'' . $date_string . '\'
+        GROUP BY "time".line_id,"time".assign_id');
+
         $getLine = DB::select('SELECT "line".l_id,"line".l_name,"line_assign".assign_id,"line_assign".main_target,"line_assign".s_time,"line_assign".e_time,"line_assign".lunch_s_time,"line_assign".lunch_e_time,"line_assign".assign_date,"users".id,"users".name
         FROM line
         JOIN line_assign ON "line_assign".l_id = "line".l_id
@@ -41,13 +50,13 @@ class LineHistoryController extends Controller
 		ORDER BY "line".l_pos ASC');
 
         $top_line = DB::select('SELECT line.l_id,line.l_name,line_assign.main_target AS main_target,SUM(time.div_actual_target) AS total_actual,
-        ROUND((SUM(time.div_actual_target)*100/line_assign.main_target),1) AS diff_target_percent
+        ROUND((SUM(time.div_actual_target)*100/line_assign.main_target),1) AS diff_target_percent,
+		ROW_NUMBER() OVER(ORDER BY  ROUND((SUM(time.div_actual_target)*100/line_assign.main_target),1) DESC) AS row_num
         FROM line
         INNER JOIN line_assign ON line_assign.l_id=line.l_id AND "line_assign".assign_date=\'' . $date_string . '\'
         Inner JOIN time ON time.line_id=line_assign.l_id AND time.assign_date=\'' . $date_string . '\'
         GROUP BY line.l_id,line.l_name,line_assign.main_target
-        ORDER BY diff_target_percent DESC
-        LIMIT 3');
+        ORDER BY diff_target_percent DESC');
 
         $last_line = DB::select('SELECT line.l_id,line.l_name,line_assign.main_target AS main_target,SUM(time.div_actual_target) AS total_actual,
         ROUND((SUM(time.div_actual_target)*100/line_assign.main_target),1) AS diff_target_percent
@@ -60,11 +69,17 @@ class LineHistoryController extends Controller
 
         $total_main_target = DB::select('SELECT SUM("line_assign".main_target) AS t_main_target FROM line_assign WHERE "line_assign".assign_date=\'' . $date_string . '\'');
 
-        $total_div_target = DB::select('SELECT ROW_NUMBER() OVER(ORDER BY "time".time_name ASC) AS row_num_1,SUM("time".div_target) AS t_div_target,"time".time_name FROM time WHERE "time".assign_date=\'' . $date_string . '\'
+        $total_div_target = DB::select('SELECT ROW_NUMBER() OVER(ORDER BY "time".time_name ASC) AS row_num_1,SUM("time".actual_target_entry) AS t_div_target,"time".time_name FROM time WHERE "time".assign_date=\'' . $date_string . '\'
         GROUP BY "time".time_name ORDER BY "time".time_name DESC OFFSET 1');
 
         $total_div_actual_target = DB::select('SELECT ROW_NUMBER() OVER(ORDER BY "time".time_name ASC) AS row_num,SUM("time".div_actual_target) AS t_div_actual_target_1,"time".time_name FROM time WHERE "time".assign_date=\'' . $date_string . '\'
         GROUP BY "time".time_name ORDER BY "time".time_name DESC OFFSET 1');
+
+        $total_overall_target = DB::select('SELECT SUM("time".actual_target_entry) AS t_overall_target
+        FROM time WHERE "time".assign_date=\'' . $date_string . '\'');
+
+        $total_overall_actual_target = DB::select('SELECT SUM("time".div_actual_target) AS t_overall_actual_target
+        FROM time WHERE "time".assign_date=\'' . $date_string . '\'');
 
         $line_assign_apex_chart = LineAssign::select('main_target')->orderBy('l_id', 'asc')->where('assign_date', $date_string)->get();
 
@@ -84,6 +99,10 @@ class LineHistoryController extends Controller
         $total_div_actual_target_decode = json_decode(json_encode($total_div_actual_target), true);
         $top_line_decode = json_decode(json_encode($top_line), true);
         $last_line_decode = json_decode(json_encode($last_line), true);
+        $total_overall_target_decode = json_decode(json_encode($total_overall_target), true);
+        $total_overall_actual_target_decode = json_decode(json_encode($total_overall_actual_target), true);
+        $target_total_decode = json_decode(json_encode($target_total), true);
+        $actual_total_decode = json_decode(json_encode($actual_target_total), true);
 
         DB::disconnect('musung');
 
@@ -116,6 +135,9 @@ class LineHistoryController extends Controller
             foreach (array_reverse($time) as $t) {
                 echo '<th scope="col">' . $t->time_name . '</th>';
             }
+            echo '<th>Total</th>
+            <th>Rank</th>
+            <th>%</th>';
             echo '</tr>
                             </thead>
                             <tbody>';
@@ -137,14 +159,14 @@ class LineHistoryController extends Controller
                                         <table class="w-100 text-center table table-bordered m-0">
                                             <tr>
                                                 <td><span id="new_div_target_' . $t_2->time_id . '">' . $t_2->actual_target_entry . '</span></td>
-                                                <td><span id="div_target_' . $t_2->time_id . '">' . $t_2->div_target . '</span>
+                                                <td style="display:none;"><span id="div_target_' . $t_2->time_id . '">' . $t_2->div_target . '</span>
                                                 </td>
                                             </tr>
                                             <tr class="text-white">
                                                 <td id="td_div_actual_target_' . $t_2->time_id . '">
                                                     <span id="div_actual_target_' . $t_2->time_id . '" class="div_actual_target_' . $g_line_id . '">' . $t_2->div_actual_target . '</span>
                                                 </td>
-                                                <td id="td_div_actual_target_total_' . $t_2->time_id . '"><span id="div_actual_target_total_' . $t_2->time_id . '" class="div_actual_target_total_' . $g_line_id . '"></span></td>
+                                                <td style="display:none;" id="td_div_actual_target_total_' . $t_2->time_id . '"><span id="div_actual_target_total_' . $t_2->time_id . '" class="div_actual_target_total_' . $g_line_id . '"></span></td>
                                             </tr>
                                             <tr class="text-white">
                                                 <td id="td_div_actual_target_percent_' . $t_2->time_id . '" colspan="2"><span id="div_actual_target_percent_' . $t_2->time_id . '"></span>
@@ -243,6 +265,89 @@ class LineHistoryController extends Controller
                                 ';
                     }
                 }
+            ?>
+                <?php
+                for ($c = 0; $c < count($target_total_decode); $c++) {
+                    $target_line_id = $target_total_decode[$c]['line_id'];
+                    $t_total = $target_total_decode[$c]['total'];
+                    if ($g_line_id == $target_total_decode[$c]['line_id'] && $target_total_decode[$c]['total'] != 0) {
+                ?>
+                        <td>
+                            <table class="w-100 text-center table m-0">
+                                <?php
+                                for ($d = 0; $d < count($actual_total_decode); $d++) {
+                                    $actual_target_line_id = $actual_total_decode[$d]['line_id'];
+                                    $a_total = $actual_total_decode[$d]['total_actual_target'];
+                                    if ($g_line_id == $actual_target_line_id) { ?>
+                                        <tr>
+                                            <td><span class="t_2_total_<?php echo $target_line_id; ?>"><?php echo $t_total; ?></span>
+                                            </td>
+                                        </tr>
+                                        <tr class="text-white">
+                                            <td class="td_a_total_<?php echo $target_line_id; ?>">
+                                                <span class="a_total_<?php echo $target_line_id; ?>"><?php echo $a_total; ?></span>
+                                            </td>
+                                        </tr>
+                                        <tr class="text-white">
+                                            <td class="td_t_percent_<?php echo $target_line_id; ?>">
+                                                <span class="t_percent_<?php echo $target_line_id; ?>"></span>
+                                            </td>
+                                        </tr>
+                                        <script>
+                                            var t_2_total = parseInt($('.t_2_total_<?php echo $target_line_id; ?>').text());
+                                            var a_total = parseInt($('.a_total_<?php echo $target_line_id; ?>').text());
+                                            var t_percent_span = $('.t_percent_<?php echo $target_line_id; ?>');
+                                            var td_t_percent = $('.td_a_total_<?php echo $target_line_id; ?>');
+                                            var td_a_percent = $('.td_t_percent_<?php echo $target_line_id; ?>');
+
+
+                                            if (parseInt(t_2_total) > parseInt(a_total)) {
+                                                td_a_percent.css('background-color', 'red');
+                                            }
+                                            if (parseInt(t_2_total) <= parseInt(a_total)) {
+                                                td_a_percent.css('background-color', 'green');
+                                            }
+
+                                            if (Number.isNaN(t_2_total)) {
+                                                t_percent_span.text("");
+                                            }
+                                            if (!Number.isNaN(t_2_total)) {
+                                                var t_percent = (a_total / t_2_total) * 100;
+                                                if (Number.isNaN(t_percent)) {
+                                                    t_percent_span.text("");
+                                                }
+                                                if (!Number.isNaN(t_percent)) {
+                                                    t_percent_span.text(t_percent.toFixed(1));
+                                                    if (parseInt(t_percent_span.text()) >= 100) {
+                                                        td_t_percent.css('background-color', 'green');
+                                                    }
+                                                    if (parseInt(t_percent_span.text()) < 100) {
+                                                        td_t_percent.css('background-color', 'red');
+                                                    }
+                                                    t_percent_span.append('%');
+                                                }
+                                            }
+                                        </script>
+                                <?php
+                                    }
+                                } ?>
+                            </table>
+                        </td>
+                <?php
+                    }
+                }
+                ?>
+                <?php for ($g = 0; $g < count($top_line_decode); $g++) {
+                    $row_num = $top_line_decode[$g]['row_num'];
+                    if ($g_line_id == $top_line_decode[$g]['l_id']) { ?>
+                        <td style="vertical-align: middle;" class="t_line_<?php echo $row_num; ?> t_line_count">
+                            <?php echo $row_num; ?>
+                        </td>
+                <?php
+                    }
+                } ?>
+
+                <?php
                 echo '</tr>';
             }
 
@@ -275,7 +380,7 @@ class LineHistoryController extends Controller
                         <td id="total_percent_' . $total_div_actual_target_decode[$m]['row_num'] . '" colspan="2">
                         </td>
                     </tr>';
-            ?>
+                ?>
                         <script>
                             var curr_target_num_val = $("#new_t_div_actual_target_num_<?php echo $total_div_actual_target_decode[$m]['row_num']; ?>");
                             var prev_target_num_val = parseInt($("#new_t_div_actual_target_num_<?php echo $prev_row_num; ?>").val());
@@ -325,7 +430,51 @@ class LineHistoryController extends Controller
             <?php
             }
             ?>
+            <td>
+                <table class="w-100 text-center table table-bordered m-0">
+                    <tr>
+                        <?php for ($e = 0; $e < count($total_overall_target_decode); $e++) { ?>
+                            <td id="t_overall_target">
+                                <?php echo $total_overall_target_decode[$e]['t_overall_target']; ?>
+                            </td>
+                        <?php } ?>
 
+                    </tr>
+                    <tr class="text-white">
+                        <?php for ($f = 0; $f < count($total_overall_actual_target_decode); $f++) { ?>
+                            <td id="t_overall_actual_target">
+                                <?php echo $total_overall_actual_target_decode[$f]['t_overall_actual_target']; ?>
+                            </td>
+                        <?php }
+                        ?>
+                    </tr>
+                    <tr class="text-white">
+                        <td id="t_overall_percent"></td>
+                    </tr>
+                </table>
+                <script>
+                    var t_overall_target = $("#t_overall_target").text();
+                    var t_overall_actual_target = $("#t_overall_actual_target").text();
+                    var t_overall_percent = $("#t_overall_percent");
+
+                    if (parseInt(t_overall_target) > parseInt(t_overall_actual_target)) {
+                        $("#t_overall_actual_target").css('background-color', 'red');
+                    }
+                    if (parseInt(t_overall_target) <= parseInt(t_overall_actual_target)) {
+                        $("#t_overall_actual_target").css('background-color', 'green');
+                    }
+
+                    var t_percent_cal = (t_overall_actual_target / t_overall_target) * 100;
+                    t_overall_percent.text(t_percent_cal.toFixed(1));
+                    if (parseInt(t_overall_actual_target) >= 100) {
+                        t_overall_percent.css('background-color', 'green');
+                    }
+                    if (parseInt(t_overall_actual_target) < 100) {
+                        t_overall_percent.css('background-color', 'red');
+                    }
+                    t_overall_percent.append('%');
+                </script>
+            </td>
             <?php
             echo '<tr/>';
             echo '</tr></tbody>
@@ -616,212 +765,7 @@ class LineHistoryController extends Controller
             </script>
         <?php
             echo '</div>
-<div class="container-fluid p-0 my-3">
-    <div class="row">
-        <div class="col-12 col-md-8">
-        <div class="div-bg-1">
-        <h1 class="fw-bold heading-text fs-3 p-2">Actual Percentage Data</h1>
-        <div class="panel-body">
-            <table class="table table-hover table-striped table-bordered text-center" id="history_dash_2">
-                <thead>
-                    <tr class="tr-2 tr-3">
-                        <th scope="col">Line Name</th>';
-            foreach ($getLine as $g_line) {
-                $g_line_id = $g_line->l_id;
-                $g_line_name = $g_line->l_name;
-                $g_main_target = $g_line->main_target;
-                echo '<th scope="col"><span class="actual_target_div_' . $g_line_id . '">' . $g_line_name . '</span></th>';
-            }
-            echo '</tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th>
-                            Target
-                        </th>';
-            foreach ($getLine as $g_line) {
-                $g_line_id = $g_line->l_id;
-                $g_line_name = $g_line->l_name;
-                $g_main_target = $g_line->main_target;
-                echo '<td id="td_main_target_actual_chart_' . $g_line_id . '">
-                                <span id="main_target_actual_chart_' . $g_line_id . '"
-                                    class="actual_target_div_' . $g_line_id . '"></span>
-                            </td>
-                            <script>
-                                var g_main_target = $("#g_main_target_' . $g_line_id . '").text();
-                                var main_target_actual_chart = $("#main_target_actual_chart_' . $g_line_id . '");
-                                main_target_actual_chart.text(g_main_target);
-                            </script>';
-            }
-            echo '</tr>
-                    <tr>
-                        <th>
-                            Actual
-                        </th>';
-            foreach ($getLine as $g_line) {
-                $g_line_id = $g_line->l_id;
-                $g_line_name = $g_line->l_name;
-                $g_main_target = $g_line->main_target;
 
-                echo '<td id="td_actual_target_actual_chart_' . $g_line_id . '">
-                                <span id="actual_target_actual_chart_' . $g_line_id . '"
-                                    class="text-white actual_target_div_' . $g_line_id . '"></span>
-                            </td>
-                            <script>
-                                    var g_main_target = $("#g_main_target_' . $g_line_id . '").text();
-                                var main_target_actual_chart = $("#main_target_actual_chart_' . $g_line_id . '");
-                                main_target_actual_chart.text(g_main_target);
-                                    var div_actual_target = $(".div_actual_target_total_' . $g_line_id . '");
-                                if(div_actual_target.text()==""){
-                                var front_div_actual_target = $(".div_actual_target_' . $g_line_id . '");
-    var actual_target_array = [];
-    for(var i = 0; i < front_div_actual_target.length; i++){
-    actual_target_array.push($(front_div_actual_target[i]).text());
-    }
-    var newActualTargetArray = actual_target_array.filter(function(v){return v!==""});
-    var lastActualTargetItem = newActualTargetArray[newActualTargetArray.length - 1];
-
-    var actual_target_actual_chart = $("#actual_target_actual_chart_' . $g_line_id . '");
-    actual_target_actual_chart.text(lastActualTargetItem);
-    if(parseInt(actual_target_actual_chart.text()) >= parseInt(g_main_target)){
-    $("#td_actual_target_actual_chart_' . $g_line_id . '").css("background-color","green");
-    }
-    if(parseInt(actual_target_actual_chart.text()) <= parseInt(g_main_target)){
-    $("#td_actual_target_actual_chart_' . $g_line_id . '").css("background-color","red");
-    }
-                                }
-                                if(div_actual_target.text()!=""){
-    var actual_target_array = [];
-    for(var i = 0; i < div_actual_target.length; i++){
-    actual_target_array.push($(div_actual_target[i]).text());
-    }
-    var newActualTargetArray = actual_target_array.filter(function(v){return v!==""});
-    var lastActualTargetItem = newActualTargetArray[newActualTargetArray.length - 1];
-
-    var actual_target_actual_chart = $("#actual_target_actual_chart_' . $g_line_id . '");
-    actual_target_actual_chart.text(lastActualTargetItem);
-    if(parseInt(actual_target_actual_chart.text()) >= parseInt(g_main_target)){
-    $("#td_actual_target_actual_chart_' . $g_line_id . '").css("background-color","green");
-    }
-    if(parseInt(actual_target_actual_chart.text()) <= parseInt(g_main_target)){
-    $("#td_actual_target_actual_chart_' . $g_line_id . '").css("background-color","red");
-    }
-                                }
-                            </script>';
-            }
-            echo '</tr>
-                        <tr>
-                            <th>
-                                %
-                            </th>';
-            foreach ($getLine as $g_line) {
-                $g_line_id = $g_line->l_id;
-                $g_line_name = $g_line->l_name;
-                $g_main_target = $g_line->main_target;
-
-                echo '<td id="td_actual_percent_actual_chart_' . $g_line_id . '" class="text-white">
-                                <span id="actual_target_percent_actual_chart_' . $g_line_id . '"
-                                    class="actual_target_div_' . $g_line_id . '"></span>
-                            </td>
-                            <script>
-                            var main_target_actual_chart_val = parseInt(
-                                $("#main_target_actual_chart_' . $g_line_id . '").text()
-                            );
-                            var actual_target_actual_chart_val = parseInt(
-                                $("#actual_target_actual_chart_' . $g_line_id . '").text()
-                            );
-                            var actual_target_percent_actual_chart = $(
-                                "#actual_target_percent_actual_chart_' . $g_line_id . '"
-                            );
-
-                            var actual_percent_val = (actual_target_actual_chart_val / main_target_actual_chart_val) * 100;
-                            if (Number.isNaN(actual_percent_val)) {
-                                actual_target_percent_actual_chart.text("");
-                            }
-                            if (!Number.isNaN(actual_percent_val)) {
-                                actual_percent_val = actual_percent_val;
-                                actual_target_percent_actual_chart.text(actual_percent_val.toFixed(1));
-                                if (parseInt(actual_target_percent_actual_chart.text()) >= 100) {
-                                    $("#td_actual_percent_actual_chart_' . $g_line_id . '").css(
-                                        "background-color",
-                                        "green"
-                                    );
-                                }
-                                if (parseInt(actual_target_percent_actual_chart.text()) < 100) {
-                                    $("#td_actual_percent_actual_chart_' . $g_line_id . '").css(
-                                        "background-color",
-                                        "red"
-                                    );
-                                }
-                                actual_target_percent_actual_chart.append("%");
-                            }
-                                </script>';
-            }
-            echo '</tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-        </div>
-        <div class="col-12 col-md-4 p-sm-0 p-md-auto my-sm-2 my-md-0 top-3">
-        <div class="div-bg-1">
-        <h1 class="fw-bold heading-text fs-3 p-2">Top 3 Lines and Last Line Data</h1>
-        <div class="panel-body">
-            <table class="table table-hover table-striped table-bordered text-center" id="history_dash_3">
-                <tbody>
-                    <script>
-                        var array_class = [];
-                    </script>';
-            $list_num = 1;
-            for ($c = 0; $c < count($top_line_decode); $c++) {
-                $g_line_id = $top_line_decode[$c]['l_id'];
-                echo '<tr id="tr_top">
-                            <th id="top_name">
-                                Top ' . $list_num . '
-                            </th>
-                            <td>
-                                <span id="top_line_name_' . $g_line_id . '">' . $top_line_decode[$c]['l_name'] . '</span>
-                            </td>
-                            <td>
-                                <span id="top_actual_target_' . $g_line_id . '">' . $top_line_decode[$c]['total_actual'] . '</span>
-                            </td>
-                            <td>
-                                <span id="top_actual_percent_' . $g_line_id . '">' . $top_line_decode[$c]['diff_target_percent'] . '%</span>
-                            </td>
-                        </tr>';
-                $list_num++;
-                echo '<script>
-                            //     var top_percent = $("#actual_target_percent_actual_chart_' . $g_line_id . '").text();
-                            // var top_actual_percent = $("#top_actual_percent_' . $g_line_id . '");
-                            // top_actual_percent.text(top_percent);
-                            $top_1 = $("#tr_top")
-                            // $top_1_th = $("#top_name");
-                            // $top_1_td = $("#tr_top td")
-
-                            $top_1.css("background-color","green");
-                        </script>';
-            }
-            echo '<tr id="tr-last">
-            <th id="last_name">
-                Last Line
-            </th>';
-            for ($d = 0; $d < count($last_line_decode); $d++) {
-                echo '<td>
-                <span id="">' . $last_line_decode[$d]['l_name'] . '</span>
-            </td>
-            <td>
-                <span id="">' . $last_line_decode[$d]['total_actual'] . '</span>
-            </td>
-            <td>
-                <span id="">' . $last_line_decode[$d]['diff_target_percent'] . '%</span>
-            </td>';
-            }
-
-            echo '</tr>';
-            echo '</tbody>
-            </table>
-        </div>
-    </div>
         </div>
     </div>
 </div>

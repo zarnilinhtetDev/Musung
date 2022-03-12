@@ -75,8 +75,9 @@
         </div>
         <div class="container-fluid p-0 my-3">
             <div class="row">
+                {{--
                 <livewire:dash2 />
-                <livewire:dash3 />
+                <livewire:dash3 /> --}}
             </div>
         </div>
     </div>
