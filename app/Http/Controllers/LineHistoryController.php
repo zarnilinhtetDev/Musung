@@ -129,15 +129,29 @@ class LineHistoryController extends Controller
                         <table class="table table-hover table-striped table-bordered text-center table-dash" id="history_dash_1">
                             <thead>
                                 <tr class="tr-2 tr-3">
-                                    <th scope="col">Line</th>
-                                    <th scope="col">Target</th>';
+                                    <th scope="col" style="vertical-align: middle;">Line</th>
+                                    <th scope="col" style="vertical-align: middle;" class="p-0">
+                                    <table class="w-100 text-center table m-0 text-white table-bordered">
+                                        <tr class="">
+                                            <th colspan="2">Manpower</th>
+                                        </tr>
+                                        <tr>
+                                            <td>OP</td>
+                                            <td>HP</td>
+                                        </tr>
+                                    </table>
+                                </th>
+                                <th scope="col" style="vertical-align: middle;">Item</th>
+                    <th scope="col" style="vertical-align: middle;">Order Qty</th>
+                    <th scope="col" style="vertical-align: middle;">Inline Stock</th>
+                                    <th scope="col" style="vertical-align: middle;">Target</th>';
 
             foreach (array_reverse($time) as $t) {
-                echo '<th scope="col">' . $t->time_name . '</th>';
+                echo '<th scope="col" style="vertical-align: middle;">' . $t->time_name . '</th>';
             }
-            echo '<th>Total</th>
-            <th>Rank</th>
-            <th>%</th>';
+            echo '<th style="vertical-align: middle;">Total</th>
+            <th style="vertical-align: middle;">Rank</th>
+            <th style="vertical-align: middle;">%</th>';
             echo '</tr>
                             </thead>
                             <tbody>';
@@ -148,6 +162,10 @@ class LineHistoryController extends Controller
 
                 echo '<tr>
                                     <td style="vertical-align: middle;">' . $g_line_name . '</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
                                     <td style="vertical-align: middle;"><span id="g_main_target_' . $g_line_id . '">' . $g_main_target . '</span></td>';
 
                 foreach ($time_2 as $t_2) {
@@ -446,12 +464,19 @@ class LineHistoryController extends Controller
                     });
                 </script>
 
-                <?php
+            <?php
                 echo '</tr>';
             }
 
             echo '<tr>
             <td style="vertical-align: middle;">Total</td>';
+            ?>
+
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <?php
             for ($k = 0; $k < count($total_main_target_decode); $k++) {
                 echo '<td style="vertical-align: middle;"><span id="">' . $total_main_target_decode[$k]["t_main_target"] . '</span></td>';
             }
@@ -479,7 +504,7 @@ class LineHistoryController extends Controller
                         <td id="total_percent_' . $total_div_actual_target_decode[$m]['row_num'] . '" colspan="2">
                         </td>
                     </tr>';
-                ?>
+            ?>
                         <script>
                             var curr_target_num_val = $("#new_t_div_actual_target_num_<?php echo $total_div_actual_target_decode[$m]['row_num']; ?>");
                             var prev_target_num_val = parseInt($("#new_t_div_actual_target_num_<?php echo $prev_row_num; ?>").val());
@@ -611,7 +636,7 @@ class LineHistoryController extends Controller
                         }, ],
                         chart: {
                             type: "bar",
-                            height: 350,
+                            height: 'auto',
                             style: {
                                 colors: '#263238',
                                 fontSize: '12px',

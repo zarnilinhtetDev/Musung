@@ -9,14 +9,28 @@
         <table class="table table-hover table-striped table-bordered text-center table-dash" id="live_dash_1">
             <thead>
                 <tr class="tr-2 tr-3">
-                    <th scope="col">Line</th>
-                    <th scope="col">Target</th>
+                    <th scope="col" style="vertical-align: middle;">Line</th>
+                    <th scope="col" style="vertical-align: middle;" class="p-0">
+                        <table class="w-100 text-center table m-0 text-white table-bordered">
+                            <tr class="">
+                                <th colspan="2">Manpower</th>
+                            </tr>
+                            <tr>
+                                <td>OP</td>
+                                <td>HP</td>
+                            </tr>
+                        </table>
+                    </th>
+                    <th scope="col" style="vertical-align: middle;">Item</th>
+                    <th scope="col" style="vertical-align: middle;">Order Qty</th>
+                    <th scope="col" style="vertical-align: middle;">Inline Stock</th>
+                    <th scope="col" style="vertical-align: middle;">Target</th>
                     @foreach(array_reverse($time) as $t)
-                    <th scope="col" id="th_{{ $t->time_name }}">{{ $t->time_name }}</th>
+                    <th scope="col" id="th_{{ $t->time_name }}" style="vertical-align: middle;">{{ $t->time_name }}</th>
                     @endforeach
-                    <th>Total</th>
-                    <th>Rank</th>
-                    <th>%</th>
+                    <th scope="col" style="vertical-align: middle;">Total</th>
+                    <th scope="col" style="vertical-align: middle;">Rank</th>
+                    <th scope="col" style="vertical-align: middle;">%</th>
                 </tr>
             </thead>
             <tbody>
@@ -28,6 +42,10 @@
                 @endphp
                 <tr>
                     <td style="vertical-align: middle;">{{ $g_line_name }}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
                     <td style="vertical-align: middle;"><span id="g_main_target_{{ $g_line_id }}">{{ $g_main_target
                             }}</span></td>
 
@@ -336,6 +354,10 @@ $(".t_line_" + max_num).css({
                 @endforeach
                 <tr>
                     <td style="vertical-align: middle;">Total</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
                     @foreach ($total_main_target as $t_main_target)
                     <td style="vertical-align: middle;"><span id="">{{ $t_main_target->t_main_target }}</span></td>
                     @endforeach

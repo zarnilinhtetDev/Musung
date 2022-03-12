@@ -17,7 +17,7 @@
             </div>
         </div>
     </div>
-    <div id="ajax_load_div"></div>
+    <div id="ajax_load_div" style=""></div>
 </div>
 <script>
     $("#btn_history_submit").click(function(e) {
