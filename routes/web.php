@@ -40,6 +40,9 @@ Route::view('/line_history', 'target_line.line_history')->middleware('auth');
 Route::get('/report', 'ReportDashController@index')->middleware('auth');
 
 
+/// Daily Production Detail
+Route::get('/daily_prod', 'DailyProductionController@index')->middleware('auth');
+
 /// Theme Setting
 Route::view('/theme_setting', 'theme_setting.theme_setting')->middleware('auth');
 

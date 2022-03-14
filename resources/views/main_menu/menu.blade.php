@@ -33,6 +33,12 @@
                 </div>
             </div>
             <div class="col-6 col-md-4 dropdown">
+                <button class="dropbtn">Daily Product Management</button>
+                <div class="dropdown-content">
+                    <a href="{{ url('daily_prod') }}">Detail</a>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 dropdown">
                 <button class="dropbtn">Report Management</button>
                 <div class="dropdown-content">
                     <a href="{{ url('report') }}">Show Report</a>
