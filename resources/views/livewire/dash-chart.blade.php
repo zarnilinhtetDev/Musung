@@ -1,4 +1,5 @@
 <div wire:poll.1000ms>
+    @if($time_apex_chart)
     <h1 class="fw-bold heading-text fs-3 p-0">Target and Actual Target Chart</h1>
     <div>
         <div id="percent_chart"></div>
@@ -297,4 +298,5 @@
         ?>
 
     </div>
+    @endif
 </div>

@@ -6,6 +6,7 @@
         }
         // print_r($time_arr);
         @endphp
+        @if(count($time_arr) > 0)
         <table class="table table-hover table-striped table-bordered text-center table-dash" id="live_dash_1">
             <thead>
                 <tr class="tr-2 tr-3">
@@ -467,6 +468,9 @@ new_total_percent.append('%');
                                 }
 
                                 var t_percent_cal = (t_overall_actual_target / t_overall_target) * 100;
+                                if(Number.isNan(t_percent_cal)){
+                                    t_overall_percent.text("");
+                                }
                                 t_overall_percent.text(t_percent_cal.toFixed(0));
                                 if(parseInt(t_overall_actual_target) >= parseInt(t_overall_target)){
                                     t_overall_percent.css('background-color','green');
@@ -482,5 +486,8 @@ new_total_percent.append('%');
                 </tr>
             </tbody>
         </table>
+        @else
+        <h1 class="fw-bold text-danger fs-4">Please Assign Line First</h1>
+        @endif
     </div>
 </div>
