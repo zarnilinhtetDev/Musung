@@ -42,6 +42,8 @@ Route::get('/report', 'ReportDashController@index')->middleware('auth');
 
 /// Daily Production Detail
 Route::get('/daily_prod', 'DailyProductionController@index')->middleware('auth');
+Route::post('/daily_prod', 'DailyProductionController@postLineId')->middleware('auth');
+Route::post('/daily_prod_item', 'DailyProductionController@postItemId')->middleware('auth');
 
 /// Theme Setting
 Route::view('/theme_setting', 'theme_setting.theme_setting')->middleware('auth');

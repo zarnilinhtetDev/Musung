@@ -722,6 +722,63 @@ button[disabled] {
     background-color: crimson;
 }
 
+
+/**** Daily Production *****/
+
+
+ul.scroll-vertical-ul {
+    height: 600px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+ul.scroll-horizontal-ul {
+    width: 100%;
+    overflow-x: scroll;
+}
+
+.input-wrapper {
+    position: relative;
+    line-height: 14px;
+    margin: 0 10px;
+    display: inline-block;
+}
+
+.input-wrapper label {
+    color: #bbb;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    position: absolute;
+    z-index: 2;
+    left: 20px;
+    top: 14px;
+    padding: 0 2px;
+    pointer-events: none;
+    background: white;
+    transition: transform 100ms ease;
+    transform: translateY(-20px);
+}
+
+.daily-prod-input {
+    color: #555;
+    outline: none;
+    position: relative;
+}
+
+.daily-prod-input:invalid+label {
+    transform: translateY(0);
+}
+
+.daily-prod-input+label {
+    color: #2b96f1;
+    transform: translateY(-20px);
+}
+
+.div-daily {
+    margin: 0.8rem 0;
+}
+
+/**** Daily Production End ****/
 @media (min-width: 280px) {
     .login-card-img {
         display: none;
