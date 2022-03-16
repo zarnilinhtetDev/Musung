@@ -40,6 +40,13 @@ class LineAssignController extends Controller
         JOIN line ON "line".l_id = "line_assign".l_id ORDER BY "line_assign".assign_id ASC');
         $line_status = Line::select('l_id', 'a_status')->get();
 
+        $line_assign_detail = DB::select('SELECT "line_assign".assign_id,"line".l_id,"line".l_name,"line_assign".assign_date,"line".a_status,"line_assign".user_id,"users".name,"line_assign".main_target,"line_assign".s_time,
+        "line_assign".e_time,"line_assign".lunch_s_time,"line_assign".lunch_e_time,"line_assign".t_work_hr
+        FROM line_assign
+                JOIN line ON "line".l_id = "line_assign".l_id AND "line_assign".assign_date=\'' . $date_string . '\'
+                JOIN users ON "line_assign".user_id="users".id
+                ORDER BY "line".l_pos ASC');
+
         $json_decode = json_decode(json_encode($line_assign_status), true);
 
         for ($i = 0; $i < count($json_decode); $i++) {
@@ -77,7 +84,7 @@ class LineAssignController extends Controller
 
         DB::disconnect('musung');
 
-        return view('line_management.setting', compact('responseBody', 'responseBody2', 'line_assign', 'line_assign_2', 'overTime', 'p_detail', 'p_detail_2'));
+        return view('line_management.setting', compact('responseBody', 'responseBody2', 'line_assign', 'line_assign_2', 'overTime', 'p_detail', 'p_detail_2', 'line_assign_detail'));
     }
     public function postLineSetting()
     {
@@ -265,5 +272,16 @@ class LineAssignController extends Controller
     {
         $cat_name = request()->post('cat_name');
         ProductCategory::create(['p_cat_name' => $cat_name]);
+    }
+
+    public function deleteAssignLine($a_id, $l_id)
+    {
+        $del_line_assign = LineAssign::where('assign_id', $a_id)->where('l_id', $l_id)->delete();
+        $del_p_detail = ProductDetail::where('assign_id', $a_id)->where('l_id', $l_id)->delete();
+        $del_time = Time::where('assign_id', $a_id)->where('line_id', $l_id)->delete();
+        $l_status = Line::where('l_id', $l_id)->update(['a_status' => 0]);
+        if ($del_line_assign == true && $del_p_detail == true && $del_time == true && $l_status == true) {
+            return redirect('/line_setting?status=delete_ok');
+        }
     }
 }

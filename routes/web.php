@@ -33,6 +33,7 @@ Route::get('/line_setting', 'LineAssignController@index')->middleware('auth');
 Route::post('/line_assign_post', 'LineAssignController@postLineSetting')->middleware('auth');
 Route::post('/line_assign_overtime_post', 'LineAssignController@postLineOverTimeSetting')->middleware('auth');
 Route::post('/create_category', 'LineAssignController@createCategory')->middleware('auth');
+Route::get('/delete_assign_line/{a_id}/{l_id}', 'LineAssignController@deleteAssignLine')->middleware('auth');
 
 Route::get('/live_dash', 'LiveDashController@index')->middleware('auth');
 Route::view('/line_history', 'target_line.line_history')->middleware('auth');
