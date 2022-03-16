@@ -6,6 +6,8 @@
     --nav-back: #2C394B;
     --color-1: #6495ed;
     --color-2: #FEC260;
+    --color-3: #5C636A;
+    --color-4: #939393;
 }
 
 body {
@@ -171,4 +173,20 @@ th, td {
 
 .apexcharts-menu-item:hover {
     color: #082032;
+}
+
+
+/*** Daily Production ****/
+.open {
+    background-color: var(--color-3);
+    color: #fff;
+}
+
+.changeClass {
+    background-color: var(--color-2) !important;
+    color: white;
+}
+
+.tr-daily {
+    background-color: transparent;
 }

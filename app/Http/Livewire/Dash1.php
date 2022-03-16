@@ -34,14 +34,17 @@ class Dash1 extends Component
         FROM time,line_assign WHERE "time".assign_id="line_assign".assign_id AND "line_assign".assign_date=\'' . $date_string . '\'
         GROUP BY "time".line_id,"time".assign_id');
 
-        $getLine = DB::select('SELECT "line".l_id,"line".l_name,"line_assign".assign_id,"line_assign".main_target,"line_assign".s_time,"line_assign".e_time,"line_assign".lunch_s_time,"line_assign".lunch_e_time,"line_assign".assign_date,"users".id,"users".name
-        FROM line
-        JOIN line_assign ON "line_assign".l_id = "line".l_id
-        JOIN users ON "users".id= "line_assign".user_id
-        JOIN time ON "time".line_id="line".l_id
-        WHERE "line".a_status=1 AND "line_assign".assign_date=\'' . $date_string . '\' AND "time".assign_date=\'' . $date_string . '\'
-        GROUP BY "line".l_id,"line_assign".assign_id,"users".id
-        ORDER BY "line".l_pos ASC');
+        $getLine = DB::select('SELECT "line".l_id,"line".l_name,"line_assign".assign_id,"line_assign".main_target,"line_assign".m_power,"line_assign".actual_m_power,
+        "line_assign".hp,"line_assign".actual_hp,"line_assign".s_time,"line_assign".e_time,"line_assign".lunch_s_time,"line_assign".lunch_e_time,
+        "line_assign".assign_date,"users".id,"users".name
+                FROM line
+                JOIN line_assign ON "line_assign".l_id = "line".l_id
+                JOIN users ON "users".id= "line_assign".user_id
+                JOIN time ON "time".line_id="line".l_id
+                WHERE "line".a_status=1 AND "line_assign".assign_date=\'' . $date_string . '\'
+                AND "time".assign_date=\'' . $date_string . '\'
+                GROUP BY "line".l_id,"line_assign".assign_id,"users".id
+                ORDER BY "line".l_pos ASC');
 
         $total_main_target = DB::select('SELECT SUM("line_assign".main_target) AS t_main_target FROM line_assign WHERE "line_assign".assign_date=\'' . $date_string . '\'');
 

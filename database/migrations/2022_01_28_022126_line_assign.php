@@ -18,6 +18,10 @@ class LineAssign extends Migration
             $table->integer('user_id');
             $table->integer('l_id');
             $table->integer('main_target');
+            $table->integer('m_power');
+            $table->integer('actual_m_power');
+            $table->integer('hp');
+            $table->integer('actual_hp');
             $table->string('s_time');
             $table->string('e_time');
             $table->string('lunch_s_time');

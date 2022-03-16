@@ -40,14 +40,17 @@ class LineHistoryController extends Controller
         FROM time,line_assign WHERE "time".assign_id="line_assign".assign_id AND "line_assign".assign_date=\'' . $date_string . '\'
         GROUP BY "time".line_id,"time".assign_id');
 
-        $getLine = DB::select('SELECT "line".l_id,"line".l_name,"line_assign".assign_id,"line_assign".main_target,"line_assign".s_time,"line_assign".e_time,"line_assign".lunch_s_time,"line_assign".lunch_e_time,"line_assign".assign_date,"users".id,"users".name
-        FROM line
-        JOIN line_assign ON "line_assign".l_id = "line".l_id
-        JOIN users ON "users".id= "line_assign".user_id
-		JOIN time ON "time".line_id="line".l_id
-        WHERE "line_assign".assign_date=\'' . $date_string . '\' AND "time".assign_date=\'' . $date_string . '\'
-		GROUP BY "line".l_id,"line_assign".assign_id,"users".id
-		ORDER BY "line".l_pos ASC');
+        $getLine = DB::select('SELECT "line".l_id,"line".l_name,"line_assign".assign_id,"line_assign".main_target,"line_assign".m_power,"line_assign".actual_m_power,
+        "line_assign".hp,"line_assign".actual_hp,"line_assign".s_time,"line_assign".e_time,"line_assign".lunch_s_time,"line_assign".lunch_e_time,
+        "line_assign".assign_date,"users".id,"users".name
+                FROM line
+                JOIN line_assign ON "line_assign".l_id = "line".l_id
+                JOIN users ON "users".id= "line_assign".user_id
+                JOIN time ON "time".line_id="line".l_id
+                WHERE "line".a_status=1 AND "line_assign".assign_date=\'' . $date_string . '\'
+                AND "time".assign_date=\'' . $date_string . '\'
+                GROUP BY "line".l_id,"line_assign".assign_id,"users".id
+                ORDER BY "line".l_pos ASC');
 
         $top_line = DB::select('SELECT line.l_id,line.l_name,line_assign.main_target AS main_target,SUM(time.div_actual_target) AS total_actual,
         ROUND((SUM(time.div_actual_target)*100/line_assign.main_target),0) AS diff_target_percent,
@@ -159,10 +162,28 @@ class LineHistoryController extends Controller
                 $g_line_id = $g_line->l_id;
                 $g_line_name = $g_line->l_name;
                 $g_main_target = $g_line->main_target;
+                $g_m_power = $g_line->m_power;
+                $g_actual_m_power = $g_line->actual_m_power;
+                $g_hp = $g_line->hp;
+                $g_actual_hp = $g_line->actual_hp;
+                $g_m_power = $g_line->m_power;
+                $g_actual_m_power = $g_line->actual_m_power;
+                $g_hp = $g_line->hp;
+                $g_actual_hp = $g_line->actual_hp;
 
                 echo '<tr>
                                     <td style="vertical-align: middle;">' . $g_line_name . '</td>
-                                    <td></td>
+                                    <td>
+                                    <table class="w-100 text-center table m-0 table-bordered">
+                                    <tr>
+                                        <td>' . $g_m_power . '</td>
+                                        <td>' . $g_hp . '</td>
+                                    </tr>
+                                    <tr>
+                                        <td>' . $g_actual_m_power . '</td>
+                                        <td>' . $g_actual_hp . '</td>
+                                    </tr>
+                                </table></td>
                                     <td></td>
                                     <td></td>
                                     <td></td>

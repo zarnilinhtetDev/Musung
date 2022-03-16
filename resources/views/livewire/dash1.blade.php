@@ -40,10 +40,25 @@
                 $g_line_id=$g_line->l_id;
                 $g_line_name = $g_line->l_name;
                 $g_main_target = $g_line->main_target;
+                $g_m_power = $g_line->m_power;
+                $g_actual_m_power = $g_line->actual_m_power;
+                $g_hp = $g_line->hp;
+                $g_actual_hp = $g_line->actual_hp;
                 @endphp
                 <tr>
                     <td style="vertical-align: middle;">{{ $g_line_name }}</td>
-                    <td></td>
+                    <td>
+                        <table class="w-100 text-center table m-0 table-bordered">
+                            <tr>
+                                <td>{{ $g_m_power }}</td>
+                                <td>{{ $g_hp }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ $g_actual_m_power }}</td>
+                                <td>{{ $g_actual_hp }}</td>
+                            </tr>
+                        </table>
+                    </td>
                     <td></td>
                     <td></td>
                     <td></td>
