@@ -54,8 +54,10 @@ ORDER BY "line".l_pos ASC');
             ORDER BY p_detail_id ASC');
 
         $line_detail = DB::select('SELECT "time".assign_id,"time".line_id,SUM("time".actual_target_entry) AS total_div_target,
-        SUM("time".div_actual_target) AS total_div_actual_target FROM time WHERE "time".assign_date=\'' . $date_string . '\'
-        GROUP BY "time".assign_id,"time".line_id');
+        SUM("time".div_actual_target) AS total_div_actual_target,"line_assign".man_target,"line_assign".man_actual_target FROM time
+		JOIN line_assign ON "line_assign".assign_id="time".assign_id AND "line_assign".l_id="time".line_id
+		WHERE "time".assign_date=\'' . $date_string . '\'
+        GROUP BY "time".assign_id,"time".line_id,"line_assign".man_target,"line_assign".man_actual_target');
 
         DB::disconnect('musung');
 
@@ -74,6 +76,8 @@ ORDER BY "line".l_pos ASC');
                 $line_id = $line_detail_decode[$i]['line_id'];
                 $total_div_target = $line_detail_decode[$i]['total_div_target'];
                 $total_div_actual_target = $line_detail_decode[$i]['total_div_actual_target'];
+                $l_man_target = $line_detail_decode[$i]['man_target'];
+                $l_man_actual_target = $line_detail_decode[$i]['man_actual_target'];
 
                 if ($line_id == $l_id) {
             ?>
@@ -100,7 +104,7 @@ ORDER BY "line".l_pos ASC');
                                         <label for="user">Today Target</label>
                                     </div>
                                     <div class="input-wrapper">
-                                        <input class="form-control daily-prod-input" type="number" id="man_target" name="man_target" min="0" oninput="validity.valid||(value='');" step="any" />
+                                        <input class="form-control daily-prod-input" type="number" id="man_target" name="man_target" min="0" oninput="validity.valid||(value='');" step="any" value="<?php echo $l_man_target; ?>" />
                                         <label for="user">Man-Power Target</label>
                                     </div>
                                     <div class="input-wrapper">
@@ -117,7 +121,7 @@ ORDER BY "line".l_pos ASC');
                                         <label for="user">Today Actual Target</label>
                                     </div>
                                     <div class="input-wrapper">
-                                        <input class="form-control daily-prod-input" type="number" id="man_actual_target" name="man_actual_target" min="0" oninput="validity.valid||(value='');" step="any" />
+                                        <input class="form-control daily-prod-input" type="number" id="man_actual_target" name="man_actual_target" min="0" oninput="validity.valid||(value='');" step="any" value="<?php echo $l_man_actual_target; ?>" />
                                         <label for="user">Man-Power Actual Target</label>
                                     </div>
                                     <div class="input-wrapper">
@@ -406,6 +410,6 @@ ORDER BY "line".l_pos ASC');
         $hp_actual_input = request()->post('hp_actual_input');
         $total_actual_man_power = request()->post('total_actual_man_power');
 
-        LineAssign::where('assign_id', $assign_id)->where('l_id', $line_id)->update(['m_power' => $man_power_input, 'actual_m_power' => $man_power_actual_input, 'hp' => $hp_input, 'actual_hp' => $hp_actual_input]);
+        LineAssign::where('assign_id', $assign_id)->where('l_id', $line_id)->update(['m_power' => $man_power_input, 'actual_m_power' => $man_power_actual_input, 'hp' => $hp_input, 'actual_hp' => $hp_actual_input, 'man_target' => $man_target, 'man_actual_target' => $man_actual_target]);
     }
 }

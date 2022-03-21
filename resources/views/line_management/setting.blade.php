@@ -423,8 +423,7 @@ $num = 1;
     </div>
 </div>
 
-
-<h1 class="fw-bold heading-text my-4 fs-3">Assigned Line Details</h1>
+@if($line_assign_detail)<h1 class="fw-bold heading-text my-4 fs-3">Assigned Line Details</h1>
 <table class="table table-striped my-4 tableFixHead results p-0 text-center">
     <thead>
         <tr class="tr-2">
@@ -436,7 +435,7 @@ $num = 1;
             <th scope="col">Starting Time</th>
             <th scope="col">Lunch Time</th>
             <th scope="col">Ending Time</th>
-            <th scope="col">Edit</th>
+            <th scope="col">Delete</th>
         </tr>
     </thead>
     <tbody id="myTable">
@@ -470,6 +469,7 @@ $num = 1;
 
     </tbody>
 </table>
+@endif
 @endadmin
 
 

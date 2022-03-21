@@ -20,6 +20,8 @@ class LineAssign extends Migration
             $table->integer('main_target');
             $table->integer('m_power');
             $table->integer('actual_m_power');
+            $table->float('man_target');
+            $table->float('man_actual_target');
             $table->integer('hp');
             $table->integer('actual_hp');
             $table->string('s_time');
