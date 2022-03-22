@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\Line;
 use App\Models\LineAssign;
+use App\Models\ProductDetail;
 
 
 class DailyProductionController extends Controller
@@ -322,7 +323,7 @@ ORDER BY "line".l_pos ASC');
 
         $date_string = date("d.m.Y");
 
-        $p_detail = DB::select('SELECT "p_detail".p_detail_id,"p_detail".assign_id,"p_detail".l_id,"p_detail".p_cat_id,"p_detail".p_name
+        $p_detail = DB::select('SELECT "p_detail".p_detail_id,"p_detail".assign_id,"p_detail".l_id,"p_detail".p_cat_id,"p_detail".p_name,"p_detail".cat_actual_target,"p_detail".sewing_input,"p_detail".h_over_input
         FROM p_detail JOIN line_assign ON "line_assign".assign_id="p_detail".assign_id
         AND "line_assign".assign_date=\'' . $date_string . '\'
         WHERE "p_detail".p_cat_id=' . $cat_id . ' AND "p_detail".p_detail_id=' . $p_id . ' AND "p_detail".assign_id=' . $a_id . ' AND "p_detail".l_id=' . $l_id . '');
@@ -331,67 +332,104 @@ ORDER BY "line".l_pos ASC');
 
         $p_detail_decode = json_decode(json_encode($p_detail), true);
 
+        // print_r($p_detail_decode);
     ?>
         <?php for ($k = 0; $k < count($p_detail_decode); $k++) {
+            $p_id_2 = $p_detail_decode[$k]['p_detail_id'];
+            $p_a_id_2 = $p_detail_decode[$k]['assign_id'];
+            $p_l_id_2 = $p_detail_decode[$k]['l_id'];
+            $p_cat_id_2 = $p_detail_decode[$k]['p_cat_id'];
             $p_name_2 = $p_detail_decode[$k]['p_name'];
+            $p_cat_actual_target_2 = $p_detail_decode[$k]['cat_actual_target'];
+            $p_sewing_input_2 = $p_detail_decode[$k]['sewing_input'];
+            $p_h_over_input_2 = $p_detail_decode[$k]['h_over_input'];
         ?>
             <h1 class="fw-bold heading-text fs-3"><?php echo $p_name_2; ?></h1>
         <?php
         } ?>
 
-        <table>
-            <tr class="tr-daily">
-                <td>
-                    <span>Sewing Input : </span>
-                </td>
-                <td>
-                    <div class="input-wrapper">
-                        <input class="form-control daily-prod-input" type="number" id="sewing_input" name="sewing_input" min="0" oninput="validity.valid||(value='');" required />
-                        <label for="user">Sewing Input</label>
-                    </div>
-                    <div class="input-wrapper">
-                        <input class="form-control daily-prod-input" type="number" id="sewing_total" name="sewing_total" readonly />
-                        <label for="user">Sewing Total</label>
-                    </div>
-                </td>
-            </tr>
-            <tr class="tr-daily">
-                <td>
-                    <span>Clothes Input : </span>
-                </td>
-                <td>
-                    <div class="input-wrapper">
-                        <input class="form-control daily-prod-input" type="number" id="clothes_input" name="clothes_input" min="0" oninput="validity.valid||(value='');" required />
-                        <label for="user">Clothes Input</label>
-                    </div>
-                    <div class="input-wrapper">
-                        <input class="form-control daily-prod-input" type="number" id="clothes_total" name="clothes_total" readonly />
-                        <label for="user">Clothes Total</label>
-                    </div>
-                </td>
-            </tr>
-            <tr class="tr-daily">
-                <td>
-                    <span>HandOver : </span>
-                </td>
-                <td>
-                    <div class="input-wrapper">
-                        <input class="form-control daily-prod-input" type="number" id="handover_input" name="handover_input" min="0" oninput="validity.valid||(value='');" required />
-                        <label for="user">HandOver Input</label>
-                    </div>
-                    <div class="input-wrapper">
-                        <input class="form-control daily-prod-input" type="number" id="handover_total" name="handover_total" readonly />
-                        <label for="user">HandOver Total</label>
-                    </div>
-                    <div class="input-wrapper">
-                        <input class="form-control daily-prod-input" type="number" id="handover_bal" name="handover_bal" readonly />
-                        <label for="user">HandOver Balance</label>
-                    </div>
-                </td>
-            </tr>
-        </table>
+        <form id='daily_production_submit_2'>
+            <input type="hidden" name="p_id" value="<?php echo $p_id_2; ?>">
+            <input type="hidden" name="a_id" value="<?php echo $p_a_id_2; ?>">
+            <input type="hidden" name="l_id" value="<?php echo $p_l_id_2; ?>">
+            <input type="hidden" name="cat_id" value="<?php echo $p_cat_id_2; ?>">
+            <table>
+                <tr class="tr-daily">
+                    <td>
+                        <span>Sewing Input : </span>
+                    </td>
+                    <td>
+                        <div class="input-wrapper">
+                            <input class="form-control daily-prod-input" type="number" id="sewing_input" name="sewing_input" min="0" oninput="validity.valid||(value='');" value="<?php echo $p_sewing_input_2; ?>" />
+                            <label for=" user">Sewing Input</label>
+                        </div>
+                        <div class="input-wrapper">
+                            <input class="form-control daily-prod-input" type="number" id="sewing_total" name="sewing_total" readonly />
+                            <label for="user">Sewing Total</label>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="tr-daily">
+                    <td>
+                        <span>Clothes Input : </span>
+                    </td>
+                    <td>
+                        <div class="input-wrapper">
+                            <input class="form-control daily-prod-input" type="number" id="clothes_input" name="clothes_input" min="0" oninput="validity.valid||(value='');" value="<?php echo $p_cat_actual_target_2; ?>" readonly />
+                            <label for="user">Clothes Input</label>
+                        </div>
+                        <div class="input-wrapper">
+                            <input class="form-control daily-prod-input" type="number" id="clothes_total" name="clothes_total" readonly />
+                            <label for="user">Clothes Total</label>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="tr-daily">
+                    <td>
+                        <span>HandOver : </span>
+                    </td>
+                    <td>
+                        <div class="input-wrapper">
+                            <input class="form-control daily-prod-input" type="number" id="handover_input" name="handover_input" min="0" oninput="validity.valid||(value='');" value="<?php echo $p_h_over_input_2; ?>" />
+                            <label for="user">HandOver Input</label>
+                        </div>
+                        <div class="input-wrapper">
+                            <input class="form-control daily-prod-input" type="number" id="handover_total" name="handover_total" readonly />
+                            <label for="user">HandOver Total</label>
+                        </div>
+                        <div class="input-wrapper">
+                            <input class="form-control daily-prod-input" type="number" id="handover_bal" name="handover_bal" readonly />
+                            <label for="user">HandOver Balance</label>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <input class="icon-btn-one btn my-2" type="submit" value="Submit" name="submit" />
+        </form>
+        <script>
+            $("#daily_production_submit_2").submit(function(e) {
+                e.preventDefault();
+
+                // Get all INPUT form data and organize as array
+                var formData_2 = $(this).serializeArray();
+
+                // Submit with AJAX
+                $.ajax({
+                    type: "POST",
+                    url: "/daily_production_post_2",
+                    data: formData_2,
+                    type: 'post',
+                    success: function(data) {
+                        // console.log(data);
+                        alert('Successfully Submitted');
+                        // location.reload();
+                    }
+                });
+            });
+        </script>
 <?php
     }
+
     public function postDailyProductionData()
     {
         $assign_id = request()->post('assign_id');
@@ -411,5 +449,22 @@ ORDER BY "line".l_pos ASC');
         $total_actual_man_power = request()->post('total_actual_man_power');
 
         LineAssign::where('assign_id', $assign_id)->where('l_id', $line_id)->update(['m_power' => $man_power_input, 'actual_m_power' => $man_power_actual_input, 'hp' => $hp_input, 'actual_hp' => $hp_actual_input, 'man_target' => $man_target, 'man_actual_target' => $man_actual_target]);
+    }
+
+    public function postDailyProductionData2()
+    {
+        $p_id = request()->post('p_id');
+        $assign_id = request()->post('a_id');
+        $line_id = request()->post('l_id');
+        $cat_id = request()->post('cat_id');
+
+        $sewing_input = request()->post('sewing_input');
+        $clothes_input = request()->post('clothes_input');
+        $clothes_total = request()->post('clothes_total');
+        $handover_input = request()->post('handover_input');
+        $handover_total = request()->post('handover_total');
+        $handover_bal = request()->post('handover_bal');
+
+        ProductDetail::where('p_detail_id', $p_id)->where('assign_id', $assign_id)->where('l_id', $line_id)->where('p_cat_id', $cat_id)->update(['sewing_input' => $sewing_input, 'h_over_input' => $handover_input]);
     }
 }

@@ -46,6 +46,7 @@ Route::get('/daily_prod', 'DailyProductionController@index')->middleware('auth')
 Route::post('/daily_prod', 'DailyProductionController@postLineId')->middleware('auth');
 Route::post('/daily_prod_item', 'DailyProductionController@postItemId')->middleware('auth');
 Route::post('/daily_production_post', 'DailyProductionController@postDailyProductionData')->middleware('auth');
+Route::post('/daily_production_post_2', 'DailyProductionController@postDailyProductionData2')->middleware('auth');
 
 /// Theme Setting
 Route::view('/theme_setting', 'theme_setting.theme_setting')->middleware('auth');
