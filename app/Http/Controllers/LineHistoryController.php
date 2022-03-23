@@ -47,7 +47,7 @@ class LineHistoryController extends Controller
                 JOIN line_assign ON "line_assign".l_id = "line".l_id
                 JOIN users ON "users".id= "line_assign".user_id
                 JOIN time ON "time".line_id="line".l_id
-                WHERE "line".a_status=1 AND "line_assign".assign_date=\'' . $date_string . '\'
+                WHERE "line_assign".assign_date=\'' . $date_string . '\'
                 AND "time".assign_date=\'' . $date_string . '\'
                 GROUP BY "line".l_id,"line_assign".assign_id,"users".id
                 ORDER BY "line".l_pos ASC');
