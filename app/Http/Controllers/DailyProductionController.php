@@ -171,6 +171,31 @@ ORDER BY "line".l_pos ASC');
                         </table>
                         <input class="icon-btn-one btn my-2" type="submit" value="Submit" name="submit" />
                     </form>
+                    <hr class="hr-daily" />
+                    <ul class="horizontal-slide my-4" style="width:100%;overflow-x:scroll;" id="nav">
+                        <?php
+                        for ($j = 0; $j < count($p_detail_decode); $j++) {
+                            $p_id = $p_detail_decode[$j]['p_detail_id'];
+                            $a_id = $p_detail_decode[$j]['assign_id'];
+                            $l_id_2 = $p_detail_decode[$j]['l_id'];
+                            $p_cat_id = $p_detail_decode[$j]['p_cat_id'];
+                            $p_name = $p_detail_decode[$j]['p_name'];
+                            $qty = $p_detail_decode[$j]['quantity'];
+                        ?>
+                            <?php
+                            if ($l_id_2 == $line_id) { ?>
+                                <li class="list-group-item span2 open2 vertical_<?php echo $p_cat_id; ?>" data-cat-id="<?php echo $p_cat_id; ?>" data-p-id="<?php echo $p_id; ?>" data-a-id="<?php echo $a_id; ?>" data-l-id="<?php echo $l_id_2; ?>">
+                                    <?php
+                                    echo $p_name;
+                                    ?>
+                                </li>
+                        <?php }
+                        }
+                        ?>
+                    </ul>
+                    <div id="ajax_load_div_2" class="my-2">
+                    </div>
+
             <?php
                 }
             } ?>
@@ -249,32 +274,9 @@ ORDER BY "line".l_pos ASC');
                 });
             </script>
         <?php
+
         }
         ?>
-        <hr class="hr-daily" />
-        <ul class="horizontal-slide my-4" style="width:100%;overflow-x:scroll;" id="nav">
-            <?php
-            for ($j = 0; $j < count($p_detail_decode); $j++) {
-                $p_id = $p_detail_decode[$j]['p_detail_id'];
-                $a_id = $p_detail_decode[$j]['assign_id'];
-                $l_id_2 = $p_detail_decode[$j]['l_id'];
-                $p_cat_id = $p_detail_decode[$j]['p_cat_id'];
-                $p_name = $p_detail_decode[$j]['p_name'];
-                $qty = $p_detail_decode[$j]['quantity'];
-            ?>
-                <?php
-                if ($l_id_2 == $line_id) { ?>
-                    <li class="list-group-item span2 open2 vertical_<?php echo $p_cat_id; ?>" data-cat-id="<?php echo $p_cat_id; ?>" data-p-id="<?php echo $p_id; ?>" data-a-id="<?php echo $a_id; ?>" data-l-id="<?php echo $l_id_2; ?>">
-                        <?php
-                        echo $p_name;
-                        ?>
-                    </li>
-            <?php }
-            }
-            ?>
-        </ul>
-        <div id="ajax_load_div_2" class="my-2">
-        </div>
         <script>
             $(function() {
                 $(".open2").on('click', function(e) {

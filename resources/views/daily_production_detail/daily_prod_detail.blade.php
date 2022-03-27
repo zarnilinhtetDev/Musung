@@ -32,7 +32,7 @@ $json = json_decode(json_encode($line),true); ///Line DB
 $(".open").on('click', function(e) {
 e.preventDefault(); // in chase you change to a link or button
 var id = $(this).data('id');
-
+// console.log(id);
 
 $(".open").removeClass('changeClass');
 $(".vertical_" + id).toggleClass("changeClass");
@@ -40,7 +40,7 @@ $(".vertical_" + id).toggleClass("changeClass");
 
 $.ajax({
 type: "POST",
-url: "{{ url('daily_prod') }}",
+url: "/daily_prod",
 data: {
 line_id: id,
 },       cache: false,

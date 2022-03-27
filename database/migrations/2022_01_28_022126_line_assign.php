@@ -18,12 +18,12 @@ class LineAssign extends Migration
             $table->integer('user_id');
             $table->integer('l_id');
             $table->integer('main_target');
-            $table->integer('m_power');
-            $table->integer('actual_m_power');
-            $table->float('man_target');
-            $table->float('man_actual_target');
-            $table->integer('hp');
-            $table->integer('actual_hp');
+            $table->integer('m_power')->nullable();
+            $table->integer('actual_m_power')->nullable();
+            $table->float('man_target')->nullable();
+            $table->float('man_actual_target')->nullable();
+            $table->integer('hp')->nullable();
+            $table->integer('actual_hp')->nullable();
             $table->string('s_time');
             $table->string('e_time');
             $table->string('lunch_s_time');

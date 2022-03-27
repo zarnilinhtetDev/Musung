@@ -409,9 +409,8 @@ $num = 1;
     // Submit with AJAX
     $.ajax({
         type: "POST",
-        url: "{{ url('line_assign_post') }}",
+        url: "/line_assign_post",
         data: formData,
-        type: 'post',
         success: function(data) {
             // console.log(data);
             location.reload();
