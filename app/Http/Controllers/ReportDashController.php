@@ -22,6 +22,25 @@ class ReportDashController extends Controller
     }
     public function index(ReportDashAreaChart $chart, ReportDashCategoryChart $category_chart)
     {
+        $date_string = date("d.m.Y");
+
+        $daily_report = DB::select('SELECT "line".l_id,"line".l_name,"line_assign".main_target,"line_assign".m_power,"line_assign".actual_m_power,"line_assign".man_target,"line_assign".man_actual_target,
+        "line_assign".hp,"line_assign".actual_hp,SUM("time".div_actual_target) as total_div_actual_target
+        FROM line
+        JOIN line_assign ON "line_assign".l_id="line".l_id AND
+        "line_assign".assign_date=\'' . $date_string . '\'
+        JOIN time ON "time".line_id="line".l_id AND "time".assign_date=\'' . $date_string . '\'
+        GROUP BY "line".l_id,"line_assign".main_target,"line_assign".m_power,"line_assign".actual_m_power,"line_assign".man_target,"line_assign".man_actual_target,
+        "line_assign".hp,"line_assign".actual_hp
+        ORDER BY "line".l_pos ASC
+        ');
+
+        $daily_report_product = DB::select('SELECT "p_detail".p_detail_id,"p_detail".l_id,"p_detail".p_name,"p_detail".quantity,"p_detail".div_quantity,"p_detail".sewing_input,
+        "p_detail".h_over_input,"p_detail".p_actual_target,"p_detail".cat_actual_target
+        FROM p_detail
+        JOIN line_assign ON "line_assign".assign_id="p_detail".assign_id AND "line_assign".assign_date=\'' . $date_string . '\'
+        ORDER BY "p_detail".p_detail_id ASC');
+
         $category = DB::select('SELECT p_cat_id,SUM(cat_actual_target) AS t_cat_actual,p_name FROM p_detail
         WHERE DATE(created_at) >= DATE(NOW()) - INTERVAL \'30\' DAY
 		GROUP BY p_cat_id,p_name');
@@ -36,6 +55,6 @@ class ReportDashController extends Controller
 
         DB::disconnect('musung');
 
-        return view('report_management.report', ['chart' => $chart->build(), 'category_chart' => $category_chart->build()], compact('category', 'target', 'time'));
+        return view('report_management.report', ['chart' => $chart->build(), 'category_chart' => $category_chart->build()], compact('category', 'target', 'time', 'daily_report', 'daily_report_product'));
     }
 }

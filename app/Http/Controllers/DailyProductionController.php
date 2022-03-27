@@ -55,10 +55,13 @@ ORDER BY "line".l_pos ASC');
             ORDER BY p_detail_id ASC');
 
         $line_detail = DB::select('SELECT "time".assign_id,"time".line_id,SUM("time".actual_target_entry) AS total_div_target,
-        SUM("time".div_actual_target) AS total_div_actual_target,"line_assign".man_target,"line_assign".man_actual_target FROM time
+        SUM("time".div_actual_target) AS total_div_actual_target,"line_assign".man_target,"line_assign".man_actual_target,"line_assign".m_power,
+		"line_assign".actual_m_power,"line_assign".hp,"line_assign".actual_hp
+		FROM time
 		JOIN line_assign ON "line_assign".assign_id="time".assign_id AND "line_assign".l_id="time".line_id
 		WHERE "time".assign_date=\'' . $date_string . '\'
-        GROUP BY "time".assign_id,"time".line_id,"line_assign".man_target,"line_assign".man_actual_target');
+        GROUP BY "time".assign_id,"time".line_id,"line_assign".man_target,"line_assign".man_actual_target,"line_assign".m_power,"line_assign".actual_m_power,
+		"line_assign".hp,"line_assign".actual_hp');
 
         DB::disconnect('musung');
 
@@ -79,6 +82,10 @@ ORDER BY "line".l_pos ASC');
                 $total_div_actual_target = $line_detail_decode[$i]['total_div_actual_target'];
                 $l_man_target = $line_detail_decode[$i]['man_target'];
                 $l_man_actual_target = $line_detail_decode[$i]['man_actual_target'];
+                $m_power = $line_detail_decode[$i]['m_power'];
+                $actual_m_power = $line_detail_decode[$i]['actual_m_power'];
+                $hp = $line_detail_decode[$i]['hp'];
+                $actual_hp = $line_detail_decode[$i]['actual_hp'];
 
                 if ($line_id == $l_id) {
             ?>
@@ -136,11 +143,11 @@ ORDER BY "line".l_pos ASC');
                                 </td>
                                 <td>
                                     <div class="input-wrapper">
-                                        <input class="form-control daily-prod-input" type="number" id="man_power_input" name="man_power_input" min="0" oninput="validity.valid||(value='');" />
+                                        <input class="form-control daily-prod-input" type="number" id="man_power_input" name="man_power_input" min="0" value="<?php echo $m_power; ?>" />
                                         <label for="user">S,L,Adm,Op Input</label>
                                     </div>
                                     <div class="input-wrapper">
-                                        <input class="form-control daily-prod-input" type="number" id="hp_input" name="hp_input" min="0" oninput="validity.valid||(value='');" />
+                                        <input class="form-control daily-prod-input" type="number" id="hp_input" name="hp_input" min="0" value="<?php echo $hp; ?>" />
                                         <label for="user">HP</label>
                                     </div>
                                     <div class="input-wrapper">
@@ -155,11 +162,11 @@ ORDER BY "line".l_pos ASC');
                                 </td>
                                 <td>
                                     <div class="input-wrapper">
-                                        <input class="form-control daily-prod-input" type="number" id="man_power_actual_input" name="man_power_actual_input" min="0" oninput="validity.valid||(value='');" />
+                                        <input class="form-control daily-prod-input" type="number" id="man_power_actual_input" name="man_power_actual_input" min="0" value="<?php echo $actual_m_power; ?>" />
                                         <label for="user">S,L,Adm,Op Actual Input</label>
                                     </div>
                                     <div class="input-wrapper">
-                                        <input class="form-control daily-prod-input" type="number" id="hp_actual_input" name="hp_actual_input" min="0" oninput="validity.valid||(value='');" />
+                                        <input class="form-control daily-prod-input" type="number" id="hp_actual_input" name="hp_actual_input" min="0" value="<?php echo $actual_hp; ?>" />
                                         <label for="user">Actual HP</label>
                                     </div>
                                     <div class="input-wrapper">

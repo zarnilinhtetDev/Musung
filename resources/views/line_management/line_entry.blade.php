@@ -306,7 +306,7 @@
                                 <div class="col">Target</div>
                                 <div class="col">Actual</div>
                             </div> --}}
-                            <form action="{{ url('line_entry_post') }}" action="POST">
+                            {{-- <form action="{{ url('line_entry_post') }}" action="POST">
 
                                 {{-- @for($i=0;$i<count($json);$i++) @php $data_id=$json[$i]['data_id'];
                                     $status=$json[$i]['status'];
@@ -385,6 +385,7 @@
                         @endif --}}
                         {{-- @endfor --}}
                         {{-- <input type="hidden" id="add-time" name="add_time" /> --}}
+                        {{--
                     </div>
                     <div class="col-12 col-md-6 p-0 m-auto">
                         <div id="numeric">
@@ -455,7 +456,7 @@
                             <input class="icon-btn-one btn my-2 w-50" type="submit" value="Save" name="submit" />
                         </div>
                     </div>
-                    </form>
+                    </form> --}}
                 </div>
             </div>
         </div>
