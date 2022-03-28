@@ -332,7 +332,7 @@ ORDER BY "line".l_pos ASC');
 
         $date_string = date("d.m.Y");
 
-        $p_detail = DB::select('SELECT "p_detail".p_detail_id,"p_detail".assign_id,"p_detail".l_id,"p_detail".p_cat_id,"p_detail".p_name,"p_detail".cat_actual_target,"p_detail".sewing_input,"p_detail".h_over_input
+        $p_detail = DB::select('SELECT "p_detail".p_detail_id,"p_detail".assign_id,"p_detail".l_id,"p_detail".p_cat_id,"p_detail".p_name,"p_detail".cat_actual_target,"p_detail".sewing_input,"p_detail".h_over_input,"p_detail".inline
         FROM p_detail JOIN line_assign ON "line_assign".assign_id="p_detail".assign_id
         AND "line_assign".assign_date=\'' . $date_string . '\'
         WHERE "p_detail".p_cat_id=' . $cat_id . ' AND "p_detail".p_detail_id=' . $p_id . ' AND "p_detail".assign_id=' . $a_id . ' AND "p_detail".l_id=' . $l_id . '');
@@ -352,6 +352,7 @@ ORDER BY "line".l_pos ASC');
             $p_cat_actual_target_2 = $p_detail_decode[$k]['cat_actual_target'];
             $p_sewing_input_2 = $p_detail_decode[$k]['sewing_input'];
             $p_h_over_input_2 = $p_detail_decode[$k]['h_over_input'];
+            $inline_input_2 = $p_detail_decode[$k]['inline'];
         ?>
             <h1 class="fw-bold heading-text fs-3"><?php echo $p_name_2; ?></h1>
         <?php
@@ -409,6 +410,17 @@ ORDER BY "line".l_pos ASC');
                         <div class="input-wrapper">
                             <input class="form-control daily-prod-input" type="number" id="handover_bal" name="handover_bal" readonly />
                             <label for="user">HandOver Balance</label>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="tr-daily">
+                    <td>
+                        <span>Inline : </span>
+                    </td>
+                    <td>
+                        <div class="input-wrapper">
+                            <input class="form-control daily-prod-input" type="number" id="inline_input" name="inline_input" min="0" value="<?php echo $inline_input_2; ?>" />
+                            <label for="user">Inline Input</label>
                         </div>
                     </td>
                 </tr>
@@ -473,7 +485,9 @@ ORDER BY "line".l_pos ASC');
         $handover_input = request()->post('handover_input');
         $handover_total = request()->post('handover_total');
         $handover_bal = request()->post('handover_bal');
+        $inline_input = request()->post('inline_input');
 
-        ProductDetail::where('p_detail_id', $p_id)->where('assign_id', $assign_id)->where('l_id', $line_id)->where('p_cat_id', $cat_id)->update(['sewing_input' => $sewing_input, 'h_over_input' => $handover_input]);
+
+        ProductDetail::where('p_detail_id', $p_id)->where('assign_id', $assign_id)->where('l_id', $line_id)->where('p_cat_id', $cat_id)->update(['sewing_input' => $sewing_input, 'h_over_input' => $handover_input, 'inline' => $inline_input]);
     }
 }

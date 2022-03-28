@@ -25,7 +25,7 @@ $date_string = date("d.m.Y");
     ?>
 
     <div style="overflow: auto;max-width:100%;max-height:600px;">
-        <table class="table table-striped my-4 tableFixHead results p-0 text-center">
+        <table class="table table-striped my-4 tableFixHead results p-0 text-center table-bordered">
             <thead>
                 <tr class="tr-2">
                     <th scope="col">Line</th>
@@ -59,7 +59,7 @@ $date_string = date("d.m.Y");
                     @endphp <tr>
                     <td>{{ $l_name }}</td>
                     <td>
-                        <table class="m-auto text-start">
+                        <table class="m-auto text-start table table-bordered">
                             <tbody>
                                 <tr class="bg-warning text-white">
                                     <td><span>Overall Target</span></td>
@@ -106,7 +106,7 @@ $date_string = date("d.m.Y");
 
                     <!-- Clothes Input --->
                     <td>
-                        <table class="m-auto text-center">
+                        <table class="m-auto text-center table table-bordered">
                             <tbody>
                                 <tr>
                                     <td>-</td>
@@ -151,7 +151,7 @@ $date_string = date("d.m.Y");
                     <td class="text-danger">need_to_fill</td>
                     <td class="text-danger">need_to_fill</td>
                     <td>
-                        <table class="m-auto text-center w-100">
+                        <table class="m-auto text-center w-100 table table-bordered">
                             <tbody>
                                 <tr>
                                     <td class="m_power_value_{{ $l_id }}">{{ $m_power }}</td>
