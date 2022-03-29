@@ -22,7 +22,6 @@
                             </tr>
                         </table>
                     </th>
-                    <th scope="col" style="vertical-align: middle;">Item</th>
                     <th scope="col" style="vertical-align: middle;">Order Qty</th>
                     <th scope="col" style="vertical-align: middle;">Inline Stock</th>
                     <th scope="col" style="vertical-align: middle;">Target</th>
@@ -57,20 +56,6 @@
                                 <td>{{ $g_actual_m_power }}</td>
                                 <td>{{ $g_actual_hp }}</td>
                             </tr>
-                        </table>
-                    </td>
-                    <td style="vertical-align: middle;">
-                        <table class="table table-bordered m-0">
-                            <tbody>
-                                @foreach($p_detail_2 as $p )
-                                <tr>
-                                    <td>
-                                        @if($p->l_id == $g_line_id)
-                                        {{ $p->p_name }}
-                                        @endif
-                                    </td>
-                                </tr> @endforeach
-                            </tbody>
                         </table>
                     </td>
                     <td></td>
