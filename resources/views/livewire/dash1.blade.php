@@ -282,24 +282,36 @@ $("#td_div_actual_target_total_<?php echo $current_target; ?>").css('background-
                     var top_2 = lowestToHighest[1];
                     var top_3 = lowestToHighest[2];
 
-                    if(top_1 != ''){
+                    // if(top_1 != ''){
+                    //     $('.t_line_1').css({
+                    //         'background-color': 'green',
+                    //         'color': '#fff'
+                    //     });
+                    // }
+                    // if(top_2 != ''){
+                    //     $('.t_line_2').css({
+                    //         'background-color': 'green',
+                    //         'color': '#fff'
+                    //     });
+                    // }
+                    // if(top_3 != ''){
+                    //     $('.t_line_3').css({
+                    //         'background-color': 'green',
+                    //         'color': '#fff'
+                    //     });
+                    // }
                         $('.t_line_1').css({
                             'background-color': 'green',
                             'color': '#fff'
                         });
-                    }
-                    if(top_2 != ''){
                         $('.t_line_2').css({
                             'background-color': 'green',
                             'color': '#fff'
                         });
-                    }
-                    if(top_3 != ''){
                         $('.t_line_3').css({
                             'background-color': 'green',
                             'color': '#fff'
                         });
-                    }
 
                     var max_num = Math.max(...val_arr);
                     $(".t_line_" + max_num).css({
