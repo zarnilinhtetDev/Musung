@@ -283,19 +283,19 @@ $("#td_div_actual_target_total_<?php echo $current_target; ?>").css('background-
                     var top_3 = lowestToHighest[2];
 
                     if(top_1 != ''){
-                        $('.t_line_' + top_1).css({
+                        $('.t_line_1').css({
                             'background-color': 'green',
                             'color': '#fff'
                         });
                     }
                     if(top_2 != ''){
-                        $('.t_line_' + top_2).css({
+                        $('.t_line_2').css({
                             'background-color': 'green',
                             'color': '#fff'
                         });
                     }
                     if(top_3 != ''){
-                        $('.t_line_' + top_3).css({
+                        $('.t_line_3').css({
                             'background-color': 'green',
                             'color': '#fff'
                         });
@@ -372,7 +372,6 @@ $(".t_line_" + max_num).css({
                 @endforeach
                 <tr>
                     <td style="vertical-align: middle;">Total</td>
-                    <td></td>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -485,7 +484,7 @@ new_total_percent.append('%');
                                 }
 
                                 var t_percent_cal = (t_overall_actual_target / t_overall_target) * 100;
-                                if(Number.isNan(t_percent_cal)){
+                                if(Number.isNaN(t_percent_cal)){
                                     t_overall_percent.text("");
                                 }
                                 t_overall_percent.text(t_percent_cal.toFixed(0));

@@ -191,7 +191,7 @@ ORDER BY "line".l_pos ASC');
                         ?>
                             <?php
                             if ($l_id_2 == $line_id) { ?>
-                                <li class="list-group-item span2 open2 vertical_<?php echo $p_cat_id; ?>" data-cat-id="<?php echo $p_cat_id; ?>" data-p-id="<?php echo $p_id; ?>" data-a-id="<?php echo $a_id; ?>" data-l-id="<?php echo $l_id_2; ?>">
+                                <li class="list-group-item span2 open2 vertical_<?php echo $p_id; ?>" data-cat-id="<?php echo $p_cat_id; ?>" data-p-id="<?php echo $p_id; ?>" data-a-id="<?php echo $a_id; ?>" data-l-id="<?php echo $l_id_2; ?>">
                                     <?php
                                     echo $p_name;
                                     ?>
@@ -209,6 +209,24 @@ ORDER BY "line".l_pos ASC');
 
 
             <script>
+                var man_power_input_1 = $(man_power_input).val();
+                var hp_input_1 = $("#hp_input").val();
+                var total_man_power_1 = $("#total_man_power");
+                var man_power_actual_input_1 = $("#man_power_actual_input").val();
+                var hp_actual_input_1 = $("#hp_actual_input").val();
+                var total_actual_man_power_1 = $("#total_actual_man_power");
+
+                if (man_power_input_1 != '' && hp_input_1 != '') {
+
+                    var addition_1 = parseInt(man_power_input_1) + parseInt(hp_input_1);
+                    total_man_power_1.val(addition_1);
+                }
+
+                if (man_power_actual_input_1 != '' && hp_actual_input_1 != '') {
+                    var addition_2 = parseInt(man_power_actual_input_1) + parseInt(hp_actual_input_1);
+                    total_actual_man_power_1.val(addition_2);
+                }
+
                 $("#man_power_input").keyup(function() {
                     var man_power_input = $(this).val();
                     var hp_input = $("#hp_input").val();
@@ -295,7 +313,7 @@ ORDER BY "line".l_pos ASC');
 
 
                     $(".open2").removeClass('changeClass');
-                    $(".vertical_" + cat_id).toggleClass("changeClass");
+                    $(".vertical_" + p_id).toggleClass("changeClass");
 
                     // console.log(cat_id);
                     $.ajax({

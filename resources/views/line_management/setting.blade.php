@@ -222,7 +222,7 @@ $num = 1;
                                         <tr>
                                             <td>{{ $number++ }}</td>
                                             <td>{{ $p->p_name }}</td>
-                                            <td>{{ $p->p_cat_id }}</td>
+                                            <td>{{ $p->p_cat_name }}</td>
                                             <td>{{ $p->quantity }}</td>
                                         </tr>
                                         @endif
@@ -692,7 +692,7 @@ $num = 1;
                                             <tr>
                                                 <td>{{ $number++ }}</td>
                                                 <td>{{ $p->p_name }}</td>
-                                                <td>{{ $p->p_cat_id }}</td>
+                                                <td>{{ $p->p_cat_name }}</td>
                                                 <td>{{ $p->quantity }}</td>
                                             </tr>
                                             @endif
