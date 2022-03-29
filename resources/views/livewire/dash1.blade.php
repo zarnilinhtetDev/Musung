@@ -59,9 +59,26 @@
                             </tr>
                         </table>
                     </td>
+                    <td style="vertical-align: middle;">
+                        <table class="table table-bordered m-0">
+                            <tbody>
+                                @foreach($p_detail_2 as $p )
+                                <tr>
+                                    <td>
+                                        @if($p->l_id == $g_line_id)
+                                        {{ $p->p_name }}
+                                        @endif
+                                    </td>
+                                </tr> @endforeach
+                            </tbody>
+                        </table>
+                    </td>
                     <td></td>
-                    <td></td>
-                    <td>hello</td>
+                    <td style="vertical-align: middle;">@foreach($total_inline as $t_inline)
+                        @if($t_inline->l_id == $g_line_id)
+                        {{ $t_inline->total_inline }}
+                        @endif
+                        @endforeach</td>
                     <td style="vertical-align: middle;"><span id="g_main_target_{{ $g_line_id }}">{{ $g_main_target
                             }}</span></td>
 

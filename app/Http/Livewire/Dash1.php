@@ -46,6 +46,17 @@ class Dash1 extends Component
                 GROUP BY "line".l_id,"line_assign".assign_id,"users".id
                 ORDER BY "line".l_pos ASC');
 
+        $total_inline = DB::select('SELECT "p_detail".l_id,SUM("p_detail".inline) AS total_inline
+        FROM p_detail
+        JOIN line_assign ON "line_assign".assign_id="p_detail".assign_id AND "line_assign".l_id="p_detail".l_id
+        AND "line_assign".assign_date=\'' . $date_string . '\'
+        GROUP BY "p_detail".l_id');
+
+        $p_detail_2 = DB::select('SELECT "p_detail".p_detail_id,"p_detail".l_id,"p_detail".p_name
+        FROM p_detail
+        JOIN line_assign ON "line_assign".assign_id="p_detail".assign_id AND "p_detail".l_id="line_assign".l_id AND "line_assign".assign_date=\'' . $date_string . '\'
+        ORDER BY "p_detail".p_detail_id ASC');
+
         $total_main_target = DB::select('SELECT SUM("line_assign".main_target) AS t_main_target FROM line_assign WHERE "line_assign".assign_date=\'' . $date_string . '\'');
 
         $total_div_target = DB::select('SELECT ROW_NUMBER() OVER(ORDER BY "time".time_name ASC) AS row_num_1,SUM("time".actual_target_entry) AS t_div_target,"time".time_name FROM time WHERE "time".assign_date=\'' . $date_string . '\'
@@ -75,7 +86,7 @@ class Dash1 extends Component
 
         return view(
             'livewire.dash1',
-            compact('getLine', 'time', 'time_2', 'total_main_target', 'total_div_target', 'total_div_actual_target', 'target_total', 'actual_target_total', 'top_line', 'total_overall_target', 'total_overall_actual_target'),
+            compact('getLine', 'time', 'time_2', 'total_main_target', 'total_div_target', 'total_div_actual_target', 'target_total', 'actual_target_total', 'top_line', 'total_overall_target', 'total_overall_actual_target', 'total_inline', 'p_detail_2'),
         );
     }
 }

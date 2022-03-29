@@ -19,7 +19,7 @@
                     enabled: false,
                 },
                     type: "bar",
-                    height: 350,
+                    height: 550,
                     style: {
                         colors: '#263238',
                         fontSize: '12px',
@@ -110,7 +110,7 @@
                     enabled: false,
                 },
                     type: "bar",
-                    height: 350,
+                    height: 550,
                     style: {
                         colors: '#fff',
                         fontSize: '12px',
@@ -219,7 +219,7 @@
                     enabled: false,
                 },
                     type: "bar",
-                    height: 350,
+                    height: 550,
                     style: {
                         colors: '#263238',
                         fontSize: '12px',

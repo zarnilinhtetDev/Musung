@@ -10,6 +10,10 @@ html, body {
     overflow: auto !important;
 }
 
+.custom-table-border-color {
+    border-color: darkolivegreen;
+}
+
 /**** Scrollbar Start ****/
 
 /* width */

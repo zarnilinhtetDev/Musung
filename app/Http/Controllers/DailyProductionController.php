@@ -108,7 +108,7 @@ ORDER BY "line".l_pos ASC');
                                 <td><span>Target : </span></td>
                                 <td>
                                     <div class="input-wrapper">
-                                        <input class="form-control daily-prod-input" type="number" id="today_target" name="today_target" value="<?php echo $total_div_target; ?>" />
+                                        <input class="form-control daily-prod-input" type="number" id="today_target" name="today_target" value="<?php echo $total_div_target; ?>" readonly />
                                         <label for="user">Today Target</label>
                                     </div>
                                     <div class="input-wrapper">
@@ -116,7 +116,7 @@ ORDER BY "line".l_pos ASC');
                                         <label for="user">Man-Power Target</label>
                                     </div>
                                     <div class="input-wrapper">
-                                        <input class="form-control daily-prod-input" type="number" id="t_target" name="t_target" readonly />
+                                        <input class="form-control daily-prod-input" type="number" id="t_target" name="t_target" value="<?php echo $total_div_target; ?>" readonly />
                                         <label for="user">Total Target</label>
                                     </div>
                                 </td>
@@ -125,7 +125,7 @@ ORDER BY "line".l_pos ASC');
                                 <td> <span>Actual Target : </span></td>
                                 <td>
                                     <div class="input-wrapper">
-                                        <input class="form-control daily-prod-input" type="number" id="today_actual_target" name="today_actual_target" value="<?php echo $total_div_actual_target; ?>" />
+                                        <input class="form-control daily-prod-input" type="number" id="today_actual_target" name="today_actual_target" value="<?php echo $total_div_actual_target; ?>" readonly />
                                         <label for="user">Today Actual Target</label>
                                     </div>
                                     <div class="input-wrapper">
@@ -133,7 +133,7 @@ ORDER BY "line".l_pos ASC');
                                         <label for="user">Man-Power Actual Target</label>
                                     </div>
                                     <div class="input-wrapper">
-                                        <input class="form-control daily-prod-input" type="number" id="t_actual_target" name="t_actual_target" readonly />
+                                        <input class="form-control daily-prod-input" type="number" id="t_actual_target" name="t_actual_target" value="<?php echo $total_div_actual_target; ?>" readonly />
                                         <label for="user">Total Actual Target</label>
                                     </div>
                                 </td>
@@ -374,7 +374,7 @@ ORDER BY "line".l_pos ASC');
                             <label for=" user">Sewing Input</label>
                         </div>
                         <div class="input-wrapper">
-                            <input class="form-control daily-prod-input" type="number" id="sewing_total" name="sewing_total" readonly />
+                            <input class="form-control daily-prod-input" type="number" id="sewing_total" name="sewing_total" value="<?php echo $p_sewing_input_2; ?>" readonly />
                             <label for="user">Sewing Total</label>
                         </div>
                     </td>
@@ -389,7 +389,7 @@ ORDER BY "line".l_pos ASC');
                             <label for="user">Clothes Input</label>
                         </div>
                         <div class="input-wrapper">
-                            <input class="form-control daily-prod-input" type="number" id="clothes_total" name="clothes_total" readonly />
+                            <input class="form-control daily-prod-input" type="number" id="clothes_total" name="clothes_total" value="<?php echo $p_cat_actual_target_2; ?>" readonly />
                             <label for="user">Clothes Total</label>
                         </div>
                     </td>
@@ -400,18 +400,34 @@ ORDER BY "line".l_pos ASC');
                     </td>
                     <td>
                         <div class="input-wrapper">
-                            <input class="form-control daily-prod-input" type="number" id="handover_input" name="handover_input" min="0" oninput="validity.valid||(value='');" value="<?php echo $p_h_over_input_2; ?>" />
+                            <input class="form-control daily-prod-input h_over_input_<?php echo $p_id_2; ?>" type="number" id="handover_input" name="handover_input" min="0" oninput="validity.valid||(value='');" value="<?php echo $p_h_over_input_2; ?>" />
                             <label for="user">HandOver Input</label>
                         </div>
                         <div class="input-wrapper">
-                            <input class="form-control daily-prod-input" type="number" id="handover_total" name="handover_total" readonly />
+                            <input class="form-control daily-prod-input h_over_total_<?php echo $p_id_2; ?>" type="number" id="handover_total" name="handover_total" value="<?php echo $p_h_over_input_2; ?>" readonly />
                             <label for="user">HandOver Total</label>
                         </div>
                         <div class="input-wrapper">
-                            <input class="form-control daily-prod-input" type="number" id="handover_bal" name="handover_bal" readonly />
+                            <input class="form-control daily-prod-input h_over_bal_<?php echo $p_id_2; ?>" type="number" id="handover_bal" name="handover_bal" readonly />
                             <label for="user">HandOver Balance</label>
                         </div>
                     </td>
+
+                    <script>
+                        var h_over_input = $('.h_over_input_<?php echo $p_id_2; ?>').val();
+                        var h_over_total = $('.h_over_total_<?php echo $p_id_2; ?>').val();
+                        var h_over_bal = $('.h_over_bal_<?php echo $p_id_2; ?>');
+
+                        if (h_over_input == '') {
+                            h_over_input = 0;
+                        }
+                        if (h_over_total == '') {
+                            h_over_total = 0;
+                        }
+
+                        var h_over_result = parseInt(h_over_total) - parseInt(h_over_input);
+                        h_over_bal.val(h_over_result);
+                    </script>
                 </tr>
                 <tr class="tr-daily">
                     <td>
