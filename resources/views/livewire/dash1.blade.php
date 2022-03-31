@@ -1,106 +1,105 @@
-<div class="col-12 col-md-8" id="live_dash_refresh" wire:poll.1000ms>
-    <div class="panel-body">
-        @php $time_arr = [];
-        foreach(array_reverse($time) as $t3){
-        $time_arr[] = $t3->time_name;
-        }
-        // print_r($time_arr);
-        @endphp
-        @if(count($time_arr) > 0)
-        <table class="table table-hover table-striped table-bordered text-center table-dash" id="live_dash_1">
-            <thead>
-                <tr class="tr-2 tr-3">
-                    <th scope="col" style="vertical-align: middle;">Line</th>
-                    <th scope="col" style="vertical-align: middle;" class="p-0">
-                        <table class="w-100 text-center table m-0 text-white table-bordered">
-                            <tr class="">
-                                <th colspan="2">Manpower</th>
-                            </tr>
-                            <tr>
-                                <td>OP</td>
-                                <td>HP</td>
-                            </tr>
-                        </table>
-                    </th>
-                    <th scope="col" style="vertical-align: middle;">Order Qty</th>
-                    <th scope="col" style="vertical-align: middle;">Inline Stock</th>
-                    <th scope="col" style="vertical-align: middle;">Target</th>
-                    @foreach(array_reverse($time) as $t)
-                    <th scope="col" id="th_{{ $t->time_name }}" style="vertical-align: middle;">{{ $t->time_name }}</th>
-                    @endforeach
-                    <th scope="col" style="vertical-align: middle;">Total</th>
-                    <th scope="col" style="vertical-align: middle;">Rank</th>
-                    <th scope="col" style="vertical-align: middle;">%</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($getLine as $g_line)
-                @php
-                $g_line_id=$g_line->l_id;
-                $g_line_name = $g_line->l_name;
-                $g_main_target = $g_line->main_target;
-                $g_m_power = $g_line->m_power;
-                $g_actual_m_power = $g_line->actual_m_power;
-                $g_hp = $g_line->hp;
-                $g_actual_hp = $g_line->actual_hp;
-                @endphp
-                <tr>
-                    <td style="vertical-align: middle;">{{ $g_line_name }}</td>
-                    <td>
-                        <table class="w-100 text-center table m-0 table-bordered">
-                            <tr>
-                                <td>{{ $g_m_power }}</td>
-                                <td>{{ $g_hp }}</td>
-                            </tr>
-                            <tr>
-                                <td>{{ $g_actual_m_power }}</td>
-                                <td>{{ $g_actual_hp }}</td>
-                            </tr>
-                        </table>
-                    </td>
-                    <td></td>
-                    <td style="vertical-align: middle;">@foreach($total_inline as $t_inline)
-                        @if($t_inline->l_id == $g_line_id)
-                        {{ $t_inline->total_inline }}
-                        @endif
-                        @endforeach</td>
-                    <td style="vertical-align: middle;"><span id="g_main_target_{{ $g_line_id }}">{{ $g_main_target
-                            }}</span></td>
+<div class="panel-body" wire:poll.1000ms>
+    @php $time_arr = [];
+    foreach(array_reverse($time) as $t3){
+    $time_arr[] = $t3->time_name;
+    }
+    // print_r($time_arr);
+    @endphp
+    @if(count($time_arr) > 0)
+    <table class="table table-hover table-striped table-bordered text-center table-dash" id="live_dash_1">
+        <thead>
+            <tr class="tr-2 tr-3">
+                <th scope="col" style="vertical-align: middle;">Line</th>
+                <th scope="col" style="vertical-align: middle;" class="p-0">
+                    <table class="w-100 text-center table m-0 text-white table-bordered">
+                        <tr class="">
+                            <th colspan="2">Manpower</th>
+                        </tr>
+                        <tr>
+                            <td>OP</td>
+                            <td>HP</td>
+                        </tr>
+                    </table>
+                </th>
+                <th scope="col" style="vertical-align: middle;">Order <br />Qty</th>
+                <th scope="col" style="vertical-align: middle;">Inline<br />Stock</th>
+                <th scope="col" style="vertical-align: middle;">Target</th>
+                @foreach(array_reverse($time) as $t)
+                <th scope="col" id="th_{{ $t->time_name }}" style="vertical-align: middle;">{{ $t->time_name }}</th>
+                @endforeach
+                <th scope="col" style="vertical-align: middle;">Total</th>
+                <th scope="col" style="vertical-align: middle;">Rank</th>
+                <th scope="col" style="vertical-align: middle;">%</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($getLine as $g_line)
+            @php
+            $g_line_id=$g_line->l_id;
+            $g_line_name = $g_line->l_name;
+            $g_main_target = $g_line->main_target;
+            $g_m_power = $g_line->m_power;
+            $g_actual_m_power = $g_line->actual_m_power;
+            $g_hp = $g_line->hp;
+            $g_actual_hp = $g_line->actual_hp;
+            @endphp
+            <tr>
+                <td style="vertical-align: middle;">{{ $g_line_name }}</td>
+                <td>
+                    <table class="w-100 text-center table m-0 table-bordered">
+                        <tr>
+                            <td>{{ $g_m_power }}</td>
+                            <td>{{ $g_hp }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ $g_actual_m_power }}</td>
+                            <td>{{ $g_actual_hp }}</td>
+                        </tr>
+                    </table>
+                </td>
+                <td>hello </td>
+                <td style="vertical-align: middle;">@foreach($total_inline as $t_inline)
+                    @if($t_inline->l_id == $g_line_id)
+                    {{ $t_inline->total_inline }}
+                    @endif
+                    @endforeach</td>
+                <td style="vertical-align: middle;"><span id="g_main_target_{{ $g_line_id }}">{{ $g_main_target
+                        }}</span></td>
 
-                    @foreach($time_2 as $t_2)
-                    @if($g_line_id==$t_2->line_id && $t_2->time_name != 'temp')
-                    @php $current_target=$t_2->time_id;
-                    $prev_target = ((int)$current_target)-1;
-                    @endphp
-                    <td id="{{ $t_2->time_name }}">
-                        <table class="w-100 text-center table m-0">
-                            <tr>
-                                <td><span id="new_div_target_{{ $t_2->time_id }}" class="new_div_target">{{
-                                        $t_2->actual_target_entry
-                                        }}</span></td>
-                                <td style="display:none;"><span id="div_target_{{ $t_2->time_id }}">{{
-                                        $t_2->div_target }}</span>
-                                </td>
-                            </tr>
-                            <tr class="text-white">
-                                <td id="td_div_actual_target_{{ $t_2->time_id }}">
-                                    <span id="div_actual_target_{{ $t_2->time_id }}"
-                                        class="div_actual_target_{{ $g_line_id }}">{{
-                                        $t_2->div_actual_target }}</span>
-                                </td>
-                                <td style="display:none;" id="td_div_actual_target_total_{{ $t_2->time_id }}"><span
-                                        id="div_actual_target_total_{{ $t_2->time_id }}"
-                                        class="div_actual_target_total_{{ $g_line_id }}"></span></td>
-                            </tr>
-                            <tr class="text-white">
-                                <td id="td_div_actual_target_percent_{{ $t_2->time_id }}" colspan="2"><span
-                                        id="div_actual_target_percent_{{ $t_2->time_id }}"></span>
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                    <script>
-                        window.addEventListener('initSomething', event => {
+                @foreach($time_2 as $t_2)
+                @if($g_line_id==$t_2->line_id && $t_2->time_name != 'temp')
+                @php $current_target=$t_2->time_id;
+                $prev_target = ((int)$current_target)-1;
+                @endphp
+                <td id="{{ $t_2->time_name }}">
+                    <table class="w-100 text-center table m-0">
+                        <tr>
+                            <td><span id="new_div_target_{{ $t_2->time_id }}" class="new_div_target">{{
+                                    $t_2->actual_target_entry
+                                    }}</span></td>
+                            <td style="display:none;"><span id="div_target_{{ $t_2->time_id }}">{{
+                                    $t_2->div_target }}</span>
+                            </td>
+                        </tr>
+                        <tr class="text-white">
+                            <td id="td_div_actual_target_{{ $t_2->time_id }}">
+                                <span id="div_actual_target_{{ $t_2->time_id }}"
+                                    class="div_actual_target_{{ $g_line_id }}">{{
+                                    $t_2->div_actual_target }}</span>
+                            </td>
+                            <td style="display:none;" id="td_div_actual_target_total_{{ $t_2->time_id }}"><span
+                                    id="div_actual_target_total_{{ $t_2->time_id }}"
+                                    class="div_actual_target_total_{{ $g_line_id }}"></span></td>
+                        </tr>
+                        <tr class="text-white">
+                            <td id="td_div_actual_target_percent_{{ $t_2->time_id }}" colspan="2"><span
+                                    id="div_actual_target_percent_{{ $t_2->time_id }}"></span>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <script>
+                    window.addEventListener('initSomething', event => {
                                     var prev_target = parseInt($("#div_actual_target_<?php echo $prev_target; ?>").text());
 var current_target = parseInt($("#div_actual_target_<?php echo $current_target; ?>").text());
 
@@ -187,33 +186,33 @@ if(parseInt(div_target) <= parseInt(div_actual_target_total)){
 $("#td_div_actual_target_total_<?php echo $current_target; ?>").css('background-color','green');
 }
 })
-                    </script>
-                    @endif
+                </script>
+                @endif
 
-                    @endforeach
-                    @foreach($target_total as $t_2_total)
-                    @if ($g_line_id == $t_2_total->line_id && $t_2_total->total != 0)
-                    <td>
-                        <table class="w-100 text-center table m-0">
-                            @foreach($actual_target_total as $a_total)
-                            @if ($g_line_id == $a_total->line_id)
-                            <tr>
-                                <td><span class="t_2_total_{{ $t_2_total->line_id }}"> {{ $t_2_total->total }}</span>
-                                </td>
-                            </tr>
-                            <tr class="text-white">
-                                <td class="td_a_total_{{ $t_2_total->line_id }}">
-                                    <span class="a_total_{{ $t_2_total->line_id }}">{{ $a_total->total_actual_target
-                                        }}</span>
-                                </td>
-                            </tr>
-                            <tr class="text-white">
-                                <td class="td_t_percent_{{ $t_2_total->line_id }}">
-                                    <span class="t_percent_{{ $t_2_total->line_id }}"></span>
-                                </td>
-                            </tr>
-                            <script>
-                                window.addEventListener('additionalInit', event => {
+                @endforeach
+                @foreach($target_total as $t_2_total)
+                @if ($g_line_id == $t_2_total->line_id && $t_2_total->total != 0)
+                <td>
+                    <table class="w-100 text-center table m-0">
+                        @foreach($actual_target_total as $a_total)
+                        @if ($g_line_id == $a_total->line_id)
+                        <tr>
+                            <td><span class="t_2_total_{{ $t_2_total->line_id }}"> {{ $t_2_total->total }}</span>
+                            </td>
+                        </tr>
+                        <tr class="text-white">
+                            <td class="td_a_total_{{ $t_2_total->line_id }}">
+                                <span class="a_total_{{ $t_2_total->line_id }}">{{ $a_total->total_actual_target
+                                    }}</span>
+                            </td>
+                        </tr>
+                        <tr class="text-white">
+                            <td class="td_t_percent_{{ $t_2_total->line_id }}">
+                                <span class="t_percent_{{ $t_2_total->line_id }}"></span>
+                            </td>
+                        </tr>
+                        <script>
+                            window.addEventListener('additionalInit', event => {
                                     var t_2_total = parseInt($('.t_2_total_{{ $t_2_total->line_id }}').text());
                                     var a_total = parseInt($('.a_total_{{ $t_2_total->line_id }}').text());
                                     var t_percent_span = $('.t_percent_{{ $t_2_total->line_id }}');
@@ -248,24 +247,24 @@ $("#td_div_actual_target_total_<?php echo $current_target; ?>").css('background-
                                         }
                                     }
                                   });
-                            </script>
-                            @endif
-                            @endforeach
-                        </table>
-                    </td>
-                    @endif
-                    @endforeach
+                        </script>
+                        @endif
+                        @endforeach
+                    </table>
+                </td>
+                @endif
+                @endforeach
 
-                    @foreach($top_line as $t_line)
-                    @if ($g_line_id == $t_line->l_id)
-                    <td style="vertical-align: middle;" class="t_line_{{ $t_line->row_num }} t_line_count">{{
-                        $t_line->row_num }}
-                    </td>
+                @foreach($top_line as $t_line)
+                @if ($g_line_id == $t_line->l_id)
+                <td style="vertical-align: middle;" class="t_line_{{ $t_line->row_num }} t_line_count">{{
+                    $t_line->row_num }}
+                </td>
 
-                    @endif
-                    @endforeach
-                    <script>
-                        window.addEventListener('additionalInit', event => {
+                @endif
+                @endforeach
+                <script>
+                    window.addEventListener('additionalInit', event => {
 
                             var t_line_count = $('.t_line_count').text();
                     var val_arr = [];
@@ -314,29 +313,30 @@ $("#td_div_actual_target_total_<?php echo $current_target; ?>").css('background-
                         });
 
                     var max_num = Math.max(...val_arr);
+
                     $(".t_line_" + max_num).css({
                         'background-color': 'red',
                         'color': '#fff'
                     });
 
                         });
-                    </script>
+                </script>
 
 
-                    @foreach($top_line as $t_line)
-                    @if ($g_line_id == $t_line->l_id)
-                    <td style="vertical-align: middle;" class="t_line_{{ $t_line->row_num }} t_line_count">
-                        <span class="input_row_num_{{ $t_line->row_num }} input_row_num" style="display:none;">{{
-                            $t_line->row_num
-                            }}</span>
-                        {{
-                        $t_line->diff_target_percent }}%
-                    </td>
+                @foreach($top_line as $t_line)
+                @if ($g_line_id == $t_line->l_id)
+                <td style="vertical-align: middle;" class="t_line_{{ $t_line->row_num }} t_line_count">
+                    <span class="input_row_num_{{ $t_line->row_num }} input_row_num" style="display:none;">{{
+                        $t_line->row_num
+                        }}</span>
+                    {{
+                    $t_line->diff_target_percent }}%
+                </td>
 
-                    @endif
-                    @endforeach
-                    <script>
-                        window.addEventListener('additionalInit', event => {
+                @endif
+                @endforeach
+                <script>
+                    window.addEventListener('additionalInit', event => {
 
         var t_line_count = $('.input_row_num').text();
 var val_arr = [];
@@ -379,46 +379,45 @@ $(".t_line_" + max_num).css({
 });
 
     });
-                    </script>
-                </tr>
+                </script>
+            </tr>
+            @endforeach
+            <tr>
+                <td style="vertical-align: middle;">Total</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                @foreach ($total_main_target as $t_main_target)
+                <td style="vertical-align: middle;"><span id="">{{ $t_main_target->t_main_target }}</span></td>
                 @endforeach
-                <tr>
-                    <td style="vertical-align: middle;">Total</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    @foreach ($total_main_target as $t_main_target)
-                    <td style="vertical-align: middle;"><span id="">{{ $t_main_target->t_main_target }}</span></td>
-                    @endforeach
-                    @foreach(array_reverse($total_div_target) as $t_div_target)
-                    @php $total_time_name = $t_div_target->time_name;$new_num = 0; @endphp
-                    <td id="{{ $t_div_target->time_name }}">
-                        <table class="w-100 text-center table table-bordered m-0">
-                            <tr>
-                                <td><span id="new_t_div_target_num_{{ $t_div_target->row_num_1 }}">{{
-                                        $t_div_target->t_div_target }}</span></td>
-                            </tr>
+                @foreach(array_reverse($total_div_target) as $t_div_target)
+                @php $total_time_name = $t_div_target->time_name;$new_num = 0; @endphp
+                <td id="{{ $t_div_target->time_name }}">
+                    <table class="w-100 text-center table table-bordered m-0">
+                        <tr>
+                            <td><span id="new_t_div_target_num_{{ $t_div_target->row_num_1 }}">{{
+                                    $t_div_target->t_div_target }}</span></td>
+                        </tr>
 
-                            @foreach ($total_div_actual_target as $t_div_actual_target_1)
+                        @foreach ($total_div_actual_target as $t_div_actual_target_1)
 
-                            @if($total_time_name == $t_div_actual_target_1->time_name)
+                        @if($total_time_name == $t_div_actual_target_1->time_name)
 
-                            <tr class="text-white">
-                                <input type="hidden"
-                                    id="new_t_div_actual_target_num_{{ $t_div_actual_target_1->row_num }}"
-                                    class="new_t_div_actual_target_num"
-                                    value="{{ $t_div_actual_target_1->t_div_actual_target_1 }}" />
-                                <td id="td_tmp_num_{{ $t_div_actual_target_1->row_num }}">
-                                    <span id="tmp_num_{{ $t_div_actual_target_1->row_num }}" class="">{{
-                                        $t_div_actual_target_1->t_div_actual_target_1 }}</span>
-                                </td>
-                            </tr>
-                            <tr class="text-white">
-                                <td id="total_percent_{{ $t_div_actual_target_1->row_num }}" colspan="2">
-                                </td>
-                            </tr>
-                            <script>
-                                window.addEventListener('additionalInit', event => {
+                        <tr class="text-white">
+                            <input type="hidden" id="new_t_div_actual_target_num_{{ $t_div_actual_target_1->row_num }}"
+                                class="new_t_div_actual_target_num"
+                                value="{{ $t_div_actual_target_1->t_div_actual_target_1 }}" />
+                            <td id="td_tmp_num_{{ $t_div_actual_target_1->row_num }}">
+                                <span id="tmp_num_{{ $t_div_actual_target_1->row_num }}" class="">{{
+                                    $t_div_actual_target_1->t_div_actual_target_1 }}</span>
+                            </td>
+                        </tr>
+                        <tr class="text-white">
+                            <td id="total_percent_{{ $t_div_actual_target_1->row_num }}" colspan="2">
+                            </td>
+                        </tr>
+                        <script>
+                            window.addEventListener('additionalInit', event => {
                                     var curr_target_num_val = $("#new_t_div_actual_target_num_{{ $t_div_actual_target_1->row_num }}");
 
                                     var curr_target_val = parseInt("<?php echo $t_div_actual_target_1->t_div_actual_target_1; ?>");
@@ -454,36 +453,36 @@ $("#td_tmp_num_{{ $t_div_actual_target_1->row_num }}").css('background-color','g
 new_total_percent.append('%');
     }
                                 });
-                            </script>
-                            @endif
+                        </script>
+                        @endif
 
+                        @endforeach
+                    </table>
+                </td>
+                @endforeach
+
+                <td>
+                    <table class="w-100 text-center table table-bordered m-0">
+                        <tr>
+                            @foreach($total_overall_target as $t_overall_target)
+                            <td id="t_overall_target">
+                                {{ $t_overall_target->t_overall_target }}
+                            </td>
                             @endforeach
-                        </table>
-                    </td>
-                    @endforeach
-
-                    <td>
-                        <table class="w-100 text-center table table-bordered m-0">
-                            <tr>
-                                @foreach($total_overall_target as $t_overall_target)
-                                <td id="t_overall_target">
-                                    {{ $t_overall_target->t_overall_target }}
-                                </td>
-                                @endforeach
-                            </tr>
-                            <tr class="text-white">
-                                @foreach($total_overall_actual_target as $t_overall_actual_target)
-                                <td id="t_overall_actual_target">
-                                    {{ $t_overall_actual_target->t_overall_actual_target }}
-                                </td>
-                                @endforeach
-                            </tr>
-                            <tr class="text-white">
-                                <td id="t_overall_percent"></td>
-                            </tr>
-                        </table>
-                        <script>
-                            window.addEventListener('additionalInit', event => {
+                        </tr>
+                        <tr class="text-white">
+                            @foreach($total_overall_actual_target as $t_overall_actual_target)
+                            <td id="t_overall_actual_target">
+                                {{ $t_overall_actual_target->t_overall_actual_target }}
+                            </td>
+                            @endforeach
+                        </tr>
+                        <tr class="text-white">
+                            <td id="t_overall_percent"></td>
+                        </tr>
+                    </table>
+                    <script>
+                        window.addEventListener('additionalInit', event => {
                                 var t_overall_target = $("#t_overall_target").text();
                                 var t_overall_actual_target = $("#t_overall_actual_target").text();
                                 var t_overall_percent = $("#t_overall_percent");
@@ -507,15 +506,14 @@ new_total_percent.append('%');
                                 }
                                 t_overall_percent.append('%');
                         });
-                        </script>
-                    </td>
-                    <td style="vertical-align:middle;" class="fw-bolder">-</td>
-                    <td style="vertical-align:middle;" class="fw-bolder">-</td>
-                </tr>
-            </tbody>
-        </table>
-        @else
-        <h1 class="fw-bold text-danger fs-4">Please Assign Line First</h1>
-        @endif
-    </div>
+                    </script>
+                </td>
+                <td style="vertical-align:middle;" class="fw-bolder">-</td>
+                <td style="vertical-align:middle;" class="fw-bolder">-</td>
+            </tr>
+        </tbody>
+    </table>
+    @else
+    <h1 class="fw-bold text-danger fs-4">Please Assign Line First</h1>
+    @endif
 </div>

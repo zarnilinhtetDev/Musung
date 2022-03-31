@@ -1,6 +1,6 @@
 <div wire:poll.1000ms>
     @if($time_apex_chart)
-    <h1 class="fw-bold heading-text fs-3 p-0">Target and Actual Target Chart</h1>
+    <h1 class="fw-bold heading-text fs-3 p-0">Target and Output Chart</h1>
     <div>
         <div id="percent_chart"></div>
         <?php
@@ -59,7 +59,7 @@
                 fill: {
                     opacity: 1
                 }, series: [{
-                    name: "Actual Target",
+                    name: "Output",
                     data: [<?php for ($i = 0; $i < count($arr_decode); $i++) {
                                 $total_actual_target = $arr_decode[$i]['total_actual_target'];
                                 if ($arr_decode[$i]['total_actual_target'] == ''){
@@ -79,7 +79,7 @@
                                         echo '"' . $line_apex_chart_decode[$z]['l_name'] . '"' . ',';
                                     } ?>],
                     title: {
-                        text: "Target and Actual Target",
+                        text: "Target and Output",
                         style: {
                             fontSize: '14px',
                             fontWeight: 'bold',
@@ -150,7 +150,7 @@
                 fill: {
                     opacity: 1
                 }, series: [{
-                    name: "Actual Target",
+                    name: "Output",
                     data: [<?php for ($i = 0; $i < count($arr_decode); $i++) {
                                 $total_actual_target = $arr_decode[$i]['total_actual_target'];
                                 if ($arr_decode[$i]['total_actual_target'] == ''){
@@ -170,7 +170,7 @@
                                         echo '"' . $line_apex_chart_decode[$z]['l_name'] . '"' . ',';
                                     } ?>],
                     title: {
-                        text: "Target and Actual Target",
+                        text: "Target and Output",
                         style: {
                             fontSize: '14px',
                             fontWeight: 'bold',
@@ -199,7 +199,7 @@
         if(getTheme=='gray'){
             var options = {
                                         series: [{
-                    name: "Actual Target",
+                    name: "Output",
                     data: [<?php for ($i = 0; $i < count($arr_decode); $i++) {
                                 $total_actual_target = $arr_decode[$i]['total_actual_target'];
                                 if ($arr_decode[$i]['total_actual_target'] == ''){
@@ -254,7 +254,7 @@
                                         echo '"' . $line_apex_chart_decode[$z]['l_name'] . '"' . ',';
                                     } ?>],
                     title: {
-                        text: "Target and Actual Target",
+                        text: "Target and Output",
                         style: {
                             fontSize: '14px',
                             fontWeight: 'bold',

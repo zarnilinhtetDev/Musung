@@ -18,10 +18,10 @@
                 </div>
             </div>
             <div class="col-6 col-md-4 dropdown">
-                <button class="dropbtn">Target Lines</button>
+                <button class="dropbtn">Production Status</button>
                 <div class="dropdown-content">
-                    <a href="{{ url('live_dash') }}">Today Lines</a>
-                    <a href="{{ url('line_history') }}">Line History</a>
+                    <a href="{{ url('live_dash') }}">Today</a>
+                    <a href="{{ url('line_history') }}">History</a>
                 </div>
             </div>
             <div class="col-6 col-md-4 dropdown">
@@ -54,10 +54,10 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-6 col-md-4 dropdown">
-                <button class="dropbtn">Target Lines</button>
+                <button class="dropbtn">Production Status</button>
                 <div class="dropdown-content">
-                    <a href="{{ url('live_dash') }}">Today Lines</a>
-                    <a href="{{ url('line_history') }}">Line History</a>
+                    <a href="{{ url('live_dash') }}">Today</a>
+                    <a href="{{ url('line_history') }}">History</a>
                 </div>
             </div>
             <div class="col-6 col-md-4 dropdown">

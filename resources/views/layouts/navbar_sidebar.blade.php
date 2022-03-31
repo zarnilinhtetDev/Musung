@@ -37,14 +37,14 @@
                         class="dropdown-toggle">
                         <img src="img/icon/target_line.png" class="img-fluid rounded-3" alt="Target Line" width="25"
                             height="auto" />
-                        &nbsp;Target Lines
+                        &nbsp;Production Status
                     </a>
                     <ul class="collapse" id="target" role="list">
                         <li class="custom-li">
-                            <a class="sidebar-link" href="{{ url('/live_dash') }}">Today Lines</a>
+                            <a class="sidebar-link" href="{{ url('/live_dash') }}">Today</a>
                         </li>
                         <li class="custom-li">
-                            <a class="sidebar-link" href="{{ url('/line_history') }}">Line History</a>
+                            <a class="sidebar-link" href="{{ url('/line_history') }}">History</a>
                         </li>
                     </ul>
                 </li>
@@ -159,14 +159,14 @@
                         class="dropdown-toggle">
                         <img src="img/icon/target_line.png" class="img-fluid rounded-3" alt="Target Line" width="25"
                             height="auto" />
-                        &nbsp;Target Lines
+                        &nbsp;Production Status
                     </a>
                     <ul class="collapse" id="target" role="list">
                         <li class="custom-li">
-                            <a class="sidebar-link" href="{{ url('/live_dash') }}">Today Lines</a>
+                            <a class="sidebar-link" href="{{ url('/live_dash') }}">Today</a>
                         </li>
                         <li class="custom-li">
-                            <a class="sidebar-link" href="{{ url('/line_history') }}">Line History</a>
+                            <a class="sidebar-link" href="{{ url('/line_history') }}">History</a>
                         </li>
                     </ul>
                 </li>

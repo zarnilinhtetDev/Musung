@@ -10,8 +10,17 @@ html, body {
     overflow: auto !important;
 }
 
+.dis-to-none {
+    display: none;
+}
+
 .custom-table-border-color {
     border-color: darkolivegreen;
+}
+
+
+td, th {
+    padding: 0 !important;
 }
 
 /**** Scrollbar Start ****/
@@ -617,6 +626,11 @@ table {
 
 .custom-btn-theme {
     background-color: #0d6efd;
+    color: #fff;
+}
+
+.custom-btn-theme-edit {
+    background-color: red;
     color: #fff;
 }
 

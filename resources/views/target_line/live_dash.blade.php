@@ -68,8 +68,10 @@
     </div>
     <div id="history_div">
         <div class="row container-fluid p-0 my-3 mx-auto">
-            <livewire:dash1 />
-            <div class="col-12 col-md-4 p-sm-0 p-md-2 my-sm-2 my-md-0 top-3">
+            <div class="col-12 col-md-8" id="live_dash_wrapper">
+                <livewire:dash1 />
+            </div>
+            <div class="col-12 col-md-4 p-sm-0 p-md-2 my-sm-2 my-md-0 top-3" id="percent_dash_wrapper">
                 <livewire:dash-chart />
             </div>
         </div>
@@ -180,7 +182,9 @@
     </div>
     <div id="history_div">
         <div class="row container-fluid p-0 my-3 mx-auto">
-            <livewire:dash1 />
+            <div class="col-12 col-md-8">
+                <livewire:dash1 />
+            </div>
             <div class="col-12 col-md-4 p-sm-0 p-md-2 my-sm-2 my-md-0 top-3">
                 <livewire:dash-chart />
             </div>
