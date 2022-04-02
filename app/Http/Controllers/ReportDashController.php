@@ -35,11 +35,11 @@ class ReportDashController extends Controller
         ORDER BY "line".l_pos ASC
         ');
 
-        $daily_report_product = DB::select('SELECT "p_detail".p_detail_id,"p_detail".l_id,"p_detail".p_name,"p_detail".quantity,"p_detail".div_quantity,"p_detail".sewing_input,
+        $daily_report_product = DB::select('SELECT "p_detail".p_detail_id,"p_detail".l_id,"p_detail".p_name,"p_detail".quantity,"p_detail".div_quantity,"p_detail".sewing_input,"p_detail".assign_id,
         "p_detail".h_over_input,"p_detail".p_actual_target,"p_detail".cat_actual_target,"p_detail".inline
         FROM p_detail
         JOIN line_assign ON "line_assign".assign_id="p_detail".assign_id AND "line_assign".assign_date=\'' . $date_string . '\'
-        ORDER BY "p_detail".p_detail_id ASC');
+		ORDER BY "p_detail".p_detail_id ASC');
 
         $category = DB::select('SELECT p_cat_id,SUM(cat_actual_target) AS t_cat_actual,p_name FROM p_detail
         WHERE DATE(created_at) >= DATE(NOW()) - INTERVAL \'30\' DAY
@@ -56,5 +56,13 @@ class ReportDashController extends Controller
         DB::disconnect('musung');
 
         return view('report_management.report', ['chart' => $chart->build(), 'category_chart' => $category_chart->build()], compact('category', 'target', 'time', 'daily_report', 'daily_report_product'));
+    }
+
+    public function cmpPut()
+    {
+        $l_id = request()->post('l_id');
+        $p_id = request()->post('p_id');
+        $a_id = request()->post('a_id');
+        $cmp = request()->post('cmp');
     }
 }

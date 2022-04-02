@@ -30,7 +30,7 @@ $date_string = date("d.m.Y");
     @$edit_status = $_GET['edit'];
     ?>
 
-    <form action="#" method="GET">
+    <form action="{{ url('cmp_put') }}" method="POST">
         <div style="overflow-x:auto;max-width:100%;">
             <table class="table table-striped my-4 tableFixHead results p-0 text-center table-bordered">
                 <thead>
@@ -215,6 +215,7 @@ $date_string = date("d.m.Y");
                             </table>
                         </td>
 
+                        {{-- CMP($) --}}
                         <td>
                             <table class="table table-bordered">
                                 <tbody>
@@ -222,11 +223,16 @@ $date_string = date("d.m.Y");
                                         <td>-</td>
                                     </tr>
                                     @for($j=0;$j<count($daily_report_product_decode);$j++) @php
-                                        $l_id_2=$daily_report_product_decode[$j]['l_id']; @endphp @if($l_id_2==$l_id)
-                                        <tr>
+                                        $l_id_2=$daily_report_product_decode[$j]['l_id'];
+                                        $a_id_2=$daily_report_product_decode[$j]['assign_id'];
+                                        $p_id_2=$daily_report_product_decode[$j]['p_detail_id']; @endphp
+                                        @if($l_id_2==$l_id) <tr>
                                         <td>
                                             @if($edit_status)
-                                            <input type="number" class="form-control p-0 text-center" name="cmp"
+                                            <input type="text" name="l_id[]" value="<?php echo $l_id_2; ?>" />
+                                            <input type="text" name="a_id[]" value="<?php echo $a_id_2; ?>" />
+                                            <input type="text" name="p_id[]" value="<?php echo $p_id_2; ?>" />
+                                            <input type="number" class="form-control p-0 text-center" name="cmp[]"
                                                 placeholder="0" min="0" oninput="validity.valid||(value='');"
                                                 value="" />
                                             @endif
@@ -238,6 +244,8 @@ $date_string = date("d.m.Y");
                                 </tbody>
                             </table>
                         </td>
+
+                        {{-- Daily CMP income --}}
                         <td>
                             <table class="table table-bordered">
                                 <tbody>
