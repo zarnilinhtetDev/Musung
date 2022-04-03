@@ -30,7 +30,7 @@ $date_string = date("d.m.Y");
     @$edit_status = $_GET['edit'];
     ?>
 
-    <form action="{{ url('cmp_put') }}" method="POST">
+    <form method="POST" id="cmp_put">
         <div style="overflow-x:auto;max-width:100%;">
             <table class="table table-striped my-4 tableFixHead results p-0 text-center table-bordered">
                 <thead>
@@ -171,6 +171,7 @@ $date_string = date("d.m.Y");
                                     </tr>
                                     @for($j=0;$j<count($daily_report_product_decode);$j++) @php
                                         $l_id_2=$daily_report_product_decode[$j]['l_id'];
+                                        $p_id_2=$daily_report_product_decode[$j]['p_detail_id'];
                                         $cat_actual_target=$daily_report_product_decode[$j]['cat_actual_target'] @endphp
                                         @if($l_id_2==$l_id) <tr>
 
@@ -178,14 +179,13 @@ $date_string = date("d.m.Y");
                                         <td> - </td>
                                         @endif
                                         @if($cat_actual_target != '')
-                                        <td>{{ $cat_actual_target }}</td>
+                                        <td class="cat_actual_target_{{ $p_id_2 }}">{{ $cat_actual_target }}</td>
                                         @endif
 
                                         </tr>
                                         @endif
 
                                         @endfor
-
                                 </tbody>
                             </table>
                         </td>
@@ -225,170 +225,202 @@ $date_string = date("d.m.Y");
                                     @for($j=0;$j<count($daily_report_product_decode);$j++) @php
                                         $l_id_2=$daily_report_product_decode[$j]['l_id'];
                                         $a_id_2=$daily_report_product_decode[$j]['assign_id'];
-                                        $p_id_2=$daily_report_product_decode[$j]['p_detail_id']; @endphp
-                                        @if($l_id_2==$l_id) <tr>
+                                        $p_id_2=$daily_report_product_decode[$j]['p_detail_id'];
+                                        $cmp=$daily_report_product_decode[$j]['cmp']; @endphp @if($l_id_2==$l_id) <tr>
+
+                                        @if($edit_status)
+                                        <td class="td_input">
+                                            <input type="hidden" id="l_id_input" name="l_id[]"
+                                                value="<?php echo $l_id_2; ?>" />
+                                            <input type="hidden" id="a_id_input" name="a_id[]"
+                                                value="<?php echo $a_id_2; ?>" />
+                                            <input type="hidden" id="p_id_input" name="p_id[]"
+                                                value="<?php echo $p_id_2; ?>" />
+                                            <input type="number" id="cmp_input" class="form-control p-0 text-center"
+                                                name="cmp[]" placeholder="0" min="0"
+                                                oninput="validity.valid||(value='');" value="" />
+                                        </td>
+                                        @else
                                         <td>
-                                            @if($edit_status)
-                                            <input type="text" name="l_id[]" value="<?php echo $l_id_2; ?>" />
-                                            <input type="text" name="a_id[]" value="<?php echo $a_id_2; ?>" />
-                                            <input type="text" name="p_id[]" value="<?php echo $p_id_2; ?>" />
-                                            <input type="number" class="form-control p-0 text-center" name="cmp[]"
-                                                placeholder="0" min="0" oninput="validity.valid||(value='');"
-                                                value="" />
+                                            @if($cmp != '')
+                                            $
+                                            <span class="cmp_{{ $p_id_2 }}">
+                                                <?php echo $cmp; ?>
+                                            </span>
                                             @endif
                                         </td>
-                                        </tr>
                                         @endif
-
-                                        @endfor
-                                </tbody>
-                            </table>
                         </td>
+                        </tr>
+                        @endif
 
-                        {{-- Daily CMP income --}}
-                        <td>
-                            <table class="table table-bordered">
-                                <tbody>
-                                    <tr>
-                                        <td colspan="2">-</td>
-                                    </tr>
-                                    @for($j=0;$j<count($daily_report_product_decode);$j++) @php
-                                        $l_id_2=$daily_report_product_decode[$j]['l_id']; @endphp @if($l_id_2==$l_id)
-                                        <tr>
-                                        <td>
-                                            <span class="text-danger">daily_cmp</span>
-                                        </td>
-                                        <td><span class="text-danger">total_cmp</span></td>
-                                        </tr>
-                                        @endif
+                        @endfor
 
-                                        @endfor
-                                </tbody>
-                            </table>
-                        </td>
-                        <td></td>
-                        <!-- Inline --->
-                        <td>
-                            <table class="m-auto text-center table table-bordered custom-table-border-color">
-                                <tbody>
-                                    <tr>
-                                        <td>-</td>
-                                    </tr>
-                                    @for($j=0;$j<count($daily_report_product_decode);$j++) @php
-                                        $l_id_2=$daily_report_product_decode[$j]['l_id'];
-                                        $inline_2=$daily_report_product_decode[$j]['inline'] @endphp @if($l_id_2==$l_id)
-                                        <tr>
-                                        @if($inline_2 == '')
-                                        <td> - </td>
-                                        @endif
-                                        @if($inline_2 != '')
-                                        <td>{{ $inline_2 }}</td>
-                                        @endif
-                                        </tr>
-                                        @endif
+                </tbody>
+            </table>
+            </td>
 
-                                        @endfor
+            {{-- Daily CMP income --}}
+            <td>
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <td colspan="2">-</td>
+                        </tr>
+                        @for($j=0;$j<count($daily_report_product_decode);$j++) @php
+                            $l_id_2=$daily_report_product_decode[$j]['l_id'];
+                            $p_id_2=$daily_report_product_decode[$j]['p_detail_id']; @endphp @if($l_id_2==$l_id) <tr>
+                            <td class="daily_cmp_{{ $p_id_2 }}">
 
-                                </tbody>
-                            </table>
-                        </td>
+                            </td>
+                            <td><span class="text-danger">total_cmp</span></td>
+                            </tr>
 
-                        <!-- H/over Input --->
-                        <td>
-                            <table class="m-auto text-center table table-bordered custom-table-border-color">
-                                <tbody>
-                                    <tr>
-                                        <td>-</td>
-                                    </tr>
-                                    @for($j=0;$j<count($daily_report_product_decode);$j++) @php
-                                        $l_id_2=$daily_report_product_decode[$j]['l_id'];
-                                        $h_over_input=$daily_report_product_decode[$j]['h_over_input'] @endphp
-                                        @if($l_id_2==$l_id) <tr>
-                                        @if($h_over_input == '')
-                                        <td> - </td>
-                                        @endif
-                                        @if($h_over_input != '')
-                                        <td>{{ $h_over_input }}</td>
-                                        @endif
-                                        </tr>
-                                        @endif
-
-                                        @endfor
-
-                                </tbody>
-                            </table>
-                        </td>
-
-                        <!-- H/over Total --->
-                        <td>
-                            <table class="m-auto text-center table table-bordered custom-table-border-color">
-                                <tbody>
-                                    <tr>
-                                        <td>-</td>
-                                    </tr>
-                                    @for($j=0;$j<count($daily_report_product_decode);$j++) @php
-                                        $l_id_2=$daily_report_product_decode[$j]['l_id'];
-                                        $h_over_input=$daily_report_product_decode[$j]['h_over_input'] @endphp
-                                        @if($l_id_2==$l_id) <tr>
-                                        @if($h_over_input == '')
-                                        <td> - </td>
-                                        @endif
-                                        @if($h_over_input != '')
-                                        <td>{{ $h_over_input }}</td>
-                                        @endif
-                                        </tr>
-                                        @endif
-
-                                        @endfor
-
-                                </tbody>
-                            </table>
-                        </td>
-
-
-                        <!-- H/over Balance --->
-                        <td>
-                            <table class="m-auto text-center table table-bordered custom-table-border-color">
-                                <tbody>
-                                    <tr>
-                                        <td>-</td>
-                                    </tr>
-                                    @for($j=0;$j<count($daily_report_product_decode);$j++) @php
-                                        $l_id_2=$daily_report_product_decode[$j]['l_id'];
-                                        $h_over_input=$daily_report_product_decode[$j]['h_over_input'];
-                                        $h_over_bal=$h_over_input - $h_over_input; @endphp @if($l_id_2==$l_id) <tr>
-                                        <td>{{ $h_over_bal }}</td>
-                                        </tr>
-                                        @endif
-
-                                        @endfor
-
-                                </tbody>
-                            </table>
-                        </td>
-
-                        <td>
-                            <table class="m-auto text-center w-100 table table-bordered custom-table-border-color">
-                                <tbody>
-                                    <tr>
-                                        <td class="m_power_value_{{ $l_id }}">{{ $m_power }}</td>
-                                        <td class="hp_value_{{ $l_id }}">{{ $hp }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="total_m_power_{{ $l_id }}" colspan="2"></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="actual_m_power_value_{{ $l_id }}">{{ $actual_m_power }}</td>
-                                        <td class="actual_hp_value_{{ $l_id }}">{{ $actual_hp }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="total_actual_m_power_{{ $l_id }}" colspan="2"></td>
-                                    </tr>
-                                </tbody>
-                            </table>
 
                             <script>
-                                var m_power_value = parseInt($('.m_power_value_{{ $l_id }}').text());
+                                var clothes_output = parseFloat($(".cat_actual_target_{{ $p_id_2 }}").text());
+                                var cmp = parseFloat($('.cmp_{{ $p_id_2 }}').text());
+                                var daily_cmp = $('.daily_cmp_{{ $p_id_2 }}');
+
+                                var multiply_cmp = clothes_output * cmp;
+
+                                if(Number.isNaN(multiply_cmp)){
+                                    daily_cmp.text('-');
+                                }
+                                else{
+                                daily_cmp.text("$ " + multiply_cmp);
+                                }
+
+                            </script>
+                            @endif
+
+                            @endfor
+                    </tbody>
+                </table>
+
+            </td>
+            <td></td>
+            <!-- Inline --->
+            <td>
+                <table class="m-auto text-center table table-bordered custom-table-border-color">
+                    <tbody>
+                        <tr>
+                            <td>-</td>
+                        </tr>
+                        @for($j=0;$j<count($daily_report_product_decode);$j++) @php
+                            $l_id_2=$daily_report_product_decode[$j]['l_id'];
+                            $inline_2=$daily_report_product_decode[$j]['inline'] @endphp @if($l_id_2==$l_id) <tr>
+                            @if($inline_2 == '')
+                            <td> - </td>
+                            @endif
+                            @if($inline_2 != '')
+                            <td>{{ $inline_2 }}</td>
+                            @endif
+                            </tr>
+                            @endif
+
+                            @endfor
+
+                    </tbody>
+                </table>
+            </td>
+
+            <!-- H/over Input --->
+            <td>
+                <table class="m-auto text-center table table-bordered custom-table-border-color">
+                    <tbody>
+                        <tr>
+                            <td>-</td>
+                        </tr>
+                        @for($j=0;$j<count($daily_report_product_decode);$j++) @php
+                            $l_id_2=$daily_report_product_decode[$j]['l_id'];
+                            $h_over_input=$daily_report_product_decode[$j]['h_over_input'] @endphp @if($l_id_2==$l_id)
+                            <tr>
+                            @if($h_over_input == '')
+                            <td> - </td>
+                            @endif
+                            @if($h_over_input != '')
+                            <td>{{ $h_over_input }}</td>
+                            @endif
+                            </tr>
+                            @endif
+
+                            @endfor
+
+                    </tbody>
+                </table>
+            </td>
+
+            <!-- H/over Total --->
+            <td>
+                <table class="m-auto text-center table table-bordered custom-table-border-color">
+                    <tbody>
+                        <tr>
+                            <td>-</td>
+                        </tr>
+                        @for($j=0;$j<count($daily_report_product_decode);$j++) @php
+                            $l_id_2=$daily_report_product_decode[$j]['l_id'];
+                            $h_over_input=$daily_report_product_decode[$j]['h_over_input'] @endphp @if($l_id_2==$l_id)
+                            <tr>
+                            @if($h_over_input == '')
+                            <td> - </td>
+                            @endif
+                            @if($h_over_input != '')
+                            <td>{{ $h_over_input }}</td>
+                            @endif
+                            </tr>
+                            @endif
+
+                            @endfor
+
+                    </tbody>
+                </table>
+            </td>
+
+
+            <!-- H/over Balance --->
+            <td>
+                <table class="m-auto text-center table table-bordered custom-table-border-color">
+                    <tbody>
+                        <tr>
+                            <td>-</td>
+                        </tr>
+                        @for($j=0;$j<count($daily_report_product_decode);$j++) @php
+                            $l_id_2=$daily_report_product_decode[$j]['l_id'];
+                            $h_over_input=$daily_report_product_decode[$j]['h_over_input']; $h_over_bal=$h_over_input -
+                            $h_over_input; @endphp @if($l_id_2==$l_id) <tr>
+                            <td>{{ $h_over_bal }}</td>
+                            </tr>
+                            @endif
+
+                            @endfor
+
+                    </tbody>
+                </table>
+            </td>
+
+            <td>
+                <table class="m-auto text-center w-100 table table-bordered custom-table-border-color">
+                    <tbody>
+                        <tr>
+                            <td class="m_power_value_{{ $l_id }}">{{ $m_power }}</td>
+                            <td class="hp_value_{{ $l_id }}">{{ $hp }}</td>
+                        </tr>
+                        <tr>
+                            <td class="total_m_power_{{ $l_id }}" colspan="2"></td>
+                        </tr>
+                        <tr>
+                            <td class="actual_m_power_value_{{ $l_id }}">{{ $actual_m_power }}</td>
+                            <td class="actual_hp_value_{{ $l_id }}">{{ $actual_hp }}</td>
+                        </tr>
+                        <tr>
+                            <td class="total_actual_m_power_{{ $l_id }}" colspan="2"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <script>
+                    var m_power_value = parseInt($('.m_power_value_{{ $l_id }}').text());
                             var hp_value = parseInt($('.hp_value_{{ $l_id }}').text());
                             var actual_m_power = parseInt($('.actual_m_power_value_{{ $l_id }}').text());
                             var actual_hp_value = parseInt($('.actual_hp_value_{{ $l_id }}').text());
@@ -408,14 +440,14 @@ $date_string = date("d.m.Y");
                             total_actual_m_power_value.text(total_actual_m_power);
                             }
 
-                            </script>
-                        </td>
-                        <td>hello</td>
-                        <td>hello</td>
-                        <td>hello</td>
-                        <td></td>
-                        </tr>
-                        @endfor </tbody>
+                </script>
+            </td>
+            <td>hello</td>
+            <td>hello</td>
+            <td>hello</td>
+            <td></td>
+            </tr>
+            @endfor </tbody>
             </table>
         </div>
         @if($edit_status)
@@ -423,6 +455,41 @@ $date_string = date("d.m.Y");
         <a href="{{ url('/report') }}" class="btn-secondary btn my-2">Cancel</a>
         @endif
     </form>
+    <script>
+        $("#cmp_put").submit(function(e) {
+e.preventDefault();
+
+// Get NON-INPUT table cell data
+var box = {};
+var boxes = [];
+$('.td_input').each(function() {
+    var l_id_input = $('#l_id_input', this).val();
+    var a_id_input = $('#a_id_input', this).val();
+    var p_id_input = $('#p_id_input', this).val();
+    var cmp_input = $('#cmp_input',this).val();
+box = {
+l_id_input: l_id_input,
+a_id_input: a_id_input,
+p_id_input: p_id_input,
+cmp_input: cmp_input
+}
+boxes.push(box);
+});
+
+$.ajax({
+        type: "POST",
+        url: "/cmp_put",
+        data: {
+            boxes: boxes,
+        },
+        success: function(data) {
+            // console.log(data);
+            window.location.href = "/report?update=ok";
+        }
+    });
+});
+
+    </script>
 </div>
 <div class="row container-fluid">
     <div class="col-12 col-md-6 my-4 rounded shadow" id="production_chart">
