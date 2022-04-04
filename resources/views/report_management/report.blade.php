@@ -24,13 +24,19 @@ $date_string = date("d.m.Y");
     $daily_report_product_decode = json_decode(json_encode($daily_report_product),true);
     ?>
 
-    <a class='btn custom-btn-theme custom-btn-theme-edit text-white' href="{{ url('/report')}}?edit=1">Edit</a>
-
     <?php
-    @$edit_status = $_GET['edit'];
-    ?>
+@$edit_status = $_GET['edit'];
+?>
+
+    @if(!$edit_status)
+    <a class='btn custom-btn-theme custom-btn-theme-edit text-white' href="{{ url('/report')}}?edit=1">Edit</a>
+    @endif
 
     <form method="POST" id="cmp_put">
+        @if($edit_status)
+        <input class="icon-btn-one btn my-2" type="submit" value="Update" name="submit" />
+        <a href="{{ url('/report') }}" class="btn-secondary btn my-2">Cancel</a>
+        @endif
         <div style="overflow-x:auto;max-width:100%;">
             <table class="table table-striped my-4 tableFixHead results p-0 text-center table-bordered">
                 <thead>
@@ -237,8 +243,8 @@ $date_string = date("d.m.Y");
                                             <input type="hidden" id="p_id_input" name="p_id[]"
                                                 value="<?php echo $p_id_2; ?>" />
                                             <input type="number" id="cmp_input" class="form-control p-0 text-center"
-                                                name="cmp[]" placeholder="0" min="0"
-                                                oninput="validity.valid||(value='');" value="" />
+                                                name="cmp[]" placeholder="0" min="0" step="any"
+                                                value="<?php echo $cmp; ?>">
                                         </td>
                                         @else
                                         <td>
@@ -265,15 +271,15 @@ $date_string = date("d.m.Y");
                 <table class="table table-bordered">
                     <tbody>
                         <tr>
-                            <td colspan="2">-</td>
+                            <td colspan="">-</td>
+                            <td class="total_cmp_{{ $l_id }}">total_cmp</td>
                         </tr>
                         @for($j=0;$j<count($daily_report_product_decode);$j++) @php
                             $l_id_2=$daily_report_product_decode[$j]['l_id'];
                             $p_id_2=$daily_report_product_decode[$j]['p_detail_id']; @endphp @if($l_id_2==$l_id) <tr>
-                            <td class="daily_cmp_{{ $p_id_2 }}">
+                            <td class="daily_cmp_{{ $p_id_2 }} cmp_product_{{ $l_id_2 }}">
 
                             </td>
-                            <td><span class="text-danger">total_cmp</span></td>
                             </tr>
 
 
@@ -288,10 +294,29 @@ $date_string = date("d.m.Y");
                                     daily_cmp.text('-');
                                 }
                                 else{
-                                daily_cmp.text("$ " + multiply_cmp);
+                                daily_cmp.text("$ " + multiply_cmp.toFixed(1));
                                 }
 
+
+            var cmp_product=$(".cmp_product_{{ $l_id_2 }}");
+            var total_cmp_class = $(".total_cmp_{{ $l_id_2 }}");
+            var total_cmp = 0;
+
+            cmp_product.each(function() {
+                var cmp_product_text=$(this).text(); var substring=parseFloat(cmp_product_text.substring(2));
+
+                if(Number.isNaN(substring)){
+                    substring = 0;
+                }
+                else{
+                    total_cmp += substring;
+                }
+
+    });
+        total_cmp_class.text("$ " + total_cmp);
+
                             </script>
+
                             @endif
 
                             @endfor
@@ -442,18 +467,59 @@ $date_string = date("d.m.Y");
 
                 </script>
             </td>
-            <td>hello</td>
-            <td>hello</td>
-            <td>hello</td>
-            <td></td>
-            </tr>
-            @endfor </tbody>
-            </table>
+
+
+            <!----- Total Time ------>
+
+            @for($k=0;$k<count($daily_report_decode);$k++) @php $l_id_2=$daily_report_decode[$k]['l_id'];
+                $total_time=(int)$daily_report_decode[$k]['total_time']; $subtraction=$total_time - 1; @endphp
+                @if($l_id_2==$l_id) <td class="total_time_{{ $l_id_2 }}"> {{
+                $subtraction }} </td>
+
+                @endif
+
+                @endfor
+
+                <!----- Total Time  End ------>
+
+                <td class="cmp_hr_{{ $l_id }}"></td>
+                <td class="cmp_hr_ps_{{ $l_id }}"></td>
+                <td></td>
+                </tr>
+
+                <script>
+                    // For CMP/hr
+                    var total_cmp_2 = $('.total_cmp_{{ $l_id }}').text();
+                   var substring_2=parseFloat(total_cmp_2.substring(2));
+    var total_time_2 = parseInt($('.total_time_{{ $l_id }}').text());
+
+    var cmp_hr = $('.cmp_hr_{{ $l_id }}');
+
+    var div_time = substring_2 / total_time_2;
+
+
+    cmp_hr.text("$ " + div_time);
+
+    /// For CMP/hr end
+
+    /// For CMP/ HR/ PS
+var total_actual_m_power_2 = $('.total_actual_m_power_{{ $l_id }}').text();
+var cmp_hr_3 = $('.cmp_hr_{{ $l_id }}').text();
+var cmp_hr_ps = $('.cmp_hr_ps_{{ $l_id }}');
+
+
+var substring_3 = parseFloat(cmp_hr_3.substring(2));
+var substring_4 = parseFloat(total_actual_m_power_2.substring(2));
+
+var div_cmp_hr_ps = substring_3 / substring_4;
+
+cmp_hr_ps.text("$ " + div_cmp_hr_ps.toFixed(1));
+    /// For CMP/ HR/ PS end
+
+                </script>
+                @endfor </tbody>
+                </table>
         </div>
-        @if($edit_status)
-        <input class="icon-btn-one btn my-2" type="submit" value="Update" name="submit" />
-        <a href="{{ url('/report') }}" class="btn-secondary btn my-2">Cancel</a>
-        @endif
     </form>
     <script>
         $("#cmp_put").submit(function(e) {

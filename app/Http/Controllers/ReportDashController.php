@@ -26,15 +26,14 @@ class ReportDashController extends Controller
         $date_string = date("d.m.Y");
 
         $daily_report = DB::select('SELECT "line".l_id,"line".l_name,"line_assign".main_target,"line_assign".m_power,"line_assign".actual_m_power,"line_assign".man_target,"line_assign".man_actual_target,
-        "line_assign".hp,"line_assign".actual_hp,SUM("time".div_actual_target) as total_div_actual_target
+        "line_assign".hp,"line_assign".actual_hp,SUM("time".div_actual_target) as total_div_actual_target,COUNT("time".assign_id) AS total_time
         FROM line
         JOIN line_assign ON "line_assign".l_id="line".l_id AND
         "line_assign".assign_date=\'' . $date_string . '\'
-        JOIN time ON "time".line_id="line".l_id AND "time".assign_date=\'' . $date_string . '\'
+        JOIN time ON "time".line_id="line".l_id AND "time".assign_date=\'' . $date_string . '\' AND "time".assign_id="line_assign".assign_id
         GROUP BY "line".l_id,"line_assign".main_target,"line_assign".m_power,"line_assign".actual_m_power,"line_assign".man_target,"line_assign".man_actual_target,
         "line_assign".hp,"line_assign".actual_hp
-        ORDER BY "line".l_pos ASC
-        ');
+        ORDER BY "line".l_pos ASC');
 
         $daily_report_product = DB::select('SELECT "p_detail".p_detail_id,"p_detail".l_id,"p_detail".p_name,"p_detail".quantity,"p_detail".div_quantity,"p_detail".sewing_input,"p_detail".assign_id,
         "p_detail".h_over_input,"p_detail".p_actual_target,"p_detail".cat_actual_target,"p_detail".inline,"p_detail".cmp
@@ -63,6 +62,7 @@ class ReportDashController extends Controller
     {
         $boxes = request()->post('boxes');
 
+        // print_r($boxes);
 
         for ($i = 0; $i < count($boxes); $i++) {
 
