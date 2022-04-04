@@ -144,7 +144,7 @@ if(div_actual_target!=''){
     if(Number.isNaN(new_percent)){
         div_actual_target_percent.text("");
     }if(!Number.isNaN(new_percent)){
-        div_actual_target_percent.text(new_percent.toFixed(0));
+        div_actual_target_percent.text(parseInt(new_percent));
         if(parseInt(div_actual_target_percent.text()) >= 100){
    $("#td_div_actual_target_percent_<?php echo $current_target; ?>").css('background-color','green');
 } if(parseInt(div_actual_target_percent.text()) < 100){
@@ -160,7 +160,7 @@ if(Number.isNaN(percentage)){
 div_actual_target_percent.text("");
 }
 if(!Number.isNaN(percentage)){
-div_actual_target_percent.text(percentage.toFixed(0));
+div_actual_target_percent.text(parseInt(percentage));
 if(parseInt(div_actual_target_percent.text()) >= 100){
    $("#td_div_actual_target_percent_<?php echo $current_target; ?>").css('background-color','green');
 } if(parseInt(div_actual_target_percent.text()) < 100){
@@ -236,7 +236,7 @@ $("#td_div_actual_target_total_<?php echo $current_target; ?>").css('background-
                                             t_percent_span.text("");
                                         }
                                         if (!Number.isNaN(t_percent)) {
-                                            t_percent_span.text(t_percent.toFixed(0));
+                                            t_percent_span.text(parseInt(t_percent));
                                             if (parseInt(t_percent_span.text()) >= 100) {
                                                 td_t_percent.css('background-color', 'green');
                                             }
@@ -428,7 +428,7 @@ var new_t_div_actual_target_num = parseInt($("#new_t_div_actual_target_num_{{ $t
 var total_percentage =(new_t_div_actual_target_num / new_t_div_target_num) * 100;
 var new_total_percent = $("#total_percent_{{ $t_div_actual_target_1->row_num }}");
 var tmp_num = $("#tmp_num_{{ $t_div_actual_target_1->row_num }}").text();
-new_total_percent.text(total_percentage.toFixed(0));
+new_total_percent.text(parseInt(total_percentage));
 
 
 if(parseInt(new_t_div_target_num) > parseInt(tmp_num)){
@@ -443,7 +443,7 @@ $("#td_tmp_num_{{ $t_div_actual_target_1->row_num }}").css('background-color','g
         new_total_percent.text("");
     }
     if(!Number.isNaN(total_percentage)){
-        new_total_percent.text(total_percentage.toFixed(0));
+        new_total_percent.text(parseInt(total_percentage));
         if(parseInt(new_t_div_actual_target_num) >= parseInt(new_t_div_target_num)){
    $("#total_percent_{{ $t_div_actual_target_1->row_num }}").css('background-color','green');
 } if(parseInt(new_t_div_actual_target_num) < parseInt(new_t_div_target_num)){
@@ -498,7 +498,7 @@ new_total_percent.append('%');
                                 if(Number.isNaN(t_percent_cal)){
                                     t_overall_percent.text("");
                                 }
-                                t_overall_percent.text(t_percent_cal.toFixed(0));
+                                t_overall_percent.text(parseInt(t_percent_cal));
                                 if(parseInt(t_overall_actual_target) >= parseInt(t_overall_target)){
                                     t_overall_percent.css('background-color','green');
                                 } if(parseInt(t_overall_actual_target) < parseInt(t_overall_target)){

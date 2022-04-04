@@ -52,11 +52,11 @@ $num = 1;
                                 <table class="table" id="dynamic_field_2">
                                     <tr class="setting-tr-2">
                                         <td>
-                                            <label>Category</label>
+                                            <label>Buyer</label>
                                             <livewire:select-box-setting2 />
                                         </td>
                                         <td>
-                                            <label>Product Name</label>
+                                            <label>Item Name</label>
                                             <input type="text" class="form-control" id="p_name" name="p_name[]"
                                                 placeholder="Musung Shirt" required />
                                         </td>
@@ -350,11 +350,16 @@ $num = 1;
                     <table class="table" id="dynamic_field">
                         <tr class="setting-tr">
                             <td>
-                                <label>Category</label>
+                                <label>Buyer</label>
                                 <livewire:select-box-setting />
                             </td>
                             <td>
-                                <label>Product Name</label>
+                                <label>Style No.#</label>
+                                <input type="text" class="form-control" id="style_name" name="style_name[]"
+                                    placeholder="#0000" required />
+                            </td>
+                            <td>
+                                <label>Item Name</label>
                                 <input type="text" class="form-control" id="p_name" name="p_name[]"
                                     placeholder="Musung Shirt" required />
                             </td>
@@ -825,11 +830,11 @@ $num = 1;
                         <table class="table" id="dynamic_field">
                             <tr class="setting-tr">
                                 <td>
-                                    <label>Category</label>
+                                    <label>Buyer</label>
                                     <livewire:select-box-setting />
                                 </td>
                                 <td>
-                                    <label>Product Name</label>
+                                    <label>Item Name</label>
                                     <input type="text" class="form-control" id="p_name" name="p_name[]"
                                         placeholder="Musung Shirt" required />
                                 </td>

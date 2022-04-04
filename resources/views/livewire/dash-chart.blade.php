@@ -11,6 +11,7 @@
         if($arr_decode){ ?>
         <script>
             window.addEventListener('initSomethingChart', event => {
+
     var getTheme = localStorage.getItem("style");
         if (getTheme == 'light') {
             var options = {
@@ -60,19 +61,14 @@
                     opacity: 1
                 }, series: [{
                     name: "Output",
-                    data: [<?php for ($i = 0; $i < count($arr_decode); $i++) {
-                                $total_actual_target = $arr_decode[$i]['total_actual_target'];
-                                if ($arr_decode[$i]['total_actual_target'] == ''){
-                                   $total_actual_target = 0;
+                    data: [<?php foreach($top_line as $top) {
+                                $diff_target_percent = $top->diff_target_percent;
+                                if ($diff_target_percent == ''){
+                                   $diff_target_percent = 0;
                                 }
 
-                                echo $total_actual_target . ',';
-                            } ?>]
-                }, {
-                    name: "Target",
-                    data: [<?php for ($j = 0; $j < count($line_assign_apex_chart_decode); $j++) {
-                                echo $line_assign_apex_chart_decode[$j]['main_target'] . ',';
-                            } ?>]
+                                echo $diff_target_percent . ',';
+                            } ?>],
                 }, ], xaxis: {
                     categories: [<?php
                                     for ($z = 0; $z < count($line_apex_chart_decode); $z++) {
