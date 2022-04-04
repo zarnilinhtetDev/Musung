@@ -513,7 +513,13 @@ var substring_4 = parseFloat(total_actual_m_power_2.substring(2));
 
 var div_cmp_hr_ps = substring_3 / substring_4;
 
+if(Number.isNaN(div_cmp_hr_ps)){
+    cmp_hr_ps.text('');
+}
+                            else{
+
 cmp_hr_ps.text("$ " + div_cmp_hr_ps.toFixed(1));
+                            }
     /// For CMP/ HR/ PS end
 
                 </script>
