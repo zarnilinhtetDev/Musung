@@ -36,9 +36,10 @@ class ReportDashController extends Controller
         ORDER BY "line".l_pos ASC');
 
         $daily_report_product = DB::select('SELECT "p_detail".p_detail_id,"p_detail".l_id,"p_detail".p_name,"p_detail".quantity,"p_detail".div_quantity,"p_detail".sewing_input,"p_detail".assign_id,
-        "p_detail".h_over_input,"p_detail".p_actual_target,"p_detail".cat_actual_target,"p_detail".inline,"p_detail".cmp
+        "p_detail".h_over_input,"p_detail".p_actual_target,"p_detail".cat_actual_target,"p_detail".inline,"p_detail".cmp,"p_category".p_cat_name,"p_detail".style_no
         FROM p_detail
         JOIN line_assign ON "line_assign".assign_id="p_detail".assign_id AND "line_assign".assign_date=\'' . $date_string . '\'
+		JOIN p_category ON "p_category".p_cat_id="p_detail".p_cat_id
 		ORDER BY "p_detail".p_detail_id ASC');
 
         $category = DB::select('SELECT p_cat_id,SUM(cat_actual_target) AS t_cat_actual,p_name FROM p_detail
@@ -61,15 +62,26 @@ class ReportDashController extends Controller
     public function cmpPut()
     {
         $boxes = request()->post('boxes');
+        $note = request()->post('note_arr');
 
-        // print_r($boxes);
 
         for ($i = 0; $i < count($boxes); $i++) {
-
             $l_id_input = $boxes[$i]['l_id_input'];
             $p_id_input = $boxes[$i]['p_id_input'];
             $a_id_input = $boxes[$i]['a_id_input'];
             $cmp_input = $boxes[$i]['cmp_input'];
+
+
+            // for ($j = 0; $j < count($note); $j++) {
+            //     $note_input = $note[$j]['note_input'];
+            //     $l_id_remark = $note[$j]['l_id_remark'];
+
+            //     echo $l_id_input;
+            //     echo $l_id_remark;
+            //     if ($l_id_input == $l_id_remark) {
+            //         echo $note_input;
+            //     }
+            // }
 
             $p_detail_query = ProductDetail::where('p_detail_id', $p_id_input)->where('assign_id', $a_id_input)->where('l_id', $l_id_input)->update(['cmp' => $cmp_input]);
         }

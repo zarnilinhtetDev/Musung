@@ -94,17 +94,6 @@ ORDER BY "line".l_pos ASC');
                         <input type="hidden" value="<?php echo $assign_id; ?>" name="assign_id" />
                         <table>
                             <tr class="tr-daily">
-                                <td>
-                                    <span>Quantity : </span>
-                                </td>
-                                <td>
-                                    <div class="input-wrapper">
-                                        <input class="form-control daily-prod-input" type="number" id="overall_quantity" name="overall_quantity" min="0" oninput="validity.valid||(value='');" />
-                                        <label for="user">Quantity</label>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr class="tr-daily">
                                 <td><span>Target : </span></td>
                                 <td>
                                     <div class="input-wrapper">
@@ -382,6 +371,17 @@ ORDER BY "line".l_pos ASC');
             <input type="hidden" name="l_id" value="<?php echo $p_l_id_2; ?>">
             <input type="hidden" name="cat_id" value="<?php echo $p_cat_id_2; ?>">
             <table>
+                <tr class="tr-daily">
+                    <td>
+                        <span>Quantity : </span>
+                    </td>
+                    <td>
+                        <div class="input-wrapper">
+                            <input class="form-control daily-prod-input" type="number" id="overall_quantity" name="overall_quantity" min="0" oninput="validity.valid||(value='');" />
+                            <label for="user">Quantity</label>
+                        </div>
+                    </td>
+                </tr>
                 <tr class="tr-daily">
                     <td>
                         <span>Sewing Input : </span>

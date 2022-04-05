@@ -111,17 +111,21 @@ class LineAssignController extends Controller
         // $category_target_1 = request()->post('category_target_1');
 
         $category = [];
+        $style_no = [];
         $p_name = [];
         $category_target = [];
         $sub = json_decode(request()->post('sub'), true);
         for ($x = 0; $x < count($sub); $x++) {
             $category[] = $sub[$x]['category_select'];
+            $style_no[] = $sub[$x]['style_no'];
             $p_name[] = $sub[$x]['p_name'];
             $category_target[] = $sub[$x]['category_target'];
         }
         // print_r($category) . "<br/>";
         // print_r($p_name) . "<br/>";
         // print_r($category_target) . "<br/>";
+        // print_r($style_no);
+
         $number = count($category);
         $t_category_target =  array_sum($category_target);
 
@@ -204,6 +208,7 @@ class LineAssignController extends Controller
         }
         $date_string = date("d.m.Y");
 
+
         $line = Line::where('l_id', $l_id)->update(['a_status' => 1]); ///// Update status to line_id in line table
         if ($line == true) {
             $line_assign = LineAssign::create(['user_id' => $line_manager, 'l_id' => $l_id, 'main_target' => $t_category_target, 's_time' => $s_time, 'e_time' => $e_time, 'lunch_s_time' => $lunch_start, 'lunch_e_time' => $lunch_end, 'cal_work_min' => $progress, 't_work_hr' => $work_hour, 'assign_date' => $date_string, 'created_at' => NOW()]);
@@ -240,6 +245,7 @@ class LineAssignController extends Controller
                             if (trim($category[$i] != '')) {
                                 $category_id = $category[$i];
                                 $category_target_name = $category_target[$i];
+                                $style_no_1 = $style_no[$i];
                                 $product_name = $p_name[$i];
 
                                 $time_count = DB::select("SELECT assign_id,time_name FROM time WHERE assign_id=" . $assign_id . " ORDER BY time_name DESC OFFSET 1");
@@ -247,7 +253,7 @@ class LineAssignController extends Controller
                                 $count_time = count($time_count_decode);
                                 $div_target_quantity = round(($category_target[$i] / $count_time), 0);
 
-                                $category_assign = ProductDetail::create(['assign_id' => $assign_id, 'l_id' => $l_id, 'p_cat_id' => $category_id, 'p_name' => $product_name, 'quantity' => $category_target_name, 'div_quantity' => $div_target_quantity, 'created_at' => NOW()]);
+                                $category_assign = ProductDetail::create(['assign_id' => $assign_id, 'l_id' => $l_id, 'p_cat_id' => $category_id, 'p_name' => $product_name, 'style_no' => $style_no_1, 'quantity' => $category_target_name, 'div_quantity' => $div_target_quantity, 'created_at' => NOW()]);
                             }
                         }
                         if ($category_assign == true) {

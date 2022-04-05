@@ -9,6 +9,6 @@ class ProductDetail extends Model
 {
     use HasFactory;
     protected $table = 'p_detail';
-    protected $fillable = ['assign_id', 'l_id', 'p_cat_id', 'p_name', 'quantity', 'div_quantity', 'sewing_input', 'h_over_input', 'p_actual_target', 'cat_actual_target', 'inline', 'cmp', 'created_at', 'updated_at'];
+    protected $fillable = ['assign_id', 'l_id', 'p_cat_id', 'p_name', 'style_no', 'quantity', 'div_quantity', 'sewing_input', 'h_over_input', 'p_actual_target', 'cat_actual_target', 'inline', 'cmp', 'created_at', 'updated_at'];
     protected $primaryKey = 'p_detail_id';
 }
