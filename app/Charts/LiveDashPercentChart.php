@@ -28,20 +28,31 @@ class LiveDashPercentChart
         "line_assign".assign_date=\'' . $date_string . '\'
         GROUP BY "time".line_id ORDER BY "time".line_id ASC');
 
-        $arr_decode = json_decode(json_encode($time), true);
+        $top_line = DB::select('SELECT line.l_id,line.l_name,line_assign.main_target AS main_target,SUM(time.div_actual_target) AS total_actual,
+        ROUND((SUM(time.div_actual_target)*100/line_assign.main_target),0) AS diff_target_percent,
+        ROW_NUMBER() OVER(ORDER BY  ROUND((SUM(time.div_actual_target)*100/line_assign.main_target),0) DESC) AS row_num
+        FROM line
+        INNER JOIN line_assign ON line_assign.l_id=line.l_id AND "line_assign".assign_date=\'' . $date_string . '\'
+        Inner JOIN time ON time.line_id=line_assign.l_id AND time.assign_date=\'' . $date_string . '\'
+        GROUP BY line.l_id,line.l_name,line_assign.main_target
+        ORDER BY diff_target_percent ASC');
+
+        $arr_decode = json_decode(json_encode($top_line), true);
 
         $arr = [];
         for ($i = 0; $i < count($arr_decode); $i++) {
-            $total_actual_target = $arr_decode[$i]['total_actual_target'];
+            $total_actual_target = $arr_decode[$i]['diff_target_percent'];
+            if ($total_actual_target == '') {
+                $total_actual_target = 0;
+            }
             $arr[] = $total_actual_target;
         }
 
         return $this->percent_chart->horizontalBarChart()
-            ->setTitle('Target and Actual Target')
-            // ->setSubtitle('Wins during season 2021.')
-            ->setColors(['#FFD416', '#6495ed'])
-            ->addData('Actual Target', $arr)
-            ->addData('Target', $line_assign)
-            ->setXAxis($line);
+            ->setTitle('Target and Output Chart')
+            ->addData('Output Target', $arr)
+            ->setXAxis($line)
+            ->setDataLabels()
+            ->setGrid();
     }
 }

@@ -57,7 +57,7 @@
                         </tr>
                     </table>
                 </td>
-                <td>hello </td>
+                <td></td>
                 <td style="vertical-align: middle;">@foreach($total_inline as $t_inline)
                     @if($t_inline->l_id == $g_line_id)
                     {{ $t_inline->total_inline }}

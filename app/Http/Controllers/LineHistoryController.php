@@ -52,23 +52,38 @@ class LineHistoryController extends Controller
                 GROUP BY "line".l_id,"line_assign".assign_id,"users".id
                 ORDER BY "line".l_pos ASC');
 
+
         $top_line = DB::select('SELECT line.l_id,line.l_name,line_assign.main_target AS main_target,SUM(time.div_actual_target) AS total_actual,
         ROUND((SUM(time.div_actual_target)*100/line_assign.main_target),0) AS diff_target_percent,
-		ROW_NUMBER() OVER(ORDER BY  ROUND((SUM(time.div_actual_target)*100/line_assign.main_target),0) DESC) AS row_num
+        ROW_NUMBER() OVER(ORDER BY  ROUND((SUM(time.div_actual_target)*100/line_assign.main_target),0) DESC) AS row_num
         FROM line
         INNER JOIN line_assign ON line_assign.l_id=line.l_id AND "line_assign".assign_date=\'' . $date_string . '\'
         Inner JOIN time ON time.line_id=line_assign.l_id AND time.assign_date=\'' . $date_string . '\'
+        WHERE "time".div_actual_target IS NOT NULL
         GROUP BY line.l_id,line.l_name,line_assign.main_target
         ORDER BY diff_target_percent DESC');
 
-        $last_line = DB::select('SELECT line.l_id,line.l_name,line_assign.main_target AS main_target,SUM(time.div_actual_target) AS total_actual,
-        ROUND((SUM(time.div_actual_target)*100/line_assign.main_target),1) AS diff_target_percent
+        /// For Larapex Chart
+        $top_line_2 = DB::select('SELECT line.l_id,line.l_name,line_assign.main_target AS main_target,SUM(time.div_actual_target) AS total_actual,
+        ROUND((SUM(time.div_actual_target)*100/line_assign.main_target),0) AS diff_target_percent,
+        ROW_NUMBER() OVER(ORDER BY  ROUND((SUM(time.div_actual_target)*100/line_assign.main_target),0) DESC) AS row_num
         FROM line
         INNER JOIN line_assign ON line_assign.l_id=line.l_id AND "line_assign".assign_date=\'' . $date_string . '\'
         Inner JOIN time ON time.line_id=line_assign.l_id AND time.assign_date=\'' . $date_string . '\'
         GROUP BY line.l_id,line.l_name,line_assign.main_target
-        ORDER BY diff_target_percent ASC
-        LIMIT 1');
+        ORDER BY diff_target_percent ASC');
+        /// For Larapex Chart End
+
+        $total_inline = DB::select('SELECT "p_detail".l_id,SUM("p_detail".inline) AS total_inline
+        FROM p_detail
+        JOIN line_assign ON "line_assign".assign_id="p_detail".assign_id AND "line_assign".l_id="p_detail".l_id
+        AND "line_assign".assign_date=\'' . $date_string . '\'
+        GROUP BY "p_detail".l_id');
+
+        $p_detail_2 = DB::select('SELECT "p_detail".p_detail_id,"p_detail".l_id,"p_detail".p_name
+        FROM p_detail
+        JOIN line_assign ON "line_assign".assign_id="p_detail".assign_id AND "p_detail".l_id="line_assign".l_id AND "line_assign".assign_date=\'' . $date_string . '\'
+        ORDER BY "p_detail".p_detail_id ASC');
 
         $total_main_target = DB::select('SELECT SUM("line_assign".main_target) AS t_main_target FROM line_assign WHERE "line_assign".assign_date=\'' . $date_string . '\'');
 
@@ -101,7 +116,7 @@ class LineHistoryController extends Controller
         $total_div_target_decode = json_decode(json_encode($total_div_target), true);
         $total_div_actual_target_decode = json_decode(json_encode($total_div_actual_target), true);
         $top_line_decode = json_decode(json_encode($top_line), true);
-        $last_line_decode = json_decode(json_encode($last_line), true);
+        $top_line_decode_2 = json_decode(json_encode($top_line_2), true);
         $total_overall_target_decode = json_decode(json_encode($total_overall_target), true);
         $total_overall_actual_target_decode = json_decode(json_encode($total_overall_actual_target), true);
         $target_total_decode = json_decode(json_encode($target_total), true);
@@ -183,10 +198,17 @@ class LineHistoryController extends Controller
                                         <td>' . $g_actual_m_power . '</td>
                                         <td>' . $g_actual_hp . '</td>
                                     </tr>
-                                </table></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                </table>
+                                </td>
+                                    <td>hello</td>
+                                    <td>hello</td>
+                                    <td style="vertical-align: middle;">';
+                foreach ($total_inline as $t_inline) {
+                    if ($t_inline->l_id == $g_line_id) {
+                        echo $t_inline->total_inline;
+                    }
+                }
+                echo '</td>
                                     <td style="vertical-align: middle;"><span id="g_main_target_' . $g_line_id . '">' . $g_main_target . '</span></td>';
 
                 foreach ($time_2 as $t_2) {
@@ -258,7 +280,7 @@ class LineHistoryController extends Controller
                                                         div_actual_target_percent.text("");
                                                     }
                                                     if (!Number.isNaN(new_percent)) {
-                                                        div_actual_target_percent.text(new_percent.toFixed(0));
+                                                        div_actual_target_percent.text(parseInt(new_percent));
                                                         if (parseInt(div_actual_target_percent.text()) >= 100) {
                                                             $("#td_div_actual_target_percent_' . $current_target . '").css("background-color", "green");
                                                         }
@@ -275,7 +297,7 @@ class LineHistoryController extends Controller
                                                     div_actual_target_percent.text("");
                                                 }
                                                 if (!Number.isNaN(percentage)) {
-                                                    div_actual_target_percent.text(percentage.toFixed(0));
+                                                    div_actual_target_percent.text(parseInt(percentage));
                                                     if (parseInt(div_actual_target_percent.text()) >= 100) {
                                                         $("#td_div_actual_target_percent_' . $current_target . '").css("background-color", "green");
                                                     }
@@ -358,7 +380,7 @@ class LineHistoryController extends Controller
                                                     t_percent_span.text("");
                                                 }
                                                 if (!Number.isNaN(t_percent)) {
-                                                    t_percent_span.text(t_percent.toFixed(0));
+                                                    t_percent_span.text(parseInt(t_percent));
                                                     if (parseInt(t_percent_span.text()) >= 100) {
                                                         td_t_percent.css('background-color', 'green');
                                                     }
@@ -404,24 +426,37 @@ class LineHistoryController extends Controller
                     var top_2 = lowestToHighest[1];
                     var top_3 = lowestToHighest[2];
 
-                    if (top_1 != '') {
-                        $('.t_line_' + top_1).css({
-                            'background-color': 'green',
-                            'color': '#fff'
-                        });
-                    }
-                    if (top_2 != '') {
-                        $('.t_line_' + top_2).css({
-                            'background-color': 'green',
-                            'color': '#fff'
-                        });
-                    }
-                    if (top_3 != '') {
-                        $('.t_line_' + top_3).css({
-                            'background-color': 'green',
-                            'color': '#fff'
-                        });
-                    }
+                    // if (top_1 != '') {
+                    //     $('.t_line_' + top_1).css({
+                    //         'background-color': 'green',
+                    //         'color': '#fff'
+                    //     });
+                    // }
+                    // if (top_2 != '') {
+                    //     $('.t_line_' + top_2).css({
+                    //         'background-color': 'green',
+                    //         'color': '#fff'
+                    //     });
+                    // }
+                    // if (top_3 != '') {
+                    //     $('.t_line_' + top_3).css({
+                    //         'background-color': 'green',
+                    //         'color': '#fff'
+                    //     });
+                    // }
+
+                    $('.t_line_1').css({
+                        'background-color': 'green',
+                        'color': '#fff'
+                    });
+                    $('.t_line_2').css({
+                        'background-color': 'green',
+                        'color': '#fff'
+                    });
+                    $('.t_line_3').css({
+                        'background-color': 'green',
+                        'color': '#fff'
+                    });
 
                     var max_num = Math.max(...val_arr);
                     $(".t_line_" + max_num).css({
@@ -540,7 +575,7 @@ class LineHistoryController extends Controller
                             var total_percentage = (new_t_div_actual_target_num / new_t_div_target_num) * 100;
                             var new_total_percent = $("#total_percent_<?php echo $total_div_actual_target_decode[$m]['row_num']; ?>");
                             var tmp_num = $("#tmp_num_<?php echo  $total_div_actual_target_decode[$m]['row_num']; ?>").text();
-                            new_total_percent.text(total_percentage.toFixed(0));
+                            new_total_percent.text(parseInt(total_percentage));
 
                             if (parseInt(new_t_div_target_num) > parseInt(tmp_num)) {
                                 $("#td_tmp_num_<?php echo $total_div_actual_target_decode[$m]['row_num']; ?>").css("background-color", "red");
@@ -554,7 +589,7 @@ class LineHistoryController extends Controller
                                 new_total_percent.text("");
                             }
                             if (!Number.isNaN(total_percentage)) {
-                                new_total_percent.text(total_percentage.toFixed(0));
+                                new_total_percent.text(parseInt(total_percentage));
                                 if (parseInt(new_t_div_actual_target_num) >= parseInt(new_t_div_target_num)) {
                                     $("#total_percent_<?php echo  $total_div_actual_target_decode[$m]['row_num']; ?>").css("background-color", "green");
                                 }
@@ -610,7 +645,7 @@ class LineHistoryController extends Controller
                     }
 
                     var t_percent_cal = (t_overall_actual_target / t_overall_target) * 100;
-                    t_overall_percent.text(t_percent_cal.toFixed(0));
+                    t_overall_percent.text(parseInt(t_percent_cal));
 
 
                     if (parseInt(t_overall_actual_target) >= parseInt(t_overall_target)) {
@@ -631,7 +666,7 @@ class LineHistoryController extends Controller
                     </div>
                 </div>
                 <div class="col-12 col-md-4 p-sm-0 p-md-2 my-sm-2 my-md-0 top-3">
-                    <h1 class="fw-bold heading-text fs-3 p-0">Target and Actual Target Chart</h1>
+                    <h1 class="fw-bold heading-text fs-3 p-0">Target and Output Chart</h1>
                     <div id="history_chart"></div>
                 </div>';
 
@@ -640,24 +675,12 @@ class LineHistoryController extends Controller
                 var getTheme = localStorage.getItem("style");
                 if (getTheme == 'light') {
                     var options = {
-                        series: [{
-                            name: "Actual Target",
-                            data: [<?php for ($i = 0; $i < count($arr_decode); $i++) {
-                                        $total_actual_target = $arr_decode[$i]['total_actual_target'];
-                                        if ($total_actual_target == '') {
-                                            echo '0,';
-                                        }
-                                        echo $total_actual_target . ',';
-                                    } ?>]
-                        }, {
-                            name: "Target",
-                            data: [<?php for ($j = 0; $j < count($line_assign_apex_chart_decode); $j++) {
-                                        echo $line_assign_apex_chart_decode[$j]['main_target'] . ',';
-                                    } ?>]
-                        }, ],
                         chart: {
+                            animations: {
+                                enabled: false,
+                            },
                             type: "bar",
-                            height: 'auto',
+                            height: 550,
                             style: {
                                 colors: '#263238',
                                 fontSize: '12px',
@@ -686,13 +709,34 @@ class LineHistoryController extends Controller
                                 useSeriesColors: false,
                             },
                         },
+                        yaxis: {
+                            labels: {
+                                show: true,
+                                style: {
+                                    colors: '#263238',
+                                },
+                            },
+                        },
+                        fill: {
+                            opacity: 1
+                        },
+                        series: [{
+                            name: "Output",
+                            data: [<?php foreach ($top_line_2 as $top) {
+                                        $diff_target_percent = $top->diff_target_percent;
+                                        if ($diff_target_percent == '') {
+                                            $diff_target_percent = 0;
+                                        }
+                                        echo $diff_target_percent . ',';
+                                    } ?>],
+                        }, ],
                         xaxis: {
                             categories: [<?php
                                             for ($z = 0; $z < count($line_apex_chart_decode); $z++) {
                                                 echo '"' . $line_apex_chart_decode[$z]['l_name'] . '"' . ',';
                                             } ?>],
                             title: {
-                                text: "Target and Actual Target",
+                                text: "Target and Output",
                                 style: {
                                     fontSize: '14px',
                                     fontWeight: 'bold',
@@ -710,205 +754,8 @@ class LineHistoryController extends Controller
                                 },
                             },
                         },
-                        yaxis: {
-                            labels: {
-                                show: true,
-                                style: {
-                                    colors: '#263238',
-                                },
-                            },
-                        },
-                        fill: {
-                            opacity: 1
-                        },
                     };
-
                     var chart = new ApexCharts(document.querySelector("#history_chart"), options);
-
-                    chart.render();
-                }
-                if (getTheme == 'dark') {
-                    var options = {
-                        series: [{
-                            name: "Actual Target",
-                            data: [<?php for ($i = 0; $i < count($arr_decode); $i++) {
-                                        $total_actual_target = $arr_decode[$i]['total_actual_target'];
-                                        if ($total_actual_target == '') {
-                                            echo '0';
-                                        }
-                                        echo $total_actual_target . ',';
-                                    } ?>]
-                        }, {
-                            name: "Target",
-                            data: [<?php for ($j = 0; $j < count($line_assign_apex_chart_decode); $j++) {
-                                        echo $line_assign_apex_chart_decode[$j]['main_target'] . ',';
-                                    } ?>]
-                        }, ],
-                        chart: {
-                            type: "bar",
-                            height: 350,
-                            style: {
-                                colors: '#263238',
-                                fontSize: '12px',
-                                fontFamily: 'Helvetica, Arial, sans-serif',
-                                fontWeight: 400,
-                                cssClass: 'apexcharts-xaxis-label',
-                            },
-                        },
-                        plotOptions: {
-                            bar: {
-                                horizontal: true,
-                            },
-                        },
-                        dataLabels: {
-                            enabled: true,
-                        },
-                        stroke: {
-                            show: true,
-                            width: 2,
-                            colors: ["transparent"]
-                        },
-                        legend: {
-                            show: true,
-                            labels: {
-                                colors: '#fff',
-                                useSeriesColors: false,
-                            },
-                        },
-                        xaxis: {
-                            categories: [<?php
-                                            for ($z = 0; $z < count($line_apex_chart_decode); $z++) {
-                                                echo '"' . $line_apex_chart_decode[$z]['l_name'] . '"' . ',';
-                                            } ?>],
-                            title: {
-                                text: "Target and Actual Target",
-                                style: {
-                                    fontSize: '14px',
-                                    fontWeight: 'bold',
-                                    color: '#fff'
-                                },
-                            },
-                            labels: {
-                                show: true,
-                                style: {
-                                    colors: '#fff',
-                                    fontSize: '12px',
-                                    fontFamily: 'Helvetica, Arial, sans-serif',
-                                    fontWeight: 400,
-                                    cssClass: 'apexcharts-xaxis-label',
-                                },
-                            },
-                        },
-                        yaxis: {
-                            labels: {
-                                show: true,
-                                style: {
-                                    colors: '#fff',
-                                },
-                            },
-                        },
-                        tooltip: {
-                            theme: 'dark'
-                        },
-                        fill: {
-                            opacity: 1
-                        },
-                    };
-
-                    var chart = new ApexCharts(document.querySelector("#history_chart"), options);
-
-                    chart.render();
-                }
-                if (getTheme == 'gray') {
-                    var options = {
-                        series: [{
-                            name: "Actual Target",
-                            data: [<?php for ($i = 0; $i < count($arr_decode); $i++) {
-                                        $total_actual_target = $arr_decode[$i]['total_actual_target'];
-                                        if ($total_actual_target == '') {
-                                            echo '0';
-                                        }
-                                        echo $total_actual_target . ',';
-                                    } ?>]
-                        }, {
-                            name: "Target",
-                            data: [<?php for ($j = 0; $j < count($line_assign_apex_chart_decode); $j++) {
-                                        echo $line_assign_apex_chart_decode[$j]['main_target'] . ',';
-                                    } ?>]
-                        }, ],
-                        chart: {
-                            type: "bar",
-                            height: 350,
-                            style: {
-                                colors: '#263238',
-                                fontSize: '12px',
-                                fontFamily: 'Helvetica, Arial, sans-serif',
-                                fontWeight: 400,
-                                cssClass: 'apexcharts-xaxis-label',
-                            },
-                        },
-                        plotOptions: {
-                            bar: {
-                                horizontal: true,
-                            },
-                        },
-                        dataLabels: {
-                            enabled: true,
-                        },
-                        stroke: {
-                            show: true,
-                            width: 2,
-                            colors: ["transparent"]
-                        },
-                        legend: {
-                            show: true,
-                            labels: {
-                                colors: '#fff',
-                                useSeriesColors: false,
-                            },
-                        },
-                        xaxis: {
-                            categories: [<?php
-                                            for ($z = 0; $z < count($line_apex_chart_decode); $z++) {
-                                                echo '"' . $line_apex_chart_decode[$z]['l_name'] . '"' . ',';
-                                            } ?>],
-                            title: {
-                                text: "Target and Actual Target",
-                                style: {
-                                    fontSize: '14px',
-                                    fontWeight: 'bold',
-                                    color: '#fff'
-                                },
-                            },
-                            labels: {
-                                show: true,
-                                style: {
-                                    colors: '#fff',
-                                    fontSize: '12px',
-                                    fontFamily: 'Helvetica, Arial, sans-serif',
-                                    fontWeight: 400,
-                                    cssClass: 'apexcharts-xaxis-label',
-                                },
-                            },
-                        },
-                        yaxis: {
-                            labels: {
-                                show: true,
-                                style: {
-                                    colors: '#fff',
-                                },
-                            },
-                        },
-                        tooltip: {
-                            theme: 'dark'
-                        },
-                        fill: {
-                            opacity: 1
-                        },
-                    };
-
-                    var chart = new ApexCharts(document.querySelector("#history_chart"), options);
-
                     chart.render();
                 }
             </script>
