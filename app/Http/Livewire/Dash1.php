@@ -46,6 +46,7 @@ class Dash1 extends Component
                 GROUP BY "line".l_id,"line_assign".assign_id,"users".id
                 ORDER BY "line".l_pos ASC');
 
+
         $total_inline = DB::select('SELECT "p_detail".l_id,SUM("p_detail".inline) AS total_inline
         FROM p_detail
         JOIN line_assign ON "line_assign".assign_id="p_detail".assign_id AND "line_assign".l_id="p_detail".l_id

@@ -22,6 +22,7 @@
                     </table>
                 </th>
                 <th scope="col" style="vertical-align: middle;">Order <br />Qty</th>
+                <th scope="col" style="vertical-align: middle;">Item No</th>
                 <th scope="col" style="vertical-align: middle;">Inline<br />Stock</th>
                 <th scope="col" style="vertical-align: middle;">Target</th>
                 @foreach(array_reverse($time) as $t)
@@ -58,6 +59,22 @@
                     </table>
                 </td>
                 <td></td>
+
+                <!-- Sewing Total --->
+                <td>
+                    <table class="m-auto text-center table table-bordered">
+                        <tbody>
+                            @foreach($p_detail_2 as $p_2)
+                            <tr>
+                                <td>
+                                    {{ $p_2->p_name }}
+                                </td>
+                            </tr>
+
+                            @endforeach
+                        </tbody>
+                    </table>
+                </td>
                 <td style="vertical-align: middle;">@foreach($total_inline as $t_inline)
                     @if($t_inline->l_id == $g_line_id)
                     {{ $t_inline->total_inline }}

@@ -116,6 +116,7 @@
 </div>
 
 @endadmin
+
 @operator
 <div class="container-fluid">
     @php

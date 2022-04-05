@@ -47,7 +47,7 @@
 
 @operator
 <script type="text/javascript">
-    window.location = "{{url('menu')}}";
+    window.location = "{{url('live_dash')}}";
 </script>
 @endoperator
 

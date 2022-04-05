@@ -754,11 +754,12 @@ $num = 1;
                                     <label>Target</label>
                                     <input type="text" class="form-control" name="target" placeholder="100" required />
                                 </div> --}}
-                                <div class="col-12 col-md-4 mt-0">
+                                {{-- <div class="col-12 col-md-4 mt-0">
                                     <label>Total Working Hour(s)</label>
-                                    <input type="text" class="form-control" name="work_hour" placeholder="7 Hours"
-                                        id="work_hour" required readonly />
-                                </div>
+
+                                </div> --}}
+                                <input type="hidden" class="form-control" name="work_hour" placeholder="7 Hours"
+                                    id="work_hour" required readonly />
                             </div>
                             <div class="row g-3 my-2">
                                 <div class="col-12 col-md-4 mt-0">
@@ -833,6 +834,11 @@ $num = 1;
                                     <livewire:select-box-setting />
                                 </td>
                                 <td>
+                                    <label>Style No.#</label>
+                                    <input type="text" class="form-control" id="style_name" name="style_name[]"
+                                        placeholder="#0000" required />
+                                </td>
+                                <td>
                                     <label>Item Name</label>
                                     <input type="text" class="form-control" id="p_name" name="p_name[]"
                                         placeholder="Musung Shirt" required />
@@ -866,10 +872,12 @@ $num = 1;
     var boxes = [];
         $('#dynamic_field .setting-tr').each(function() {
             var category_select = $('#category_select', this).val();
+            var style_no = $('#style_name', this).val();
             var p_name = $('#p_name', this).val();
             var category_target = $('#setting_target', this).val();
     box = {
         category_select: category_select,
+        style_no : style_no,
         p_name: p_name,
         category_target: category_target
     }

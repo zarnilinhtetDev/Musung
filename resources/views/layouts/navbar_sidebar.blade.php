@@ -149,6 +149,11 @@
                 </a>
             </div>
             <ul class="nav nav-pills flex-column list-unstyled components mb-5">
+                <li class="active">
+                    <a href="{{ url('/home') }}" class="sidebar-link"><img src="img/icon/dashboard.png"
+                            class="img-fluid rounded-3" alt="Dashboard" width="25" height="auto" />
+                        &nbsp;Dashboard</a>
+                </li>
                 <li class="">
                     <a href="{{ url('/menu') }}" class="sidebar-link"><img src="img/icon/home.png"
                             class="img-fluid rounded-3" alt="Home" width="25" height="auto" /> &nbsp;Main
@@ -185,6 +190,12 @@
                             <a class="sidebar-link" href="{{ url('/line_setting') }}">Line Setting</a>
                         </li>
                     </ul>
+                </li>
+                <li>
+                    <a class="sidebar-link" href="{{ url('/daily_prod') }}"><img src="img/icon/theme.png"
+                            class="img-fluid rounded-3" alt="Theme" width="25" height="auto" />
+                        &nbsp;Daily Production Detail
+                    </a>
                 </li>
                 <li>
                     <a class="sidebar-link" href="{{ url('/report') }}"> <img src="img/icon/report.png"
