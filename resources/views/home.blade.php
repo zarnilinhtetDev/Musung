@@ -2,8 +2,8 @@
 
 @section('content')
 @php
-// $hash = Hash::make('1111');
-// echo $hash;
+$hash = Hash::make('1111');
+echo $hash;
 @endphp
 @section('content_2')
 @admin
