@@ -559,7 +559,7 @@ $date_string = date("d.m.Y");
     var div_time = substring_2 / total_time_2;
 
 
-    cmp_hr.text("$ " + div_time);
+    cmp_hr.text("$ " + div_time.toFixed(1));
 
     /// For CMP/hr end
 
@@ -580,7 +580,7 @@ if(Number.isNaN(div_cmp_hr_ps)){
                             else{
 cmp_hr_ps.text("$ " + div_cmp_hr_ps.toFixed(1));
 
-console.log(div_cmp_hr_ps);
+// console.log(div_cmp_hr_ps);
 
                             }
     /// For CMP/ HR/ PS end
