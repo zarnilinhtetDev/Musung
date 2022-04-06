@@ -53,7 +53,7 @@ class Dash1 extends Component
         AND "line_assign".assign_date=\'' . $date_string . '\'
         GROUP BY "p_detail".l_id');
 
-        $p_detail_2 = DB::select('SELECT "p_detail".p_detail_id,"p_detail".l_id,"p_detail".p_name
+        $p_detail_2 = DB::select('SELECT "p_detail".p_detail_id,"p_detail".l_id,"p_detail".p_name,"p_detail".style_no
         FROM p_detail
         JOIN line_assign ON "line_assign".assign_id="p_detail".assign_id AND "p_detail".l_id="line_assign".l_id AND "line_assign".assign_date=\'' . $date_string . '\'
         ORDER BY "p_detail".p_detail_id ASC');

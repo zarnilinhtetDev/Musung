@@ -68,7 +68,7 @@
                             @if($p_2->l_id == $g_line_id)
                             <tr>
                                 <td>
-                                    {{ $p_2->p_name }}
+                                    #{{ $p_2->style_no }}, {{ $p_2->p_name }}
                                 </td>
                             </tr>
                             @endif
