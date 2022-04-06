@@ -71,7 +71,7 @@ class LineHistoryController extends Controller
         INNER JOIN line_assign ON line_assign.l_id=line.l_id AND "line_assign".assign_date=\'' . $date_string . '\'
         Inner JOIN time ON time.line_id=line_assign.l_id AND time.assign_date=\'' . $date_string . '\'
         GROUP BY line.l_id,line.l_name,line_assign.main_target
-        ORDER BY diff_target_percent ASC');
+        ORDER BY "line".l_pos ASC');
         /// For Larapex Chart End
 
         $total_inline = DB::select('SELECT "p_detail".l_id,SUM("p_detail".inline) AS total_inline

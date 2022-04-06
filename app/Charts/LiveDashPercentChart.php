@@ -35,7 +35,7 @@ class LiveDashPercentChart
         INNER JOIN line_assign ON line_assign.l_id=line.l_id AND "line_assign".assign_date=\'' . $date_string . '\'
         Inner JOIN time ON time.line_id=line_assign.l_id AND time.assign_date=\'' . $date_string . '\'
         GROUP BY line.l_id,line.l_name,line_assign.main_target
-        ORDER BY diff_target_percent ASC');
+        ORDER BY "line".l_pos ASC');
 
         $arr_decode = json_decode(json_encode($top_line), true);
 

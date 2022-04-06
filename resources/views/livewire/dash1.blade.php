@@ -62,7 +62,7 @@
 
                 <!-- Item Name --->
                 <td>
-                    <table class="m-auto text-center table table-bordered">
+                    <table class="m-auto text-start table table-bordered">
                         <tbody>
                             @foreach($p_detail_2 as $p_2)
                             @if($p_2->l_id == $g_line_id)

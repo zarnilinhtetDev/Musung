@@ -195,6 +195,7 @@
                                                                     =$detail->p_cat_id;$p_detail_p_name
                                                                     =$detail->p_name;$p_detail_qty=$detail->quantity;
                                                                     $p_detail_time_id = $detail->time_id;
+                                                                    $p_detail_style_no = $detail->style_no;
                                                                     @endphp
 
                                                                     @if($time_id == $p_detail_time_id)
@@ -202,7 +203,8 @@
                                                                     <div class="col-12 my-2">
                                                                         <div class="row container-fluid">
                                                                             <div class="col-12 col-md-4 m-auto">
-                                                                                <h5 class="fw-bold heading-text">{{
+                                                                                <h5 class="fw-bold heading-text">#{{
+                                                                                    $p_detail_style_no }}{{
                                                                                     $p_detail_p_name }}</h5>
                                                                             </div>
                                                                             <div class="col-12 col-md-4">
