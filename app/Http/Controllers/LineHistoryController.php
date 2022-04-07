@@ -160,7 +160,6 @@ class LineHistoryController extends Controller
                                     </table>
                                 </th>
                                 <th scope="col" style="vertical-align: middle;">Item</th>
-                    <th scope="col" style="vertical-align: middle;">Order Qty</th>
                     <th scope="col" style="vertical-align: middle;">Inline Stock</th>
                                     <th scope="col" style="vertical-align: middle;">Target</th>';
 
@@ -200,8 +199,7 @@ class LineHistoryController extends Controller
                                     </tr>
                                 </table>
                                 </td>
-                                    <td>hello</td>
-                                    <td>hello</td>
+                               <td></td>
                                     <td style="vertical-align: middle;">';
                 foreach ($total_inline as $t_inline) {
                     if ($t_inline->l_id == $g_line_id) {

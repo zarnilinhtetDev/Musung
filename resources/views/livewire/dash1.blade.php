@@ -21,7 +21,6 @@
                         </tr>
                     </table>
                 </th>
-                <th scope="col" style="vertical-align: middle;">Order <br />Qty</th>
                 <th scope="col" style="vertical-align: middle;">Item Name</th>
                 <th scope="col" style="vertical-align: middle;">Inline<br />Stock</th>
                 <th scope="col" style="vertical-align: middle;">Target</th>
@@ -58,7 +57,6 @@
                         </tr>
                     </table>
                 </td>
-                <td></td>
 
                 <!-- Item Name --->
                 <td>
