@@ -544,7 +544,6 @@ class LineHistoryController extends Controller
             <td></td>
             <td></td>
             <td></td>
-            <td></td>
             <?php
             for ($k = 0; $k < count($total_main_target_decode); $k++) {
                 echo '<td style="vertical-align: middle;"><span id="">' . $total_main_target_decode[$k]["t_main_target"] . '</span></td>';

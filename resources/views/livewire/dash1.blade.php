@@ -417,7 +417,6 @@ $(".t_line_" + 10).css({
                 <td></td>
                 <td></td>
                 <td></td>
-                <td></td>
                 @foreach ($total_main_target as $t_main_target)
                 <td style="vertical-align: middle;"><span id="">{{ $t_main_target->t_main_target }}</span></td>
                 @endforeach
