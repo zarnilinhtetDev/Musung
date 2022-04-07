@@ -458,8 +458,16 @@ class LineHistoryController extends Controller
                         'color': '#fff'
                     });
 
-                    var max_num = Math.max(...val_arr);
-                    $(".t_line_" + max_num).css({
+
+                    //// Do not delete (get last rank data)
+                    // var max_num = Math.max(...val_arr);
+                    // $(".t_line_" + max_num).css({
+                    //     'background-color': 'red',
+                    //     'color': '#fff'
+                    // });
+                    //// Do not delete (get last rank data)
+
+                    $(".t_line_" + 10).css({
                         'background-color': 'red',
                         'color': '#fff'
                     });
@@ -513,8 +521,15 @@ class LineHistoryController extends Controller
                         });
                     }
 
-                    var max_num = Math.max(...val_arr);
-                    $(".t_line_" + max_num).css({
+                    //// Do not delete (get last rank data)
+                    // var max_num = Math.max(...val_arr);
+                    // $(".t_line_" + max_num).css({
+                    //     'background-color': 'red',
+                    //     'color': '#fff'
+                    // });
+                    //// Do not delete (get last rank data)
+
+                    $(".t_line_" + 10).css({
                         'background-color': 'red',
                         'color': '#fff'
                     });

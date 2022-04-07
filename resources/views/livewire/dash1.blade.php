@@ -331,9 +331,15 @@ $("#td_div_actual_target_total_<?php echo $current_target; ?>").css('background-
                             'color': '#fff'
                         });
 
-                    var max_num = Math.max(...val_arr);
+                        /// Do not delete (get last rank data)
+                                    // var max_num = Math.max(...val_arr);
 
-                    $(".t_line_" + max_num).css({
+                                    // $(".t_line_" + max_num).css({
+                                    //     'background-color': 'red',
+                                    //     'color': '#fff'
+                                    // });
+
+                    $(".t_line_" + 10).css({
                         'background-color': 'red',
                         'color': '#fff'
                     });
@@ -391,8 +397,15 @@ if(top_3 != ''){
     });
 }
 
-var max_num = Math.max(...val_arr);
-$(".t_line_" + max_num).css({
+  /// Do not delete (get last rank data)
+                                    // var max_num = Math.max(...val_arr);
+
+                                    // $(".t_line_" + max_num).css({
+                                    //     'background-color': 'red',
+                                    //     'color': '#fff'
+                                    // });
+
+$(".t_line_" + 10).css({
     'background-color': 'red',
     'color': '#fff'
 });
@@ -403,6 +416,7 @@ $(".t_line_" + max_num).css({
             @endforeach
             <tr>
                 <td style="vertical-align: middle;">Total</td>
+                <td></td>
                 <td></td>
                 <td></td>
                 <td></td>
