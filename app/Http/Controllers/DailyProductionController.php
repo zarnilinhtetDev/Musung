@@ -92,79 +92,81 @@ ORDER BY "line".l_pos ASC');
                     <form method="POST" id="daily_production_submit">
                         <input type="hidden" value="<?php echo $line_id; ?>" name="line_id" />
                         <input type="hidden" value="<?php echo $assign_id; ?>" name="assign_id" />
-                        <table>
-                            <tr class="tr-daily">
-                                <td><span>Target : </span></td>
-                                <td>
-                                    <div class="input-wrapper">
-                                        <input class="form-control daily-prod-input" type="number" id="today_target" name="today_target" value="<?php echo $total_div_target; ?>" readonly />
-                                        <label for="user">Today Target</label>
-                                    </div>
-                                    <div class="input-wrapper">
-                                        <input class="form-control daily-prod-input" type="number" id="man_target" name="man_target" min="0" oninput="validity.valid||(value='');" step="any" value="<?php echo $l_man_target; ?>" />
-                                        <label for="user">Man-Power Target</label>
-                                    </div>
-                                    <div class="input-wrapper">
-                                        <input class="form-control daily-prod-input" type="number" id="t_target" name="t_target" value="<?php echo $total_div_target; ?>" readonly />
-                                        <label for="user">Total Target</label>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr class="tr-daily">
-                                <td> <span>Actual Target : </span></td>
-                                <td>
-                                    <div class="input-wrapper">
-                                        <input class="form-control daily-prod-input" type="number" id="today_actual_target" name="today_actual_target" value="<?php echo $total_div_actual_target; ?>" readonly />
-                                        <label for="user">Today Actual Target</label>
-                                    </div>
-                                    <div class="input-wrapper">
-                                        <input class="form-control daily-prod-input" type="number" id="man_actual_target" name="man_actual_target" min="0" oninput="validity.valid||(value='');" step="any" value="<?php echo $l_man_actual_target; ?>" />
-                                        <label for="user">Man-Power Actual Target</label>
-                                    </div>
-                                    <div class="input-wrapper">
-                                        <input class="form-control daily-prod-input" type="number" id="t_actual_target" name="t_actual_target" value="<?php echo $total_div_actual_target; ?>" readonly />
-                                        <label for="user">Total Actual Target</label>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr class="tr-daily">
-                                <td> <span>ManPower Target : </span>
-                                </td>
-                                <td>
-                                    <div class="input-wrapper">
-                                        <input class="form-control daily-prod-input" type="number" id="man_power_input" name="man_power_input" min="0" value="<?php echo $m_power; ?>" />
-                                        <label for="user">S,L,Adm,Op Input</label>
-                                    </div>
-                                    <div class="input-wrapper">
-                                        <input class="form-control daily-prod-input" type="number" id="hp_input" name="hp_input" min="0" value="<?php echo $hp; ?>" />
-                                        <label for="user">HP</label>
-                                    </div>
-                                    <div class="input-wrapper">
-                                        <input class="form-control daily-prod-input" type="number" id="total_man_power" name="total_man_power" readonly />
-                                        <label for="user">Total ManPower</label>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr class="tr-daily">
-                                <td>
-                                    <span>ManPower Actual Target : </span>
-                                </td>
-                                <td>
-                                    <div class="input-wrapper">
-                                        <input class="form-control daily-prod-input" type="number" id="man_power_actual_input" name="man_power_actual_input" min="0" value="<?php echo $actual_m_power; ?>" />
-                                        <label for="user">S,L,Adm,Op Actual Input</label>
-                                    </div>
-                                    <div class="input-wrapper">
-                                        <input class="form-control daily-prod-input" type="number" id="hp_actual_input" name="hp_actual_input" min="0" value="<?php echo $actual_hp; ?>" />
-                                        <label for="user">Actual HP</label>
-                                    </div>
-                                    <div class="input-wrapper">
-                                        <input class="form-control daily-prod-input" type="number" id="total_actual_man_power" name="total_actual_man_power" readonly />
-                                        <label for="user">Total Actual ManPower</label>
-                                    </div>
-                                </td>
-                            </tr>
-                        </table>
+                        <div style="overflow: auto;max-width:100%;max-height:600px;">
+                            <table>
+                                <tr class="tr-daily">
+                                    <td><span>Target : </span></td>
+                                    <td>
+                                        <div class="input-wrapper">
+                                            <input class="form-control daily-prod-input" type="number" id="today_target" name="today_target" value="<?php echo $total_div_target; ?>" readonly />
+                                            <label for="user">Today Target</label>
+                                        </div>
+                                        <div class="input-wrapper">
+                                            <input class="form-control daily-prod-input" type="number" id="man_target" name="man_target" min="0" oninput="validity.valid||(value='');" step="any" value="<?php echo $l_man_target; ?>" />
+                                            <label for="user">Man-Power Target</label>
+                                        </div>
+                                        <div class="input-wrapper">
+                                            <input class="form-control daily-prod-input" type="number" id="t_target" name="t_target" value="<?php echo $total_div_target; ?>" readonly />
+                                            <label for="user">Total Target</label>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="tr-daily">
+                                    <td> <span>Actual Target : </span></td>
+                                    <td>
+                                        <div class="input-wrapper">
+                                            <input class="form-control daily-prod-input" type="number" id="today_actual_target" name="today_actual_target" value="<?php echo $total_div_actual_target; ?>" readonly />
+                                            <label for="user">Today Actual Target</label>
+                                        </div>
+                                        <div class="input-wrapper">
+                                            <input class="form-control daily-prod-input" type="number" id="man_actual_target" name="man_actual_target" min="0" oninput="validity.valid||(value='');" step="any" value="<?php echo $l_man_actual_target; ?>" />
+                                            <label for="user">Man-Power Actual Target</label>
+                                        </div>
+                                        <div class="input-wrapper">
+                                            <input class="form-control daily-prod-input" type="number" id="t_actual_target" name="t_actual_target" value="<?php echo $total_div_actual_target; ?>" readonly />
+                                            <label for="user">Total Actual Target</label>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="tr-daily">
+                                    <td> <span>ManPower Target : </span>
+                                    </td>
+                                    <td>
+                                        <div class="input-wrapper">
+                                            <input class="form-control daily-prod-input" type="number" id="man_power_input" name="man_power_input" min="0" value="<?php echo $m_power; ?>" />
+                                            <label for="user">S,L,Adm,Op Input</label>
+                                        </div>
+                                        <div class="input-wrapper">
+                                            <input class="form-control daily-prod-input" type="number" id="hp_input" name="hp_input" min="0" value="<?php echo $hp; ?>" />
+                                            <label for="user">HP</label>
+                                        </div>
+                                        <div class="input-wrapper">
+                                            <input class="form-control daily-prod-input" type="number" id="total_man_power" name="total_man_power" readonly />
+                                            <label for="user">Total ManPower</label>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="tr-daily">
+                                    <td>
+                                        <span>ManPower Actual Target : </span>
+                                    </td>
+                                    <td>
+                                        <div class="input-wrapper">
+                                            <input class="form-control daily-prod-input" type="number" id="man_power_actual_input" name="man_power_actual_input" min="0" value="<?php echo $actual_m_power; ?>" />
+                                            <label for="user">S,L,Adm,Op Actual Input</label>
+                                        </div>
+                                        <div class="input-wrapper">
+                                            <input class="form-control daily-prod-input" type="number" id="hp_actual_input" name="hp_actual_input" min="0" value="<?php echo $actual_hp; ?>" />
+                                            <label for="user">Actual HP</label>
+                                        </div>
+                                        <div class="input-wrapper">
+                                            <input class="form-control daily-prod-input" type="number" id="total_actual_man_power" name="total_actual_man_power" readonly />
+                                            <label for="user">Total Actual ManPower</label>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
                         <input class="icon-btn-one btn my-2" type="submit" value="Submit" name="submit" />
                     </form>
                     <hr class="hr-daily" />
@@ -370,95 +372,97 @@ ORDER BY "line".l_pos ASC');
             <input type="hidden" name="a_id" value="<?php echo $p_a_id_2; ?>">
             <input type="hidden" name="l_id" value="<?php echo $p_l_id_2; ?>">
             <input type="hidden" name="cat_id" value="<?php echo $p_cat_id_2; ?>">
-            <table>
-                <tr class="tr-daily">
-                    <td>
-                        <span>Quantity : </span>
-                    </td>
-                    <td>
-                        <div class="input-wrapper">
-                            <input class="form-control daily-prod-input" type="number" id="overall_quantity" name="overall_quantity" min="0" oninput="validity.valid||(value='');" />
-                            <label for="user">Quantity</label>
-                        </div>
-                    </td>
-                </tr>
-                <tr class="tr-daily">
-                    <td>
-                        <span>Sewing Input : </span>
-                    </td>
-                    <td>
-                        <div class="input-wrapper">
-                            <input class="form-control daily-prod-input" type="number" id="sewing_input" name="sewing_input" min="0" oninput="validity.valid||(value='');" value="<?php echo $p_sewing_input_2; ?>" />
-                            <label for=" user">Sewing Input</label>
-                        </div>
-                        <div class="input-wrapper">
-                            <input class="form-control daily-prod-input" type="number" id="sewing_total" name="sewing_total" value="<?php echo $p_sewing_input_2; ?>" readonly />
-                            <label for="user">Sewing Total</label>
-                        </div>
-                    </td>
-                </tr>
-                <tr class="tr-daily">
-                    <td>
-                        <span>Clothes Input : </span>
-                    </td>
-                    <td>
-                        <div class="input-wrapper">
-                            <input class="form-control daily-prod-input" type="number" id="clothes_input" name="clothes_input" min="0" oninput="validity.valid||(value='');" value="<?php echo $p_cat_actual_target_2; ?>" readonly />
-                            <label for="user">Clothes Input</label>
-                        </div>
-                        <div class="input-wrapper">
-                            <input class="form-control daily-prod-input" type="number" id="clothes_total" name="clothes_total" value="<?php echo $p_cat_actual_target_2; ?>" readonly />
-                            <label for="user">Clothes Total</label>
-                        </div>
-                    </td>
-                </tr>
-                <tr class="tr-daily">
-                    <td>
-                        <span>HandOver : </span>
-                    </td>
-                    <td>
-                        <div class="input-wrapper">
-                            <input class="form-control daily-prod-input h_over_input_<?php echo $p_id_2; ?>" type="number" id="handover_input" name="handover_input" min="0" oninput="validity.valid||(value='');" value="<?php echo $p_h_over_input_2; ?>" />
-                            <label for="user">HandOver Input</label>
-                        </div>
-                        <div class="input-wrapper">
-                            <input class="form-control daily-prod-input h_over_total_<?php echo $p_id_2; ?>" type="number" id="handover_total" name="handover_total" value="<?php echo $p_h_over_input_2; ?>" readonly />
-                            <label for="user">HandOver Total</label>
-                        </div>
-                        <div class="input-wrapper">
-                            <input class="form-control daily-prod-input h_over_bal_<?php echo $p_id_2; ?>" type="number" id="handover_bal" name="handover_bal" readonly />
-                            <label for="user">HandOver Balance</label>
-                        </div>
-                    </td>
+            <div style="overflow: auto;max-width:100%;max-height:600px;">
+                <table>
+                    <tr class="tr-daily">
+                        <td>
+                            <span>Quantity : </span>
+                        </td>
+                        <td>
+                            <div class="input-wrapper">
+                                <input class="form-control daily-prod-input" type="number" id="overall_quantity" name="overall_quantity" min="0" oninput="validity.valid||(value='');" />
+                                <label for="user">Quantity</label>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="tr-daily">
+                        <td>
+                            <span>Sewing Input : </span>
+                        </td>
+                        <td>
+                            <div class="input-wrapper">
+                                <input class="form-control daily-prod-input" type="number" id="sewing_input" name="sewing_input" min="0" oninput="validity.valid||(value='');" value="<?php echo $p_sewing_input_2; ?>" />
+                                <label for=" user">Sewing Input</label>
+                            </div>
+                            <div class="input-wrapper">
+                                <input class="form-control daily-prod-input" type="number" id="sewing_total" name="sewing_total" value="<?php echo $p_sewing_input_2; ?>" readonly />
+                                <label for="user">Sewing Total</label>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="tr-daily">
+                        <td>
+                            <span>Clothes Input : </span>
+                        </td>
+                        <td>
+                            <div class="input-wrapper">
+                                <input class="form-control daily-prod-input" type="number" id="clothes_input" name="clothes_input" min="0" oninput="validity.valid||(value='');" value="<?php echo $p_cat_actual_target_2; ?>" readonly />
+                                <label for="user">Clothes Input</label>
+                            </div>
+                            <div class="input-wrapper">
+                                <input class="form-control daily-prod-input" type="number" id="clothes_total" name="clothes_total" value="<?php echo $p_cat_actual_target_2; ?>" readonly />
+                                <label for="user">Clothes Total</label>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="tr-daily">
+                        <td>
+                            <span>HandOver : </span>
+                        </td>
+                        <td>
+                            <div class="input-wrapper">
+                                <input class="form-control daily-prod-input h_over_input_<?php echo $p_id_2; ?>" type="number" id="handover_input" name="handover_input" min="0" oninput="validity.valid||(value='');" value="<?php echo $p_h_over_input_2; ?>" />
+                                <label for="user">HandOver Input</label>
+                            </div>
+                            <div class="input-wrapper">
+                                <input class="form-control daily-prod-input h_over_total_<?php echo $p_id_2; ?>" type="number" id="handover_total" name="handover_total" value="<?php echo $p_h_over_input_2; ?>" readonly />
+                                <label for="user">HandOver Total</label>
+                            </div>
+                            <div class="input-wrapper">
+                                <input class="form-control daily-prod-input h_over_bal_<?php echo $p_id_2; ?>" type="number" id="handover_bal" name="handover_bal" readonly />
+                                <label for="user">HandOver Balance</label>
+                            </div>
+                        </td>
 
-                    <script>
-                        var h_over_input = $('.h_over_input_<?php echo $p_id_2; ?>').val();
-                        var h_over_total = $('.h_over_total_<?php echo $p_id_2; ?>').val();
-                        var h_over_bal = $('.h_over_bal_<?php echo $p_id_2; ?>');
+                        <script>
+                            var h_over_input = $('.h_over_input_<?php echo $p_id_2; ?>').val();
+                            var h_over_total = $('.h_over_total_<?php echo $p_id_2; ?>').val();
+                            var h_over_bal = $('.h_over_bal_<?php echo $p_id_2; ?>');
 
-                        if (h_over_input == '') {
-                            h_over_input = 0;
-                        }
-                        if (h_over_total == '') {
-                            h_over_total = 0;
-                        }
+                            if (h_over_input == '') {
+                                h_over_input = 0;
+                            }
+                            if (h_over_total == '') {
+                                h_over_total = 0;
+                            }
 
-                        var h_over_result = parseInt(h_over_total) - parseInt(h_over_input);
-                        h_over_bal.val(h_over_result);
-                    </script>
-                </tr>
-                <tr class="tr-daily">
-                    <td>
-                        <span>Inline : </span>
-                    </td>
-                    <td>
-                        <div class="input-wrapper">
-                            <input class="form-control daily-prod-input" type="number" id="inline_input" name="inline_input" min="0" value="<?php echo $inline_input_2; ?>" />
-                            <label for="user">Inline Input</label>
-                        </div>
-                    </td>
-                </tr>
-            </table>
+                            var h_over_result = parseInt(h_over_total) - parseInt(h_over_input);
+                            h_over_bal.val(h_over_result);
+                        </script>
+                    </tr>
+                    <tr class="tr-daily">
+                        <td>
+                            <span>Inline : </span>
+                        </td>
+                        <td>
+                            <div class="input-wrapper">
+                                <input class="form-control daily-prod-input" type="number" id="inline_input" name="inline_input" min="0" value="<?php echo $inline_input_2; ?>" />
+                                <label for="user">Inline Input</label>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
             <input class="icon-btn-one btn my-2" type="submit" value="Submit" name="submit" />
         </form>
         <script>

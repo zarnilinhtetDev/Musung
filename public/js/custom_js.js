@@ -137,6 +137,32 @@ LineModal.addEventListener("show.bs.modal", function (event) {
 ///// Time Diff in Line Setting /////
 $(document).ready(function () {
     $("#LineModal").on("show.bs.modal", function () {
+        $("#time_type_1").click(function () {
+            if ($("#start_time").val() != "" && $("#end_time").val() != "") {
+                var start_time = $("#start_time").val();
+                $("#s_time").val(start_time);
+                var end_time = $("#end_time").val();
+                $("#e_time").val(end_time);
+
+                var start = $("#s_time").val();
+                var end = $("#e_time").val();
+
+                s = start.split(":");
+                e = end.split(":");
+
+                min = e[1] - s[1];
+                hour_carry = 0;
+                if (min < 0) {
+                    min += 60;
+                    hour_carry += 1;
+                }
+                hour = e[0] - s[0] - hour_carry;
+                diff = hour + ":" + min;
+
+                $("#work_hour").val(diff);
+            }
+        });
+
         $("#start_time").on("change", function () {
             var start_time = $("#start_time").val();
             $("#s_time").val(start_time);

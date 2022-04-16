@@ -4,7 +4,10 @@
     $time_arr[] = $t3->time_name;
     }
     // print_r($time_arr);
+
+
     @endphp
+
     @if(count($time_arr) > 0)
     <table class="table table-hover table-striped table-bordered text-center table-dash" id="live_dash_1">
         <thead>
@@ -25,7 +28,11 @@
                 <th scope="col" style="vertical-align: middle;">Inline<br />Stock</th>
                 <th scope="col" style="vertical-align: middle;">Target</th>
                 @foreach(array_reverse($time) as $t)
-                <th scope="col" id="th_{{ $t->time_name }}" style="vertical-align: middle;">{{ $t->time_name }}</th>
+                <th scope="col" id="th_{{ $t->time_name }}" style="vertical-align: middle;">
+                    @php
+                    echo date('g:i A',strtotime($t->time_name));
+                    @endphp
+                </th>
                 @endforeach
                 <th scope="col" style="vertical-align: middle;">Total</th>
                 <th scope="col" style="vertical-align: middle;">Rank</th>
@@ -43,7 +50,7 @@
             $g_hp = $g_line->hp;
             $g_actual_hp = $g_line->actual_hp;
             @endphp
-            <tr>
+            <tr style="border-bottom: 2px solid black;">
                 <td style="vertical-align: middle;">{{ $g_line_name }}</td>
                 <td>
                     <table class="w-100 text-center table m-0 table-bordered">
@@ -64,9 +71,11 @@
                         <tbody>
                             @foreach($p_detail_2 as $p_2)
                             @if($p_2->l_id == $g_line_id)
-                            <tr>
+                            <tr style="border-bottom: 1px solid #848484;">
                                 <td>
-                                    #{{ $p_2->style_no }}, {{ $p_2->p_name }}
+                                    <div style="width:10rem;overflow-x:scroll;">
+                                        #{{ $p_2->style_no }}, {{ $p_2->p_name }}
+                                    </div>
                                 </td>
                             </tr>
                             @endif
@@ -75,12 +84,14 @@
                         </tbody>
                     </table>
                 </td>
-                <td style="vertical-align: middle;">@foreach($total_inline as $t_inline)
+                <td style=" vertical-align: middle;">@foreach($total_inline as $t_inline)
                     @if($t_inline->l_id == $g_line_id)
                     {{ $t_inline->total_inline }}
                     @endif
-                    @endforeach</td>
-                <td style="vertical-align: middle;"><span id="g_main_target_{{ $g_line_id }}">{{ $g_main_target
+                    @endforeach
+                </td>
+                <td style="vertical-align: middle;"><span id="g_main_target_{{ $g_line_id }}">{{
+                        $g_main_target
                         }}</span></td>
 
                 @foreach($time_2 as $t_2)
@@ -214,12 +225,14 @@ $("#td_div_actual_target_total_<?php echo $current_target; ?>").css('background-
                         @foreach($actual_target_total as $a_total)
                         @if ($g_line_id == $a_total->line_id)
                         <tr>
-                            <td><span class="t_2_total_{{ $t_2_total->line_id }}"> {{ $t_2_total->total }}</span>
+                            <td><span class="t_2_total_{{ $t_2_total->line_id }}"> {{ $t_2_total->total
+                                    }}</span>
                             </td>
                         </tr>
                         <tr class="text-white">
                             <td class="td_a_total_{{ $t_2_total->line_id }}">
-                                <span class="a_total_{{ $t_2_total->line_id }}">{{ $a_total->total_actual_target
+                                <span class="a_total_{{ $t_2_total->line_id }}">{{
+                                    $a_total->total_actual_target
                                     }}</span>
                             </td>
                         </tr>
@@ -274,7 +287,8 @@ $("#td_div_actual_target_total_<?php echo $current_target; ?>").css('background-
 
                 @foreach($top_line as $t_line)
                 @if ($g_line_id == $t_line->l_id)
-                <td style="vertical-align: middle;" class="t_line_{{ $t_line->row_num }} t_line_count">{{
+                <td style="vertical-align: middle;" class="t_line_{{ $t_line->row_num }} t_line_count">
+                    {{
                     $t_line->row_num }}
                 </td>
 
@@ -418,7 +432,8 @@ $(".t_line_" + 10).css({
                 <td></td>
                 <td></td>
                 @foreach ($total_main_target as $t_main_target)
-                <td style="vertical-align: middle;"><span id="">{{ $t_main_target->t_main_target }}</span></td>
+                <td style="vertical-align: middle;"><span id="">{{ $t_main_target->t_main_target
+                        }}</span></td>
                 @endforeach
                 @foreach(array_reverse($total_div_target) as $t_div_target)
                 @php $total_time_name = $t_div_target->time_name;$new_num = 0; @endphp

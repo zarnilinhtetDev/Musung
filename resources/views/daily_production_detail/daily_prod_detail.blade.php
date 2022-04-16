@@ -22,7 +22,7 @@ $json = json_decode(json_encode($line),true); ///Line DB
                         @endfor
                 </ul>
             </div>
-            <div class="col" id="ajax_load_div">
+            <div class="col-8" id="ajax_load_div">
 
             </div>
         </div>

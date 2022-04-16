@@ -275,10 +275,10 @@ $num = 1;
                                         </option> @endif @endfor
                                 </select>
                             </div>
-                            {{-- <div class="col-12 col-md-4 mt-0">
-                                <label>Target</label>
-                                <input type="text" class="form-control" name="target" placeholder="100" required />
-                            </div> --}}
+                            <div class="col-12 col-md-4 mt-0">
+                                <br />
+                                <input type="button" class="btn btn-secondary" value="Autofill Time" id="time_type_1">
+                            </div>
                             <input type="hidden" class="form-control" name="work_hour" placeholder="7 Hours"
                                 id="work_hour" required readonly />
                         </div>
@@ -292,10 +292,12 @@ $num = 1;
                                 <label>Lunch Time</label>​<br />
                                 <div class="row">
                                     <div class="col-6">
-                                        <input type="time" class="form-control" name="lunch_start" step="300" required>
+                                        <input type="time" class="form-control" name="lunch_start" id="lunch_start"
+                                            step="300" required>
                                     </div>
                                     <div class="col-6">
-                                        <input type="time" class="form-control" name="lunch_end" step="300" required>
+                                        <input type="time" class="form-control" name="lunch_end" id="lunch_end"
+                                            step="300" required>
                                     </div>
                                 </div>
                             </div>
@@ -308,22 +310,38 @@ $num = 1;
                         <div class="row g-3 my-2">
                             <div class="col-12 col-md-4 mt-0">
                                 <label>Work Progress by (minute)</label>​
-                                <input type="number" class="form-control" name="progress" placeholder="30" required />
+                                <input type="number" class="form-control" name="progress" id="progress" placeholder="30"
+                                    required />
                             </div>
                         </div>
             </div>
 
             <div class="row g-3 my-2 mx-2">
                 <div class="col-12 col-md-4">
-                    <label>Add Category</label>​
+                    <label>Add Buyer</label>​
                     <input type="text" class="form-control" name="new_category_name" id="new_category_name"
                         placeholder="Type Here" />
                 </div>
                 <div class="col">
                     <br />
-                    <button class="btn custom-btn-theme w-25" id="new_category_btn">Add New Category</button>
+                    <button class="btn custom-btn-theme w-25" id="new_category_btn">Add New Buyer</button>
                 </div>
             </div>
+            <script>
+                $("#time_type_1").click(function () {
+                    var start_time = $("#start_time");
+                    var end_time = $("#end_time");
+                    var lunch_start = $("#lunch_start");
+                    var lunch_end = $("#lunch_end");
+                    var progress = $("#progress");
+
+                    start_time.val("07:30");
+                    end_time.val("18:00");
+                    lunch_start.val("11:30");
+                    lunch_end.val("12:30");
+                    progress.val("60");
+                });
+            </script>
             <script>
                 $("#new_category_btn").click(function(e) {
     e.preventDefault();
@@ -472,6 +490,7 @@ $num = 1;
 
     </tbody>
 </table>
+<h1 class="fw-bold heading-text my-4 fs-3">Line Manager</h1>
 @endif
 @endadmin
 

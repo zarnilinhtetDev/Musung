@@ -132,7 +132,10 @@ class LineHistoryController extends Controller
             </li>
             <li class="span2 bg-transparent">';
 ?>
-            <button onclick="tablesToExcel(['history_dash_1','history_dash_2','history_dash_3'], ['Table1','Table2','Table3'], '<?php echo $getDate; ?>.xls', 'Excel')" class="icon-btn-one icon-btn-one-2 btn my-2">Export to Excel</button>
+            <a id="dlink" style="display:none;"></a>
+            <div id="name" style="display:none;"><?php echo $date_string_for_export_pdf . "_live_dash"; ?></div>
+            <button id="btn" class="icon-btn-one icon-btn-one-2 btn my-2">Export to Excel</button>
+            <!-- <button onclick="tablesToExcel(['history_dash_1','history_dash_2','history_dash_3'], ['Table1','Table2','Table3'], '<?php echo $getDate; ?>.xls', 'Excel')" class="icon-btn-one icon-btn-one-2 btn my-2">Export to Excel</button> -->
             </li>
             <li class="span2 bg-transparent">
                 <button type="button" id="exportPDF" class="icon-btn-one icon-btn-one-2 btn my-2">Export to PDF</button>
@@ -218,17 +221,14 @@ class LineHistoryController extends Controller
                                         <table class="w-100 text-center table table-bordered m-0">
                                             <tr>
                                                 <td><span id="new_div_target_' . $t_2->time_id . '">' . $t_2->actual_target_entry . '</span></td>
-                                                <td style="display:none;"><span id="div_target_' . $t_2->time_id . '">' . $t_2->div_target . '</span>
-                                                </td>
                                             </tr>
                                             <tr class="text-white">
                                                 <td id="td_div_actual_target_' . $t_2->time_id . '">
                                                     <span id="div_actual_target_' . $t_2->time_id . '" class="div_actual_target_' . $g_line_id . '">' . $t_2->div_actual_target . '</span>
                                                 </td>
-                                                <td style="display:none;" id="td_div_actual_target_total_' . $t_2->time_id . '"><span id="div_actual_target_total_' . $t_2->time_id . '" class="div_actual_target_total_' . $g_line_id . '"></span></td>
                                             </tr>
                                             <tr class="text-white">
-                                                <td id="td_div_actual_target_percent_' . $t_2->time_id . '" colspan="2"><span id="div_actual_target_percent_' . $t_2->time_id . '"></span>
+                                                <td id="td_div_actual_target_percent_' . $t_2->time_id . '"><span id="div_actual_target_percent_' . $t_2->time_id . '"></span>
                                                 </td>
                                             </tr>
                                         </table>
@@ -262,8 +262,6 @@ class LineHistoryController extends Controller
                                                 }
                                             }
 
-                                            var div_target = parseInt($("#div_target_' . $current_target . '").text());
-                                            var div_actual_target_total = parseInt($("#div_actual_target_total_' . $current_target . '").text());
 
                                             var new_div_target = $("#new_div_target_' . $current_target . '").text();
                                             var div_actual_target = parseInt($("#div_actual_target_' . $current_target . '").text());
@@ -271,9 +269,9 @@ class LineHistoryController extends Controller
                                             var percentage = (div_actual_target / new_div_target) * 100;
                                             var div_actual_target_percent = $("#div_actual_target_percent_' . $current_target . '");
 
-                                            if (Number.isNaN(div_actual_target_total)) {
+                                            if (Number.isNaN(div_actual_target)) {
                                                 if (div_actual_target != "") {
-                                                    var new_percent = (div_actual_target / div_target) * 100;
+                                                    var new_percent = (div_actual_target / new_div_target) * 100;
                                                     if (Number.isNaN(new_percent)) {
                                                         div_actual_target_percent.text("");
                                                     }
@@ -290,7 +288,7 @@ class LineHistoryController extends Controller
                                                     }
                                                 }
                                             }
-                                            if (!Number.isNaN(div_actual_target_total)) {
+                                            if (!Number.isNaN(div_actual_target)) {
                                                 if (Number.isNaN(percentage)) {
                                                     div_actual_target_percent.text("");
                                                 }
@@ -315,13 +313,7 @@ class LineHistoryController extends Controller
                                                 $("#td_div_actual_target_' . $current_target . '").css("background-color", "green");
                                             }
 
-                                            if (parseInt(div_target) > parseInt(div_actual_target_total)) {
-                                                $("#td_div_actual_target_total_' . $current_target . '").css("background-color", "red");
-                                            }
-                                            if (parseInt(div_target) <= parseInt(div_actual_target_total)) {
-                                                $("#td_div_actual_target_total_' . $current_target . '").css("background-color", "green");
-                                            }
-                                        </script>
+                                           </script>
                                     </td>
                                 ';
                     }
@@ -569,7 +561,7 @@ class LineHistoryController extends Controller
                         </td>
                     </tr>
                     <tr class="text-white">
-                        <td id="total_percent_' . $total_div_actual_target_decode[$m]['row_num'] . '" colspan="2">
+                        <td id="total_percent_' . $total_div_actual_target_decode[$m]['row_num'] . '">
                         </td>
                     </tr>';
             ?>
@@ -786,33 +778,82 @@ class LineHistoryController extends Controller
 
         <script>
             $("#exportPDF").click(function() {
-                var date = "<?php echo $date_string_for_export_pdf; ?>" + "_production_dashboard";
+                $("#history_div").printThis({
+                    debug: false,
+                    importCSS: true, // import parent page css
+                    importStyle: true, // import style tags
+                    copyTagClasses: true,
+                    removeScripts: false,
+                    copyTagClasses: true,
+                    header: "<h3>Report for <?php echo $date_string; ?></h3>"
+                });
+                // var date = "<?php echo $date_string_for_export_pdf; ?>" + "_production_dashboard";
 
-                var element = document.getElementById('history_div');
-                var opt = {
-                    margin: 0.1,
-                    filename: date + '.pdf',
-                    image: {
-                        type: 'jpeg',
-                        quality: 1
-                    },
-                    html2canvas: {
-                        scale: 2
-                    },
-                    jsPDF: {
-                        unit: 'in',
-                        format: 'a4',
-                        orientation: 'landscape'
-                    },
-                    enableLinks: true,
-                };
+                // var element = document.getElementById('history_div');
+                // var opt = {
+                //     margin: 0.1,
+                //     filename: date + '.pdf',
+                //     image: {
+                //         type: 'jpeg',
+                //         quality: 1
+                //     },
+                //     html2canvas: {
+                //         scale: 2,
+                //         windowWidth: 1920,
+                //         windowHeight: 1080
+                //     },
+                //     jsPDF: {
+                //         unit: 'in',
+                //         format: 'a4',
+                //         orientation: 'landscape'
+                //     },
+                //     enableLinks: true,
+                // };
 
-                // New Promise-based usage:
-                html2pdf().set(opt).from(element).save();
+                // // New Promise-based usage:
+                // html2pdf().set(opt).from(element).save();
 
-                // Old monolithic-style usage:
-                html2pdf(element, opt);
+                // // Old monolithic-style usage:
+                // html2pdf(element, opt);
             });
+        </script>
+
+        <script>
+            var tableToExcel = (function() {
+                var uri = 'data:application/vnd.ms-excel;base64,',
+                    template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="https://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>',
+                    base64 = function(s) {
+                        return window.btoa(unescape(encodeURIComponent(s)))
+                    },
+                    format = function(s, c) {
+                        return s.replace(/{(\w+)}/g, function(m, p) {
+                            return c[p];
+                        })
+                    }
+                return function(table, name, filename) {
+                    if (!table.nodeType) table = document.getElementById(table)
+                    var ctx = {
+                        worksheet: name || 'Worksheet',
+                        table: table.innerHTML
+                    }
+
+                    document.getElementById("dlink").href = uri + base64(format(template, ctx));
+                    document.getElementById("dlink").download = filename;
+                    document.getElementById("dlink").target = "_blank";
+                    document.getElementById("dlink").click();
+
+                }
+            })();
+
+            function download() {
+                $(document).find('tfoot').remove();
+                var name = document.getElementById("name").innerHTML;
+                tableToExcel('history_dash_1', 'Sheet 1', name + '.xls')
+                //setTimeout("window.location.reload()",0.0000001);
+
+            }
+            var btn = document.getElementById("btn");
+            btn.addEventListener("click", download);
         </script>
 <?php
     }
