@@ -53,6 +53,8 @@ class LineEntryController extends Controller
         $p_detail_actual_target_arr = request()->post('p_detail_actual_target');
         $line_id = request()->post('line_id');
         $assign_date = request()->post('assign_date');
+
+        // echo $p_detail_id_arr;
         $number = count($p_detail_id_arr);
 
         $explode_percent = explode("%", $div_actual_percent);

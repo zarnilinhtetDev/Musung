@@ -29,6 +29,7 @@ Route::get('/line_detail_delete', 'LineController@softDelete')->middleware('auth
 Route::get('/line_detail_undo', 'LineController@undoLine')->middleware('auth');
 
 Route::get('/line_setting', 'LineAssignController@index')->middleware('auth');
+Route::post('/setting_post_2', 'LineAssignController@postSetting')->middleware('auth');
 
 Route::post('/line_assign_post', 'LineAssignController@postLineSetting')->middleware('auth');
 Route::post('/line_assign_overtime_post', 'LineAssignController@postLineOverTimeSetting')->middleware('auth');

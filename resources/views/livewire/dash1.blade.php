@@ -225,9 +225,13 @@ $("#td_div_actual_target_total_<?php echo $current_target; ?>").css('background-
                         @foreach($actual_target_total as $a_total)
                         @if ($g_line_id == $a_total->line_id)
                         <tr>
-                            <td><span class="t_2_total_{{ $t_2_total->line_id }}"> {{ $t_2_total->total
-                                    }}</span>
+                            <td><span class="t_2_total_{{ $t_2_total->line_id }}"></span>
                             </td>
+                            <script>
+                                var main_target_total = $("#g_main_target_{{ $g_line_id }}").text();
+                                var t_2_total = $(".t_2_total_{{ $t_2_total->line_id }}");
+                                t_2_total.text(main_target_total);
+                            </script>
                         </tr>
                         <tr class="text-white">
                             <td class="td_a_total_{{ $t_2_total->line_id }}">
@@ -432,7 +436,7 @@ $(".t_line_" + 10).css({
                 <td></td>
                 <td></td>
                 @foreach ($total_main_target as $t_main_target)
-                <td style="vertical-align: middle;"><span id="">{{ $t_main_target->t_main_target
+                <td style="vertical-align: middle;"><span id="t_main_target">{{ $t_main_target->t_main_target
                         }}</span></td>
                 @endforeach
                 @foreach(array_reverse($total_div_target) as $t_div_target)
@@ -511,8 +515,14 @@ new_total_percent.append('%');
                         <tr>
                             @foreach($total_overall_target as $t_overall_target)
                             <td id="t_overall_target">
-                                {{ $t_overall_target->t_overall_target }}
+
                             </td>
+
+                            <script>
+                                var t_main_target = $("#t_main_target").text();
+                                var t_overall_target = $("#t_overall_target");
+                                t_overall_target.text(t_main_target);
+                            </script>
                             @endforeach
                         </tr>
                         <tr class="text-white">

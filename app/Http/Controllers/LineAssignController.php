@@ -78,6 +78,12 @@ class LineAssignController extends Controller
         AND "line_assign".assign_date=\'' . $date_string . '\'
         ORDER BY p_detail_id ASC');
 
+        $l_manager_list = DB::select('SELECT "line_assign".user_id,"users".name,"line".l_id,"line_assign".assign_id FROM line_assign
+        JOIN users ON "users".id="line_assign".user_id
+        JOIN line ON "line".l_id="line_assign".l_id AND "line".a_status=1
+        WHERE "line_assign".assign_date=\'' . $date_string . '\'
+        ORDER BY "line".l_id ASC');
+
         $p_detail_2 = ProductCategory::all();
 
         $responseBody = Line::select('l_id', 'l_name', 'l_pos', 'a_status', 'is_delete')->where('is_delete', 0)->orderBy('l_pos', 'asc')->get();
@@ -86,7 +92,7 @@ class LineAssignController extends Controller
 
         DB::disconnect('musung');
 
-        return view('line_management.setting', compact('responseBody', 'responseBody2', 'line_assign', 'line_assign_2', 'overTime', 'p_detail', 'p_detail_2', 'line_assign_detail'));
+        return view('line_management.setting', compact('responseBody', 'responseBody2', 'line_assign', 'line_assign_2', 'overTime', 'p_detail', 'p_detail_2', 'line_assign_detail', 'l_manager_list'));
     }
     public function postLineSetting()
     {
@@ -291,5 +297,228 @@ class LineAssignController extends Controller
         if ($del_line_assign == true && $del_p_detail == true && $del_time == true && $l_status == true) {
             return redirect('/line_setting?status=delete_ok');
         }
+    }
+
+    public function postSetting()
+    {
+        $user_id = request()->user_id;
+
+        $date_string = date("d.m.Y");
+
+        $responseBody = DB::select('SELECT "line".l_id,"line".l_name,"line_assign".assign_id,"line_assign".main_target,"line_assign".s_time,"line_assign".e_time,"line_assign".lunch_s_time,"line_assign".lunch_e_time,"line_assign".assign_date,"time".time_id,"time".time_name,"time".status,"time".div_target,"time".actual_target_entry,"users".id,"users".name,"time".div_actual_target,"time".div_actual_percent
+        FROM line
+        JOIN line_assign ON "line_assign".l_id = "line".l_id AND "line_assign".assign_date=\'' . $date_string . '\'
+        JOIN time ON "time".line_id = "line_assign".l_id AND "time".assign_id="line_assign".assign_id
+        JOIN users ON "users".id= "line_assign".user_id
+        WHERE "users".id=' . $user_id . '
+        ORDER BY "time".time_id DESC OFFSET 1');
+
+        $p_detail = DB::select('SELECT "p_detail".p_detail_id,"p_detail".assign_id,"p_detail".l_id,
+        "p_detail".p_cat_id,"p_detail".p_name,"p_detail".quantity,"time".time_id,"p_detail".style_no
+        FROM p_detail
+        JOIN time ON "time".assign_id="p_detail".assign_id AND "time".line_id="p_detail".l_id
+        JOIN line_assign ON "line_assign".assign_id="p_detail".assign_id
+        AND "line_assign".assign_date=\'' . $date_string . '\'
+        ORDER BY p_detail_id ASC');
+
+        $p_detail_2 = DB::select('SELECT "p_detail".assign_id,"p_detail".p_detail_id,"p_detail".div_quantity FROM p_detail');
+
+        $decode = json_decode(json_encode($responseBody), true);
+        $decode_2 = json_decode(json_encode($p_detail), true);
+        $decode_3 = json_decode(json_encode($p_detail_2), true); ?>
+        <div class="container-fluid p-0">
+            <div id="tabmenu" class="container-fluid my-3 p-0">
+                <div id="tab-content">
+                    <div id="tab1" class="div_1">
+                        <div class="row container-fluid p-0 m-0">
+                            <div class="col-12 col-md-6 m-auto p-0">
+                                <div style="overflow: auto;max-width:100%;max-height:550px;">
+                                    <table class="table table-striped my-2 tableFixHead results p-0">
+                                        <thead>
+                                            <tr>
+                                                <th>Time</th>
+                                                <th>Target</th>
+                                                <th>Actual Target</th>
+                                                <th>Percentage</th>
+                                                <th>Data</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                            for ($i = count($decode) - 1; $i >= 0; $i--) {
+                                                $line_id = $decode[$i]['l_id'];
+                                                $line_name = $decode[$i]['l_name'];
+                                                $a_id = $decode[$i]['assign_id'];
+                                                $main_target = $decode[$i]['main_target'];
+                                                $s_time = $decode[$i]['s_time'];
+                                                $e_time = $decode[$i]['e_time'];
+                                                $lunch_s_time = $decode[$i]['lunch_s_time'];
+                                                $lunch_e_time = $decode[$i]['lunch_e_time'];
+                                                $time_id = $decode[$i]['time_id'];
+                                                $time_name = $decode[$i]['time_name'];
+                                                $line_status = $decode[$i]['status'];
+                                                $div_target = $decode[$i]['div_target'];
+                                                $actual_target = $decode[$i]['actual_target_entry'];
+                                                $user_id = $decode[$i]['id'];
+                                                $user_name = $decode[$i]['name'];
+                                                $assign_date = $decode[$i]['assign_date'];
+                                                $div_actual_target = $decode[$i]['div_actual_target'];
+                                                $div_actual_percent = $decode[$i]['div_actual_percent'];
+                                                $actual_target_entry = $decode[$i]['actual_target_entry']; ?>
+
+                                                <tr>
+                                                    <td><?php echo $time_name; ?></td>
+                                                    <td><span id="div_target_{{ $time_id }}"><?php echo $actual_target_entry; ?></span>
+                                                    </td>
+                                                    <td>
+                                                        <?php
+                                                        if ($div_actual_target != '') {
+                                                            echo $div_actual_target;
+                                                        } elseif ($div_actual_target == '') {
+                                                        ?> <span id="actual_target_<?php echo $time_id; ?>"></span>
+                                                        <?php
+                                                        } ?>
+
+                                                    </td>
+                                                    <td>
+                                                        <?php if ($div_actual_percent != '') {
+                                                            echo $div_actual_percent . '%';
+                                                        } elseif ($div_actual_percent == '') {
+                                                        ?><span id="actual_percentage_<?php echo $time_id; ?>"></span>
+                                                        <?php
+                                                        } ?>
+                                                    </td>
+                                                    <td> <button type="button" class="btn btn-primary w-75" data-bs-toggle="modal" data-bs-target="#LineEntryModal<?php echo $time_id; ?>" data-bs-time-id="<?php echo $time_id; ?>" data-bs-time-name="<?php echo $time_name; ?>" id="toggle_btn_<?php echo $time_id; ?>">
+                                                            Fill
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                                <!-- Modal -->
+                                                <div class="modal fade" id="LineEntryModal<?php echo $time_id; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <form action="line_entry_post" method="POST" id="post_form">
+                                                                <div class="modal-header">
+                                                                    <h1 class="fw-bold heading-text"><?php echo $time_name; ?></h1>
+                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <div class="container-fluid">
+                                                                        <div class="row">
+                                                                            <?php
+                                                                            for ($j = 0; $j < count($decode_2); $j++) {
+                                                                                $p_detail_id = $decode_2[$j]['p_detail_id'];
+                                                                                $p_detail_assign_id = $decode_2[$j]['assign_id'];
+                                                                                $p_detail_l_id = $decode_2[$j]['l_id'];
+                                                                                $p_detail_p_cat_id = $decode_2[$j]['p_cat_id'];
+                                                                                $p_detail_p_name = $decode_2[$j]['p_name'];
+                                                                                $p_detail_qty = $decode_2[$j]['quantity'];
+                                                                                $p_detail_time_id = $decode_2[$j]['time_id'];
+                                                                                $p_detail_style_no = $decode_2[$j]['style_no'];
+                                                                                if ($time_id == $p_detail_time_id) {
+                                                                            ?>
+                                                                                    <div class="col-12 my-2">
+                                                                                        <div class="row container-fluid">
+                                                                                            <div class="col-12 col-md-4 m-auto">
+                                                                                                <h5 class="fw-bold heading-text">#<?php echo $p_detail_style_no . $p_detail_p_name; ?></h5>
+                                                                                            </div>
+                                                                                            <div class="col-12 col-md-4">
+                                                                                                <label>Target</label>
+                                                                                                <input type="number" class="form-control" name="target" value="<?php
+                                                                                                                                                                for ($k = 0; $k < count($decode_3); $k++) {
+                                                                                                                                                                    $p_2_detail_id = $decode_3[$k]['p_detail_id'];
+                                                                                                                                                                    $div_quantity = $decode_3[$k]['div_quantity'];
+
+                                                                                                                                                                    if ($p_2_detail_id == $p_detail_id) {
+                                                                                                                                                                        echo $div_quantity;
+                                                                                                                                                                    }
+                                                                                                                                                                }
+                                                                                                                                                                ?>" readonly />
+                                                                                            </div>
+                                                                                            <div class="col-12 col-md-4">
+                                                                                                <label>Actual</label>
+                                                                                                <input type="number" class="form-control" name="p_detail_actual_target[]" id="p_detail_actual_target_<?php echo $time_id; ?>" placeholder="0" required />
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <input type="hidden" name="assign_date" value="<?php echo $date_string; ?>" />
+                                                                                    <input type="hidden" name="line_id" value="<?php echo $p_detail_l_id; ?>" />
+                                                                                    <input type="hidden" name="p_detail_id[]" value="<?php echo $p_detail_id; ?>" />
+                                                                                <?php
+                                                                                } ?>
+
+
+                                                                                <input type="hidden" name="time_id" value="<?php echo $time_id; ?>" />
+                                                                                <input type="hidden" name="div_actual_target_input_<?php echo $time_id; ?>" id="div_actual_target_input_<?php echo $time_id; ?>" />
+                                                                                <input type="hidden" name="div_actual_percent_input_<?php echo $time_id; ?>" id="div_actual_percent_input_<?php echo $time_id; ?>" />
+                                                                            <?php
+                                                                            } ?>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                    <button type="submit" class="btn btn-primary" onclick="form_submit()">Save
+                                                                    </button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                    <script>
+                                                        $("#toggle_btn_<?php echo $time_id; ?>").click(function() {
+                                                            var p_detail_number = "<?php echo $time_id; ?>";
+                                                            (p_detail_number);
+                                                            calculateSum();
+                                                            $(".modal-content #p_detail_actual_target_" + p_detail_number).on(
+                                                                "keydown keyup",
+                                                                function() {
+                                                                    calculateSum();
+                                                                }
+                                                            );
+
+                                                            function calculateSum() {
+                                                                var sum = 0;
+                                                                var p_detail_number = "<?php echo $time_id; ?>";
+                                                                var div_target = parseInt($("#div_target_" + p_detail_number).text());
+
+                                                                //iterate through each textboxes and add the values
+                                                                $(".modal-content #p_detail_actual_target_" + p_detail_number).each(function() {
+                                                                    //add only if the value is number
+                                                                    if (!isNaN(this.value) && this.value.length != 0) {
+                                                                        sum += parseFloat(this.value);
+                                                                        $(this).css("background-color", "#FEFFB0");
+                                                                    } else if (this.value.length != 0) {
+                                                                        $(this).css("background-color", "red");
+                                                                    }
+                                                                });
+                                                                var cal_percent = ((sum / "<?php echo $actual_target_entry; ?>") * 100).toFixed(0) + "%";
+
+                                                                $("#actual_target_" + p_detail_number).html(sum.toFixed(0));
+                                                                $("#actual_percentage_" + p_detail_number).text(cal_percent);
+
+                                                                $("#div_actual_target_input_" + p_detail_number).val($("#actual_target_" + p_detail_number).text());
+                                                                $("#div_actual_percent_input_" + p_detail_number).val($("#actual_percentage_" + p_detail_number).text());
+                                                            }
+                                                        });
+                                                    </script>
+                                                </div>
+                                            <?php
+
+                                            } ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            function form_submit() {
+                document.getElementById("post_form").submit();
+            }
+        </script>
+<?php
     }
 }

@@ -80,7 +80,7 @@ class LineHistoryController extends Controller
         AND "line_assign".assign_date=\'' . $date_string . '\'
         GROUP BY "p_detail".l_id');
 
-        $p_detail_2 = DB::select('SELECT "p_detail".p_detail_id,"p_detail".l_id,"p_detail".p_name
+        $p_detail_2 = DB::select('SELECT "p_detail".p_detail_id,"p_detail".l_id,"p_detail".p_name,"p_detail".style_no
         FROM p_detail
         JOIN line_assign ON "line_assign".assign_id="p_detail".assign_id AND "p_detail".l_id="line_assign".l_id AND "line_assign".assign_date=\'' . $date_string . '\'
         ORDER BY "p_detail".p_detail_id ASC');
@@ -167,7 +167,7 @@ class LineHistoryController extends Controller
                                     <th scope="col" style="vertical-align: middle;">Target</th>';
 
             foreach (array_reverse($time) as $t) {
-                echo '<th scope="col" style="vertical-align: middle;">' . $t->time_name . '</th>';
+                echo '<th scope="col" style="vertical-align: middle;">' . date('g:i A', strtotime($t->time_name)) . '</th>';
             }
             echo '<th style="vertical-align: middle;">Total</th>
             <th style="vertical-align: middle;">Rank</th>
@@ -202,15 +202,32 @@ class LineHistoryController extends Controller
                                     </tr>
                                 </table>
                                 </td>
-                               <td></td>
-                                    <td style="vertical-align: middle;">';
+                               <td>
+                               <table class="m-auto text-start table table-bordered">
+                        <tbody>';
+
+                foreach ($p_detail_2 as $p_2) {
+                    if ($p_2->l_id == $g_line_id) {
+                        echo '<tr style="border-bottom: 1px solid #848484;">
+                            <td>
+                                <div style="width:10rem;overflow-x:scroll;">
+                                    #' . $p_2->style_no .  ', ' .  $p_2->p_name . '
+                                </div>
+                            </td>
+                        </tr>';
+                    }
+                }
+                echo '</tbody>
+                </table>
+                </td>
+                <td style="vertical-align: middle;">';
                 foreach ($total_inline as $t_inline) {
                     if ($t_inline->l_id == $g_line_id) {
                         echo $t_inline->total_inline;
                     }
                 }
                 echo '</td>
-                                    <td style="vertical-align: middle;"><span id="g_main_target_' . $g_line_id . '">' . $g_main_target . '</span></td>';
+                <td style="vertical-align: middle;"><span id="g_main_target_' . $g_line_id . '">' . $g_main_target . '</span></td>';
 
                 foreach ($time_2 as $t_2) {
                     if ($g_line_id == $t_2->line_id && $t_2->time_name != 'temp') {
@@ -218,104 +235,103 @@ class LineHistoryController extends Controller
                         $prev_target = ((int)$current_target) - 1;
 
                         echo '<td>
-                                        <table class="w-100 text-center table table-bordered m-0">
-                                            <tr>
-                                                <td><span id="new_div_target_' . $t_2->time_id . '">' . $t_2->actual_target_entry . '</span></td>
-                                            </tr>
-                                            <tr class="text-white">
-                                                <td id="td_div_actual_target_' . $t_2->time_id . '">
-                                                    <span id="div_actual_target_' . $t_2->time_id . '" class="div_actual_target_' . $g_line_id . '">' . $t_2->div_actual_target . '</span>
-                                                </td>
-                                            </tr>
-                                            <tr class="text-white">
-                                                <td id="td_div_actual_target_percent_' . $t_2->time_id . '"><span id="div_actual_target_percent_' . $t_2->time_id . '"></span>
-                                                </td>
-                                            </tr>
-                                        </table>
+                    <table class="w-100 text-center table table-bordered m-0">
+                        <tr>
+                            <td><span id="new_div_target_' . $t_2->time_id . '">' . $t_2->actual_target_entry . '</span></td>
+                        </tr>
+                        <tr class="text-white">
+                            <td id="td_div_actual_target_' . $t_2->time_id . '">
+                                <span id="div_actual_target_' . $t_2->time_id . '" class="div_actual_target_' . $g_line_id . '">' . $t_2->div_actual_target . '</span>
+                            </td>
+                        </tr>
+                        <tr class="text-white">
+                            <td id="td_div_actual_target_percent_' . $t_2->time_id . '"><span id="div_actual_target_percent_' . $t_2->time_id . '"></span>
+                            </td>
+                        </tr>
+                    </table>
 
-                                        <script>
-                                            var prev_target = parseInt($("#div_actual_target_' . $prev_target . '").text());
-                                            var current_target = parseInt($("#div_actual_target_' . $current_target . '").text());
+                    <script>
+                        var prev_target = parseInt($("#div_actual_target_' . $prev_target . '").text());
+                        var current_target = parseInt($("#div_actual_target_' . $current_target . '").text());
 
-                                            var total = prev_target + current_target;
-                                            var current_target_total = $("#div_actual_target_total_' . $current_target . '");
+                        var total = prev_target + current_target;
+                        var current_target_total = $("#div_actual_target_total_' . $current_target . '");
 
-                                            if (Number.isNaN(total)) {
-                                                current_target_total.text("");
-                                            }
-                                            if (!Number.isNaN(total)) {
-                                                current_target_total.text(total);
-                                            }
+                        if (Number.isNaN(total)) {
+                            current_target_total.text("");
+                        }
+                        if (!Number.isNaN(total)) {
+                            current_target_total.text(total);
+                        }
 
-                                            var new_div_actual_target_total_prev = $("#div_actual_target_total_' . $prev_target . '").text();
-                                            var new_div_actual_target_total_current = $("#div_actual_target_total_' . $current_target . '");
-                                            var new_div_actual_target_prev = $("#div_actual_target_' . $prev_target . '").text();
-                                            var new_div_actual_target_current = $("#div_actual_target_' . $current_target . '").text();
+                        var new_div_actual_target_total_prev = $("#div_actual_target_total_' . $prev_target . '").text();
+                        var new_div_actual_target_total_current = $("#div_actual_target_total_' . $current_target . '");
+                        var new_div_actual_target_prev = $("#div_actual_target_' . $prev_target . '").text();
+                        var new_div_actual_target_current = $("#div_actual_target_' . $current_target . '").text();
 
-                                            if (new_div_actual_target_total_prev != "") {
-                                                var new_total = parseInt(new_div_actual_target_total_prev) + parseInt(new_div_actual_target_current);
-                                                if (Number.isNaN(new_total)) {
-                                                    new_div_actual_target_total_current.text("");
-                                                }
-                                                if (!Number.isNaN(new_total)) {
-                                                    new_div_actual_target_total_current.text(new_total);
-                                                }
-                                            }
-
-
-                                            var new_div_target = $("#new_div_target_' . $current_target . '").text();
-                                            var div_actual_target = parseInt($("#div_actual_target_' . $current_target . '").text());
-
-                                            var percentage = (div_actual_target / new_div_target) * 100;
-                                            var div_actual_target_percent = $("#div_actual_target_percent_' . $current_target . '");
-
-                                            if (Number.isNaN(div_actual_target)) {
-                                                if (div_actual_target != "") {
-                                                    var new_percent = (div_actual_target / new_div_target) * 100;
-                                                    if (Number.isNaN(new_percent)) {
-                                                        div_actual_target_percent.text("");
-                                                    }
-                                                    if (!Number.isNaN(new_percent)) {
-                                                        div_actual_target_percent.text(parseInt(new_percent));
-                                                        if (parseInt(div_actual_target_percent.text()) >= 100) {
-                                                            $("#td_div_actual_target_percent_' . $current_target . '").css("background-color", "green");
-                                                        }
-                                                        if (parseInt(div_actual_target_percent.text()) < 100) {
-                                                            $("#td_div_actual_target_percent_' . $current_target . '").css("background-color", "red");
-                                                        }
-
-                                                        div_actual_target_percent.append("%");
-                                                    }
-                                                }
-                                            }
-                                            if (!Number.isNaN(div_actual_target)) {
-                                                if (Number.isNaN(percentage)) {
-                                                    div_actual_target_percent.text("");
-                                                }
-                                                if (!Number.isNaN(percentage)) {
-                                                    div_actual_target_percent.text(parseInt(percentage));
-                                                    if (parseInt(div_actual_target_percent.text()) >= 100) {
-                                                        $("#td_div_actual_target_percent_' . $current_target . '").css("background-color", "green");
-                                                    }
-                                                    if (parseInt(div_actual_target_percent.text()) < 100) {
-                                                        $("#td_div_actual_target_percent_' . $current_target . '").css("background-color", "red");
-                                                    }
-
-                                                    div_actual_target_percent.append("%");
-                                                }
-                                            }
+                        if (new_div_actual_target_total_prev != "") {
+                            var new_total = parseInt(new_div_actual_target_total_prev) + parseInt(new_div_actual_target_current);
+                            if (Number.isNaN(new_total)) {
+                                new_div_actual_target_total_current.text("");
+                            }
+                            if (!Number.isNaN(new_total)) {
+                                new_div_actual_target_total_current.text(new_total);
+                            }
+                        }
 
 
-                                            if (parseInt(new_div_target) > parseInt(div_actual_target)) {
-                                                $("#td_div_actual_target_' . $current_target . '").css("background-color", "red");
-                                            }
-                                            if (parseInt(new_div_target) <= parseInt(div_actual_target)) {
-                                                $("#td_div_actual_target_' . $current_target . '").css("background-color", "green");
-                                            }
+                        var new_div_target = $("#new_div_target_' . $current_target . '").text();
+                        var div_actual_target = parseInt($("#div_actual_target_' . $current_target . '").text());
 
-                                           </script>
-                                    </td>
-                                ';
+                        var percentage = (div_actual_target / new_div_target) * 100;
+                        var div_actual_target_percent = $("#div_actual_target_percent_' . $current_target . '");
+
+                        if (Number.isNaN(div_actual_target)) {
+                            if (div_actual_target != "") {
+                                var new_percent = (div_actual_target / new_div_target) * 100;
+                                if (Number.isNaN(new_percent)) {
+                                    div_actual_target_percent.text("");
+                                }
+                                if (!Number.isNaN(new_percent)) {
+                                    div_actual_target_percent.text(parseInt(new_percent));
+                                    if (parseInt(div_actual_target_percent.text()) >= 100) {
+                                        $("#td_div_actual_target_percent_' . $current_target . '").css("background-color", "green");
+                                    }
+                                    if (parseInt(div_actual_target_percent.text()) < 100) {
+                                        $("#td_div_actual_target_percent_' . $current_target . '").css("background-color", "red");
+                                    }
+
+                                    div_actual_target_percent.append("%");
+                                }
+                            }
+                        }
+                        if (!Number.isNaN(div_actual_target)) {
+                            if (Number.isNaN(percentage)) {
+                                div_actual_target_percent.text("");
+                            }
+                            if (!Number.isNaN(percentage)) {
+                                div_actual_target_percent.text(parseInt(percentage));
+                                if (parseInt(div_actual_target_percent.text()) >= 100) {
+                                    $("#td_div_actual_target_percent_' . $current_target . '").css("background-color", "green");
+                                }
+                                if (parseInt(div_actual_target_percent.text()) < 100) {
+                                    $("#td_div_actual_target_percent_' . $current_target . '").css("background-color", "red");
+                                }
+
+                                div_actual_target_percent.append("%");
+                            }
+                        }
+
+
+                        if (parseInt(new_div_target) > parseInt(div_actual_target)) {
+                            $("#td_div_actual_target_' . $current_target . '").css("background-color", "red");
+                        }
+                        if (parseInt(new_div_target) <= parseInt(div_actual_target)) {
+                            $("#td_div_actual_target_' . $current_target . '").css("background-color", "green");
+                        }
+                    </script>
+                </td>
+                ';
                     }
                 }
             ?>
@@ -333,8 +349,13 @@ class LineHistoryController extends Controller
                                     $a_total = $actual_total_decode[$d]['total_actual_target'];
                                     if ($g_line_id == $actual_target_line_id) { ?>
                                         <tr>
-                                            <td><span class="t_2_total_<?php echo $target_line_id; ?>"><?php echo $t_total; ?></span>
+                                            <td><span class="t_2_total_<?php echo $target_line_id; ?>"></span>
                                             </td>
+                                            <script>
+                                                var main_target_total = $("#g_main_target_<?php echo $g_line_id; ?>").text();
+                                                var t_2_total = $(".t_2_total_<?php echo $target_line_id; ?>");
+                                                t_2_total.text(main_target_total);
+                                            </script>
                                         </tr>
                                         <tr class="text-white">
                                             <td class="td_a_total_<?php echo $target_line_id; ?>">
@@ -538,7 +559,7 @@ class LineHistoryController extends Controller
             <td></td>
             <?php
             for ($k = 0; $k < count($total_main_target_decode); $k++) {
-                echo '<td style="vertical-align: middle;"><span id="">' . $total_main_target_decode[$k]["t_main_target"] . '</span></td>';
+                echo '<td style="vertical-align: middle;"><span id="t_main_target">' . $total_main_target_decode[$k]["t_main_target"] . '</span></td>';
             }
             for ($l = count($total_div_target_decode) - 1; $l >= 0; $l--) {
                 $total_time_name = $total_div_target_decode[$l]["time_name"];
@@ -619,8 +640,13 @@ class LineHistoryController extends Controller
                     <tr>
                         <?php for ($e = 0; $e < count($total_overall_target_decode); $e++) { ?>
                             <td id="t_overall_target">
-                                <?php echo $total_overall_target_decode[$e]['t_overall_target']; ?>
+
                             </td>
+                            <script>
+                                var t_main_target = $("#t_main_target").text();
+                                var t_overall_target = $("#t_overall_target");
+                                t_overall_target.text(t_main_target);
+                            </script>
                         <?php } ?>
 
                     </tr>

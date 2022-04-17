@@ -38,8 +38,11 @@
                     <input class="icon-btn-one btn my-2" type="submit" value="Date - {{ $date_string }}" />
                 </li>
                 <li class="span2 bg-transparent">
-                    <input class="icon-btn-one icon-btn-one-2 btn my-2" type="submit" value="Export to Excel"
-                        name="submit" />
+                    <a id="dlink" style="display:none;"></a>
+                    <div id="name" style="display:none;">
+                        <?php echo $date_string_for_export_pdf . "_live_dash"; ?>
+                    </div>
+                    <button id="btn" class="icon-btn-one icon-btn-one-2 btn my-2">Export to Excel</button>
                 </li>
                 <li class="span2 bg-transparent">
                     <button type="button" id="exportPDF" class="icon-btn-one icon-btn-one-2 btn my-2">Export to
@@ -112,6 +115,10 @@
             // Old monolithic-style usage:
             html2pdf(element, opt);
         });
+    </script>
+
+    <script>
+
     </script>
 </div>
 
