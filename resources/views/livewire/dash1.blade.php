@@ -73,7 +73,7 @@
                             @if($p_2->l_id == $g_line_id)
                             <tr style="border-bottom: 1px solid #848484;">
                                 <td>
-                                    <div style="width:10rem;overflow-x:scroll;">
+                                    <div style="width:11rem;overflow-x:scroll;">
                                         #{{ $p_2->style_no }}, {{ $p_2->p_name }}
                                     </div>
                                 </td>

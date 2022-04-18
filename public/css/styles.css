@@ -812,6 +812,16 @@ ul.scroll-horizontal-ul {
     cursor: pointer;
 }
 
+/**** Report *****/
+
+.showOverlay {
+    display: block;
+}
+
+.hideOverlay {
+    display: none;
+}
+
 /**** Daily Production End ****/
 @media (min-width: 280px) {
     .login-card-img {

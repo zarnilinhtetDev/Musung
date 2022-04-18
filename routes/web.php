@@ -41,6 +41,7 @@ Route::view('/line_history', 'target_line.line_history')->middleware('auth');
 
 Route::get('/report', 'ReportDashController@index')->middleware('auth');
 Route::post('/cmp_put', 'ReportDashController@cmpPut')->middleware('auth');
+Route::post('/report_history', 'ReportDashController@report_history')->middleware('auth');
 
 
 /// Daily Production Detail

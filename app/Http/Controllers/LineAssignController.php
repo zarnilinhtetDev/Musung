@@ -106,6 +106,7 @@ class LineAssignController extends Controller
         $lunch_end = request()->post('lunch_end');
         $progress = request()->post('progress');
 
+
         // $category = request()->post('category');
         // $category_target = request()->post('category_target');
         // $p_name = request()->post('p_name');
@@ -219,10 +220,12 @@ class LineAssignController extends Controller
         if ($line == true) {
             $line_assign = LineAssign::create(['user_id' => $line_manager, 'l_id' => $l_id, 'main_target' => $t_category_target, 's_time' => $s_time, 'e_time' => $e_time, 'lunch_s_time' => $lunch_start, 'lunch_e_time' => $lunch_end, 'cal_work_min' => $progress, 't_work_hr' => $work_hour, 'assign_date' => $date_string, 'created_at' => NOW()]);
 
+
             if ($line_assign == true) {
                 $assign_id = LineAssign::select('assign_id')->where('l_id', $l_id)->where('user_id', $line_manager)->orderBy('assign_id', 'desc')->first();  ///// Get assign_id from line_assign table
                 if ($assign_id == true) {
                     $assign_id = $assign_id->assign_id;
+
                     if ($countTotalTimeArr > 0) {
                         for ($j = 0; $j < $countTotalTimeArr; $j++) { ///// Insert data [] to time table
                             Time::create([

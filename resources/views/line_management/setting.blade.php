@@ -338,7 +338,7 @@ $num = 1;
                     start_time.val("07:30");
                     end_time.val("18:00");
                     lunch_start.val("11:30");
-                    lunch_end.val("12:30");
+                    lunch_end.val("12:00");
                     progress.val("60");
                 });
             </script>
