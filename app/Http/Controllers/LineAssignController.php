@@ -82,7 +82,7 @@ class LineAssignController extends Controller
         JOIN users ON "users".id="line_assign".user_id
         JOIN line ON "line".l_id="line_assign".l_id AND "line".a_status=1
         WHERE "line_assign".assign_date=\'' . $date_string . '\'
-        ORDER BY "line".l_id ASC');
+        ORDER BY "line".l_pos ASC');
 
         $p_detail_2 = ProductCategory::all();
 
@@ -183,7 +183,7 @@ class LineAssignController extends Controller
 
         if ($endOfEndTimeArr > $end_time->format('H:i')) {
             array_pop($endTimeArr);
-            -$getMinuteEndTimeArr = (strtotime($endOfEndTimeArr) - $to_time) / 60;
+            $getMinuteEndTimeArr = (strtotime($endOfEndTimeArr) - $to_time) / 60;
             $diffEndTime = strtotime($endOfEndTimeArr) - strtotime(date("H:i", $getMinuteEndTimeArr * 60));
             $diffEndTime_to_date =  date("H:i", $diffEndTime);
             $endTimeArr[] = $diffEndTime_to_date;
@@ -279,6 +279,72 @@ class LineAssignController extends Controller
         $l_id = request()->post('l_id');
         $over_time_minute = request()->post('over_time_minute');
         $over_time_target = request()->post('over_time_target');
+        $date_string = date("d.m.Y");
+
+        $category = [];
+        $style_no = [];
+        $p_name = [];
+        $category_target = [];
+        $line_id = [];
+
+        $sub = json_decode(request()->post('sub'), true);
+        for ($x = 0; $x < count($sub); $x++) {
+            if ($sub[$x]['category_select'] != '' && $sub[$x]['style_no'] != '' && $sub[$x]['p_name'] != '' && $sub[$x]['category_target'] != '' && $sub[$x]['l_id'] != '') {
+                $category[] = $sub[$x]['category_select'];
+                $style_no[] = $sub[$x]['style_no'];
+                $p_name[] = $sub[$x]['p_name'];
+                $category_target[] = $sub[$x]['category_target'];
+                $line_id[] = $sub[$x]['l_id'];
+            }
+        }
+
+        $assign_id = DB::select('SELECT "line_assign".assign_id,"line_assign".user_id,"line_assign".l_id,"line_assign".main_target,"line_assign".s_time,"line_assign".e_time,"line_assign".lunch_s_time,
+        "line_assign".lunch_e_time,"line_assign".cal_work_min,"line_assign".t_work_hr,"line_assign".assign_date
+        FROM line_assign WHERE "line_assign".l_id=' . $l_id . ' AND "line_assign".assign_date=\'' . $date_string . '\'  ORDER BY "line_assign".assign_id ASC');
+
+
+        DB::disconnect('musung');
+
+        $assign_id_decode = json_decode(json_encode($assign_id), true);
+        $a_id = $assign_id_decode[0]['assign_id'];
+        $user_id = $assign_id_decode[0]['user_id'];
+        $l_id = $assign_id_decode[0]['l_id'];
+        $main_target = $assign_id_decode[0]['main_target'];
+        $s_time = $assign_id_decode[0]['s_time'];
+        $e_time = $assign_id_decode[0]['e_time'];
+        $lunch_s_time = $assign_id_decode[0]['lunch_s_time'];
+        $lunch_e_time = $assign_id_decode[0]['lunch_e_time'];
+        $cal_work_min = $assign_id_decode[0]['cal_work_min'];
+        $t_work_hr = $assign_id_decode[0]['t_work_hr'];
+        $assign_date = $assign_id_decode[0]['assign_date'];
+
+        $div_over_time = $over_time_minute / $cal_work_min;
+
+        $min_arr = [];
+        $num = 1;
+        for ($m = 0; $m < $div_over_time; $m++) {
+            $time = ($over_time_minute - $cal_work_min) * $num;
+            $min_arr[] = $time;
+            $num++;
+        }
+
+        print_r($min_arr);
+
+        $time_arr = [];
+        for ($i = 0; $i < count($min_arr); $i++) {
+            $total_over_time = strtotime($e_time) + ($min_arr[$i] * 60);
+            $format_over_time = date('H:i', $total_over_time);
+
+            $time_arr[] = $format_over_time;
+        }
+        print_r($time_arr);
+
+        // $line_assign = LineAssign::create(['user_id' => $user_id, 'l_id' => $l_id, 'main_target' => $main_target, 's_time' => $s_time, 'e_time' => $e_time, 'lunch_s_time' => $lunch_s_time, 'lunch_e_time' => $lunch_e_time, 'cal_work_min' => $cal_work_min, 't_work_hr' => $t_work_hr, 'assign_date' => $assign_date, 'created_at' => NOW()]);
+
+        // if ($line_assign) {
+        //     echo 'hello';
+        // }
+
 
         // $overTime = OverTime::create(['l_id' => $l_id, 'ot_min' => $over_time_minute, 'ot_target' => $over_time_target, 'created_at' => NOW()]);
         // if ($overTime == true) {

@@ -6,6 +6,10 @@
 
 <?php
 $date_string = date("d.m.Y");
+@$edit_status = $_GET['edit'];
+@$date = $_GET['date'];
+
+@$format_date = date("d.m.Y", strtotime($date));
 ?>
 
 @admin
@@ -26,7 +30,14 @@ $date_string = date("d.m.Y");
     <div class="col-12 col-md-4 my-3 p-0">
         <ul class="horizontal-slide" id="tabs">
             <li class="span2">
-                <p>Date - {{ $date_string }} </p>
+                <p>Date -
+                    <?php if(!$edit_status && !$date){
+                                echo $date_string;
+                            }else{
+                                echo $format_date;
+                            }
+                            ?>
+                </p>
             </li>
         </ul>
     </div>
@@ -36,10 +47,6 @@ $date_string = date("d.m.Y");
     $daily_report_product_decode = json_decode(json_encode($daily_report_product),true);
     ?>
 
-    <?php
-@$edit_status = $_GET['edit'];
-@$date = $_GET['date'];
-?>
 
     <div id="today_report">
         @if(!$edit_status)
@@ -94,7 +101,7 @@ $date_string = date("d.m.Y");
                         @for($i=0;$i<count($daily_report_decode);$i++) @php
                             $l_id=$daily_report_decode[$i]['l_id'];$l_name=$daily_report_decode[$i]['l_name'];$main_target=$daily_report_decode[$i]['main_target'];$actual_target=$daily_report_decode[$i]['total_div_actual_target'];
                             $m_power=$daily_report_decode[$i]['m_power'];$actual_m_power=$daily_report_decode[$i]['actual_m_power'];$hp=$daily_report_decode[$i]['hp'];$actual_hp=$daily_report_decode[$i]['actual_hp'];
-                            @endphp <tr>
+                            $assign_date=$daily_report_decode[$i]['assign_date']; @endphp <tr>
                             <td>{{ $l_name }}</td>
 
                             {{-- Buyer --}}
@@ -353,6 +360,8 @@ $date_string = date("d.m.Y");
                                 var cmp = parseFloat($('.cmp_{{ $p_id_2 }}').text());
                                 var daily_cmp = $('.daily_cmp_{{ $p_id_2 }}');
 
+                                // console.log(cmp);
+
                                 var multiply_cmp = clothes_output * cmp;
 
                                 if(Number.isNaN(multiply_cmp)){
@@ -566,7 +575,6 @@ $date_string = date("d.m.Y");
                         @endif
                     </td>
                     </tr>
-
                     <script>
                         // For CMP/hr
                     var total_cmp_2 = $('.total_cmp_{{ $l_id }}').text();
@@ -1403,7 +1411,6 @@ chart.render();
                                         @if($cat_actual_target != '')
                                         <td class="cat_actual_target_{{ $p_id_2 }}">{{ $cat_actual_target }}</td>
                                         @endif
-
                                         </tr>
                                         @endif
 

@@ -147,7 +147,9 @@
                                         $actual_target_entry = $d->actual_target_entry;
                                         @endphp
                                         <tr>
-                                            <td>{{ $time_name }}</td>
+                                            <td>
+                                                <?php echo date('g:i A',strtotime($time_name)); ?>
+                                            </td>
                                             <td><span id="div_target_{{ $time_id }}">{{ $actual_target_entry }}</span>
                                             </td>
                                             <td>
@@ -180,7 +182,9 @@
                                                 <div class="modal-content">
                                                     <form action="{{ url('line_entry_post') }}" method="POST">
                                                         <div class="modal-header">
-                                                            <h1 class="fw-bold heading-text">{{ $time_name }}</h1>
+                                                            <h1 class="fw-bold heading-text">
+                                                                <?php echo date('g:i A',strtotime($time_name)); ?>
+                                                            </h1>
                                                             <button type="button" class="btn-close"
                                                                 data-bs-dismiss="modal" aria-label="Close"></button>
                                                         </div>
@@ -204,7 +208,7 @@
                                                                         <div class="row container-fluid">
                                                                             <div class="col-12 col-md-4 m-auto">
                                                                                 <h5 class="fw-bold heading-text">#{{
-                                                                                    $p_detail_style_no }}{{
+                                                                                    $p_detail_style_no }}, {{
                                                                                     $p_detail_p_name }}</h5>
                                                                             </div>
                                                                             <div class="col-12 col-md-4">
