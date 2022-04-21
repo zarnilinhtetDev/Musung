@@ -31,6 +31,7 @@ return array(
     'App\\Http\\Controllers\\LiveDashController' => $baseDir . '/app/Http/Controllers/LiveDashController.php',
     'App\\Http\\Controllers\\MainMenuController' => $baseDir . '/app/Http/Controllers/MainMenuController.php',
     'App\\Http\\Controllers\\ReportDashController' => $baseDir . '/app/Http/Controllers/ReportDashController.php',
+    'App\\Http\\Controllers\\SuperAdminController' => $baseDir . '/app/Http/Controllers/SuperAdminController.php',
     'App\\Http\\Controllers\\TimeApiController' => $baseDir . '/app/Http/Controllers/TimeApiController.php',
     'App\\Http\\Controllers\\UserApiController' => $baseDir . '/app/Http/Controllers/UserApiController.php',
     'App\\Http\\Controllers\\UserController' => $baseDir . '/app/Http/Controllers/UserController.php',

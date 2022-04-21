@@ -323,8 +323,16 @@ class LineAssignController extends Controller
         $min_arr = [];
         $num = 1;
         for ($m = 0; $m < $div_over_time; $m++) {
+
             $time = ($over_time_minute - $cal_work_min) * $num;
-            $min_arr[] = $time;
+            echo $time;
+            if ($time == 0) {
+                $min_arr[] = $over_time_minute;
+            } elseif ($time < 0) {
+                $min_arr[] = abs($over_time_minute);
+            } else {
+                $min_arr[] = $time;
+            }
             $num++;
         }
 

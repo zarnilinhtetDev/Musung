@@ -227,7 +227,7 @@ class LineHistoryController extends Controller
                     }
                 }
                 echo '</td>
-                <td style="vertical-align: middle;"><span id="g_main_target_' . $g_line_id . '">' . $g_main_target . '</span></td>';
+                <td style="vertical-align: middle;"><span id="g_main_target_' . $g_line_id . '">' . number_format($g_main_target) . '</span></td>';
 
                 foreach ($time_2 as $t_2) {
                     if ($g_line_id == $t_2->line_id && $t_2->time_name != 'temp') {
@@ -237,11 +237,15 @@ class LineHistoryController extends Controller
                         echo '<td>
                     <table class="w-100 text-center table table-bordered m-0">
                         <tr>
-                            <td><span id="new_div_target_' . $t_2->time_id . '">' . $t_2->actual_target_entry . '</span></td>
+                            <td><span id="new_div_target_' . $t_2->time_id . '">' . number_format($t_2->actual_target_entry) . '</span></td>
                         </tr>
                         <tr class="text-white">
                             <td id="td_div_actual_target_' . $t_2->time_id . '">
-                                <span id="div_actual_target_' . $t_2->time_id . '" class="div_actual_target_' . $g_line_id . '">' . $t_2->div_actual_target . '</span>
+                                <span id="div_actual_target_' . $t_2->time_id . '" class="div_actual_target_' . $g_line_id . '">';
+                        if ($t_2->div_actual_target != '') {
+                            echo number_format($t_2->div_actual_target);
+                        }
+                        echo '</span>
                             </td>
                         </tr>
                         <tr class="text-white">
@@ -559,14 +563,14 @@ class LineHistoryController extends Controller
             <td></td>
             <?php
             for ($k = 0; $k < count($total_main_target_decode); $k++) {
-                echo '<td style="vertical-align: middle;"><span id="t_main_target">' . $total_main_target_decode[$k]["t_main_target"] . '</span></td>';
+                echo '<td style="vertical-align: middle;"><span id="t_main_target">' . number_format($total_main_target_decode[$k]["t_main_target"]) . '</span></td>';
             }
             for ($l = count($total_div_target_decode) - 1; $l >= 0; $l--) {
                 $total_time_name = $total_div_target_decode[$l]["time_name"];
                 echo '<td id="' . $total_div_target_decode[$l]['time_name'] . '">
                 <table class="w-100 text-center table table-bordered m-0">
                     <tr>
-                        <td><span id="new_t_div_target_num_' . $total_div_target_decode[$l]['row_num_1'] . '">' . $total_div_target_decode[$l]['t_div_target'] . '</span></td>
+                        <td><span id="new_t_div_target_num_' . $total_div_target_decode[$l]['row_num_1'] . '">' . number_format($total_div_target_decode[$l]['t_div_target']) . '</span></td>
                     </tr>';
 
                 for ($m = 0; $m < count($total_div_actual_target_decode); $m++) {
@@ -578,7 +582,11 @@ class LineHistoryController extends Controller
                             id="new_t_div_actual_target_num_' . $total_div_actual_target_decode[$m]['row_num'] . '"
                             value="' . $total_div_actual_target_decode[$m]['t_div_actual_target_1'] . '" />
                         <td id="td_tmp_num_' . $total_div_actual_target_decode[$m]['row_num'] . '">
-                            <span id="tmp_num_' . $total_div_actual_target_decode[$m]['row_num'] . '" class="">' . $total_div_actual_target_decode[$m]['t_div_actual_target_1'] . '</span>
+                            <span id="tmp_num_' . $total_div_actual_target_decode[$m]['row_num'] . '" class="">';
+                        if ($total_div_actual_target_decode[$m]['t_div_actual_target_1'] != '') {
+                            echo number_format($total_div_actual_target_decode[$m]['t_div_actual_target_1']);
+                        }
+                        echo '</span>
                         </td>
                     </tr>
                     <tr class="text-white">
@@ -663,8 +671,8 @@ class LineHistoryController extends Controller
                     </tr>
                 </table>
                 <script>
-                    var t_overall_target = $("#t_overall_target").text();
-                    var t_overall_actual_target = $("#t_overall_actual_target").text();
+                    var t_overall_target = parseInt($("#t_overall_target").text());
+                    var t_overall_actual_target = parseInt($("#t_overall_actual_target").text());
                     var t_overall_percent = $("#t_overall_percent");
 
                     if (parseInt(t_overall_target) > parseInt(t_overall_actual_target)) {
@@ -674,7 +682,7 @@ class LineHistoryController extends Controller
                         $("#t_overall_actual_target").css('background-color', 'green');
                     }
 
-                    var t_percent_cal = (t_overall_actual_target / t_overall_target) * 100;
+                    var t_percent_cal = (t_overall_target / t_overall_actual_target) * 100;
                     t_overall_percent.text(parseInt(t_percent_cal));
 
 

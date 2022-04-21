@@ -40,7 +40,7 @@ class ReportDashController extends Controller
             ORDER BY "line".l_pos ASC');
 
             $daily_report_product = DB::select('SELECT "p_detail".p_detail_id,"p_detail".l_id,"p_detail".p_name,"p_detail".quantity,"p_detail".div_quantity,"p_detail".sewing_input,"p_detail".assign_id,
-            "p_detail".h_over_input,"p_detail".p_actual_target,"p_detail".cat_actual_target,"p_detail".inline,"p_detail".cmp,"p_category".p_cat_name,"p_detail".style_no,"line_assign".assign_date
+            "p_detail".h_over_input,"p_detail".p_actual_target,"p_detail".cat_actual_target,"p_detail".inline,"p_detail".cmp,"p_category".p_cat_name,"p_detail".style_no,"line_assign".assign_date,"line_assign".man_target,"line_assign".man_actual_target
             FROM p_detail
             JOIN line_assign ON "line_assign".assign_id="p_detail".assign_id AND "line_assign".assign_date=\'' . $format_date_string . '\'
             JOIN p_category ON "p_category".p_cat_id="p_detail".p_cat_id
@@ -57,7 +57,7 @@ class ReportDashController extends Controller
             ORDER BY "line".l_pos ASC');
 
             $daily_report_product = DB::select('SELECT "p_detail".p_detail_id,"p_detail".l_id,"p_detail".p_name,"p_detail".quantity,"p_detail".div_quantity,"p_detail".sewing_input,"p_detail".assign_id,
-            "p_detail".h_over_input,"p_detail".p_actual_target,"p_detail".cat_actual_target,"p_detail".inline,"p_detail".cmp,"p_category".p_cat_name,"p_detail".style_no,"line_assign".assign_date
+            "p_detail".h_over_input,"p_detail".p_actual_target,"p_detail".cat_actual_target,"p_detail".inline,"p_detail".cmp,"p_category".p_cat_name,"p_detail".style_no,"line_assign".assign_date,"line_assign".man_target,"line_assign".man_actual_target
             FROM p_detail
             JOIN line_assign ON "line_assign".assign_id="p_detail".assign_id AND "line_assign".assign_date=\'' . $date_string . '\'
             JOIN p_category ON "p_category".p_cat_id="p_detail".p_cat_id
@@ -148,7 +148,7 @@ class ReportDashController extends Controller
         ORDER BY "line".l_pos ASC');
 
         $daily_report_product_history = DB::select('SELECT "p_detail".p_detail_id,"p_detail".l_id,"p_detail".p_name,"p_detail".quantity,"p_detail".div_quantity,"p_detail".sewing_input,"p_detail".assign_id,
-        "p_detail".h_over_input,"p_detail".p_actual_target,"p_detail".cat_actual_target,"p_detail".inline,"p_detail".cmp,"p_category".p_cat_name,"p_detail".style_no
+        "p_detail".h_over_input,"p_detail".p_actual_target,"p_detail".cat_actual_target,"p_detail".inline,"p_detail".cmp,"p_category".p_cat_name,"p_detail".style_no,"line_assign".man_target,"line_assign".man_actual_target
         FROM p_detail
         JOIN line_assign ON "line_assign".assign_id="p_detail".assign_id AND "line_assign".assign_date=\'' . $date_string . '\'
 		JOIN p_category ON "p_category".p_cat_id="p_detail".p_cat_id
@@ -194,6 +194,7 @@ class ReportDashController extends Controller
                             <th scope="col">Style No.#</th>
                             <th scope="col">Item</th>
                             <th scope="col">Target</th>
+                            <th scope="col">Manpower</th>
                             <th scope="col">Output</th>
                             <th scope="col">%</th>
                             <th scope="col">Q'ty</th>
@@ -235,7 +236,8 @@ class ReportDashController extends Controller
                             $actual_m_power = $daily_report_history_decode[$i]['actual_m_power'];
                             $hp = $daily_report_history_decode[$i]['hp'];
                             $actual_hp = $daily_report_history_decode[$i]['actual_hp'];
-
+                            $man_target = $daily_report_history_decode[$i]['man_target'];
+                            $man_actual_target = $daily_report_history_decode[$i]['man_actual_target'];
                         ?>
                             <tr>
                                 <td><?php echo $l_name; ?></td>
@@ -317,14 +319,34 @@ class ReportDashController extends Controller
                         </tbody>
                     </table>
                 </td>
-                <td class="main_target_><?php echo $l_id; ?>"><?php echo $main_target; ?></td>
-                <td class="actual_target_><?php echo $l_id; ?>"><?php echo $actual_target; ?></td>
-                <td class="percent_<?php echo $l_id; ?>"></td>
+
+                <!-- Main Target --->
+                <td class="main_target_history<?php echo $l_id; ?>"><?php echo number_format($main_target); ?></td>
+
+                <td>
+                    <table class="m-auto text-start table table-bordered custom-table-border-color">
+                        <tbody>
+                            <td><?php echo $man_target; ?></td>
+                            <td><?php echo $man_actual_target; ?></td>
+                        </tbody>
+                    </table>
+                </td>
+                <td class="actual_target_history<?php echo $l_id; ?>"><?php if ($actual_target != '') {
+                                                                            echo number_format($actual_target);
+                                                                        }
+                                                                        ?></td>
+                <td class="percent_history<?php echo $l_id; ?>"></td>
                 <script>
-                    var main_target = $('.main_target_<?php echo $l_id; ?>').text();
-                    var actual_target = $('.actual_target_<?php echo $l_id; ?>').text();
-                    var percent_class = $(".percent_<?php echo $l_id; ?>");
+                    var main_target = parseInt($('.main_target_history<?php echo $l_id; ?>').text());
+                    var actual_target = parseInt($('.actual_target_history<?php echo $l_id; ?>').text());
+                    var percent_class = $(".percent_history<?php echo $l_id; ?>");
                     var percent = (actual_target / main_target) * 100;
+
+                    if (Number.isNaN(percent)) {
+                        $('.percent_<?php echo $l_id; ?>').text("");
+                    } else {
+                        $('.percent_<?php echo $l_id; ?>').text(percent.toFixed(0) + "%");
+                    }
                     percent_class.text(percent.toFixed(0) + "%");
                 </script>
                 <td class="text-danger"></td>
@@ -346,7 +368,7 @@ class ReportDashController extends Controller
                                         echo '<td>-</td>';
                                     }
                                     if ($sewing_input != '') {
-                                        echo '<td>' . $sewing_input . '</td>';
+                                        echo '<td>' . number_format($sewing_input) . '</td>';
                                     }
                                     echo '</tr>';
                                 }
@@ -372,7 +394,7 @@ class ReportDashController extends Controller
                                         echo '<td>-</td>';
                                     }
                                     if ($sewing_input != '') {
-                                        echo '<td>' . $sewing_input . '</td>';
+                                        echo '<td>' . number_format($sewing_input) . '</td>';
                                     }
                                     echo '</tr>';
                                 }
@@ -399,7 +421,7 @@ class ReportDashController extends Controller
                                         echo '<td>-</td>';
                                     }
                                     if ($cat_actual_target != '') {
-                                        echo '<td>' . $cat_actual_target . '</td>';
+                                        echo '<td class="cat_actual_target_history_' . $p_id_2 . '">' . number_format($cat_actual_target) . '</td>';
                                     }
                                     echo '</tr>';
                                 }
@@ -425,7 +447,7 @@ class ReportDashController extends Controller
                                         echo '<td>-</td>';
                                     }
                                     if ($cat_actual_target != '') {
-                                        echo '<td>' . $cat_actual_target . '</td>';
+                                        echo '<td>' . number_format($cat_actual_target) . '</td>';
                                     }
                                     echo '</tr>';
                                 }
@@ -454,7 +476,7 @@ class ReportDashController extends Controller
                                         echo '<td>-</td>';
                                     }
                                     if ($cmp != '') {
-                                        echo '<td class="cmp_value" id="cmp_value">' . $cmp . '</td>';
+                                        echo '<td class="cmp_value_history_' . $p_id_2 . '" id="cmp_value_history">' . '$ ' . $cmp . '</td>';
                                     }
                                     echo '</tr>';
                                 }
@@ -469,7 +491,7 @@ class ReportDashController extends Controller
                         <tbody>
                             <tr>
                                 <td colspan="">-</td>
-                                <td class="total_cmp_<?php echo $l_id; ?>">total_cmp</td>
+                                <td class="total_cmp_history_<?php echo $l_id; ?>">total_cmp</td>
                             </tr>
                             <?php
                             for ($j = 0; $j < count($daily_report_product_history_decode); $j++) {
@@ -477,18 +499,19 @@ class ReportDashController extends Controller
                                 $p_id_2 = $daily_report_product_history_decode[$j]['p_detail_id'];
                                 if ($l_id_2 == $l_id) {
                                     echo '<tr>
-                                <td class="daily_cmp_' . $p_id_2 . ' cmp_product_' . $l_id_2 . '">
+                                <td class="daily_cmp_history_' . $p_id_2 . ' cmp_product_history_' . $l_id_2 . '">
 
                                 </td>
                                 </tr>';
                             ?>
 
                                     <script>
-                                        var clothes_output = parseFloat($(".cat_actual_target_<?php echo $p_id_2; ?>").text());
-                                        var cmp = parseFloat($('.cmp_<?php echo $p_id_2; ?>').text());
-                                        var daily_cmp = $('.daily_cmp_<?php echo $p_id_2; ?>');
+                                        var clothes_output = parseFloat($(".cat_actual_target_history_<?php echo $p_id_2; ?>").text());
+                                        var cmp = $('.cmp_value_history_<?php echo $p_id_2; ?>').text();
+                                        var cmp_substring = parseFloat(cmp.substring(2));
+                                        var daily_cmp = $('.daily_cmp_history_<?php echo $p_id_2; ?>');
 
-                                        var multiply_cmp = clothes_output * cmp;
+                                        var multiply_cmp = clothes_output * cmp_substring;
 
                                         if (Number.isNaN(multiply_cmp)) {
                                             daily_cmp.text('-');
@@ -497,8 +520,8 @@ class ReportDashController extends Controller
                                         }
 
 
-                                        var cmp_product = $(".cmp_product_<?php echo $l_id_2; ?>");
-                                        var total_cmp_class = $(".total_cmp_<?php echo $l_id_2; ?>");
+                                        var cmp_product = $(".cmp_product_history_<?php echo $l_id_2; ?>");
+                                        var total_cmp_class = $(".total_cmp_history_<?php echo $l_id_2; ?>");
                                         var total_cmp = 0;
 
                                         cmp_product.each(function() {
@@ -510,9 +533,8 @@ class ReportDashController extends Controller
                                             } else {
                                                 total_cmp += substring;
                                             }
-
                                         });
-                                        total_cmp_class.text("$ " + total_cmp);
+                                        total_cmp_class.text("$ " + total_cmp.toFixed(1));
                                     </script>
 
                             <?php
@@ -523,13 +545,13 @@ class ReportDashController extends Controller
                     </table>
 
                 </td>
-                <td class="accumulation_<?php echo $l_id; ?>">
+                <td class="accumulation_history_<?php echo $l_id; ?>">
 
                 </td>
 
                 <script>
-                    var total_cmp_class = $(".total_cmp_<?php echo $l_id; ?>").text();
-                    var accumulation = $('.accumulation_<?php echo $l_id; ?>');
+                    var total_cmp_class = $(".total_cmp_history_<?php echo $l_id; ?>").text();
+                    var accumulation = $('.accumulation_history_<?php echo $l_id; ?>');
 
                     accumulation.text(total_cmp_class);
                 </script>
@@ -550,7 +572,7 @@ class ReportDashController extends Controller
                                         echo '<td>-</td>';
                                     }
                                     if ($inline_2 != '') {
-                                        echo '<td>' . $inline_2 . '</td>';
+                                        echo '<td>' . number_format($inline_2) . '</td>';
                                     }
                                     echo '</tr>';
                                 }
@@ -577,7 +599,7 @@ class ReportDashController extends Controller
                                         echo '<td>-</td>';
                                     }
                                     if ($h_over_input != '') {
-                                        echo '<td>' . $h_over_input . '</td>';
+                                        echo '<td>' . number_format($h_over_input) . '</td>';
                                     }
                                     echo '</tr>';
                                 }
@@ -604,7 +626,7 @@ class ReportDashController extends Controller
                                         echo '<td>-</td>';
                                     }
                                     if ($h_over_input != '') {
-                                        echo '<td>' . $h_over_input . '</td>';
+                                        echo '<td>' . number_format($h_over_input) . '</td>';
                                     }
                                     echo '</tr>';
                                 }
@@ -628,7 +650,7 @@ class ReportDashController extends Controller
                                 $h_over_bal = $h_over_input - $h_over_input;
                                 if ($l_id_2 == $l_id) {
                                     echo '<tr>
-                                <td>' . $h_over_bal . '</td>
+                                <td>' . number_format($h_over_bal) . '</td>
                                 </tr>';
                                 }
                             }
@@ -642,31 +664,39 @@ class ReportDashController extends Controller
                     <table class="m-auto text-center w-100 table table-bordered custom-table-border-color">
                         <tbody>
                             <tr>
-                                <td class="m_power_value_<?php echo $l_id; ?>"><?php echo $m_power; ?></td>
-                                <td class="hp_value_<?php echo $l_id; ?>"><?php echo $hp; ?></td>
+                                <td class="m_power_value_history_<?php echo $l_id; ?>"><?php if ($m_power != '') {
+                                                                                            echo number_format($m_power);
+                                                                                        } ?></td>
+                                <td class="hp_value_history_<?php echo $l_id; ?>"><?php if ($hp != '') {
+                                                                                        echo $hp;
+                                                                                    } ?></td>
                             </tr>
                             <tr>
-                                <td class="total_m_power_<?php echo $l_id; ?>" colspan="2"></td>
+                                <td class="total_m_power_history_<?php echo $l_id; ?>" colspan="2"></td>
                             </tr>
                             <tr>
-                                <td class="actual_m_power_value_<?php echo $l_id; ?>"><?php echo $actual_m_power; ?></td>
-                                <td class="actual_hp_value_<?php echo $l_id; ?>"><?php echo $actual_hp; ?></td>
+                                <td class="actual_m_power_value_history_<?php echo $l_id; ?>"><?php if ($actual_m_power != '') {
+                                                                                                    echo $actual_m_power;
+                                                                                                } ?></td>
+                                <td class="actual_hp_value_history_<?php echo $l_id; ?>"><?php if ($actual_hp != '') {
+                                                                                                echo $actual_hp;
+                                                                                            } ?></td>
                             </tr>
                             <tr>
-                                <td class="total_actual_m_power_<?php echo $l_id; ?>" colspan="2"></td>
+                                <td class="total_actual_m_power_history_<?php echo $l_id; ?>" colspan="2"></td>
                             </tr>
                         </tbody>
                     </table>
 
                     <script>
-                        var m_power_value_history = parseInt($('.m_power_value_<?php echo $l_id; ?>').text());
-                        var hp_value = parseInt($('.hp_value_<?php echo $l_id; ?>').text());
-                        var actual_m_power = parseInt($('.actual_m_power_value_<?php echo $l_id; ?>').text());
-                        var actual_hp_value = parseInt($('.actual_hp_value_<?php echo $l_id; ?>').text());
+                        var m_power_value_history = parseInt($('.m_power_value_history_<?php echo $l_id; ?>').text());
+                        var hp_value = parseInt($('.hp_value_history_<?php echo $l_id; ?>').text());
+                        var actual_m_power = parseInt($('.actual_m_power_value_history_<?php echo $l_id; ?>').text());
+                        var actual_hp_value = parseInt($('.actual_hp_value_history_<?php echo $l_id; ?>').text());
 
 
-                        var total_m_power_value = $('.total_m_power_<?php echo $l_id; ?>');
-                        var total_actual_m_power_value = $('.total_actual_m_power_<?php echo $l_id; ?>');
+                        var total_m_power_value = $('.total_m_power_history_<?php echo $l_id; ?>');
+                        var total_actual_m_power_value = $('.total_actual_m_power_history_<?php echo $l_id; ?>');
 
                         var total_m_power = m_power_value + hp_value;
                         var total_actual_m_power = actual_m_power + actual_hp_value;
@@ -688,14 +718,14 @@ class ReportDashController extends Controller
                                 $total_time = (int)$daily_report_history_decode[$k]['total_time'];
                                 $subtraction = $total_time - 1;
                                 if ($l_id_2 == $l_id) {
-                                    echo '<td class="total_time_' . $l_id_2 . '">' . $subtraction . '</td>';
+                                    echo '<td class="total_time_history_' . $l_id_2 . '">' . $subtraction . '</td>';
                                 }
                             }
                 ?>
                 <!----- Total Time  End ------>
 
-                <td class="cmp_hr_<?php echo $l_id; ?>"></td>
-                <td class="cmp_hr_ps_<?php echo $l_id; ?>"></td>
+                <td class="cmp_hr_history_<?php echo $l_id; ?>"></td>
+                <td class="cmp_hr_ps_history_<?php echo $l_id; ?>"></td>
                 <td>
                     <?php
 
@@ -708,11 +738,11 @@ class ReportDashController extends Controller
 
                 <script>
                     // For CMP/hr
-                    var total_cmp_2 = $('.total_cmp_<?php echo $l_id; ?>').text();
+                    var total_cmp_2 = $('.total_cmp_history_<?php echo $l_id; ?>').text();
                     var substring_2 = parseFloat(total_cmp_2.substring(2));
-                    var total_time_2 = parseInt($('.total_time_<?php echo $l_id; ?>').text());
+                    var total_time_2 = parseInt($('.total_time_history_<?php echo $l_id; ?>').text());
 
-                    var cmp_hr = $('.cmp_hr_<?php echo $l_id; ?>');
+                    var cmp_hr = $('.cmp_hr_history_<?php echo $l_id; ?>');
 
                     var div_time = substring_2 / total_time_2;
 
@@ -722,9 +752,9 @@ class ReportDashController extends Controller
                     /// For CMP/hr end
 
                     /// For CMP/ HR/ PS
-                    var total_actual_m_power_2 = $('.total_actual_m_power_<?php echo $l_id; ?>').text();
-                    var cmp_hr_3 = $('.cmp_hr_<?php echo $l_id; ?>').text();
-                    var cmp_hr_ps = $('.cmp_hr_ps_<?php echo $l_id; ?>');
+                    var total_actual_m_power_2 = $('.total_actual_m_power_history_<?php echo $l_id; ?>').text();
+                    var cmp_hr_3 = $('.cmp_hr_history_<?php echo $l_id; ?>').text();
+                    var cmp_hr_ps = $('.cmp_hr_ps_history_<?php echo $l_id; ?>');
 
 
                     var substring_3 = parseFloat(cmp_hr_3.substring(2));
@@ -732,14 +762,17 @@ class ReportDashController extends Controller
 
                     var div_cmp_hr_ps = substring_3 / total_actual_m_power_2;
 
-                    if (Number.isNaN(div_cmp_hr_ps)) {
-                        cmp_hr_ps.text('');
-                    } else {
-                        cmp_hr_ps.text("$ " + div_cmp_hr_ps.toFixed(1));
+                    if (total_actual_m_power_2 != '') {
+                        if (Number.isNaN(div_cmp_hr_ps)) {
+                            cmp_hr_ps.text('');
+                        } else {
+                            cmp_hr_ps.text("$ " + div_cmp_hr_ps.toFixed(1));
 
-                        // console.log(div_cmp_hr_ps);
+                            // console.log(div_cmp_hr_ps);
 
+                        }
                     }
+
                     /// For CMP/ HR/ PS end
                 </script>
 

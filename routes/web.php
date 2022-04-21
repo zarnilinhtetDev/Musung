@@ -85,3 +85,7 @@ Route::get('/api/line', 'LineApiController@getLine');
 Route::post('/api/line', 'LineApiController@postLine');
 Route::put('/api/line', 'LineApiController@putLine');
 Route::put('/api/line_delete', 'LineApiController@softDelete');
+
+//// SuperAdmin ////
+Route::get('/superadmin', 'SuperAdminController@index')->middleware('auth');
+Route::post('/superadmin_post', 'SuperAdminController@postSuperAdmin')->middleware('auth');

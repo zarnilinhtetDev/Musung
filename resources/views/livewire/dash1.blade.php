@@ -91,7 +91,7 @@
                     @endforeach
                 </td>
                 <td style="vertical-align: middle;"><span id="g_main_target_{{ $g_line_id }}">{{
-                        $g_main_target
+                        number_format($g_main_target)
                         }}</span></td>
 
                 @foreach($time_2 as $t_2)
@@ -103,7 +103,7 @@
                     <table class="w-100 text-center table m-0">
                         <tr>
                             <td><span id="new_div_target_{{ $t_2->time_id }}" class="new_div_target">{{
-                                    $t_2->actual_target_entry
+                                    number_format($t_2->actual_target_entry)
                                     }}</span></td>
                             <td style="display:none;"><span id="div_target_{{ $t_2->time_id }}">{{
                                     $t_2->div_target }}</span>
@@ -112,8 +112,8 @@
                         <tr class="text-white">
                             <td id="td_div_actual_target_{{ $t_2->time_id }}">
                                 <span id="div_actual_target_{{ $t_2->time_id }}"
-                                    class="div_actual_target_{{ $g_line_id }}">{{
-                                    $t_2->div_actual_target }}</span>
+                                    class="div_actual_target_{{ $g_line_id }}">@if($t_2->div_actual_target != ''){{
+                                    $t_2->div_actual_target }} @endif</span>
                             </td>
                             <td style="display:none;" id="td_div_actual_target_total_{{ $t_2->time_id }}"><span
                                     id="div_actual_target_total_{{ $t_2->time_id }}"
@@ -348,17 +348,17 @@ $("#td_div_actual_target_total_<?php echo $current_target; ?>").css('background-
                         });
 
                         /// Do not delete (get last rank data)
-                                    // var max_num = Math.max(...val_arr);
+                                    var max_num = Math.max(...val_arr);
 
-                                    // $(".t_line_" + max_num).css({
-                                    //     'background-color': 'red',
-                                    //     'color': '#fff'
-                                    // });
+                                    $(".t_line_" + max_num).css({
+                                        'background-color': 'red',
+                                        'color': '#fff'
+                                    });
 
-                    $(".t_line_" + 10).css({
-                        'background-color': 'red',
-                        'color': '#fff'
-                    });
+                    // $(".t_line_" + 10).css({
+                    //     'background-color': 'red',
+                    //     'color': '#fff'
+                    // });
 
                         });
                 </script>
@@ -436,7 +436,8 @@ $(".t_line_" + 10).css({
                 <td></td>
                 <td></td>
                 @foreach ($total_main_target as $t_main_target)
-                <td style="vertical-align: middle;"><span id="t_main_target">{{ $t_main_target->t_main_target
+                <td style="vertical-align: middle;"><span id="t_main_target">{{
+                        number_format($t_main_target->t_main_target)
                         }}</span></td>
                 @endforeach
                 @foreach(array_reverse($total_div_target) as $t_div_target)
@@ -445,7 +446,7 @@ $(".t_line_" + 10).css({
                     <table class="w-100 text-center table table-bordered m-0">
                         <tr>
                             <td><span id="new_t_div_target_num_{{ $t_div_target->row_num_1 }}">{{
-                                    $t_div_target->t_div_target }}</span></td>
+                                    number_format($t_div_target->t_div_target) }}</span></td>
                         </tr>
 
                         @foreach ($total_div_actual_target as $t_div_actual_target_1)
@@ -457,8 +458,9 @@ $(".t_line_" + 10).css({
                                 class="new_t_div_actual_target_num"
                                 value="{{ $t_div_actual_target_1->t_div_actual_target_1 }}" />
                             <td id="td_tmp_num_{{ $t_div_actual_target_1->row_num }}">
-                                <span id="tmp_num_{{ $t_div_actual_target_1->row_num }}" class="">{{
-                                    $t_div_actual_target_1->t_div_actual_target_1 }}</span>
+                                <span id="tmp_num_{{ $t_div_actual_target_1->row_num }}"
+                                    class="">@if($t_div_actual_target_1->t_div_actual_target_1 !=''){{
+                                    number_format($t_div_actual_target_1->t_div_actual_target_1) }} @endif</span>
                             </td>
                         </tr>
                         <tr class="text-white">
@@ -528,7 +530,7 @@ new_total_percent.append('%');
                         <tr class="text-white">
                             @foreach($total_overall_actual_target as $t_overall_actual_target)
                             <td id="t_overall_actual_target">
-                                {{ $t_overall_actual_target->t_overall_actual_target }}
+                                {{ number_format($t_overall_actual_target->t_overall_actual_target) }}
                             </td>
                             @endforeach
                         </tr>
@@ -538,8 +540,8 @@ new_total_percent.append('%');
                     </table>
                     <script>
                         window.addEventListener('additionalInit', event => {
-                                var t_overall_target = $("#t_overall_target").text();
-                                var t_overall_actual_target = $("#t_overall_actual_target").text();
+                                var t_overall_target = parseInt($("#t_overall_target").text());
+                                var t_overall_actual_target = parseInt($("#t_overall_actual_target").text());
                                 var t_overall_percent = $("#t_overall_percent");
 
                                 if(parseInt(t_overall_target) > parseInt(t_overall_actual_target)){
@@ -549,7 +551,8 @@ new_total_percent.append('%');
                                     $("#t_overall_actual_target").css('background-color','green');
                                 }
 
-                                var t_percent_cal = (t_overall_actual_target / t_overall_target) * 100;
+                                var t_percent_cal = (t_overall_target/t_overall_actual_target) * 100;
+
                                 if(Number.isNaN(t_percent_cal)){
                                     t_overall_percent.text("");
                                 }

@@ -67,6 +67,7 @@ $date_string = date("d.m.Y");
                             <th scope="col">Style No.#</th>
                             <th scope="col">Item</th>
                             <th scope="col">Target</th>
+                            <th scope="col">Manpower</th>
                             <th scope="col">Output</th>
                             <th scope="col">%</th>
                             <th scope="col">Q'ty</th>
@@ -101,7 +102,9 @@ $date_string = date("d.m.Y");
                         @for($i=0;$i<count($daily_report_decode);$i++) @php
                             $l_id=$daily_report_decode[$i]['l_id'];$l_name=$daily_report_decode[$i]['l_name'];$main_target=$daily_report_decode[$i]['main_target'];$actual_target=$daily_report_decode[$i]['total_div_actual_target'];
                             $m_power=$daily_report_decode[$i]['m_power'];$actual_m_power=$daily_report_decode[$i]['actual_m_power'];$hp=$daily_report_decode[$i]['hp'];$actual_hp=$daily_report_decode[$i]['actual_hp'];
-                            $assign_date=$daily_report_decode[$i]['assign_date']; @endphp <tr>
+                            $assign_date=$daily_report_decode[$i]['assign_date'];
+                            $man_target=$daily_report_product_decode[$i]['man_target'];
+                            $man_actual_target=$daily_report_product_decode[$i]['man_actual_target']; @endphp <tr>
                             <td>{{ $l_name }}</td>
 
                             {{-- Buyer --}}
@@ -172,15 +175,31 @@ $date_string = date("d.m.Y");
                                     </tbody>
                                 </table>
                             </td>
-                            <td class="main_target_{{ $l_id }}">{{ $main_target }}</td>
-                            <td class="actual_target_{{ $l_id }}">{{ $actual_target }}</td>
+                            <td class="main_target_{{ $l_id }}">{{ number_format($main_target)}}</td>
+                            <td>
+                                <table class="m-auto text-start table table-bordered custom-table-border-color">
+                                    <tbody>
+                                        <td>{{ $man_target }}</td>
+                                        <td>{{ $man_actual_target }}</td>
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td class="actual_target_{{ $l_id }}">@if($actual_target != ''){{
+                                number_format($actual_target) }} @endif</td>
                             <td class="percent_{{ $l_id }}"></td>
 
                             <script>
-                                var main_target = $('.main_target_{{ $l_id }}').text();
-                            var actual_target = $('.actual_target_{{ $l_id }}').text();
+                                var main_target = parseInt($('.main_target_{{ $l_id }}').text());
+                            var actual_target = parseInt($('.actual_target_{{ $l_id }}').text());
                             var percent = (actual_target / main_target) * 100;
-                            $('.percent_{{ $l_id }}').text(percent.toFixed(0) + "%");
+
+                            // console.log(percent);
+                            if(Number.isNaN(percent)){
+                                $('.percent_{{ $l_id }}').text("");
+                                }
+                                else{
+                                    $('.percent_{{ $l_id }}').text(percent.toFixed(0) + "%");
+                                }
                             </script>
                             <td class="text-danger"></td>
 
@@ -199,7 +218,7 @@ $date_string = date("d.m.Y");
                                             <td> - </td>
                                             @endif
                                             @if($sewing_input != '')
-                                            <td>{{ $sewing_input }}</td>
+                                            <td>{{ number_format($sewing_input) }}</td>
                                             @endif
                                             </tr>
                                             @endif
@@ -225,7 +244,7 @@ $date_string = date("d.m.Y");
                                             <td> - </td>
                                             @endif
                                             @if($sewing_input != '')
-                                            <td>{{ $sewing_input }}</td>
+                                            <td>{{ number_format($sewing_input) }}</td>
                                             @endif
                                             </tr>
                                             @endif
@@ -253,7 +272,8 @@ $date_string = date("d.m.Y");
                                             <td> - </td>
                                             @endif
                                             @if($cat_actual_target != '')
-                                            <td class="cat_actual_target_{{ $p_id_2 }}">{{ $cat_actual_target }}</td>
+                                            <td class="cat_actual_target_{{ $p_id_2 }}">{{
+                                                number_format($cat_actual_target) }}</td>
                                             @endif
 
                                             </tr>
@@ -279,7 +299,7 @@ $date_string = date("d.m.Y");
                                             <td> - </td>
                                             @endif
                                             @if($cat_actual_target != '')
-                                            <td>{{ $cat_actual_target }}</td>
+                                            <td>{{ number_format($cat_actual_target) }}</td>
                                             @endif </tr>
                                             @endif
 
@@ -377,7 +397,8 @@ $date_string = date("d.m.Y");
             var total_cmp = 0;
 
             cmp_product.each(function() {
-                var cmp_product_text=$(this).text(); var substring=parseFloat(cmp_product_text.substring(2));
+                var cmp_product_text=$(this).text();
+                var substring=parseFloat(cmp_product_text.substring(2));
 
                 if(Number.isNaN(substring)){
                     substring = 0;
@@ -387,7 +408,7 @@ $date_string = date("d.m.Y");
                 }
 
     });
-        total_cmp_class.text("$ " + total_cmp);
+        total_cmp_class.text("$ " + total_cmp.toFixed(1));
 
                                 </script>
 
@@ -422,7 +443,7 @@ $date_string = date("d.m.Y");
                                 <td> - </td>
                                 @endif
                                 @if($inline_2 != '')
-                                <td>{{ $inline_2 }}</td>
+                                <td>{{ number_format($inline_2) }}</td>
                                 @endif
                                 </tr>
                                 @endif
@@ -448,7 +469,7 @@ $date_string = date("d.m.Y");
                                 <td> - </td>
                                 @endif
                                 @if($h_over_input != '')
-                                <td>{{ $h_over_input }}</td>
+                                <td>{{ number_format($h_over_input) }}</td>
                                 @endif
                                 </tr>
                                 @endif
@@ -474,7 +495,7 @@ $date_string = date("d.m.Y");
                                 <td> - </td>
                                 @endif
                                 @if($h_over_input != '')
-                                <td>{{ $h_over_input }}</td>
+                                <td>{{ number_format($h_over_input) }}</td>
                                 @endif
                                 </tr>
                                 @endif
@@ -497,7 +518,7 @@ $date_string = date("d.m.Y");
                                 $l_id_2=$daily_report_product_decode[$j]['l_id'];
                                 $h_over_input=$daily_report_product_decode[$j]['h_over_input'];
                                 $h_over_bal=$h_over_input - $h_over_input; @endphp @if($l_id_2==$l_id) <tr>
-                                <td>{{ $h_over_bal }}</td>
+                                <td>{{ number_format($h_over_bal) }}</td>
                                 </tr>
                                 @endif
 
@@ -511,15 +532,19 @@ $date_string = date("d.m.Y");
                     <table class="m-auto text-center w-100 table table-bordered custom-table-border-color">
                         <tbody>
                             <tr>
-                                <td class="m_power_value_{{ $l_id }}">{{ $m_power }}</td>
-                                <td class="hp_value_{{ $l_id }}">{{ $hp }}</td>
+                                <td class="m_power_value_{{ $l_id }}">@if($m_power != ''){{ number_format($m_power) }}
+                                    @endif</td>
+                                <td class="hp_value_{{ $l_id }}">@if($hp != ''){{ number_format($hp) }} @endif</td>
                             </tr>
                             <tr>
                                 <td class="total_m_power_{{ $l_id }}" colspan="2"></td>
                             </tr>
                             <tr>
-                                <td class="actual_m_power_value_{{ $l_id }}">{{ $actual_m_power }}</td>
-                                <td class="actual_hp_value_{{ $l_id }}">{{ $actual_hp }}</td>
+                                <td class="actual_m_power_value_{{ $l_id }}">@if($actual_m_power != ''){{
+                                    number_format($actual_m_power) }} @endif</td>
+                                <td class="actual_hp_value_{{ $l_id }}">@if($actual_hp != ''){{
+                                    number_format($actual_hp)
+                                    }}@endif</td>
                             </tr>
                             <tr>
                                 <td class="total_actual_m_power_{{ $l_id }}" colspan="2"></td>
@@ -599,17 +624,22 @@ var cmp_hr_ps = $('.cmp_hr_ps_{{ $l_id }}');
 var substring_3 = parseFloat(cmp_hr_3.substring(2));
 var substring_4 = parseFloat(total_actual_m_power_2.substring(2));
 
+// console.log(substring_3);
+// console.log(total_actual_m_power_2);
+
 var div_cmp_hr_ps = substring_3 / total_actual_m_power_2;
 
-if(Number.isNaN(div_cmp_hr_ps)){
+if(total_actual_m_power_2 != ''){
+
+    if(Number.isNaN(div_cmp_hr_ps)){
     cmp_hr_ps.text('');
 }
                             else{
 cmp_hr_ps.text("$ " + div_cmp_hr_ps.toFixed(1));
 
-// console.log(div_cmp_hr_ps);
 
                             }
+}
     /// For CMP/ HR/ PS end
 
                     </script>
@@ -1409,7 +1439,8 @@ chart.render();
                                         <td> - </td>
                                         @endif
                                         @if($cat_actual_target != '')
-                                        <td class="cat_actual_target_{{ $p_id_2 }}">{{ $cat_actual_target }}</td>
+                                        <td class="cat_actual_target_history_{{ $p_id_2 }}">{{ $cat_actual_target }}
+                                        </td>
                                         @endif
                                         </tr>
                                         @endif
