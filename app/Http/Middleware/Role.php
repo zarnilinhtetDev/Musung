@@ -17,6 +17,15 @@ class Role
      */
     public function handle($request, Closure $next)
     {
+        if (Auth::user()->role == 99) {
+            return $next($request);
+        }
+        if (Auth::user()->role == 98) {
+            return $next($request);
+        }
+        if (Auth::user()->role == 97) {
+            return $next($request);
+        }
         if (Auth::user()->role == 0) {
             return $next($request);
         }

@@ -426,66 +426,66 @@ class LineHistoryController extends Controller
                 } ?>
 
                 <script>
-                    var t_line_count = $('.t_line_count').text();
-                    var val_arr = [];
+                    // var t_line_count = $('.t_line_count').text();
+                    // var val_arr = [];
 
-                    for (var i = 0; i < t_line_count.length; i++) {
-                        if (t_line_count[i] != ' ' && t_line_count[i] != '\n') {
-                            val_arr.push(parseInt(t_line_count[i]));
-                        }
-                    }
-
-                    var lowestToHighest = val_arr.sort((a, b) => a - b);
-
-                    var top_1 = lowestToHighest[0];
-                    var top_2 = lowestToHighest[1];
-                    var top_3 = lowestToHighest[2];
-
-                    // if (top_1 != '') {
-                    //     $('.t_line_' + top_1).css({
-                    //         'background-color': 'green',
-                    //         'color': '#fff'
-                    //     });
-                    // }
-                    // if (top_2 != '') {
-                    //     $('.t_line_' + top_2).css({
-                    //         'background-color': 'green',
-                    //         'color': '#fff'
-                    //     });
-                    // }
-                    // if (top_3 != '') {
-                    //     $('.t_line_' + top_3).css({
-                    //         'background-color': 'green',
-                    //         'color': '#fff'
-                    //     });
+                    // for (var i = 0; i < t_line_count.length; i++) {
+                    //     if (t_line_count[i] != ' ' && t_line_count[i] != '\n') {
+                    //         val_arr.push(parseInt(t_line_count[i]));
+                    //     }
                     // }
 
-                    $('.t_line_1').css({
-                        'background-color': 'green',
-                        'color': '#fff'
-                    });
-                    $('.t_line_2').css({
-                        'background-color': 'green',
-                        'color': '#fff'
-                    });
-                    $('.t_line_3').css({
-                        'background-color': 'green',
-                        'color': '#fff'
-                    });
+                    // var lowestToHighest = val_arr.sort((a, b) => a - b);
+
+                    // var top_1 = lowestToHighest[0];
+                    // var top_2 = lowestToHighest[1];
+                    // var top_3 = lowestToHighest[2];
+
+                    // // if (top_1 != '') {
+                    // //     $('.t_line_' + top_1).css({
+                    // //         'background-color': 'green',
+                    // //         'color': '#fff'
+                    // //     });
+                    // // }
+                    // // if (top_2 != '') {
+                    // //     $('.t_line_' + top_2).css({
+                    // //         'background-color': 'green',
+                    // //         'color': '#fff'
+                    // //     });
+                    // // }
+                    // // if (top_3 != '') {
+                    // //     $('.t_line_' + top_3).css({
+                    // //         'background-color': 'green',
+                    // //         'color': '#fff'
+                    // //     });
+                    // // }
+
+                    // $('.t_line_1').css({
+                    //     'background-color': 'green',
+                    //     'color': '#fff'
+                    // });
+                    // $('.t_line_2').css({
+                    //     'background-color': 'green',
+                    //     'color': '#fff'
+                    // });
+                    // $('.t_line_3').css({
+                    //     'background-color': 'green',
+                    //     'color': '#fff'
+                    // });
 
 
-                    //// Do not delete (get last rank data)
-                    // var max_num = Math.max(...val_arr);
-                    // $(".t_line_" + max_num).css({
+                    // //// Do not delete (get last rank data)
+                    // // var max_num = Math.max(...val_arr);
+                    // // $(".t_line_" + max_num).css({
+                    // //     'background-color': 'red',
+                    // //     'color': '#fff'
+                    // // });
+                    // //// Do not delete (get last rank data)
+
+                    // $(".t_line_" + 10).css({
                     //     'background-color': 'red',
                     //     'color': '#fff'
                     // });
-                    //// Do not delete (get last rank data)
-
-                    $(".t_line_" + 10).css({
-                        'background-color': 'red',
-                        'color': '#fff'
-                    });
                 </script>
 
                 <?php for ($h = 0; $h < count($top_line_decode); $h++) {
@@ -537,17 +537,12 @@ class LineHistoryController extends Controller
                     }
 
                     //// Do not delete (get last rank data)
-                    // var max_num = Math.max(...val_arr);
-                    // $(".t_line_" + max_num).css({
-                    //     'background-color': 'red',
-                    //     'color': '#fff'
-                    // });
-                    //// Do not delete (get last rank data)
-
-                    $(".t_line_" + 10).css({
+                    var max_num = Math.max(...val_arr);
+                    $(".t_line_" + max_num).css({
                         'background-color': 'red',
                         'color': '#fff'
                     });
+                    //// Do not delete (get last rank data)
                 </script>
 
             <?php

@@ -9,9 +9,13 @@
 
 print_r($u_detail_decode); @endphp
 
-@if
-
-@endif
+@if($u_detail_decode)
+<form action="/superadmin_login" method="POST">
+    <input type="text" name="username" placeholder="Username" required />
+    <input type="password" name="password" placeholder="Password" required />
+    <input type="submit" value="Log In">
+</form>
+@else
 <form action="/superadmin_post" method="POST">
     <input type="text" name="name" placeholder="Name" required />
     <input type="text" name="username" placeholder="Username" required />
@@ -19,5 +23,7 @@ print_r($u_detail_decode); @endphp
     <input type="hidden" name="role" value="99" />
     <input type="submit" value="Create">
 </form>
+@endif
+
 @endsection
 @endsection

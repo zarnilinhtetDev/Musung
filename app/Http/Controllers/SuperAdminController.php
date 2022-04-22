@@ -42,4 +42,18 @@ class SuperAdminController extends Controller
             return redirect('/superadmin');
         }
     }
+    public function loginSuperAdmin()
+    {
+        $username = request()->post('username');
+        $password = request()->post('password');
+
+        $sql = User::select('id', 'name', 'username', 'password', 'role')->where('username', $username)->first();
+        $sql_decode = json_decode($sql, true);
+
+        if (Hash::check($password, $sql_decode['password'])) {
+            echo 'password match';
+        } else {
+            echo 'password not match';
+        }
+    }
 }

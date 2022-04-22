@@ -6,6 +6,11 @@
 // echo $hash;
 @endphp
 @section('content_2')
+
+@superadmin
+hello
+@endsuperadmin
+
 @admin
 <script type="text/javascript">
     window.location = "{{url('live_dash')}}";

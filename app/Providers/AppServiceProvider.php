@@ -26,15 +26,25 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        URL::forceScheme('https');   ///// Make Heroku to force HTTPS (HTTP mix content error)
-        Blade::if('admin', function () {
+        // URL::forceScheme('https');   ///// Make Heroku to force HTTPS (HTTP mix content error)
+
+        Blade::if('superadmin', function () {   ///SuperAdmin
+            return Auth::user()->role == 99;
+        });
+        Blade::if('owner', function () {        ///Owner
+            return Auth::user()->role == 98;
+        });
+        Blade::if('admin', function () {        ///Admin/Office
             return Auth::user()->role == 0;
         });
-        Blade::if('operator', function () {
+        Blade::if('operator', function () {     ///Operator/Editor
             return Auth::user()->role == 1;
         });
-        Blade::if('line_manager', function () {
+        Blade::if('line_manager', function () {     ///Line Manager
             return Auth::user()->role == 2;
+        });
+        Blade::if('user', function () {     ///User
+            return Auth::user()->role == 97;
         });
     }
 }

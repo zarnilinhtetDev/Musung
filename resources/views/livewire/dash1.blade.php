@@ -55,12 +55,16 @@
                 <td>
                     <table class="w-100 text-center table m-0 table-bordered">
                         <tr>
-                            <td>{{ $g_m_power }}</td>
-                            <td>{{ $g_hp }}</td>
+                            <div style="width:2rem;overflow-x:scroll;">
+                                <td>{{ $g_m_power }}</td>
+                                <td>{{ $g_hp }}</td>
+                            </div>
                         </tr>
                         <tr>
-                            <td>{{ $g_actual_m_power }}</td>
-                            <td>{{ $g_actual_hp }}</td>
+                            <div style="width:2rem;overflow-x:scroll;">
+                                <td>{{ $g_actual_m_power }}</td>
+                                <td>{{ $g_actual_hp }}</td>
+                            </div>
                         </tr>
                     </table>
                 </td>
@@ -299,68 +303,68 @@ $("#td_div_actual_target_total_<?php echo $current_target; ?>").css('background-
                 @endif
                 @endforeach
                 <script>
-                    window.addEventListener('additionalInit', event => {
+                    // window.addEventListener('additionalInit', event => {
 
-                            var t_line_count = $('.t_line_count').text();
-                    var val_arr = [];
+                    //         var t_line_count = $('.t_line_count').text();
+                    // var val_arr = [];
 
-                    for (var i = 0; i < t_line_count.length; i++) {
-                        if (t_line_count[i] != ' ' && t_line_count[i] != '\n') {
-                            val_arr.push(parseInt(t_line_count[i]));
-                        }
-                    }
+                    // for (var i = 0; i < t_line_count.length; i++) {
+                    //     if (t_line_count[i] != ' ' && t_line_count[i] != '\n') {
+                    //         val_arr.push(parseInt(t_line_count[i]));
+                    //     }
+                    // }
 
-                    var lowestToHighest = val_arr.sort((a, b) => a - b);
+                    // var lowestToHighest = val_arr.sort((a, b) => a - b);
 
-                    var top_1 = lowestToHighest[0];
-                    var top_2 = lowestToHighest[1];
-                    var top_3 = lowestToHighest[2];
+                    // var top_1 = lowestToHighest[0];
+                    // var top_2 = lowestToHighest[1];
+                    // var top_3 = lowestToHighest[2];
 
-                    // if(top_1 != ''){
+                    // // if(top_1 != ''){
+                    // //     $('.t_line_1').css({
+                    // //         'background-color': 'green',
+                    // //         'color': '#fff'
+                    // //     });
+                    // // }
+                    // // if(top_2 != ''){
+                    // //     $('.t_line_2').css({
+                    // //         'background-color': 'green',
+                    // //         'color': '#fff'
+                    // //     });
+                    // // }
+                    // // if(top_3 != ''){
+                    // //     $('.t_line_3').css({
+                    // //         'background-color': 'green',
+                    // //         'color': '#fff'
+                    // //     });
+                    // // }
                     //     $('.t_line_1').css({
                     //         'background-color': 'green',
                     //         'color': '#fff'
                     //     });
-                    // }
-                    // if(top_2 != ''){
                     //     $('.t_line_2').css({
                     //         'background-color': 'green',
                     //         'color': '#fff'
                     //     });
-                    // }
-                    // if(top_3 != ''){
                     //     $('.t_line_3').css({
                     //         'background-color': 'green',
                     //         'color': '#fff'
                     //     });
-                    // }
-                        $('.t_line_1').css({
-                            'background-color': 'green',
-                            'color': '#fff'
-                        });
-                        $('.t_line_2').css({
-                            'background-color': 'green',
-                            'color': '#fff'
-                        });
-                        $('.t_line_3').css({
-                            'background-color': 'green',
-                            'color': '#fff'
-                        });
 
-                        /// Do not delete (get last rank data)
-                                    var max_num = Math.max(...val_arr);
+                    //     /// Do not delete (get last rank data)
+                    //                 // var max_num = Math.max(...val_arr);
 
-                                    $(".t_line_" + max_num).css({
-                                        'background-color': 'red',
-                                        'color': '#fff'
-                                    });
+                    //                 // $(".t_line_" + max_num).css({
+                    //                 //     'background-color': 'red',
+                    //                 //     'color': '#fff'
+                    //                 // });
 
-                    // $(".t_line_" + 10).css({
-                    //     'background-color': 'red',
-                    //     'color': '#fff'
-                    // });
+                    // // $(".t_line_" + 10).css({
+                    // //     'background-color': 'red',
+                    // //     'color': '#fff'
+                    // // });
 
-                        });
+                    //     });
                 </script>
 
 
@@ -420,12 +424,12 @@ if(top_3 != ''){
                                     //     'background-color': 'red',
                                     //     'color': '#fff'
                                     // });
+                                    var max_num = Math.max(...val_arr);
 
-$(".t_line_" + 10).css({
+$(".t_line_" + max_num).css({
     'background-color': 'red',
     'color': '#fff'
 });
-
     });
                 </script>
             </tr>
