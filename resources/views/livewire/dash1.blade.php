@@ -544,8 +544,8 @@ new_total_percent.append('%');
                     </table>
                     <script>
                         window.addEventListener('additionalInit', event => {
-                                var t_overall_target = parseInt($("#t_overall_target").text());
-                                var t_overall_actual_target = parseInt($("#t_overall_actual_target").text());
+                                var t_overall_target = parseInt($("#t_overall_target").text().replace(/,/g, ''));
+                                var t_overall_actual_target = parseInt($("#t_overall_actual_target").text().replace(/,/g, ''));
                                 var t_overall_percent = $("#t_overall_percent");
 
                                 if(parseInt(t_overall_target) > parseInt(t_overall_actual_target)){
@@ -555,18 +555,24 @@ new_total_percent.append('%');
                                     $("#t_overall_actual_target").css('background-color','green');
                                 }
 
-                                var t_percent_cal = (t_overall_target/t_overall_actual_target) * 100;
+                                var t_percent_cal = (t_overall_actual_target/t_overall_target) * 100;
+
 
                                 if(Number.isNaN(t_percent_cal)){
                                     t_overall_percent.text("");
                                 }
-                                t_overall_percent.text(parseInt(t_percent_cal));
-                                if(parseInt(t_overall_actual_target) >= parseInt(t_overall_target)){
-                                    t_overall_percent.css('background-color','green');
-                                } if(parseInt(t_overall_actual_target) < parseInt(t_overall_target)){
-                                    t_overall_percent.css('background-color','red');
-                                }
+                                if (!Number.isNaN(t_percent_cal)) {
+                                    t_overall_percent.text(parseInt(t_percent_cal));
+
+                                        if(parseInt(t_overall_actual_target) >= parseInt(t_overall_target)){
+                                            t_overall_percent.css('background-color','green');
+                                        }
+                                        if(parseInt(t_overall_actual_target) < parseInt(t_overall_target)){
+                                            t_overall_percent.css('background-color','red');
+                                        }
                                 t_overall_percent.append('%');
+                                }
+
                         });
                     </script>
                 </td>

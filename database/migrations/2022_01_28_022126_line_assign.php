@@ -31,6 +31,7 @@ class LineAssign extends Migration
             $table->integer('cal_work_min');
             $table->string('t_work_hr');
             $table->string('assign_date');
+            $table->string('remark')->nullable();
             $table->timestamps();
         });
     }

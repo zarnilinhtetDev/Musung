@@ -6,10 +6,23 @@
 // echo $hash;
 @endphp
 @section('content_2')
+@viewer
+<script type="text/javascript">
+    window.location = "{{url('live_dash')}}";
+</script>
+@endviewer
 
 @superadmin
-hello
+<script type="text/javascript">
+    window.location = "{{url('menu')}}";
+</script>
 @endsuperadmin
+
+@owner
+<script type="text/javascript">
+    window.location = "{{url('menu')}}";
+</script>
+@endowner
 
 @admin
 <script type="text/javascript">
@@ -52,7 +65,7 @@ hello
 
 @operator
 <script type="text/javascript">
-    window.location = "{{url('live_dash')}}";
+    window.location = "{{url('/line_setting')}}";
 </script>
 @endoperator
 

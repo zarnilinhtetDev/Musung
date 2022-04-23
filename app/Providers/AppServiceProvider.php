@@ -26,7 +26,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // URL::forceScheme('https');   ///// Make Heroku to force HTTPS (HTTP mix content error)
+        URL::forceScheme('https');   ///// Make Heroku to force HTTPS (HTTP mix content error)
 
         Blade::if('superadmin', function () {   ///SuperAdmin
             return Auth::user()->role == 99;
@@ -43,7 +43,7 @@ class AppServiceProvider extends ServiceProvider
         Blade::if('line_manager', function () {     ///Line Manager
             return Auth::user()->role == 2;
         });
-        Blade::if('user', function () {     ///User
+        Blade::if('viewer', function () {     ///Viewer
             return Auth::user()->role == 97;
         });
     }

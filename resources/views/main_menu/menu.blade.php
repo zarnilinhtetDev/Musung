@@ -7,6 +7,91 @@
 @endphp
 @section('content_2')
 
+@superadmin
+<div class="container">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-6 col-md-4 dropdown">
+                <button class="dropbtn">Account Management</button>
+                <div class="dropdown-content">
+                    <a href="{{ url('/member') }}">Member</a>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 dropdown">
+                <button class="dropbtn">Production Status</button>
+                <div class="dropdown-content">
+                    <a href="{{ url('live_dash') }}">Today</a>
+                    <a href="{{ url('line_history') }}">History</a>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 dropdown">
+                <button class="dropbtn">Line Management</button>
+                <div class="dropdown-content">
+                    <a href="{{ url('line_entry') }}">Line Entry</a>
+                    <a href="{{ url('line_detail') }}">Line Detail</a>
+                    <a href="{{ url('line_setting') }}">Line Setting</a>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 dropdown">
+                <button class="dropbtn">Daily Product Management</button>
+                <div class="dropdown-content">
+                    <a href="{{ url('daily_prod') }}">Detail</a>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 dropdown">
+                <button class="dropbtn">Report Management</button>
+                <div class="dropdown-content">
+                    <a href="{{ url('report') }}">Show Report</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endsuperadmin
+
+
+@owner
+<div class="container">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-6 col-md-4 dropdown">
+                <button class="dropbtn">Account Management</button>
+                <div class="dropdown-content">
+                    <a href="{{ url('/member') }}">Member</a>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 dropdown">
+                <button class="dropbtn">Production Status</button>
+                <div class="dropdown-content">
+                    <a href="{{ url('live_dash') }}">Today</a>
+                    <a href="{{ url('line_history') }}">History</a>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 dropdown">
+                <button class="dropbtn">Line Management</button>
+                <div class="dropdown-content">
+                    <a href="{{ url('line_entry') }}">Line Entry</a>
+                    <a href="{{ url('line_detail') }}">Line Detail</a>
+                    <a href="{{ url('line_setting') }}">Line Setting</a>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 dropdown">
+                <button class="dropbtn">Daily Product Management</button>
+                <div class="dropdown-content">
+                    <a href="{{ url('daily_prod') }}">Detail</a>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 dropdown">
+                <button class="dropbtn">Report Management</button>
+                <div class="dropdown-content">
+                    <a href="{{ url('report') }}">Show Report</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endowner
+
 @admin
 <div class="container">
     <div class="container-fluid">
@@ -53,6 +138,12 @@
 <div class="container">
     <div class="container-fluid">
         <div class="row">
+            <div class="col-6 col-md-4 dropdown">
+                <button class="dropbtn">Account Management</button>
+                <div class="dropdown-content">
+                    <a href="{{ url('/member') }}">Member</a>
+                </div>
+            </div>
             <div class="col-6 col-md-4 dropdown">
                 <button class="dropbtn">Production Status</button>
                 <div class="dropdown-content">
