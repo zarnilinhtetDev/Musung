@@ -54,6 +54,10 @@
     <!--- printThis(pdf) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/printThis/1.15.0/printThis.min.js"></script>
 
+    <!-- tableToCSV -->
+    <script
+        src="http://www.jqueryscript.net/demo/jQuery-Plugin-To-Convert-HTML-Table-To-CSV-tabletoCSV/jquery.tabletoCSV.js">
+    </script>
 
     <!-- Styles -->
 

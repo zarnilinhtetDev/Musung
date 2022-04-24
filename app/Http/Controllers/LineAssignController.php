@@ -412,8 +412,7 @@ class LineAssignController extends Controller
                             }
                         }
                         if ($category_assign == true) {
-                            echo 'ok';
-                            // return redirect('/line_setting?status=create_ok');
+                            return redirect('/line_setting?status=create_ok');
                         }
                     }
                 }

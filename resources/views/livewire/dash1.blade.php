@@ -584,4 +584,5 @@ new_total_percent.append('%');
     @else
     <h1 class="fw-bold text-danger fs-4">Please Assign Line First</h1>
     @endif
+
 </div>
