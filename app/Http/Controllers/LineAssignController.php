@@ -325,7 +325,7 @@ class LineAssignController extends Controller
         for ($m = 0; $m < $div_over_time; $m++) {
 
             $time = ($over_time_minute - $cal_work_min) * $num;
-            echo $time;
+            // echo $time;
             if ($time == 0) {
                 $min_arr[] = $over_time_minute;
             } elseif ($time < 0) {
@@ -336,7 +336,7 @@ class LineAssignController extends Controller
             $num++;
         }
 
-        print_r($min_arr);
+        // print_r($min_arr);
 
         $time_arr = [];
         for ($i = 0; $i < count($min_arr); $i++) {
@@ -345,19 +345,80 @@ class LineAssignController extends Controller
 
             $time_arr[] = $format_over_time;
         }
-        print_r($time_arr);
 
-        // $line_assign = LineAssign::create(['user_id' => $user_id, 'l_id' => $l_id, 'main_target' => $main_target, 's_time' => $s_time, 'e_time' => $e_time, 'lunch_s_time' => $lunch_s_time, 'lunch_e_time' => $lunch_e_time, 'cal_work_min' => $cal_work_min, 't_work_hr' => $t_work_hr, 'assign_date' => $assign_date, 'created_at' => NOW()]);
+        $countTotalTimeArr = count($time_arr);
 
-        // if ($line_assign) {
-        //     echo 'hello';
-        // }
+        $total_division = round(($over_time_target / $countTotalTimeArr), 0);
+        $total_division_2 = $total_division;
+        $total_division_3 = $total_division;
+
+        $num_1 = 0;
+        while ($num_1 < $countTotalTimeArr) {
+            $div_target[] = $total_division;
+            $total_division += $total_division_2;
+            $num_1++;
+        }
+        $end_div_target = end($div_target);
+        if ($end_div_target > $over_time_target) {
+            array_pop($div_target);
+            $div_target[] = $over_time_target;
+        }
+        $num_2 = 0;
+        while ($num_2 < $countTotalTimeArr) {
+            $target_for_line_entry[] = $total_division_3;
+            $num_2++;
+        }
+        $number = count($category);
+
+        $over_time_assign = OverTime::create(['l_id' => $l_id, 'ot_min' => $over_time_minute, 'ot_target' => $over_time_target, 'assign_date' => $date_string, 'created_at' => NOW()]);
+
+        if ($over_time_assign) {
+            $line_assign = LineAssign::create(['user_id' => $user_id, 'l_id' => $l_id, 'main_target' => $over_time_target, 's_time' => $s_time, 'e_time' => $e_time, 'lunch_s_time' => $lunch_s_time, 'lunch_e_time' => $lunch_e_time, 'cal_work_min' => $cal_work_min, 't_work_hr' => $t_work_hr, 'assign_date' => $date_string, 'created_at' => NOW()]);
 
 
-        // $overTime = OverTime::create(['l_id' => $l_id, 'ot_min' => $over_time_minute, 'ot_target' => $over_time_target, 'created_at' => NOW()]);
-        // if ($overTime == true) {
-        //     return redirect('/line_setting?status=overtime_create_ok');
-        // }
+            if ($line_assign == true) {
+                $assign_id_query = LineAssign::select('assign_id')->where('l_id', $l_id)->where('user_id', $user_id)->orderBy('assign_id', 'desc')->first();  ///// Get assign_id from line_assign table
+                if ($assign_id_query == true) {
+                    $a_id_2 = $assign_id_query->assign_id;
+
+                    if ($countTotalTimeArr > 0) {
+                        for ($j = 0; $j < $countTotalTimeArr; $j++) { ///// Insert data [] to time table
+                            Time::create([
+                                'time_name' => $time_arr[$j],
+                                'line_id' => $l_id,
+                                'assign_id' => $a_id_2,
+                                'div_target' => $div_target[$j],
+                                'actual_target_entry' => $target_for_line_entry[$j],
+                                'assign_date' => $date_string,
+                            ]);
+                        }
+                    }
+
+
+                    if ($number > 0) {
+                        for ($i = 0; $i < $number; $i++) {  ///// Insert data [] to p_detail table
+                            if (trim($category[$i] != '')) {
+                                $category_id = $category[$i];
+                                $category_target_name = $category_target[$i];
+                                $style_no_1 = $style_no[$i];
+                                $product_name = $p_name[$i];
+
+                                $time_count = DB::select("SELECT assign_id,time_name FROM time WHERE assign_id=" . $a_id_2 . " ORDER BY time_name DESC OFFSET 1");
+                                $time_count_decode = json_decode(json_encode($time_count), true);
+                                $count_time = count($time_count_decode);
+                                $div_target_quantity = round(($category_target[$i] / $count_time), 0);
+
+                                $category_assign = ProductDetail::create(['assign_id' => $a_id_2, 'l_id' => $l_id, 'p_cat_id' => $category_id, 'p_name' => $product_name, 'style_no' => $style_no_1, 'quantity' => $category_target_name, 'div_quantity' => $div_target_quantity, 'created_at' => NOW()]);
+                            }
+                        }
+                        if ($category_assign == true) {
+                            echo 'ok';
+                            // return redirect('/line_setting?status=create_ok');
+                        }
+                    }
+                }
+            }
+        }
     }
     public function createCategory()
     {

@@ -16,8 +16,9 @@ class Overtime extends Migration
         Schema::create('overtime', function (Blueprint $table) {
             $table->id('ot_id');
             $table->integer('l_id');
-            $table->integer('ot_min');
             $table->integer('ot_target');
+            $table->integer('ot_min');
+            $table->string('assign_date');
             $table->timestamps();
         });
     }
