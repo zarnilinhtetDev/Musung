@@ -30,14 +30,14 @@ class ReportDashController extends Controller
         @$format_date_string = date("d.m.Y", strtotime($date_history));
 
         if ($date_history) {
-            $daily_report = DB::select('SELECT "line".l_id,"line".l_name,"line_assign".main_target,"line_assign".m_power,"line_assign".actual_m_power,"line_assign".man_target,"line_assign".man_actual_target,
+            $daily_report = DB::select('SELECT "line".l_id,"line".l_name,"line_assign".main_target,"line_assign".assign_id,"line_assign".m_power,"line_assign".actual_m_power,"line_assign".man_target,"line_assign".man_actual_target,
             "line_assign".hp,"line_assign".actual_hp,SUM("time".div_actual_target) as total_div_actual_target,COUNT("time".assign_id) AS total_time,"line_assign".assign_date,"line_assign".remark
             FROM line
             JOIN line_assign ON "line_assign".l_id="line".l_id AND
             "line_assign".assign_date=\'' . $format_date_string . '\'
             JOIN time ON "time".line_id="line".l_id AND "time".assign_date=\'' . $format_date_string . '\' AND "time".assign_id="line_assign".assign_id
             GROUP BY "line".l_id,"line_assign".main_target,"line_assign".m_power,"line_assign".actual_m_power,"line_assign".man_target,"line_assign".man_actual_target,
-            "line_assign".hp,"line_assign".actual_hp,"line_assign".assign_date,"line_assign".remark
+            "line_assign".hp,"line_assign".actual_hp,"line_assign".assign_date,"line_assign".remark,"line_assign".assign_id
             ORDER BY "line".l_pos ASC');
 
             $daily_report_product = DB::select('SELECT "p_detail".p_detail_id,"p_detail".l_id,"p_detail".p_name,"p_detail".quantity,"p_detail".div_quantity,"p_detail".sewing_input,"p_detail".assign_id,
@@ -47,14 +47,14 @@ class ReportDashController extends Controller
             JOIN p_category ON "p_category".p_cat_id="p_detail".p_cat_id
             ORDER BY "p_detail".p_detail_id ASC');
         } else {
-            $daily_report = DB::select('SELECT "line".l_id,"line".l_name,"line_assign".main_target,"line_assign".m_power,"line_assign".actual_m_power,"line_assign".man_target,"line_assign".man_actual_target,
+            $daily_report = DB::select('SELECT "line".l_id,"line".l_name,"line_assign".main_target,"line_assign".assign_id,"line_assign".m_power,"line_assign".actual_m_power,"line_assign".man_target,"line_assign".man_actual_target,
             "line_assign".hp,"line_assign".actual_hp,SUM("time".div_actual_target) as total_div_actual_target,COUNT("time".assign_id) AS total_time,"line_assign".assign_date,"line_assign".remark
             FROM line
             JOIN line_assign ON "line_assign".l_id="line".l_id AND
             "line_assign".assign_date=\'' . $date_string . '\'
             JOIN time ON "time".line_id="line".l_id AND "time".assign_date=\'' . $date_string . '\' AND "time".assign_id="line_assign".assign_id
             GROUP BY "line".l_id,"line_assign".main_target,"line_assign".m_power,"line_assign".actual_m_power,"line_assign".man_target,"line_assign".man_actual_target,
-            "line_assign".hp,"line_assign".actual_hp,"line_assign".assign_date,"line_assign".remark
+            "line_assign".hp,"line_assign".actual_hp,"line_assign".assign_date,"line_assign".remark,"line_assign".assign_id
             ORDER BY "line".l_pos ASC');
 
             $daily_report_product = DB::select('SELECT "p_detail".p_detail_id,"p_detail".l_id,"p_detail".p_name,"p_detail".quantity,"p_detail".div_quantity,"p_detail".sewing_input,"p_detail".assign_id,
@@ -92,40 +92,40 @@ class ReportDashController extends Controller
             @$p_id_input = $boxes[$i]['p_id_input'];
             @$a_id_input = $boxes[$i]['a_id_input'];
             @$cmp_input = $boxes[$i]['cmp_input'];
-            $note = $boxes[$i]['note'];
+            @$note = $boxes[$i]['note'];
             $role = $boxes[$i]['role'];
 
             $date = $boxes[$i]['date_input'];
 
             $date_string = date("d.m.Y", strtotime($date));
 
-            echo $l_id_input . "<br/>" . $p_id_input . "<br/>" . $a_id_input . "<br/>" . $cmp_input . "<br/>" . $note . "<br/>" . $role . "<br/>      ";
+            if ($date_string != '') {
+                $query = DB::select('SELECT "p_detail".p_detail_id
+                FROM p_detail
+                JOIN line_assign ON "p_detail".assign_id="line_assign".assign_id AND "p_detail".l_id="line_assign".l_id
+                AND "line_assign".assign_date=\'' . $date_string . '\'');
 
+                $decode = json_decode(json_encode($query), true);
 
-            // if ($date_string != '') {
-            //     $query = DB::select('SELECT "p_detail".p_detail_id
-            //     FROM p_detail
-            //     JOIN line_assign ON "p_detail".assign_id="line_assign".assign_id AND "p_detail".l_id="line_assign".l_id
-            //     AND "line_assign".assign_date=\'' . $date_string . '\'');
-
-            //     $decode = json_decode(json_encode($query), true);
-
-            //     for ($j = 0; $j < count($decode); $j++) {
-            //         $p_detail_id = $decode[$j]['p_detail_id'];
-            //         if ($p_id_input == $p_detail_id) {
-            //             DB::table('p_detail')
-            //                 ->where('p_detail_id', $p_detail_id)
-            //                 ->update(['cmp' => $cmp_input]);
-            //         }
-            //     }
-            // }
-            // if ($date == '') {
-            //     $date_string = date("d.m.Y");
-            //     if ($role == 1) {   ///Operator
-            //         $p_detail_query = LineAssign::where('assign_date', $date_string)->where('l_id', $l_id_input)->update(['remark' => $note]);
-            //     }
-            //     // $p_detail_query = ProductDetail::where('p_detail_id', $p_id_input)->where('assign_id', $a_id_input)->where('l_id', $l_id_input)->update(['cmp' => $cmp_input]);
-            // }
+                for ($j = 0; $j < count($decode); $j++) {
+                    $p_detail_id = $decode[$j]['p_detail_id'];
+                    if ($p_id_input == $p_detail_id) {
+                        DB::table('p_detail')
+                            ->where('p_detail_id', $p_detail_id)
+                            ->update(['cmp' => $cmp_input]);
+                    }
+                }
+            }
+            if ($date == '') {
+                $date_string = date("d.m.Y");
+                if ($role == 1) {   ///Operator
+                    $p_detail_query = LineAssign::where('assign_date', $date_string)->where('l_id', $l_id_input)->update(['remark' => $note]);
+                }
+                if ($role == 99) {   ///Operator
+                    $p_detail_query = ProductDetail::where('p_detail_id', $p_id_input)->where('assign_id', $a_id_input)->where('l_id', $l_id_input)->update(['cmp' => $cmp_input]);
+                }
+                // $p_detail_query = ProductDetail::where('p_detail_id', $p_id_input)->where('assign_id', $a_id_input)->where('l_id', $l_id_input)->update(['cmp' => $cmp_input]);
+            }
         }
     }
 
@@ -133,6 +133,9 @@ class ReportDashController extends Controller
     {
         $date_history = request()->post('date_name');
         $date_string = date("d.m.Y", strtotime($date_history));
+        $date_string_for_export_pdf = date("Y_m_d", strtotime($date_history));
+
+        $date_2 = date("d.m.Y");
 
 
         $daily_report_history = DB::select('SELECT "line".l_id,"line".l_name,"line_assign".main_target,"line_assign".m_power,"line_assign".actual_m_power,"line_assign".man_target,"line_assign".man_actual_target,
@@ -177,6 +180,16 @@ class ReportDashController extends Controller
                 <li class="span2">
                     <p>Date - <?php echo $date_string; ?></p>
                 </li>
+                <li class="span2 bg-transparent">
+                    <a id="dlink" style="display:none;"></a>
+                    <div id="name" style="display:none;"><?php echo $date_string_for_export_pdf . "_report_dash"; ?></div>
+                    <button id="btn" class="icon-btn-one icon-btn-one-2 btn my-2">Export to Excel</button>
+                    <!-- <button onclick="tablesToExcel(['history_dash_1','history_dash_2','history_dash_3'], ['Table1','Table2','Table3'], '<?php //echo $getDate;
+                                                                                                                                                ?>.xls', 'Excel')" class="icon-btn-one icon-btn-one-2 btn my-2">Export to Excel</button> -->
+                </li>
+                <li class="span2 bg-transparent">
+                    <button type="button" id="exportPDF" class="icon-btn-one icon-btn-one-2 btn my-2">Export to PDF</button>
+                </li>
             </ul>
         </div>
 
@@ -184,7 +197,7 @@ class ReportDashController extends Controller
 
         <form method="POST" id="cmp_put">
             <div style="overflow-x:auto;max-width:100%;">
-                <table class="table table-striped my-4 tableFixHead results p-0 text-center table-bordered">
+                <table class="table table-striped my-4 tableFixHead results p-0 text-center table-bordered" id="report_history_table">
                     <thead>
                         <tr class="tr-2">
                             <th scope="col">Line</th>
@@ -782,7 +795,61 @@ class ReportDashController extends Controller
             </table>
             </div>
         </form>
+        <script>
+            $("#exportPDF").click(function() {
 
+                html2canvas($('#report_history_table')[0], {
+                    onrendered: function(canvas) {
+                        var data = canvas.toDataURL();
+                        var docDefinition = {
+                            content: [{
+                                image: data,
+                                width: 500
+                            }]
+                        };
+                        pdfMake.createPdf(docDefinition).download("<?php echo $date_string_for_export_pdf . '_report'; ?>.pdf");
+                    }
+                });
+            });
+        </script>
+
+        <script>
+            var tableToExcel = (function() {
+                var uri = 'data:application/vnd.ms-excel;base64,',
+                    template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="https://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table border="1">{table}</table></body></html>',
+                    base64 = function(s) {
+                        return window.btoa(unescape(encodeURIComponent(s)))
+                    },
+                    format = function(s, c) {
+                        return s.replace(/{(\w+)}/g, function(m, p) {
+                            return c[p];
+                        })
+                    }
+                return function(table, name, filename) {
+                    if (!table.nodeType) table = document.getElementById(table)
+                    var ctx = {
+                        worksheet: name || 'Worksheet',
+                        table: table.innerHTML
+                    }
+
+                    document.getElementById("dlink").href = uri + base64(format(template, ctx));
+                    document.getElementById("dlink").download = filename;
+                    document.getElementById("dlink").target = "_blank";
+                    document.getElementById("dlink").click();
+
+                }
+            })();
+
+            function download() {
+                $(document).find('tfoot').remove();
+                var name = document.getElementById("name").innerHTML;
+                tableToExcel('report_history_table', 'Sheet 1', name.replace(/\s+/g, ' ') + '.xls')
+                //setTimeout("window.location.reload()",0.0000001);
+
+            }
+            var btn = document.getElementById("btn");
+            btn.addEventListener("click", download);
+        </script>
 <?php
 
     }

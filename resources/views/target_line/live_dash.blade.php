@@ -86,40 +86,6 @@
             </div>
         </div>
     </div>
-    <script>
-        $("#exportPDF").click(function() {
-            var date = "<?php echo $date_string_for_export_pdf; ?>" + "_production_dashboard";
-
-            var element = document.getElementById('history_div');
-            var opt = {
-                margin: 0.1,
-                filename: date + '.pdf',
-                image: {
-                    type: 'jpeg',
-                    quality: 1
-                },
-                html2canvas: {
-                    scale: 2
-                },
-                jsPDF: {
-                    unit: 'in',
-                    format: 'a4',
-                    orientation: 'landscape'
-                },
-                enableLinks: true,
-            };
-
-            // New Promise-based usage:
-            html2pdf().set(opt).from(element).save();
-
-            // Old monolithic-style usage:
-            html2pdf(element, opt);
-        });
-    </script>
-
-    <script>
-
-    </script>
 </div>
 @endviewer
 @superadmin
@@ -207,40 +173,7 @@
             </div>
         </div>
     </div>
-    <script>
-        $("#exportPDF").click(function() {
-            var date = "<?php echo $date_string_for_export_pdf; ?>" + "_production_dashboard";
 
-            var element = document.getElementById('history_div');
-            var opt = {
-                margin: 0.1,
-                filename: date + '.pdf',
-                image: {
-                    type: 'jpeg',
-                    quality: 1
-                },
-                html2canvas: {
-                    scale: 2
-                },
-                jsPDF: {
-                    unit: 'in',
-                    format: 'a4',
-                    orientation: 'landscape'
-                },
-                enableLinks: true,
-            };
-
-            // New Promise-based usage:
-            html2pdf().set(opt).from(element).save();
-
-            // Old monolithic-style usage:
-            html2pdf(element, opt);
-        });
-    </script>
-
-    <script>
-
-    </script>
 </div>
 @endsuperadmin
 
@@ -330,40 +263,7 @@
             </div>
         </div>
     </div>
-    <script>
-        $("#exportPDF").click(function() {
-            var date = "<?php echo $date_string_for_export_pdf; ?>" + "_production_dashboard";
 
-            var element = document.getElementById('history_div');
-            var opt = {
-                margin: 0.1,
-                filename: date + '.pdf',
-                image: {
-                    type: 'jpeg',
-                    quality: 1
-                },
-                html2canvas: {
-                    scale: 2
-                },
-                jsPDF: {
-                    unit: 'in',
-                    format: 'a4',
-                    orientation: 'landscape'
-                },
-                enableLinks: true,
-            };
-
-            // New Promise-based usage:
-            html2pdf().set(opt).from(element).save();
-
-            // Old monolithic-style usage:
-            html2pdf(element, opt);
-        });
-    </script>
-
-    <script>
-
-    </script>
 </div>
 @endowner
 
@@ -453,61 +353,6 @@
             </div>
         </div>
     </div>
-    <script>
-        $("#exportPDF").click(function() {
-            var date = "<?php echo $date_string_for_export_pdf; ?>" + "_production_dashboard";
-
-            var element = document.getElementById('history_div');
-            var opt = {
-                margin: 0.1,
-                filename: date + '.pdf',
-                image: {
-                    type: 'jpeg',
-                    quality: 1
-                },
-                html2canvas: {
-                    scale: 2
-                },
-                jsPDF: {
-                    unit: 'in',
-                    format: 'a4',
-                    orientation: 'landscape'
-                },
-                enableLinks: true,
-            };
-
-            // New Promise-based usage:
-            html2pdf().set(opt).from(element).save();
-
-            // Old monolithic-style usage:
-            html2pdf(element, opt);
-        });
-    </script>
-
-    <script>
-        function download_table_as_csv(table_id, separator = ',') {    // Select rows from table_id
-            var rows = document.querySelectorAll('table#' + table_id + ' tr');
-            // Construct csv
-            var csv = [];    for (var i = 0; i < rows.length; i++) {
-                var row = [], cols = rows[i].querySelectorAll('td, th');
-                for (var j = 0; j < cols.length; j++) {            // Clean innertext to remove multiple spaces and jumpline (break csv)
-                     var data = cols[j].innerText.replace(/(\r\n|\n|\r)/gm, '').replace(/(\s\s)/gm, ' ')            // Escape double-quote with double-double-quote (see https://stackoverflow.com/questions/17808511/properly-escape-a-double-quote-in-csv)
-                      data = data.replace(/"/g, '""');            // Push escaped string
-                               row.push('"' + data + '"');        }
-                               csv.push(row.join(separator));
-                             }
-                                var csv_string = csv.join('\n');    // Download it
-                                 var filename = 'export_' + table_id + '_' + new Date().toLocaleDateString() + '.csv';
-                                 var link = document.createElement('a');
-                                 link.style.display = 'none';
-                                 link.setAttribute('target', '_blank');
-                                 link.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv_string));
-                                 link.setAttribute('download', filename);
-                                 document.body.appendChild(link);
-                                 link.click();
-                                 document.body.removeChild(link);
-                                }
-    </script>
 
 </div>
 
@@ -597,40 +442,7 @@
             </div>
         </div>
     </div>
-    <script>
-        $("#exportPDF").click(function() {
-            var date = "<?php echo $date_string_for_export_pdf; ?>" + "_production_dashboard";
 
-            var element = document.getElementById('history_div');
-            var opt = {
-                margin: 0.1,
-                filename: date + '.pdf',
-                image: {
-                    type: 'jpeg',
-                    quality: 1
-                },
-                html2canvas: {
-                    scale: 2
-                },
-                jsPDF: {
-                    unit: 'in',
-                    format: 'a4',
-                    orientation: 'landscape'
-                },
-                enableLinks: true,
-            };
-
-            // New Promise-based usage:
-            html2pdf().set(opt).from(element).save();
-
-            // Old monolithic-style usage:
-            html2pdf(element, opt);
-        });
-    </script>
-
-    <script>
-
-    </script>
 </div>
 @endoperator
 
@@ -639,6 +451,65 @@
     window.location = "{{url('line_entry')}}";
 </script>
 @endline_manager
+
+
+<script>
+    $("#exportPDF").click(function() {
+
+html2canvas($('#live_dash_1')[0], {
+    onrendered: function(canvas) {
+        var data = canvas.toDataURL();
+        var docDefinition = {
+            content: [{
+                image: data,
+                width: 500
+            }]
+        };
+        pdfMake.createPdf(docDefinition).download("<?php echo $date_string_for_export_pdf . '_daily_dash'; ?>.pdf");
+    }
+});
+
+});
+</script>
+
+
+<script>
+    var tableToExcel = (function() {
+    var uri = 'data:application/vnd.ms-excel;base64,',
+        template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="https://www.w3.org/TR/REC-html40"><head></head><body><table border="1">{table}</table></body></html>',
+        base64 = function(s) {
+            return window.btoa(unescape(encodeURIComponent(s)))
+        },
+        format = function(s, c) {
+            return s.replace(/{(\w+)}/g, function(m, p) {
+                return c[p];
+            })
+        }
+    return function(table, name, filename) {
+        if (!table.nodeType) table = document.getElementById(table)
+        var ctx = {
+            worksheet: name || 'Worksheet',
+            table: table.innerHTML
+        }
+
+        document.getElementById("dlink").href = uri + base64(format(template, ctx));
+        document.getElementById("dlink").download = filename;
+        document.getElementById("dlink").target = "_blank";
+        document.getElementById("dlink").click();
+
+    }
+})();
+
+function download() {
+    $(document).find('tfoot').remove();
+    var name = document.getElementById("name").innerHTML;
+    tableToExcel('live_dash_1', 'Sheet 1', name.replace(/\s+/g, ' ') + '.xls')
+    //setTimeout("window.location.reload()",0.0000001);
+
+}
+var btn = document.getElementById("btn");
+btn.addEventListener("click", download);
+</script>
 @endsection
 
 @endsection

@@ -10,6 +10,7 @@ $date_string = date("d.m.Y");
 @$date = $_GET['date'];
 
 @$format_date = date("d.m.Y", strtotime($date));
+$date_string_for_export_pdf = date("Y_m_d", strtotime($date_string));
 ?>
 @superadmin
 
@@ -33,10 +34,22 @@ $date_string = date("d.m.Y");
                     <?php if(!$edit_status && !$date){
                                 echo $date_string;
                             }else{
-                                echo $format_date;
+                                echo $date_string;
                             }
                             ?>
                 </p>
+            </li>
+            <li class="span2 bg-transparent">
+                <a id="dlink" style="display:none;"></a>
+                <div id="name" style="display:none;">
+                    <?php echo $date_string_for_export_pdf . "_report_dash"; ?>
+                </div>
+                <button id="btn" class="icon-btn-one icon-btn-one-2 btn my-2">Export to Excel</button>
+                <!-- <button onclick="tablesToExcel(['history_dash_1','history_dash_2','history_dash_3'], ['Table1','Table2','Table3'], '<?php //echo $getDate;
+                                                                                                                                            ?>.xls', 'Excel')" class="icon-btn-one icon-btn-one-2 btn my-2">Export to Excel</button> -->
+            </li>
+            <li class="span2 bg-transparent">
+                <button type="button" id="exportPDF" class="icon-btn-one icon-btn-one-2 btn my-2">Export to PDF</button>
             </li>
         </ul>
     </div>
@@ -58,7 +71,8 @@ $date_string = date("d.m.Y");
             <a href="{{ url('/report') }}" class="btn-secondary btn my-2">Cancel</a>
             @endif
             <div style="overflow-x:auto;max-width:100%;">
-                <table class="table table-striped my-4 tableFixHead results p-0 text-center table-bordered">
+                <table class="table table-striped my-4 tableFixHead results p-0 text-center table-bordered"
+                    id="report_table">
                     <thead>
                         <tr class="tr-2">
                             <th scope="col">Line</th>
@@ -103,7 +117,8 @@ $date_string = date("d.m.Y");
                             $m_power=$daily_report_decode[$i]['m_power'];$actual_m_power=$daily_report_decode[$i]['actual_m_power'];$hp=$daily_report_decode[$i]['hp'];$actual_hp=$daily_report_decode[$i]['actual_hp'];
                             $assign_date=$daily_report_decode[$i]['assign_date'];
                             $man_target=$daily_report_product_decode[$i]['man_target'];
-                            $man_actual_target=$daily_report_product_decode[$i]['man_actual_target']; @endphp <tr>
+                            $man_actual_target=$daily_report_product_decode[$i]['man_actual_target'];
+                            $assign_id_1=$daily_report_product_decode[$i]['assign_id']; @endphp <tr>
                             <td>{{ $l_name }}</td>
 
                             {{-- Buyer --}}
@@ -178,8 +193,17 @@ $date_string = date("d.m.Y");
                             <td>
                                 <table class="m-auto text-start table table-bordered custom-table-border-color">
                                     <tbody>
+                                        @if($edit_status)
+                                        <td class="man_power_input">
+                                            <input type="text" id="man_target" name="man_target[]"
+                                                value="<?php echo $l_id_2; ?>" />
+                                            <input type="text" id="man_actual_target" name="man_actual_target[]"
+                                                value="<?php echo $assign_id_1; ?>" />
+                                            @else
                                         <td>{{ $man_target }}</td>
                                         <td>{{ $man_actual_target }}</td>
+                                        @endif
+
                                     </tbody>
                                 </table>
                             </td>
@@ -601,9 +625,6 @@ $date_string = date("d.m.Y");
                     </td>
                     </tr>
                     <script>
-                        // Note
-                        var note_input = $('#note_input');
-
                         // For CMP/hr
                     var total_cmp_2 = $('.total_cmp_{{ $l_id }}').text();
                    var substring_2=parseFloat(total_cmp_2.substring(2));
@@ -666,7 +687,6 @@ $('.td_input').each(function() {
     var p_id_input = $('#p_id_input', this).val();
     var cmp_input = $('#cmp_input',this).val();
     var date_input = $('#date_input',this).val();
-    var note = $('#note',this).val();
     var user_role = $("#user_role",this).val();
 
 box = {
@@ -675,16 +695,25 @@ a_id_input: a_id_input,
 p_id_input: p_id_input,
 cmp_input: cmp_input,
 date_input: date_input,
-note: note,
-user_role: user_role,
+role: user_role,
 }
 boxes.push(box);
 });
 
-console.log(boxes);
-
+$.ajax({
+        type: "POST",
+        url: "/cmp_put",
+        data: {
+            boxes: boxes,
+        },
+        success: function(data) {
+            // console.log(data);
+            window.location.href = "/report?update=ok";
+        }
+    });
 
 });
+
 
         </script>
     </div>
@@ -1243,10 +1272,22 @@ chart.render();
                     <?php if(!$edit_status && !$date){
                                 echo $date_string;
                             }else{
-                                echo $format_date;
+                                echo $date_string . 'hello';
                             }
                             ?>
                 </p>
+            </li>
+            <li class="span2 bg-transparent">
+                <a id="dlink" style="display:none;"></a>
+                <div id="name" style="display:none;">
+                    <?php echo $date_string_for_export_pdf . "_report_dash"; ?>
+                </div>
+                <button id="btn" class="icon-btn-one icon-btn-one-2 btn my-2">Export to Excel</button>
+                <!-- <button onclick="tablesToExcel(['history_dash_1','history_dash_2','history_dash_3'], ['Table1','Table2','Table3'], '<?php //echo $getDate;
+                                                                                                                                            ?>.xls', 'Excel')" class="icon-btn-one icon-btn-one-2 btn my-2">Export to Excel</button> -->
+            </li>
+            <li class="span2 bg-transparent">
+                <button type="button" id="exportPDF" class="icon-btn-one icon-btn-one-2 btn my-2">Export to PDF</button>
             </li>
         </ul>
     </div>
@@ -1268,7 +1309,8 @@ chart.render();
             <a href="{{ url('/report') }}" class="btn-secondary btn my-2">Cancel</a>
             @endif
             <div style="overflow-x:auto;max-width:100%;">
-                <table class="table table-striped my-4 tableFixHead results p-0 text-center table-bordered">
+                <table class="table table-striped my-4 tableFixHead results p-0 text-center table-bordered"
+                    id="report_table">
                     <thead>
                         <tr class="tr-2">
                             <th scope="col">Line</th>
@@ -2468,10 +2510,22 @@ chart.render();
                     <?php if(!$edit_status && !$date){
                                 echo $date_string;
                             }else{
-                                echo $format_date;
+                                echo $date_string;
                             }
                             ?>
                 </p>
+            </li>
+            <li class="span2 bg-transparent">
+                <a id="dlink" style="display:none;"></a>
+                <div id="name" style="display:none;">
+                    <?php echo $date_string_for_export_pdf . "_report_dash"; ?>
+                </div>
+                <button id="btn" class="icon-btn-one icon-btn-one-2 btn my-2">Export to Excel</button>
+                <!-- <button onclick="tablesToExcel(['history_dash_1','history_dash_2','history_dash_3'], ['Table1','Table2','Table3'], '<?php //echo $getDate;
+                                                                                                                                            ?>.xls', 'Excel')" class="icon-btn-one icon-btn-one-2 btn my-2">Export to Excel</button> -->
+            </li>
+            <li class="span2 bg-transparent">
+                <button type="button" id="exportPDF" class="icon-btn-one icon-btn-one-2 btn my-2">Export to PDF</button>
             </li>
         </ul>
     </div>
@@ -2493,7 +2547,8 @@ chart.render();
             <a href="{{ url('/report') }}" class="btn-secondary btn my-2">Cancel</a>
             @endif
             <div style="overflow-x:auto;max-width:100%;">
-                <table class="table table-striped my-4 tableFixHead results p-0 text-center table-bordered">
+                <table class="table table-striped my-4 tableFixHead results p-0 text-center table-bordered"
+                    id="report_table">
                     <thead>
                         <tr class="tr-2">
                             <th scope="col">Line</th>
@@ -3106,31 +3161,15 @@ date_input: date_input,
 boxes.push(box);
 });
 
-var note_object = {};
-var note_arr = [];
-$('.note').each(function(){
-    var note_input = $(this).val();
-    var l_id_remark = $(this).val();
-
-    note_object = {
-        note_input: note_input,
-        l_id_remark : l_id_remark
-    }
-
-    note_arr.push(note_object);
-
-});
-
 $.ajax({
         type: "POST",
         url: "/cmp_put",
         data: {
             boxes: boxes,
-            note_arr: note_arr,
         },
         success: function(data) {
-            // console.log(data);
-            window.location.href = "/report?update=ok";
+            console.log(data);
+            // window.location.href = "/report?update=ok";
         }
     });
 });
@@ -3691,10 +3730,22 @@ chart.render();
                     <?php if(!$edit_status && !$date){
                                 echo $date_string;
                             }else{
-                                echo $format_date;
+                                echo $date_string;
                             }
                             ?>
                 </p>
+            </li>
+            <li class="span2 bg-transparent">
+                <a id="dlink" style="display:none;"></a>
+                <div id="name" style="display:none;">
+                    <?php echo $date_string_for_export_pdf . "_report_dash"; ?>
+                </div>
+                <button id="btn" class="icon-btn-one icon-btn-one-2 btn my-2">Export to Excel</button>
+                <!-- <button onclick="tablesToExcel(['history_dash_1','history_dash_2','history_dash_3'], ['Table1','Table2','Table3'], '<?php //echo $getDate;
+                                                                                                                                            ?>.xls', 'Excel')" class="icon-btn-one icon-btn-one-2 btn my-2">Export to Excel</button> -->
+            </li>
+            <li class="span2 bg-transparent">
+                <button type="button" id="exportPDF" class="icon-btn-one icon-btn-one-2 btn my-2">Export to PDF</button>
             </li>
         </ul>
     </div>
@@ -3716,7 +3767,8 @@ chart.render();
             <a href="{{ url('/report') }}" class="btn-secondary btn my-2">Cancel</a>
             @endif
             <div style="overflow-x:auto;max-width:100%;">
-                <table class="table table-striped my-4 tableFixHead results p-0 text-center table-bordered">
+                <table class="table table-striped my-4 tableFixHead results p-0 text-center table-bordered"
+                    id="report_table">
                     <thead>
                         <tr class="tr-2">
                             <th scope="col">Line</th>
@@ -4713,6 +4765,65 @@ chart.render();
     window.location = "{{url('line_entry')}}";
 </script>
 @endline_manager
+
+
+<script>
+    $("#exportPDF").click(function() {
+
+        html2canvas($('#report_table')[0], {
+                    onrendered: function(canvas) {
+                        var data = canvas.toDataURL();
+                        var docDefinition = {
+                            content: [{
+                                image: data,
+                                width: 500
+                            }]
+                        };
+                        pdfMake.createPdf(docDefinition).download("<?php echo $date_string_for_export_pdf . '_report'; ?>.pdf");
+                    }
+                });
+
+    });
+</script>
+
+<script>
+    var tableToExcel = (function() {
+
+        var uri = 'data:application/vnd.ms-excel;base64,',
+            template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="https://www.w3.org/TR/REC-html40"><head></head><body><table border="1">{table}</table></body></html>',
+            base64 = function(s) {
+                return window.btoa(unescape(encodeURIComponent(s)))
+            },
+            format = function(s, c) {
+                return s.replace(/{(\w+)}/g, function(m, p) {
+                    return c[p];
+                })
+            }
+        return function(table, name, filename) {
+            if (!table.nodeType) table = document.getElementById(table)
+            var ctx = {
+                worksheet: name || 'Worksheet',
+                table: table.innerHTML
+            }
+
+            document.getElementById("dlink").href = uri + base64(format(template, ctx));
+            document.getElementById("dlink").download = filename;
+            document.getElementById("dlink").target = "_blank";
+            document.getElementById("dlink").click();
+
+        }
+    })();
+
+    function download() {
+        $(document).find('tfoot').remove();
+        var name = document.getElementById("name").innerHTML;
+        tableToExcel('report_table', 'Sheet 1', name.replace(/\s+/g, ' ') + '.xls')
+        //setTimeout("window.location.reload()",0.0000001);
+
+    }
+    var btn = document.getElementById("btn");
+    btn.addEventListener("click", download);
+</script>
 @endsection
 
 @endsection

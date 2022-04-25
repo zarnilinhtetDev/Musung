@@ -14,7 +14,7 @@
             <tr class="tr-2 tr-3">
                 <th scope="col" style="vertical-align: middle;">Line</th>
                 <th scope="col" style="vertical-align: middle;" class="p-0">
-                    <table class="w-100 text-center table m-0 text-white table-bordered">
+                    <table class="w-100 text-center table m-0 text-white table-bordered" border="1">
                         <tr class="">
                             <th colspan="2">Manpower</th>
                         </tr>
@@ -77,7 +77,7 @@
                             @if($p_2->l_id == $g_line_id)
                             <tr style="border-bottom: 1px solid #848484;">
                                 <td>
-                                    <div style="width:11rem;overflow-x:scroll;">
+                                    <div style="width:10rem;overflow-x:scroll;">
                                         #{{ $p_2->style_no }}, {{ $p_2->p_name }}
                                     </div>
                                 </td>
@@ -104,14 +104,11 @@
                 $prev_target = ((int)$current_target)-1;
                 @endphp
                 <td id="{{ $t_2->time_name }}">
-                    <table class="w-100 text-center table m-0">
+                    <table class="w-100 text-center table table-bordered m-0" border="1">
                         <tr>
                             <td><span id="new_div_target_{{ $t_2->time_id }}" class="new_div_target">{{
                                     number_format($t_2->actual_target_entry)
                                     }}</span></td>
-                            <td style="display:none;"><span id="div_target_{{ $t_2->time_id }}">{{
-                                    $t_2->div_target }}</span>
-                            </td>
                         </tr>
                         <tr class="text-white">
                             <td id="td_div_actual_target_{{ $t_2->time_id }}">
@@ -119,12 +116,9 @@
                                     class="div_actual_target_{{ $g_line_id }}">@if($t_2->div_actual_target != ''){{
                                     $t_2->div_actual_target }} @endif</span>
                             </td>
-                            <td style="display:none;" id="td_div_actual_target_total_{{ $t_2->time_id }}"><span
-                                    id="div_actual_target_total_{{ $t_2->time_id }}"
-                                    class="div_actual_target_total_{{ $g_line_id }}"></span></td>
                         </tr>
                         <tr class="text-white">
-                            <td id="td_div_actual_target_percent_{{ $t_2->time_id }}" colspan="2"><span
+                            <td id="td_div_actual_target_percent_{{ $t_2->time_id }}"><span
                                     id="div_actual_target_percent_{{ $t_2->time_id }}"></span>
                             </td>
                         </tr>
@@ -160,9 +154,6 @@ if(!Number.isNaN(new_total)){
 }
 }
 
-var div_target = parseInt($("#div_target_<?php echo $current_target; ?>").text());
-var div_actual_target_total = parseInt($("#div_actual_target_total_<?php echo $current_target; ?>").text());
-
 var new_div_target = $("#new_div_target_<?php echo $current_target; ?>").text();
 var div_actual_target = parseInt($("#div_actual_target_<?php echo $current_target; ?>").text());
 
@@ -170,9 +161,9 @@ var percentage =(div_actual_target / new_div_target) * 100;
 var div_actual_target_percent = $("#div_actual_target_percent_<?php echo $current_target; ?>");
 
 
-if(Number.isNaN(div_actual_target_total)){
+if(Number.isNaN(div_actual_target)){
 if(div_actual_target!=''){
-    var new_percent = (div_actual_target/div_target) * 100;
+    var new_percent = (div_actual_target/new_div_target) * 100;
     if(Number.isNaN(new_percent)){
         div_actual_target_percent.text("");
     }if(!Number.isNaN(new_percent)){
@@ -187,7 +178,7 @@ div_actual_target_percent.append('%');
     }
 }
 }
-if(!Number.isNaN(div_actual_target_total)){
+if(!Number.isNaN(div_actual_target)){
 if(Number.isNaN(percentage)){
 div_actual_target_percent.text("");
 }
@@ -211,12 +202,6 @@ if(parseInt(new_div_target) <= parseInt(div_actual_target)){
 $("#td_div_actual_target_<?php echo $current_target; ?>").css('background-color','green');
 }
 
-if(parseInt(div_target) > parseInt(div_actual_target_total)){
-$("#td_div_actual_target_total_<?php echo $current_target; ?>").css('background-color','red');
-}
-if(parseInt(div_target) <= parseInt(div_actual_target_total)){
-$("#td_div_actual_target_total_<?php echo $current_target; ?>").css('background-color','green');
-}
 })
                 </script>
                 @endif
@@ -302,70 +287,6 @@ $("#td_div_actual_target_total_<?php echo $current_target; ?>").css('background-
 
                 @endif
                 @endforeach
-                <script>
-                    // window.addEventListener('additionalInit', event => {
-
-                    //         var t_line_count = $('.t_line_count').text();
-                    // var val_arr = [];
-
-                    // for (var i = 0; i < t_line_count.length; i++) {
-                    //     if (t_line_count[i] != ' ' && t_line_count[i] != '\n') {
-                    //         val_arr.push(parseInt(t_line_count[i]));
-                    //     }
-                    // }
-
-                    // var lowestToHighest = val_arr.sort((a, b) => a - b);
-
-                    // var top_1 = lowestToHighest[0];
-                    // var top_2 = lowestToHighest[1];
-                    // var top_3 = lowestToHighest[2];
-
-                    // // if(top_1 != ''){
-                    // //     $('.t_line_1').css({
-                    // //         'background-color': 'green',
-                    // //         'color': '#fff'
-                    // //     });
-                    // // }
-                    // // if(top_2 != ''){
-                    // //     $('.t_line_2').css({
-                    // //         'background-color': 'green',
-                    // //         'color': '#fff'
-                    // //     });
-                    // // }
-                    // // if(top_3 != ''){
-                    // //     $('.t_line_3').css({
-                    // //         'background-color': 'green',
-                    // //         'color': '#fff'
-                    // //     });
-                    // // }
-                    //     $('.t_line_1').css({
-                    //         'background-color': 'green',
-                    //         'color': '#fff'
-                    //     });
-                    //     $('.t_line_2').css({
-                    //         'background-color': 'green',
-                    //         'color': '#fff'
-                    //     });
-                    //     $('.t_line_3').css({
-                    //         'background-color': 'green',
-                    //         'color': '#fff'
-                    //     });
-
-                    //     /// Do not delete (get last rank data)
-                    //                 // var max_num = Math.max(...val_arr);
-
-                    //                 // $(".t_line_" + max_num).css({
-                    //                 //     'background-color': 'red',
-                    //                 //     'color': '#fff'
-                    //                 // });
-
-                    // // $(".t_line_" + 10).css({
-                    // //     'background-color': 'red',
-                    // //     'color': '#fff'
-                    // // });
-
-                    //     });
-                </script>
 
 
                 @foreach($top_line as $t_line)
@@ -447,7 +368,7 @@ $(".t_line_" + max_num).css({
                 @foreach(array_reverse($total_div_target) as $t_div_target)
                 @php $total_time_name = $t_div_target->time_name;$new_num = 0; @endphp
                 <td id="{{ $t_div_target->time_name }}">
-                    <table class="w-100 text-center table table-bordered m-0">
+                    <table class="w-100 text-center table table-bordered m-0" border="1">
                         <tr>
                             <td><span id="new_t_div_target_num_{{ $t_div_target->row_num_1 }}">{{
                                     number_format($t_div_target->t_div_target) }}</span></td>
@@ -468,7 +389,7 @@ $(".t_line_" + max_num).css({
                             </td>
                         </tr>
                         <tr class="text-white">
-                            <td id="total_percent_{{ $t_div_actual_target_1->row_num }}" colspan="2">
+                            <td id="total_percent_{{ $t_div_actual_target_1->row_num }}">
                             </td>
                         </tr>
                         <script>
@@ -517,7 +438,7 @@ new_total_percent.append('%');
                 @endforeach
 
                 <td>
-                    <table class="w-100 text-center table table-bordered m-0">
+                    <table class="w-100 text-center table table-bordered m-0" border="1">
                         <tr>
                             @foreach($total_overall_target as $t_overall_target)
                             <td id="t_overall_target">

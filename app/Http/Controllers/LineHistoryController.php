@@ -811,47 +811,25 @@ class LineHistoryController extends Controller
 
         ?>
 
+
         <script>
             $("#exportPDF").click(function() {
-                $("#history_div").printThis({
-                    debug: false,
-                    importCSS: true, // import parent page css
-                    importStyle: true, // import style tags
-                    copyTagClasses: true,
-                    removeScripts: false,
-                    copyTagClasses: true,
-                    header: "<h3>Report for <?php echo $date_string; ?></h3>"
+
+                html2canvas($('#history_dash_1')[0], {
+                    onrendered: function(canvas) {
+                        var data = canvas.toDataURL();
+                        var docDefinition = {
+                            content: [{
+                                image: data,
+                                width: 500
+                            }]
+                        };
+                        pdfMake.createPdf(docDefinition).download("<?php echo $date_string_for_export_pdf . '_dash'; ?>.pdf");
+                    }
                 });
-                // var date = "<?php echo $date_string_for_export_pdf; ?>" + "_production_dashboard";
-
-                // var element = document.getElementById('history_div');
-                // var opt = {
-                //     margin: 0.1,
-                //     filename: date + '.pdf',
-                //     image: {
-                //         type: 'jpeg',
-                //         quality: 1
-                //     },
-                //     html2canvas: {
-                //         scale: 2,
-                //         windowWidth: 1920,
-                //         windowHeight: 1080
-                //     },
-                //     jsPDF: {
-                //         unit: 'in',
-                //         format: 'a4',
-                //         orientation: 'landscape'
-                //     },
-                //     enableLinks: true,
-                // };
-
-                // // New Promise-based usage:
-                // html2pdf().set(opt).from(element).save();
-
-                // // Old monolithic-style usage:
-                // html2pdf(element, opt);
             });
         </script>
+
 
         <script>
             var tableToExcel = (function() {
