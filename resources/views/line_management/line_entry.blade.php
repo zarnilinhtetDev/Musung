@@ -146,6 +146,7 @@
                                         $div_actual_percent = $d->div_actual_percent;
                                         $actual_target_entry = $d->actual_target_entry;
                                         @endphp
+                                        @if($time_name != "temp")
                                         <tr>
                                             <td>
                                                 <?php echo date('g:i A',strtotime($time_name)); ?>
@@ -175,6 +176,7 @@
                                                 </button>
                                             </td>
                                         </tr>
+                                        @endif
                                         <!-- Modal -->
                                         <div class="modal fade" id="LineEntryModal<?php echo $time_id; ?>" tabindex="-1"
                                             aria-labelledby="exampleModalLabel" aria-hidden="true">

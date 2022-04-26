@@ -124,17 +124,6 @@
                 <li class="span2 bg-transparent">
                     <input class="icon-btn-one btn my-2" type="submit" value="Date - {{ $date_string }}" />
                 </li>
-                <li class="span2 bg-transparent">
-                    <a id="dlink" style="display:none;"></a>
-                    <div id="name" style="display:none;">
-                        <?php echo $date_string_for_export_pdf . "_live_dash"; ?>
-                    </div>
-                    <button id="btn" class="icon-btn-one icon-btn-one-2 btn my-2">Export to Excel</button>
-                </li>
-                <li class="span2 bg-transparent">
-                    <button type="button" id="exportPDF" class="icon-btn-one icon-btn-one-2 btn my-2">Export to
-                        PDF</button>
-                </li>
             </ul>
         </div>
         <div class="col-12 col-md-6 my-auto text-center text-md-start">
@@ -214,17 +203,6 @@
                 <li class="span2 bg-transparent">
                     <input class="icon-btn-one btn my-2" type="submit" value="Date - {{ $date_string }}" />
                 </li>
-                <li class="span2 bg-transparent">
-                    <a id="dlink" style="display:none;"></a>
-                    <div id="name" style="display:none;">
-                        <?php echo $date_string_for_export_pdf . "_live_dash"; ?>
-                    </div>
-                    <button id="btn" class="icon-btn-one icon-btn-one-2 btn my-2">Export to Excel</button>
-                </li>
-                <li class="span2 bg-transparent">
-                    <button type="button" id="exportPDF" class="icon-btn-one icon-btn-one-2 btn my-2">Export to
-                        PDF</button>
-                </li>
             </ul>
         </div>
         <div class="col-12 col-md-6 my-auto text-center text-md-start">
@@ -300,20 +278,7 @@
         <div class="col-12 col-md-6">
             <ul class="horizontal-slide" style="" id="tabs">
                 <li class="span2 bg-transparent">
-                    <input class="icon-btn-one btn my-2" type="submit" value="Date - {{ $date_string }}" />
-                </li>
-                <li class="span2 bg-transparent">
-                    <a id="dlink" style="display:none;"></a>
-                    <div id="name" style="display:none;">
-                        <?php echo $date_string_for_export_pdf . "_live_dash"; ?>
-                    </div>
-                    <button id="btn_export" class="icon-btn-one icon-btn-one-2 btn my-2"
-                        onclick="download_table_as_csv('live_dash_1');">Export to
-                        Excel</button>
-                </li>
-                <li class="span2 bg-transparent">
-                    <button type="button" id="exportPDF" class="icon-btn-one icon-btn-one-2 btn my-2">Export to
-                        PDF</button>
+                    <h3>Date - {{ $date_string }}</h3>
                 </li>
             </ul>
         </div>
@@ -392,17 +357,6 @@
             <ul class="horizontal-slide" style="" id="tabs">
                 <li class="span2 bg-transparent">
                     <input class="icon-btn-one btn my-2" type="submit" value="Date - {{ $date_string }}" />
-                </li>
-                <li class="span2 bg-transparent">
-                    <a id="dlink" style="display:none;"></a>
-                    <div id="name" style="display:none;">
-                        <?php echo $date_string_for_export_pdf . "_live_dash"; ?>
-                    </div>
-                    <button id="btn" class="icon-btn-one icon-btn-one-2 btn my-2">Export to Excel</button>
-                </li>
-                <li class="span2 bg-transparent">
-                    <button type="button" id="exportPDF" class="icon-btn-one icon-btn-one-2 btn my-2">Export to
-                        PDF</button>
                 </li>
             </ul>
         </div>

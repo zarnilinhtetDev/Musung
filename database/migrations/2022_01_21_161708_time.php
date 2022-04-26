@@ -17,6 +17,7 @@ class Time extends Migration
             $table->id('time_id');
             $table->string('time_name');
             $table->integer('status')->nullable();
+            $table->integer('ot_status')->nullable();
             $table->integer('line_id');
             $table->integer('assign_id');
             $table->integer('div_target');

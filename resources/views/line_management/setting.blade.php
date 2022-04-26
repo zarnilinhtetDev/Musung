@@ -197,8 +197,8 @@ $num = 1;
                                             <th>Update Date</th>
                                         </tr>
                                     </thead>
-                                    @php $number = 1; @endphp
                                     <tbody id="myTable">
+                                        @php $number = 1; @endphp
                                         @foreach($overTime as $ot)
                                         @if ($ot->l_id==$l_id)
                                         <tr>
