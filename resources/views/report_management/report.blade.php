@@ -2593,7 +2593,8 @@ chart.render();
                             $m_power=$daily_report_decode[$i]['m_power'];$actual_m_power=$daily_report_decode[$i]['actual_m_power'];$hp=$daily_report_decode[$i]['hp'];$actual_hp=$daily_report_decode[$i]['actual_hp'];
                             $assign_date=$daily_report_decode[$i]['assign_date'];
                             $man_target=$daily_report_product_decode[$i]['man_target'];
-                            $man_actual_target=$daily_report_product_decode[$i]['man_actual_target']; @endphp <tr>
+                            $man_actual_target=$daily_report_product_decode[$i]['man_actual_target'];$assign_id_2=$daily_report_decode[$i]['assign_id'];
+                            @endphp <tr>
                             <td>{{ $l_name }}</td>
 
                             {{-- Buyer --}}
@@ -2667,10 +2668,29 @@ chart.render();
                             <td class="main_target_{{ $l_id }}">{{ number_format($main_target)}}</td>
                             <td>
                                 <table class="m-auto text-start table table-bordered custom-table-border-color">
+                                    @if($edit_status)
+                                    <tbody class="man_power_input"> <input type="hidden" id="l_id_input" name="l_id[]"
+                                            value="<?php echo $l_id; ?>" />
+                                        <input type="hidden" id="a_id_input" name="a_id[]"
+                                            value="<?php echo $assign_id_2; ?>" />
+                                        <input type="hidden" id="date_input" name="date_input[]"
+                                            value="<?php echo $date; ?>" />
+                                        <td>
+                                            <input type="number" id="man_target" class="form-control p-0 text-center"
+                                                name="man_target[]" placeholder="0" min="0" step="any" value="">
+                                        </td>
+                                        <td>
+                                            <input type="number" id="man_actual_target"
+                                                class="form-control p-0 text-center" name="man_actual_target[]"
+                                                placeholder="0" min="0" step="any" value="">
+                                        </td>
+                                    </tbody>
+                                    @else
                                     <tbody>
                                         <td>{{ $man_target }}</td>
                                         <td>{{ $man_actual_target }}</td>
                                     </tbody>
+                                    @endif
                                 </table>
                             </td>
                             <td class="actual_target_{{ $l_id }}">@if($actual_target != ''){{
@@ -2695,6 +2715,35 @@ chart.render();
                             <!-- Sewing Input --->
                             <td>
                                 <table class="m-auto text-center table table-bordered custom-table-border-color">
+                                    @if($edit_status)
+                                    <tbody class="sewing_input">
+                                        <tr>
+                                            <td>-</td>
+                                        </tr>
+                                        <input type="hidden" id="l_id_input" name="l_id[]"
+                                            value="<?php echo $l_id; ?>" />
+                                        <input type="hidden" id="a_id_input" name="a_id[]"
+                                            value="<?php echo $assign_id_2; ?>" />
+                                        <input type="hidden" id="date_input" name="date_input[]"
+                                            value="<?php echo $date; ?>" />
+                                        @for($j=0;$j<count($daily_report_product_decode);$j++) @php
+                                            $l_id_2=$daily_report_product_decode[$j]['l_id'];
+                                            $sewing_input=$daily_report_product_decode[$j]['sewing_input'];
+                                            $p_id_2=$daily_report_product_decode[$j]['p_detail_id']; @endphp
+                                            @if($l_id_2==$l_id) <tr>
+                                            <td>
+                                                <input type="number" id="sewing_input"
+                                                    class="form-control p-0 text-center" name="sewing_input[]"
+                                                    placeholder="0" min="0" step="any" value="">
+                                                <input type="hidden" id="p_id_input" name="p_id_input[]"
+                                                    value="<?php echo $p_id_2; ?>" />
+                                            </td>
+                                            </tr>
+                                            @endif
+
+                                            @endfor
+                                    </tbody>
+                                    @else
                                     <tbody>
                                         <tr>
                                             <td>-</td>
@@ -2715,6 +2764,8 @@ chart.render();
                                             @endfor
 
                                     </tbody>
+                                    @endif
+
                                 </table>
                             </td>
 
@@ -2921,6 +2972,31 @@ chart.render();
                 <!-- Inline --->
                 <td>
                     <table class="m-auto text-center table table-bordered custom-table-border-color">
+                        @if($edit_status)
+                        <tbody class="inline_input">
+                            <input type="hidden" id="l_id_input" name="l_id[]" value="<?php echo $l_id; ?>" />
+                            <input type="hidden" id="a_id_input" name="a_id[]" value="<?php echo $assign_id_2; ?>" />
+                            <input type="hidden" id="date_input" name="date_input[]" value="<?php echo $date; ?>" />
+                            <tr>
+                                <td>-</td>
+                            </tr>
+                            @for($j=0;$j<count($daily_report_product_decode);$j++) @php
+                                $l_id_2=$daily_report_product_decode[$j]['l_id'];
+                                $inline_2=$daily_report_product_decode[$j]['inline'];
+                                $p_id_2=$daily_report_product_decode[$j]['p_detail_id']; @endphp @if($l_id_2==$l_id)
+                                <tr>
+                                <td>
+                                    <input type="number" id="inline" class="form-control p-0 text-center"
+                                        name="inline[]" placeholder="0" min="0" step="any" value="">
+                                    <input type="hidden" id="p_id_input" name="p_id_input[]"
+                                        value="<?php echo $p_id_2; ?>" />
+                                </td>
+                                </tr>
+                                @endif
+
+                                @endfor
+                        </tbody>
+                        @else
                         <tbody>
                             <tr>
                                 <td>-</td>
@@ -2940,12 +3016,40 @@ chart.render();
                                 @endfor
 
                         </tbody>
+                        @endif
+
                     </table>
                 </td>
 
                 <!-- H/over Input --->
                 <td>
                     <table class="m-auto text-center table table-bordered custom-table-border-color">
+                        @if($edit_status)
+                        <tbody class="h_over_input">
+                            <tr>
+                                <td>-</td>
+                            </tr>
+                            <input type="hidden" id="l_id_input" name="l_id[]" value="<?php echo $l_id; ?>" />
+                            <input type="hidden" id="a_id_input" name="a_id[]" value="<?php echo $assign_id_2; ?>" />
+                            <input type="hidden" id="date_input" name="date_input[]" value="<?php echo $date; ?>" />
+
+                            @for($j=0;$j<count($daily_report_product_decode);$j++) @php
+                                $l_id_2=$daily_report_product_decode[$j]['l_id'];
+                                $sewing_input=$daily_report_product_decode[$j]['sewing_input'];
+                                $p_id_2=$daily_report_product_decode[$j]['p_detail_id']; @endphp @if($l_id_2==$l_id)
+                                <tr>
+                                <td>
+                                    <input type="number" id="hand_over" class="form-control p-0 text-center"
+                                        name="hand_over[]" placeholder="0" min="0" step="any" value="">
+                                    <input type="hidden" id="p_id_input" name="p_id_input[]"
+                                        value="<?php echo $p_id_2; ?>" />
+                                </td>
+                                </tr>
+                                @endif
+
+                                @endfor
+                        </tbody>
+                        @else
                         <tbody>
                             <tr>
                                 <td>-</td>
@@ -2966,6 +3070,7 @@ chart.render();
                                 @endfor
 
                         </tbody>
+                        @endif
                     </table>
                 </td>
 
@@ -3017,8 +3122,36 @@ chart.render();
                     </table>
                 </td>
 
+                <!-- S,L,ADM OP --->
                 <td>
                     <table class="m-auto text-center w-100 table table-bordered custom-table-border-color">
+                        @if($edit_status)
+                        <tbody class="m_power_input">
+                            <input type="hidden" id="l_id_input" name="l_id[]" value="<?php echo $l_id; ?>" />
+                            <input type="hidden" id="a_id_input" name="a_id[]" value="<?php echo $assign_id_2; ?>" />
+                            <input type="hidden" id="date_input" name="date_input[]" value="<?php echo $date; ?>" />
+                            <tr>
+                                <td>
+                                    <input type="number" id="m_power_value" class="form-control p-0 text-center"
+                                        name="m_power_value[]" placeholder="0" min="0" step="any" value="">
+                                </td>
+                                <td>
+                                    <input type="number" id="hp_value_" class="form-control p-0 text-center"
+                                        name="hp_value_[]" placeholder="0" min="0" step="any" value="">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="number" id="actual_m_power_value" class="form-control p-0 text-center"
+                                        name="actual_m_power_value[]" placeholder="0" min="0" step="any" value="">
+                                </td>
+                                <td>
+                                    <input type="number" id="actual_hp_value" class="form-control p-0 text-center"
+                                        name="actual_hp_value[]" placeholder="0" min="0" step="any" value="">
+                                </td>
+                            </tr>
+                        </tbody>
+                        @else
                         <tbody>
                             <tr>
                                 <td class="m_power_value_{{ $l_id }}">@if($m_power != ''){{ number_format($m_power) }}
@@ -3039,6 +3172,8 @@ chart.render();
                                 <td class="total_actual_m_power_{{ $l_id }}" colspan="2"></td>
                             </tr>
                         </tbody>
+                        @endif
+
                     </table>
 
                     <script>
@@ -4022,6 +4157,31 @@ chart.render();
                             <!-- Inline --->
                             <td>
                                 <table class="m-auto text-center table table-bordered custom-table-border-color">
+                                    @if($edit_status)
+                                    <tbody class="inline_input">
+                                        <input type="hidden" id="l_id_input" name="l_id[]"
+                                            value="<?php echo $l_id; ?>" />
+                                        <input type="hidden" id="a_id_input" name="a_id[]"
+                                            value="<?php echo $assign_id_2; ?>" />
+                                        <input type="hidden" id="date_input" name="date_input[]"
+                                            value="<?php echo $date; ?>" />
+                                        <tr>
+                                            <td>-</td>
+                                        </tr>
+                                        @for($j=0;$j<count($daily_report_product_decode);$j++) @php
+                                            $l_id_2=$daily_report_product_decode[$j]['l_id'];
+                                            $inline_2=$daily_report_product_decode[$j]['inline'] @endphp
+                                            @if($l_id_2==$l_id) <tr>
+                                            <td>
+                                                <input type="number" id="inline" class="form-control p-0 text-center"
+                                                    name="inline[]" placeholder="0" min="0" step="any" value="">
+                                            </td>
+                                            </tr>
+                                            @endif
+
+                                            @endfor
+                                    </tbody>
+                                    @else
                                     <tbody>
                                         <tr>
                                             <td>-</td>
@@ -4040,8 +4200,8 @@ chart.render();
                                             @endif
 
                                             @endfor
-
                                     </tbody>
+                                    @endif
                                 </table>
                             </td>
 
