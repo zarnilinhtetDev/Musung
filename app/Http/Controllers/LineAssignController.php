@@ -376,6 +376,11 @@ class LineAssignController extends Controller
             $line_assign_update = LineAssign::where('user_id', $user_id)->where('l_id', $l_id)->where('assign_date', $date_string)->update(['ot_main_target' => $over_time_target]);
 
 
+            $line_assign_not_over_time = LineAssign::where('assign_date', $date_string)->where('ot_main_target', NULL)->get();
+
+            $line_assign_not_over_time_decode = json_decode(json_encode($line_assign_not_over_time), true);
+
+
             if ($line_assign_update == true) {
                 $assign_id_query = LineAssign::select('assign_id')->where('l_id', $l_id)->where('user_id', $user_id)->orderBy('assign_id', 'desc')->first();  ///// Get assign_id from line_assign table
                 if ($assign_id_query == true) {
@@ -392,6 +397,18 @@ class LineAssignController extends Controller
                                 'assign_date' => $date_string,
                                 'ot_status' => 1,
                             ]);
+
+                            for ($x = 0; $x < $line_assign_not_over_time_decode; $x++) {
+                                Time::create([
+                                    'time_name' => $time_arr[$j],
+                                    'line_id' => $line_assign_not_over_time_decode[$x]['l_id'],
+                                    'assign_id' => $line_assign_not_over_time_decode[$x]['assign_id'],
+                                    'div_target' => 0,
+                                    'actual_target_entry' => 0,
+                                    'assign_date' => $date_string,
+                                    'ot_status' => 0,
+                                ]);
+                            }
                         }
                     }
 

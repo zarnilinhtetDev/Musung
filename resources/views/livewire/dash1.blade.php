@@ -51,7 +51,7 @@
             $g_actual_hp = $g_line->actual_hp;
             @endphp
             <tr style="border-bottom: 2px solid black;">
-                <td style="vertical-align: middle;">{{ $g_line_name }}</td>
+                <td class="fw-bold" style="vertical-align: middle;">{{ $g_line_name }}</td>
                 <td>
                     <table class="w-100 text-center table m-0 table-bordered">
                         <tr>
@@ -214,7 +214,8 @@ $("#td_div_actual_target_<?php echo $current_target; ?>").css('background-color'
                         @foreach($actual_target_total as $a_total)
                         @if ($g_line_id == $a_total->line_id)
                         <tr>
-                            <td><span class="t_2_total_{{ $t_2_total->line_id }}"></span>
+                            <td><span class="fw-bold t_2_total_{{ $t_2_total->line_id }}"></span>
+
                             </td>
                             <script>
                                 var main_target_total = $("#g_main_target_{{ $g_line_id }}").text();
@@ -223,14 +224,14 @@ $("#td_div_actual_target_<?php echo $current_target; ?>").css('background-color'
                             </script>
                         </tr>
                         <tr class="text-white">
-                            <td class="td_a_total_{{ $t_2_total->line_id }}">
+                            <td class="fw-bold td_a_total_{{ $t_2_total->line_id }}">
                                 <span class="a_total_{{ $t_2_total->line_id }}">{{
                                     $a_total->total_actual_target
                                     }}</span>
                             </td>
                         </tr>
                         <tr class="text-white">
-                            <td class="td_t_percent_{{ $t_2_total->line_id }}">
+                            <td class="fw-bold td_t_percent_{{ $t_2_total->line_id }}">
                                 <span class="t_percent_{{ $t_2_total->line_id }}"></span>
                             </td>
                         </tr>
@@ -356,7 +357,7 @@ $(".t_line_" + max_num).css({
             </tr>
             @endforeach
             <tr>
-                <td style="vertical-align: middle;">Total</td>
+                <td class="fw-bold" style=" vertical-align: middle;">Total</td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -441,7 +442,7 @@ new_total_percent.append('%');
                     <table class="w-100 text-center table table-bordered m-0" border="1">
                         <tr>
                             @foreach($total_overall_target as $t_overall_target)
-                            <td id="t_overall_target">
+                            <td class='fw-bold' id="t_overall_target">
 
                             </td>
 
@@ -454,13 +455,13 @@ new_total_percent.append('%');
                         </tr>
                         <tr class="text-white">
                             @foreach($total_overall_actual_target as $t_overall_actual_target)
-                            <td id="t_overall_actual_target">
+                            <td class='fw-bold' id="t_overall_actual_target">
                                 {{ number_format($t_overall_actual_target->t_overall_actual_target) }}
                             </td>
                             @endforeach
                         </tr>
                         <tr class="text-white">
-                            <td id="t_overall_percent"></td>
+                            <td id="t_overall_percent" class='fw-bold'></td>
                         </tr>
                     </table>
                     <script>

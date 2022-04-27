@@ -2666,23 +2666,28 @@ chart.render();
                                 </table>
                             </td>
                             <td class="main_target_{{ $l_id }}">{{ number_format($main_target)}}</td>
+
+                            <!-- Man Target --->
                             <td>
                                 <table class="m-auto text-start table table-bordered custom-table-border-color">
                                     @if($edit_status)
-                                    <tbody class="man_power_input"> <input type="hidden" id="l_id_input" name="l_id[]"
+                                    <tbody class="man_power_input">
+                                        <input type="hidden" id="man_target_l_id_input" name="man_target_l_id[]"
                                             value="<?php echo $l_id; ?>" />
-                                        <input type="hidden" id="a_id_input" name="a_id[]"
+                                        <input type="hidden" id="man_target_a_id_input" name="man_target_a_id[]"
                                             value="<?php echo $assign_id_2; ?>" />
-                                        <input type="hidden" id="date_input" name="date_input[]"
+                                        <input type="hidden" id="man_target_date_input" name="date_input[]"
                                             value="<?php echo $date; ?>" />
                                         <td>
                                             <input type="number" id="man_target" class="form-control p-0 text-center"
-                                                name="man_target[]" placeholder="0" min="0" step="any" value="">
+                                                name="man_target[]" placeholder="0" min="0" step="any"
+                                                value="<?php echo $man_target; ?>">
                                         </td>
                                         <td>
                                             <input type="number" id="man_actual_target"
                                                 class="form-control p-0 text-center" name="man_actual_target[]"
-                                                placeholder="0" min="0" step="any" value="">
+                                                placeholder="0" min="0" step="any"
+                                                value="<?php echo $man_actual_target; ?>">
                                         </td>
                                     </tbody>
                                     @else
@@ -2973,10 +2978,7 @@ chart.render();
                 <td>
                     <table class="m-auto text-center table table-bordered custom-table-border-color">
                         @if($edit_status)
-                        <tbody class="inline_input">
-                            <input type="hidden" id="l_id_input" name="l_id[]" value="<?php echo $l_id; ?>" />
-                            <input type="hidden" id="a_id_input" name="a_id[]" value="<?php echo $assign_id_2; ?>" />
-                            <input type="hidden" id="date_input" name="date_input[]" value="<?php echo $date; ?>" />
+                        <tbody>
                             <tr>
                                 <td>-</td>
                             </tr>
@@ -2985,10 +2987,16 @@ chart.render();
                                 $inline_2=$daily_report_product_decode[$j]['inline'];
                                 $p_id_2=$daily_report_product_decode[$j]['p_detail_id']; @endphp @if($l_id_2==$l_id)
                                 <tr>
-                                <td>
-                                    <input type="number" id="inline" class="form-control p-0 text-center"
-                                        name="inline[]" placeholder="0" min="0" step="any" value="">
-                                    <input type="hidden" id="p_id_input" name="p_id_input[]"
+                                <td class="inline_input">
+                                    <input type="hidden" id="inline_l_id_input" name="inline_l_id[]"
+                                        value="<?php echo $l_id; ?>" />
+                                    <input type="hidden" id="inline_a_id_input" name="inline_a_id[]"
+                                        value="<?php echo $assign_id_2; ?>" />
+                                    <input type="hidden" id="inline_date_input" name="date_input[]"
+                                        value="<?php echo $date; ?>" />
+                                    <input type="number" id="inline_val_input" class="form-control p-0 text-center"
+                                        name="inline_val_input[]" value="">
+                                    <input type="hidden" id="inline_p_id_input" name="inline_p_id_input[]"
                                         value="<?php echo $p_id_2; ?>" />
                                 </td>
                                 </tr>
@@ -3278,6 +3286,52 @@ cmp_hr_ps.text("$ " + div_cmp_hr_ps.toFixed(1));
 e.preventDefault();
 
 // Get NON-INPUT table cell data
+var man_power_obj = {};
+var man_power_arr = [];
+
+$('.man_power_input').each(function(){
+    var man_power_l_id = $("#man_target_l_id_input", this).val();
+    var man_power_a_id_input = $("#man_target_a_id_input", this).val();
+    var man_power_date_input = $("#man_target_date_input", this).val();
+    var man_target = $("#man_target", this).val();
+    var man_actual_target = $("#man_actual_target", this).val();
+
+    man_power_obj = {
+        man_target_l_id : man_power_l_id,
+        man_target_a_id_input : man_power_a_id_input,
+        man_target_date_input : man_power_date_input,
+        man_target : man_target,
+        man_actual_target : man_actual_target,
+    }
+
+    man_power_arr.push(man_power_obj);
+});
+
+
+var inline_obj = {};
+var inline_arr = [];
+
+
+$(".inline_input").each(function(){
+    var inline_l_id = $("#inline_l_id_input",this).val();
+    var inline_a_id = $("#inline_a_id_input",this).val();
+    var inline_date = $("#inline_date_input",this).val();
+    var inline_p_id = $("#inline_p_id_input",this).val();
+    var inline_val_input = $("#inline_val_input",this).val();
+
+    inline_obj = {
+        inline_l_id : inline_l_id,
+        inline_a_id : inline_a_id,
+        inline_date : inline_date,
+        inline_p_id : inline_p_id,
+        inline_val_input : inline_val_input,
+    }
+
+    inline_arr.push(inline_obj);
+});
+
+console.log(inline_arr);
+
 var box = {};
 var boxes = [];
 $('.td_input').each(function() {
@@ -3296,17 +3350,19 @@ date_input: date_input,
 boxes.push(box);
 });
 
-$.ajax({
-        type: "POST",
-        url: "/cmp_put",
-        data: {
-            boxes: boxes,
-        },
-        success: function(data) {
-            console.log(data);
-            // window.location.href = "/report?update=ok";
-        }
-    });
+// $.ajax({
+//         type: "POST",
+//         url: "/cmp_put",
+//         data: {
+//             boxes: boxes,
+//             man_power : man_power_arr,
+//             inline: inline_arr,
+//         },
+//         success: function(data) {
+//             console.log(data);
+//             // window.location.href = "/report?update=ok";
+//         }
+//     });
 });
 
         </script>

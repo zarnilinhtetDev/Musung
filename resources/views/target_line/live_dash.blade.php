@@ -430,7 +430,7 @@ html2canvas($('#live_dash_1')[0], {
 <script>
     var tableToExcel = (function() {
     var uri = 'data:application/vnd.ms-excel;base64,',
-        template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="https://www.w3.org/TR/REC-html40"><head></head><body><table border="1">{table}</table></body></html>',
+        template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="https://www.w3.org/TR/REC-html40"><head></head><body><table border="1" style="text-align:center;">{table}</table></body></html>',
         base64 = function(s) {
             return window.btoa(unescape(encodeURIComponent(s)))
         },
