@@ -30,7 +30,7 @@ class ReportDashController extends Controller
         @$format_date_string = date("d.m.Y", strtotime($date_history));
 
         if ($date_history) {
-            $daily_report = DB::select('SELECT "line".l_id,"line".l_name,"line_assign".main_target,"line_assign".assign_id,"line_assign".m_power,"line_assign".actual_m_power,"line_assign".man_target,"line_assign".man_actual_target,
+            $daily_report = DB::select('SELECT "line".l_id,"line".l_name,"line_assign".main_target,"line_assign".ot_main_target,"line_assign".m_power,"line_assign".assign_id,"line_assign".m_power,"line_assign".actual_m_power,"line_assign".man_target,"line_assign".man_actual_target,
             "line_assign".hp,"line_assign".actual_hp,SUM("time".div_actual_target) as total_div_actual_target,COUNT("time".assign_id) AS total_time,"line_assign".assign_date,"line_assign".remark
             FROM line
             JOIN line_assign ON "line_assign".l_id="line".l_id AND
@@ -47,7 +47,7 @@ class ReportDashController extends Controller
             JOIN p_category ON "p_category".p_cat_id="p_detail".p_cat_id
             ORDER BY "p_detail".p_detail_id ASC');
         } else {
-            $daily_report = DB::select('SELECT "line".l_id,"line".l_name,"line_assign".main_target,"line_assign".assign_id,"line_assign".m_power,"line_assign".actual_m_power,"line_assign".man_target,"line_assign".man_actual_target,
+            $daily_report = DB::select('SELECT "line".l_id,"line".l_name,"line_assign".main_target,"line_assign".ot_main_target,"line_assign".assign_id,"line_assign".m_power,"line_assign".actual_m_power,"line_assign".man_target,"line_assign".man_actual_target,
             "line_assign".hp,"line_assign".actual_hp,SUM("time".div_actual_target) as total_div_actual_target,COUNT("time".assign_id) AS total_time,"line_assign".assign_date,"line_assign".remark
             FROM line
             JOIN line_assign ON "line_assign".l_id="line".l_id AND
@@ -63,6 +63,12 @@ class ReportDashController extends Controller
             JOIN line_assign ON "line_assign".assign_id="p_detail".assign_id AND "line_assign".assign_date=\'' . $date_string . '\'
             JOIN p_category ON "p_category".p_cat_id="p_detail".p_cat_id
             ORDER BY "p_detail".p_detail_id ASC');
+
+            $daily_report_product_2 = DB::select('SELECT DISTINCT "p_detail".l_id,"p_detail".assign_id,"line_assign".assign_date,"line_assign".man_target,"line_assign".man_actual_target
+            FROM p_detail
+            JOIN line_assign ON "line_assign".assign_id="p_detail".assign_id AND "line_assign".assign_date=\'' . $date_string . '\'
+            JOIN p_category ON "p_category".p_cat_id="p_detail".p_cat_id
+           ');
         }
 
         $category = DB::select('SELECT p_cat_id,SUM(cat_actual_target) AS t_cat_actual,p_name FROM p_detail
@@ -79,7 +85,7 @@ class ReportDashController extends Controller
 
         DB::disconnect('musung');
 
-        return view('report_management.report', ['chart' => $chart->build(), 'category_chart' => $category_chart->build()], compact('category', 'target', 'time', 'daily_report', 'daily_report_product'));
+        return view('report_management.report', ['chart' => $chart->build(), 'category_chart' => $category_chart->build()], compact('category', 'target', 'time', 'daily_report', 'daily_report_product', 'daily_report_product_2'));
     }
 
     public function cmpPut()
@@ -87,8 +93,8 @@ class ReportDashController extends Controller
         $boxes = request()->post('boxes');
         $man_power_post = request()->post('man_power');
         $inline_post = request()->post('inline');
-
-        print_r($inline_post);
+        $handover_post = request()->post('handover');
+        $sewing_post = request()->post('sewing');
 
         // for ($i = 0; $i < count($boxes); $i++) {
         //     $l_id_input = $boxes[$i]['l_id_input'];
@@ -130,42 +136,153 @@ class ReportDashController extends Controller
         //     }
         // }
 
-        // for ($j = 0; $j < count($man_power_post); $j++) {
-        //     $l_id_input = $man_power_post[$j]['man_target_l_id'];
-        //     $a_id_input = $man_power_post[$j]['man_target_a_id_input'];
-        //     $date_input = $man_power_post[$j]['man_target_date_input'];
-        //     $man_target = $man_power_post[$j]['man_target'];
-        //     $man_actual_target = $man_power_post[$j]['man_actual_target'];
 
-        //     $date_string = date("d.m.Y", strtotime($date_input));
+        /// Man-Power Post
+        for ($j = 0; $j < count($man_power_post); $j++) {
+            $l_id_input = $man_power_post[$j]['man_target_l_id'];
+            $a_id_input = $man_power_post[$j]['man_target_a_id_input'];
+            $date_input = $man_power_post[$j]['man_target_date_input'];
+            $man_target = $man_power_post[$j]['man_target'];
+            $man_actual_target = $man_power_post[$j]['man_actual_target'];
 
-        //     // if ($date_string != '') {
-        //     //     $query = DB::select('SELECT "p_detail".p_detail_id
-        //     //     FROM p_detail
-        //     //     JOIN line_assign ON "p_detail".assign_id="line_assign".assign_id AND "p_detail".l_id="line_assign".l_id
-        //     //     AND "line_assign".assign_date=\'' . $date_string . '\'');
+            $date_string = date("d.m.Y", strtotime($date_input));
 
-        //     //     $decode = json_decode(json_encode($query), true);
+            // if ($date_string != '') {
+            //     $query = DB::select('SELECT "p_detail".p_detail_id
+            //     FROM p_detail
+            //     JOIN line_assign ON "p_detail".assign_id="line_assign".assign_id AND "p_detail".l_id="line_assign".l_id
+            //     AND "line_assign".assign_date=\'' . $date_string . '\'');
 
-        //     //     for ($j = 0; $j < count($decode); $j++) {
-        //     //         $p_detail_id = $decode[$j]['p_detail_id'];
-        //     //         if ($p_id_input == $p_detail_id) {
-        //     //             DB::table('p_detail')
-        //     //                 ->where('p_detail_id', $p_detail_id)
-        //     //                 ->update(['cmp' => $cmp_input]);
-        //     //         }
-        //     //     }
-        //     // }
-        //     // if ($date_input == '') {
-        //     //     $date_string = date("d.m.Y");
+            //     $decode = json_decode(json_encode($query), true);
 
-        //     //     echo $man_target . ' ';
-        //     //     $line_assign_query = LineAssign::where('l_id', $l_id_input)
-        //     //         ->where('assign_id', $a_id_input)
-        //     //         ->where('assign_date', $date_string)
-        //     //         ->update(['man_target' => $man_target, 'man_actual_target' => $man_actual_target]);
-        //     // }
-        // }
+            //     for ($j = 0; $j < count($decode); $j++) {
+            //         $p_detail_id = $decode[$j]['p_detail_id'];
+            //         if ($p_id_input == $p_detail_id) {
+            //             DB::table('p_detail')
+            //                 ->where('p_detail_id', $p_detail_id)
+            //                 ->update(['cmp' => $cmp_input]);
+            //         }
+            if ($date_input == '') {
+                $date_string = date("d.m.Y");
+
+                $line_assign_query = LineAssign::where('l_id', $l_id_input)
+                    ->where('assign_id', $a_id_input)
+                    ->where('assign_date', $date_string)
+                    ->update(['man_target' => $man_target, 'man_actual_target' => $man_actual_target]);
+            }
+        }
+
+        /// Inline Post
+        for ($j = 0; $j < count($inline_post); $j++) {
+            $inline_l_id = $inline_post[$j]['inline_l_id'];
+            $inline_a_id = $inline_post[$j]['inline_a_id'];
+            $inline_date = $inline_post[$j]['inline_date'];
+            $inline_p_id = $inline_post[$j]['inline_p_id'];
+            $inline_val_input = $inline_post[$j]['inline_val_input'];
+
+
+            $date_string = date("d.m.Y", strtotime($inline_date));
+
+            // if ($date_string != '') {
+            //     $query = DB::select('SELECT "p_detail".p_detail_id
+            //     FROM p_detail
+            //     JOIN line_assign ON "p_detail".assign_id="line_assign".assign_id AND "p_detail".l_id="line_assign".l_id
+            //     AND "line_assign".assign_date=\'' . $date_string . '\'');
+
+            //     $decode = json_decode(json_encode($query), true);
+
+            //     for ($j = 0; $j < count($decode); $j++) {
+            //         $p_detail_id = $decode[$j]['p_detail_id'];
+            //         if ($p_id_input == $p_detail_id) {
+            //             DB::table('p_detail')
+            //                 ->where('p_detail_id', $p_detail_id)
+            //                 ->update(['cmp' => $cmp_input]);
+            //         }
+            if ($inline_date == '') {
+                $date_string = date("d.m.Y");
+
+                $p_detail_query = ProductDetail::where('p_detail_id', $inline_p_id)
+                    ->where('l_id', $inline_l_id)
+                    ->where('assign_id', $inline_a_id)
+                    ->update(['inline' => $inline_val_input]);
+            }
+        }
+
+        /// Handover Post
+        for ($j = 0; $j < count($handover_post); $j++) {
+            $handover_l_id = $handover_post[$j]['handover_l_id'];
+            $handover_a_id = $handover_post[$j]['handover_a_id'];
+            $handover_p_id = $handover_post[$j]['handover_p_id'];
+            $handover_date = $handover_post[$j]['handover_date'];
+            $handover_val_input = $handover_post[$j]['handover_val_input'];
+
+            echo $handover_val_input;
+
+            $date_string = date("d.m.Y", strtotime($handover_date));
+
+            // if ($date_string != '') {
+            //     $query = DB::select('SELECT "p_detail".p_detail_id
+            //     FROM p_detail
+            //     JOIN line_assign ON "p_detail".assign_id="line_assign".assign_id AND "p_detail".l_id="line_assign".l_id
+            //     AND "line_assign".assign_date=\'' . $date_string . '\'');
+
+            //     $decode = json_decode(json_encode($query), true);
+
+            //     for ($j = 0; $j < count($decode); $j++) {
+            //         $p_detail_id = $decode[$j]['p_detail_id'];
+            //         if ($p_id_input == $p_detail_id) {
+            //             DB::table('p_detail')
+            //                 ->where('p_detail_id', $p_detail_id)
+            //                 ->update(['cmp' => $cmp_input]);
+            //         }
+
+            if ($handover_date == '') {
+                $date_string = date("d.m.Y");
+
+                $p_detail_query = ProductDetail::where('p_detail_id', $handover_p_id)
+                    ->where('l_id', $handover_l_id)
+                    ->where('assign_id', $handover_a_id)
+                    ->update(['h_over_input' => $handover_val_input]);
+            }
+        }
+
+
+        /// Sewing Post
+        for ($j = 0; $j < count($sewing_post); $j++) {
+            $sewing_l_id = $sewing_post[$j]['sewing_l_id'];
+            $sewing_a_id = $sewing_post[$j]['sewing_a_id'];
+            $sewing_p_id = $sewing_post[$j]['sewing_p_id'];
+            $sewing_date = $sewing_post[$j]['sewing_date'];
+            $sewing_val_input = $sewing_post[$j]['sewing_val_input'];
+
+
+            $date_string = date("d.m.Y", strtotime($sewing_date));
+
+            // if ($date_string != '') {
+            //     $query = DB::select('SELECT "p_detail".p_detail_id
+            //     FROM p_detail
+            //     JOIN line_assign ON "p_detail".assign_id="line_assign".assign_id AND "p_detail".l_id="line_assign".l_id
+            //     AND "line_assign".assign_date=\'' . $date_string . '\'');
+
+            //     $decode = json_decode(json_encode($query), true);
+
+            //     for ($j = 0; $j < count($decode); $j++) {
+            //         $p_detail_id = $decode[$j]['p_detail_id'];
+            //         if ($p_id_input == $p_detail_id) {
+            //             DB::table('p_detail')
+            //                 ->where('p_detail_id', $p_detail_id)
+            //                 ->update(['cmp' => $cmp_input]);
+            //         }
+
+            if ($sewing_date == '') {
+                $date_string = date("d.m.Y");
+
+                $p_detail_query = ProductDetail::where('p_detail_id', $sewing_p_id)
+                    ->where('l_id', $sewing_l_id)
+                    ->where('assign_id', $sewing_a_id)
+                    ->update(['sewing_input' => $sewing_val_input]);
+            }
+        }
     }
 
     public function report_history()
@@ -177,14 +294,14 @@ class ReportDashController extends Controller
         $date_2 = date("d.m.Y");
 
 
-        $daily_report_history = DB::select('SELECT "line".l_id,"line".l_name,"line_assign".main_target,"line_assign".m_power,"line_assign".actual_m_power,"line_assign".man_target,"line_assign".man_actual_target,
+        $daily_report_history = DB::select('SELECT "line".l_id,"line".l_name,"line_assign".main_target,"line_assign".ot_main_target,"line_assign".m_power,"line_assign".m_power,"line_assign".actual_m_power,"line_assign".man_target,"line_assign".man_actual_target,
         "line_assign".hp,"line_assign".actual_hp,SUM("time".div_actual_target) as total_div_actual_target,COUNT("time".assign_id) AS total_time
         FROM line
         JOIN line_assign ON "line_assign".l_id="line".l_id AND
         "line_assign".assign_date=\'' . $date_string . '\'
         JOIN time ON "time".line_id="line".l_id AND "time".assign_date=\'' . $date_string . '\' AND "time".assign_id="line_assign".assign_id
         GROUP BY "line".l_id,"line_assign".main_target,"line_assign".m_power,"line_assign".actual_m_power,"line_assign".man_target,"line_assign".man_actual_target,
-        "line_assign".hp,"line_assign".actual_hp
+        "line_assign".hp,"line_assign".actual_hp,"line_assign".ot_main_target
         ORDER BY "line".l_pos ASC');
 
         $daily_report_product_history = DB::select('SELECT "p_detail".p_detail_id,"p_detail".l_id,"p_detail".p_name,"p_detail".quantity,"p_detail".div_quantity,"p_detail".sewing_input,"p_detail".assign_id,
@@ -281,6 +398,7 @@ class ReportDashController extends Controller
                             $l_id = $daily_report_history_decode[$i]['l_id'];
                             $l_name = $daily_report_history_decode[$i]['l_name'];
                             $main_target = $daily_report_history_decode[$i]['main_target'];
+                            $ot_main_target = $daily_report_history_decode[$i]['ot_main_target'];
                             $actual_target = $daily_report_history_decode[$i]['total_div_actual_target'];
                             $m_power = $daily_report_history_decode[$i]['m_power'];
                             $actual_m_power = $daily_report_history_decode[$i]['actual_m_power'];
@@ -371,7 +489,7 @@ class ReportDashController extends Controller
                 </td>
 
                 <!-- Main Target --->
-                <td class="main_target_history<?php echo $l_id; ?>"><?php echo number_format($main_target); ?></td>
+                <td class="main_target_history<?php echo $l_id; ?>"><?php echo number_format($main_target + $ot_main_target); ?></td>
 
                 <td>
                     <table class="m-auto text-start table table-bordered custom-table-border-color">
@@ -387,9 +505,13 @@ class ReportDashController extends Controller
                                                                         ?></td>
                 <td class="percent_history<?php echo $l_id; ?>"></td>
                 <script>
-                    var main_target = parseInt($('.main_target_history<?php echo $l_id; ?>').text());
-                    var actual_target = parseInt($('.actual_target_history<?php echo $l_id; ?>').text());
+                    var main_target = parseInt($('.main_target_history<?php echo $l_id; ?>').text().replace(/,/g, ''));
+                    var actual_target = parseInt($('.actual_target_history<?php echo $l_id; ?>').text().replace(/,/g, ''));
                     var percent_class = $(".percent_history<?php echo $l_id; ?>");
+
+                    if (Number.isNaN(actual_target)) {
+                        actual_target = 0;
+                    }
                     var percent = (actual_target / main_target) * 100;
 
                     if (Number.isNaN(percent)) {

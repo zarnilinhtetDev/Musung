@@ -26,7 +26,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        URL::forceScheme('https');   ///// Make Heroku to force HTTPS (HTTP mix content error)
+        // URL::forceScheme('https');   ///// Make Heroku to force HTTPS (HTTP mix content error)
 
         Blade::if('superadmin', function () {   ///SuperAdmin
             return Auth::user()->role == 99;

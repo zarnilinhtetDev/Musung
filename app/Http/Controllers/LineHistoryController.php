@@ -31,23 +31,23 @@ class LineHistoryController extends Controller
 
         $time_2 = DB::select('SELECT "time".time_id,"time".time_name,"time".line_id,"time".assign_id,"time".status,"time".div_target,"time".div_actual_target,"time".div_actual_percent,"time".actual_target_entry FROM time,line_assign WHERE "time".assign_id="line_assign".assign_id AND "line_assign".assign_date=\'' . $date_string . '\' ORDER BY "time".time_id ASC');
 
-        $target_total = DB::select('SELECT "time".line_id,"time".assign_id,"time".actual_target_entry,SUM("time".actual_target_entry) AS total
+        $target_total = DB::select('SELECT "time".line_id,"time".assign_id,SUM("time".actual_target_entry) AS total
         FROM time,line_assign WHERE "time".assign_id="line_assign".assign_id
         AND "line_assign".assign_date=\'' . $date_string . '\'
-               GROUP BY "time".assign_id,"time".line_id,"time".actual_target_entry');
+               GROUP BY "time".assign_id,"time".line_id');
 
         $actual_target_total = DB::select('SELECT "time".line_id,"time".assign_id,SUM("time".div_actual_target) AS total_actual_target
         FROM time,line_assign WHERE "time".assign_id="line_assign".assign_id AND "line_assign".assign_date=\'' . $date_string . '\'
         GROUP BY "time".line_id,"time".assign_id');
 
-        $getLine = DB::select('SELECT "line".l_id,"line".l_name,"line_assign".assign_id,"line_assign".main_target,"line_assign".m_power,"line_assign".actual_m_power,
+        $getLine = DB::select('SELECT "line".l_id,"line".l_name,"line_assign".assign_id,"line_assign".main_target,"line_assign".ot_main_target,"line_assign".m_power,"line_assign".actual_m_power,
         "line_assign".hp,"line_assign".actual_hp,"line_assign".s_time,"line_assign".e_time,"line_assign".lunch_s_time,"line_assign".lunch_e_time,
         "line_assign".assign_date,"users".id,"users".name
                 FROM line
                 JOIN line_assign ON "line_assign".l_id = "line".l_id
                 JOIN users ON "users".id= "line_assign".user_id
                 JOIN time ON "time".line_id="line".l_id
-                WHERE "line_assign".assign_date=\'' . $date_string . '\'
+                WHERE "line".a_status=1 AND "line_assign".assign_date=\'' . $date_string . '\'
                 AND "time".assign_date=\'' . $date_string . '\'
                 GROUP BY "line".l_id,"line_assign".assign_id,"users".id
                 ORDER BY "line".l_pos ASC');
@@ -85,7 +85,7 @@ class LineHistoryController extends Controller
         JOIN line_assign ON "line_assign".assign_id="p_detail".assign_id AND "p_detail".l_id="line_assign".l_id AND "line_assign".assign_date=\'' . $date_string . '\'
         ORDER BY "p_detail".p_detail_id ASC');
 
-        $total_main_target = DB::select('SELECT SUM("line_assign".main_target) AS t_main_target FROM line_assign WHERE "line_assign".assign_date=\'' . $date_string . '\'');
+        $total_main_target = DB::select('SELECT SUM("line_assign".main_target) AS t_main_target, SUM("line_assign".ot_main_target) AS ot_main_target FROM line_assign WHERE "line_assign".assign_date=\'' . $date_string . '\'');
 
         $total_div_target = DB::select('SELECT ROW_NUMBER() OVER(ORDER BY "time".time_name ASC) AS row_num_1,SUM("time".actual_target_entry) AS t_div_target,"time".time_name FROM time WHERE "time".assign_date=\'' . $date_string . '\'
         GROUP BY "time".time_name ORDER BY "time".time_name DESC OFFSET 1');
@@ -179,6 +179,7 @@ class LineHistoryController extends Controller
                 $g_line_id = $g_line->l_id;
                 $g_line_name = $g_line->l_name;
                 $g_main_target = $g_line->main_target;
+                $g_ot_main_target = $g_line->ot_main_target;
                 $g_m_power = $g_line->m_power;
                 $g_actual_m_power = $g_line->actual_m_power;
                 $g_hp = $g_line->hp;
@@ -227,7 +228,15 @@ class LineHistoryController extends Controller
                     }
                 }
                 echo '</td>
-                <td style="vertical-align: middle;"><span id="g_main_target_' . $g_line_id . '">' . number_format($g_main_target) . '</span></td>';
+                <td style="vertical-align: middle;"><span id="g_main_target_' . $g_line_id . '">';
+
+                if ($g_ot_main_target != '') {
+                    echo number_format($g_main_target + $g_ot_main_target);
+                } else {
+                    echo number_format($g_main_target);
+                }
+
+                echo '</span></td>';
 
                 foreach ($time_2 as $t_2) {
                     if ($g_line_id == $t_2->line_id && $t_2->time_name != 'temp') {
@@ -237,7 +246,14 @@ class LineHistoryController extends Controller
                         echo '<td>
                     <table class="w-100 text-center table table-bordered m-0">
                         <tr>
-                            <td><span id="new_div_target_' . $t_2->time_id . '">' . number_format($t_2->actual_target_entry) . '</span></td>
+                            <td><span id="new_div_target_' . $t_2->time_id . '">';
+
+                        if ($t_2->actual_target_entry <= 0) {
+                            echo '';
+                        } else {
+                            echo number_format($t_2->actual_target_entry);
+                        }
+                        echo '</span></td>
                         </tr>
                         <tr class="text-white">
                             <td id="td_div_actual_target_' . $t_2->time_id . '">
@@ -372,8 +388,8 @@ class LineHistoryController extends Controller
                                             </td>
                                         </tr>
                                         <script>
-                                            var t_2_total = parseInt($('.t_2_total_<?php echo $target_line_id; ?>').text());
-                                            var a_total = parseInt($('.a_total_<?php echo $target_line_id; ?>').text());
+                                            var t_2_total = parseInt($('.t_2_total_<?php echo $target_line_id; ?>').text().replace(/,/g, ''));
+                                            var a_total = parseInt($('.a_total_<?php echo $target_line_id; ?>').text().replace(/,/g, ''));
                                             var t_percent_span = $('.t_percent_<?php echo $target_line_id; ?>');
                                             var td_t_percent = $('.td_a_total_<?php echo $target_line_id; ?>');
                                             var td_a_percent = $('.td_t_percent_<?php echo $target_line_id; ?>');
@@ -558,7 +574,7 @@ class LineHistoryController extends Controller
             <td></td>
             <?php
             for ($k = 0; $k < count($total_main_target_decode); $k++) {
-                echo '<td style="vertical-align: middle;"><span id="t_main_target">' . number_format($total_main_target_decode[$k]["t_main_target"]) . '</span></td>';
+                echo '<td style="vertical-align: middle;"><span id="t_main_target">' . number_format($total_main_target_decode[$k]["t_main_target"] + $total_main_target_decode[$k]["ot_main_target"]) . '</span></td>';
             }
             for ($l = count($total_div_target_decode) - 1; $l >= 0; $l--) {
                 $total_time_name = $total_div_target_decode[$l]["time_name"];

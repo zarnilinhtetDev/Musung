@@ -45,6 +45,7 @@
             $g_line_id=$g_line->l_id;
             $g_line_name = $g_line->l_name;
             $g_main_target = $g_line->main_target;
+            $g_ot_main_target = $g_line->ot_main_target;
             $g_m_power = $g_line->m_power;
             $g_actual_m_power = $g_line->actual_m_power;
             $g_hp = $g_line->hp;
@@ -94,9 +95,11 @@
                     @endif
                     @endforeach
                 </td>
-                <td style="vertical-align: middle;"><span id="g_main_target_{{ $g_line_id }}">{{
-                        number_format($g_main_target)
-                        }}</span></td>
+                <td style="vertical-align: middle;"><span id="g_main_target_{{ $g_line_id }}">@if($g_ot_main_target !=
+                        '') {{
+                        number_format($g_main_target + $g_ot_main_target) }}
+                        @else {{ number_format($g_main_target) }}
+                        @endif</span></td>
 
                 @foreach($time_2 as $t_2)
                 @if($g_line_id==$t_2->line_id && $t_2->time_name != 'temp')
@@ -106,9 +109,10 @@
                 <td id="{{ $t_2->time_name }}">
                     <table class="w-100 text-center table table-bordered m-0" border="1">
                         <tr>
-                            <td><span id="new_div_target_{{ $t_2->time_id }}" class="new_div_target">{{
-                                    number_format($t_2->actual_target_entry)
-                                    }}</span></td>
+                            <td><span id="new_div_target_{{ $t_2->time_id }}" class="new_div_target">
+                                    @if($t_2->actual_target_entry<=0) @php echo '' ; @endphp @else {{
+                                        number_format($t_2->actual_target_entry) }}
+                                        @endif</span></td>
                         </tr>
                         <tr class="text-white">
                             <td id="td_div_actual_target_{{ $t_2->time_id }}">
@@ -237,12 +241,11 @@ $("#td_div_actual_target_<?php echo $current_target; ?>").css('background-color'
                         </tr>
                         <script>
                             window.addEventListener('additionalInit', event => {
-                                    var t_2_total = parseInt($('.t_2_total_{{ $t_2_total->line_id }}').text());
-                                    var a_total = parseInt($('.a_total_{{ $t_2_total->line_id }}').text());
+                                    var t_2_total = parseInt($('.t_2_total_{{ $t_2_total->line_id }}').text().replace(/,/g, ''));
+                                    var a_total = parseInt($('.a_total_{{ $t_2_total->line_id }}').text().replace(/,/g, ''));
                                     var t_percent_span = $('.t_percent_{{ $t_2_total->line_id }}');
                                     var td_t_percent = $('.td_a_total_{{ $t_2_total->line_id }}');
                                     var td_a_percent = $('.td_t_percent_{{ $t_2_total->line_id }}');
-
 
                                     if(parseInt(t_2_total) > parseInt(a_total)){
                                         td_a_percent.css('background-color','red');
@@ -362,8 +365,9 @@ $(".t_line_" + max_num).css({
                 <td></td>
                 <td></td>
                 @foreach ($total_main_target as $t_main_target)
+
                 <td style="vertical-align: middle;"><span id="t_main_target">{{
-                        number_format($t_main_target->t_main_target)
+                        number_format($t_main_target->t_main_target + $t_main_target->ot_main_target)
                         }}</span></td>
                 @endforeach
                 @foreach(array_reverse($total_div_target) as $t_div_target)

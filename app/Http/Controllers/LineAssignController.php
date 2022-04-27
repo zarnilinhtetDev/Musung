@@ -386,6 +386,7 @@ class LineAssignController extends Controller
                 if ($assign_id_query == true) {
                     $a_id_2 = $assign_id_query->assign_id;
 
+                    $time_arr_2 = [];
                     if ($countTotalTimeArr > 0) {
                         for ($j = 0; $j < $countTotalTimeArr; $j++) { ///// Insert data [] to time table
                             Time::create([
@@ -398,11 +399,15 @@ class LineAssignController extends Controller
                                 'ot_status' => 1,
                             ]);
 
-                            for ($x = 0; $x < $line_assign_not_over_time_decode; $x++) {
+                            $time_arr_2[] = $time_arr[$j];
+                        }
+
+                        for ($x = 0; $x < count($time_arr_2); $x++) {
+                            for ($z = 0; $z < count($line_assign_not_over_time_decode); $z++) {
                                 Time::create([
-                                    'time_name' => $time_arr[$j],
-                                    'line_id' => $line_assign_not_over_time_decode[$x]['l_id'],
-                                    'assign_id' => $line_assign_not_over_time_decode[$x]['assign_id'],
+                                    'time_name' => $time_arr_2[$x],
+                                    'line_id' => $line_assign_not_over_time_decode[$z]['l_id'],
+                                    'assign_id' => $line_assign_not_over_time_decode[$z]['assign_id'],
                                     'div_target' => 0,
                                     'actual_target_entry' => 0,
                                     'assign_date' => $date_string,
