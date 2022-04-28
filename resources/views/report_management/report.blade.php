@@ -57,6 +57,7 @@ $date_string_for_export_pdf = date("Y_m_d", strtotime($date_string));
     <?php
     $daily_report_decode = json_decode(json_encode($daily_report),true);
     $daily_report_product_decode = json_decode(json_encode($daily_report_product),true);
+    $daily_report_product_2_decode = json_decode(json_encode($daily_report_product_2),true);
     ?>
 
 
@@ -118,7 +119,8 @@ $date_string_for_export_pdf = date("Y_m_d", strtotime($date_string));
                             $assign_date=$daily_report_decode[$i]['assign_date'];
                             $man_target=$daily_report_product_decode[$i]['man_target'];
                             $man_actual_target=$daily_report_product_decode[$i]['man_actual_target'];
-                            $assign_id_1=$daily_report_product_decode[$i]['assign_id']; @endphp <tr>
+                            $assign_id_2=$daily_report_decode[$i]['assign_id'];
+                            $remark=$daily_report_decode[$i]['remark']; @endphp <tr>
                             <td>{{ $l_name }}</td>
 
                             {{-- Buyer --}}
@@ -189,32 +191,72 @@ $date_string_for_export_pdf = date("Y_m_d", strtotime($date_string));
                                     </tbody>
                                 </table>
                             </td>
-                            <td class="main_target_{{ $l_id }}">{{ number_format($main_target) }}
+                            <td class="main_target_{{ $l_id }}">{{ number_format($main_target + $ot_main_target) }}
                             </td>
+
+
+                            <!-- Man Target -->
                             <td>
                                 <table class="m-auto text-start table table-bordered custom-table-border-color">
-                                    <tbody>
-                                        @if($edit_status)
-                                        <td class="man_power_input">
-                                            <input type="text" id="man_target" name="man_target[]"
-                                                value="<?php echo $l_id_2; ?>" />
-                                            <input type="text" id="man_actual_target" name="man_actual_target[]"
-                                                value="<?php echo $assign_id_1; ?>" />
-                                            @else
-                                        <td>{{ $man_target }}</td>
-                                        <td>{{ $man_actual_target }}</td>
-                                        @endif
+                                    @if($edit_status)
+                                    <tbody class="man_power_input">
+                                        <input type="hidden" id="man_target_l_id_input" name="man_target_l_id[]"
+                                            value="<?php echo $l_id; ?>" />
+                                        <input type="hidden" id="man_target_a_id_input" name="man_target_a_id[]"
+                                            value="<?php echo $assign_id_2; ?>" />
+                                        <input type="hidden" id="man_target_date_input" name="date_input[]"
+                                            value="<?php echo $date; ?>" />
+                                        @for($j=0;$j<count($daily_report_product_2_decode);$j++) @php
+                                            $l_id_2=$daily_report_product_2_decode[$j]['l_id'];
+                                            $man_target_2=$daily_report_product_2_decode[$j]['man_target'];
+                                            $man_actual_target_2=$daily_report_product_2_decode[$j]['man_actual_target'];
+                                            @endphp @if($l_id_2==$l_id) <tr>
+                                            <td>
+                                                <input type="number" id="man_target"
+                                                    class="form-control p-0 text-center" name="man_target[]"
+                                                    placeholder="0" min="0" step="any"
+                                                    value="<?php echo $man_target_2; ?>">
+                                            </td>
+                                            <td>
+                                                <input type="number" id="man_actual_target"
+                                                    class="form-control p-0 text-center" name="man_actual_target[]"
+                                                    placeholder="0" min="0" step="any"
+                                                    value="<?php echo $man_actual_target_2; ?>">
+                                            </td>
+                                            </tr>
+                                            @endif
 
+                                            @endfor
                                     </tbody>
+                                    @else
+                                    <tbody>
+                                        @for($j=0;$j<count($daily_report_product_2_decode);$j++) @php
+                                            $l_id_2=$daily_report_product_2_decode[$j]['l_id'];
+                                            $man_target_2=$daily_report_product_2_decode[$j]['man_target'];
+                                            $man_actual_target_2=$daily_report_product_2_decode[$j]['man_actual_target'];
+                                            @endphp @if($l_id_2==$l_id) <tr>
+                                            <td>{{ $man_target_2 }}</td>
+                                            <td>{{ $man_actual_target_2 }}</td>
+                                            </tr>
+                                            @endif
+
+                                            @endfor
+                                            {{-- <tr>
+                                                <td>{{ $man_target }}</td>
+                                                <td>{{ $man_actual_target }}</td>
+                                            </tr> --}}
+                                    </tbody>
+                                    @endif
                                 </table>
                             </td>
+
                             <td class="actual_target_{{ $l_id }}">@if($actual_target != ''){{
                                 number_format($actual_target) }} @endif</td>
                             <td class="percent_{{ $l_id }}"></td>
 
                             <script>
-                                var main_target = parseInt($('.main_target_{{ $l_id }}').text());
-                            var actual_target = parseInt($('.actual_target_{{ $l_id }}').text());
+                                var main_target = parseInt($('.main_target_{{ $l_id }}').text().replace(/,/g, ''));
+                            var actual_target = parseInt($('.actual_target_{{ $l_id }}').text().replace(/,/g, ''));
                             var percent = (actual_target / main_target) * 100;
 
                             // console.log(percent);
@@ -230,6 +272,37 @@ $date_string_for_export_pdf = date("Y_m_d", strtotime($date_string));
                             <!-- Sewing Input --->
                             <td>
                                 <table class="m-auto text-center table table-bordered custom-table-border-color">
+                                    @if($edit_status)
+                                    <tbody>
+                                        <tr>
+                                            <td>-</td>
+                                        </tr>
+
+                                        @for($j=0;$j<count($daily_report_product_decode);$j++) @php
+                                            $l_id_2=$daily_report_product_decode[$j]['l_id'];
+                                            $sewing_input=$daily_report_product_decode[$j]['sewing_input'];
+                                            $p_id_2=$daily_report_product_decode[$j]['p_detail_id']; @endphp
+                                            @if($l_id_2==$l_id) <tr>
+                                            <td class="sewing_input">
+                                                <input type="hidden" id="sewing_l_id_input" name="l_id[]"
+                                                    value="<?php echo $l_id; ?>" />
+                                                <input type="hidden" id="sewing_a_id_input" name="a_id[]"
+                                                    value="<?php echo $assign_id_2; ?>" />
+                                                <input type="hidden" id="sewing_date_input" name="date_input[]"
+                                                    value="<?php echo $date; ?>" />
+                                                <input type="number" id="sewing_val_input"
+                                                    class="form-control p-0 text-center" name="sewing_input[]"
+                                                    placeholder="0" min="0" step="any"
+                                                    value="<?php echo $sewing_input; ?>">
+                                                <input type="hidden" id="sewing_p_id_input" name="p_id_input[]"
+                                                    value="<?php echo $p_id_2; ?>" />
+                                            </td>
+                                            </tr>
+                                            @endif
+
+                                            @endfor
+                                    </tbody>
+                                    @else
                                     <tbody>
                                         <tr>
                                             <td>-</td>
@@ -250,6 +323,8 @@ $date_string_for_export_pdf = date("Y_m_d", strtotime($date_string));
                                             @endfor
 
                                     </tbody>
+                                    @endif
+
                                 </table>
                             </td>
 
@@ -262,7 +337,7 @@ $date_string_for_export_pdf = date("Y_m_d", strtotime($date_string));
                                         </tr>
                                         @for($j=0;$j<count($daily_report_product_decode);$j++) @php
                                             $l_id_2=$daily_report_product_decode[$j]['l_id'];
-                                            $sewing_input=$daily_report_product_decode[$j]['sewing_input'] @endphp
+                                            $sewing_input=$daily_report_product_decode[$j]['sewing_input']; @endphp
                                             @if($l_id_2==$l_id) <tr>
                                             @if($sewing_input == '')
                                             <td> - </td>
@@ -458,6 +533,35 @@ $date_string_for_export_pdf = date("Y_m_d", strtotime($date_string));
                 <!-- Inline --->
                 <td>
                     <table class="m-auto text-center table table-bordered custom-table-border-color">
+                        @if($edit_status)
+                        <tbody>
+                            <tr>
+                                <td>-</td>
+                            </tr>
+                            @for($j=0;$j<count($daily_report_product_decode);$j++) @php
+                                $l_id_2=$daily_report_product_decode[$j]['l_id'];
+                                $inline_2=$daily_report_product_decode[$j]['inline'];
+                                $p_id_2=$daily_report_product_decode[$j]['p_detail_id']; @endphp @if($l_id_2==$l_id)
+                                <tr>
+                                <td class="inline_input">
+                                    <input type="hidden" id="inline_l_id_input" name="inline_l_id[]"
+                                        value="<?php echo $l_id; ?>" />
+                                    <input type="hidden" id="inline_a_id_input" name="inline_a_id[]"
+                                        value="<?php echo $assign_id_2; ?>" />
+                                    <input type="hidden" id="inline_date_input" name="date_input[]"
+                                        value="<?php echo $date; ?>" />
+                                    <input type="number" id="inline_val_input" class="form-control p-0 text-center"
+                                        name="inline_val_input[]" value="<?php echo $inline_2; ?>">
+                                    <input type="hidden" id="inline_p_id_input" name="inline_p_id_input[]"
+                                        value="<?php echo $p_id_2; ?>" />
+
+                                </td>
+                                </tr>
+                                @endif
+
+                                @endfor
+                        </tbody>
+                        @else
                         <tbody>
                             <tr>
                                 <td>-</td>
@@ -477,19 +581,51 @@ $date_string_for_export_pdf = date("Y_m_d", strtotime($date_string));
                                 @endfor
 
                         </tbody>
+                        @endif
+
                     </table>
                 </td>
 
                 <!-- H/over Input --->
                 <td>
                     <table class="m-auto text-center table table-bordered custom-table-border-color">
+                        @if($edit_status)
+                        <tbody>
+                            <tr>
+                                <td>-</td>
+                            </tr>
+
+                            @for($j=0;$j<count($daily_report_product_decode);$j++) @php
+                                $l_id_2=$daily_report_product_decode[$j]['l_id'];
+                                $sewing_input=$daily_report_product_decode[$j]['sewing_input'];
+                                $p_id_2=$daily_report_product_decode[$j]['p_detail_id'];$h_over_input=$daily_report_product_decode[$j]['h_over_input'];
+                                @endphp @if($l_id_2==$l_id) <tr>
+                                <td class="h_over_input">
+                                    <input type="hidden" id="handover_l_id_input" name="l_id[]"
+                                        value="<?php echo $l_id; ?>" />
+                                    <input type="hidden" id="handover_a_id_input" name="a_id[]"
+                                        value="<?php echo $assign_id_2; ?>" />
+                                    <input type="hidden" id="handover_date_input" name="date_input[]"
+                                        value="<?php echo $date; ?>" />
+                                    <input type="number" id="handover_val_input" class="form-control p-0 text-center"
+                                        name="handover_val_input[]" placeholder="0" min="0" step="any"
+                                        value="<?php echo $h_over_input; ?>">
+                                    <input type="hidden" id="handover_p_id_input" name="p_id_input[]"
+                                        value="<?php echo $p_id_2; ?>" />
+                                </td>
+                                </tr>
+                                @endif
+
+                                @endfor
+                        </tbody>
+                        @else
                         <tbody>
                             <tr>
                                 <td>-</td>
                             </tr>
                             @for($j=0;$j<count($daily_report_product_decode);$j++) @php
                                 $l_id_2=$daily_report_product_decode[$j]['l_id'];
-                                $h_over_input=$daily_report_product_decode[$j]['h_over_input'] @endphp
+                                $h_over_input=$daily_report_product_decode[$j]['h_over_input']; @endphp
                                 @if($l_id_2==$l_id) <tr>
                                 @if($h_over_input == '')
                                 <td> - </td>
@@ -503,6 +639,7 @@ $date_string_for_export_pdf = date("Y_m_d", strtotime($date_string));
                                 @endfor
 
                         </tbody>
+                        @endif
                     </table>
                 </td>
 
@@ -554,8 +691,42 @@ $date_string_for_export_pdf = date("Y_m_d", strtotime($date_string));
                     </table>
                 </td>
 
+                <!-- S,L,ADM OP --->
                 <td>
                     <table class="m-auto text-center w-100 table table-bordered custom-table-border-color">
+                        @if($edit_status)
+                        <tbody class="m_power_input_2">
+                            <input type="hidden" id="m_power_l_id_input_2" name="l_id[]" value="<?php echo $l_id; ?>" />
+                            <input type="hidden" id="m_power_a_id_input_2" name="a_id[]"
+                                value="<?php echo $assign_id_2; ?>" />
+                            <input type="hidden" id="m_power_date_input_2" name="date_input[]"
+                                value="<?php echo $date; ?>" />
+                            <tr>
+                                <td>
+                                    <input type="number" id="m_power_value_2" class="form-control p-0 text-center"
+                                        name="m_power_value_2[]" placeholder="0" min="0" step="any"
+                                        value="<?php echo $m_power; ?>">
+                                </td>
+                                <td>
+                                    <input type="number" id="hp_value_2" class="form-control p-0 text-center"
+                                        name="hp_value_2[]" placeholder="0" min="0" step="any"
+                                        value="<?php echo $hp; ?>">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="number" id="actual_m_power_value_2"
+                                        class="form-control p-0 text-center" name="actual_m_power_value[]"
+                                        placeholder="0" min="0" step="any" value="<?php echo $actual_m_power; ?>">
+                                </td>
+                                <td>
+                                    <input type="number" id="actual_hp_value_2" class="form-control p-0 text-center"
+                                        name="actual_hp_value_2[]" placeholder="0" min="0" step="any"
+                                        value="<?php echo $actual_hp; ?>">
+                                </td>
+                            </tr>
+                        </tbody>
+                        @else
                         <tbody>
                             <tr>
                                 <td class="m_power_value_{{ $l_id }}">@if($m_power != ''){{ number_format($m_power) }}
@@ -576,6 +747,8 @@ $date_string_for_export_pdf = date("Y_m_d", strtotime($date_string));
                                 <td class="total_actual_m_power_{{ $l_id }}" colspan="2"></td>
                             </tr>
                         </tbody>
+                        @endif
+
                     </table>
 
                     <script>
@@ -618,10 +791,15 @@ $date_string_for_export_pdf = date("Y_m_d", strtotime($date_string));
 
                     <td class="cmp_hr_{{ $l_id }}"></td>
                     <td class="cmp_hr_ps_{{ $l_id }}"></td>
-                    <td>
-                        @if($edit_status==1)
-                        <textarea class="form-control note" name="note[]" placeholder="Note" id="note"
-                            maxlength="150"></textarea>
+                    <td class="note_input">
+                        @if($edit_status)
+                        <input type="hidden" id="note_l_id_input" name="l_id[]" value="<?php echo $l_id; ?>" />
+                        <input type="hidden" id="note_a_id_input" name="a_id[]" value="<?php echo $assign_id_2; ?>" />
+                        <input type="hidden" id="note_date_input" name="date_input[]" value="<?php echo $date; ?>" />
+                        <textarea class="form-control note" name="note[]" placeholder="Note" id="note_val_input"
+                            maxlength="150"><?php echo $remark; ?></textarea>
+                        @else
+                        {{ $remark }}
                         @endif
                     </td>
                     </tr>
@@ -678,8 +856,72 @@ cmp_hr_ps.text("$ " + div_cmp_hr_ps.toFixed(1));
             $("#cmp_put").submit(function(e) {
 e.preventDefault();
 
-
 // Get NON-INPUT table cell data
+var man_power_obj = {};
+var man_power_arr = [];
+
+$('.man_power_input').each(function(){
+    var man_power_l_id = $("#man_target_l_id_input", this).val();
+    var man_power_a_id_input = $("#man_target_a_id_input", this).val();
+    var man_power_date_input = $("#man_target_date_input", this).val();
+    var man_target = $("#man_target", this).val();
+    var man_actual_target = $("#man_actual_target", this).val();
+
+    man_power_obj = {
+        man_target_l_id : man_power_l_id,
+        man_target_a_id_input : man_power_a_id_input,
+        man_target_date_input : man_power_date_input,
+        man_target : man_target,
+        man_actual_target : man_actual_target,
+    }
+
+    man_power_arr.push(man_power_obj);
+});
+
+
+var inline_obj = {};
+var inline_arr = [];
+
+
+$(".inline_input").each(function(){
+    var inline_l_id = $("#inline_l_id_input",this).val();
+    var inline_a_id = $("#inline_a_id_input",this).val();
+    var inline_date = $("#inline_date_input",this).val();
+    var inline_p_id = $("#inline_p_id_input",this).val();
+    var inline_val_input = $("#inline_val_input",this).val();
+
+    inline_obj = {
+        inline_l_id : inline_l_id,
+        inline_a_id : inline_a_id,
+        inline_date : inline_date,
+        inline_p_id : inline_p_id,
+        inline_val_input : inline_val_input,
+    }
+
+    inline_arr.push(inline_obj);
+});
+
+var handover_obj = {};
+var handover_arr = [];
+
+$(".h_over_input").each(function(){
+    var handover_l_id = $("#handover_l_id_input",this).val();
+    var handover_a_id = $("#handover_a_id_input",this).val();
+    var handover_date = $("#handover_date_input",this).val();
+    var handover_p_id = $("#handover_p_id_input",this).val();
+    var handover_val_input = $("#handover_val_input",this).val();
+
+    handover_obj = {
+        handover_l_id : handover_l_id,
+        handover_a_id : handover_a_id,
+        handover_date : handover_date,
+        handover_p_id : handover_p_id,
+        handover_val_input : handover_val_input,
+    }
+
+    handover_arr.push(handover_obj);
+})
+
 var box = {};
 var boxes = [];
 $('.td_input').each(function() {
@@ -688,17 +930,81 @@ $('.td_input').each(function() {
     var p_id_input = $('#p_id_input', this).val();
     var cmp_input = $('#cmp_input',this).val();
     var date_input = $('#date_input',this).val();
-    var user_role = $("#user_role",this).val();
-
 box = {
 l_id_input: l_id_input,
 a_id_input: a_id_input,
 p_id_input: p_id_input,
 cmp_input: cmp_input,
 date_input: date_input,
-role: user_role,
 }
 boxes.push(box);
+});
+
+
+var sewing_obj = {};
+var sewing_arr = [];
+$(".sewing_input").each(function(){
+    var sewing_l_id = $("#sewing_l_id_input",this).val();
+    var sewing_a_id = $("#sewing_a_id_input",this).val();
+    var sewing_date = $("#sewing_date_input",this).val();
+    var sewing_p_id = $("#sewing_p_id_input",this).val();
+    var sewing_val_input = $("#sewing_val_input",this).val();
+
+    sewing_obj = {
+        sewing_l_id : sewing_l_id,
+        sewing_a_id : sewing_a_id,
+        sewing_date : sewing_date,
+        sewing_p_id : sewing_p_id,
+        sewing_val_input : sewing_val_input,
+    }
+
+    sewing_arr.push(sewing_obj);
+});
+
+//// ManPower Input (S,L,ADM OP, HP)
+var m_power_obj_2 = {};
+var m_power_arr_2 = [];
+
+$(".m_power_input_2").each(function(){
+    var m_power_l_id_2 = $("#m_power_l_id_input_2", this).val();
+    var m_power_a_id_2 = $("#m_power_a_id_input_2", this).val();
+    var m_power_date_2 = $("#m_power_date_input_2", this).val();
+    var m_power_value_2 = $("#m_power_value_2",this).val();
+    var hp_value_2 = $("#hp_value_2",this).val();
+    var actual_m_power_value_2 = $("#actual_m_power_value_2",this).val();
+    var actual_hp_value_2 = $("#actual_hp_value_2",this).val();
+
+    m_power_obj_2 = {
+        m_power_l_id_2 : m_power_l_id_2,
+        m_power_a_id_2 : m_power_a_id_2,
+        m_power_date_2 : m_power_date_2,
+        m_power_value_2 : m_power_value_2,
+        hp_value_2 : hp_value_2,
+        actual_m_power_value_2 : actual_m_power_value_2,
+        actual_hp_value_2 : actual_hp_value_2,
+    }
+
+    m_power_arr_2.push(m_power_obj_2);
+});
+
+//// Note
+var note_obj = {};
+var note_arr = [];
+
+$(".note_input").each(function(){
+    var note_l_id = $("#note_l_id_input",this).val();
+    var note_a_id = $("#note_a_id_input",this).val();
+    var note_date = $("#note_date_input",this).val();
+    var note_val_input = $("#note_val_input",this).val();
+
+    note_obj = {
+        note_l_id : note_l_id,
+        note_a_id : note_a_id,
+        note_date : note_date,
+        note_val_input : note_val_input,
+    }
+
+    note_arr.push(note_obj);
 });
 
 $.ajax({
@@ -706,15 +1012,19 @@ $.ajax({
         url: "/cmp_put",
         data: {
             boxes: boxes,
+            man_power : man_power_arr,
+            inline: inline_arr,
+            handover : handover_arr,
+            sewing : sewing_arr,
+            m_power_2 : m_power_arr_2,
+            note: note_arr,
         },
         success: function(data) {
             // console.log(data);
             window.location.href = "/report?update=ok";
         }
     });
-
 });
-
 
         </script>
     </div>
@@ -1296,6 +1606,7 @@ chart.render();
     <?php
     $daily_report_decode = json_decode(json_encode($daily_report),true);
     $daily_report_product_decode = json_decode(json_encode($daily_report_product),true);
+    $daily_report_product_2_decode = json_decode(json_encode($daily_report_product_2),true);
     ?>
 
 
@@ -1352,11 +1663,12 @@ chart.render();
                     </thead>
                     <tbody id="myTable">
                         @for($i=0;$i<count($daily_report_decode);$i++) @php
-                            $l_id=$daily_report_decode[$i]['l_id'];$l_name=$daily_report_decode[$i]['l_name'];$main_target=$daily_report_decode[$i]['main_target'];$actual_target=$daily_report_decode[$i]['total_div_actual_target'];
+                            $l_id=$daily_report_decode[$i]['l_id'];$l_name=$daily_report_decode[$i]['l_name'];$main_target=$daily_report_decode[$i]['main_target'];$ot_main_target=$daily_report_decode[$i]['ot_main_target'];$actual_target=$daily_report_decode[$i]['total_div_actual_target'];
                             $m_power=$daily_report_decode[$i]['m_power'];$actual_m_power=$daily_report_decode[$i]['actual_m_power'];$hp=$daily_report_decode[$i]['hp'];$actual_hp=$daily_report_decode[$i]['actual_hp'];
                             $assign_date=$daily_report_decode[$i]['assign_date'];
                             $man_target=$daily_report_product_decode[$i]['man_target'];
-                            $man_actual_target=$daily_report_product_decode[$i]['man_actual_target']; @endphp <tr>
+                            $man_actual_target=$daily_report_product_decode[$i]['man_actual_target'];$assign_id_2=$daily_report_decode[$i]['assign_id'];$remark=$daily_report_decode[$i]['remark'];
+                            @endphp <tr>
                             <td>{{ $l_name }}</td>
 
                             {{-- Buyer --}}
@@ -1427,13 +1739,60 @@ chart.render();
                                     </tbody>
                                 </table>
                             </td>
-                            <td class="main_target_{{ $l_id }}">{{ number_format($main_target)}}</td>
+                            <td class="main_target_{{ $l_id }}">{{ number_format($main_target+$ot_main_target)}}</td>
+
+                            <!-- Main Target -->
                             <td>
                                 <table class="m-auto text-start table table-bordered custom-table-border-color">
-                                    <tbody>
-                                        <td>{{ $man_target }}</td>
-                                        <td>{{ $man_actual_target }}</td>
+                                    @if($edit_status)
+                                    <tbody class="man_power_input">
+                                        <input type="hidden" id="man_target_l_id_input" name="man_target_l_id[]"
+                                            value="<?php echo $l_id; ?>" />
+                                        <input type="hidden" id="man_target_a_id_input" name="man_target_a_id[]"
+                                            value="<?php echo $assign_id_2; ?>" />
+                                        <input type="hidden" id="man_target_date_input" name="date_input[]"
+                                            value="<?php echo $date; ?>" />
+                                        @for($j=0;$j<count($daily_report_product_2_decode);$j++) @php
+                                            $l_id_2=$daily_report_product_2_decode[$j]['l_id'];
+                                            $man_target_2=$daily_report_product_2_decode[$j]['man_target'];
+                                            $man_actual_target_2=$daily_report_product_2_decode[$j]['man_actual_target'];
+                                            @endphp @if($l_id_2==$l_id) <tr>
+                                            <td>
+                                                <input type="number" id="man_target"
+                                                    class="form-control p-0 text-center" name="man_target[]"
+                                                    placeholder="0" min="0" step="any"
+                                                    value="<?php echo $man_target_2; ?>">
+                                            </td>
+                                            <td>
+                                                <input type="number" id="man_actual_target"
+                                                    class="form-control p-0 text-center" name="man_actual_target[]"
+                                                    placeholder="0" min="0" step="any"
+                                                    value="<?php echo $man_actual_target_2; ?>">
+                                            </td>
+                                            </tr>
+                                            @endif
+
+                                            @endfor
                                     </tbody>
+                                    @else
+                                    <tbody>
+                                        @for($j=0;$j<count($daily_report_product_2_decode);$j++) @php
+                                            $l_id_2=$daily_report_product_2_decode[$j]['l_id'];
+                                            $man_target_2=$daily_report_product_2_decode[$j]['man_target'];
+                                            $man_actual_target_2=$daily_report_product_2_decode[$j]['man_actual_target'];
+                                            @endphp @if($l_id_2==$l_id) <tr>
+                                            <td>{{ $man_target_2 }}</td>
+                                            <td>{{ $man_actual_target_2 }}</td>
+                                            </tr>
+                                            @endif
+
+                                            @endfor
+                                            {{-- <tr>
+                                                <td>{{ $man_target }}</td>
+                                                <td>{{ $man_actual_target }}</td>
+                                            </tr> --}}
+                                    </tbody>
+                                    @endif
                                 </table>
                             </td>
                             <td class="actual_target_{{ $l_id }}">@if($actual_target != ''){{
@@ -1441,8 +1800,8 @@ chart.render();
                             <td class="percent_{{ $l_id }}"></td>
 
                             <script>
-                                var main_target = parseInt($('.main_target_{{ $l_id }}').text());
-                            var actual_target = parseInt($('.actual_target_{{ $l_id }}').text());
+                                var main_target = parseInt($('.main_target_{{ $l_id }}').text().replace(/,/g, ''));
+                            var actual_target = parseInt($('.actual_target_{{ $l_id }}').text().replace(/,/g, ''));
                             var percent = (actual_target / main_target) * 100;
 
                             // console.log(percent);
@@ -1458,6 +1817,37 @@ chart.render();
                             <!-- Sewing Input --->
                             <td>
                                 <table class="m-auto text-center table table-bordered custom-table-border-color">
+                                    @if($edit_status)
+                                    <tbody>
+                                        <tr>
+                                            <td>-</td>
+                                        </tr>
+
+                                        @for($j=0;$j<count($daily_report_product_decode);$j++) @php
+                                            $l_id_2=$daily_report_product_decode[$j]['l_id'];
+                                            $sewing_input=$daily_report_product_decode[$j]['sewing_input'];
+                                            $p_id_2=$daily_report_product_decode[$j]['p_detail_id']; @endphp
+                                            @if($l_id_2==$l_id) <tr>
+                                            <td class="sewing_input">
+                                                <input type="hidden" id="sewing_l_id_input" name="l_id[]"
+                                                    value="<?php echo $l_id; ?>" />
+                                                <input type="hidden" id="sewing_a_id_input" name="a_id[]"
+                                                    value="<?php echo $assign_id_2; ?>" />
+                                                <input type="hidden" id="sewing_date_input" name="date_input[]"
+                                                    value="<?php echo $date; ?>" />
+                                                <input type="number" id="sewing_val_input"
+                                                    class="form-control p-0 text-center" name="sewing_input[]"
+                                                    placeholder="0" min="0" step="any"
+                                                    value="<?php echo $sewing_input; ?>">
+                                                <input type="hidden" id="sewing_p_id_input" name="p_id_input[]"
+                                                    value="<?php echo $p_id_2; ?>" />
+                                            </td>
+                                            </tr>
+                                            @endif
+
+                                            @endfor
+                                    </tbody>
+                                    @else
                                     <tbody>
                                         <tr>
                                             <td>-</td>
@@ -1478,6 +1868,8 @@ chart.render();
                                             @endfor
 
                                     </tbody>
+                                    @endif
+
                                 </table>
                             </td>
 
@@ -1684,6 +2076,35 @@ chart.render();
                 <!-- Inline --->
                 <td>
                     <table class="m-auto text-center table table-bordered custom-table-border-color">
+                        @if($edit_status)
+                        <tbody>
+                            <tr>
+                                <td>-</td>
+                            </tr>
+                            @for($j=0;$j<count($daily_report_product_decode);$j++) @php
+                                $l_id_2=$daily_report_product_decode[$j]['l_id'];
+                                $inline_2=$daily_report_product_decode[$j]['inline'];
+                                $p_id_2=$daily_report_product_decode[$j]['p_detail_id']; @endphp @if($l_id_2==$l_id)
+                                <tr>
+                                <td class="inline_input">
+                                    <input type="hidden" id="inline_l_id_input" name="inline_l_id[]"
+                                        value="<?php echo $l_id; ?>" />
+                                    <input type="hidden" id="inline_a_id_input" name="inline_a_id[]"
+                                        value="<?php echo $assign_id_2; ?>" />
+                                    <input type="hidden" id="inline_date_input" name="date_input[]"
+                                        value="<?php echo $date; ?>" />
+                                    <input type="number" id="inline_val_input" class="form-control p-0 text-center"
+                                        name="inline_val_input[]" value="<?php echo $inline_2; ?>">
+                                    <input type="hidden" id="inline_p_id_input" name="inline_p_id_input[]"
+                                        value="<?php echo $p_id_2; ?>" />
+
+                                </td>
+                                </tr>
+                                @endif
+
+                                @endfor
+                        </tbody>
+                        @else
                         <tbody>
                             <tr>
                                 <td>-</td>
@@ -1703,19 +2124,51 @@ chart.render();
                                 @endfor
 
                         </tbody>
+                        @endif
+
                     </table>
                 </td>
 
                 <!-- H/over Input --->
                 <td>
                     <table class="m-auto text-center table table-bordered custom-table-border-color">
+                        @if($edit_status)
+                        <tbody>
+                            <tr>
+                                <td>-</td>
+                            </tr>
+
+                            @for($j=0;$j<count($daily_report_product_decode);$j++) @php
+                                $l_id_2=$daily_report_product_decode[$j]['l_id'];
+                                $sewing_input=$daily_report_product_decode[$j]['sewing_input'];
+                                $p_id_2=$daily_report_product_decode[$j]['p_detail_id'];$h_over_input=$daily_report_product_decode[$j]['h_over_input'];
+                                @endphp @if($l_id_2==$l_id) <tr>
+                                <td class="h_over_input">
+                                    <input type="hidden" id="handover_l_id_input" name="l_id[]"
+                                        value="<?php echo $l_id; ?>" />
+                                    <input type="hidden" id="handover_a_id_input" name="a_id[]"
+                                        value="<?php echo $assign_id_2; ?>" />
+                                    <input type="hidden" id="handover_date_input" name="date_input[]"
+                                        value="<?php echo $date; ?>" />
+                                    <input type="number" id="handover_val_input" class="form-control p-0 text-center"
+                                        name="handover_val_input[]" placeholder="0" min="0" step="any"
+                                        value="<?php echo $h_over_input; ?>">
+                                    <input type="hidden" id="handover_p_id_input" name="p_id_input[]"
+                                        value="<?php echo $p_id_2; ?>" />
+                                </td>
+                                </tr>
+                                @endif
+
+                                @endfor
+                        </tbody>
+                        @else
                         <tbody>
                             <tr>
                                 <td>-</td>
                             </tr>
                             @for($j=0;$j<count($daily_report_product_decode);$j++) @php
                                 $l_id_2=$daily_report_product_decode[$j]['l_id'];
-                                $h_over_input=$daily_report_product_decode[$j]['h_over_input'] @endphp
+                                $h_over_input=$daily_report_product_decode[$j]['h_over_input']; @endphp
                                 @if($l_id_2==$l_id) <tr>
                                 @if($h_over_input == '')
                                 <td> - </td>
@@ -1729,6 +2182,7 @@ chart.render();
                                 @endfor
 
                         </tbody>
+                        @endif
                     </table>
                 </td>
 
@@ -1780,8 +2234,42 @@ chart.render();
                     </table>
                 </td>
 
+                <!-- S,L,ADM OP --->
                 <td>
                     <table class="m-auto text-center w-100 table table-bordered custom-table-border-color">
+                        @if($edit_status)
+                        <tbody class="m_power_input_2">
+                            <input type="hidden" id="m_power_l_id_input_2" name="l_id[]" value="<?php echo $l_id; ?>" />
+                            <input type="hidden" id="m_power_a_id_input_2" name="a_id[]"
+                                value="<?php echo $assign_id_2; ?>" />
+                            <input type="hidden" id="m_power_date_input_2" name="date_input[]"
+                                value="<?php echo $date; ?>" />
+                            <tr>
+                                <td>
+                                    <input type="number" id="m_power_value_2" class="form-control p-0 text-center"
+                                        name="m_power_value_2[]" placeholder="0" min="0" step="any"
+                                        value="<?php echo $m_power; ?>">
+                                </td>
+                                <td>
+                                    <input type="number" id="hp_value_2" class="form-control p-0 text-center"
+                                        name="hp_value_2[]" placeholder="0" min="0" step="any"
+                                        value="<?php echo $hp; ?>">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="number" id="actual_m_power_value_2"
+                                        class="form-control p-0 text-center" name="actual_m_power_value[]"
+                                        placeholder="0" min="0" step="any" value="<?php echo $actual_m_power; ?>">
+                                </td>
+                                <td>
+                                    <input type="number" id="actual_hp_value_2" class="form-control p-0 text-center"
+                                        name="actual_hp_value_2[]" placeholder="0" min="0" step="any"
+                                        value="<?php echo $actual_hp; ?>">
+                                </td>
+                            </tr>
+                        </tbody>
+                        @else
                         <tbody>
                             <tr>
                                 <td class="m_power_value_{{ $l_id }}">@if($m_power != ''){{ number_format($m_power) }}
@@ -1802,6 +2290,8 @@ chart.render();
                                 <td class="total_actual_m_power_{{ $l_id }}" colspan="2"></td>
                             </tr>
                         </tbody>
+                        @endif
+
                     </table>
 
                     <script>
@@ -1844,11 +2334,15 @@ chart.render();
 
                     <td class="cmp_hr_{{ $l_id }}"></td>
                     <td class="cmp_hr_ps_{{ $l_id }}"></td>
-                    <td>
-                        @if($edit_status==1)
-                        <input type="hidden" name="l_id_remark[]" value="<?php echo $l_id; ?>" /><textarea
-                            class="form-control note" name="note[]" placeholder="Note" id="note"
-                            maxlength="150"></textarea>
+                    <td class="note_input">
+                        @if($edit_status)
+                        <input type="hidden" id="note_l_id_input" name="l_id[]" value="<?php echo $l_id; ?>" />
+                        <input type="hidden" id="note_a_id_input" name="a_id[]" value="<?php echo $assign_id_2; ?>" />
+                        <input type="hidden" id="note_date_input" name="date_input[]" value="<?php echo $date; ?>" />
+                        <textarea class="form-control note" name="note[]" placeholder="Note" id="note_val_input"
+                            maxlength="150"><?php echo $remark; ?></textarea>
+                        @else
+                        {{ $remark }}
                         @endif
                     </td>
                     </tr>
@@ -1906,6 +2400,71 @@ cmp_hr_ps.text("$ " + div_cmp_hr_ps.toFixed(1));
 e.preventDefault();
 
 // Get NON-INPUT table cell data
+var man_power_obj = {};
+var man_power_arr = [];
+
+$('.man_power_input').each(function(){
+    var man_power_l_id = $("#man_target_l_id_input", this).val();
+    var man_power_a_id_input = $("#man_target_a_id_input", this).val();
+    var man_power_date_input = $("#man_target_date_input", this).val();
+    var man_target = $("#man_target", this).val();
+    var man_actual_target = $("#man_actual_target", this).val();
+
+    man_power_obj = {
+        man_target_l_id : man_power_l_id,
+        man_target_a_id_input : man_power_a_id_input,
+        man_target_date_input : man_power_date_input,
+        man_target : man_target,
+        man_actual_target : man_actual_target,
+    }
+
+    man_power_arr.push(man_power_obj);
+});
+
+
+var inline_obj = {};
+var inline_arr = [];
+
+
+$(".inline_input").each(function(){
+    var inline_l_id = $("#inline_l_id_input",this).val();
+    var inline_a_id = $("#inline_a_id_input",this).val();
+    var inline_date = $("#inline_date_input",this).val();
+    var inline_p_id = $("#inline_p_id_input",this).val();
+    var inline_val_input = $("#inline_val_input",this).val();
+
+    inline_obj = {
+        inline_l_id : inline_l_id,
+        inline_a_id : inline_a_id,
+        inline_date : inline_date,
+        inline_p_id : inline_p_id,
+        inline_val_input : inline_val_input,
+    }
+
+    inline_arr.push(inline_obj);
+});
+
+var handover_obj = {};
+var handover_arr = [];
+
+$(".h_over_input").each(function(){
+    var handover_l_id = $("#handover_l_id_input",this).val();
+    var handover_a_id = $("#handover_a_id_input",this).val();
+    var handover_date = $("#handover_date_input",this).val();
+    var handover_p_id = $("#handover_p_id_input",this).val();
+    var handover_val_input = $("#handover_val_input",this).val();
+
+    handover_obj = {
+        handover_l_id : handover_l_id,
+        handover_a_id : handover_a_id,
+        handover_date : handover_date,
+        handover_p_id : handover_p_id,
+        handover_val_input : handover_val_input,
+    }
+
+    handover_arr.push(handover_obj);
+})
+
 var box = {};
 var boxes = [];
 $('.td_input').each(function() {
@@ -1924,19 +2483,71 @@ date_input: date_input,
 boxes.push(box);
 });
 
-var note_object = {};
-var note_arr = [];
-$('.note').each(function(){
-    var note_input = $(this).val();
-    var l_id_remark = $(this).val();
 
-    note_object = {
-        note_input: note_input,
-        l_id_remark : l_id_remark
+var sewing_obj = {};
+var sewing_arr = [];
+$(".sewing_input").each(function(){
+    var sewing_l_id = $("#sewing_l_id_input",this).val();
+    var sewing_a_id = $("#sewing_a_id_input",this).val();
+    var sewing_date = $("#sewing_date_input",this).val();
+    var sewing_p_id = $("#sewing_p_id_input",this).val();
+    var sewing_val_input = $("#sewing_val_input",this).val();
+
+    sewing_obj = {
+        sewing_l_id : sewing_l_id,
+        sewing_a_id : sewing_a_id,
+        sewing_date : sewing_date,
+        sewing_p_id : sewing_p_id,
+        sewing_val_input : sewing_val_input,
     }
 
-    note_arr.push(note_object);
+    sewing_arr.push(sewing_obj);
+});
 
+//// ManPower Input (S,L,ADM OP, HP)
+var m_power_obj_2 = {};
+var m_power_arr_2 = [];
+
+$(".m_power_input_2").each(function(){
+    var m_power_l_id_2 = $("#m_power_l_id_input_2", this).val();
+    var m_power_a_id_2 = $("#m_power_a_id_input_2", this).val();
+    var m_power_date_2 = $("#m_power_date_input_2", this).val();
+    var m_power_value_2 = $("#m_power_value_2",this).val();
+    var hp_value_2 = $("#hp_value_2",this).val();
+    var actual_m_power_value_2 = $("#actual_m_power_value_2",this).val();
+    var actual_hp_value_2 = $("#actual_hp_value_2",this).val();
+
+    m_power_obj_2 = {
+        m_power_l_id_2 : m_power_l_id_2,
+        m_power_a_id_2 : m_power_a_id_2,
+        m_power_date_2 : m_power_date_2,
+        m_power_value_2 : m_power_value_2,
+        hp_value_2 : hp_value_2,
+        actual_m_power_value_2 : actual_m_power_value_2,
+        actual_hp_value_2 : actual_hp_value_2,
+    }
+
+    m_power_arr_2.push(m_power_obj_2);
+});
+
+//// Note
+var note_obj = {};
+var note_arr = [];
+
+$(".note_input").each(function(){
+    var note_l_id = $("#note_l_id_input",this).val();
+    var note_a_id = $("#note_a_id_input",this).val();
+    var note_date = $("#note_date_input",this).val();
+    var note_val_input = $("#note_val_input",this).val();
+
+    note_obj = {
+        note_l_id : note_l_id,
+        note_a_id : note_a_id,
+        note_date : note_date,
+        note_val_input : note_val_input,
+    }
+
+    note_arr.push(note_obj);
 });
 
 $.ajax({
@@ -1944,7 +2555,12 @@ $.ajax({
         url: "/cmp_put",
         data: {
             boxes: boxes,
-            note_arr: note_arr,
+            man_power : man_power_arr,
+            inline: inline_arr,
+            handover : handover_arr,
+            sewing : sewing_arr,
+            m_power_2 : m_power_arr_2,
+            note: note_arr,
         },
         success: function(data) {
             // console.log(data);
@@ -2697,7 +3313,6 @@ chart.render();
                                                     placeholder="0" min="0" step="any"
                                                     value="<?php echo $man_actual_target_2; ?>">
                                             </td>
-                                            <?php echo $l_id; ?>
                                             </tr>
                                             @endif
 
@@ -2811,7 +3426,7 @@ chart.render();
                                         </tr>
                                         @for($j=0;$j<count($daily_report_product_decode);$j++) @php
                                             $l_id_2=$daily_report_product_decode[$j]['l_id'];
-                                            $sewing_input=$daily_report_product_decode[$j]['sewing_input'] @endphp
+                                            $sewing_input=$daily_report_product_decode[$j]['sewing_input']; @endphp
                                             @if($l_id_2==$l_id) <tr>
                                             @if($sewing_input == '')
                                             <td> - </td>
@@ -4076,7 +4691,8 @@ chart.render();
 
     <?php
     $daily_report_decode = json_decode(json_encode($daily_report),true);
-    $daily_report_product_decode = json_decode(json_encode($daily_report_product),true);
+    $daily_report_product_decode = json_decode(json_encode($daily_report_product),true);    $daily_report_product_2_decode = json_decode(json_encode($daily_report_product_2),true);
+
     ?>
 
 
@@ -4127,12 +4743,12 @@ chart.render();
                     </thead>
                     <tbody id="myTable">
                         @for($i=0;$i<count($daily_report_decode);$i++) @php
-                            $l_id=$daily_report_decode[$i]['l_id'];$l_name=$daily_report_decode[$i]['l_name'];$main_target=$daily_report_decode[$i]['main_target'];$actual_target=$daily_report_decode[$i]['total_div_actual_target'];
+                            $l_id=$daily_report_decode[$i]['l_id'];$l_name=$daily_report_decode[$i]['l_name'];$main_target=$daily_report_decode[$i]['main_target'];$ot_main_target=$daily_report_decode[$i]['ot_main_target'];$actual_target=$daily_report_decode[$i]['total_div_actual_target'];
                             $m_power=$daily_report_decode[$i]['m_power'];$actual_m_power=$daily_report_decode[$i]['actual_m_power'];$hp=$daily_report_decode[$i]['hp'];$actual_hp=$daily_report_decode[$i]['actual_hp'];
                             $assign_date=$daily_report_decode[$i]['assign_date'];
                             $man_target=$daily_report_product_decode[$i]['man_target'];
-                            $man_actual_target=$daily_report_product_decode[$i]['man_actual_target'];$note=$daily_report_product_decode[$i]['remark'];
-                            @endphp <tr>
+                            $man_actual_target=$daily_report_product_decode[$i]['man_actual_target'];$assign_id_2=$daily_report_decode[$i]['assign_id'];
+                            $note=$daily_report_product_decode[$i]['remark']; @endphp <tr>
                             <td>{{ $l_name }}</td>
 
                             {{-- Buyer --}}
@@ -4203,13 +4819,60 @@ chart.render();
                                     </tbody>
                                 </table>
                             </td>
-                            <td class="main_target_{{ $l_id }}">{{ number_format($main_target)}}</td>
+                            <td class="main_target_{{ $l_id }}">{{ number_format($main_target+$ot_main_target)}}</td>
+
+                            <!-- Man Target --->
                             <td>
                                 <table class="m-auto text-start table table-bordered custom-table-border-color">
-                                    <tbody>
-                                        <td>{{ $man_target }}</td>
-                                        <td>{{ $man_actual_target }}</td>
+                                    @if($edit_status)
+                                    <tbody class="man_power_input">
+                                        <input type="hidden" id="man_target_l_id_input" name="man_target_l_id[]"
+                                            value="<?php echo $l_id; ?>" />
+                                        <input type="hidden" id="man_target_a_id_input" name="man_target_a_id[]"
+                                            value="<?php echo $assign_id_2; ?>" />
+                                        <input type="hidden" id="man_target_date_input" name="date_input[]"
+                                            value="<?php echo $date; ?>" />
+                                        @for($j=0;$j<count($daily_report_product_2_decode);$j++) @php
+                                            $l_id_2=$daily_report_product_2_decode[$j]['l_id'];
+                                            $man_target_2=$daily_report_product_2_decode[$j]['man_target'];
+                                            $man_actual_target_2=$daily_report_product_2_decode[$j]['man_actual_target'];
+                                            @endphp @if($l_id_2==$l_id) <tr>
+                                            <td>
+                                                <input type="number" id="man_target"
+                                                    class="form-control p-0 text-center" name="man_target[]"
+                                                    placeholder="0" min="0" step="any"
+                                                    value="<?php echo $man_target_2; ?>">
+                                            </td>
+                                            <td>
+                                                <input type="number" id="man_actual_target"
+                                                    class="form-control p-0 text-center" name="man_actual_target[]"
+                                                    placeholder="0" min="0" step="any"
+                                                    value="<?php echo $man_actual_target_2; ?>">
+                                            </td>
+                                            </tr>
+                                            @endif
+
+                                            @endfor
                                     </tbody>
+                                    @else
+                                    <tbody>
+                                        @for($j=0;$j<count($daily_report_product_2_decode);$j++) @php
+                                            $l_id_2=$daily_report_product_2_decode[$j]['l_id'];
+                                            $man_target_2=$daily_report_product_2_decode[$j]['man_target'];
+                                            $man_actual_target_2=$daily_report_product_2_decode[$j]['man_actual_target'];
+                                            @endphp @if($l_id_2==$l_id) <tr>
+                                            <td>{{ $man_target_2 }}</td>
+                                            <td>{{ $man_actual_target_2 }}</td>
+                                            </tr>
+                                            @endif
+
+                                            @endfor
+                                            {{-- <tr>
+                                                <td>{{ $man_target }}</td>
+                                                <td>{{ $man_actual_target }}</td>
+                                            </tr> --}}
+                                    </tbody>
+                                    @endif
                                 </table>
                             </td>
                             <td class="actual_target_{{ $l_id }}">@if($actual_target != ''){{
@@ -4347,23 +5010,28 @@ chart.render();
                             <td>
                                 <table class="m-auto text-center table table-bordered custom-table-border-color">
                                     @if($edit_status)
-                                    <tbody class="inline_input">
-                                        <input type="hidden" id="l_id_input" name="l_id[]"
-                                            value="<?php echo $l_id; ?>" />
-                                        <input type="hidden" id="a_id_input" name="a_id[]"
-                                            value="<?php echo $assign_id_2; ?>" />
-                                        <input type="hidden" id="date_input" name="date_input[]"
-                                            value="<?php echo $date; ?>" />
+                                    <tbody>
                                         <tr>
                                             <td>-</td>
                                         </tr>
                                         @for($j=0;$j<count($daily_report_product_decode);$j++) @php
                                             $l_id_2=$daily_report_product_decode[$j]['l_id'];
-                                            $inline_2=$daily_report_product_decode[$j]['inline'] @endphp
+                                            $inline_2=$daily_report_product_decode[$j]['inline'];
+                                            $p_id_2=$daily_report_product_decode[$j]['p_detail_id']; @endphp
                                             @if($l_id_2==$l_id) <tr>
-                                            <td>
-                                                <input type="number" id="inline" class="form-control p-0 text-center"
-                                                    name="inline[]" placeholder="0" min="0" step="any" value="">
+                                            <td class="inline_input">
+                                                <input type="hidden" id="inline_l_id_input" name="inline_l_id[]"
+                                                    value="<?php echo $l_id; ?>" />
+                                                <input type="hidden" id="inline_a_id_input" name="inline_a_id[]"
+                                                    value="<?php echo $assign_id_2; ?>" />
+                                                <input type="hidden" id="inline_date_input" name="date_input[]"
+                                                    value="<?php echo $date; ?>" />
+                                                <input type="number" id="inline_val_input"
+                                                    class="form-control p-0 text-center" name="inline_val_input[]"
+                                                    value="<?php echo $inline_2; ?>">
+                                                <input type="hidden" id="inline_p_id_input" name="inline_p_id_input[]"
+                                                    value="<?php echo $p_id_2; ?>" />
+
                                             </td>
                                             </tr>
                                             @endif
@@ -4389,8 +5057,10 @@ chart.render();
                                             @endif
 
                                             @endfor
+
                                     </tbody>
                                     @endif
+
                                 </table>
                             </td>
 
@@ -5136,6 +5806,11 @@ chart.render();
 </script>
 
 <script>
+    function toggle_div_fun(id) {
+        var divelement = document.getElementById(id);
+        if (divelement.style.display == "none") divelement.style.display = "block";
+        else divelement.style.display = "none";
+    }
     var tableToExcel = (function() {
 
         var uri = 'data:application/vnd.ms-excel;base64,',
