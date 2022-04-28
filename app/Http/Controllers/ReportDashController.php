@@ -46,6 +46,12 @@ class ReportDashController extends Controller
             JOIN line_assign ON "line_assign".assign_id="p_detail".assign_id AND "line_assign".assign_date=\'' . $format_date_string . '\'
             JOIN p_category ON "p_category".p_cat_id="p_detail".p_cat_id
             ORDER BY "p_detail".p_detail_id ASC');
+
+            $daily_report_product_2 = DB::select('SELECT DISTINCT "p_detail".l_id,"p_detail".assign_id,"line_assign".assign_date,"line_assign".man_target,"line_assign".man_actual_target
+            FROM p_detail
+            JOIN line_assign ON "line_assign".assign_id="p_detail".assign_id AND "line_assign".assign_date=\'' . $date_string . '\'
+            JOIN p_category ON "p_category".p_cat_id="p_detail".p_cat_id
+           ');
         } else {
             $daily_report = DB::select('SELECT "line".l_id,"line".l_name,"line_assign".main_target,"line_assign".ot_main_target,"line_assign".assign_id,"line_assign".m_power,"line_assign".actual_m_power,"line_assign".man_target,"line_assign".man_actual_target,
             "line_assign".hp,"line_assign".actual_hp,SUM("time".div_actual_target) as total_div_actual_target,COUNT("time".assign_id) AS total_time,"line_assign".assign_date,"line_assign".remark
@@ -95,49 +101,51 @@ class ReportDashController extends Controller
         $inline_post = request()->post('inline');
         $handover_post = request()->post('handover');
         $sewing_post = request()->post('sewing');
+        $m_power_2_post = request()->post('m_power_2');
+        $note_post = request()->post('note');
 
-        // for ($i = 0; $i < count($boxes); $i++) {
-        //     $l_id_input = $boxes[$i]['l_id_input'];
-        //     @$p_id_input = $boxes[$i]['p_id_input'];
-        //     @$a_id_input = $boxes[$i]['a_id_input'];
-        //     @$cmp_input = $boxes[$i]['cmp_input'];
-        //     @$note = $boxes[$i]['note'];
-        //     @$role = $boxes[$i]['role'];
+        for ($i = 0; $i < count($boxes); $i++) {
+            $l_id_input = $boxes[$i]['l_id_input'];
+            @$p_id_input = $boxes[$i]['p_id_input'];
+            @$a_id_input = $boxes[$i]['a_id_input'];
+            @$cmp_input = $boxes[$i]['cmp_input'];
+            @$note = $boxes[$i]['note'];
+            @$role = $boxes[$i]['role'];
 
-        //     $date = $boxes[$i]['date_input'];
+            $date = $boxes[$i]['date_input'];
 
-        //     $date_string = date("d.m.Y", strtotime($date));
+            $date_string = date("d.m.Y", strtotime($date));
 
-        //     if ($date_string != '') {
-        //         $query = DB::select('SELECT "p_detail".p_detail_id
-        //         FROM p_detail
-        //         JOIN line_assign ON "p_detail".assign_id="line_assign".assign_id AND "p_detail".l_id="line_assign".l_id
-        //         AND "line_assign".assign_date=\'' . $date_string . '\'');
+            if ($date_string != '') {
+                $query = DB::select('SELECT "p_detail".p_detail_id
+                FROM p_detail
+                JOIN line_assign ON "p_detail".assign_id="line_assign".assign_id AND "p_detail".l_id="line_assign".l_id
+                AND "line_assign".assign_date=\'' . $date_string . '\'');
 
-        //         $decode = json_decode(json_encode($query), true);
+                $decode = json_decode(json_encode($query), true);
 
-        //         for ($j = 0; $j < count($decode); $j++) {
-        //             $p_detail_id = $decode[$j]['p_detail_id'];
-        //             if ($p_id_input == $p_detail_id) {
-        //                 DB::table('p_detail')
-        //                     ->where('p_detail_id', $p_detail_id)
-        //                     ->update(['cmp' => $cmp_input]);
-        //             }
-        //         }
-        //     }
-        //     if ($date == '') {
-        //         $date_string = date("d.m.Y");
-        //         if ($role == 1) {   ///Operator
-        //             $p_detail_query = LineAssign::where('assign_date', $date_string)->where('l_id', $l_id_input)->update(['remark' => $note]);
-        //         } elseif ($role == 99 || $role == "") {   ///SuperAdmin
-        //             $p_detail_query = ProductDetail::where('p_detail_id', $p_id_input)->where('assign_id', $a_id_input)->where('l_id', $l_id_input)->update(['cmp' => $cmp_input]);
-        //         }
-        //         // $p_detail_query = ProductDetail::where('p_detail_id', $p_id_input)->where('assign_id', $a_id_input)->where('l_id', $l_id_input)->update(['cmp' => $cmp_input]);
-        //     }
-        // }
+                for ($j = 0; $j < count($decode); $j++) {
+                    $p_detail_id = $decode[$j]['p_detail_id'];
+                    if ($p_id_input == $p_detail_id) {
+                        DB::table('p_detail')
+                            ->where('p_detail_id', $p_detail_id)
+                            ->update(['cmp' => $cmp_input]);
+                    }
+                }
+            }
+            if ($date == '') {
+                $date_string = date("d.m.Y");
+                if ($role == 1) {   ///Operator
+                    $p_detail_query = LineAssign::where('assign_date', $date_string)->where('l_id', $l_id_input)->update(['remark' => $note]);
+                } elseif ($role == 99 || $role == "") {   ///SuperAdmin
+                    $p_detail_query = ProductDetail::where('p_detail_id', $p_id_input)->where('assign_id', $a_id_input)->where('l_id', $l_id_input)->update(['cmp' => $cmp_input]);
+                }
+                // $p_detail_query = ProductDetail::where('p_detail_id', $p_id_input)->where('assign_id', $a_id_input)->where('l_id', $l_id_input)->update(['cmp' => $cmp_input]);
+            }
+        }
 
 
-        /// Man-Power Post
+        //// Man-Power Post
         for ($j = 0; $j < count($man_power_post); $j++) {
             $l_id_input = $man_power_post[$j]['man_target_l_id'];
             $a_id_input = $man_power_post[$j]['man_target_a_id_input'];
@@ -147,21 +155,12 @@ class ReportDashController extends Controller
 
             $date_string = date("d.m.Y", strtotime($date_input));
 
-            // if ($date_string != '') {
-            //     $query = DB::select('SELECT "p_detail".p_detail_id
-            //     FROM p_detail
-            //     JOIN line_assign ON "p_detail".assign_id="line_assign".assign_id AND "p_detail".l_id="line_assign".l_id
-            //     AND "line_assign".assign_date=\'' . $date_string . '\'');
-
-            //     $decode = json_decode(json_encode($query), true);
-
-            //     for ($j = 0; $j < count($decode); $j++) {
-            //         $p_detail_id = $decode[$j]['p_detail_id'];
-            //         if ($p_id_input == $p_detail_id) {
-            //             DB::table('p_detail')
-            //                 ->where('p_detail_id', $p_detail_id)
-            //                 ->update(['cmp' => $cmp_input]);
-            //         }
+            if ($date_string != '') {
+                $line_assign_query = LineAssign::where('l_id', $l_id_input)
+                    ->where('assign_id', $a_id_input)
+                    ->where('assign_date', $date_string)
+                    ->update(['man_target' => $man_target, 'man_actual_target' => $man_actual_target]);
+            }
             if ($date_input == '') {
                 $date_string = date("d.m.Y");
 
@@ -183,21 +182,13 @@ class ReportDashController extends Controller
 
             $date_string = date("d.m.Y", strtotime($inline_date));
 
-            // if ($date_string != '') {
-            //     $query = DB::select('SELECT "p_detail".p_detail_id
-            //     FROM p_detail
-            //     JOIN line_assign ON "p_detail".assign_id="line_assign".assign_id AND "p_detail".l_id="line_assign".l_id
-            //     AND "line_assign".assign_date=\'' . $date_string . '\'');
+            if ($date_string != '') {
+                $p_detail_query = ProductDetail::where('p_detail_id', $inline_p_id)
+                    ->where('l_id', $inline_l_id)
+                    ->where('assign_id', $inline_a_id)
+                    ->update(['inline' => $inline_val_input]);
+            }
 
-            //     $decode = json_decode(json_encode($query), true);
-
-            //     for ($j = 0; $j < count($decode); $j++) {
-            //         $p_detail_id = $decode[$j]['p_detail_id'];
-            //         if ($p_id_input == $p_detail_id) {
-            //             DB::table('p_detail')
-            //                 ->where('p_detail_id', $p_detail_id)
-            //                 ->update(['cmp' => $cmp_input]);
-            //         }
             if ($inline_date == '') {
                 $date_string = date("d.m.Y");
 
@@ -220,21 +211,12 @@ class ReportDashController extends Controller
 
             $date_string = date("d.m.Y", strtotime($handover_date));
 
-            // if ($date_string != '') {
-            //     $query = DB::select('SELECT "p_detail".p_detail_id
-            //     FROM p_detail
-            //     JOIN line_assign ON "p_detail".assign_id="line_assign".assign_id AND "p_detail".l_id="line_assign".l_id
-            //     AND "line_assign".assign_date=\'' . $date_string . '\'');
-
-            //     $decode = json_decode(json_encode($query), true);
-
-            //     for ($j = 0; $j < count($decode); $j++) {
-            //         $p_detail_id = $decode[$j]['p_detail_id'];
-            //         if ($p_id_input == $p_detail_id) {
-            //             DB::table('p_detail')
-            //                 ->where('p_detail_id', $p_detail_id)
-            //                 ->update(['cmp' => $cmp_input]);
-            //         }
+            if ($date_string != '') {
+                $p_detail_query = ProductDetail::where('p_detail_id', $handover_p_id)
+                    ->where('l_id', $handover_l_id)
+                    ->where('assign_id', $handover_a_id)
+                    ->update(['h_over_input' => $handover_val_input]);
+            }
 
             if ($handover_date == '') {
                 $date_string = date("d.m.Y");
@@ -247,7 +229,7 @@ class ReportDashController extends Controller
         }
 
 
-        /// Sewing Post
+        /// Sewing Post (Input)
         for ($j = 0; $j < count($sewing_post); $j++) {
             $sewing_l_id = $sewing_post[$j]['sewing_l_id'];
             $sewing_a_id = $sewing_post[$j]['sewing_a_id'];
@@ -255,24 +237,14 @@ class ReportDashController extends Controller
             $sewing_date = $sewing_post[$j]['sewing_date'];
             $sewing_val_input = $sewing_post[$j]['sewing_val_input'];
 
-
             $date_string = date("d.m.Y", strtotime($sewing_date));
 
-            // if ($date_string != '') {
-            //     $query = DB::select('SELECT "p_detail".p_detail_id
-            //     FROM p_detail
-            //     JOIN line_assign ON "p_detail".assign_id="line_assign".assign_id AND "p_detail".l_id="line_assign".l_id
-            //     AND "line_assign".assign_date=\'' . $date_string . '\'');
-
-            //     $decode = json_decode(json_encode($query), true);
-
-            //     for ($j = 0; $j < count($decode); $j++) {
-            //         $p_detail_id = $decode[$j]['p_detail_id'];
-            //         if ($p_id_input == $p_detail_id) {
-            //             DB::table('p_detail')
-            //                 ->where('p_detail_id', $p_detail_id)
-            //                 ->update(['cmp' => $cmp_input]);
-            //         }
+            if ($date_string != '') {
+                $p_detail_query = ProductDetail::where('p_detail_id', $sewing_p_id)
+                    ->where('l_id', $sewing_l_id)
+                    ->where('assign_id', $sewing_a_id)
+                    ->update(['sewing_input' => $sewing_val_input]);
+            }
 
             if ($sewing_date == '') {
                 $date_string = date("d.m.Y");
@@ -281,6 +253,61 @@ class ReportDashController extends Controller
                     ->where('l_id', $sewing_l_id)
                     ->where('assign_id', $sewing_a_id)
                     ->update(['sewing_input' => $sewing_val_input]);
+            }
+        }
+
+        //// S,L,ADM OP post
+        for ($j = 0; $j < count($m_power_2_post); $j++) {
+            $m_power_l_id_2 = $m_power_2_post[$j]['m_power_l_id_2'];
+            $m_power_a_id_2 = $m_power_2_post[$j]['m_power_a_id_2'];
+            $m_power_date_2 = $m_power_2_post[$j]['m_power_date_2'];
+            $m_power_value_2 = $m_power_2_post[$j]['m_power_value_2'];
+            $hp_value_2 = $m_power_2_post[$j]['hp_value_2'];
+            $actual_m_power_value_2 = $m_power_2_post[$j]['actual_m_power_value_2'];
+            $actual_hp_value_2 = $m_power_2_post[$j]['actual_hp_value_2'];
+
+            $date_string = date("d.m.Y", strtotime($m_power_date_2));
+
+            if ($date_string != '') {
+                $line_assign_query = LineAssign::where('l_id', $m_power_l_id_2)
+                    ->where('assign_id', $m_power_a_id_2)
+                    ->where('assign_date', $date_string)
+                    ->update(['m_power' => $m_power_value_2, 'actual_m_power' => $actual_m_power_value_2, 'hp' => $hp_value_2, 'actual_hp' => $actual_hp_value_2]);
+            }
+
+            if ($m_power_date_2 == '') {
+                $date_string = date("d.m.Y");
+
+                $line_assign_query = LineAssign::where('l_id', $m_power_l_id_2)
+                    ->where('assign_id', $m_power_a_id_2)
+                    ->where('assign_date', $date_string)
+                    ->update(['m_power' => $m_power_value_2, 'actual_m_power' => $actual_m_power_value_2, 'hp' => $hp_value_2, 'actual_hp' => $actual_hp_value_2]);
+            }
+        }
+
+        //// Note Post
+        for ($j = 0; $j < count($note_post); $j++) {
+            $note_l_id = $note_post[$j]['note_l_id'];
+            $note_a_id = $note_post[$j]['note_a_id'];
+            $note_date = $note_post[$j]['note_date'];
+            $note_val_input = $note_post[$j]['note_val_input'];
+
+            $date_string = date("d.m.Y", strtotime($note_date));
+
+            if ($date_string != '') {
+                $line_assign_query = LineAssign::where('l_id', $note_l_id)
+                    ->where('assign_id', $note_a_id)
+                    ->where('assign_date', $date_string)
+                    ->update(['remark' => $note_val_input]);
+            }
+
+            if ($note_date == '') {
+                $date_string = date("d.m.Y");
+
+                $line_assign_query = LineAssign::where('l_id', $note_l_id)
+                    ->where('assign_id', $note_a_id)
+                    ->where('assign_date', $date_string)
+                    ->update(['remark' => $note_val_input]);
             }
         }
     }
@@ -294,22 +321,28 @@ class ReportDashController extends Controller
         $date_2 = date("d.m.Y");
 
 
-        $daily_report_history = DB::select('SELECT "line".l_id,"line".l_name,"line_assign".main_target,"line_assign".ot_main_target,"line_assign".m_power,"line_assign".m_power,"line_assign".actual_m_power,"line_assign".man_target,"line_assign".man_actual_target,
-        "line_assign".hp,"line_assign".actual_hp,SUM("time".div_actual_target) as total_div_actual_target,COUNT("time".assign_id) AS total_time
+        $daily_report_history = DB::select('SELECT "line".l_id,"line".l_name,"line_assign".main_target,"line_assign".ot_main_target,"line_assign".assign_id,"line_assign".m_power,"line_assign".m_power,"line_assign".actual_m_power,"line_assign".man_target,"line_assign".man_actual_target,
+        "line_assign".hp,"line_assign".actual_hp,SUM("time".div_actual_target) as total_div_actual_target,COUNT("time".assign_id) AS total_time,"line_assign".assign_date,"line_assign".remark
         FROM line
         JOIN line_assign ON "line_assign".l_id="line".l_id AND
         "line_assign".assign_date=\'' . $date_string . '\'
         JOIN time ON "time".line_id="line".l_id AND "time".assign_date=\'' . $date_string . '\' AND "time".assign_id="line_assign".assign_id
         GROUP BY "line".l_id,"line_assign".main_target,"line_assign".m_power,"line_assign".actual_m_power,"line_assign".man_target,"line_assign".man_actual_target,
-        "line_assign".hp,"line_assign".actual_hp,"line_assign".ot_main_target
+        "line_assign".hp,"line_assign".actual_hp,"line_assign".assign_date,"line_assign".remark,"line_assign".assign_id
         ORDER BY "line".l_pos ASC');
 
         $daily_report_product_history = DB::select('SELECT "p_detail".p_detail_id,"p_detail".l_id,"p_detail".p_name,"p_detail".quantity,"p_detail".div_quantity,"p_detail".sewing_input,"p_detail".assign_id,
-        "p_detail".h_over_input,"p_detail".p_actual_target,"p_detail".cat_actual_target,"p_detail".inline,"p_detail".cmp,"p_category".p_cat_name,"p_detail".style_no,"line_assign".man_target,"line_assign".man_actual_target
+        "p_detail".h_over_input,"p_detail".p_actual_target,"p_detail".cat_actual_target,"p_detail".inline,"p_detail".cmp,"p_category".p_cat_name,"p_detail".style_no,"line_assign".man_target,"line_assign".man_actual_target,"line_assign".man_actual_target,"line_assign".remark
         FROM p_detail
         JOIN line_assign ON "line_assign".assign_id="p_detail".assign_id AND "line_assign".assign_date=\'' . $date_string . '\'
 		JOIN p_category ON "p_category".p_cat_id="p_detail".p_cat_id
 		ORDER BY "p_detail".p_detail_id ASC');
+
+        $daily_report_product_history_2 = DB::select('SELECT DISTINCT "p_detail".l_id,"p_detail".assign_id,"line_assign".assign_date,"line_assign".man_target,"line_assign".man_actual_target
+        FROM p_detail
+        JOIN line_assign ON "line_assign".assign_id="p_detail".assign_id AND "line_assign".assign_date=\'' . $date_string . '\'
+        JOIN p_category ON "p_category".p_cat_id="p_detail".p_cat_id
+       ');
 
         $category_history = DB::select('SELECT p_cat_id,SUM(cat_actual_target) AS t_cat_actual,p_name FROM p_detail
         WHERE DATE(created_at) >= DATE(NOW()) - INTERVAL \'30\' DAY
@@ -327,6 +360,7 @@ class ReportDashController extends Controller
 
         $daily_report_history_decode = json_decode(json_encode($daily_report_history), true);
         $daily_report_product_history_decode = json_decode(json_encode($daily_report_product_history), true);
+        $daily_report_product_history_2_decode = json_decode(json_encode($daily_report_product_history_2), true);
         $category_history_decode = json_decode(json_encode($category_history), true);
         $target_history = json_decode(json_encode($target_history), true);
         $time_history = json_decode(json_encode($time_history), true);
@@ -406,6 +440,8 @@ class ReportDashController extends Controller
                             $actual_hp = $daily_report_history_decode[$i]['actual_hp'];
                             $man_target = $daily_report_history_decode[$i]['man_target'];
                             $man_actual_target = $daily_report_history_decode[$i]['man_actual_target'];
+                            $assign_id_2 = $daily_report_history_decode[$i]['assign_id'];
+                            $remark = $daily_report_history_decode[$i]['remark'];
                         ?>
                             <tr>
                                 <td><?php echo $l_name; ?></td>
@@ -899,12 +935,7 @@ class ReportDashController extends Controller
                 <td class="cmp_hr_history_<?php echo $l_id; ?>"></td>
                 <td class="cmp_hr_ps_history_<?php echo $l_id; ?>"></td>
                 <td>
-                    <?php
-
-                            echo '<input type="hidden" name="l_id_remark[]" value="<?php echo $l_id; ?>" />
-                        <textarea class="form-control note" name="note[]" placeholder="Note" id="note" maxlength="150"></textarea>';
-
-                    ?>
+                    <?php echo $remark; ?>
                 </td>
                 </tr>
 
