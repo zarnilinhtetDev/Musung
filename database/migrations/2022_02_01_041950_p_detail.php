@@ -21,9 +21,11 @@ class PDetail extends Migration
             $table->string('p_name');
             $table->string('style_no')->nullable();
             $table->integer('quantity');
+            $table->integer('order_quantity')->nullable();
             $table->integer('div_quantity')->nullable();
             $table->integer('sewing_input')->nullable();
             $table->integer('h_over_input')->nullable();
+            $table->integer('h_balance')->nullable();
             $table->integer('p_actual_target')->nullable();
             $table->integer('cat_actual_target')->nullable();
             $table->integer('inline')->nullable();

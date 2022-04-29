@@ -128,12 +128,12 @@
                         </li>
                     </ul>
                 </li>
-                <li>
+                {{-- <li>
                     <a class="sidebar-link" href="{{ url('/daily_prod') }}"><img src="img/icon/theme.png"
                             class="img-fluid rounded-3" alt="Theme" width="25" height="auto" />
                         &nbsp;Daily Production Detail
                     </a>
-                </li>
+                </li> --}}
                 <li>
                     <a class="sidebar-link" href="{{ url('/report') }}"> <img src="img/icon/report.png"
                             class="img-fluid rounded-3" alt="Report" width="25" height="auto" />
@@ -268,12 +268,12 @@
                         </li>
                     </ul>
                 </li>
-                <li>
+                {{-- <li>
                     <a class="sidebar-link" href="{{ url('/daily_prod') }}"><img src="img/icon/theme.png"
                             class="img-fluid rounded-3" alt="Theme" width="25" height="auto" />
                         &nbsp;Daily Production Detail
                     </a>
-                </li>
+                </li> --}}
                 <li>
                     <a class="sidebar-link" href="{{ url('/report') }}"> <img src="img/icon/report.png"
                             class="img-fluid rounded-3" alt="Report" width="25" height="auto" />
@@ -408,12 +408,12 @@
                         </li>
                     </ul>
                 </li>
-                <li>
+                {{-- <li>
                     <a class="sidebar-link" href="{{ url('/daily_prod') }}"><img src="img/icon/theme.png"
                             class="img-fluid rounded-3" alt="Theme" width="25" height="auto" />
                         &nbsp;Daily Production Detail
                     </a>
-                </li>
+                </li> --}}
                 <li>
                     <a class="sidebar-link" href="{{ url('/report') }}"> <img src="img/icon/report.png"
                             class="img-fluid rounded-3" alt="Report" width="25" height="auto" />
@@ -545,12 +545,12 @@
                         </li>
                     </ul>
                 </li>
-                <li>
+                {{-- <li>
                     <a class="sidebar-link" href="{{ url('/daily_prod') }}"><img src="img/icon/theme.png"
                             class="img-fluid rounded-3" alt="Theme" width="25" height="auto" />
                         &nbsp;Daily Production Detail
                     </a>
-                </li>
+                </li> --}}
                 <li>
                     <a class="sidebar-link" href="{{ url('/report') }}"> <img src="img/icon/report.png"
                             class="img-fluid rounded-3" alt="Report" width="25" height="auto" />

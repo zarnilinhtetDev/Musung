@@ -17,6 +17,16 @@ h1, h2, h3, h4, h5, h6 {
     color: var(--dark);
 }
 
+#live_dash_1 th, #live_dash_1 td {
+    font-size: 1rem;
+    font-family: 'Roboto', sans-serif;
+}
+
+#live_dash_1 .line_name, #live_dash_1 .t_line_count, #live_dash_1 .total {
+    font-size: 1.1rem;
+}
+
+
 .dis-to-none {
     display: none;
 }
@@ -25,10 +35,6 @@ h1, h2, h3, h4, h5, h6 {
     border-color: darkolivegreen;
 }
 
-
-td, th {
-    /* padding: 0 !important; */
-}
 
 /**** Scrollbar Start ****/
 

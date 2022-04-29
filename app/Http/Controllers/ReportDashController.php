@@ -35,13 +35,13 @@ class ReportDashController extends Controller
             FROM line
             JOIN line_assign ON "line_assign".l_id="line".l_id AND
             "line_assign".assign_date=\'' . $format_date_string . '\'
-            JOIN time ON "time".line_id="line".l_id AND "time".assign_date=\'' . $format_date_string . '\' AND "time".assign_id="line_assign".assign_id
+            JOIN time ON "time".line_id="line".l_id AND "time".assign_date=\'' . $format_date_string . '\' AND "time".assign_id="line_assign".assign_id WHERE ("time".ot_status IS NULL OR "time".ot_status=1) AND NOT "time".time_name=\'temp\'
             GROUP BY "line".l_id,"line_assign".main_target,"line_assign".m_power,"line_assign".actual_m_power,"line_assign".man_target,"line_assign".man_actual_target,
             "line_assign".hp,"line_assign".actual_hp,"line_assign".assign_date,"line_assign".remark,"line_assign".assign_id
             ORDER BY "line".l_pos ASC');
 
             $daily_report_product = DB::select('SELECT "p_detail".p_detail_id,"p_detail".l_id,"p_detail".p_name,"p_detail".quantity,"p_detail".div_quantity,"p_detail".sewing_input,"p_detail".assign_id,
-            "p_detail".h_over_input,"p_detail".p_actual_target,"p_detail".cat_actual_target,"p_detail".inline,"p_detail".cmp,"p_category".p_cat_name,"p_detail".style_no,"line_assign".assign_date,"line_assign".man_target,"line_assign".man_actual_target,"line_assign".remark
+            "p_detail".h_over_input,"p_detail".p_actual_target,"p_detail".cat_actual_target,"p_detail".inline,"p_detail".cmp,"p_category".p_cat_name,"p_detail".style_no,"line_assign".assign_date,"line_assign".man_target,"line_assign".man_actual_target,"line_assign".remark,"p_detail".order_quantity,"p_detail".h_balance
             FROM p_detail
             JOIN line_assign ON "line_assign".assign_id="p_detail".assign_id AND "line_assign".assign_date=\'' . $format_date_string . '\'
             JOIN p_category ON "p_category".p_cat_id="p_detail".p_cat_id
@@ -53,18 +53,18 @@ class ReportDashController extends Controller
             JOIN p_category ON "p_category".p_cat_id="p_detail".p_cat_id
            ');
         } else {
-            $daily_report = DB::select('SELECT "line".l_id,"line".l_name,"line_assign".main_target,"line_assign".ot_main_target,"line_assign".assign_id,"line_assign".m_power,"line_assign".actual_m_power,"line_assign".man_target,"line_assign".man_actual_target,
+            $daily_report = DB::select('SELECT "line".l_id,"line".l_name,"line_assign".main_target,"line_assign".ot_main_target,"line_assign".m_power,"line_assign".assign_id,"line_assign".m_power,"line_assign".actual_m_power,"line_assign".man_target,"line_assign".man_actual_target,
             "line_assign".hp,"line_assign".actual_hp,SUM("time".div_actual_target) as total_div_actual_target,COUNT("time".assign_id) AS total_time,"line_assign".assign_date,"line_assign".remark
             FROM line
             JOIN line_assign ON "line_assign".l_id="line".l_id AND
             "line_assign".assign_date=\'' . $date_string . '\'
-            JOIN time ON "time".line_id="line".l_id AND "time".assign_date=\'' . $date_string . '\' AND "time".assign_id="line_assign".assign_id
+            JOIN time ON "time".line_id="line".l_id AND "time".assign_date=\'' . $date_string . '\' AND "time".assign_id="line_assign".assign_id WHERE ("time".ot_status IS NULL OR "time".ot_status=1) AND NOT "time".time_name=\'temp\'
             GROUP BY "line".l_id,"line_assign".main_target,"line_assign".m_power,"line_assign".actual_m_power,"line_assign".man_target,"line_assign".man_actual_target,
             "line_assign".hp,"line_assign".actual_hp,"line_assign".assign_date,"line_assign".remark,"line_assign".assign_id
             ORDER BY "line".l_pos ASC');
 
             $daily_report_product = DB::select('SELECT "p_detail".p_detail_id,"p_detail".l_id,"p_detail".p_name,"p_detail".quantity,"p_detail".div_quantity,"p_detail".sewing_input,"p_detail".assign_id,
-            "p_detail".h_over_input,"p_detail".p_actual_target,"p_detail".cat_actual_target,"p_detail".inline,"p_detail".cmp,"p_category".p_cat_name,"p_detail".style_no,"line_assign".assign_date,"line_assign".man_target,"line_assign".man_actual_target,"line_assign".remark
+            "p_detail".h_over_input,"p_detail".p_actual_target,"p_detail".cat_actual_target,"p_detail".inline,"p_detail".cmp,"p_category".p_cat_name,"p_detail".style_no,"line_assign".assign_date,"line_assign".man_target,"line_assign".man_actual_target,"line_assign".remark,"p_detail".order_quantity,"p_detail".h_balance
             FROM p_detail
             JOIN line_assign ON "line_assign".assign_id="p_detail".assign_id AND "line_assign".assign_date=\'' . $date_string . '\'
             JOIN p_category ON "p_category".p_cat_id="p_detail".p_cat_id
@@ -103,6 +103,8 @@ class ReportDashController extends Controller
         $sewing_post = request()->post('sewing');
         $m_power_2_post = request()->post('m_power_2');
         $note_post = request()->post('note');
+        $order_post = request()->post('order_qty');
+        $h_bal = request()->post('h_bal');
 
         for ($i = 0; $i < count($boxes); $i++) {
             $l_id_input = $boxes[$i]['l_id_input'];
@@ -198,6 +200,65 @@ class ReportDashController extends Controller
                     ->update(['inline' => $inline_val_input]);
             }
         }
+
+        //// HandOver Post
+        for ($j = 0; $j < count($h_bal); $j++) {
+            $h_bal_l_id = $h_bal[$j]['h_bal_l_id'];
+            $h_bal_a_id = $h_bal[$j]['h_bal_a_id'];
+            $h_bal_date = $h_bal[$j]['h_bal_date'];
+            $h_bal_p_id = $h_bal[$j]['h_bal_p_id'];
+            $h_bal_val_input = $h_bal[$j]['h_bal_val_input'];
+
+
+            $date_string = date("d.m.Y", strtotime($h_bal_date));
+
+            if ($date_string != '') {
+                $p_detail_query = ProductDetail::where('p_detail_id', $h_bal_p_id)
+                    ->where('l_id', $h_bal_l_id)
+                    ->where('assign_id', $h_bal_a_id)
+                    ->update(['h_balance' => $h_bal_val_input]);
+            }
+
+            if ($h_bal_date == '') {
+                $date_string = date("d.m.Y");
+
+                $p_detail_query = ProductDetail::where('p_detail_id', $h_bal_p_id)
+                    ->where('l_id', $h_bal_l_id)
+                    ->where('assign_id', $h_bal_a_id)
+                    ->update(['h_balance' => $h_bal_val_input]);
+            }
+        }
+
+
+        /// Order Post
+
+        for ($j = 0; $j < count($order_post); $j++) {
+            $order_l_id = $order_post[$j]['order_l_id'];
+            $order_a_id = $order_post[$j]['order_a_id'];
+            $order_date = $order_post[$j]['order_date'];
+            $order_p_id = $order_post[$j]['order_p_id'];
+            $order_val_input = $order_post[$j]['order_val_input'];
+
+
+            $date_string = date("d.m.Y", strtotime($order_date));
+
+            if ($date_string != '') {
+                $p_detail_query = ProductDetail::where('p_detail_id', $order_p_id)
+                    ->where('l_id', $order_l_id)
+                    ->where('assign_id', $order_a_id)
+                    ->update(['order_quantity' => $order_val_input]);
+            }
+
+            if ($order_date == '') {
+                $date_string = date("d.m.Y");
+
+                $p_detail_query = ProductDetail::where('p_detail_id', $order_p_id)
+                    ->where('l_id', $order_l_id)
+                    ->where('assign_id', $order_a_id)
+                    ->update(['order_quantity' => $order_val_input]);
+            }
+        }
+
 
         /// Handover Post
         for ($j = 0; $j < count($handover_post); $j++) {

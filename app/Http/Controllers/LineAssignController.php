@@ -390,101 +390,101 @@ class LineAssignController extends Controller
                     if ($countTotalTimeArr > 0) {
                         for ($j = 0; $j < $countTotalTimeArr; $j++) { ///// Insert data [] to time table
 
-                            $time_query = Time::where('assign_date', $date_string)->where('time_name', $time_arr[$j])->get();
+                            // $time_query = Time::where('assign_date', $date_string)->where('time_name', $time_arr[$j])->get();
 
-                            $time_query_decode = json_decode(json_encode($time_query), true);
+                            // $time_query_decode = json_decode(json_encode($time_query), true);
 
-                            for ($z = 0; $z < count($time_query_decode); $z++) {
-                                $time_name = $time_query_decode[$z]['time_name'];
-                                $ot_status = $time_query_decode[$z]['ot_status'];
+                            // for ($z = 0; $z < count($time_query_decode); $z++) {
+                            //     $time_name = $time_query_decode[$z]['time_name'];
+                            //     $ot_status = $time_query_decode[$z]['ot_status'];
 
-                                if ($time_name == $time_arr[$j] && $ot_status == '0') {
-                                    Time::where('time_name', $time_name)
-                                        ->where('line_id', $l_id)
-                                        ->where('assign_id', $a_id_2)
-                                        ->update(['div_target' => $div_target[$j], 'actual_target_entry' => $target_for_line_entry[$j], 'ot_status' => '1']);
-                                    $time_arr_2[] = [];
-                                }
-                                // else {
-                                //     Time::create([
-                                //         'time_name' => $time_arr[$j],
-                                //         'line_id' => $l_id,
-                                //         'assign_id' => $a_id_2,
-                                //         'div_target' => $div_target[$j],
-                                //         'actual_target_entry' => $target_for_line_entry[$j],
-                                //         'assign_date' => $date_string,
-                                //         'ot_status' => 1,
-                                //     ]);
-                                //     $time_arr_2[] = $time_arr[$j];
-                                // }
+                            //     // if ($time_name == $time_arr[$j] && $ot_status == '0') {
+                            //     //     Time::where('time_name', $time_name)
+                            //     //         ->where('line_id', $l_id)
+                            //     //         ->where('assign_id', $a_id_2)
+                            //     //         ->update(['div_target' => $div_target[$j], 'actual_target_entry' => $target_for_line_entry[$j], 'ot_status' => '1']);
+                            //     //     $time_arr_2[] = [];
+                            //     // }
+                            //     // else {
+                            //     //     Time::create([
+                            //     //         'time_name' => $time_arr[$j],
+                            //     //         'line_id' => $l_id,
+                            //     //         'assign_id' => $a_id_2,
+                            //     //         'div_target' => $div_target[$j],
+                            //     //         'actual_target_entry' => $target_for_line_entry[$j],
+                            //     //         'assign_date' => $date_string,
+                            //     //         'ot_status' => 1,
+                            //     //     ]);
+                            //     //     $time_arr_2[] = $time_arr[$j];
+                            //     // }
 
-                                echo count($time_arr_2);
-                                if (count($time_arr_2) == 0) {
-                                    echo 'hello';
-                                }
-                                // for ($x = 0; $x < count($time_arr_2); $x++) {
-                                //     for ($z = 0; $z < count($line_assign_not_over_time_decode); $z++) {
-                                //         Time::create([
-                                //             'time_name' => $time_arr_2[$x],
-                                //             'line_id' => $line_assign_not_over_time_decode[$z]['l_id'],
-                                //             'assign_id' => $line_assign_not_over_time_decode[$z]['assign_id'],
-                                //             'div_target' => 0,
-                                //             'actual_target_entry' => 0,
-                                //             'assign_date' => $date_string,
-                                //             'ot_status' => 0,
-                                //         ]);
-                                //     }
-                                // }
+                            //     // echo count($time_arr_2);
+                            //     // if (count($time_arr_2) == 0) {
+                            //     //     echo 'hello';
+                            //     // }
+                            //     // for ($x = 0; $x < count($time_arr_2); $x++) {
+                            //     //     for ($z = 0; $z < count($line_assign_not_over_time_decode); $z++) {
+                            //     //         Time::create([
+                            //     //             'time_name' => $time_arr_2[$x],
+                            //     //             'line_id' => $line_assign_not_over_time_decode[$z]['l_id'],
+                            //     //             'assign_id' => $line_assign_not_over_time_decode[$z]['assign_id'],
+                            //     //             'div_target' => 0,
+                            //     //             'actual_target_entry' => 0,
+                            //     //             'assign_date' => $date_string,
+                            //     //             'ot_status' => 0,
+                            //     //         ]);
+                            //     //     }
+                            //     // }
+                            // }
+
+                            Time::create([
+                                'time_name' => $time_arr[$j],
+                                'line_id' => $l_id,
+                                'assign_id' => $a_id_2,
+                                'div_target' => $div_target[$j],
+                                'actual_target_entry' => $target_for_line_entry[$j],
+                                'assign_date' => $date_string,
+                                'ot_status' => 1,
+                            ]);
+
+                            $time_arr_2[] = $time_arr[$j];
+                        }
+
+                        for ($x = 0; $x < count($time_arr_2); $x++) {
+                            for ($z = 0; $z < count($line_assign_not_over_time_decode); $z++) {
+                                Time::create([
+                                    'time_name' => $time_arr_2[$x],
+                                    'line_id' => $line_assign_not_over_time_decode[$z]['l_id'],
+                                    'assign_id' => $line_assign_not_over_time_decode[$z]['assign_id'],
+                                    'div_target' => 0,
+                                    'actual_target_entry' => 0,
+                                    'assign_date' => $date_string,
+                                    'ot_status' => 0,
+                                ]);
                             }
-
-                            //     Time::create([
-                            //         'time_name' => $time_arr[$j],
-                            //         'line_id' => $l_id,
-                            //         'assign_id' => $a_id_2,
-                            //         'div_target' => $div_target[$j],
-                            //         'actual_target_entry' => $target_for_line_entry[$j],
-                            //         'assign_date' => $date_string,
-                            //         'ot_status' => 1,
-                            //     ]);
-
-                            //     $time_arr_2[] = $time_arr[$j];
-                            // }
-
-                            // for ($x = 0; $x < count($time_arr_2); $x++) {
-                            //     for ($z = 0; $z < count($line_assign_not_over_time_decode); $z++) {
-                            //         Time::create([
-                            //             'time_name' => $time_arr_2[$x],
-                            //             'line_id' => $line_assign_not_over_time_decode[$z]['l_id'],
-                            //             'assign_id' => $line_assign_not_over_time_decode[$z]['assign_id'],
-                            //             'div_target' => 0,
-                            //             'actual_target_entry' => 0,
-                            //             'assign_date' => $date_string,
-                            //             'ot_status' => 0,
-                            //         ]);
-                            //     }
-                            // }
                         }
 
 
-                        // if ($number > 0) {
-                        //     for ($i = 0; $i < $number; $i++) {  ///// Insert data [] to p_detail table
-                        //         if (trim($category[$i] != '')) {
-                        //             $category_id = $category[$i];
-                        //             $category_target_name = $category_target[$i];
-                        //             $style_no_1 = $style_no[$i];
-                        //             $product_name = $p_name[$i];
+                        if ($number > 0) {
+                            for ($i = 0; $i < $number; $i++) {  ///// Insert data [] to p_detail table
+                                if (trim($category[$i] != '')) {
+                                    $category_id = $category[$i];
+                                    $category_target_name = $category_target[$i];
+                                    $style_no_1 = $style_no[$i];
+                                    $product_name = $p_name[$i];
 
-                        //             $time_count = DB::select("SELECT assign_id,time_name FROM time WHERE assign_id=" . $a_id_2 . " AND NOT time_name='temp' ORDER BY time_name DESC");
-                        //             $time_count_decode = json_decode(json_encode($time_count), true);
-                        //             $count_time = count($time_count_decode);
-                        //             $div_target_quantity = round(($category_target[$i] / $count_time), 0);
+                                    $time_count = DB::select("SELECT assign_id,time_name FROM time WHERE assign_id=" . $a_id_2 . " AND NOT time_name='temp' ORDER BY time_name DESC");
+                                    $time_count_decode = json_decode(json_encode($time_count), true);
+                                    $count_time = count($time_count_decode);
+                                    $div_target_quantity = round(($category_target[$i] / $count_time), 0);
 
-                        //             $category_assign = ProductDetail::create(['assign_id' => $a_id_2, 'l_id' => $l_id, 'p_cat_id' => $category_id, 'p_name' => $product_name, 'style_no' => $style_no_1, 'quantity' => $category_target_name, 'div_quantity' => $div_target_quantity, 'ot_status' => 1, 'created_at' => NOW()]);
-                        //         }
-                        //     }
-                        //     if ($category_assign == true) {
-                        //         return redirect('/line_setting?status=create_ok');
-                        //     }
+                                    $category_assign = ProductDetail::create(['assign_id' => $a_id_2, 'l_id' => $l_id, 'p_cat_id' => $category_id, 'p_name' => $product_name, 'style_no' => $style_no_1, 'quantity' => $category_target_name, 'div_quantity' => $div_target_quantity, 'ot_status' => 1, 'created_at' => NOW()]);
+                                }
+                            }
+                            if ($category_assign == true) {
+                                return redirect('/line_setting?status=create_ok');
+                            }
+                        }
                     }
                 }
             }

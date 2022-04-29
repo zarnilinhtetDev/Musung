@@ -49,7 +49,6 @@ class LiveDashPercentChart
         }
 
         return $this->percent_chart->horizontalBarChart()
-            ->setTitle('Target and Output Chart')
             ->addData('Output Target', $arr)
             ->setXAxis($line)
             ->setDataLabels()

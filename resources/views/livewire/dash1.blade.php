@@ -52,7 +52,7 @@
             $g_actual_hp = $g_line->actual_hp;
             @endphp
             <tr style="border-bottom: 2px solid black;">
-                <td class="fw-bold" style="vertical-align: middle;">{{ $g_line_name }}</td>
+                <td class="fw-bold line_name" style="vertical-align: middle;">{{ $g_line_name }}</td>
                 <td>
                     <table class="w-100 text-center table m-0 table-bordered">
                         <tr>
@@ -284,7 +284,7 @@ $("#td_div_actual_target_<?php echo $current_target; ?>").css('background-color'
 
                 @foreach($top_line as $t_line)
                 @if ($g_line_id == $t_line->l_id)
-                <td style="vertical-align: middle;" class="t_line_{{ $t_line->row_num }} t_line_count">
+                <td style="vertical-align: middle;" class="t_line_{{ $t_line->row_num }} t_line_count fw-bold">
                     {{
                     $t_line->row_num }}
                 </td>
@@ -360,7 +360,7 @@ $(".t_line_" + max_num).css({
             </tr>
             @endforeach
             <tr>
-                <td class="fw-bold" style=" vertical-align: middle;">Total</td>
+                <td class="fw-bold total" style=" vertical-align: middle;">Total</td>
                 <td></td>
                 <td></td>
                 <td></td>

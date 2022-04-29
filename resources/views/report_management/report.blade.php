@@ -112,7 +112,7 @@ $date_string_for_export_pdf = date("Y_m_d", strtotime($date_string));
                             </th>
                         </tr>
                     </thead>
-                    <tbody id="myTable">
+                    <tbody id="myTable" class="report_tbl_2">
                         @for($i=0;$i<count($daily_report_decode);$i++) @php
                             $l_id=$daily_report_decode[$i]['l_id'];$l_name=$daily_report_decode[$i]['l_name'];$main_target=$daily_report_decode[$i]['main_target'];$ot_main_target=$daily_report_decode[$i]['ot_main_target'];$actual_target=$daily_report_decode[$i]['total_div_actual_target'];
                             $m_power=$daily_report_decode[$i]['m_power'];$actual_m_power=$daily_report_decode[$i]['actual_m_power'];$hp=$daily_report_decode[$i]['hp'];$actual_hp=$daily_report_decode[$i]['actual_hp'];
@@ -176,8 +176,8 @@ $date_string_for_export_pdf = date("Y_m_d", strtotime($date_string));
                             <td>
                                 <table class="m-auto text-start table table-bordered custom-table-border-color">
                                     <tbody>
-                                        <tr class="bg-warning text-white">
-                                            <td><span>Overall Target</span></td>
+                                        <tr>
+                                            <td>-</td>
                                         </tr>
                                         @for($j=0;$j<count($daily_report_product_decode);$j++) @php
                                             $l_id_2=$daily_report_product_decode[$j]['l_id'];
@@ -267,7 +267,63 @@ $date_string_for_export_pdf = date("Y_m_d", strtotime($date_string));
                                     $('.percent_{{ $l_id }}').text(percent.toFixed(0) + "%");
                                 }
                             </script>
-                            <td class="text-danger"></td>
+                            <td>
+                                <table class="m-auto text-center table table-bordered custom-table-border-color">
+                                    @if($edit_status)
+                                    <tbody>
+                                        <tr>
+                                            <td>-</td>
+                                        </tr>
+
+                                        @for($j=0;$j<count($daily_report_product_decode);$j++) @php
+                                            $l_id_2=$daily_report_product_decode[$j]['l_id'];
+                                            $order_qty=$daily_report_product_decode[$j]['order_quantity'];
+                                            $p_id_2=$daily_report_product_decode[$j]['p_detail_id']; @endphp
+                                            @if($l_id_2==$l_id) <tr>
+                                            <td class="order_quantity_input">
+                                                <input type="hidden" id="order_l_id_input" name="l_id[]"
+                                                    value="<?php echo $l_id; ?>" />
+                                                <input type="hidden" id="order_a_id_input" name="a_id[]"
+                                                    value="<?php echo $assign_id_2; ?>" />
+                                                <input type="hidden" id="order_date_input" name="date_input[]"
+                                                    value="<?php echo $date; ?>" />
+                                                <input type="number" id="order_val_input"
+                                                    class="form-control p-0 text-center" name="order_val_input[]"
+                                                    placeholder="0" min="0" step="any"
+                                                    value="<?php echo $order_qty; ?>">
+                                                <input type="hidden" id="order_p_id_input" name="p_id_input[]"
+                                                    value="<?php echo $p_id_2; ?>" />
+                                            </td>
+                                            </tr>
+                                            @endif
+
+                                            @endfor
+                                    </tbody>
+                                    @else
+                                    <tbody>
+                                        <tr>
+                                            <td>-</td>
+                                        </tr>
+                                        @for($j=0;$j<count($daily_report_product_decode);$j++) @php
+                                            $l_id_2=$daily_report_product_decode[$j]['l_id'];
+                                            $order_qty=$daily_report_product_decode[$j]['order_quantity'];@endphp
+                                            @if($l_id_2==$l_id) <tr>
+                                            @if($order_qty == '')
+                                            <td> - </td>
+                                            @endif
+                                            @if($order_qty != '')
+                                            <td>{{ number_format($order_qty) }}</td>
+                                            @endif
+                                            </tr>
+                                            @endif
+
+                                            @endfor
+
+                                    </tbody>
+                                    @endif
+
+                                </table>
+                            </td>
 
                             <!-- Sewing Input --->
                             <td>
@@ -673,21 +729,58 @@ $date_string_for_export_pdf = date("Y_m_d", strtotime($date_string));
                 <!-- H/over Balance --->
                 <td>
                     <table class="m-auto text-center table table-bordered custom-table-border-color">
+                        @if($edit_status)
+                        <tbody>
+                            <tr>
+                                <td>-</td>
+                            </tr>
+
+                            @for($j=0;$j<count($daily_report_product_decode);$j++) @php
+                                $l_id_2=$daily_report_product_decode[$j]['l_id'];
+                                $h_balance=$daily_report_product_decode[$j]['h_balance'];
+                                $p_id_2=$daily_report_product_decode[$j]['p_detail_id']; @endphp @if($l_id_2==$l_id)
+                                <tr>
+                                <td class="h_bal_input">
+                                    <input type="hidden" id="h_bal_l_id_input" name="l_id[]"
+                                        value="<?php echo $l_id; ?>" />
+                                    <input type="hidden" id="h_bal_a_id_input" name="a_id[]"
+                                        value="<?php echo $assign_id_2; ?>" />
+                                    <input type="hidden" id="h_bal_date_input" name="date_input[]"
+                                        value="<?php echo $date; ?>" />
+                                    <input type="number" id="h_bal_val_input" class="form-control p-0 text-center"
+                                        name="h_balance_val_input[]" placeholder="0" min="0" step="any"
+                                        value="<?php echo $h_balance; ?>">
+                                    <input type="hidden" id="h_bal_p_id_input" name="p_id_input[]"
+                                        value="<?php echo $p_id_2; ?>" />
+                                </td>
+                                </tr>
+                                @endif
+
+                                @endfor
+                        </tbody>
+                        @else
                         <tbody>
                             <tr>
                                 <td>-</td>
                             </tr>
                             @for($j=0;$j<count($daily_report_product_decode);$j++) @php
                                 $l_id_2=$daily_report_product_decode[$j]['l_id'];
-                                $h_over_input=$daily_report_product_decode[$j]['h_over_input'];
-                                $h_over_bal=$h_over_input - $h_over_input; @endphp @if($l_id_2==$l_id) <tr>
-                                <td>{{ number_format($h_over_bal) }}</td>
+                                $h_balance=$daily_report_product_decode[$j]['h_balance']; @endphp @if($l_id_2==$l_id)
+                                <tr>
+                                @if($h_balance == '')
+                                <td> - </td>
+                                @endif
+                                @if($h_balance != '')
+                                <td>{{ number_format($h_balance) }}</td>
+                                @endif
                                 </tr>
                                 @endif
 
                                 @endfor
 
                         </tbody>
+                        @endif
+
                     </table>
                 </td>
 
@@ -779,9 +872,9 @@ $date_string_for_export_pdf = date("Y_m_d", strtotime($date_string));
                 <!----- Total Time ------>
 
                 @for($k=0;$k<count($daily_report_decode);$k++) @php $l_id_2=$daily_report_decode[$k]['l_id'];
-                    $total_time=(int)$daily_report_decode[$k]['total_time']; $subtraction=$total_time - 1; @endphp
-                    @if($l_id_2==$l_id) <td class="total_time_{{ $l_id_2 }}"> {{
-                    $subtraction }} </td>
+                    $total_time=(int)$daily_report_decode[$k]['total_time']; @endphp @if($l_id_2==$l_id) <td
+                    class="total_time_{{ $l_id_2 }}"> {{
+                    $total_time }} </td>
 
                     @endif
 
@@ -1007,6 +1100,51 @@ $(".note_input").each(function(){
     note_arr.push(note_obj);
 });
 
+/// Order Qty
+var order_qty = {};
+var order_arr = [];
+
+$(".order_quantity_input").each(function(){
+    var order_l_id = $("#order_l_id_input",this).val();
+    var order_a_id = $("#order_a_id_input",this).val();
+    var order_date = $("#order_date_input",this).val();
+    var order_p_id = $("#order_p_id_input",this).val();
+    var order_val_input = $("#order_val_input",this).val();
+
+    order_qty = {
+        order_l_id : order_l_id,
+        order_a_id : order_a_id,
+        order_date : order_date,
+        order_p_id : order_p_id,
+        order_val_input : order_val_input,
+    }
+
+    order_arr.push(order_qty);
+});
+
+/// HandOver Balance
+
+var h_bal_obj = {};
+var h_bal_arr = [];
+
+$(".h_bal_input").each(function(){
+    var h_bal_l_id = $("#h_bal_l_id_input",this).val();
+    var h_bal_a_id = $("#h_bal_a_id_input",this).val();
+    var h_bal_date = $("#h_bal_date_input",this).val();
+    var h_bal_p_id = $("#h_bal_p_id_input",this).val();
+    var h_bal_val_input = $("#h_bal_val_input",this).val();
+
+    h_bal_obj = {
+        h_bal_l_id : h_bal_l_id,
+        h_bal_a_id : h_bal_a_id,
+        h_bal_date : h_bal_date,
+        h_bal_p_id : h_bal_p_id,
+        h_bal_val_input : h_bal_val_input,
+    }
+
+    h_bal_arr.push(h_bal_obj);
+});
+
 $.ajax({
         type: "POST",
         url: "/cmp_put",
@@ -1018,6 +1156,8 @@ $.ajax({
             sewing : sewing_arr,
             m_power_2 : m_power_arr_2,
             note: note_arr,
+            order_qty : order_arr,
+            h_bal : h_bal_arr,
         },
         success: function(data) {
             // console.log(data);
@@ -1661,7 +1801,7 @@ chart.render();
                             </th>
                         </tr>
                     </thead>
-                    <tbody id="myTable">
+                    <tbody id="myTable" class="report_tbl_2">
                         @for($i=0;$i<count($daily_report_decode);$i++) @php
                             $l_id=$daily_report_decode[$i]['l_id'];$l_name=$daily_report_decode[$i]['l_name'];$main_target=$daily_report_decode[$i]['main_target'];$ot_main_target=$daily_report_decode[$i]['ot_main_target'];$actual_target=$daily_report_decode[$i]['total_div_actual_target'];
                             $m_power=$daily_report_decode[$i]['m_power'];$actual_m_power=$daily_report_decode[$i]['actual_m_power'];$hp=$daily_report_decode[$i]['hp'];$actual_hp=$daily_report_decode[$i]['actual_hp'];
@@ -1724,8 +1864,8 @@ chart.render();
                             <td>
                                 <table class="m-auto text-start table table-bordered custom-table-border-color">
                                     <tbody>
-                                        <tr class="bg-warning text-white">
-                                            <td><span>Overall Target</span></td>
+                                        <tr>
+                                            <td>-</td>
                                         </tr>
                                         @for($j=0;$j<count($daily_report_product_decode);$j++) @php
                                             $l_id_2=$daily_report_product_decode[$j]['l_id'];
@@ -1812,7 +1952,64 @@ chart.render();
                                     $('.percent_{{ $l_id }}').text(percent.toFixed(0) + "%");
                                 }
                             </script>
-                            <td class="text-danger"></td>
+
+                            <td>
+                                <table class="m-auto text-center table table-bordered custom-table-border-color">
+                                    @if($edit_status)
+                                    <tbody>
+                                        <tr>
+                                            <td>-</td>
+                                        </tr>
+
+                                        @for($j=0;$j<count($daily_report_product_decode);$j++) @php
+                                            $l_id_2=$daily_report_product_decode[$j]['l_id'];
+                                            $order_qty=$daily_report_product_decode[$j]['order_quantity'];
+                                            $p_id_2=$daily_report_product_decode[$j]['p_detail_id']; @endphp
+                                            @if($l_id_2==$l_id) <tr>
+                                            <td class="order_quantity_input">
+                                                <input type="hidden" id="order_l_id_input" name="l_id[]"
+                                                    value="<?php echo $l_id; ?>" />
+                                                <input type="hidden" id="order_a_id_input" name="a_id[]"
+                                                    value="<?php echo $assign_id_2; ?>" />
+                                                <input type="hidden" id="order_date_input" name="date_input[]"
+                                                    value="<?php echo $date; ?>" />
+                                                <input type="number" id="order_val_input"
+                                                    class="form-control p-0 text-center" name="order_val_input[]"
+                                                    placeholder="0" min="0" step="any"
+                                                    value="<?php echo $order_qty; ?>">
+                                                <input type="hidden" id="order_p_id_input" name="p_id_input[]"
+                                                    value="<?php echo $p_id_2; ?>" />
+                                            </td>
+                                            </tr>
+                                            @endif
+
+                                            @endfor
+                                    </tbody>
+                                    @else
+                                    <tbody>
+                                        <tr>
+                                            <td>-</td>
+                                        </tr>
+                                        @for($j=0;$j<count($daily_report_product_decode);$j++) @php
+                                            $l_id_2=$daily_report_product_decode[$j]['l_id'];
+                                            $order_qty=$daily_report_product_decode[$j]['order_quantity'];@endphp
+                                            @if($l_id_2==$l_id) <tr>
+                                            @if($order_qty == '')
+                                            <td> - </td>
+                                            @endif
+                                            @if($order_qty != '')
+                                            <td>{{ number_format($order_qty) }}</td>
+                                            @endif
+                                            </tr>
+                                            @endif
+
+                                            @endfor
+
+                                    </tbody>
+                                    @endif
+
+                                </table>
+                            </td>
 
                             <!-- Sewing Input --->
                             <td>
@@ -2216,21 +2413,58 @@ chart.render();
                 <!-- H/over Balance --->
                 <td>
                     <table class="m-auto text-center table table-bordered custom-table-border-color">
+                        @if($edit_status)
+                        <tbody>
+                            <tr>
+                                <td>-</td>
+                            </tr>
+
+                            @for($j=0;$j<count($daily_report_product_decode);$j++) @php
+                                $l_id_2=$daily_report_product_decode[$j]['l_id'];
+                                $h_balance=$daily_report_product_decode[$j]['h_balance'];
+                                $p_id_2=$daily_report_product_decode[$j]['p_detail_id']; @endphp @if($l_id_2==$l_id)
+                                <tr>
+                                <td class="h_bal_input">
+                                    <input type="hidden" id="h_bal_l_id_input" name="l_id[]"
+                                        value="<?php echo $l_id; ?>" />
+                                    <input type="hidden" id="h_bal_a_id_input" name="a_id[]"
+                                        value="<?php echo $assign_id_2; ?>" />
+                                    <input type="hidden" id="h_bal_date_input" name="date_input[]"
+                                        value="<?php echo $date; ?>" />
+                                    <input type="number" id="h_bal_val_input" class="form-control p-0 text-center"
+                                        name="h_balance_val_input[]" placeholder="0" min="0" step="any"
+                                        value="<?php echo $h_balance; ?>">
+                                    <input type="hidden" id="h_bal_p_id_input" name="p_id_input[]"
+                                        value="<?php echo $p_id_2; ?>" />
+                                </td>
+                                </tr>
+                                @endif
+
+                                @endfor
+                        </tbody>
+                        @else
                         <tbody>
                             <tr>
                                 <td>-</td>
                             </tr>
                             @for($j=0;$j<count($daily_report_product_decode);$j++) @php
                                 $l_id_2=$daily_report_product_decode[$j]['l_id'];
-                                $h_over_input=$daily_report_product_decode[$j]['h_over_input'];
-                                $h_over_bal=$h_over_input - $h_over_input; @endphp @if($l_id_2==$l_id) <tr>
-                                <td>{{ number_format($h_over_bal) }}</td>
+                                $h_balance=$daily_report_product_decode[$j]['h_balance']; @endphp @if($l_id_2==$l_id)
+                                <tr>
+                                @if($h_balance == '')
+                                <td> - </td>
+                                @endif
+                                @if($h_balance != '')
+                                <td>{{ number_format($h_balance) }}</td>
+                                @endif
                                 </tr>
                                 @endif
 
                                 @endfor
 
                         </tbody>
+                        @endif
+
                     </table>
                 </td>
 
@@ -2322,9 +2556,9 @@ chart.render();
                 <!----- Total Time ------>
 
                 @for($k=0;$k<count($daily_report_decode);$k++) @php $l_id_2=$daily_report_decode[$k]['l_id'];
-                    $total_time=(int)$daily_report_decode[$k]['total_time']; $subtraction=$total_time - 1; @endphp
-                    @if($l_id_2==$l_id) <td class="total_time_{{ $l_id_2 }}"> {{
-                    $subtraction }} </td>
+                    $total_time=(int)$daily_report_decode[$k]['total_time']; @endphp @if($l_id_2==$l_id) <td
+                    class="total_time_{{ $l_id_2 }}"> {{
+                    $total_time }} </td>
 
                     @endif
 
@@ -2549,6 +2783,50 @@ $(".note_input").each(function(){
 
     note_arr.push(note_obj);
 });
+/// Order Qty
+var order_qty = {};
+var order_arr = [];
+
+$(".order_quantity_input").each(function(){
+    var order_l_id = $("#order_l_id_input",this).val();
+    var order_a_id = $("#order_a_id_input",this).val();
+    var order_date = $("#order_date_input",this).val();
+    var order_p_id = $("#order_p_id_input",this).val();
+    var order_val_input = $("#order_val_input",this).val();
+
+    order_qty = {
+        order_l_id : order_l_id,
+        order_a_id : order_a_id,
+        order_date : order_date,
+        order_p_id : order_p_id,
+        order_val_input : order_val_input,
+    }
+
+    order_arr.push(order_qty);
+});
+
+/// HandOver Balance
+
+var h_bal_obj = {};
+var h_bal_arr = [];
+
+$(".h_bal_input").each(function(){
+    var h_bal_l_id = $("#h_bal_l_id_input",this).val();
+    var h_bal_a_id = $("#h_bal_a_id_input",this).val();
+    var h_bal_date = $("#h_bal_date_input",this).val();
+    var h_bal_p_id = $("#h_bal_p_id_input",this).val();
+    var h_bal_val_input = $("#h_bal_val_input",this).val();
+
+    h_bal_obj = {
+        h_bal_l_id : h_bal_l_id,
+        h_bal_a_id : h_bal_a_id,
+        h_bal_date : h_bal_date,
+        h_bal_p_id : h_bal_p_id,
+        h_bal_val_input : h_bal_val_input,
+    }
+
+    h_bal_arr.push(h_bal_obj);
+});
 
 $.ajax({
         type: "POST",
@@ -2561,6 +2839,8 @@ $.ajax({
             sewing : sewing_arr,
             m_power_2 : m_power_arr_2,
             note: note_arr,
+            order_qty : order_arr,
+            h_bal : h_bal_arr,
         },
         success: function(data) {
             // console.log(data);
@@ -3164,9 +3444,9 @@ chart.render();
             <input class="icon-btn-one btn my-2" type="submit" value="Update" name="submit" />
             <a href="{{ url('/report') }}" class="btn-secondary btn my-2">Cancel</a>
             @endif
-            <div style="overflow-x:auto;max-width:100%;">
-                <table class="table table-striped my-4 tableFixHead results p-0 text-center table-bordered"
-                    id="report_table">
+            <div style="overflow-x:auto;max-width:100%;" id="report_table">
+                <h2 class="fw-bold text-center report-title" style="display:none;">Musung Garment Co.,Ltd.</h2>
+                <table class="table table-striped my-4 tableFixHead results p-0 text-center table-bordered">
                     <thead>
                         <tr class="tr-2">
                             <th scope="col">Line</th>
@@ -3205,7 +3485,7 @@ chart.render();
                             </th>
                         </tr>
                     </thead>
-                    <tbody id="myTable">
+                    <tbody id="myTable" class="report_tbl_2">
                         @for($i=0;$i<count($daily_report_decode);$i++) @php
                             $l_id=$daily_report_decode[$i]['l_id'];$l_name=$daily_report_decode[$i]['l_name'];$main_target=$daily_report_decode[$i]['main_target'];$ot_main_target=$daily_report_decode[$i]['ot_main_target'];$actual_target=$daily_report_decode[$i]['total_div_actual_target'];
                             $m_power=$daily_report_decode[$i]['m_power'];$actual_m_power=$daily_report_decode[$i]['actual_m_power'];$hp=$daily_report_decode[$i]['hp'];$actual_hp=$daily_report_decode[$i]['actual_hp'];
@@ -3268,8 +3548,8 @@ chart.render();
                             <td>
                                 <table class="m-auto text-start table table-bordered custom-table-border-color">
                                     <tbody>
-                                        <tr class="bg-warning text-white">
-                                            <td><span>Overall Target</span></td>
+                                        <tr>
+                                            <td>-</td>
                                         </tr>
                                         @for($j=0;$j<count($daily_report_product_decode);$j++) @php
                                             $l_id_2=$daily_report_product_decode[$j]['l_id'];
@@ -3356,7 +3636,65 @@ chart.render();
                                     $('.percent_{{ $l_id }}').text(percent.toFixed(0) + "%");
                                 }
                             </script>
-                            <td class="text-danger"></td>
+
+
+                            <td>
+                                <table class="m-auto text-center table table-bordered custom-table-border-color">
+                                    @if($edit_status)
+                                    <tbody>
+                                        <tr>
+                                            <td>-</td>
+                                        </tr>
+
+                                        @for($j=0;$j<count($daily_report_product_decode);$j++) @php
+                                            $l_id_2=$daily_report_product_decode[$j]['l_id'];
+                                            $order_qty=$daily_report_product_decode[$j]['order_quantity'];
+                                            $p_id_2=$daily_report_product_decode[$j]['p_detail_id']; @endphp
+                                            @if($l_id_2==$l_id) <tr>
+                                            <td class="order_quantity_input">
+                                                <input type="hidden" id="order_l_id_input" name="l_id[]"
+                                                    value="<?php echo $l_id; ?>" />
+                                                <input type="hidden" id="order_a_id_input" name="a_id[]"
+                                                    value="<?php echo $assign_id_2; ?>" />
+                                                <input type="hidden" id="order_date_input" name="date_input[]"
+                                                    value="<?php echo $date; ?>" />
+                                                <input type="number" id="order_val_input"
+                                                    class="form-control p-0 text-center" name="order_val_input[]"
+                                                    placeholder="0" min="0" step="any"
+                                                    value="<?php echo $order_qty; ?>">
+                                                <input type="hidden" id="order_p_id_input" name="p_id_input[]"
+                                                    value="<?php echo $p_id_2; ?>" />
+                                            </td>
+                                            </tr>
+                                            @endif
+
+                                            @endfor
+                                    </tbody>
+                                    @else
+                                    <tbody>
+                                        <tr>
+                                            <td>-</td>
+                                        </tr>
+                                        @for($j=0;$j<count($daily_report_product_decode);$j++) @php
+                                            $l_id_2=$daily_report_product_decode[$j]['l_id'];
+                                            $order_qty=$daily_report_product_decode[$j]['order_quantity'];@endphp
+                                            @if($l_id_2==$l_id) <tr>
+                                            @if($order_qty == '')
+                                            <td> - </td>
+                                            @endif
+                                            @if($order_qty != '')
+                                            <td>{{ number_format($order_qty) }}</td>
+                                            @endif
+                                            </tr>
+                                            @endif
+
+                                            @endfor
+
+                                    </tbody>
+                                    @endif
+
+                                </table>
+                            </td>
 
                             <!-- Sewing Input --->
                             <td>
@@ -3760,21 +4098,58 @@ chart.render();
                 <!-- H/over Balance --->
                 <td>
                     <table class="m-auto text-center table table-bordered custom-table-border-color">
+                        @if($edit_status)
+                        <tbody>
+                            <tr>
+                                <td>-</td>
+                            </tr>
+
+                            @for($j=0;$j<count($daily_report_product_decode);$j++) @php
+                                $l_id_2=$daily_report_product_decode[$j]['l_id'];
+                                $h_balance=$daily_report_product_decode[$j]['h_balance'];
+                                $p_id_2=$daily_report_product_decode[$j]['p_detail_id']; @endphp @if($l_id_2==$l_id)
+                                <tr>
+                                <td class="h_bal_input">
+                                    <input type="hidden" id="h_bal_l_id_input" name="l_id[]"
+                                        value="<?php echo $l_id; ?>" />
+                                    <input type="hidden" id="h_bal_a_id_input" name="a_id[]"
+                                        value="<?php echo $assign_id_2; ?>" />
+                                    <input type="hidden" id="h_bal_date_input" name="date_input[]"
+                                        value="<?php echo $date; ?>" />
+                                    <input type="number" id="h_bal_val_input" class="form-control p-0 text-center"
+                                        name="h_balance_val_input[]" placeholder="0" min="0" step="any"
+                                        value="<?php echo $h_balance; ?>">
+                                    <input type="hidden" id="h_bal_p_id_input" name="p_id_input[]"
+                                        value="<?php echo $p_id_2; ?>" />
+                                </td>
+                                </tr>
+                                @endif
+
+                                @endfor
+                        </tbody>
+                        @else
                         <tbody>
                             <tr>
                                 <td>-</td>
                             </tr>
                             @for($j=0;$j<count($daily_report_product_decode);$j++) @php
                                 $l_id_2=$daily_report_product_decode[$j]['l_id'];
-                                $h_over_input=$daily_report_product_decode[$j]['h_over_input'];
-                                $h_over_bal=$h_over_input - $h_over_input; @endphp @if($l_id_2==$l_id) <tr>
-                                <td>{{ number_format($h_over_bal) }}</td>
+                                $h_balance=$daily_report_product_decode[$j]['h_balance']; @endphp @if($l_id_2==$l_id)
+                                <tr>
+                                @if($h_balance == '')
+                                <td> - </td>
+                                @endif
+                                @if($h_balance != '')
+                                <td>{{ number_format($h_balance) }}</td>
+                                @endif
                                 </tr>
                                 @endif
 
                                 @endfor
 
                         </tbody>
+                        @endif
+
                     </table>
                 </td>
 
@@ -3866,9 +4241,9 @@ chart.render();
                 <!----- Total Time ------>
 
                 @for($k=0;$k<count($daily_report_decode);$k++) @php $l_id_2=$daily_report_decode[$k]['l_id'];
-                    $total_time=(int)$daily_report_decode[$k]['total_time']; $subtraction=$total_time - 1; @endphp
-                    @if($l_id_2==$l_id) <td class="total_time_{{ $l_id_2 }}"> {{
-                    $subtraction }} </td>
+                    $total_time=(int)$daily_report_decode[$k]['total_time']; @endphp @if($l_id_2==$l_id) <td
+                    class="total_time_{{ $l_id_2 }}"> {{
+                    $total_time }} </td>
 
                     @endif
 
@@ -4094,6 +4469,51 @@ $(".note_input").each(function(){
     note_arr.push(note_obj);
 });
 
+/// Order Qty
+var order_qty = {};
+var order_arr = [];
+
+$(".order_quantity_input").each(function(){
+    var order_l_id = $("#order_l_id_input",this).val();
+    var order_a_id = $("#order_a_id_input",this).val();
+    var order_date = $("#order_date_input",this).val();
+    var order_p_id = $("#order_p_id_input",this).val();
+    var order_val_input = $("#order_val_input",this).val();
+
+    order_qty = {
+        order_l_id : order_l_id,
+        order_a_id : order_a_id,
+        order_date : order_date,
+        order_p_id : order_p_id,
+        order_val_input : order_val_input,
+    }
+
+    order_arr.push(order_qty);
+});
+
+/// HandOver Balance
+
+var h_bal_obj = {};
+var h_bal_arr = [];
+
+$(".h_bal_input").each(function(){
+    var h_bal_l_id = $("#h_bal_l_id_input",this).val();
+    var h_bal_a_id = $("#h_bal_a_id_input",this).val();
+    var h_bal_date = $("#h_bal_date_input",this).val();
+    var h_bal_p_id = $("#h_bal_p_id_input",this).val();
+    var h_bal_val_input = $("#h_bal_val_input",this).val();
+
+    h_bal_obj = {
+        h_bal_l_id : h_bal_l_id,
+        h_bal_a_id : h_bal_a_id,
+        h_bal_date : h_bal_date,
+        h_bal_p_id : h_bal_p_id,
+        h_bal_val_input : h_bal_val_input,
+    }
+
+    h_bal_arr.push(h_bal_obj);
+});
+
 $.ajax({
         type: "POST",
         url: "/cmp_put",
@@ -4105,6 +4525,8 @@ $.ajax({
             sewing : sewing_arr,
             m_power_2 : m_power_arr_2,
             note: note_arr,
+            order_qty : order_arr,
+            h_bal : h_bal_arr,
         },
         success: function(data) {
             // console.log(data);
@@ -4741,7 +5163,7 @@ chart.render();
                             </th>
                         </tr>
                     </thead>
-                    <tbody id="myTable">
+                    <tbody id="myTable" class="report_tbl_2">
                         @for($i=0;$i<count($daily_report_decode);$i++) @php
                             $l_id=$daily_report_decode[$i]['l_id'];$l_name=$daily_report_decode[$i]['l_name'];$main_target=$daily_report_decode[$i]['main_target'];$ot_main_target=$daily_report_decode[$i]['ot_main_target'];$actual_target=$daily_report_decode[$i]['total_div_actual_target'];
                             $m_power=$daily_report_decode[$i]['m_power'];$actual_m_power=$daily_report_decode[$i]['actual_m_power'];$hp=$daily_report_decode[$i]['hp'];$actual_hp=$daily_report_decode[$i]['actual_hp'];
@@ -4804,8 +5226,8 @@ chart.render();
                             <td>
                                 <table class="m-auto text-start table table-bordered custom-table-border-color">
                                     <tbody>
-                                        <tr class="bg-warning text-white">
-                                            <td><span>Overall Target</span></td>
+                                        <tr>
+                                            <td>-</td>
                                         </tr>
                                         @for($j=0;$j<count($daily_report_product_decode);$j++) @php
                                             $l_id_2=$daily_report_product_decode[$j]['l_id'];
@@ -4892,7 +5314,65 @@ chart.render();
                                     $('.percent_{{ $l_id }}').text(percent.toFixed(0) + "%");
                                 }
                             </script>
-                            <td class="text-danger"></td>
+
+
+                            <td>
+                                <table class="m-auto text-center table table-bordered custom-table-border-color">
+                                    @if($edit_status)
+                                    <tbody>
+                                        <tr>
+                                            <td>-</td>
+                                        </tr>
+
+                                        @for($j=0;$j<count($daily_report_product_decode);$j++) @php
+                                            $l_id_2=$daily_report_product_decode[$j]['l_id'];
+                                            $order_qty=$daily_report_product_decode[$j]['order_quantity'];
+                                            $p_id_2=$daily_report_product_decode[$j]['p_detail_id']; @endphp
+                                            @if($l_id_2==$l_id) <tr>
+                                            <td class="order_quantity_input">
+                                                <input type="hidden" id="order_l_id_input" name="l_id[]"
+                                                    value="<?php echo $l_id; ?>" />
+                                                <input type="hidden" id="order_a_id_input" name="a_id[]"
+                                                    value="<?php echo $assign_id_2; ?>" />
+                                                <input type="hidden" id="order_date_input" name="date_input[]"
+                                                    value="<?php echo $date; ?>" />
+                                                <input type="number" id="order_val_input"
+                                                    class="form-control p-0 text-center" name="order_val_input[]"
+                                                    placeholder="0" min="0" step="any"
+                                                    value="<?php echo $order_qty; ?>">
+                                                <input type="hidden" id="order_p_id_input" name="p_id_input[]"
+                                                    value="<?php echo $p_id_2; ?>" />
+                                            </td>
+                                            </tr>
+                                            @endif
+
+                                            @endfor
+                                    </tbody>
+                                    @else
+                                    <tbody>
+                                        <tr>
+                                            <td>-</td>
+                                        </tr>
+                                        @for($j=0;$j<count($daily_report_product_decode);$j++) @php
+                                            $l_id_2=$daily_report_product_decode[$j]['l_id'];
+                                            $order_qty=$daily_report_product_decode[$j]['order_quantity'];@endphp
+                                            @if($l_id_2==$l_id) <tr>
+                                            @if($order_qty == '')
+                                            <td> - </td>
+                                            @endif
+                                            @if($order_qty != '')
+                                            <td>{{ number_format($order_qty) }}</td>
+                                            @endif
+                                            </tr>
+                                            @endif
+
+                                            @endfor
+
+                                    </tbody>
+                                    @endif
+
+                                </table>
+                            </td>
 
                             <!-- Sewing Input --->
                             <td>
@@ -5120,21 +5600,59 @@ chart.render();
                             <!-- H/over Balance --->
                             <td>
                                 <table class="m-auto text-center table table-bordered custom-table-border-color">
+                                    @if($edit_status)
+                                    <tbody>
+                                        <tr>
+                                            <td>-</td>
+                                        </tr>
+
+                                        @for($j=0;$j<count($daily_report_product_decode);$j++) @php
+                                            $l_id_2=$daily_report_product_decode[$j]['l_id'];
+                                            $h_balance=$daily_report_product_decode[$j]['h_balance'];
+                                            $p_id_2=$daily_report_product_decode[$j]['p_detail_id']; @endphp
+                                            @if($l_id_2==$l_id) <tr>
+                                            <td class="h_bal_input">
+                                                <input type="hidden" id="h_bal_l_id_input" name="l_id[]"
+                                                    value="<?php echo $l_id; ?>" />
+                                                <input type="hidden" id="h_bal_a_id_input" name="a_id[]"
+                                                    value="<?php echo $assign_id_2; ?>" />
+                                                <input type="hidden" id="h_bal_date_input" name="date_input[]"
+                                                    value="<?php echo $date; ?>" />
+                                                <input type="number" id="h_bal_val_input"
+                                                    class="form-control p-0 text-center" name="h_balance_val_input[]"
+                                                    placeholder="0" min="0" step="any"
+                                                    value="<?php echo $h_balance; ?>">
+                                                <input type="hidden" id="h_bal_p_id_input" name="p_id_input[]"
+                                                    value="<?php echo $p_id_2; ?>" />
+                                            </td>
+                                            </tr>
+                                            @endif
+
+                                            @endfor
+                                    </tbody>
+                                    @else
                                     <tbody>
                                         <tr>
                                             <td>-</td>
                                         </tr>
                                         @for($j=0;$j<count($daily_report_product_decode);$j++) @php
                                             $l_id_2=$daily_report_product_decode[$j]['l_id'];
-                                            $h_over_input=$daily_report_product_decode[$j]['h_over_input'];
-                                            $h_over_bal=$h_over_input - $h_over_input; @endphp @if($l_id_2==$l_id) <tr>
-                                            <td>{{ number_format($h_over_bal) }}</td>
+                                            $h_balance=$daily_report_product_decode[$j]['h_balance']; @endphp
+                                            @if($l_id_2==$l_id) <tr>
+                                            @if($h_balance == '')
+                                            <td> - </td>
+                                            @endif
+                                            @if($h_balance != '')
+                                            <td>{{ number_format($h_balance) }}</td>
+                                            @endif
                                             </tr>
                                             @endif
 
                                             @endfor
 
                                     </tbody>
+                                    @endif
+
                                 </table>
                             </td>
 
@@ -5789,14 +6307,20 @@ chart.render();
 <script>
     $("#exportPDF").click(function() {
 
+    $(".report_tbl_2 td").css("padding", 0);
+    $(".report-title").css("display",'block');
+
         html2canvas($('#report_table')[0], {
                     onrendered: function(canvas) {
                         var data = canvas.toDataURL();
                         var docDefinition = {
                             content: [{
                                 image: data,
-                                width: 500
-                            }]
+                                width: 800,
+                            }],
+                            pageSize: 'A4',
+                            pageOrientation: 'landscape',
+                            pageMargins: [ 20, 20, 20, 20 ],
                         };
                         pdfMake.createPdf(docDefinition).download("<?php echo $date_string_for_export_pdf . '_report'; ?>.pdf");
                     }
