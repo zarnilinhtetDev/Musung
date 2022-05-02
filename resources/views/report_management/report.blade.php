@@ -4196,7 +4196,7 @@ chart.render();
                                 <td class="hp_value_{{ $l_id }}">@if($hp != ''){{ number_format($hp) }} @endif</td>
                             </tr>
                             <tr>
-                                <td class="total_m_power_{{ $l_id }}" colspan="2"></td>
+                                <td class="total_m_power_{{ $l_id }}" colspan="2" id="total_m_power"></td>
                             </tr>
                             <tr>
                                 <td class="actual_m_power_value_{{ $l_id }}">@if($actual_m_power != ''){{
@@ -4206,7 +4206,7 @@ chart.render();
                                     }}@endif</td>
                             </tr>
                             <tr>
-                                <td class="total_actual_m_power_{{ $l_id }}" colspan="2"></td>
+                                <td class="total_actual_m_power_{{ $l_id }}" colspan="2" id="total_actual_m_power"></td>
                             </tr>
                         </tbody>
                         @endif
@@ -6309,6 +6309,8 @@ chart.render();
 
     $(".report_tbl_2 td").css("padding", 0);
     $(".report-title").css("display",'block');
+    $("[id=total_m_power]").css("display","none");
+    $("[id=total_actual_m_power]").css("display","none");
 
         html2canvas($('#report_table')[0], {
                     onrendered: function(canvas) {

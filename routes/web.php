@@ -86,6 +86,17 @@ Route::post('/api/line', 'LineApiController@postLine');
 Route::put('/api/line', 'LineApiController@putLine');
 Route::put('/api/line_delete', 'LineApiController@softDelete');
 
+//// Item List ////
+Route::post('/item_post', 'ItemListController@postItem');
+Route::get('/item_delete', 'ItemListController@deleteItem');
+Route::post('/item_edit','ItemListController@editItem');
+
+//// Buyer List ////
+Route::post('/buyer_post', 'BuyerListController@postBuyer');
+Route::get('/buyer_delete', 'BuyerListController@deleteBuyer');
+Route::post('/buyer_edit','BuyerListController@editBuyer');
+
+
 //// SuperAdmin ////
 Route::get('/superadmin', 'SuperAdminController@index')->middleware('auth');
 Route::post('/superadmin_post', 'SuperAdminController@postSuperAdmin')->middleware('auth');

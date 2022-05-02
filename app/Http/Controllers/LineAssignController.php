@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\BuyerList;
+use App\Models\ItemList;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -89,10 +91,14 @@ class LineAssignController extends Controller
         $responseBody = Line::select('l_id', 'l_name', 'l_pos', 'a_status', 'is_delete')->where('is_delete', 0)->orderBy('l_pos', 'asc')->get();
         $responseBody2 = DB::select('SELECT id,NAME,role FROM users WHERE id NOT IN (SELECT user_id FROM line_assign WHERE assign_date=\'' . $date_string . '\')');
 
+        $item_list = ItemList::select()->get();
+
+        $buyer_list = BuyerList::select()->get();
+
 
         DB::disconnect('musung');
 
-        return view('line_management.setting', compact('responseBody', 'responseBody2', 'line_assign', 'line_assign_2', 'overTime', 'p_detail', 'p_detail_2', 'line_assign_detail', 'l_manager_list'));
+        return view('line_management.setting', compact('responseBody', 'responseBody2', 'line_assign', 'line_assign_2', 'overTime', 'p_detail', 'p_detail_2', 'line_assign_detail', 'l_manager_list', 'item_list', 'buyer_list'));
     }
     public function postLineSetting()
     {
@@ -122,16 +128,13 @@ class LineAssignController extends Controller
         $p_name = [];
         $category_target = [];
         $sub = json_decode(request()->post('sub'), true);
+
         for ($x = 0; $x < count($sub); $x++) {
             $category[] = $sub[$x]['category_select'];
             $style_no[] = $sub[$x]['style_no'];
             $p_name[] = $sub[$x]['p_name'];
             $category_target[] = $sub[$x]['category_target'];
         }
-        // print_r($category) . "<br/>";
-        // print_r($p_name) . "<br/>";
-        // print_r($category_target) . "<br/>";
-        // print_r($style_no);
 
         $number = count($category);
         $t_category_target =  array_sum($category_target);
@@ -252,17 +255,21 @@ class LineAssignController extends Controller
                     if ($number > 0) {
                         for ($i = 0; $i < $number; $i++) {  ///// Insert data [] to p_detail table
                             if (trim($category[$i] != '')) {
-                                $category_id = $category[$i];
+                                $category_id = $category[$i]; /// Buyer ID
                                 $category_target_name = $category_target[$i];
                                 $style_no_1 = $style_no[$i];
-                                $product_name = $p_name[$i];
+                                $product_name = $p_name[$i]; /// Item ID
+
+                                $get_item_name = ItemList::select('item_name')->where('item_id', 10)->get();
+
+                                $item_name_decode = json_decode(json_encode($get_item_name), true);
 
                                 $time_count = DB::select("SELECT assign_id,time_name FROM time WHERE assign_id=" . $assign_id . " ORDER BY time_name DESC OFFSET 1");
                                 $time_count_decode = json_decode(json_encode($time_count), true);
                                 $count_time = count($time_count_decode);
                                 $div_target_quantity = round(($category_target[$i] / $count_time), 0);
 
-                                $category_assign = ProductDetail::create(['assign_id' => $assign_id, 'l_id' => $l_id, 'p_cat_id' => $category_id, 'p_name' => $product_name, 'style_no' => $style_no_1, 'quantity' => $category_target_name, 'div_quantity' => $div_target_quantity, 'created_at' => NOW()]);
+                                $category_assign = ProductDetail::create(['assign_id' => $assign_id, 'l_id' => $l_id, 'p_cat_id' => $category_id, 'p_name' => $item_name_decode[0]['item_name'], 'style_no' => $style_no_1, 'quantity' => $category_target_name, 'div_quantity' => $div_target_quantity, 'created_at' => NOW()]);
                             }
                         }
                         if ($category_assign == true) {
