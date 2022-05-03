@@ -3431,6 +3431,7 @@ chart.render();
     $daily_report_decode = json_decode(json_encode($daily_report),true);
     $daily_report_product_decode = json_decode(json_encode($daily_report_product),true);
     $daily_report_product_2_decode = json_decode(json_encode($daily_report_product_2),true);
+
     ?>
 
 
@@ -3438,7 +3439,6 @@ chart.render();
         @if(!$edit_status)
         <a class='btn custom-btn-theme custom-btn-theme-edit text-white' href="{{ url('/report')}}?edit=1">Edit</a>
         @endif
-
         <form method="POST" id="cmp_put">
             @if($edit_status)
             <input class="icon-btn-one btn my-2" type="submit" value="Update" name="submit" />
@@ -3490,8 +3490,8 @@ chart.render();
                             $l_id=$daily_report_decode[$i]['l_id'];$l_name=$daily_report_decode[$i]['l_name'];$main_target=$daily_report_decode[$i]['main_target'];$ot_main_target=$daily_report_decode[$i]['ot_main_target'];$actual_target=$daily_report_decode[$i]['total_div_actual_target'];
                             $m_power=$daily_report_decode[$i]['m_power'];$actual_m_power=$daily_report_decode[$i]['actual_m_power'];$hp=$daily_report_decode[$i]['hp'];$actual_hp=$daily_report_decode[$i]['actual_hp'];
                             $assign_date=$daily_report_decode[$i]['assign_date'];
-                            $man_target=$daily_report_product_decode[$i]['man_target'];
-                            $man_actual_target=$daily_report_product_decode[$i]['man_actual_target'];$assign_id_2=$daily_report_decode[$i]['assign_id'];
+                            $man_target=$daily_report_decode[$i]['man_target'];
+                            $man_actual_target=$daily_report_decode[$i]['man_actual_target'];$assign_id_2=$daily_report_decode[$i]['assign_id'];
                             $remark=$daily_report_decode[$i]['remark']; @endphp <tr>
                             <td>{{ $l_name }}</td>
 
@@ -3504,7 +3504,7 @@ chart.render();
                                         </tr>
                                         @for($j=0;$j<count($daily_report_product_decode);$j++) @php
                                             $l_id_2=$daily_report_product_decode[$j]['l_id'];
-                                            $p_cat_name=$daily_report_product_decode[$j]['p_cat_name'] @endphp
+                                            $p_cat_name=$daily_report_product_decode[$j]['buyer_name'] @endphp
                                             @if($l_id_2==$l_id) <tr>
                                             @if($p_cat_name == '')
                                             <td> - </td>

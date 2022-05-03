@@ -211,6 +211,7 @@ $("#td_div_actual_target_<?php echo $current_target; ?>").css('background-color'
                 @endif
 
                 @endforeach
+
                 @foreach($target_total as $t_2_total)
                 @if ($g_line_id == $t_2_total->line_id && $t_2_total->total != 0)
                 <td>

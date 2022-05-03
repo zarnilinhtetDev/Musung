@@ -1342,8 +1342,8 @@ $num = 1;
                                         <tr class="tr-2">
                                             <th scope="col">
                                                 No.</th>
+                                            <th scope="col">Buyer Name</th>
                                             <th scope="col">Product Name</th>
-                                            <th scope="col">Category Name</th>
                                             <th>Quantity</th>
                                         </tr>
                                     </thead>
@@ -1353,8 +1353,8 @@ $num = 1;
                                         @if ($p->l_id==$l_id)
                                         <tr>
                                             <td>{{ $number++ }}</td>
+                                            <td>{{ $p->buyer_name }}</td>
                                             <td>{{ $p->p_name }}</td>
-                                            <td>{{ $p->p_cat_name }}</td>
                                             <td>{{ $p->quantity }}</td>
                                         </tr>
                                         @endif

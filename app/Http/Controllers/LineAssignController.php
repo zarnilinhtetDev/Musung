@@ -72,11 +72,11 @@ class LineAssignController extends Controller
         ORDER BY "line_assign".assign_id ASC');
 
         $p_detail = DB::select('SELECT DISTINCT "p_detail".p_detail_id,"p_detail".assign_id,"p_detail".l_id,
-        "p_detail".p_cat_id,"p_detail".p_name,"p_detail".quantity,"p_category".p_cat_name
+        "p_detail".p_cat_id,"p_detail".p_name,"p_detail".quantity,"buyer".buyer_name
 		FROM p_detail
         JOIN time ON "time".assign_id="p_detail".assign_id AND "time".line_id="p_detail".l_id
         JOIN line_assign ON "line_assign".assign_id="p_detail".assign_id
-		JOIN p_category ON "p_category".p_cat_id="p_detail".p_cat_id
+		JOIN buyer ON "buyer".buyer_id="p_detail".p_cat_id
         AND "line_assign".assign_date=\'' . $date_string . '\'
         ORDER BY p_detail_id ASC');
 

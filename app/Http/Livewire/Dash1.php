@@ -30,6 +30,13 @@ class Dash1 extends Component
         AND "line_assign".assign_date=\'' . $date_string . '\'
                GROUP BY "time".assign_id,"time".line_id');
 
+        //        SELECT "time".line_id,"time".assign_id,"time".div_actual_target,"time".time_name,"time".div_target
+        // FROM time,line_assign WHERE "time".assign_id="line_assign".assign_id
+        // AND "line_assign".assign_date=\'' . $date_string . '\'
+        // AND "time".div_actual_target IS NOT NULL
+        //        GROUP BY "time".assign_id,"time".line_id,"time".div_actual_target,"time".time_name,"time".div_target
+        // 	   ORDER BY "time".line_id,"time".time_name
+
         $actual_target_total = DB::select('SELECT "time".line_id,"time".assign_id,SUM("time".div_actual_target) AS total_actual_target
         FROM time,line_assign WHERE "time".assign_id="line_assign".assign_id AND "line_assign".assign_date=\'' . $date_string . '\'
         GROUP BY "time".line_id,"time".assign_id');

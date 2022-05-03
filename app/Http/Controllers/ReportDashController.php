@@ -41,10 +41,13 @@ class ReportDashController extends Controller
             ORDER BY "line".l_pos ASC');
 
             $daily_report_product = DB::select('SELECT "p_detail".p_detail_id,"p_detail".l_id,"p_detail".p_name,"p_detail".quantity,"p_detail".div_quantity,"p_detail".sewing_input,"p_detail".assign_id,
-            "p_detail".h_over_input,"p_detail".p_actual_target,"p_detail".cat_actual_target,"p_detail".inline,"p_detail".cmp,"p_category".p_cat_name,"p_detail".style_no,"line_assign".assign_date,"line_assign".man_target,"line_assign".man_actual_target,"line_assign".remark,"p_detail".order_quantity,"p_detail".h_balance
+            "p_detail".h_over_input,"p_detail".p_actual_target,"p_detail".cat_actual_target,"p_detail".inline,"p_detail".cmp,"buyer".buyer_name,
+			"p_detail".style_no,
+			"line_assign".assign_date,"line_assign".man_target,"line_assign".man_actual_target,"line_assign".remark,"p_detail".order_quantity,
+			"p_detail".h_balance
             FROM p_detail
-            JOIN line_assign ON "line_assign".assign_id="p_detail".assign_id AND "line_assign".assign_date=\'' . $format_date_string . '\'
-            JOIN p_category ON "p_category".p_cat_id="p_detail".p_cat_id
+            JOIN line_assign ON "line_assign".assign_id="p_detail".assign_id AND "line_assign".assign_date=\'' . $date_string . '\'
+            JOIN buyer ON "buyer".buyer_id="p_detail".p_cat_id
             ORDER BY "p_detail".p_detail_id ASC');
 
             $daily_report_product_2 = DB::select('SELECT DISTINCT "p_detail".l_id,"p_detail".assign_id,"line_assign".assign_date,"line_assign".man_target,"line_assign".man_actual_target
@@ -64,10 +67,13 @@ class ReportDashController extends Controller
             ORDER BY "line".l_pos ASC');
 
             $daily_report_product = DB::select('SELECT "p_detail".p_detail_id,"p_detail".l_id,"p_detail".p_name,"p_detail".quantity,"p_detail".div_quantity,"p_detail".sewing_input,"p_detail".assign_id,
-            "p_detail".h_over_input,"p_detail".p_actual_target,"p_detail".cat_actual_target,"p_detail".inline,"p_detail".cmp,"p_category".p_cat_name,"p_detail".style_no,"line_assign".assign_date,"line_assign".man_target,"line_assign".man_actual_target,"line_assign".remark,"p_detail".order_quantity,"p_detail".h_balance
+            "p_detail".h_over_input,"p_detail".p_actual_target,"p_detail".cat_actual_target,"p_detail".inline,"p_detail".cmp,"buyer".buyer_name,
+			"p_detail".style_no,
+			"line_assign".assign_date,"line_assign".man_target,"line_assign".man_actual_target,"line_assign".remark,"p_detail".order_quantity,
+			"p_detail".h_balance
             FROM p_detail
             JOIN line_assign ON "line_assign".assign_id="p_detail".assign_id AND "line_assign".assign_date=\'' . $date_string . '\'
-            JOIN p_category ON "p_category".p_cat_id="p_detail".p_cat_id
+            JOIN buyer ON "buyer".buyer_id="p_detail".p_cat_id
             ORDER BY "p_detail".p_detail_id ASC');
 
             $daily_report_product_2 = DB::select('SELECT DISTINCT "p_detail".l_id,"p_detail".assign_id,"line_assign".assign_date,"line_assign".man_target,"line_assign".man_actual_target
@@ -382,22 +388,25 @@ class ReportDashController extends Controller
         $date_2 = date("d.m.Y");
 
 
-        $daily_report_history = DB::select('SELECT "line".l_id,"line".l_name,"line_assign".main_target,"line_assign".ot_main_target,"line_assign".assign_id,"line_assign".m_power,"line_assign".m_power,"line_assign".actual_m_power,"line_assign".man_target,"line_assign".man_actual_target,
+        $daily_report_history = DB::select('SELECT "line".l_id,"line".l_name,"line_assign".main_target,"line_assign".ot_main_target,"line_assign".m_power,"line_assign".assign_id,"line_assign".m_power,"line_assign".actual_m_power,"line_assign".man_target,"line_assign".man_actual_target,
         "line_assign".hp,"line_assign".actual_hp,SUM("time".div_actual_target) as total_div_actual_target,COUNT("time".assign_id) AS total_time,"line_assign".assign_date,"line_assign".remark
         FROM line
         JOIN line_assign ON "line_assign".l_id="line".l_id AND
         "line_assign".assign_date=\'' . $date_string . '\'
-        JOIN time ON "time".line_id="line".l_id AND "time".assign_date=\'' . $date_string . '\' AND "time".assign_id="line_assign".assign_id
+        JOIN time ON "time".line_id="line".l_id AND "time".assign_date=\'' . $date_string . '\' AND "time".assign_id="line_assign".assign_id WHERE ("time".ot_status IS NULL OR "time".ot_status=1) AND NOT "time".time_name=\'temp\'
         GROUP BY "line".l_id,"line_assign".main_target,"line_assign".m_power,"line_assign".actual_m_power,"line_assign".man_target,"line_assign".man_actual_target,
         "line_assign".hp,"line_assign".actual_hp,"line_assign".assign_date,"line_assign".remark,"line_assign".assign_id
         ORDER BY "line".l_pos ASC');
 
         $daily_report_product_history = DB::select('SELECT "p_detail".p_detail_id,"p_detail".l_id,"p_detail".p_name,"p_detail".quantity,"p_detail".div_quantity,"p_detail".sewing_input,"p_detail".assign_id,
-        "p_detail".h_over_input,"p_detail".p_actual_target,"p_detail".cat_actual_target,"p_detail".inline,"p_detail".cmp,"p_category".p_cat_name,"p_detail".style_no,"line_assign".man_target,"line_assign".man_actual_target,"line_assign".man_actual_target,"line_assign".remark
+        "p_detail".h_over_input,"p_detail".p_actual_target,"p_detail".cat_actual_target,"p_detail".inline,"p_detail".cmp,"buyer".buyer_name,
+        "p_detail".style_no,
+        "line_assign".assign_date,"line_assign".man_target,"line_assign".man_actual_target,"line_assign".remark,"p_detail".order_quantity,
+        "p_detail".h_balance
         FROM p_detail
         JOIN line_assign ON "line_assign".assign_id="p_detail".assign_id AND "line_assign".assign_date=\'' . $date_string . '\'
-		JOIN p_category ON "p_category".p_cat_id="p_detail".p_cat_id
-		ORDER BY "p_detail".p_detail_id ASC');
+        JOIN buyer ON "buyer".buyer_id="p_detail".p_cat_id
+        ORDER BY "p_detail".p_detail_id ASC');
 
         $daily_report_product_history_2 = DB::select('SELECT DISTINCT "p_detail".l_id,"p_detail".assign_id,"line_assign".assign_date,"line_assign".man_target,"line_assign".man_actual_target
         FROM p_detail
@@ -517,7 +526,7 @@ class ReportDashController extends Controller
                                             <?php
                                             for ($j = 0; $j < count($daily_report_product_history_decode); $j++) {
                                                 $l_id_2 = $daily_report_product_history_decode[$j]['l_id'];
-                                                $p_cat_name = $daily_report_product_history_decode[$j]['p_cat_name'];
+                                                $p_cat_name = $daily_report_product_history_decode[$j]['buyer_name'];
 
                                                 if ($l_id_2 == $l_id) {
                                                     echo '<tr>';
