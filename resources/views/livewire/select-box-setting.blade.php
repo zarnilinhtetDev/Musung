@@ -1,9 +1,6 @@
 <div wire:poll.1000ms>
-    <select class="form-control" name="category[]" id="category_select" required>
-        <option></option>
-        @foreach($buyer_detail as $buyer)
-        <option value="{{ $buyer->buyer_id }}">{{ $buyer->buyer_name }}</option>
-        @endforeach
+    <select class="livesearch form-control" name="category[]" id="category_select">
+        <option value=''>-- Select buyer --</option>
     </select>
 
     @push('select-box-scripts')

@@ -113,15 +113,15 @@ class LineAssignController extends Controller
         $progress = request()->post('progress');
 
 
-        // $category = request()->post('category');
-        // $category_target = request()->post('category_target');
-        // $p_name = request()->post('p_name');
-        // $number = count($category);
+        // // $category = request()->post('category');
+        // // $category_target = request()->post('category_target');
+        // // $p_name = request()->post('p_name');
+        // // $number = count($category);
 
 
-        // $category_1 = request()->post('category_1');
-        // $p_name_1 = request()->post('p_name_1');
-        // $category_target_1 = request()->post('category_target_1');
+        // // $category_1 = request()->post('category_1');
+        // // $p_name_1 = request()->post('p_name_1');
+        // // $category_target_1 = request()->post('category_target_1');
 
         $category = [];
         $style_no = [];
@@ -130,11 +130,28 @@ class LineAssignController extends Controller
         $sub = json_decode(request()->post('sub'), true);
 
         for ($x = 0; $x < count($sub); $x++) {
-            $category[] = $sub[$x]['category_select'];
+            $category_select = $sub[$x]['category_select'];
+
+            if (is_string($category_select)) {
+                $buyer_create = BuyerList::create([
+                    'buyer_name' => $category_select,
+                ]);
+
+                if ($buyer_create) {
+                    $buyer_id = BuyerList::select('buyer_id')->where('buyer_name', $category_select)->first();
+                }
+                $category[] = $buyer_id->buyer_id;
+            } else {
+                $category[] = $sub[$x]['category_select'];
+            }
+
+            // $category[] = $sub[$x]['category_select'];
             $style_no[] = $sub[$x]['style_no'];
             $p_name[] = $sub[$x]['p_name'];
             $category_target[] = $sub[$x]['category_target'];
         }
+
+        // print_r($category);
 
         $number = count($category);
         $t_category_target =  array_sum($category_target);
@@ -497,10 +514,10 @@ class LineAssignController extends Controller
             }
         }
     }
-    public function createCategory()
+    public function createBuyer()
     {
-        $cat_name = request()->post('cat_name');
-        ProductCategory::create(['p_cat_name' => $cat_name]);
+        $buyer_name = request()->post('buyer_name');
+        BuyerList::create(['buyer_name' => $buyer_name]);
     }
 
     public function deleteAssignLine($a_id, $l_id)
@@ -735,5 +752,45 @@ class LineAssignController extends Controller
             }
         </script>
 <?php
+    }
+
+    public function buyerSearch(Request $request)
+    {
+        $buyer_search = $request->search;
+
+        if ($buyer_search == '') {
+            $buyers = BuyerList::orderby('buyer_name', 'asc')->select('buyer_id', 'buyer_name')->limit(10)->get();
+        } else {
+            $buyers = BuyerList::orderby('buyer_name', 'asc')->select('buyer_id', 'buyer_name')->where('buyer_name', 'LIKE', '%' . $buyer_search . '%')->limit(10)->get();
+        }
+
+        $response = array();
+        foreach ($buyers as $buyer) {
+            $response[] = array(
+                "id" => $buyer->buyer_id,
+                "text" => $buyer->buyer_name
+            );
+        }
+        return response()->json($response);
+    }
+
+    public function itemSearch(Request $request)
+    {
+        $item_search = $request->search;
+
+        if ($item_search == '') {
+            $items = ItemList::orderby('item_name', 'asc')->select('item_id', 'item_name')->limit(10)->get();
+        } else {
+            $items = ItemList::orderby('item_name', 'asc')->select('item_id', 'item_name')->where('item_name', 'LIKE', '%' . $item_search . '%')->limit(10)->get();
+        }
+
+        $response = array();
+        foreach ($items as $item) {
+            $response[] = array(
+                "id" => $item->item_id,
+                "text" => $item->item_name
+            );
+        }
+        return response()->json($response);
     }
 }

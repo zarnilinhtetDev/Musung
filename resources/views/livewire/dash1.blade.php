@@ -52,7 +52,7 @@
             $g_actual_hp = $g_line->actual_hp;
             @endphp
             <tr style="border-bottom: 2px solid black;">
-                <td class="fw-bold line_name" style="vertical-align: middle;">{{ $g_line_name }}</td>
+                <td class="fw-bold line_name_{{ $g_line_id }}" style="vertical-align: middle;">{{ $g_line_name }}</td>
                 <td>
                     <table class="w-100 text-center table m-0 table-bordered">
                         <tr>
@@ -110,7 +110,8 @@
                     <table class="w-100 text-center table table-bordered m-0" border="1">
                         <tr>
                             <td><span id="new_div_target_{{ $t_2->time_id }}" class="new_div_target">
-                                    @if($t_2->actual_target_entry<=0) @php echo '' ; @endphp @else {{
+                                    @if($t_2->actual_target_entry<=0) @php echo '' ; @endphp @elseif($t_2->
+                                        div_actual_target!='') {{
                                         number_format($t_2->actual_target_entry) }}
                                         @endif</span></td>
                         </tr>
@@ -219,13 +220,13 @@ $("#td_div_actual_target_<?php echo $current_target; ?>").css('background-color'
                         @foreach($actual_target_total as $a_total)
                         @if ($g_line_id == $a_total->line_id)
                         <tr>
-                            <td><span class="fw-bold t_2_total_{{ $t_2_total->line_id }}"></span>
+                            <td><span class="fw-bold t_2_total_{{ $t_2_total->line_id }}">{{ $t_2_total->total }}</span>
 
                             </td>
                             <script>
-                                var main_target_total = $("#g_main_target_{{ $g_line_id }}").text();
-                                var t_2_total = $(".t_2_total_{{ $t_2_total->line_id }}");
-                                t_2_total.text(main_target_total);
+                                // var main_target_total = $("#g_main_target_{{ $g_line_id }}").text();
+                                // var t_2_total = $(".t_2_total_{{ $t_2_total->line_id }}");
+                                // t_2_total.text(main_target_total);
                             </script>
                         </tr>
                         <tr class="text-white">
@@ -247,12 +248,17 @@ $("#td_div_actual_target_<?php echo $current_target; ?>").css('background-color'
                                     var t_percent_span = $('.t_percent_{{ $t_2_total->line_id }}');
                                     var td_t_percent = $('.td_a_total_{{ $t_2_total->line_id }}');
                                     var td_a_percent = $('.td_t_percent_{{ $t_2_total->line_id }}');
+                                    var g_line = $('.line_name_{{ $t_2_total->line_id }}');
 
                                     if(parseInt(t_2_total) > parseInt(a_total)){
                                         td_a_percent.css('background-color','red');
+                                        td_a_percent.addClass('bounce');
+                                        g_line.addClass('bounce');
                                     }
                                     if(parseInt(t_2_total) <= parseInt(a_total)){
                                         td_a_percent.css('background-color','green');
+                                        td_a_percent.removeClass('bounce');
+                                        g_line.removeClass('bounce');
                                     }
 
                                     if (Number.isNaN(t_2_total)) {
@@ -371,7 +377,7 @@ $(".t_line_" + max_num).css({
                         number_format($t_main_target->t_main_target + $t_main_target->ot_main_target)
                         }}</span></td>
                 @endforeach
-                @foreach(array_reverse($total_div_target) as $t_div_target)
+                @foreach($total_div_target as $t_div_target)
                 @php $total_time_name = $t_div_target->time_name;$new_num = 0; @endphp
                 <td id="{{ $t_div_target->time_name }}">
                     <table class="w-100 text-center table table-bordered m-0" border="1">

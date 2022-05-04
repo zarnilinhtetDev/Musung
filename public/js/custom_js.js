@@ -443,3 +443,24 @@ $(document).ready(function () {
     var btn = document.getElementById("btn");
     btn.addEventListener("click", download);
 });
+
+$(".livesearch2").select2({
+    dropdownParent: $("#LineModal"),
+    ajax: {
+        url: "/item_search",
+        type: "GET",
+        dataType: "json",
+        delay: 100,
+        data: function (params) {
+            return {
+                search: params.term, // search term
+            };
+        },
+        processResults: function (response) {
+            return {
+                results: response,
+            };
+        },
+        cache: true,
+    },
+});

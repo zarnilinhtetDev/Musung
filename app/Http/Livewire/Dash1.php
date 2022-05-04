@@ -22,13 +22,12 @@ class Dash1 extends Component
         JOIN line_assign ON "time".assign_id="line_assign".assign_id AND
         "line_assign".assign_date=\'' . $date_string . '\' GROUP BY time_name ORDER BY time_name DESC OFFSET 1');
 
-        $time_2 = DB::select('SELECT "time".time_id,"time".time_name,"time".line_id,"time".assign_id,"time".status,"time".div_target,"time".div_actual_target,"time".div_actual_percent,"time".actual_target_entry FROM time,line_assign WHERE "time".assign_id="line_assign".assign_id AND "line_assign".assign_date=\'' . $date_string . '\'
+        $time_2 = DB::select('SELECT  "time".time_id,"time".time_name,"time".line_id,"time".assign_id,"time".status,"time".div_target,"time".div_actual_target,"time".div_actual_percent,"time".actual_target_entry FROM time,line_assign WHERE "time".assign_id="line_assign".assign_id AND "line_assign".assign_date=\'' . $date_string . '\'
         ORDER BY "time".time_id ASC');
 
         $target_total = DB::select('SELECT "time".line_id,"time".assign_id,SUM("time".actual_target_entry) AS total
         FROM time,line_assign WHERE "time".assign_id="line_assign".assign_id
-        AND "line_assign".assign_date=\'' . $date_string . '\'
-               GROUP BY "time".assign_id,"time".line_id');
+        AND "line_assign".assign_date=\'' . $date_string . '\' AND "time".div_actual_target IS NOT NULL GROUP BY "time".assign_id,"time".line_id');
 
         //        SELECT "time".line_id,"time".assign_id,"time".div_actual_target,"time".time_name,"time".div_target
         // FROM time,line_assign WHERE "time".assign_id="line_assign".assign_id
@@ -67,11 +66,11 @@ class Dash1 extends Component
 
         $total_main_target = DB::select('SELECT SUM("line_assign".main_target) AS t_main_target, SUM("line_assign".ot_main_target) AS ot_main_target FROM line_assign WHERE "line_assign".assign_date=\'' . $date_string . '\'');
 
-        $total_div_target = DB::select('SELECT ROW_NUMBER() OVER(ORDER BY "time".time_name ASC) AS row_num_1,SUM("time".actual_target_entry) AS t_div_target,"time".time_name FROM time WHERE "time".assign_date=\'' . $date_string . '\'
-        GROUP BY "time".time_name ORDER BY "time".time_name DESC OFFSET 1');
+        $total_div_target = DB::select('SELECT ROW_NUMBER() OVER(ORDER BY "time".time_name ASC) AS row_num_1,SUM("time".actual_target_entry) AS t_div_target,"time".time_name FROM time WHERE "time".assign_date=\'' . $date_string . '\' AND NOT "time".time_name=\'temp\'
+        GROUP BY "time".time_name ORDER BY "time".time_name ASC');
 
         $total_div_actual_target = DB::select('SELECT ROW_NUMBER() OVER(ORDER BY "time".time_name ASC) AS row_num,SUM("time".div_actual_target) AS t_div_actual_target_1,"time".time_name FROM time WHERE "time".assign_date=\'' . $date_string . '\'
-        GROUP BY "time".time_name ORDER BY "time".time_name DESC OFFSET 1');
+        GROUP BY "time".time_name ORDER BY "time".time_name ASC');
 
         $total_overall_target = DB::select('SELECT SUM("time".actual_target_entry) AS t_overall_target
         FROM time WHERE "time".assign_date=\'' . $date_string . '\'');

@@ -326,17 +326,7 @@ $num = 1;
                         </div>
             </div>
 
-            <div class="row g-3 my-2 mx-2">
-                <div class="col-12 col-md-4">
-                    <label>Add Buyer</label>​
-                    <input type="text" class="form-control" name="new_category_name" id="new_category_name"
-                        placeholder="Type Here" />
-                </div>
-                <div class="col">
-                    <br />
-                    <button class="btn custom-btn-theme w-25" id="new_category_btn">Add New Buyer</button>
-                </div>
-            </div>
+
             <script>
                 $("#time_type_1").click(function () {
                     var start_time = $("#start_time");
@@ -887,17 +877,6 @@ $num = 1;
                         </div>
             </div>
 
-            <div class="row g-3 my-2 mx-2">
-                <div class="col-12 col-md-4">
-                    <label>Add Buyer</label>​
-                    <input type="text" class="form-control" name="new_category_name" id="new_category_name"
-                        placeholder="Type Here" />
-                </div>
-                <div class="col">
-                    <br />
-                    <button class="btn custom-btn-theme w-25" id="new_category_btn">Add New Buyer</button>
-                </div>
-            </div>
             <script>
                 $("#time_type_1").click(function () {
                     var start_time = $("#start_time");
@@ -1381,8 +1360,8 @@ $num = 1;
     @endfor
 </div>
 <!-- Modal -->
-<div class="modal fade" id="LineModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
-    aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+<div class="modal fade" id="LineModal" aria-labelledby="exampleModalLabel" aria-hidden="true"
+    aria-labelledby="exampleModalToggleLabel" style="overflow:hidden;">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body text-start">
@@ -1448,17 +1427,6 @@ $num = 1;
                         </div>
             </div>
 
-            <div class="row g-3 my-2 mx-2">
-                <div class="col-12 col-md-4">
-                    <label>Add Buyer</label>​
-                    <input type="text" class="form-control" name="new_category_name" id="new_category_name"
-                        placeholder="Type Here" />
-                </div>
-                <div class="col">
-                    <br />
-                    <button class="btn custom-btn-theme w-25" id="new_category_btn">Add New Buyer</button>
-                </div>
-            </div>
             <script>
                 $("#time_type_1").click(function () {
                     var start_time = $("#start_time");
@@ -1479,15 +1447,15 @@ $num = 1;
     e.preventDefault();
     $.ajax({
         type: "POST",
-        url: "{{ url('create_category') }}",
+        url: "{{ url('create_buyer') }}",
         data: {
-            cat_name: $("#new_category_name").val(),
+            buyer_name: $("#new_buyer_name").val(),
         },
         success: function(result) {
-            alert('Category Added');
+            alert('Buyer Added');
         },
         error: function(result) {
-            alert('Error creating category');
+            alert('Error creating buyer');
         }
     });
 });
@@ -1498,7 +1466,11 @@ $num = 1;
                         <tr class="setting-tr">
                             <td>
                                 <label>Buyer</label>
-                                <livewire:select-box-setting />
+                                <div>
+                                    <select class="livesearch form-control" name="category[]" id="category_select">
+                                        <option value=''>-- Select buyer --</option>
+                                    </select>
+                                </div>
                             </td>
                             <td>
                                 <label>Style No.#</label>
@@ -1507,12 +1479,11 @@ $num = 1;
                             </td>
                             <td>
                                 <label>Item Name</label>
-                                <select class="form-control" name="p_name[]" id="p_name" required>
-                                    <option></option>
-                                    @foreach($item_list as $item)
-                                    <option value="{{ $item->item_id }}">{{ $item->item_name }}</option>
-                                    @endforeach
-                                </select>
+                                <div>
+                                    <select class="livesearch2 form-control" name="p_name[]" id="p_name">
+                                        <option value=''>-- Select item name --</option>
+                                    </select>
+                                </div>
                             </td>
                             <td>
                                 <label>Target</label>
@@ -1570,10 +1541,75 @@ $num = 1;
         url: "/line_assign_post",
         data: formData,
         success: function(data) {
-            // console.log(data);
-            location.reload();
+            console.log(data);
+            // location.reload();
         }
     });
+});
+            </script>
+
+
+
+            <script type="text/javascript">
+                $('[id=category_select]').select2({
+dropdownParent: $('#LineModal'),
+tags:true,
+ajax: {
+url: "/buyer_search",
+type: "GET",
+dataType: 'json',
+delay: 0,
+data: function (params) {
+return {
+search: params.term // search term
+};
+},
+processResults: function (response) {
+return {
+results: response
+};
+},
+cache: true
+}
+            });
+
+
+
+            $('.livesearch2').select2({
+            dropdownParent: $('#LineModal'),
+            ajax: {
+            url: "/item_search",
+            type: "GET",
+            dataType: 'json',
+            delay: 100,
+            data: function (params) {
+            return {
+            search: params.term // search term
+            };
+            },
+            processResults: function (response) {
+            return {
+            results: response
+            };
+            },
+            cache: true
+            },"language": {
+            "noResults": function(){
+            return "No Results Found <a href='#' class='btn btn-danger'>Use it anyway</a>";
+            }
+            },
+            escapeMarkup: function (markup) {
+            return markup;
+            }
+            });
+
+            </script>
+
+            <script>
+                var i = 1;
+$("#add_product_detail").click(function () {
+i++;
+$("#dynamic_field").append('<tr class="setting-tr" id="row' + i + '"><td><label>Buyer</label><div><select class="livesearch form-control" name="category[]" id="category_select"><option value="">-- Select buyer --</option></select></div></td> <td><label>Style No.#</label><input type="text" class="form-control" id="style_name" name="style_name[]"placeholder="#0000" required /></td><td><label>Item Name</label><select class="form-control" name="p_name[]" id="p_name" required><option></option> @foreach($item_list as $item)<option value="{{ $item->item_id }}">{{ $item->item_name }}</option>@endforeach </select></td><td><label>Target</label><input type="number" class="form-control" name="category_target[]" id="setting_target" placeholder="Target" required /></td><td><br/><button type="button" name="remove" id="' + i + '" class="btn btn-danger btn_remove">X</button></td></tr>');
 });
             </script>
         </div>
@@ -1688,297 +1724,9 @@ foreach($l_manager_list as $l_list){
 </script>
 
 @endif
-<div class="row">
-    <div class="col-6">
-        <div class="container-fluid p-0">
-            <form id="item_post">
-                <!-- Button trigger modal -->
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#itemModal">
-                    Add Item
-                </button>
-
-                <!-- Modal -->
-                <div class="modal fade" id="itemModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                    aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Add New Item</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <div style="overflow: auto;max-width:100%;max-height:600px;padding:0.5rem;">
-                                    <table class="table">
-                                        <tr class="">
-                                            <td>
-                                                <label>Item Name</label>
-                                                <input type="text" class="form-control" id="item_name" name="item_name"
-                                                    placeholder="#0000" required />
-                                            </td>
-                                            <td>
-                                                <label>Remark</label>
-                                                <textarea class="form-control" name="item_remark" placeholder="Note"
-                                                    id="item_remark" maxlength="150"></textarea>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <input type="submit" name="btn_item_submit" class="btn btn-primary" value="Save">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </form>
-            <div style="overflow: auto;max-width:100%;max-height:600px;padding:0.5rem;">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Item Name</th>
-                            <th>Remark</th>
-                            <th>Edit</th>
-                            <th>Delete</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($item_list as $item)
-                        <tr>
-                            <td>{{ $item->item_name }}</td>
-                            <td>{{ $item->remark }}</td>
-                            <td>
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#itemEditModal_{{ $item->item_id }}">
-                                    Edit
-                                </button>
-                                <!-- Modal -->
-                                <div class="modal fade" id="itemEditModal_{{ $item->item_id }}" tabindex="-1"
-                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <form action="{{ url('item_edit') }}" method="POST">
-                                            <div class="modal-content">
-                                                <div class="modal-body">
-                                                    @foreach($item_list as $item_edit)
-                                                    @if($item_edit->item_id == $item->item_id)
-                                                    <form id="item_edit_post">
-                                                        <input type="hidden" name="item_id"
-                                                            value="{{ $item_edit->item_id }}">
-                                                        <h5 class="fw-bold heading-text">{{ $item->item_name }}
-                                                        </h5>
-                                                        <div
-                                                            style="overflow: auto;max-width:100%;max-height:600px;padding:0.5rem;">
-                                                            <table class="table">
-                                                                <tr class="">
-                                                                    <td>
-                                                                        <label>Item Name</label>
-                                                                        <input type="text" class="form-control"
-                                                                            id="item_name" name="item_name"
-                                                                            placeholder="#0000"
-                                                                            value="{{ $item_edit->item_name }}" />
-                                                                    </td>
-                                                                    <td>
-                                                                        <label>Remark</label>
-                                                                        <textarea class="form-control"
-                                                                            name="item_remark" placeholder="Note"
-                                                                            id="item_remark"
-                                                                            maxlength="150">{{ $item_edit->remark }}</textarea>
-                                                                    </td>
-                                                                </tr>
-                                                            </table>
-                                                        </div>
-                                                    </form>
-                                                    @endif
-                                                    @endforeach
-                                                </div>
-
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary"
-                                                        data-bs-dismiss="modal">Close</button>
-                                                    <input class="icon-btn-one btn my-2" type="submit" value="Submit"
-                                                        name="submit" />
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <a class='btn btn-danger text-white'
-                                    href="{{ url('/item_delete')}}?id={{ $item->item_id }}"><i
-                                        class="fas fa-trash"></i></a>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-        </div>
 
 
-        <script>
-            $("#item_post").submit(function(e) {
-                    e.preventDefault();
-
-                    // Get all INPUT form data and organize as array
-                    var formData_3 = $(this).serializeArray();
-                    // Submit with AJAX
-                    $.ajax({
-                        type: "POST",
-                        url: "{{ url('item_post') }}",
-                        data: formData_3,
-                        success: function(data) {
-                            // console.log(data);
-                            location.reload();
-                        }
-                    });
-                });
-        </script>
-    </div>
-    <div class="col-6">
-        <form id="buyer_post">
-            <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#buyerModal">
-                Add Buyer
-            </button>
-
-            <!-- Modal -->
-            <div class="modal fade" id="buyerModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Add New Buyer</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <div style="overflow: auto;max-width:100%;max-height:600px;padding:0.5rem;">
-                                <table class="table">
-                                    <tr class="">
-                                        <td>
-                                            <label>Buyer Name</label>
-                                            <input type="text" class="form-control" id="buyer_name" name="buyer_name"
-                                                placeholder="#0000" required />
-                                        </td>
-                                        <td>
-                                            <label>Remark</label>
-                                            <textarea class="form-control" name="buyer_remark" placeholder="Note"
-                                                id="buyer_remark" maxlength="150"></textarea>
-                                        </td>
-
-                                    </tr>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <input type="submit" name="btn_buyer_submit" class="btn btn-primary" value="Save">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </form>
-
-        <div style="overflow: auto;max-width:100%;max-height:600px;padding:0.5rem;">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Buyer Name</th>
-                        <th>Remark</th>
-                        <th>Edit</th>
-                        <th>Delete</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($buyer_list as $buyer)
-                    <tr>
-                        <td>{{ $buyer->buyer_name }}</td>
-                        <td>{{ $buyer->remark }}</td>
-                        <td>
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                data-bs-target="#buyerEditModal_{{ $buyer->buyer_id }}">
-                                Edit
-                            </button>
-                            <!-- Modal -->
-                            <div class="modal fade" id="buyerEditModal_{{ $buyer->buyer_id }}" tabindex="-1"
-                                aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <form action="{{ url('buyer_edit') }}" method="POST">
-                                        <div class="modal-content">
-                                            <div class="modal-body">
-                                                @foreach($buyer_list as $buyer_edit)
-                                                @if($buyer_edit->buyer_id == $buyer->buyer_id)
-                                                <form id="buyer_edit_post">
-                                                    <input type="hidden" name="buyer_id"
-                                                        value="{{ $buyer_edit->buyer_id }}">
-                                                    <h5 class="fw-bold heading-text">{{ $buyer_edit->buyer_name }}
-                                                    </h5>
-                                                    <div
-                                                        style="overflow: auto;max-width:100%;max-height:600px;padding:0.5rem;">
-                                                        <table class="table">
-                                                            <tr class="">
-                                                                <td>
-                                                                    <label>Buyer Name</label>
-                                                                    <input type="text" class="form-control"
-                                                                        id="buyer_name" name="buyer_name"
-                                                                        placeholder="#0000"
-                                                                        value="{{ $buyer_edit->buyer_name }}" />
-                                                                </td>
-                                                                <td>
-                                                                    <label>Remark</label>
-                                                                    <textarea class="form-control" name="buyer_remark"
-                                                                        placeholder="Note" id="buyer_remark"
-                                                                        maxlength="150">{{ $buyer_edit->remark }}</textarea>
-                                                                </td>
-                                                            </tr>
-                                                        </table>
-                                                    </div>
-                                                </form>
-                                                @endif
-                                                @endforeach
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary"
-                                                    data-bs-dismiss="modal">Close</button>
-                                                <input class="icon-btn-one btn my-2" type="submit" value="Submit"
-                                                    name="submit" />
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <a class='btn btn-danger text-white' href="{{ url('/buyer_delete')}}?id={{ $buyer->buyer_id
-                                    }}"><i class="fas fa-trash"></i></a>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
-        <script>
-            $("#buyer_post").submit(function(e) {
-                    e.preventDefault();
-
-                    // Get all INPUT form data and organize as array
-                    var formData_4 = $(this).serializeArray();
-
-                    // Submit with AJAX
-                    $.ajax({
-                        type: "POST",
-                        url: "{{ url('buyer_post') }}",
-                        data: formData_4,
-                        success: function(data) {
-                            // console.log(data);
-                            location.reload();
-                        }
-                    });
-                });
-        </script>
-    </div>
-</div>
+{{-- ///Item and Buyer CRUD here --}}
 @endadmin
 
 
@@ -2306,17 +2054,7 @@ $num = 1;
                         </div>
             </div>
 
-            <div class="row g-3 my-2 mx-2">
-                <div class="col-12 col-md-4">
-                    <label>Add Buyer</label>​
-                    <input type="text" class="form-control" name="new_category_name" id="new_category_name"
-                        placeholder="Type Here" />
-                </div>
-                <div class="col">
-                    <br />
-                    <button class="btn custom-btn-theme w-25" id="new_category_btn">Add New Buyer</button>
-                </div>
-            </div>
+
             <script>
                 $("#time_type_1").click(function () {
                     var start_time = $("#start_time");

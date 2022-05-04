@@ -33,7 +33,7 @@ Route::post('/setting_post_2', 'LineAssignController@postSetting')->middleware('
 
 Route::post('/line_assign_post', 'LineAssignController@postLineSetting')->middleware('auth');
 Route::post('/line_assign_overtime_post', 'LineAssignController@postLineOverTimeSetting')->middleware('auth');
-Route::post('/create_category', 'LineAssignController@createCategory')->middleware('auth');
+Route::post('/create_buyer', 'LineAssignController@createBuyer')->middleware('auth');
 Route::get('/delete_assign_line/{a_id}/{l_id}', 'LineAssignController@deleteAssignLine')->middleware('auth');
 
 Route::get('/live_dash', 'LiveDashController@index')->middleware('auth');
@@ -89,15 +89,21 @@ Route::put('/api/line_delete', 'LineApiController@softDelete');
 //// Item List ////
 Route::post('/item_post', 'ItemListController@postItem');
 Route::get('/item_delete', 'ItemListController@deleteItem');
-Route::post('/item_edit','ItemListController@editItem');
+Route::post('/item_edit', 'ItemListController@editItem');
 
 //// Buyer List ////
 Route::post('/buyer_post', 'BuyerListController@postBuyer');
 Route::get('/buyer_delete', 'BuyerListController@deleteBuyer');
-Route::post('/buyer_edit','BuyerListController@editBuyer');
+Route::post('/buyer_edit', 'BuyerListController@editBuyer');
 
 
 //// SuperAdmin ////
 Route::get('/superadmin', 'SuperAdminController@index')->middleware('auth');
 Route::post('/superadmin_post', 'SuperAdminController@postSuperAdmin')->middleware('auth');
 Route::post('/superadmin_login', 'SuperAdminController@loginSuperAdmin')->middleware('auth');
+
+
+
+//// Search in LineSetting ////
+Route::get('buyer_search', 'LineAssignController@buyerSearch')->middleware('auth');  ///Buyer Search
+Route::get('item_search', 'LineAssignController@itemSearch')->middleware('auth');
