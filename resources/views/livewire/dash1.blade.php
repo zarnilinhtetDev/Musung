@@ -51,7 +51,7 @@
             $g_hp = $g_line->hp;
             $g_actual_hp = $g_line->actual_hp;
             @endphp
-            <tr style="border-bottom: 2px solid black;">
+            <tr style="border-bottom: 2px solid black;" class="tr_line_{{ $g_line_id }}">
                 <td class="fw-bold line_name_{{ $g_line_id }}" style="vertical-align: middle;">{{ $g_line_name }}</td>
                 <td>
                     <table class="w-100 text-center table m-0 table-bordered">
@@ -249,16 +249,21 @@ $("#td_div_actual_target_<?php echo $current_target; ?>").css('background-color'
                                     var td_t_percent = $('.td_a_total_{{ $t_2_total->line_id }}');
                                     var td_a_percent = $('.td_t_percent_{{ $t_2_total->line_id }}');
                                     var g_line = $('.line_name_{{ $t_2_total->line_id }}');
+                                    var tr_line = $(".tr_line_{{ $t_2_total->line_id }}");
 
                                     if(parseInt(t_2_total) > parseInt(a_total)){
                                         td_a_percent.css('background-color','red');
                                         td_a_percent.addClass('bounce');
-                                        g_line.addClass('bounce');
+                                        // g_line.addClass('bounce');
+                                        tr_line.addClass('tr_live_dash');
+                                        tr_line.addClass('bounce');
                                     }
                                     if(parseInt(t_2_total) <= parseInt(a_total)){
                                         td_a_percent.css('background-color','green');
                                         td_a_percent.removeClass('bounce');
-                                        g_line.removeClass('bounce');
+                                        // g_line.removeClass('bounce');
+                                        tr_line.removeClass('tr_live_dash');
+                                        tr_line.removeClass('bounce');
                                     }
 
                                     if (Number.isNaN(t_2_total)) {

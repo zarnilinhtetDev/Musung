@@ -131,8 +131,12 @@ class LineAssignController extends Controller
 
         for ($x = 0; $x < count($sub); $x++) {
             $category_select = $sub[$x]['category_select'];
+            $p_name_post = $sub[$x]['p_name'];
 
-            if (is_string($category_select)) {
+
+            if (is_numeric($category_select)) {
+                $category[] = $category_select;
+            } else {
                 $buyer_create = BuyerList::create([
                     'buyer_name' => $category_select,
                 ]);
@@ -141,17 +145,26 @@ class LineAssignController extends Controller
                     $buyer_id = BuyerList::select('buyer_id')->where('buyer_name', $category_select)->first();
                 }
                 $category[] = $buyer_id->buyer_id;
-            } else {
-                $category[] = $sub[$x]['category_select'];
             }
 
-            // $category[] = $sub[$x]['category_select'];
+            if (is_numeric($p_name_post)) {
+                $p_name[] = $p_name_post;
+            } else {
+                $item_create = ItemList::create([
+                    'item_name' => $p_name_post,
+                ]);
+
+                if ($item_create) {
+                    $item_id = ItemList::select('item_id', 'item_name')->where('item_name', $p_name_post)->first();
+                }
+                $p_name[] = $item_id->item_name;
+            }
+
             $style_no[] = $sub[$x]['style_no'];
-            $p_name[] = $sub[$x]['p_name'];
             $category_target[] = $sub[$x]['category_target'];
         }
 
-        // print_r($category);
+        // print_r($p_name);
 
         $number = count($category);
         $t_category_target =  array_sum($category_target);
@@ -277,7 +290,7 @@ class LineAssignController extends Controller
                                 $style_no_1 = $style_no[$i];
                                 $product_name = $p_name[$i]; /// Item ID
 
-                                $get_item_name = ItemList::select('item_name')->where('item_id', 10)->get();
+                                $get_item_name = ItemList::select('item_name')->where('item_id', $product_name)->get();
 
                                 $item_name_decode = json_decode(json_encode($get_item_name), true);
 

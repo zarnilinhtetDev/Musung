@@ -112,8 +112,8 @@
             <div id="tab-content">
                 <div id="tab1" class="div_1">
                     <div class="row container-fluid p-0 m-0">
-                        <div class="col-12 col-md-6 m-auto p-0">
-                            <div style="overflow: auto;max-width:100%;max-height:550px;">
+                        <div class="col-12 col-md-0 col-lg-8 m-auto p-0">
+                            <div style="overflow: auto;max-width:100%;">
                                 <table class="table table-striped my-2 tableFixHead results p-0">
                                     <thead>
                                         <tr>

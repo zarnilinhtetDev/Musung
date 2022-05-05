@@ -1541,14 +1541,43 @@ $num = 1;
         url: "/line_assign_post",
         data: formData,
         success: function(data) {
-            console.log(data);
-            // location.reload();
+            // console.log(data);
+            location.reload();
         }
     });
 });
             </script>
 
-
+            <script>
+                var i = 1;
+$("#add_product_detail").click(function () {
+i++;
+$("#dynamic_field").append('<tr class="setting-tr" id="row' + i + '"><td><label>Buyer</label><div><select class="livesearch form-control" name="category[]" id="category_select"><option value="">-- Select buyer --</option></select></div></td> <td><label>Style No.#</label><input type="text" class="form-control" id="style_name" name="style_name[]"placeholder="#0000" required /></td><td><label>Item Name</label><select class="form-control" name="p_name[]" id="p_name" required><option></option> @foreach($item_list as $item)<option value="{{ $item->item_id }}">{{ $item->item_name }}</option>@endforeach </select></td><td><label>Target</label><input type="number" class="form-control" name="category_target[]" id="setting_target" placeholder="Target" required /></td><td><br/><button type="button" name="remove" id="' + i + '" class="btn btn-danger btn_remove">X</button></td></tr>');
+});
+            </script>
+            <script type="text/javascript">
+                $('[id=p_name]').select2({
+dropdownParent: $('#LineModal'),
+tags:true,
+ajax: {
+url: "/item_search",
+type: "GET",
+dataType: 'json',
+delay: 0,
+data: function (params) {
+return {
+search: params.term // search term
+};
+},
+processResults: function (response) {
+return {
+results: response
+};
+},
+cache: true
+}
+            });
+            </script>
 
             <script type="text/javascript">
                 $('[id=category_select]').select2({
@@ -1573,45 +1602,10 @@ cache: true
 }
             });
 
-
-
-            $('.livesearch2').select2({
-            dropdownParent: $('#LineModal'),
-            ajax: {
-            url: "/item_search",
-            type: "GET",
-            dataType: 'json',
-            delay: 100,
-            data: function (params) {
-            return {
-            search: params.term // search term
-            };
-            },
-            processResults: function (response) {
-            return {
-            results: response
-            };
-            },
-            cache: true
-            },"language": {
-            "noResults": function(){
-            return "No Results Found <a href='#' class='btn btn-danger'>Use it anyway</a>";
-            }
-            },
-            escapeMarkup: function (markup) {
-            return markup;
-            }
-            });
-
             </script>
 
-            <script>
-                var i = 1;
-$("#add_product_detail").click(function () {
-i++;
-$("#dynamic_field").append('<tr class="setting-tr" id="row' + i + '"><td><label>Buyer</label><div><select class="livesearch form-control" name="category[]" id="category_select"><option value="">-- Select buyer --</option></select></div></td> <td><label>Style No.#</label><input type="text" class="form-control" id="style_name" name="style_name[]"placeholder="#0000" required /></td><td><label>Item Name</label><select class="form-control" name="p_name[]" id="p_name" required><option></option> @foreach($item_list as $item)<option value="{{ $item->item_id }}">{{ $item->item_name }}</option>@endforeach </select></td><td><label>Target</label><input type="number" class="form-control" name="category_target[]" id="setting_target" placeholder="Target" required /></td><td><br/><button type="button" name="remove" id="' + i + '" class="btn btn-danger btn_remove">X</button></td></tr>');
-});
-            </script>
+
+
         </div>
     </div>
 </div>
@@ -1662,66 +1656,10 @@ $("#dynamic_field").append('<tr class="setting-tr" id="row' + i + '"><td><label>
 
     </tbody>
 </table>
-<h1 class="fw-bold heading-text my-4 fs-3">Line Manager</h1>
-<ul class="horizontal-slide my-4" style="width:100%;overflow-x:scroll;" id="nav">
-    <?php
 
-foreach($l_manager_list as $l_list){
-    $user_id = $l_list->user_id;
-    $user_name = $l_list->name;
-    $line_id = $l_list->l_id;
-    $assign_id = $l_list->assign_id;
-    ?>
-    {{-- data-p-id="
-    <?php //echo $p_id; ?>" data-a-id="
-    <?php //echo $a_id; ?>" data-l-id="
-    <?php //echo $l_id_2; ?>" --}}
-    <li class="list-group-item span2 open2 vertical_<?php echo $user_id; ?>" data-l-id="<?php echo $line_id; ?>"
-        data-user-id="<?php echo $user_id; ?>" data-assign-id="<?php echo $assign_id; ?>">
-        <?php
-            echo $user_name;
-            ?>
-    </li>
-    <?php
-}
-?>
-</ul>
-<div id="ajax_load_div_2" class="my-2">
-</div>
+{{-- Add Line Manger list for Line_Entry Here --}}
 
-<script>
-    $(function() {
-    $(".open2").on('click', function(e) {
-        e.preventDefault(); // in chase you change to a link or button
-
-        var line_id = $(this).data('l-id');
-        var user_id = $(this).data('user-id');
-        var assign_id = $(this).data('assign-id');
-
-        $(".open2").removeClass('changeClass');
-        $(".vertical_" + user_id).toggleClass("changeClass");
-
-        $.ajax({
-            type: "POST",
-            url: "/setting_post_2",
-            data: {
-                line_id: line_id,
-                user_id: user_id,
-                assign_id: assign_id,
-            },
-            cache: false,
-            success: function(result2) {
-                // console.log(result2);
-                $("#ajax_load_div_2").html(result2);
-            },
-            error: function(result2) {
-                console.log(result2);
-                alert('error');
-            }
-        });
-    });
-});
-</script>
+{{-- Add item_list and buyer_list CRUD Here --}}
 
 @endif
 
