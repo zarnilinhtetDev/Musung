@@ -53,7 +53,6 @@ class ReportDashController extends Controller
             $daily_report_product_2 = DB::select('SELECT DISTINCT "p_detail".l_id,"p_detail".assign_id,"line_assign".assign_date,"line_assign".man_target,"line_assign".man_actual_target
             FROM p_detail
             JOIN line_assign ON "line_assign".assign_id="p_detail".assign_id AND "line_assign".assign_date=\'' . $date_string . '\'
-            JOIN p_category ON "p_category".p_cat_id="p_detail".p_cat_id
            ');
         } else {
             $daily_report = DB::select('SELECT "line".l_id,"line".l_name,"line_assign".main_target,"line_assign".ot_main_target,"line_assign".m_power,"line_assign".assign_id,"line_assign".m_power,"line_assign".actual_m_power,"line_assign".man_target,"line_assign".man_actual_target,
@@ -79,7 +78,6 @@ class ReportDashController extends Controller
             $daily_report_product_2 = DB::select('SELECT DISTINCT "p_detail".l_id,"p_detail".assign_id,"line_assign".assign_date,"line_assign".man_target,"line_assign".man_actual_target
             FROM p_detail
             JOIN line_assign ON "line_assign".assign_id="p_detail".assign_id AND "line_assign".assign_date=\'' . $date_string . '\'
-            JOIN p_category ON "p_category".p_cat_id="p_detail".p_cat_id
            ');
         }
 
@@ -111,6 +109,7 @@ class ReportDashController extends Controller
         $note_post = request()->post('note');
         $order_post = request()->post('order_qty');
         $h_bal = request()->post('h_bal');
+
 
         for ($i = 0; $i < count($boxes); $i++) {
             $l_id_input = $boxes[$i]['l_id_input'];
@@ -574,8 +573,8 @@ class ReportDashController extends Controller
                 <td>
                     <table class="m-auto text-start table table-bordered custom-table-border-color">
                         <tbody>
-                            <tr class="bg-warning text-white">
-                                <td><span>Overall Target</span></td>
+                            <tr class="">
+                                <td>-</td>
                             </tr>
                             <?php for ($j = 0; $j < count($daily_report_product_history_decode); $j++) {
                                 $l_id_2 = $daily_report_product_history_decode[$j]['l_id'];

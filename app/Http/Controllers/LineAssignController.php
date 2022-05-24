@@ -127,43 +127,72 @@ class LineAssignController extends Controller
         $style_no = [];
         $p_name = [];
         $category_target = [];
+        $buyer_name_list_arr = [];
+        $style_name_list_arr = [];
         $sub = json_decode(request()->post('sub'), true);
+
+        // print_r($sub);
 
         for ($x = 0; $x < count($sub); $x++) {
             $category_select = $sub[$x]['category_select'];
             $p_name_post = $sub[$x]['p_name'];
 
-
             if (is_numeric($category_select)) {
                 $category[] = $category_select;
-            } else {
-                $buyer_create = BuyerList::create([
-                    'buyer_name' => $category_select,
-                ]);
+            } elseif (!is_numeric($category_select)) {
+                $category_select_format = str_replace(' ', '', strtolower($category_select));;
+                // echo $category_select_format;
 
-                if ($buyer_create) {
-                    $buyer_id = BuyerList::select('buyer_id')->where('buyer_name', $category_select)->first();
+                $buyer_name_check = BuyerList::select('buyer_id', 'buyer_name')->get();
+
+                for ($h = 0; $h < count($buyer_name_check); $h++) {
+                    $buyer_name_list = str_replace(' ', '', strtolower($buyer_name_check[$h]['buyer_name']));
+                    $buyer_name_list_arr[] = $buyer_name_list;
                 }
-                $category[] = $buyer_id->buyer_id;
+
+                if (!in_array($category_select_format, $buyer_name_list_arr)) {
+                    $buyer_create = BuyerList::create([
+                        'buyer_name' => $category_select,
+                    ]);
+
+                    if ($buyer_create) {
+                        $buyer_id = BuyerList::select('buyer_id')->where('buyer_name', $category_select)->first();
+                    }
+                    $category[] = $buyer_id->buyer_id;
+                }
             }
 
             if (is_numeric($p_name_post)) {
                 $p_name[] = $p_name_post;
-            } else {
-                $item_create = ItemList::create([
-                    'item_name' => $p_name_post,
-                ]);
+            } elseif (!is_numeric($p_name_post)) {
+                $p_name_post_format = str_replace(' ', '', strtolower($p_name_post));;
+                // echo $category_select_format;
 
-                if ($item_create) {
-                    $item_id = ItemList::select('item_id', 'item_name')->where('item_name', $p_name_post)->first();
+                $style_name_check = ItemList::select('item_id', 'item_name')->get();
+
+                for ($g = 0; $g < count($style_name_check); $g++) {
+                    $style_name_list = str_replace(' ', '', strtolower($style_name_check[$g]['item_name']));
+                    $style_name_list_arr[] = $style_name_list;
                 }
-                $p_name[] = $item_id->item_name;
+
+                if (!in_array($p_name_post_format, $style_name_list_arr)) {
+                    $item_create = ItemList::create([
+                        'item_name' => $p_name_post,
+                    ]);
+
+                    if ($item_create) {
+                        $item_id = ItemList::select('item_id', 'item_name')->where('item_name', $p_name_post)->first();
+                    }
+                    $p_name[] = $item_id->item_id;
+                }
             }
 
             $style_no[] = $sub[$x]['style_no'];
             $category_target[] = $sub[$x]['category_target'];
         }
+        // print_r($category_target);
 
+        // print_r($category);
         // print_r($p_name);
 
         $number = count($category);
@@ -315,29 +344,95 @@ class LineAssignController extends Controller
     {
         $l_id = request()->post('l_id');
         $over_time_minute = request()->post('over_time_minute');
-        $over_time_target = request()->post('over_time_target');
         $date_string = date("d.m.Y");
 
         $category = [];
         $style_no = [];
         $p_name = [];
         $category_target = [];
+        $buyer_name_list_arr = [];
+        $style_name_list_arr = [];
         $line_id = [];
 
         $sub = json_decode(request()->post('sub'), true);
+        print_r($sub);
+
+
+
         for ($x = 0; $x < count($sub); $x++) {
+            $category_select = $sub[$x]['category_select'];
+            $p_name_post = $sub[$x]['p_name'];
+
+
             if ($sub[$x]['category_select'] != '' && $sub[$x]['style_no'] != '' && $sub[$x]['p_name'] != '' && $sub[$x]['category_target'] != '' && $sub[$x]['l_id'] != '') {
-                $category[] = $sub[$x]['category_select'];
+
+                //// Check if item_name / buyer_name exist or not here .. if not add to db and show its id
+
+                if (is_numeric($category_select)) {
+                    $category[] = $category_select;
+                } elseif (!is_numeric($category_select)) {
+                    $category_select_format = str_replace(' ', '', strtolower($category_select));;
+                    // echo $category_select_format;
+
+                    $buyer_name_check = BuyerList::select('buyer_id', 'buyer_name')->get();
+
+                    for ($h = 0; $h < count($buyer_name_check); $h++) {
+                        $buyer_name_list = str_replace(' ', '', strtolower($buyer_name_check[$h]['buyer_name']));
+                        $buyer_name_list_arr[] = $buyer_name_list;
+                    }
+
+                    if (!in_array($category_select_format, $buyer_name_list_arr)) {
+                        $buyer_create = BuyerList::create([
+                            'buyer_name' => $category_select,
+                        ]);
+
+                        if ($buyer_create) {
+                            $buyer_id = BuyerList::select('buyer_id')->where('buyer_name', $category_select)->first();
+                        }
+                        $category[] = $buyer_id->buyer_id;
+                    }
+                }
+
+                if (is_numeric($p_name_post)) {
+                    $p_name[] = $p_name_post;
+                } elseif (!is_numeric($p_name_post)) {
+                    $p_name_post_format = str_replace(' ', '', strtolower($p_name_post));;
+                    // echo $category_select_format;
+
+                    $style_name_check = ItemList::select('item_id', 'item_name')->get();
+
+                    for ($g = 0; $g < count($style_name_check); $g++) {
+                        $style_name_list = str_replace(' ', '', strtolower($style_name_check[$g]['item_name']));
+                        $style_name_list_arr[] = $style_name_list;
+                    }
+
+                    if (!in_array($p_name_post_format, $style_name_list_arr)) {
+                        $item_create = ItemList::create([
+                            'item_name' => $p_name_post,
+                        ]);
+
+                        if ($item_create) {
+                            $item_id = ItemList::select('item_id', 'item_name')->where('item_name', $p_name_post)->first();
+                        }
+                        $p_name[] = $item_id->item_id;
+                    }
+                }
+
                 $style_no[] = $sub[$x]['style_no'];
-                $p_name[] = $sub[$x]['p_name'];
                 $category_target[] = $sub[$x]['category_target'];
                 $line_id[] = $sub[$x]['l_id'];
             }
         }
 
+        // print_r($category);
+        // print_r($p_name);
+
+        $over_time_target = array_sum($category_target);
+        // echo $over_time_target;
+
         $assign_id = DB::select('SELECT "line_assign".assign_id,"line_assign".user_id,"line_assign".l_id,"line_assign".main_target,"line_assign".s_time,"line_assign".e_time,"line_assign".lunch_s_time,
-        "line_assign".lunch_e_time,"line_assign".cal_work_min,"line_assign".t_work_hr,"line_assign".assign_date
-        FROM line_assign WHERE "line_assign".l_id=' . $l_id . ' AND "line_assign".assign_date=\'' . $date_string . '\'  ORDER BY "line_assign".assign_id ASC');
+            "line_assign".lunch_e_time,"line_assign".cal_work_min,"line_assign".t_work_hr,"line_assign".assign_date
+            FROM line_assign WHERE "line_assign".l_id=' . $l_id . ' AND "line_assign".assign_date=\'' . $date_string . '\'  ORDER BY "line_assign".assign_id ASC');
 
 
         DB::disconnect('musung');
@@ -505,17 +600,21 @@ class LineAssignController extends Controller
                         if ($number > 0) {
                             for ($i = 0; $i < $number; $i++) {  ///// Insert data [] to p_detail table
                                 if (trim($category[$i] != '')) {
-                                    $category_id = $category[$i];
+                                    $category_id = $category[$i];   /// Buyer ID
                                     $category_target_name = $category_target[$i];
                                     $style_no_1 = $style_no[$i];
-                                    $product_name = $p_name[$i];
+                                    $product_name = $p_name[$i];    /// Item ID
+
+                                    $get_item_name = ItemList::select('item_name')->where('item_id', $product_name)->get();
+
+                                    $item_name_decode = json_decode(json_encode($get_item_name), true);
 
                                     $time_count = DB::select("SELECT assign_id,time_name FROM time WHERE assign_id=" . $a_id_2 . " AND NOT time_name='temp' ORDER BY time_name DESC");
                                     $time_count_decode = json_decode(json_encode($time_count), true);
                                     $count_time = count($time_count_decode);
                                     $div_target_quantity = round(($category_target[$i] / $count_time), 0);
 
-                                    $category_assign = ProductDetail::create(['assign_id' => $a_id_2, 'l_id' => $l_id, 'p_cat_id' => $category_id, 'p_name' => $product_name, 'style_no' => $style_no_1, 'quantity' => $category_target_name, 'div_quantity' => $div_target_quantity, 'ot_status' => 1, 'created_at' => NOW()]);
+                                    $category_assign = ProductDetail::create(['assign_id' => $a_id_2, 'l_id' => $l_id, 'p_cat_id' => $category_id, 'p_name' => $item_name_decode[0]['item_name'], 'style_no' => $style_no_1, 'quantity' => $category_target_name, 'div_quantity' => $div_target_quantity, 'ot_status' => 1, 'created_at' => NOW()]);
                                 }
                             }
                             if ($category_assign == true) {
@@ -774,7 +873,9 @@ class LineAssignController extends Controller
         if ($buyer_search == '') {
             $buyers = BuyerList::orderby('buyer_name', 'asc')->select('buyer_id', 'buyer_name')->limit(10)->get();
         } else {
-            $buyers = BuyerList::orderby('buyer_name', 'asc')->select('buyer_id', 'buyer_name')->where('buyer_name', 'LIKE', '%' . $buyer_search . '%')->limit(10)->get();
+            // $buyers_list = DB::select('SELECT buyer_id,buyer_name FROM buyer WHERE UPPER(buyer_name) LIKE "%' . $buyer_search . '%" ORDER BY buyer_name ASC LIMIT 10');
+            // $buyers = json_decode(json_encode($buyers_list), true);
+            $buyers = BuyerList::orderby('buyer_name', 'asc')->select('buyer_id', 'buyer_name')->where('buyer_name', 'ILIKE', '%' . $buyer_search . '%')->limit(10)->get();
         }
 
         $response = array();
@@ -794,7 +895,9 @@ class LineAssignController extends Controller
         if ($item_search == '') {
             $items = ItemList::orderby('item_name', 'asc')->select('item_id', 'item_name')->limit(10)->get();
         } else {
-            $items = ItemList::orderby('item_name', 'asc')->select('item_id', 'item_name')->where('item_name', 'LIKE', '%' . $item_search . '%')->limit(10)->get();
+            // $items_list = DB::select('SELECT item_id,item_name FROM item WHERE UPPER(item_name) LIKE "%' . $item_search . '%" ORDER BY item_name ASC LIMIT 10');
+            // $items = json_decode(json_encode($items_list), true);
+            $items = ItemList::orderby('item_name', 'asc')->select('item_id', 'item_name')->where('item_name', 'ILIKE', '%' . $item_search . '%')->limit(10)->get();
         }
 
         $response = array();

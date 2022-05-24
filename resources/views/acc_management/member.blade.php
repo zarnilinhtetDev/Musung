@@ -590,7 +590,7 @@
 <div class="container-fluid">
     <div class="container-fluid">
         @if (@$_GET['edit'] != "" && @$_GET['edit'] == "1")
-        <form action="{{ url('member_put') }}" action="POST">
+        <form action="{{ url('member_put') }}" method="POST">
             <input type="hidden" name="id" value="{{ $_GET['id'] }}" />
             <div class="my-4">
                 <h1 class="fw-bold heading-text">Member Edit</h1>
@@ -1171,7 +1171,7 @@
 <div class="container-fluid">
     <div class="container-fluid">
         @if (@$_GET['edit'] != "" && @$_GET['edit'] == "1")
-        <form action="{{ url('member_put') }}" action="POST">
+        <form action="{{ url('member_put') }}" method="POST">
             <input type="hidden" name="id" value="{{ $_GET['id'] }}" />
             <div class="my-4">
                 <h1 class="fw-bold heading-text">Member Edit</h1>
@@ -1695,7 +1695,7 @@
 <div class="container-fluid">
     <div class="container-fluid">
         @if (@$_GET['edit'] != "" && @$_GET['edit'] == "1")
-        <form action="{{ url('member_put') }}" action="POST">
+        <form action="{{ url('member_put') }}" method="POST">
             <input type="hidden" name="id" value="{{ $_GET['id'] }}" />
             <div class="my-4">
                 <h1 class="fw-bold heading-text">Member Edit</h1>

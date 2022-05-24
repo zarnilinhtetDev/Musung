@@ -15,7 +15,7 @@ Route::get('/menu', 'MainMenuController@index')->name('menu')->middleware('auth'
 
 Route::get('/member', 'UserController@index');
 Route::get('/member_post', 'UserController@postUser')->middleware('auth');
-Route::get('/member_put', 'UserController@putUser')->middleware('auth');
+Route::post('/member_put', 'UserController@putUser')->middleware('auth');
 Route::get('/member_delete/{id}', 'UserController@deleteUser')->middleware('auth');
 Route::get('/member_undo/{id}', 'UserController@undoUser')->middleware('auth');
 

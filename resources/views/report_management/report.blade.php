@@ -132,7 +132,7 @@ $date_string_for_export_pdf = date("Y_m_d", strtotime($date_string));
                                         </tr>
                                         @for($j=0;$j<count($daily_report_product_decode);$j++) @php
                                             $l_id_2=$daily_report_product_decode[$j]['l_id'];
-                                            $p_cat_name=$daily_report_product_decode[$j]['p_cat_name'] @endphp
+                                            $p_cat_name=$daily_report_product_decode[$j]['buyer_name'] @endphp
                                             @if($l_id_2==$l_id) <tr>
                                             @if($p_cat_name == '')
                                             <td> - </td>
@@ -1160,8 +1160,8 @@ $.ajax({
             h_bal : h_bal_arr,
         },
         success: function(data) {
-            // console.log(data);
-            window.location.href = "/report?update=ok";
+            console.log(data);
+            // window.location.href = "/report?update=ok";
         }
     });
 });
@@ -3576,6 +3576,7 @@ chart.render();
                                             value="<?php echo $assign_id_2; ?>" />
                                         <input type="hidden" id="man_target_date_input" name="date_input[]"
                                             value="<?php echo $date; ?>" />
+
                                         @for($j=0;$j<count($daily_report_product_2_decode);$j++) @php
                                             $l_id_2=$daily_report_product_2_decode[$j]['l_id'];
                                             $man_target_2=$daily_report_product_2_decode[$j]['man_target'];
@@ -3584,14 +3585,13 @@ chart.render();
                                             <td>
                                                 <input type="number" id="man_target"
                                                     class="form-control p-0 text-center" name="man_target[]"
-                                                    placeholder="0" min="0" step="any"
-                                                    value="<?php echo $man_target_2; ?>">
+                                                    placeholder="0" min="0" step="any" value="{{ $man_target_2 }}">
                                             </td>
                                             <td>
                                                 <input type="number" id="man_actual_target"
                                                     class="form-control p-0 text-center" name="man_actual_target[]"
                                                     placeholder="0" min="0" step="any"
-                                                    value="<?php echo $man_actual_target_2; ?>">
+                                                    value="{{ $man_actual_target_2 }}">
                                             </td>
                                             </tr>
                                             @endif

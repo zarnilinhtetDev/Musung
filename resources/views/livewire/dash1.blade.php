@@ -12,6 +12,7 @@
     <table class="table table-hover table-striped table-bordered text-center table-dash" id="live_dash_1">
         <thead>
             <tr class="tr-2 tr-3">
+                <th scope="col" style="vertical-align: middle;">Status</th>
                 <th scope="col" style="vertical-align: middle;">Line</th>
                 <th scope="col" style="vertical-align: middle;" class="p-0">
                     <table class="w-100 text-center table m-0 text-white table-bordered" border="1">
@@ -52,6 +53,7 @@
             $g_actual_hp = $g_line->actual_hp;
             @endphp
             <tr style="border-bottom: 2px solid black;" class="tr_line_{{ $g_line_id }}">
+                <td class="line_column_{{ $g_line_id }}"></td>
                 <td class="fw-bold line_name_{{ $g_line_id }}" style="vertical-align: middle;">{{ $g_line_name }}</td>
                 <td>
                     <table class="w-100 text-center table m-0 table-bordered">
@@ -77,7 +79,7 @@
                             @foreach($p_detail_2 as $p_2)
                             @if($p_2->l_id == $g_line_id)
                             <tr style="border-bottom: 1px solid #848484;">
-                                <td>
+                                <td class="item_name_{{ $g_line_id }}">
                                     <div style="width:10rem;overflow-x:scroll;">
                                         #{{ $p_2->style_no }}, {{ $p_2->p_name }}
                                     </div>
@@ -250,20 +252,29 @@ $("#td_div_actual_target_<?php echo $current_target; ?>").css('background-color'
                                     var td_a_percent = $('.td_t_percent_{{ $t_2_total->line_id }}');
                                     var g_line = $('.line_name_{{ $t_2_total->line_id }}');
                                     var tr_line = $(".tr_line_{{ $t_2_total->line_id }}");
+                                    var item_name = $(".item_name_{{ $t_2_total->line_id }}");
+                                    var g_main_target =$("#g_main_target_{{ $t_2_total->line_id }}");
+                                    var line_column = $(".line_column_{{ $t_2_total->line_id }}");
 
                                     if(parseInt(t_2_total) > parseInt(a_total)){
                                         td_a_percent.css('background-color','red');
-                                        td_a_percent.addClass('bounce');
-                                        // g_line.addClass('bounce');
-                                        tr_line.addClass('tr_live_dash');
-                                        tr_line.addClass('bounce');
+                                        // td_a_percent.addClass('bounce');
+                                        // g_line.css('color','white');
+                                        // item_name.css('color','white');
+                                        // g_main_target.css('color','white');
+                                        // tr_line.addClass('tr_live_dash');
+                                        line_column.addClass('bounce');
+                                        // line_column.removeClass('bounce2');
                                     }
                                     if(parseInt(t_2_total) <= parseInt(a_total)){
                                         td_a_percent.css('background-color','green');
-                                        td_a_percent.removeClass('bounce');
-                                        // g_line.removeClass('bounce');
-                                        tr_line.removeClass('tr_live_dash');
-                                        tr_line.removeClass('bounce');
+                                        // td_a_percent.removeClass('bounce');
+                                        // g_line.css('color','#000');
+                                        // item_name.css('color','#000');
+                                        // g_main_target.css('color','#000');
+                                        // tr_line.removeClass('tr_live_dash');
+                                        line_column.removeClass('bounce');
+                                        // line_column.addClass('bounce2');
                                     }
 
                                     if (Number.isNaN(t_2_total)) {
@@ -372,6 +383,7 @@ $(".t_line_" + max_num).css({
             </tr>
             @endforeach
             <tr>
+                <td></td>
                 <td class="fw-bold total" style=" vertical-align: middle;">Total</td>
                 <td></td>
                 <td></td>
@@ -403,6 +415,7 @@ $(".t_line_" + max_num).css({
                                 <span id="tmp_num_{{ $t_div_actual_target_1->row_num }}"
                                     class="">@if($t_div_actual_target_1->t_div_actual_target_1 !=''){{
                                     number_format($t_div_actual_target_1->t_div_actual_target_1) }} @endif</span>
+
                             </td>
                         </tr>
                         <tr class="text-white">

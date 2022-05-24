@@ -59,7 +59,7 @@
     <div class="container-fluid p-0">
         <h1 class="fw-bold heading-text">Line Entry</h1>
 
-        <div class="container-fluid row p-0 m-0">
+        <div class="container-fluid row p-0 m-0 d-flex align-items-center">
             <div class="col-12 col-md-4 my-3 p-0">
                 <ul class="horizontal-slide" id="tabs">
                     <li class="span2">
@@ -72,12 +72,12 @@
             </div>
             <div class="col text-center text-md-start">
                 <div class="row m-0 p-0">
-                    <div class="col-4">
+                    <div class="col-6">
                         <div id="digital-clock" class="text-white bg-secondary rounded-2 p-2 fs-5 text-center">
                         </div>
                     </div>
-                    <div class="col">
-                        <h1 class="fs-3 fw-bolder">Target = <span class="text-white bg-danger p-2 rounded-2">
+                    <div class="col d-flex align-items-center">
+                        <h1 class="fs-3 fw-bolder m-0">Target = <span class="text-white bg-danger p-2 rounded-2">
                                 {{ $m_target }}</span></h1>
                     </div>
                 </div>
@@ -157,17 +157,19 @@
                                                 @if ($div_actual_target!='')
                                                 {{ $div_actual_target }}
                                                 @elseif($div_actual_target=='')
-                                                <span id="actual_target_{{ $time_id }}"></span>
+                                                <input type="hidden" id="actual_target_{{ $time_id }}" />
+                                                {{-- <span id="actual_target_{{ $time_id }}"></span> --}}
                                                 @endif
                                             </td>
                                             <td>
                                                 @if ($div_actual_percent!='')
                                                 {{ $div_actual_percent }} %
-                                                @elseif($div_actual_percent=='') <span
-                                                    id="actual_percentage_{{ $time_id }}"></span>
+                                                @elseif($div_actual_percent=='')
+                                                <input type="hidden" id="actual_percentage_{{ $time_id }}" />
+                                                {{-- <span id="actual_percentage_{{ $time_id }}"></span> --}}
                                                 @endif
                                             </td>
-                                            <td> <button type="button" class="btn btn-primary w-75"
+                                            <td> <button type="button" class="btn btn-primary w-100"
                                                     data-bs-toggle="modal"
                                                     data-bs-target="#LineEntryModal<?php echo $time_id; ?>"
                                                     data-bs-time-id="{{ $time_id }}"
@@ -295,11 +297,11 @@
                                             });
                                                        var cal_percent= ((sum / "<?php echo $actual_target_entry; ?>") * 100).toFixed(0) + "%";
 
-                                                        $("#actual_target_"+p_detail_number).html(sum.toFixed(0));
-                                                        $("#actual_percentage_" +p_detail_number).text(cal_percent);
+                                                        $("#actual_target_"+p_detail_number).val(sum.toFixed(0));
+                                                        $("#actual_percentage_" +p_detail_number).val(cal_percent);
 
-                                                        $("#div_actual_target_input_"+p_detail_number).val($("#actual_target_"+p_detail_number).text());
-                                                        $("#div_actual_percent_input_"+p_detail_number).val($("#actual_percentage_"+p_detail_number).text());
+                                                        $("#div_actual_target_input_"+p_detail_number).val($("#actual_target_"+p_detail_number).val());
+                                                        $("#div_actual_percent_input_"+p_detail_number).val($("#actual_percentage_"+p_detail_number).val());
                                                     }
                                                 });
                                         </script>

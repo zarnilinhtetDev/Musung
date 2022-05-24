@@ -17,6 +17,17 @@ h1, h2, h3, h4, h5, h6 {
     color: var(--dark);
 }
 
+.tableFixHead2 {
+    overflow: auto !important;
+}
+
+.tableFixHead2 thead th {
+    position: sticky !important;
+    top: -9px;
+    z-index: 1;
+    background-color: #fff;
+}
+
 #live_dash_1 th, #live_dash_1 td {
     font-size: 1rem;
     font-family: 'Roboto', sans-serif;
@@ -26,6 +37,9 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 1.1rem;
 }
 
+.select2-container {
+    width: 10rem !important;
+}
 
 .dis-to-none {
     display: none;
@@ -829,15 +843,23 @@ ul.scroll-horizontal-ul {
 }
 
 .tr_live_dash {
-    background-color: red;
-    color: #fff;
+    /* background-color: #ff5959;
+    color: #fff; */
 }
 
 .bounce {
-    background: red;
+    background: #ed2828 !important;
     -webkit-animation: fadeinout 3s linear infinite;
     animation: fadeinout 3s linear infinite;
 }
+
+
+.bounce2 {
+    background: #39ac31 !important;
+    -webkit-animation: fadeinout 3s linear infinite;
+    animation: fadeinout 3s linear infinite;
+}
+
 
 @-webkit-keyframes fadeinout {
     0%, 100% {
