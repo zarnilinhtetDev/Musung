@@ -70,7 +70,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="css/jquery_numpad.css" rel="stylesheet">
     <link href="css/styles.css" rel="stylesheet">
-    <link rel="shortcut icon" href="https://img.icons8.com/emoji/48/000000/desktop-computer.png">
+    <link rel="shortcut icon" href="img/logo_2.png">
 
     <!-- For Theme Setting --->
     <link rel="stylesheet" id="switcher-id" href="">

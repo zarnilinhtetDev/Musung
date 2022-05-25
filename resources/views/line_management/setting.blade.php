@@ -122,8 +122,8 @@ $num = 1;
                         url: "{{ url('line_assign_overtime_post') }}",
                         data: formData_2,
                         success: function(data) {
-                            console.log(data);
-                            // location.reload();
+                            // console.log(data);
+                            location.reload();
                         }
                     });
                 });
@@ -673,8 +673,8 @@ $num = 1;
                         url: "{{ url('line_assign_overtime_post') }}",
                         data: formData_2,
                         success: function(data) {
-                            console.log(data);
-                            // location.reload();
+                            // console.log(data);
+                            location.reload();
                         }
                     });
                 });
@@ -1231,8 +1231,8 @@ $num = 1;
                         url: "/line_assign_overtime_post",
                         data: formData_2,
                         success: function(data) {
-                            console.log(data);
-                            // location.reload();
+                            // console.log(data);
+                            location.reload();
                         }
                     });
                 });
@@ -2241,8 +2241,8 @@ $num = 1;
                         url: "{{ url('line_assign_overtime_post') }}",
                         data: formData_2,
                         success: function(data) {
-                            console.log(data);
-                            // location.reload();
+                            // console.log(data);
+                            location.reload();
                         }
                     });
                 });

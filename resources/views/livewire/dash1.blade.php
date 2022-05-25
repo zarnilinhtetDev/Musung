@@ -7,10 +7,6 @@
 
     @endphp
 
-    {{-- @foreach($time_name_list as $t_list)
-    {{ $t_list->time_name}}
-    @endforeach --}}
-
     @if(count($time_arr) > 0)
     <table class="table table-hover table-striped table-bordered text-center table-dash" id="live_dash_1">
         <thead>

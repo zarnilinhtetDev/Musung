@@ -30,7 +30,7 @@ class PDetail extends Migration
             $table->integer('cat_actual_target')->nullable();
             $table->integer('inline')->nullable();
             $table->float('cmp')->nullable();
-            $table->intger('ot_status')->nullable();
+            $table->integer('ot_status')->nullable();
             $table->timestamps();
         });
     }

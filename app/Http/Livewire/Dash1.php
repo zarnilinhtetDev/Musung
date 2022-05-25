@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Models\Time;
 
 class Dash1 extends Component
 {
@@ -88,12 +89,15 @@ class Dash1 extends Component
         GROUP BY line.l_id,line.l_name,line_assign.main_target
         ORDER BY diff_target_percent DESC');
 
+        // $time_name_list = Time::select('time_name')->where('assign_date', $date_string)->distinct()->orderBy('time_name', 'asc')->get();
+
+        $time_name_list = DB::select('SELECT DISTINCT time_name FROM time WHERE "time".assign_date=\'' . $date_string . '\' AND NOT "time".time_name=\'temp\' ORDER BY time_name ASC');
 
         DB::disconnect('musung');
 
         return view(
             'livewire.dash1',
-            compact('getLine', 'time', 'time_2', 'total_main_target', 'total_div_target', 'total_div_actual_target', 'target_total', 'actual_target_total', 'top_line', 'total_overall_target', 'total_overall_actual_target', 'total_inline', 'p_detail_2'),
+            compact('getLine', 'time', 'time_2', 'total_main_target', 'total_div_target', 'total_div_actual_target', 'target_total', 'actual_target_total', 'top_line', 'total_overall_target', 'total_overall_actual_target', 'total_inline', 'p_detail_2', 'time_name_list'),
         );
     }
 }

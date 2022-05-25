@@ -18,7 +18,7 @@ class LineAssign extends Migration
             $table->integer('user_id');
             $table->integer('l_id');
             $table->integer('main_target');
-            $table->integer('ot_main_target');
+            $table->integer('ot_main_target')->nullable();
             $table->integer('m_power')->nullable();
             $table->integer('actual_m_power')->nullable();
             $table->float('man_target')->nullable();
