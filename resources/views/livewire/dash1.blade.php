@@ -5,8 +5,11 @@
     }
     // print_r($time_arr);
 
-
     @endphp
+
+    {{-- @foreach($time_name_list as $t_list)
+    {{ $t_list->time_name}}
+    @endforeach --}}
 
     @if(count($time_arr) > 0)
     <table class="table table-hover table-striped table-bordered text-center table-dash" id="live_dash_1">
@@ -121,8 +124,7 @@
                             <td id="td_div_actual_target_{{ $t_2->time_id }}">
                                 <span id="div_actual_target_{{ $t_2->time_id }}"
                                     class="div_actual_target_{{ $g_line_id }}">@if($t_2->div_actual_target != ''){{
-                                    $t_2->div_actual_target }} @endif</span>
-                            </td>
+                                    $t_2->div_actual_target }} @endif</spa </td>
                         </tr>
                         <tr class="text-white">
                             <td id="td_div_actual_target_percent_{{ $t_2->time_id }}"><span

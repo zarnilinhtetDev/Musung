@@ -478,7 +478,10 @@ class LineAssignController extends Controller
             $time_arr[] = $format_over_time;
         }
 
+        // print_r($time_arr);
+
         $countTotalTimeArr = count($time_arr);
+        // echo $countTotalTimeArr;
 
         $total_division = round(($over_time_target / $countTotalTimeArr), 0);
         $total_division_2 = $total_division;
@@ -518,7 +521,9 @@ class LineAssignController extends Controller
                 if ($assign_id_query == true) {
                     $a_id_2 = $assign_id_query->assign_id;
 
+                    $line_arr_2 = [];
                     $time_arr_2 = [];
+                    $time_name_arr_2 = [];
                     if ($countTotalTimeArr > 0) {
                         for ($j = 0; $j < $countTotalTimeArr; $j++) { ///// Insert data [] to time table
 
@@ -569,33 +574,72 @@ class LineAssignController extends Controller
                             //     // }
                             // }
 
-                            Time::create([
-                                'time_name' => $time_arr[$j],
-                                'line_id' => $l_id,
-                                'assign_id' => $a_id_2,
-                                'div_target' => $div_target[$j],
-                                'actual_target_entry' => $target_for_line_entry[$j],
-                                'assign_date' => $date_string,
-                                'ot_status' => 1,
-                            ]);
+                            $time_name_check = Time::select('time_id', 'time_name', 'assign_id')->where('assign_date', $date_string)->where('time_name', $time_arr[$j])->where('assign_id', $a_id_2)->where('ot_status', 0);
 
-                            $time_arr_2[] = $time_arr[$j];
-                        }
-
-                        for ($x = 0; $x < count($time_arr_2); $x++) {
-                            for ($z = 0; $z < count($line_assign_not_over_time_decode); $z++) {
+                            if ($time_name_check->count() > 0) {
+                                $time_name_check_decode = json_decode(json_encode($time_name_check->get()), true);
+                                $time_id = $time_name_check_decode[0]['time_id'];
+                                $time_name = $time_name_check_decode[0]['time_name'];
+                                $assign_id = $time_name_check_decode[0]['assign_id'];
+                                Time::where('time_id', $time_id)->where('time_name', $time_name)->where('assign_id', $assign_id)->update(['div_target' => $div_target[$j], 'actual_target_entry' => $target_for_line_entry[$j], 'ot_status' => 1]);
+                            } else {
                                 Time::create([
-                                    'time_name' => $time_arr_2[$x],
-                                    'line_id' => $line_assign_not_over_time_decode[$z]['l_id'],
-                                    'assign_id' => $line_assign_not_over_time_decode[$z]['assign_id'],
-                                    'div_target' => 0,
-                                    'actual_target_entry' => 0,
+                                    'time_name' => $time_arr[$j],
+                                    'line_id' => $l_id,
+                                    'assign_id' => $a_id_2,
+                                    'div_target' => $div_target[$j],
+                                    'actual_target_entry' => $target_for_line_entry[$j],
                                     'assign_date' => $date_string,
-                                    'ot_status' => 0,
+                                    'ot_status' => 1,
                                 ]);
                             }
+
+                            // $time_name_check_2 = DB::select('SELECT time_id,time_name,assign_id,line_id FROM time WHERE assign_date=\'' . $date_string . '\' AND NOT time_name=\'temp\' AND ot_status IS NULL ORDER BY time_id ASC');
+
+                            // $time_new_check_2_decode = json_decode(json_encode($time_name_check_2), true);
+
+                            // for ($x = 0; $x < count($time_new_check_2_decode); $x++) {
+                            //     $time_id = $time_new_check_2_decode[$x]['time_id'];
+                            //     $time_name = $time_new_check_2_decode[$x]['time_name'];
+                            //     $assign_id = $time_new_check_2_decode[$x]['assign_id'];
+                            //     $line_id = $time_new_check_2_decode[$x]['line_id'];
+
+
+                            //     $time_name_check_2 = Time::select('time_id', 'time_name', 'assign_id')->where('assign_date', $date_string)->where('time_name', $time_arr[$j])->where('assign_id', $assign_id)->where('ot_status', 0);
+
+                            //     if ($time_name_check_2->count() <= 0) {
+                            //         Time::create([
+                            //             'time_name' => $time_arr[$j],
+                            //             'line_id' => $line_id,
+                            //             'assign_id' => $assign_id,
+                            //             'div_target' => 0,
+                            //             'actual_target_entry' => 0,
+                            //             'assign_date' => $date_string,
+                            //             'ot_status' => 0,
+                            //         ]);
+                            //     } else {
+                            //         $time_name_check_2_decode = json_decode(json_encode($time_name_check_2->get()), true);
+                            //         $time_id = $time_name_check_2_decode[0]['time_id'];
+                            //         $time_name = $time_name_check_2_decode[0]['time_name'];
+                            //         $assign_id = $time_name_check_2_decode[0]['assign_id'];
+                            //         Time::where('time_id', $time_id)->where('time_name', $time_name)->where('assign_id', $assign_id)->update(['div_target' => $div_target[$j], 'actual_target_entry' => $target_for_line_entry[$j], 'ot_status' => 1]);
+                            //     }
+                            // }
                         }
 
+                        // for ($x = 0; $x < count($time_arr_2); $x++) {
+                        //     for ($z = 0; $z < count($line_assign_not_over_time_decode); $z++) {
+                        //         Time::create([
+                        //             'time_name' => $time_arr_2[$x],
+                        //             'line_id' => $line_assign_not_over_time_decode[$z]['l_id'],
+                        //             'assign_id' => $line_assign_not_over_time_decode[$z]['assign_id'],
+                        //             'div_target' => 0,
+                        //             'actual_target_entry' => 0,
+                        //             'assign_date' => $date_string,
+                        //             'ot_status' => 0,
+                        //         ]);
+                        //     }
+                        // }
 
                         if ($number > 0) {
                             for ($i = 0; $i < $number; $i++) {  ///// Insert data [] to p_detail table
