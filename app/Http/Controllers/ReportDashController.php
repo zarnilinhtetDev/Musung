@@ -27,6 +27,7 @@ class ReportDashController extends Controller
         $date_string = date("d.m.Y");
 
         @$date_history = $_GET['date'];
+
         @$format_date_string = date("d.m.Y", strtotime($date_history));
 
         if ($date_history) {
@@ -46,13 +47,13 @@ class ReportDashController extends Controller
 			"line_assign".assign_date,"line_assign".man_target,"line_assign".man_actual_target,"line_assign".remark,"p_detail".order_quantity,
 			"p_detail".h_balance
             FROM p_detail
-            JOIN line_assign ON "line_assign".assign_id="p_detail".assign_id AND "line_assign".assign_date=\'' . $date_string . '\'
+            JOIN line_assign ON "line_assign".assign_id="p_detail".assign_id AND "line_assign".assign_date=\'' . $format_date_string . '\'
             JOIN buyer ON "buyer".buyer_id="p_detail".p_cat_id
             ORDER BY "p_detail".p_detail_id ASC');
 
             $daily_report_product_2 = DB::select('SELECT DISTINCT "p_detail".l_id,"p_detail".assign_id,"line_assign".assign_date,"line_assign".man_target,"line_assign".man_actual_target
             FROM p_detail
-            JOIN line_assign ON "line_assign".assign_id="p_detail".assign_id AND "line_assign".assign_date=\'' . $date_string . '\'
+            JOIN line_assign ON "line_assign".assign_id="p_detail".assign_id AND "line_assign".assign_date=\'' . $format_date_string . '\'
            ');
         } else {
             $daily_report = DB::select('SELECT "line".l_id,"line".l_name,"line_assign".main_target,"line_assign".ot_main_target,"line_assign".m_power,"line_assign".assign_id,"line_assign".m_power,"line_assign".actual_m_power,"line_assign".man_target,"line_assign".man_actual_target,
@@ -383,6 +384,7 @@ class ReportDashController extends Controller
         $date_history = request()->post('date_name');
         $date_string = date("d.m.Y", strtotime($date_history));
         $date_string_for_export_pdf = date("Y_m_d", strtotime($date_history));
+
 
         $date_2 = date("d.m.Y");
 

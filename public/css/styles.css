@@ -625,6 +625,10 @@ table {
     background-color: #6495ed;
 }
 
+.tr-3 th {
+    height: 30px !important;
+}
+
 /***** Menu Tabs ****/
 
 #nav {

@@ -3407,7 +3407,7 @@ chart.render();
                     <?php if(!$edit_status && !$date){
                                 echo $date_string;
                             }else{
-                                echo $date_string;
+                                echo $format_date;
                             }
                             ?>
                 </p>
