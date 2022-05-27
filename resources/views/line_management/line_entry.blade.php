@@ -58,14 +58,14 @@
     @if($line_visible=='yes')
     <div class="container-fluid p-0">
         <div class="container-fluid row p-0 m-0 d-flex align-items-center">
-            <div class="col-4 p-0">
+            <div class="col-3 p-0">
                 <h1 class="fw-bold">Line Entry</h1>
             </div>
             <div class="col-4 p-0">
                 <div id="digital-clock" class="text-white fw-bolder bg-secondary rounded-2 p-1 fs-5 text-center">
                 </div>
             </div>
-            <div class="col-4 text-center p-1">
+            <div class="col text-center p-1">
                 <ul class="horizontal-slide" id="tabs">
                     <li class="span2 span4">
                         <p class="p-1">{{ $date_string }} </p>
@@ -241,6 +241,8 @@
                                                                     =$detail->p_name;$p_detail_qty=$detail->quantity;
                                                                     $p_detail_time_id = $detail->time_id;
                                                                     $p_detail_style_no = $detail->style_no;
+                                                                    $div_actual_target_exist =
+                                                                    $detail->div_actual_target;
                                                                     @endphp
 
                                                                     @if($time_id == $p_detail_time_id)
@@ -274,7 +276,8 @@
                                                                                     class="form-control"
                                                                                     name="p_detail_actual_target[]"
                                                                                     id="p_detail_actual_target_{{ $time_id }}"
-                                                                                    placeholder="0" required />
+                                                                                    required
+                                                                                    value="{{ $div_actual_target_exist }}" />
                                                                             </div>
                                                                         </div>
                                                                     </div>

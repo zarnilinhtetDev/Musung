@@ -1820,7 +1820,7 @@ chart.render();
                                         </tr>
                                         @for($j=0;$j<count($daily_report_product_decode);$j++) @php
                                             $l_id_2=$daily_report_product_decode[$j]['l_id'];
-                                            $p_cat_name=$daily_report_product_decode[$j]['p_cat_name'] @endphp
+                                            $p_cat_name=$daily_report_product_decode[$j]['buyer_name'] @endphp
                                             @if($l_id_2==$l_id) <tr>
                                             @if($p_cat_name == '')
                                             <td> - </td>
@@ -5182,7 +5182,7 @@ chart.render();
                                         </tr>
                                         @for($j=0;$j<count($daily_report_product_decode);$j++) @php
                                             $l_id_2=$daily_report_product_decode[$j]['l_id'];
-                                            $p_cat_name=$daily_report_product_decode[$j]['p_cat_name'] @endphp
+                                            $p_cat_name=$daily_report_product_decode[$j]['buyer_name'] @endphp
                                             @if($l_id_2==$l_id) <tr>
                                             @if($p_cat_name == '')
                                             <td> - </td>

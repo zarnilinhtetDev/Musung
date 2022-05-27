@@ -32,7 +32,7 @@ class LineEntryController extends Controller
         ORDER BY "time".time_id DESC');
 
         $p_detail = DB::select('SELECT "p_detail".p_detail_id,"p_detail".assign_id,"p_detail".l_id,
-        "p_detail".p_cat_id,"p_detail".p_name,"p_detail".quantity,"time".time_id,"p_detail".style_no
+        "p_detail".p_cat_id,"p_detail".p_name,"p_detail".quantity,"time".time_id,"p_detail".style_no,"time".div_actual_target
         FROM p_detail
         JOIN time ON "time".assign_id="p_detail".assign_id AND "time".line_id="p_detail".l_id
         JOIN line_assign ON "line_assign".assign_id="p_detail".assign_id
