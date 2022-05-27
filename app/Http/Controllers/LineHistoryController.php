@@ -146,8 +146,9 @@ class LineHistoryController extends Controller
             <?php echo '<div id="history_div"><div class="row container-fluid p-0 my-3 mx-auto">
 
                 <div class="col-12 col-md-8 p-sm-0 p-md-auto my-sm-2 my-md-0 top-3">
-                    <div class="panel-body">
-                        <table class="table table-hover table-striped table-bordered text-center table-dash" id="history_dash_1">
+                    <div class="panel-body" id="history_dash_1">
+                    <h2 class="fw-bold text-center report-title" style="display:none;">Musung Garment Co.,Ltd.</h2>
+                        <table class="table table-hover table-striped table-bordered text-center table-dash" >
                             <thead>
                                 <tr class="tr-2 tr-3">
                                     <th scope="col" style="vertical-align: middle;">Line</th>
@@ -831,14 +832,21 @@ class LineHistoryController extends Controller
         <script>
             $("#exportPDF").click(function() {
 
+                $(".report-title").css("display", 'block');
+                $("[id=total_m_power]").css("display", "none");
+                $("[id=total_actual_m_power]").css("display", "none");
+
                 html2canvas($('#history_dash_1')[0], {
                     onrendered: function(canvas) {
                         var data = canvas.toDataURL();
                         var docDefinition = {
                             content: [{
                                 image: data,
-                                width: 500
-                            }]
+                                width: 800
+                            }],
+                            pageSize: 'A4',
+                            pageOrientation: 'landscape',
+                            pageMargins: [20, 20, 20, 20],
                         };
                         pdfMake.createPdf(docDefinition).download("<?php echo $date_string_for_export_pdf . '_dash'; ?>.pdf");
                     }

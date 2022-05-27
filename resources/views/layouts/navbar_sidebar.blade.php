@@ -620,19 +620,22 @@
 
     @line_manager
     <!-- Page Content  -->
-    <div id="content" class="container-fluid" style="padding:0;">
+    <div id="content" class="container-fluid">
         <nav class="navbar navbar-expand-lg my-2">
-            <div class="container-fluid">
-                <div class="nav-heading nav-heading-2 text-center m-auto w-75">
-                    <a class="fw-bolder fs-5 my-auto" href="{{ url('/home') }}" style="color:#6495ed;">
-                        MUSUNG Garment Line Target and Production Data
-                    </a>
+            <div class="container-fluid p-0">
+                <div class="nav-heading nav-heading-2 text-center m-auto w-80" style="padding-left:5rem;">
+                    {{-- <a class="fw-bolder fs-4 my-auto text-secondary" href="{{ url('/home') }}">
+                        MUSUNG Garment Line Entry
+                    </a> --}}
+                    <h1 class="fw-bolder fs-4 my-auto text-secondary">
+                        MUSUNG Garment Line Entry
+                    </h1>
                 </div>
 
-                <div class="bg-danger">
-                    <a class="dropdown-item text-white" href="{{ route('logout') }}" onclick="event.preventDefault();
+                <div class="">
+                    <a class="fw-bolder dropdown-item text-danger fs-5" href="{{ route('logout') }}" onclick="event.preventDefault();
                     document.getElementById('logout-form').submit();">
-                        Logout
+                        Log Out
                     </a>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                         @csrf

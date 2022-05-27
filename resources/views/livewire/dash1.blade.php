@@ -436,10 +436,17 @@ $(".t_line_" + max_num).css({
 var tmp_num_val = $("#tmp_num_{{ $t_div_actual_target_1->row_num }}");
 
 var new_t_div_target_num = parseInt($("#new_t_div_target_num_{{ $t_div_actual_target_1->row_num }}").text());
+var new_t_div_target_num_disable = $("#new_t_div_target_num_{{ $t_div_actual_target_1->row_num }}");
 var new_t_div_actual_target_num = parseInt($("#new_t_div_actual_target_num_{{ $t_div_actual_target_1->row_num }}").val());
 var total_percentage =(new_t_div_actual_target_num / new_t_div_target_num) * 100;
 var new_total_percent = $("#total_percent_{{ $t_div_actual_target_1->row_num }}");
 var tmp_num = $("#tmp_num_{{ $t_div_actual_target_1->row_num }}").text();
+
+// console.log(new_t_div_target_num);
+if(!tmp_num){
+    new_t_div_target_num_disable.text('');
+}
+
 new_total_percent.text(parseInt(total_percentage));
 
 
@@ -760,14 +767,15 @@ $(".t_line_" + max_num).css({
                             <tr>
                                 @foreach($total_overall_target as $t_overall_target)
                                 <td class='fw-bold' id="t_overall_target_2">
-
+                                    {{
+                                    $t_overall_target->t_overall_target }}
                                 </td>
 
                                 <script>
                                     // var t_main_target = $("#t_main_target").text();
-                                var t_overall_target = $("#t_overall_target");
-                                var t_overall_target_2 = $("#t_overall_target_2");
-                                t_overall_target_2.text(t_main_target);
+                                // var t_overall_target = $("#t_overall_target");
+                                // var t_overall_target_2 = $("#t_overall_target_2");
+                                // t_overall_target_2.text(t_main_target);
                                 </script>
                                 @endforeach
                             </tr>

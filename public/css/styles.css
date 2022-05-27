@@ -564,6 +564,7 @@ ul.horizontal-slide {
     overflow-x: auto;
 }
 
+
 ul.horizontal-slide li[class*="span"] {
     display: inline-block;
     float: none;
@@ -571,6 +572,10 @@ ul.horizontal-slide li[class*="span"] {
 
 ul.horizontal-slide li[class*="span"]:first-child {
     margin-left: 0;
+}
+
+ul.horizontal-slide {
+    overflow: unset !important;
 }
 
 .span2, .span3 {
@@ -583,6 +588,23 @@ ul.horizontal-slide li[class*="span"]:first-child {
     font-weight: 500;
     margin: 0;
     padding: 8px;
+}
+
+.span4 {
+    background: transparent;
+}
+
+.span4 p {
+    color: #6C757D !important;
+    font-weight: bolder;
+    border: 1px solid #6C757D;
+    padding: 0.1rem !important;
+}
+
+.line_entry_tr_border {
+    border-bottom: 1px solid #919aa3;
+    vertical-align: middle;
+    text-align: center;
 }
 
 /****** DatePicker *********/

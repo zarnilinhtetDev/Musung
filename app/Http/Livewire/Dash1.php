@@ -74,7 +74,7 @@ class Dash1 extends Component
         GROUP BY "time".time_name ORDER BY "time".time_name ASC');
 
         $total_overall_target = DB::select('SELECT SUM("time".actual_target_entry) AS t_overall_target
-        FROM time WHERE "time".assign_date=\'' . $date_string . '\'');
+        FROM time WHERE "time".assign_date=\'' . $date_string . '\' AND "time".div_actual_target IS NOT NULL');
 
         $total_overall_actual_target = DB::select('SELECT SUM("time".div_actual_target) AS t_overall_actual_target
         FROM time WHERE "time".assign_date=\'' . $date_string . '\'');

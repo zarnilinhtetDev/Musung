@@ -57,9 +57,29 @@
 
     @if($line_visible=='yes')
     <div class="container-fluid p-0">
-        <h1 class="fw-bold heading-text">Line Entry</h1>
-
         <div class="container-fluid row p-0 m-0 d-flex align-items-center">
+            <div class="col-4 p-0">
+                <h1 class="fw-bold">Line Entry</h1>
+            </div>
+            <div class="col-4 p-0">
+                <div id="digital-clock" class="text-white fw-bolder bg-secondary rounded-2 p-1 fs-5 text-center">
+                </div>
+            </div>
+            <div class="col-4 text-center p-1">
+                <ul class="horizontal-slide" id="tabs">
+                    <li class="span2 span4">
+                        <p class="p-1">{{ $date_string }} </p>
+                    </li>
+                    <li class="span2 span4">
+                        <p class="p-1">
+                            {{ date('g:iA',strtotime($start_time)) }} - {{ date('g:iA',strtotime($end_time)) }}
+                        </p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        {{-- <div class="container-fluid row p-0 m-0 d-flex align-items-center">
             <div class="col-12 col-md-4 my-3 p-0">
                 <ul class="horizontal-slide" id="tabs">
                     <li class="span2">
@@ -72,17 +92,17 @@
             </div>
             <div class="col text-center text-md-start">
                 <div class="row m-0 p-0">
-                    <div class="col-6">
+                    {{-- <div class="col-6">
                         <div id="digital-clock" class="text-white bg-secondary rounded-2 p-2 fs-5 text-center">
                         </div>
-                    </div>
-                    <div class="col d-flex align-items-center">
+                    </div> --}}
+                    {{-- <div class="col d-flex align-items-center">
                         <h1 class="fs-3 fw-bolder m-0">Target = <span class="text-white bg-danger p-2 rounded-2">
                                 {{ $m_target }}</span></h1>
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
         <script>
             /// Live Clock in line_entry.blade
             function showTime() {
@@ -99,16 +119,33 @@
         </script>
 
         <div id="tabmenu" class="container-fluid my-3 p-0">
-            <ul class="horizontal-slide" id="nav">
+            <div class="container-fluid row m-0 p-0 d-flex align-items-center">
+                <div class="col border border-secondary text-center m-1 p-1">
+                    <h1 class="fs-5 text-center text-secondary m-0 fw-bolder"> {{$l_name}}</h1>
+                </div>
+                <div class="col border border-secondary text-center m-1 p-1">
+                    <h1 class="fs-5 text-center m-0 text-secondary fw-bolder"> @if($u_id == Auth::user()->id)
+                        {{ Auth::user()->name }}
+                        @endif</h1>
+                </div>
+                <div class="col-8 text-end">
+                    <h1 class="fs-3 fw-bold m-0 border-none"><span style="background-color:#fff !important;">Today
+                            main target =
+                        </span><span class="text-danger border border-danger p-2 rounded-2">
+                            {{ $m_target }}</span></h1>
+                </div>
+            </div>
+            {{-- <ul class="horizontal-slide" id="nav">
                 <li class="span2">
                     <a href="#" class="active"> {{$l_name}}</a>
                 </li>
                 <li class="span3 bg-primary">
-                    <p> @if($u_id == Auth::user()->id)
-                        {{ Auth::user()->name }}
-                        @endif</p>
+
                 </li>
-            </ul>
+                <li class="span3">
+
+                </li>
+            </ul> --}}
             <div id="tab-content">
                 <div id="tab1" class="div_1">
                     <div class="row container-fluid p-0 m-0">
@@ -116,7 +153,7 @@
                             <div style="overflow: auto;max-width:100%;">
                                 <table class="table table-striped my-2 tableFixHead results p-0">
                                     <thead>
-                                        <tr>
+                                        <tr class="text-center">
                                             <th>Time</th>
                                             <th>Target</th>
                                             <th>Actual Target</th>
@@ -147,7 +184,7 @@
                                         $actual_target_entry = $d->actual_target_entry;
                                         @endphp
                                         @if($time_name != "temp")
-                                        <tr>
+                                        <tr class="line_entry_tr_border">
                                             <td>
                                                 <?php echo date('g:i A',strtotime($time_name)); ?>
                                             </td>
