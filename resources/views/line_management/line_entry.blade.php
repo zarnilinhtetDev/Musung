@@ -303,8 +303,24 @@
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary"
                                                                 data-bs-dismiss="modal">Close</button>
+                                                            @foreach($p_detail as $detail)
+                                                            @php $p_detail_id =
+                                                            $detail->p_detail_id;$p_detail_assign_id=
+                                                            $detail->assign_id;$p_detail_l_id=$detail->l_id;
+                                                            $p_detail_p_cat_id
+                                                            =$detail->p_cat_id;$p_detail_p_name
+                                                            =$detail->p_name;$p_detail_qty=$detail->quantity;
+                                                            $p_detail_time_id = $detail->time_id;
+                                                            $p_detail_style_no = $detail->style_no;
+                                                            $div_actual_target_exist =
+                                                            $detail->div_actual_target;
+                                                            @endphp
+
+                                                            @if($time_id == $p_detail_time_id)
+                                                            @if($div_actual_target_exist == '')
                                                             <button type="submit" class="btn btn-primary">Save
-                                                            </button>
+                                                                @endif </button>
+                                                            @endif @endforeach
                                                         </div>
                                                     </form>
                                                 </div>
