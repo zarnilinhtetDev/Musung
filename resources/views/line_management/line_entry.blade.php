@@ -57,11 +57,11 @@
 
     @if($line_visible=='yes')
     <div class="container-fluid p-0">
-        <div class="container-fluid row p-0 m-0 d-flex align-items-center">
+        <div class="container-fluid row p-0 m-0 text-center d-flex align-items-center">
             <div class="col-3 p-0">
                 <h1 class="fw-bold">Line Entry</h1>
             </div>
-            <div class="col-4 p-0">
+            <div class="col-5 p-0">
                 <div id="digital-clock" class="text-white fw-bolder bg-secondary rounded-2 p-1 fs-5 text-center">
                 </div>
             </div>
@@ -119,7 +119,7 @@
         </script>
 
         <div id="tabmenu" class="container-fluid my-3 p-0">
-            <div class="container-fluid row m-0 p-0 d-flex align-items-center">
+            <div class="container-fluid row m-auto p-0 d-flex align-items-center">
                 <div class="col border border-secondary text-center m-1 p-1">
                     <h1 class="fs-5 text-center text-secondary m-0 fw-bolder"> {{$l_name}}</h1>
                 </div>
@@ -188,11 +188,14 @@
                                             <td>
                                                 <?php echo date('g:i A',strtotime($time_name)); ?>
                                             </td>
-                                            <td><span id="div_target_{{ $time_id }}">{{ $actual_target_entry }}</span>
+                                            <td><span id="div_target_{{ $time_id }}">{{ $actual_target_entry }}
+                                                </span>
                                             </td>
                                             <td>
                                                 @if ($div_actual_target!='')
-                                                {{ $div_actual_target }}
+                                                <span id="new_div_actual_target_{{ $time_id }}"> {{ $div_actual_target
+                                                    }}</span>
+
                                                 @elseif($div_actual_target=='')
                                                 <input type="hidden" id="actual_target_{{ $time_id }}" />
                                                 {{-- <span id="actual_target_{{ $time_id }}"></span> --}}
@@ -200,7 +203,10 @@
                                             </td>
                                             <td>
                                                 @if ($div_actual_percent!='')
-                                                {{ $div_actual_percent }} %
+                                                <span id="new_div_actual_percent_{{ $time_id }}">
+
+                                                </span>
+
                                                 @elseif($div_actual_percent=='')
                                                 <input type="hidden" id="actual_percentage_{{ $time_id }}" />
                                                 {{-- <span id="actual_percentage_{{ $time_id }}"></span> --}}
@@ -214,6 +220,15 @@
                                                     Fill
                                                 </button>
                                             </td>
+                                            <script>
+                                                var new_div_target = $("#div_target_{{ $time_id }}").text();
+                                                var new_div_actual_target = $("#new_div_actual_target_{{ $time_id }}").text();
+                                                var new_div_actual_percent = $("#new_div_actual_percent_{{ $time_id }}");
+
+                                                var new_percent_cal= ((new_div_actual_target /new_div_target) * 100).toFixed(0) + "%";
+
+                                                new_div_actual_percent.text(new_percent_cal);
+                                            </script>
                                         </tr>
                                         @endif
                                         <!-- Modal -->
@@ -278,6 +293,49 @@
                                                                                     id="p_detail_actual_target_{{ $time_id }}"
                                                                                     required
                                                                                     value="{{ $div_actual_target_exist }}" />
+
+                                                                                {{-- @foreach($line_entry_history as
+                                                                                $l_history)
+                                                                                @php
+                                                                                $l_history_time_id =
+                                                                                $l_history->time_id;
+                                                                                $l_history_p_id = $l_history->p_id;
+                                                                                $l_history_actual_target =
+                                                                                $l_history->actual_target;
+                                                                                $l_history_status = $l_history->status;
+                                                                                @endphp
+
+                                                                                @if($p_detail_time_id==$l_history_time_id
+                                                                                && $p_detail_id == $l_history_p_id)
+                                                                                <input type="number"
+                                                                                    class="form-control"
+                                                                                    name="p_detail_actual_target[]"
+                                                                                    id="p_detail_actual_target_{{ $time_id }}"
+                                                                                    required
+                                                                                    value="{{ $l_history_actual_target }}" />
+                                                                                @else
+                                                                                {{-- <input type="number"
+                                                                                    class="form-control"
+                                                                                    name="p_detail_actual_target[]"
+                                                                                    id="p_detail_actual_target_{{ $time_id }}"
+                                                                                    required value="" />
+                                                                                @endif
+                                                                                @endforeach --}}
+
+                                                                                {{-- <input type="number"
+                                                                                    class="form-control"
+                                                                                    name="p_detail_actual_target_secondary[]"
+                                                                                    id="p_detail_actual_target_secondary_{{ $time_id }}"
+                                                                                    value="" required /> --}}
+
+                                                                                {{-- <script>
+                                                                                    var p_detail_primary = $("[id=p_detail_actual_target_{{ $time_id }}]").val();
+                                                                                        var p_detail_secondary =$("[id=p_detail_actual_target_secondary_{{ $time_id }}]");
+
+                                                                                        if(p_detail_primary != ""){
+                                                                                            p_detail_secondary.css('display','none');
+                                                                                        }
+                                                                                </script> --}}
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -303,7 +361,7 @@
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary"
                                                                 data-bs-dismiss="modal">Close</button>
-                                                            @foreach($p_detail as $detail)
+                                                            {{-- @foreach($p_detail as $detail)
                                                             @php $p_detail_id =
                                                             $detail->p_detail_id;$p_detail_assign_id=
                                                             $detail->assign_id;$p_detail_l_id=$detail->l_id;
@@ -316,11 +374,13 @@
                                                             $detail->div_actual_target;
                                                             @endphp
 
-                                                            @if($time_id == $p_detail_time_id)
-                                                            @if($div_actual_target_exist == '')
-                                                            <button type="submit" class="btn btn-primary">Save
+                                                            {{-- @if($time_id == $p_detail_time_id)
+                                                            @if($div_actual_target_exist == '') --}}
+                                                            {{-- <button type="submit" class="btn btn-primary">Save
                                                                 @endif </button>
-                                                            @endif @endforeach
+                                                            @endif @endforeach --}}
+                                                            <button type="submit" class="btn btn-primary">Save
+                                                            </button>
                                                         </div>
                                                     </form>
                                                 </div>

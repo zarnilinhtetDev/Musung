@@ -19,6 +19,7 @@ use DateInterval;
 use DatePeriod;
 use App\Models\User;
 use App\Models\ProductCategory;
+use App\Models\LineEntryHistory;
 
 class LineAssignController extends Controller
 {
@@ -298,6 +299,14 @@ class LineAssignController extends Controller
                                 'actual_target_entry' => $target_for_line_entry[$j],
                                 'assign_date' => $date_string,
                             ]);
+                            // LineEntryHistory::create([
+                            //     'time_id' => 0,
+                            //     'l_id' => $l_id,
+                            //     'p_id' => 0,
+                            //     'actual_target' => $target_for_line_entry[$j],
+                            //     'actual_target_entry' => $target_for_line_entry[$j],
+                            //     'assign_date' => $date_string,
+                            // ]);
                         }
                         //// For temp in time_table
                         Time::create([
