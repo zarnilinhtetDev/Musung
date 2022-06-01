@@ -58,7 +58,7 @@
                         }}
                     </td>
                     <td>
-                        <table class="w-100 text-center table m-0 table-bordered">
+                        <table class="w-100 text-center table table-bordered">
                             <tr>
                                 <div style="width:2rem;overflow-x:scroll;">
                                     <td>{{ $g_m_power }}</td>
@@ -553,10 +553,11 @@ new_total_percent.append('%');
         <table class="table table-hover table-striped table-bordered text-center table-dash" id="live_dash_1">
             <thead>
                 <tr class="tr-2 tr-3">
+                    <th scope="col" style="padding:0px; border:none;background-color:#000;"></th>
                     <th scope="col" style="padding:0px; border:none;"></th>
                     <th scope="col" style="vertical-align: middle; height:73px !important;">Total</th>
                     <th scope="col" style="vertical-align: middle; height:73px !important;">Rank</th>
-                    <th scope="col" style="vertical-align: middle; height:73px !important;">%</th>
+                    <th scope="col" style="vertical-align: middle; height:73`px !important;">%</th>
                 </tr>
             </thead>
             <tbody>
@@ -576,6 +577,28 @@ new_total_percent.append('%');
                     @foreach($target_total as $t_2_total)
 
                     @if ($g_line_id == $t_2_total->line_id)
+
+                    <td colspan="0" style="background:#000;">
+                        <table class="text-center table table-bordered border-dark" style="background:#000;">
+                            <tr style="border-bottom: 1px solid transparent; background:#000;">
+                                <td style="background:#000;">
+                                    <div style="width:0px !important;overflow-x:scroll;">{{ $g_m_power }}
+                                    </div>
+                                </td>
+                                <td style="background:#000;">
+                                    <div style="width:0px !important;overflow-x:scroll;">{{ $g_hp }}</div>
+                                </td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid transparent;background:#000;">
+                                <td style="background:#000;">
+                                    <div style="width:0px !important;overflow-x:scroll;">{{ $g_actual_m_power }}</div>
+                                </td>
+                                <td style="background:#000;">
+                                    <div style="width:0px !important;overflow-x:scroll;">{{ $g_actual_hp }}</div>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
 
                     <td colspan="0">
                         <table class="m-auto text-start table table-bordered">
@@ -597,7 +620,7 @@ new_total_percent.append('%');
                         </table>
                     </td>
                     <td>
-                        <table class="w-100 text-center table m-0">
+                        <table class=" w-100 text-center table m-0">
 
                             @foreach($actual_target_total as $a_total)
                             @if ($g_line_id == $a_total->line_id)
@@ -682,8 +705,6 @@ new_total_percent.append('%');
                             @endif
                             @endforeach
 
-
-
                         </table>
                     </td>
                     @endif
@@ -766,7 +787,16 @@ $(".t_line_" + max_num).css({
                 </tr>
                 @endforeach
                 <tr>
-                    <td></td>
+                    <td colspan="0" style="background:#000 !important;">
+                        <div style="width:0px !important;overflow-x:scroll;">
+
+                        </div>
+                    </td>
+                    <td colspan="0">
+                        <div style="width:0px !important;overflow-x:scroll;">
+
+                        </div>
+                    </td>
                     <td>
                         <table class="w-100 text-center table table-bordered m-0" border="1">
                             <tr>

@@ -18,7 +18,7 @@ class LineEntryHistory extends Migration
             $table->string('time_id');
             $table->integer('l_id')->nullable();
             $table->integer('p_id')->nullable();
-            $table->string('actual_target')->nullable();
+            $table->integer('actual_target')->nullable();
             $table->string('assign_date')->nullable();
             $table->string('status');
             $table->timestamps();

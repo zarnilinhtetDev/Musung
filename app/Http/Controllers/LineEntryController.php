@@ -99,13 +99,29 @@ class LineEntryController extends Controller
             $div_actual_target =  array_sum($p_detail_actual_target_arr);
             if ($number > 0) {
                 for ($i = 0; $i < $number; $i++) { ///// update data []
-                    LineEntryHistory::where('time_id', $time_id)->where('l_id', $line_id)->where('p_id', $p_detail_id_arr[$i])->update(['actual_target' => $p_detail_actual_target_arr[$i]]);
+
+                    LineEntryHistory::where('time_id', $time_id)->where('l_id', $line_id)->where('p_id', $p_detail_id_arr[$i])->where('assign_date', $assign_date)->update(['actual_target' => $p_detail_actual_target_arr[$i]]);
 
                     $product_detail_select = ProductDetail::where('p_detail_id', $p_detail_id_arr[$i])->first();
 
-                    $total = $product_detail_select->cat_actual_target - $p_detail_actual_target_arr[$i];
-                    ProductDetail::where('p_detail_id', $p_detail_id_arr[$i])->update(['cat_actual_target' => $total]);
 
+                    // $get_actual_target = LineEntryHistory::where('time_id', $time_id)->where('l_id', $line_id)->where('p_id', $p_detail_id_arr[$i])->where('assign_date', $assign_date)->select('p_id', 'actual_target');
+
+                    $get_actual_target = DB::select('SELECT p_id,SUM(actual_target) AS total_actual_target FROM line_entry_history WHERE p_id=' . $p_detail_id_arr[$i] . ' AND assign_date=\'' . $assign_date . '\' GROUP BY p_id');
+
+                    // echo $get_actual_target->p_id . $get_actual_target->actual_target;
+                    // echo $get_actual_target;
+
+
+                    $get_actual_target_decode = json_decode(json_encode($get_actual_target), true);
+                    // print_r($get_actual_target_decode);
+
+                    for ($j = 0; $j < count($get_actual_target_decode); $j++) {
+                        $new_p_id = $get_actual_target_decode[$j]['p_id'];
+                        $total_actual_target = $get_actual_target_decode[$j]['total_actual_target'];
+
+                        ProductDetail::where('p_detail_id', $new_p_id)->update(['cat_actual_target' => $total_actual_target]);
+                    }
                     $product_detail = ProductDetail::where('p_detail_id', $p_detail_id_arr[$i])->update(['p_actual_target' => $p_detail_actual_target_arr[$i]]);
                     if ($product_detail == true) {
                         Time::where('time_id', $time_id)->update(['status' => 1, 'div_actual_target' => $div_actual_target, 'div_actual_percent' => 0]);

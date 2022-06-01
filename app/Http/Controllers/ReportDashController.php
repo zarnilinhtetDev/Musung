@@ -101,7 +101,7 @@ class ReportDashController extends Controller
 
     public function cmpPut()
     {
-        $boxes = request()->post('boxes');
+        @$boxes = request()->post('boxes');
         $man_power_post = request()->post('man_power');
         $inline_post = request()->post('inline');
         $handover_post = request()->post('handover');
@@ -112,45 +112,48 @@ class ReportDashController extends Controller
         $h_bal = request()->post('h_bal');
 
 
-        for ($i = 0; $i < count($boxes); $i++) {
-            $l_id_input = $boxes[$i]['l_id_input'];
-            @$p_id_input = $boxes[$i]['p_id_input'];
-            @$a_id_input = $boxes[$i]['a_id_input'];
-            @$cmp_input = $boxes[$i]['cmp_input'];
-            @$note = $boxes[$i]['note'];
-            @$role = $boxes[$i]['role'];
+        if ($boxes) {
+            for ($i = 0; $i < count($boxes); $i++) {
+                $l_id_input = $boxes[$i]['l_id_input'];
+                @$p_id_input = $boxes[$i]['p_id_input'];
+                @$a_id_input = $boxes[$i]['a_id_input'];
+                @$cmp_input = $boxes[$i]['cmp_input'];
+                @$note = $boxes[$i]['note'];
+                @$role = $boxes[$i]['role'];
 
-            $date = $boxes[$i]['date_input'];
+                $date = $boxes[$i]['date_input'];
 
-            $date_string = date("d.m.Y", strtotime($date));
+                $date_string = date("d.m.Y", strtotime($date));
 
-            if ($date_string != '') {
-                $query = DB::select('SELECT "p_detail".p_detail_id
-                FROM p_detail
-                JOIN line_assign ON "p_detail".assign_id="line_assign".assign_id AND "p_detail".l_id="line_assign".l_id
-                AND "line_assign".assign_date=\'' . $date_string . '\'');
+                if ($date_string != '') {
+                    $query = DB::select('SELECT "p_detail".p_detail_id
+                    FROM p_detail
+                    JOIN line_assign ON "p_detail".assign_id="line_assign".assign_id AND "p_detail".l_id="line_assign".l_id
+                    AND "line_assign".assign_date=\'' . $date_string . '\'');
 
-                $decode = json_decode(json_encode($query), true);
+                    $decode = json_decode(json_encode($query), true);
 
-                for ($j = 0; $j < count($decode); $j++) {
-                    $p_detail_id = $decode[$j]['p_detail_id'];
-                    if ($p_id_input == $p_detail_id) {
-                        DB::table('p_detail')
-                            ->where('p_detail_id', $p_detail_id)
-                            ->update(['cmp' => $cmp_input]);
+                    for ($j = 0; $j < count($decode); $j++) {
+                        $p_detail_id = $decode[$j]['p_detail_id'];
+                        if ($p_id_input == $p_detail_id) {
+                            DB::table('p_detail')
+                                ->where('p_detail_id', $p_detail_id)
+                                ->update(['cmp' => $cmp_input]);
+                        }
                     }
                 }
-            }
-            if ($date == '') {
-                $date_string = date("d.m.Y");
-                if ($role == 1) {   ///Operator
-                    $p_detail_query = LineAssign::where('assign_date', $date_string)->where('l_id', $l_id_input)->update(['remark' => $note]);
-                } elseif ($role == 99 || $role == "") {   ///SuperAdmin
-                    $p_detail_query = ProductDetail::where('p_detail_id', $p_id_input)->where('assign_id', $a_id_input)->where('l_id', $l_id_input)->update(['cmp' => $cmp_input]);
+                if ($date == '') {
+                    $date_string = date("d.m.Y");
+                    if ($role == 1) {   ///Operator
+                        $p_detail_query = LineAssign::where('assign_date', $date_string)->where('l_id', $l_id_input)->update(['remark' => $note]);
+                    } elseif ($role == 99 || $role == "") {   ///SuperAdmin
+                        $p_detail_query = ProductDetail::where('p_detail_id', $p_id_input)->where('assign_id', $a_id_input)->where('l_id', $l_id_input)->update(['cmp' => $cmp_input]);
+                    }
+                    // $p_detail_query = ProductDetail::where('p_detail_id', $p_id_input)->where('assign_id', $a_id_input)->where('l_id', $l_id_input)->update(['cmp' => $cmp_input]);
                 }
-                // $p_detail_query = ProductDetail::where('p_detail_id', $p_id_input)->where('assign_id', $a_id_input)->where('l_id', $l_id_input)->update(['cmp' => $cmp_input]);
             }
         }
+
 
 
         //// Man-Power Post
@@ -628,7 +631,9 @@ class ReportDashController extends Controller
                     }
                     percent_class.text(percent.toFixed(0) + "%");
                 </script>
-                <td class="text-danger"></td>
+                <td>
+
+                </td>
 
                 <!-- Sewing Input --->
                 <td>

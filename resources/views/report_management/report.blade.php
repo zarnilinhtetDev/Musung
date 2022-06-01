@@ -5123,7 +5123,7 @@ chart.render();
         <a class='btn custom-btn-theme custom-btn-theme-edit text-white' href="{{ url('/report')}}?edit=1">Edit</a>
         @endif
 
-        <form method="POST" id="remark_post">
+        <form method="POST" id="cmp_put">
             @if($edit_status)
             <input class="icon-btn-one btn my-2" type="submit" value="Update" name="submit" />
             <a href="{{ url('/report') }}" class="btn-secondary btn my-2">Cancel</a>
@@ -5170,7 +5170,7 @@ chart.render();
                             $assign_date=$daily_report_decode[$i]['assign_date'];
                             $man_target=$daily_report_product_decode[$i]['man_target'];
                             $man_actual_target=$daily_report_product_decode[$i]['man_actual_target'];$assign_id_2=$daily_report_decode[$i]['assign_id'];
-                            $note=$daily_report_product_decode[$i]['remark']; @endphp <tr>
+                            $remark=$daily_report_decode[$i]['remark']; @endphp <tr>
                             <td>{{ $l_name }}</td>
 
                             {{-- Buyer --}}
@@ -5254,6 +5254,7 @@ chart.render();
                                             value="<?php echo $assign_id_2; ?>" />
                                         <input type="hidden" id="man_target_date_input" name="date_input[]"
                                             value="<?php echo $date; ?>" />
+
                                         @for($j=0;$j<count($daily_report_product_2_decode);$j++) @php
                                             $l_id_2=$daily_report_product_2_decode[$j]['l_id'];
                                             $man_target_2=$daily_report_product_2_decode[$j]['man_target'];
@@ -5262,14 +5263,13 @@ chart.render();
                                             <td>
                                                 <input type="number" id="man_target"
                                                     class="form-control p-0 text-center" name="man_target[]"
-                                                    placeholder="0" min="0" step="any"
-                                                    value="<?php echo $man_target_2; ?>">
+                                                    placeholder="0" min="0" step="any" value="{{ $man_target_2 }}">
                                             </td>
                                             <td>
                                                 <input type="number" id="man_actual_target"
                                                     class="form-control p-0 text-center" name="man_actual_target[]"
                                                     placeholder="0" min="0" step="any"
-                                                    value="<?php echo $man_actual_target_2; ?>">
+                                                    value="{{ $man_actual_target_2 }}">
                                             </td>
                                             </tr>
                                             @endif
@@ -5302,8 +5302,8 @@ chart.render();
                             <td class="percent_{{ $l_id }}"></td>
 
                             <script>
-                                var main_target = parseInt($('.main_target_{{ $l_id }}').text());
-                            var actual_target = parseInt($('.actual_target_{{ $l_id }}').text());
+                                var main_target = parseInt($('.main_target_{{ $l_id }}').text().replace(/,/g, ''));
+                            var actual_target = parseInt($('.actual_target_{{ $l_id }}').text().replace(/,/g, ''));
                             var percent = (actual_target / main_target) * 100;
 
                             // console.log(percent);
@@ -5377,6 +5377,37 @@ chart.render();
                             <!-- Sewing Input --->
                             <td>
                                 <table class="m-auto text-center table table-bordered custom-table-border-color">
+                                    @if($edit_status)
+                                    <tbody>
+                                        <tr>
+                                            <td>-</td>
+                                        </tr>
+
+                                        @for($j=0;$j<count($daily_report_product_decode);$j++) @php
+                                            $l_id_2=$daily_report_product_decode[$j]['l_id'];
+                                            $sewing_input=$daily_report_product_decode[$j]['sewing_input'];
+                                            $p_id_2=$daily_report_product_decode[$j]['p_detail_id']; @endphp
+                                            @if($l_id_2==$l_id) <tr>
+                                            <td class="sewing_input">
+                                                <input type="hidden" id="sewing_l_id_input" name="l_id[]"
+                                                    value="<?php echo $l_id; ?>" />
+                                                <input type="hidden" id="sewing_a_id_input" name="a_id[]"
+                                                    value="<?php echo $assign_id_2; ?>" />
+                                                <input type="hidden" id="sewing_date_input" name="date_input[]"
+                                                    value="<?php echo $date; ?>" />
+                                                <input type="number" id="sewing_val_input"
+                                                    class="form-control p-0 text-center" name="sewing_input[]"
+                                                    placeholder="0" min="0" step="any"
+                                                    value="<?php echo $sewing_input; ?>">
+                                                <input type="hidden" id="sewing_p_id_input" name="p_id_input[]"
+                                                    value="<?php echo $p_id_2; ?>" />
+                                            </td>
+                                            </tr>
+                                            @endif
+
+                                            @endfor
+                                    </tbody>
+                                    @else
                                     <tbody>
                                         <tr>
                                             <td>-</td>
@@ -5397,6 +5428,8 @@ chart.render();
                                             @endfor
 
                                     </tbody>
+                                    @endif
+
                                 </table>
                             </td>
 
@@ -5547,13 +5580,44 @@ chart.render();
                             <!-- H/over Input --->
                             <td>
                                 <table class="m-auto text-center table table-bordered custom-table-border-color">
+                                    @if($edit_status)
+                                    <tbody>
+                                        <tr>
+                                            <td> - </td>
+                                        </tr>
+
+                                        @for($j=0;$j<count($daily_report_product_decode);$j++) @php
+                                            $l_id_2=$daily_report_product_decode[$j]['l_id'];
+                                            $sewing_input=$daily_report_product_decode[$j]['sewing_input'];
+                                            $p_id_2=$daily_report_product_decode[$j]['p_detail_id'];$h_over_input=$daily_report_product_decode[$j]['h_over_input'];
+                                            @endphp @if($l_id_2==$l_id) <tr>
+                                            <td class="h_over_input">
+                                                <input type="hidden" id="handover_l_id_input" name="l_id[]"
+                                                    value="<?php echo $l_id; ?>" />
+                                                <input type="hidden" id="handover_a_id_input" name="a_id[]"
+                                                    value="<?php echo $assign_id_2; ?>" />
+                                                <input type="hidden" id="handover_date_input" name="date_input[]"
+                                                    value="<?php echo $date; ?>" />
+                                                <input type="number" id="handover_val_input"
+                                                    class="form-control p-0 text-center" name="handover_val_input[]"
+                                                    placeholder="0" min="0" step="any"
+                                                    value="<?php echo $h_over_input; ?>">
+                                                <input type="hidden" id="handover_p_id_input" name="p_id_input[]"
+                                                    value="<?php echo $p_id_2; ?>" />
+                                            </td>
+                                            </tr>
+                                            @endif
+
+                                            @endfor
+                                    </tbody>
+                                    @else
                                     <tbody>
                                         <tr>
                                             <td>-</td>
                                         </tr>
                                         @for($j=0;$j<count($daily_report_product_decode);$j++) @php
                                             $l_id_2=$daily_report_product_decode[$j]['l_id'];
-                                            $h_over_input=$daily_report_product_decode[$j]['h_over_input'] @endphp
+                                            $h_over_input=$daily_report_product_decode[$j]['h_over_input']; @endphp
                                             @if($l_id_2==$l_id) <tr>
                                             @if($h_over_input == '')
                                             <td> - </td>
@@ -5567,6 +5631,7 @@ chart.render();
                                             @endfor
 
                                     </tbody>
+                                    @endif
                                 </table>
                             </td>
 
@@ -5658,6 +5723,42 @@ chart.render();
 
                             <td>
                                 <table class="m-auto text-center w-100 table table-bordered custom-table-border-color">
+                                    @if($edit_status)
+                                    <tbody class="m_power_input_2">
+                                        <input type="hidden" id="m_power_l_id_input_2" name="l_id[]"
+                                            value="<?php echo $l_id; ?>" />
+                                        <input type="hidden" id="m_power_a_id_input_2" name="a_id[]"
+                                            value="<?php echo $assign_id_2; ?>" />
+                                        <input type="hidden" id="m_power_date_input_2" name="date_input[]"
+                                            value="<?php echo $date; ?>" />
+                                        <tr>
+                                            <td>
+                                                <input type="number" id="m_power_value_2"
+                                                    class="form-control p-0 text-center" name="m_power_value_2[]"
+                                                    placeholder="0" min="0" step="any" value="<?php echo $m_power; ?>">
+                                            </td>
+                                            <td>
+                                                <input type="number" id="hp_value_2"
+                                                    class="form-control p-0 text-center" name="hp_value_2[]"
+                                                    placeholder="0" min="0" step="any" value="<?php echo $hp; ?>">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <input type="number" id="actual_m_power_value_2"
+                                                    class="form-control p-0 text-center" name="actual_m_power_value[]"
+                                                    placeholder="0" min="0" step="any"
+                                                    value="<?php echo $actual_m_power; ?>">
+                                            </td>
+                                            <td>
+                                                <input type="number" id="actual_hp_value_2"
+                                                    class="form-control p-0 text-center" name="actual_hp_value_2[]"
+                                                    placeholder="0" min="0" step="any"
+                                                    value="<?php echo $actual_hp; ?>">
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    @else
                                     <tbody>
                                         <tr>
                                             <td class="m_power_value_{{ $l_id }}">@if($m_power != ''){{
@@ -5667,7 +5768,7 @@ chart.render();
                                                 @endif</td>
                                         </tr>
                                         <tr>
-                                            <td class="total_m_power_{{ $l_id }}" colspan="2"></td>
+                                            <td class="total_m_power_{{ $l_id }}" colspan="2" id="total_m_power"></td>
                                         </tr>
                                         <tr>
                                             <td class="actual_m_power_value_{{ $l_id }}">@if($actual_m_power != ''){{
@@ -5677,9 +5778,12 @@ chart.render();
                                                 }}@endif</td>
                                         </tr>
                                         <tr>
-                                            <td class="total_actual_m_power_{{ $l_id }}" colspan="2"></td>
+                                            <td class="total_actual_m_power_{{ $l_id }}" colspan="2"
+                                                id="total_actual_m_power"></td>
                                         </tr>
                                     </tbody>
+                                    @endif
+
                                 </table>
 
                                 <script>
@@ -5707,18 +5811,17 @@ chart.render();
                             </td>
 
 
-                            <td class="td_input">
-                                @if($edit_status==1)
-                                <input type="hidden" id="l_id_input" name="l_id[]" value="<?php echo $l_id; ?>" />
-                                <input type="hidden" id="date_input" name="date_input[]" value="<?php echo $date; ?>" />
-                                <input type="hidden" id="user_role" name="user_role"
-                                    value="<?php echo Auth::user()->role; ?>" />
-                                <input type="hidden" name="l_id_remark[]" value="<?php echo $l_id; ?>" /><textarea
-                                    class="form-control note" name="note[]" placeholder="Note" id="note"
-                                    maxlength="150">{{ $note }}</textarea>
-
+                            <td class="note_input">
+                                @if($edit_status)
+                                <input type="hidden" id="note_l_id_input" name="l_id[]" value="<?php echo $l_id; ?>" />
+                                <input type="hidden" id="note_a_id_input" name="a_id[]"
+                                    value="<?php echo $assign_id_2; ?>" />
+                                <input type="hidden" id="note_date_input" name="date_input[]"
+                                    value="<?php echo $date; ?>" />
+                                <textarea class="form-control note" name="note[]" placeholder="Note" id="note_val_input"
+                                    maxlength="150"><?php echo $remark; ?></textarea>
                                 @else
-                                <span class="note_span">{{ $note }}</span>
+                                {{ $remark }}
                                 @endif
                             </td>
                             </tr>
@@ -5730,38 +5833,226 @@ chart.render();
             </div>
         </form>
         <script>
-            $("#remark_post").submit(function(e) {
+            $("#cmp_put").submit(function(e) {
 e.preventDefault();
 
 // Get NON-INPUT table cell data
-var box = {};
-var boxes = [];
-$('.td_input').each(function() {
-    var l_id_input = $('#l_id_input', this).val();
-    var date_input = $('#date_input',this).val();
-    var note = $('#note', this).val();
-    var user_role = $("#user_role", this).val();
-box = {
-l_id_input: l_id_input,
-date_input: date_input,
-note: note,
-role: user_role,
-}
-boxes.push(box);
+var man_power_obj = {};
+var man_power_arr = [];
+
+$('.man_power_input').each(function(){
+    var man_power_l_id = $("#man_target_l_id_input", this).val();
+    var man_power_a_id_input = $("#man_target_a_id_input", this).val();
+    var man_power_date_input = $("#man_target_date_input", this).val();
+    var man_target = $("#man_target", this).val();
+    var man_actual_target = $("#man_actual_target", this).val();
+
+    man_power_obj = {
+        man_target_l_id : man_power_l_id,
+        man_target_a_id_input : man_power_a_id_input,
+        man_target_date_input : man_power_date_input,
+        man_target : man_target,
+        man_actual_target : man_actual_target,
+    }
+
+    man_power_arr.push(man_power_obj);
+});
+
+
+var inline_obj = {};
+var inline_arr = [];
+
+
+$(".inline_input").each(function(){
+    var inline_l_id = $("#inline_l_id_input",this).val();
+    var inline_a_id = $("#inline_a_id_input",this).val();
+    var inline_date = $("#inline_date_input",this).val();
+    var inline_p_id = $("#inline_p_id_input",this).val();
+    var inline_val_input = $("#inline_val_input",this).val();
+
+    inline_obj = {
+        inline_l_id : inline_l_id,
+        inline_a_id : inline_a_id,
+        inline_date : inline_date,
+        inline_p_id : inline_p_id,
+        inline_val_input : inline_val_input,
+    }
+
+    inline_arr.push(inline_obj);
+});
+
+var handover_obj = {};
+var handover_arr = [];
+
+$(".h_over_input").each(function(){
+    var handover_l_id = $("#handover_l_id_input",this).val();
+    var handover_a_id = $("#handover_a_id_input",this).val();
+    var handover_date = $("#handover_date_input",this).val();
+    var handover_p_id = $("#handover_p_id_input",this).val();
+    var handover_val_input = $("#handover_val_input",this).val();
+
+    handover_obj = {
+        handover_l_id : handover_l_id,
+        handover_a_id : handover_a_id,
+        handover_date : handover_date,
+        handover_p_id : handover_p_id,
+        handover_val_input : handover_val_input,
+    }
+
+    handover_arr.push(handover_obj);
+})
+
+// var box = {};
+// var boxes = [];
+// $('.td_input').each(function() {
+//     var l_id_input = $('#l_id_input', this).val();
+//     var a_id_input = $('#a_id_input', this).val();
+//     var p_id_input = $('#p_id_input', this).val();
+//     var cmp_input = $('#cmp_input',this).val();
+//     var date_input = $('#date_input',this).val();
+// box = {
+// l_id_input: l_id_input,
+// a_id_input: a_id_input,
+// p_id_input: p_id_input,
+// cmp_input: cmp_input,
+// date_input: date_input,
+// }
+// boxes.push(box);
+// });
+
+
+var sewing_obj = {};
+var sewing_arr = [];
+$(".sewing_input").each(function(){
+    var sewing_l_id = $("#sewing_l_id_input",this).val();
+    var sewing_a_id = $("#sewing_a_id_input",this).val();
+    var sewing_date = $("#sewing_date_input",this).val();
+    var sewing_p_id = $("#sewing_p_id_input",this).val();
+    var sewing_val_input = $("#sewing_val_input",this).val();
+
+    sewing_obj = {
+        sewing_l_id : sewing_l_id,
+        sewing_a_id : sewing_a_id,
+        sewing_date : sewing_date,
+        sewing_p_id : sewing_p_id,
+        sewing_val_input : sewing_val_input,
+    }
+
+    sewing_arr.push(sewing_obj);
+});
+
+//// ManPower Input (S,L,ADM OP, HP)
+var m_power_obj_2 = {};
+var m_power_arr_2 = [];
+
+$(".m_power_input_2").each(function(){
+    var m_power_l_id_2 = $("#m_power_l_id_input_2", this).val();
+    var m_power_a_id_2 = $("#m_power_a_id_input_2", this).val();
+    var m_power_date_2 = $("#m_power_date_input_2", this).val();
+    var m_power_value_2 = $("#m_power_value_2",this).val();
+    var hp_value_2 = $("#hp_value_2",this).val();
+    var actual_m_power_value_2 = $("#actual_m_power_value_2",this).val();
+    var actual_hp_value_2 = $("#actual_hp_value_2",this).val();
+
+    // console.log(m_power_l_id_2);
+
+    m_power_obj_2 = {
+        m_power_l_id_2 : m_power_l_id_2,
+        m_power_a_id_2 : m_power_a_id_2,
+        m_power_date_2 : m_power_date_2,
+        m_power_value_2 : m_power_value_2,
+        hp_value_2 : hp_value_2,
+        actual_m_power_value_2 : actual_m_power_value_2,
+        actual_hp_value_2 : actual_hp_value_2,
+    }
+
+    m_power_arr_2.push(m_power_obj_2);
+});
+
+//// Note
+var note_obj = {};
+var note_arr = [];
+
+$(".note_input").each(function(){
+    var note_l_id = $("#note_l_id_input",this).val();
+    var note_a_id = $("#note_a_id_input",this).val();
+    var note_date = $("#note_date_input",this).val();
+    var note_val_input = $("#note_val_input",this).val();
+
+    note_obj = {
+        note_l_id : note_l_id,
+        note_a_id : note_a_id,
+        note_date : note_date,
+        note_val_input : note_val_input,
+    }
+
+    note_arr.push(note_obj);
+});
+
+/// Order Qty
+var order_qty = {};
+var order_arr = [];
+
+$(".order_quantity_input").each(function(){
+    var order_l_id = $("#order_l_id_input",this).val();
+    var order_a_id = $("#order_a_id_input",this).val();
+    var order_date = $("#order_date_input",this).val();
+    var order_p_id = $("#order_p_id_input",this).val();
+    var order_val_input = $("#order_val_input",this).val();
+
+    order_qty = {
+        order_l_id : order_l_id,
+        order_a_id : order_a_id,
+        order_date : order_date,
+        order_p_id : order_p_id,
+        order_val_input : order_val_input,
+    }
+
+    order_arr.push(order_qty);
+});
+
+/// HandOver Balance
+
+var h_bal_obj = {};
+var h_bal_arr = [];
+
+$(".h_bal_input").each(function(){
+    var h_bal_l_id = $("#h_bal_l_id_input",this).val();
+    var h_bal_a_id = $("#h_bal_a_id_input",this).val();
+    var h_bal_date = $("#h_bal_date_input",this).val();
+    var h_bal_p_id = $("#h_bal_p_id_input",this).val();
+    var h_bal_val_input = $("#h_bal_val_input",this).val();
+
+    h_bal_obj = {
+        h_bal_l_id : h_bal_l_id,
+        h_bal_a_id : h_bal_a_id,
+        h_bal_date : h_bal_date,
+        h_bal_p_id : h_bal_p_id,
+        h_bal_val_input : h_bal_val_input,
+    }
+
+    h_bal_arr.push(h_bal_obj);
 });
 
 $.ajax({
         type: "POST",
         url: "/cmp_put",
         data: {
-            boxes: boxes,
+            // boxes: boxes,
+            man_power : man_power_arr,
+            inline: inline_arr,
+            handover : handover_arr,
+            sewing : sewing_arr,
+            m_power_2 : m_power_arr_2,
+            note: note_arr,
+            order_qty : order_arr,
+            h_bal : h_bal_arr,
         },
         success: function(data) {
             // console.log(data);
             window.location.href = "/report?update=ok";
         }
-    });
-});
+    });});
 
         </script>
     </div>
@@ -5782,7 +6073,7 @@ success: function(result) {
 $("#ajax_load_div").html(result);
 },
 error: function(result) {
-    console.log(result);
+    // console.log(result);
     alert('error');
 }
 });
