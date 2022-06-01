@@ -553,6 +553,7 @@ new_total_percent.append('%');
         <table class="table table-hover table-striped table-bordered text-center table-dash" id="live_dash_1">
             <thead>
                 <tr class="tr-2 tr-3">
+                    <th scope="col" style="padding:0px; border:none;"></th>
                     <th scope="col" style="vertical-align: middle; height:73px !important;">Total</th>
                     <th scope="col" style="vertical-align: middle; height:73px !important;">Rank</th>
                     <th scope="col" style="vertical-align: middle; height:73px !important;">%</th>
@@ -569,19 +570,22 @@ new_total_percent.append('%');
                 $g_actual_m_power = $g_line->actual_m_power;
                 $g_hp = $g_line->hp;
                 $g_actual_hp = $g_line->actual_hp;
-                @endphp
-                <tr style="border-bottom: 2px solid black;" class="tr_line_{{ $g_line_id }}">
-                    @foreach($target_total as $t_2_total)
-                    @if ($g_line_id == $t_2_total->line_id && $t_2_total->total != 0)
 
-                    <td style="display:none;">
+                @endphp
+                <tr style="border-bottom: 2px solid #000;" class="tr_line_{{ $g_line_id }}">
+                    @foreach($target_total as $t_2_total)
+
+                    @if ($g_line_id == $t_2_total->line_id)
+
+                    <td colspan="0">
                         <table class="m-auto text-start table table-bordered">
                             <tbody>
                                 @foreach($p_detail_2 as $p_2)
+
                                 @if($p_2->l_id == $g_line_id)
-                                <tr style="border-bottom: 1px solid #848484;">
+                                <tr style="border-bottom: 1px solid transparent;">
                                     <td class="item_name_{{ $g_line_id }}">
-                                        <div style="width:0 !important;overflow-x:scroll;">
+                                        <div style="width:0px !important;overflow-x:scroll;">
                                             #{{ $p_2->style_no }}, {{ $p_2->p_name }}
                                         </div>
                                     </td>
@@ -762,6 +766,7 @@ $(".t_line_" + max_num).css({
                 </tr>
                 @endforeach
                 <tr>
+                    <td></td>
                     <td>
                         <table class="w-100 text-center table table-bordered m-0" border="1">
                             <tr>

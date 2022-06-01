@@ -4017,7 +4017,7 @@ chart.render();
                         @if($edit_status)
                         <tbody>
                             <tr>
-                                <td>-</td>
+                                <td> - </td>
                             </tr>
 
                             @for($j=0;$j<count($daily_report_product_decode);$j++) @php

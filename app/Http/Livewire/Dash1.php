@@ -28,7 +28,7 @@ class Dash1 extends Component
 
         $target_total = DB::select('SELECT "time".line_id,"time".assign_id,SUM("time".actual_target_entry) AS total
         FROM time,line_assign WHERE "time".assign_id="line_assign".assign_id
-        AND "line_assign".assign_date=\'' . $date_string . '\' AND "time".div_actual_target IS NOT NULL GROUP BY "time".assign_id,"time".line_id');
+        AND "line_assign".assign_date=\'' . $date_string . '\' GROUP BY "time".assign_id,"time".line_id');
 
         //        SELECT "time".line_id,"time".assign_id,"time".div_actual_target,"time".time_name,"time".div_target
         // FROM time,line_assign WHERE "time".assign_id="line_assign".assign_id

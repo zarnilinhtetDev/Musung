@@ -925,12 +925,16 @@ class ReportDashController extends Controller
                             <?php
                             for ($j = 0; $j < count($daily_report_product_history_decode); $j++) {
                                 $l_id_2 = $daily_report_product_history_decode[$j]['l_id'];
-                                $h_over_input = $daily_report_product_history_decode[$j]['h_over_input'];
-                                $h_over_bal = $h_over_input - $h_over_input;
+                                $h_balance = $daily_report_product_history_decode[$j]['h_balance'];
                                 if ($l_id_2 == $l_id) {
-                                    echo '<tr>
-                                <td>' . number_format($h_over_bal) . '</td>
-                                </tr>';
+                                    echo '<tr>';
+                                    if ($h_balance == '') {
+                                        echo '<td> - </td>';
+                                    }
+                                    if ($h_balance != '') {
+                                        echo '<td>' . number_format($h_balance) . '</td>';
+                                    }
+                                    echo '</tr>';
                                 }
                             }
                             ?>
