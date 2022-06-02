@@ -1004,9 +1004,8 @@ class ReportDashController extends Controller
                             for ($k = 0; $k < count($daily_report_history_decode); $k++) {
                                 $l_id_2 = $daily_report_history_decode[$k]['l_id'];
                                 $total_time = (int)$daily_report_history_decode[$k]['total_time'];
-                                $subtraction = $total_time - 1;
                                 if ($l_id_2 == $l_id) {
-                                    echo '<td class="total_time_history_' . $l_id_2 . '">' . $subtraction . '</td>';
+                                    echo '<td class="total_time_history_' . $l_id_2 . '">' . $total_time . '</td>';
                                 }
                             }
                 ?>

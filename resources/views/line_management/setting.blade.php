@@ -1852,9 +1852,10 @@ cache: true
                                             <td>{{ $u_name }}</td>
                                             <td>{{ $a_main_target }}</td>
                                             <td>{{ $a_work_hr }}</td>
-                                            <td>{{ $a_s_time }}</td>
-                                            <td>{{ $a_lunch_s_time }} - {{ $a_lunch_e_time }}</td>
-                                            <td>{{ $a_e_time }}</td>
+                                            <td> {{ date('g:i A',strtotime($a_s_time)) }}</td>
+                                            <td>{{ date('g:i A',strtotime($a_lunch_s_time)) }} - {{ date('g:i
+                                                A',strtotime($a_lunch_e_time)) }}</td>
+                                            <td>{{ date('g:i A',strtotime($a_e_time)) }}</td>
                                             <td>{{ $a_work_min }}</td>
                                         </tr>
                                         @endif
@@ -2274,9 +2275,9 @@ cache: true
             <td>{{ $l_u_name }}</td>
             <td>{{ $l_main_target }}</td>
             <td>{{ $l_work_hr }}</td>
-            <td>{{ $l_s_time }}</td>
-            <td>{{ $l_lunch_s_time }} - {{ $l_lunch_e_time }}</td>
-            <td>{{ $l_e_time }}</td>
+            <td>{{ date('g:i A',strtotime($l_s_time)) }}</td>
+            <td>{{ date('g:i A',strtotime($l_lunch_s_time)) }} - {{ date('g:i A',strtotime($l_lunch_e_time)) }}</td>
+            <td>{{ date('g:i A',strtotime($l_e_time)) }}</td>
             <td>
                 <a class='btn btn-danger text-white' href='{{ url("/delete_assign_line") }}/{{ $l_a_id }}/{{ $l_l_id }}'
                     onclick="return confirm('Confirm deleting Line Assign?')">Delete</a>

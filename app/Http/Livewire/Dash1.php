@@ -37,8 +37,8 @@ class Dash1 extends Component
         //        GROUP BY "time".assign_id,"time".line_id,"time".div_actual_target,"time".time_name,"time".div_target
         // 	   ORDER BY "time".line_id,"time".time_name
 
-        $actual_target_total = DB::select('SELECT "time".line_id,"time".assign_id,SUM("time".div_actual_target) AS total_actual_target
-        FROM time,line_assign WHERE "time".assign_id="line_assign".assign_id AND "line_assign".assign_date=\'' . $date_string . '\'
+        $actual_target_total = DB::select('SELECT "time".line_id,"time".assign_id,SUM("time".actual_target_entry) AS total_div_target,SUM("time".div_actual_target) AS total_actual_target
+        FROM time,line_assign WHERE "time".assign_id="line_assign".assign_id AND "line_assign".assign_date=\'' . $date_string . '\' AND "time".div_actual_target IS NOT NULL
         GROUP BY "time".line_id,"time".assign_id');
 
         $getLine = DB::select('SELECT "line".l_id,"line".l_name,"line_assign".assign_id,"line_assign".main_target,"line_assign".ot_main_target,"line_assign".m_power,"line_assign".actual_m_power,
@@ -64,6 +64,11 @@ class Dash1 extends Component
         FROM p_detail
         JOIN line_assign ON "line_assign".assign_id="p_detail".assign_id AND "p_detail".l_id="line_assign".l_id AND "line_assign".assign_date=\'' . $date_string . '\'
         ORDER BY "p_detail".p_detail_id ASC');
+
+        $p_detail_3 = DB::select('SELECT DISTINCT "p_detail".l_id,"p_detail".p_name
+        FROM p_detail
+        JOIN line_assign ON "line_assign".assign_id="p_detail".assign_id AND "p_detail".l_id="line_assign".l_id AND "line_assign".assign_date=\'' . $date_string . '\'
+        ');
 
         $total_main_target = DB::select('SELECT SUM("line_assign".main_target) AS t_main_target, SUM("line_assign".ot_main_target) AS ot_main_target FROM line_assign WHERE "line_assign".assign_date=\'' . $date_string . '\'');
 
@@ -97,7 +102,7 @@ class Dash1 extends Component
 
         return view(
             'livewire.dash1',
-            compact('getLine', 'time', 'time_2', 'total_main_target', 'total_div_target', 'total_div_actual_target', 'target_total', 'actual_target_total', 'top_line', 'total_overall_target', 'total_overall_actual_target', 'total_inline', 'p_detail_2', 'time_name_list'),
+            compact('getLine', 'time', 'time_2', 'total_main_target', 'total_div_target', 'total_div_actual_target', 'target_total', 'actual_target_total', 'top_line', 'total_overall_target', 'total_overall_actual_target', 'total_inline', 'p_detail_2', 'time_name_list', 'p_detail_3'),
         );
     }
 }

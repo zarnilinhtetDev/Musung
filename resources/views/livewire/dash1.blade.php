@@ -78,12 +78,12 @@
                     <td>
                         <table class="m-auto text-start table table-bordered">
                             <tbody>
-                                @foreach($p_detail_2 as $p_2)
-                                @if($p_2->l_id == $g_line_id)
+                                @foreach($p_detail_3 as $p_3)
+                                @if($p_3->l_id == $g_line_id)
                                 <tr style="border-bottom: 1px solid #848484;">
                                     <td class="item_name_{{ $g_line_id }}">
                                         <div style="width:10rem;overflow-x:scroll;">
-                                            #{{ $p_2->style_no }}, {{ $p_2->p_name }}
+                                            {{ $p_3->p_name }}
                                         </div>
                                     </td>
                                 </tr>
@@ -573,7 +573,7 @@ new_total_percent.append('%');
                 $g_actual_hp = $g_line->actual_hp;
 
                 @endphp
-                <tr style="border-bottom: 2px solid #000;" class="tr_line_{{ $g_line_id }}">
+                <tr style="border-bottom: 3px solid #000;" class="tr_line_{{ $g_line_id }}">
                     @foreach($target_total as $t_2_total)
 
                     @if ($g_line_id == $t_2_total->line_id)
@@ -603,13 +603,13 @@ new_total_percent.append('%');
                     <td colspan="0">
                         <table class="m-auto text-start table table-bordered">
                             <tbody>
-                                @foreach($p_detail_2 as $p_2)
+                                @foreach($p_detail_3 as $p_3)
 
-                                @if($p_2->l_id == $g_line_id)
-                                <tr style="border-bottom: 1px solid transparent;">
+                                @if($p_3->l_id == $g_line_id)
+                                <tr style="border-bottom: 1px #000">
                                     <td class="item_name_{{ $g_line_id }}">
                                         <div style="width:0px !important;overflow-x:scroll;">
-                                            #{{ $p_2->style_no }}, {{ $p_2->p_name }}
+                                            {{ $p_3->p_name }}
                                         </div>
                                     </td>
                                 </tr>
@@ -625,12 +625,13 @@ new_total_percent.append('%');
                             @foreach($actual_target_total as $a_total)
                             @if ($g_line_id == $a_total->line_id)
                             <tr>
-                                <td><span class="fw-bold t_2_total_{{ $t_2_total->line_id }}">{{ $t_2_total->total
-                                        }}</span>
+                                <td><span class="fw-bold t_2_total_{{ $t_2_total->line_id }}">
+                                        {{ $a_total->total_div_target }}
+                                    </span>
 
                                 </td>
                                 <script>
-                                    // var main_target_total = $("#g_main_target_{{ $g_line_id }}").text();
+                                    //     var main_target_total = $("#g_main_target_{{ $g_line_id }}").text();
                                 // var t_2_total = $(".t_2_total_{{ $t_2_total->line_id }}");
                                 // t_2_total.text(main_target_total);
                                 </script>
@@ -778,7 +779,7 @@ if(top_3 != ''){
                                     // });
                                     var max_num = Math.max(...val_arr);
 
-$(".t_line_" + max_num).css({
+$(".t_line_" + 10).css({
     'background-color': 'red',
     'color': '#fff'
 });
@@ -807,10 +808,10 @@ $(".t_line_" + max_num).css({
                                 </td>
 
                                 <script>
-                                    // var t_main_target = $("#t_main_target").text();
-                                // var t_overall_target = $("#t_overall_target");
-                                // var t_overall_target_2 = $("#t_overall_target_2");
-                                // t_overall_target_2.text(t_main_target);
+                                    var t_main_target = $("#t_main_target").text();
+                                var t_overall_target = $("#t_overall_target");
+                                var t_overall_target_2 = $("#t_overall_target_2");
+                                t_overall_target_2.text(t_main_target);
                                 </script>
                                 @endforeach
                             </tr>
@@ -830,6 +831,7 @@ $(".t_line_" + max_num).css({
                                 var t_overall_target_2 = parseInt($("#t_overall_target_2").text().replace(/,/g, ''));
                                 var t_overall_actual_target_2 = parseInt($("#t_overall_actual_target_2").text().replace(/,/g, ''));
                                 var t_overall_percent_2 = $("#t_overall_percent_2");
+                                // console.log(t_overall_actual_target_2);
 
                                 if(parseInt(t_overall_target_2) > parseInt(t_overall_actual_target_2)){
                                     $("#t_overall_actual_target_2").css('background-color','red');
@@ -839,13 +841,13 @@ $(".t_line_" + max_num).css({
                                 }
 
                                 var t_percent_cal_2 = (t_overall_actual_target_2/t_overall_target_2) * 100;
-
+                                // console.log(t_percent_cal_2);
 
                                 if(Number.isNaN(t_percent_cal_2)){
                                     t_overall_percent_2.text("");
                                 }
                                 if (!Number.isNaN(t_percent_cal_2)) {
-                                    t_overall_percent_2.text(parseInt(t_percent_cal_2));
+                                    t_overall_percent_2.text(parseFloat(t_percent_cal_2).toFixed(0));
 
                                         if(parseInt(t_overall_actual_target_2) >= parseInt(t_overall_target_2)){
                                             t_overall_percent_2.css('background-color','green');

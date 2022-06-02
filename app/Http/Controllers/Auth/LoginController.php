@@ -52,10 +52,13 @@ class LoginController extends Controller
     }
     public function logout()
     {
-        $sql = DB::table('users')->where('id', Auth::user()->id)->update(['active_status' => 1]);
-        DB::disconnect('musung');
-
-        Auth::logout();
-        return redirect(url('/'));
+        if (Auth::check()) {
+            $sql = DB::table('users')->where('id', Auth::user()->id)->update(['active_status' => 1]);
+            DB::disconnect('musung');
+            Auth::logout();
+            return redirect(url('/'));
+        } else {
+            return redirect(url('/'));
+        }
     }
 }

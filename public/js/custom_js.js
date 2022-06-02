@@ -159,6 +159,8 @@ $(document).ready(function () {
                 hour = e[0] - s[0] - hour_carry;
                 diff = hour + ":" + min;
 
+                console.log(diff);
+
                 $("#work_hour").val(diff);
             }
         });

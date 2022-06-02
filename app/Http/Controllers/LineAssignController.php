@@ -114,15 +114,15 @@ class LineAssignController extends Controller
         $progress = request()->post('progress');
 
 
-        // // $category = request()->post('category');
-        // // $category_target = request()->post('category_target');
-        // // $p_name = request()->post('p_name');
-        // // $number = count($category);
+        // $category = request()->post('category');
+        // $category_target = request()->post('category_target');
+        // $p_name = request()->post('p_name');
+        // $number = count($category);
 
 
-        // // $category_1 = request()->post('category_1');
-        // // $p_name_1 = request()->post('p_name_1');
-        // // $category_target_1 = request()->post('category_target_1');
+        // $category_1 = request()->post('category_1');
+        // $p_name_1 = request()->post('p_name_1');
+        // $category_target_1 = request()->post('category_target_1');
 
         $category = [];
         $style_no = [];
