@@ -790,12 +790,13 @@ class ReportDashController extends Controller
                             ?>
 
                                     <script>
-                                        var clothes_output = parseFloat($(".cat_actual_target_history_<?php echo $p_id_2; ?>").text());
-                                        var cmp = $('.cmp_value_history_<?php echo $p_id_2; ?>').text();
-                                        var cmp_substring = parseFloat(cmp.substring(2));
+                                        var clothes_output = parseFloat($(".cat_actual_target_<?php echo $p_id_2; ?>").text().replace(/,/g, ''));
+                                        var cmp = parseFloat($('.cmp_<?php echo $p_id_2; ?>').text().replace(/,/g, ''));
                                         var daily_cmp = $('.daily_cmp_history_<?php echo $p_id_2; ?>');
 
-                                        var multiply_cmp = clothes_output * cmp_substring;
+                                        // console.log(clothes_output);
+
+                                        var multiply_cmp = clothes_output * cmp;
 
                                         if (Number.isNaN(multiply_cmp)) {
                                             daily_cmp.text('-');

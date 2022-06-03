@@ -533,8 +533,8 @@ $date_string_for_export_pdf = date("Y_m_d", strtotime($date_string));
 
 
                                 <script>
-                                    var clothes_output = parseFloat($(".cat_actual_target_{{ $p_id_2 }}").text());
-                                var cmp = parseFloat($('.cmp_{{ $p_id_2 }}').text());
+                                    var clothes_output = parseFloat($(".cat_actual_target_{{ $p_id_2 }}").text().replace(/,/g, ''));
+                                var cmp = parseFloat($('.cmp_{{ $p_id_2 }}').text().replace(/,/g,''));
                                 var daily_cmp = $('.daily_cmp_{{ $p_id_2 }}');
 
                                 // console.log(cmp);
@@ -2217,8 +2217,8 @@ chart.render();
 
 
                                 <script>
-                                    var clothes_output = parseFloat($(".cat_actual_target_{{ $p_id_2 }}").text());
-                                var cmp = parseFloat($('.cmp_{{ $p_id_2 }}').text());
+                                    var clothes_output = parseFloat($(".cat_actual_target_{{ $p_id_2 }}").text().replace(/,/g, ''));
+                                var cmp = parseFloat($('.cmp_{{ $p_id_2 }}').text().replace(/,/g,''));
                                 var daily_cmp = $('.daily_cmp_{{ $p_id_2 }}');
 
                                 // console.log(cmp);
@@ -3902,8 +3902,8 @@ chart.render();
 
 
                                 <script>
-                                    var clothes_output = parseFloat($(".cat_actual_target_{{ $p_id_2 }}").text());
-                                var cmp = parseFloat($('.cmp_{{ $p_id_2 }}').text());
+                                    var clothes_output = parseFloat($(".cat_actual_target_{{ $p_id_2 }}").text().replace(/,/g, ''));
+                                var cmp = parseFloat($('.cmp_{{ $p_id_2 }}').text().replace(/,/g,''));
                                 var daily_cmp = $('.daily_cmp_{{ $p_id_2 }}');
 
                                 // console.log(cmp);

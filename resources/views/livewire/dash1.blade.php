@@ -54,7 +54,7 @@
                 @endphp
                 <tr style="border-bottom: 2px solid black;" class="tr_line_{{ $g_line_id }}">
                     <td class="line_column_{{ $g_line_id }}"></td>
-                    <td class="fw-bold line_name_{{ $g_line_id }}" style="vertical-align: middle;">{{ $g_line_name
+                    <td class="fw-bold line_name_{{ $g_line_id }} fs-4" style="vertical-align: middle;">{{ $g_line_name
                         }}
                     </td>
                     <td>
@@ -115,10 +115,13 @@
                         <table class="w-100 text-center table table-bordered m-0" border="1">
                             <tr>
                                 <td><span id="new_div_target_{{ $t_2->time_id }}" class="new_div_target">
-                                        @if($t_2->actual_target_entry<=0) @php echo '' ; @endphp @elseif($t_2->
-                                            div_actual_target!='') {{
-                                            number_format($t_2->actual_target_entry) }}
-                                            @endif</span></td>
+                                        @if($t_2->div_actual_target=='') <span style="color:#adadad;">{{
+                                            number_format($t_2->actual_target_entry) }}</span>
+                                        @elseif($t_2->
+                                        div_actual_target!='') {{
+                                        number_format($t_2->actual_target_entry) }}
+                                        @endif
+                                    </span></td>
                             </tr>
                             <tr class="text-white">
                                 <td id="td_div_actual_target_{{ $t_2->time_id }}">
@@ -388,7 +391,7 @@ $(".t_line_" + max_num).css({
                 @endforeach
                 <tr>
                     <td></td>
-                    <td class="fw-bold total" style=" vertical-align: middle;">Total</td>
+                    <td class="fw-bold total fs-4" style=" vertical-align: middle;">Total</td>
                     <td></td>
                     <td></td>
                     <td></td>
