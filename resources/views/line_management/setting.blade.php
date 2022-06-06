@@ -170,12 +170,26 @@ $num = 1;
                                             <td>{{ $num++ }}</td>
                                             <td>{{ $u_name }}</td>
                                             <td>{{ $a_main_target }}</td>
-                                            <td>{{ $a_work_hr }}</td>
+                                            <td id="a_work_hr_{{ $a_line_id }}"></td>
                                             <td>{{ $a_s_time }}</td>
                                             <td>{{ $a_lunch_s_time }} - {{ $a_lunch_e_time }}</td>
                                             <td>{{ $a_e_time }}</td>
                                             <td>{{ $a_work_min }}</td>
                                         </tr>
+                                        <script>
+                                            var a_work_hr_ = $("#a_work_hr_{{ $a_line_id }}");
+                                            var a_work_hr_val = "<?php echo $a_work_hr; ?>";
+
+                                            a_work_hr_val_split = a_work_hr_val.split(':');
+
+
+                                            if(a_work_hr_val_split[1] == 0){
+                                                a_work_hr_.text(a_work_hr_val_split[0]+'  hr');
+                                            }
+                                            if(a_work_hr_val_split[1] != 0){
+                                                a_work_hr_.text(a_work_hr_val_split[0]+'  hr '+a_work_hr_val_split[1]+'  min');
+                                            }
+                                        </script>
                                         @endif
                                         @endforeach
                                     </tbody>
@@ -477,7 +491,7 @@ $num = 1;
             <td>{{ $l_l_name }}</td>
             <td>{{ $l_u_name }}</td>
             <td>{{ $l_main_target }}</td>
-            <td>{{ $l_work_hr }}</td>
+            <td id="l_work_hr_{{ $l_l_id }}">{{ $l_work_hr }}</td>
             <td>{{ $l_s_time }}</td>
             <td>{{ $l_lunch_s_time }} - {{ $l_lunch_e_time }}</td>
             <td>{{ $l_e_time }}</td>
@@ -486,6 +500,20 @@ $num = 1;
                     onclick="return confirm('Confirm deleting Line Assign?')">Delete</a>
             </td>
         </tr>
+        <script>
+            var l_work_hr = $("#l_work_hr_{{ $l_l_id }}");
+            var l_work_hr_val = "<?php echo $l_work_hr; ?>";
+
+            l_work_hr_val_split = l_work_hr_val.split(':');
+
+
+            if(l_work_hr_val_split[1] == 0){
+                l_work_hr.text(l_work_hr_val_split[0]+'  hr');
+            }
+            if(l_work_hr_val_split[1] != 0){
+                l_work_hr.text(l_work_hr_val_split[0]+'  hr '+l_work_hr_val_split[1]+'  min');
+            }
+        </script>
         @endforeach
 
     </tbody>
@@ -833,12 +861,26 @@ cache: true
                                             <td>{{ $num++ }}</td>
                                             <td>{{ $u_name }}</td>
                                             <td>{{ $a_main_target }}</td>
-                                            <td>{{ $a_work_hr }}</td>
+                                            <td id="a_work_hr_{{ $a_line_id }}"></td>
                                             <td>{{ $a_s_time }}</td>
                                             <td>{{ $a_lunch_s_time }} - {{ $a_lunch_e_time }}</td>
                                             <td>{{ $a_e_time }}</td>
                                             <td>{{ $a_work_min }}</td>
                                         </tr>
+                                        <script>
+                                            var a_work_hr_ = $("#a_work_hr_{{ $a_line_id }}");
+                                            var a_work_hr_val = "<?php echo $a_work_hr; ?>";
+
+                                            a_work_hr_val_split = a_work_hr_val.split(':');
+
+
+                                            if(a_work_hr_val_split[1] == 0){
+                                                a_work_hr_.text(a_work_hr_val_split[0]+'  hr');
+                                            }
+                                            if(a_work_hr_val_split[1] != 0){
+                                                a_work_hr_.text(a_work_hr_val_split[0]+'  hr '+a_work_hr_val_split[1]+'  min');
+                                            }
+                                        </script>
                                         @endif
                                         @endforeach
                                     </tbody>
@@ -1255,7 +1297,7 @@ cache: true
             <td>{{ $l_l_name }}</td>
             <td>{{ $l_u_name }}</td>
             <td>{{ $l_main_target }}</td>
-            <td>{{ $l_work_hr }}</td>
+            <td id="l_work_hr_{{ $l_l_id }}">{{ $l_work_hr }}</td>
             <td>{{ $l_s_time }}</td>
             <td>{{ $l_lunch_s_time }} - {{ $l_lunch_e_time }}</td>
             <td>{{ $l_e_time }}</td>
@@ -1264,6 +1306,20 @@ cache: true
                     onclick="return confirm('Confirm deleting Line Assign?')">Delete</a>
             </td>
         </tr>
+        <script>
+            var l_work_hr = $("#l_work_hr_{{ $l_l_id }}");
+            var l_work_hr_val = "<?php echo $l_work_hr; ?>";
+
+            l_work_hr_val_split = l_work_hr_val.split(':');
+
+
+            if(l_work_hr_val_split[1] == 0){
+                l_work_hr.text(l_work_hr_val_split[0]+'  hr');
+            }
+            if(l_work_hr_val_split[1] != 0){
+                l_work_hr.text(l_work_hr_val_split[0]+'  hr '+l_work_hr_val_split[1]+'  min');
+            }
+        </script>
         @endforeach
 
     </tbody>
@@ -1851,13 +1907,27 @@ cache: true
                                             <td>{{ $num++ }}</td>
                                             <td>{{ $u_name }}</td>
                                             <td>{{ $a_main_target }}</td>
-                                            <td>{{ $a_work_hr }}</td>
+                                            <td id="a_work_hr_{{ $a_line_id }}"></td>
                                             <td> {{ date('g:i A',strtotime($a_s_time)) }}</td>
                                             <td>{{ date('g:i A',strtotime($a_lunch_s_time)) }} - {{ date('g:i
                                                 A',strtotime($a_lunch_e_time)) }}</td>
                                             <td>{{ date('g:i A',strtotime($a_e_time)) }}</td>
                                             <td>{{ $a_work_min }}</td>
                                         </tr>
+                                        <script>
+                                            var a_work_hr_ = $("#a_work_hr_{{ $a_line_id }}");
+                                            var a_work_hr_val = "<?php echo $a_work_hr; ?>";
+
+                                            a_work_hr_val_split = a_work_hr_val.split(':');
+
+
+                                            if(a_work_hr_val_split[1] == 0){
+                                                a_work_hr_.text(a_work_hr_val_split[0]+'  hr');
+                                            }
+                                            if(a_work_hr_val_split[1] != 0){
+                                                a_work_hr_.text(a_work_hr_val_split[0]+'  hr '+a_work_hr_val_split[1]+'  min');
+                                            }
+                                        </script>
                                         @endif
                                         @endforeach
                                     </tbody>
@@ -2274,7 +2344,7 @@ cache: true
             <td>{{ $l_l_name }}</td>
             <td>{{ $l_u_name }}</td>
             <td>{{ $l_main_target }}</td>
-            <td>{{ $l_work_hr }}</td>
+            <td id="l_work_hr_{{ $l_l_id }}"></td>
             <td>{{ date('g:i A',strtotime($l_s_time)) }}</td>
             <td>{{ date('g:i A',strtotime($l_lunch_s_time)) }} - {{ date('g:i A',strtotime($l_lunch_e_time)) }}</td>
             <td>{{ date('g:i A',strtotime($l_e_time)) }}</td>
@@ -2283,6 +2353,20 @@ cache: true
                     onclick="return confirm('Confirm deleting Line Assign?')">Delete</a>
             </td>
         </tr>
+        <script>
+            var l_work_hr = $("#l_work_hr_{{ $l_l_id }}");
+            var l_work_hr_val = "<?php echo $l_work_hr; ?>";
+
+            l_work_hr_val_split = l_work_hr_val.split(':');
+
+
+            if(l_work_hr_val_split[1] == 0){
+                l_work_hr.text(l_work_hr_val_split[0]+'  hr');
+            }
+            if(l_work_hr_val_split[1] != 0){
+                l_work_hr.text(l_work_hr_val_split[0]+'  hr '+l_work_hr_val_split[1]+'  min');
+            }
+        </script>
         @endforeach
 
     </tbody>
@@ -2873,12 +2957,26 @@ cache: true
                                             <td>{{ $num++ }}</td>
                                             <td>{{ $u_name }}</td>
                                             <td>{{ $a_main_target }}</td>
-                                            <td>{{ $a_work_hr }}</td>
+                                            <td id="a_work_hr_{{ $a_line_id }}">{{ $a_work_hr }}</td>
                                             <td>{{ $a_s_time }}</td>
                                             <td>{{ $a_lunch_s_time }} - {{ $a_lunch_e_time }}</td>
                                             <td>{{ $a_e_time }}</td>
                                             <td>{{ $a_work_min }}</td>
                                         </tr>
+                                        <script>
+                                            var a_work_hr_ = $("#a_work_hr_{{ $a_line_id }}");
+                                            var a_work_hr_val = "<?php echo $a_work_hr; ?>";
+
+                                            a_work_hr_val_split = a_work_hr_val.split(':');
+
+
+                                            if(a_work_hr_val_split[1] == 0){
+                                                a_work_hr_.text(a_work_hr_val_split[0]+'  hr');
+                                            }
+                                            if(a_work_hr_val_split[1] != 0){
+                                                a_work_hr_.text(a_work_hr_val_split[0]+'  hr '+a_work_hr_val_split[1]+'  min');
+                                            }
+                                        </script>
                                         @endif
                                         @endforeach
                                     </tbody>
@@ -3293,7 +3391,7 @@ cache: true
             <td>{{ $l_l_name }}</td>
             <td>{{ $l_u_name }}</td>
             <td>{{ $l_main_target }}</td>
-            <td>{{ $l_work_hr }}</td>
+            <td id="l_work_hr_{{ $l_l_id }}">{{ $l_work_hr }}</td>
             <td>{{ $l_s_time }}</td>
             <td>{{ $l_lunch_s_time }} - {{ $l_lunch_e_time }}</td>
             <td>{{ $l_e_time }}</td>
@@ -3302,6 +3400,20 @@ cache: true
                     onclick="return confirm('Confirm deleting Line Assign?')">Delete</a>
             </td>
         </tr>
+        <script>
+            var l_work_hr = $("#l_work_hr_{{ $l_l_id }}");
+            var l_work_hr_val = "<?php echo $l_work_hr; ?>";
+
+            l_work_hr_val_split = l_work_hr_val.split(':');
+
+
+            if(l_work_hr_val_split[1] == 0){
+                l_work_hr.text(l_work_hr_val_split[0]+'  hr');
+            }
+            if(l_work_hr_val_split[1] != 0){
+                l_work_hr.text(l_work_hr_val_split[0]+'  hr '+l_work_hr_val_split[1]+'  min');
+            }
+        </script>
         @endforeach
 
     </tbody>

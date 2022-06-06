@@ -143,7 +143,22 @@ $(document).ready(function () {
                 $("#s_time").val(start_time);
                 var end_time = $("#end_time").val();
                 $("#e_time").val(end_time);
+                var lunch_s_time = $("#lunch_start").val();
+                var lunch_e_time = $("#lunch_end").val();
 
+                l_s = lunch_s_time.split(":"); // lunch_start
+                l_e = lunch_e_time.split(":"); // lunch_end
+
+                l_min = l_e[1] - l_s[1]; // lunch_min
+                l_hour_carry = 0; // lunch_hour
+                if (l_min < 0) {
+                    l_min += 60;
+                    l_hour_carry += 1;
+                }
+                l_hour = l_e[0] - l_s[0] - l_hour_carry;
+                l_diff = l_hour + ":" + l_min; /// lunch_time_diff
+
+                /// Start Time, End Time calculation
                 var start = $("#s_time").val();
                 var end = $("#e_time").val();
 
@@ -157,38 +172,75 @@ $(document).ready(function () {
                     hour_carry += 1;
                 }
                 hour = e[0] - s[0] - hour_carry;
-                diff = hour + ":" + min;
+                diff = hour + ":" + min; //// start_time - end_time result
 
-                console.log(diff);
+                /// Difference between start_time / end_time result with lunch_time_diff
+                l_diff_split = l_diff.split(":");
+                diff_split = diff.split(":");
+                diff_min = diff_split[1] - l_diff_split[1];
+                diff_hour_carry = 0;
 
-                $("#work_hour").val(diff);
+                if (diff_min < 0) {
+                    diff_min += 60;
+                    diff_hour_carry += 1;
+                }
+                diff_hour = diff_split[0] - l_diff_split[0] - diff_hour_carry;
+                diff_result = diff_hour + ":" + diff_min;
+
+                $("#work_hour").val(diff_result);
             }
         });
 
-        $("#start_time").on("change", function () {
+        $("#end_time").on("change", function () {
             var start_time = $("#start_time").val();
             $("#s_time").val(start_time);
-            $("#end_time").on("change", function () {
-                var end_time = $("#end_time").val();
-                $("#e_time").val(end_time);
+            var end_time = $("#end_time").val();
+            $("#e_time").val(end_time);
 
-                var start = $("#s_time").val();
-                var end = $("#e_time").val();
+            var lunch_s_time = $("#lunch_start").val();
+            var lunch_e_time = $("#lunch_end").val();
 
-                s = start.split(":");
-                e = end.split(":");
+            l_s = lunch_s_time.split(":"); // lunch_start
+            l_e = lunch_e_time.split(":"); // lunch_end
 
-                min = e[1] - s[1];
-                hour_carry = 0;
-                if (min < 0) {
-                    min += 60;
-                    hour_carry += 1;
-                }
-                hour = e[0] - s[0] - hour_carry;
-                diff = hour + ":" + min;
+            l_min = l_e[1] - l_s[1]; // lunch_min
+            l_hour_carry = 0; // lunch_hour
+            if (l_min < 0) {
+                l_min += 60;
+                l_hour_carry += 1;
+            }
+            l_hour = l_e[0] - l_s[0] - l_hour_carry;
+            l_diff = l_hour + ":" + l_min; /// lunch_time_diff
 
-                $("#work_hour").val(diff);
-            });
+            var start = $("#s_time").val();
+            var end = $("#e_time").val();
+
+            s = start.split(":");
+            e = end.split(":");
+
+            min = e[1] - s[1];
+            hour_carry = 0;
+            if (min < 0) {
+                min += 60;
+                hour_carry += 1;
+            }
+            hour = e[0] - s[0] - hour_carry;
+            diff = hour + ":" + min;
+
+            /// Difference between start_time / end_time result with lunch_time_diff
+            l_diff_split = l_diff.split(":");
+            diff_split = diff.split(":");
+            diff_min = diff_split[1] - l_diff_split[1];
+            diff_hour_carry = 0;
+
+            if (diff_min < 0) {
+                diff_min += 60;
+                diff_hour_carry += 1;
+            }
+            diff_hour = diff_split[0] - l_diff_split[0] - diff_hour_carry;
+            diff_result = diff_hour + ":" + diff_min;
+
+            $("#work_hour").val(diff_result);
         });
     });
 });

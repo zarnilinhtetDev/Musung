@@ -80,6 +80,12 @@ class ReportDashController extends Controller
             FROM p_detail
             JOIN line_assign ON "line_assign".assign_id="p_detail".assign_id AND "line_assign".assign_date=\'' . $date_string . '\'
            ');
+
+            $p_detail_total = DB::select('SELECT SUM("p_detail".cat_actual_target) AS total_output, SUM("p_detail".order_quantity) AS total_order_quantity, SUM("p_detail".sewing_input) AS total_sewing_input,
+           SUM("p_detail".inline) AS total_inline, SUM("p_detail".h_over_input) AS total_h_over, SUM("p_detail".h_balance) AS total_h_over_balance,SUM("p_detail".cmp) AS total_cmp
+           FROM line_assign
+           JOIN p_detail ON "p_detail".assign_id="line_assign".assign_id
+           WHERE "line_assign".assign_date=\'' . $date_string . '\'');
         }
 
         $category = DB::select('SELECT p_cat_id,SUM(cat_actual_target) AS t_cat_actual,p_name FROM p_detail
@@ -96,7 +102,7 @@ class ReportDashController extends Controller
 
         DB::disconnect('musung');
 
-        return view('report_management.report', ['chart' => $chart->build(), 'category_chart' => $category_chart->build()], compact('category', 'target', 'time', 'daily_report', 'daily_report_product', 'daily_report_product_2'));
+        return view('report_management.report', ['chart' => $chart->build(), 'category_chart' => $category_chart->build()], compact('category', 'target', 'time', 'daily_report', 'daily_report_product', 'daily_report_product_2', 'p_detail_total'));
     }
 
     public function cmpPut()
@@ -110,7 +116,6 @@ class ReportDashController extends Controller
         $note_post = request()->post('note');
         $order_post = request()->post('order_qty');
         $h_bal = request()->post('h_bal');
-
 
         if ($boxes) {
             for ($i = 0; $i < count($boxes); $i++) {
