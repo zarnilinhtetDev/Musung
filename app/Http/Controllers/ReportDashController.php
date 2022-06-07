@@ -55,6 +55,11 @@ class ReportDashController extends Controller
             FROM p_detail
             JOIN line_assign ON "line_assign".assign_id="p_detail".assign_id AND "line_assign".assign_date=\'' . $format_date_string . '\'
            ');
+            $p_detail_total = DB::select('SELECT SUM("p_detail".cat_actual_target) AS total_output, SUM("p_detail".order_quantity) AS total_order_quantity, SUM("p_detail".sewing_input) AS total_sewing_input,
+           SUM("p_detail".inline) AS total_inline, SUM("p_detail".h_over_input) AS total_h_over, SUM("p_detail".h_balance) AS total_h_over_balance,SUM("p_detail".cmp) AS total_cmp
+           FROM line_assign
+           JOIN p_detail ON "p_detail".assign_id="line_assign".assign_id
+           WHERE "line_assign".assign_date=\'' . $date_string . '\'');
         } else {
             $daily_report = DB::select('SELECT "line".l_id,"line".l_name,"line_assign".main_target,"line_assign".ot_main_target,"line_assign".m_power,"line_assign".assign_id,"line_assign".m_power,"line_assign".actual_m_power,"line_assign".man_target,"line_assign".man_actual_target,
             "line_assign".hp,"line_assign".actual_hp,SUM("time".div_actual_target) as total_div_actual_target,COUNT("time".assign_id) AS total_time,"line_assign".assign_date,"line_assign".remark
@@ -795,11 +800,11 @@ class ReportDashController extends Controller
                             ?>
 
                                     <script>
-                                        var clothes_output = parseFloat($(".cat_actual_target_<?php echo $p_id_2; ?>").text().replace(/,/g, ''));
-                                        var cmp = parseFloat($('.cmp_<?php echo $p_id_2; ?>').text().replace(/,/g, ''));
+                                        var clothes_output = parseFloat($(".cat_actual_target_history_<?php echo $p_id_2; ?>").text().replace(/,/g, ''));
+                                        var cmp = parseFloat($('.cmp_value_history_<?php echo $p_id_2; ?>').text().substring(2).replace(/,/g, ''));
                                         var daily_cmp = $('.daily_cmp_history_<?php echo $p_id_2; ?>');
 
-                                        // console.log(clothes_output);
+                                        // console.log(cmp);
 
                                         var multiply_cmp = clothes_output * cmp;
 

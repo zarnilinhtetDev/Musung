@@ -181,11 +181,12 @@ if(div_actual_target!=''){
         div_actual_target_percent.text("");
     }if(!Number.isNaN(new_percent)){
         div_actual_target_percent.text(parseInt(new_percent));
-        if(parseInt(div_actual_target_percent.text()) >= 100){
-   $("#td_div_actual_target_percent_<?php echo $current_target; ?>").css('background-color','green');
-} if(parseInt(div_actual_target_percent.text()) < 100){
-   $("#td_div_actual_target_percent_<?php echo $current_target; ?>").css('background-color','red');
-}
+//         if(parseInt(div_actual_target_percent.text()) >= 100){
+//    $("#td_div_actual_target_percent_<?php echo $current_target; ?>").css('background-color','green');
+// }
+// if(parseInt(div_actual_target_percent.text()) < 100){
+//    $("#td_div_actual_target_percent_<?php echo $current_target; ?>").css('background-color','red');
+// }
 
 div_actual_target_percent.append('%');
     }
@@ -197,23 +198,44 @@ div_actual_target_percent.text("");
 }
 if(!Number.isNaN(percentage)){
 div_actual_target_percent.text(parseInt(percentage));
-if(parseInt(div_actual_target_percent.text()) >= 100){
-   $("#td_div_actual_target_percent_<?php echo $current_target; ?>").css('background-color','green');
-} if(parseInt(div_actual_target_percent.text()) < 100){
-   $("#td_div_actual_target_percent_<?php echo $current_target; ?>").css('background-color','red');
+
+
+if(parseInt(div_actual_target_percent.text()) < 70){
+   $("#td_div_actual_target_percent_<?php echo $current_target; ?>").css('background-color','rgba(255,0,0,0.8)');
+   $("#td_div_actual_target_<?php echo $current_target; ?>").css('background-color','rgba(255,0,0,0.8)');
 }
+if(parseInt(div_actual_target_percent.text()) >= 70){
+   $("#td_div_actual_target_percent_<?php echo $current_target; ?>").css({'background-color':'rgba(50,165,9,0.8)', 'color':'#fff'});
+   $("#td_div_actual_target_<?php echo $current_target; ?>").css({'background-color':'rgba(50,165,9,0.8)','color':'#fff'});
+}if(parseInt(div_actual_target_percent.text()) >= 80){
+   $("#td_div_actual_target_percent_<?php echo $current_target; ?>").css({'background-color':'rgba(0,135,0,0.8)','color':'#fff'});
+   $("#td_div_actual_target_<?php echo $current_target; ?>").css({'background-color':'rgba(0,135,0,0.8)','color':'#fff'});
+}
+if(parseInt(div_actual_target_percent.text()) >= 90){
+   $("#td_div_actual_target_percent_<?php echo $current_target; ?>").css({'background-color':'rgba(30,113,0,1)','color':'#fff'});
+   $("#td_div_actual_target_<?php echo $current_target; ?>").css({'background-color':'rgba(30,113,0,1)','color':'#fff'});
+}
+// if(parseInt(div_actual_target_percent.text()) < 100){
+//    $("#td_div_actual_target_percent_<?php echo $current_target; ?>").css('background-color','red');
+// }
 
 div_actual_target_percent.append('%');
 }
 }
 
 
-if(parseInt(new_div_target) > parseInt(div_actual_target)){
-$("#td_div_actual_target_<?php echo $current_target; ?>").css('background-color','red');
-}
-if(parseInt(new_div_target) <= parseInt(div_actual_target)){
-$("#td_div_actual_target_<?php echo $current_target; ?>").css('background-color','green');
-}
+// if(parseInt(new_div_target) > parseInt(div_actual_target)){
+// $("#td_div_actual_target_<?php echo $current_target; ?>").css('background-color','green');
+// }
+// if(parseInt(new_div_target) <= parseInt(div_actual_target)){
+// $("#td_div_actual_target_<?php echo $current_target; ?>").css('background-color','green');
+// }
+// if(parseInt(new_div_target) >= 60){
+// $("#td_div_actual_target_<?php echo $current_target; ?>").css('background-color','rgba(255,0,0,0.3)');
+// }
+// if(parseInt(new_div_target) <= parseInt(div_actual_target)){
+// $("#td_div_actual_target_<?php echo $current_target; ?>").css('background-color','green');
+// }
 
 })
                     </script>
@@ -453,12 +475,12 @@ if(!tmp_num){
 new_total_percent.text(parseInt(total_percentage));
 
 
-if(parseInt(new_t_div_target_num) > parseInt(tmp_num)){
-$("#td_tmp_num_{{ $t_div_actual_target_1->row_num }}").css('background-color','red');
-}
-if(parseInt(new_t_div_target_num) <= parseInt(tmp_num)){
-$("#td_tmp_num_{{ $t_div_actual_target_1->row_num }}").css('background-color','green');
-}
+// if(parseInt(new_t_div_target_num) > parseInt(tmp_num)){
+// $("#td_tmp_num_{{ $t_div_actual_target_1->row_num }}").css('background-color','red');
+// }
+// if(parseInt(new_t_div_target_num) <= parseInt(tmp_num)){
+// $("#td_tmp_num_{{ $t_div_actual_target_1->row_num }}").css('background-color','green');
+// }
 
 
     if(Number.isNaN(total_percentage)){
@@ -466,11 +488,28 @@ $("#td_tmp_num_{{ $t_div_actual_target_1->row_num }}").css('background-color','g
     }
     if(!Number.isNaN(total_percentage)){
         new_total_percent.text(parseInt(total_percentage));
-        if(parseInt(new_t_div_actual_target_num) >= parseInt(new_t_div_target_num)){
-   $("#total_percent_{{ $t_div_actual_target_1->row_num }}").css('background-color','green');
-} if(parseInt(new_t_div_actual_target_num) < parseInt(new_t_div_target_num)){
-   $("#total_percent_{{ $t_div_actual_target_1->row_num }}").css('background-color','red');
+
+
+if(parseInt(new_t_div_actual_target_num) < 70){
+   $("#total_percent_{{ $t_div_actual_target_1->row_num }}").css('background-color','rgba(255,0,0,0.8)');
+   $("#td_tmp_num_{{ $t_div_actual_target_1->row_num }}").css('background-color','rgba(255,0,0,0.8)');
 }
+if(parseInt(new_t_div_actual_target_num) >= 70){
+   $("#total_percent_{{ $t_div_actual_target_1->row_num }}").css({'background-color':'rgba(50,165,9,0.8)', 'color':'#fff'});
+   $("#td_tmp_num_{{ $t_div_actual_target_1->row_num }}").css({'background-color':'rgba(50,165,9,0.8)','color':'#fff'});
+}if(parseInt(new_t_div_actual_target_num) >= 80){
+   $("#total_percent_{{ $t_div_actual_target_1->row_num }}").css({'background-color':'rgba(0,135,0,0.8)','color':'#fff'});
+   $("#td_tmp_num_{{ $t_div_actual_target_1->row_num }}").css({'background-color':'rgba(0,135,0,0.8)','color':'#fff'});
+}
+if(parseInt(new_t_div_actual_target_num) >= 90){
+   $("#total_percent_{{ $t_div_actual_target_1->row_num }}").css({'background-color':'rgba(30,113,0,1)','color':'#fff'});
+   $("#td_tmp_num_{{ $t_div_actual_target_1->row_num }}").css({'background-color':'rgba(30,113,0,1)','color':'#fff'});
+}
+//         if(parseInt(new_t_div_actual_target_num) >= parseInt(new_t_div_target_num)){
+//    $("#total_percent_{{ $t_div_actual_target_1->row_num }}").css('background-color','green');
+// } if(parseInt(new_t_div_actual_target_num) < parseInt(new_t_div_target_num)){
+//    $("#total_percent_{{ $t_div_actual_target_1->row_num }}").css('background-color','red');
+// }
 
 new_total_percent.append('%');
     }
@@ -696,7 +735,7 @@ new_total_percent.append('%');
                                         if (!Number.isNaN(t_percent)) {
                                             t_percent_span.text(parseInt(t_percent));
                                             if (parseInt(t_percent_span.text()) >= 100) {
-                                                td_t_percent.css('background-color', 'green');
+                                                td_t_percent.css('background-color', 'greem');
                                             }
                                             if (parseInt(t_percent_span.text()) < 100) {
                                                 td_t_percent.css('background-color', 'red');
@@ -851,6 +890,23 @@ $(".t_line_" + 10).css({
                                 }
                                 if (!Number.isNaN(t_percent_cal_2)) {
                                     t_overall_percent_2.text(parseFloat(t_percent_cal_2).toFixed(0));
+
+
+// if(parseInt(t_overall_actual_target_2) < 70){
+//    $("#td_div_actual_target_percent_<?php echo $current_target; ?>").css('background-color','rgba(255,0,0,0.8)');
+//    $("#td_div_actual_target_<?php echo $current_target; ?>").css('background-color','rgba(255,0,0,0.8)');
+// }
+// if(parseInt(t_overall_actual_target_2) >= 70){
+//    $("#td_div_actual_target_percent_<?php echo $current_target; ?>").css({'background-color':'rgba(245,187,39,0.8)', 'color':'#212529'});
+//    $("#td_div_actual_target_<?php echo $current_target; ?>").css({'background-color':'rgba(245,187,39,0.8)','color':'#212529'});
+// }if(parseInt(t_overall_actual_target_2) >= 80){
+//    $("#td_div_actual_target_percent_<?php echo $current_target; ?>").css({'background-color':'rgba(0,135,0,0.8)','color':'#fff'});
+//    $("#td_div_actual_target_<?php echo $current_target; ?>").css({'background-color':'rgba(0,135,0,0.8)','color':'#fff'});
+// }
+// if(parseInt(t_overall_actual_target_2) >= 90){
+//    $("#td_div_actual_target_percent_<?php echo $current_target; ?>").css({'background-color':'rgba(30,113,0,1)','color':'#fff'});
+//    $("#td_div_actual_target_<?php echo $current_target; ?>").css({'background-color':'rgba(30,113,0,1)','color':'#fff'});
+// }
 
                                         if(parseInt(t_overall_actual_target_2) >= parseInt(t_overall_target_2)){
                                             t_overall_percent_2.css('background-color','green');

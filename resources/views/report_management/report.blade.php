@@ -3896,7 +3896,7 @@ chart.render();
                                 $l_id_2=$daily_report_product_decode[$j]['l_id'];
                                 $p_id_2=$daily_report_product_decode[$j]['p_detail_id']; @endphp @if($l_id_2==$l_id)
                                 <tr>
-                                <td class="daily_cmp_{{ $p_id_2 }} cmp_product_{{ $l_id_2 }} ">
+                                <td class="daily_cmp_{{ $p_id_2 }} cmp_product_{{ $l_id_2 }}">
 
                                 </td>
                                 </tr>
@@ -3908,6 +3908,7 @@ chart.render();
                                 var daily_cmp = $('.daily_cmp_{{ $p_id_2 }}');
 
                                 // console.log(cmp);
+                                // alert('hello');
 
                                 var multiply_cmp = clothes_output * cmp;
 
@@ -4326,10 +4327,9 @@ cmp_hr_ps.text("$ " + div_cmp_hr_ps.toFixed(1));
                         <td>Total</td>
                         <td></td>
                         <td></td>
-                        <td></td>
                         <td id="total_main_target"></td>
                         <td></td>
-                        {{-- <td>-- For ManPower ---
+                        <td>{{-- For ManPower ---}}
                             <table class="m-auto text-start table table-bordered custom-table-border-color">
                                 <tbody>
                                     <tr>
@@ -4338,7 +4338,7 @@ cmp_hr_ps.text("$ " + div_cmp_hr_ps.toFixed(1));
                                     </tr>
                                 </tbody>
                             </table>
-                        </td> --}}
+                        </td>
                         <td id="new_total_output">{{ $total_output }}</td> {{---- For Output -----}}
                         <td id="total_output_percent"></td> {{---- For Output Percentage -----}}
                         <td>{{ $total_order_quantity }}</td> {{---- For Qty -----}}
@@ -4359,6 +4359,7 @@ cmp_hr_ps.text("$ " + div_cmp_hr_ps.toFixed(1));
                         <td id="total_cmp_hr_ps"></td> {{---- For CMP/hr/PS -----}}
                         <td></td> {{---- For Remark -----}}
                     </tr>
+
                     <script>
                         //// Main_Target
                         var sum0 = 0;
@@ -4618,10 +4619,7 @@ $(".h_bal_input").each(function(){
     h_bal_arr.push(h_bal_obj);
 });
 
-$.ajax({
-        type: "POST",
-        url: "/cmp_put",
-        data: {
+var ajax_post = {
             boxes: boxes,
             man_power : man_power_arr,
             inline: inline_arr,
@@ -4631,10 +4629,16 @@ $.ajax({
             note: note_arr,
             order_qty : order_arr,
             h_bal : h_bal_arr,
-        },
+};
+
+// console.log(ajax_post);
+$.ajax({
+        type: "POST",
+        url: "/cmp_put",
+        data: ajax_post,
         success: function(data) {
-            // console.log(data);
-            window.location.href = "/report?update=ok";
+            console.log(data);
+            // window.location.href = "/report?update=ok";
         }
     });
 });
