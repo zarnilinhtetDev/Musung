@@ -339,17 +339,31 @@ class LineHistoryController extends Controller
                                     $("#td_div_actual_target_percent_' . $current_target . '").css("background-color", "red");
                                 }
 
+
+if(parseInt(div_actual_target_percent.text()) <= 80){
+    $("#td_div_actual_target_percent_' . $current_target . '").css("background-color","rgba(255,0,0,0.8)");
+    $("#td_div_actual_target_' . $current_target . '").css("background-color","rgba(255,0,0,0.8)");
+ }if(parseInt(div_actual_target_percent.text()) > 80){
+    $("#td_div_actual_target_percent_' . $current_target . '").css({"background-color":"#FF8000","color":"#fff"});
+    $("#td_div_actual_target_' . $current_target . '").css({"background-color":"#FF8000","color":"#fff"});
+ }
+ if(parseInt(div_actual_target_percent.text()) >= 100){
+    $("#td_div_actual_target_percent_' . $current_target . '").css({"background-color":"rgba(30,113,0,1)","color":"#fff"});
+    $("#td_div_actual_target_' . $current_target . '").css({"background-color":"rgba(30,113,0,1)","color":"#fff"});
+ }
+
+
                                 div_actual_target_percent.append("%");
                             }
                         }
 
 
-                        if (parseInt(new_div_target) > parseInt(div_actual_target)) {
-                            $("#td_div_actual_target_' . $current_target . '").css("background-color", "red");
-                        }
-                        if (parseInt(new_div_target) <= parseInt(div_actual_target)) {
-                            $("#td_div_actual_target_' . $current_target . '").css("background-color", "green");
-                        }
+                        // if (parseInt(new_div_target) > parseInt(div_actual_target)) {
+                        //     $("#td_div_actual_target_' . $current_target . '").css("background-color", "red");
+                        // }
+                        // if (parseInt(new_div_target) <= parseInt(div_actual_target)) {
+                        //     $("#td_div_actual_target_' . $current_target . '").css("background-color", "green");
+                        // }
                     </script>
                 </td>
                 ';
@@ -629,12 +643,37 @@ class LineHistoryController extends Controller
                                 $("#td_tmp_num_<?php echo $total_div_actual_target_decode[$m]['row_num']; ?>").css("background-color", "green");
                             }
 
-
                             if (Number.isNaN(total_percentage)) {
                                 new_total_percent.text("");
                             }
                             if (!Number.isNaN(total_percentage)) {
                                 new_total_percent.text(parseInt(total_percentage));
+
+                                if (parseInt(total_percentage) <= 80) {
+                                    $("#total_percent_<?php echo $total_div_actual_target_decode[$m]['row_num']; ?>").css('background-color', 'rgba(255,0,0,0.8)');
+                                    $("#td_tmp_num_<?php echo $total_div_actual_target_decode[$m]['row_num']; ?>").css('background-color', 'rgba(255,0,0,0.8)');
+                                }
+                                if (parseInt(total_percentage) > 80) {
+                                    $("#total_percent_<?php echo $total_div_actual_target_decode[$m]['row_num']; ?>").css({
+                                        'background-color': '#FF8000',
+                                        'color': '#fff'
+                                    });
+                                    $("#td_tmp_num_<?php echo $total_div_actual_target_decode[$m]['row_num']; ?>").css({
+                                        'background-color': '#FF8000',
+                                        'color': '#fff'
+                                    });
+                                }
+                                if (parseInt(total_percentage) >= 100) {
+                                    $("#total_percent_<?php echo $total_div_actual_target_decode[$m]['row_num']; ?>").css({
+                                        'background-color': '#085820',
+                                        'color': '#fff'
+                                    });
+                                    $("#td_tmp_num_<?php echo $total_div_actual_target_decode[$m]['row_num']; ?>").css({
+                                        'background-color': '#085820',
+                                        'color': '#fff'
+                                    });
+                                }
+
                                 if (parseInt(new_t_div_actual_target_num) >= parseInt(new_t_div_target_num)) {
                                     $("#total_percent_<?php echo  $total_div_actual_target_decode[$m]['row_num']; ?>").css("background-color", "green");
                                 }

@@ -364,7 +364,7 @@ class LineAssignController extends Controller
         $line_id = [];
 
         $sub = json_decode(request()->post('sub'), true);
-        print_r($sub);
+        // print_r($sub);
 
 
 

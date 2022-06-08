@@ -28,6 +28,10 @@ h1, h2, h3, h4, h5, h6 {
     background-color: #fff;
 }
 
+.td-padding {
+    padding: 0 !important;
+}
+
 #live_dash_1 th, #live_dash_1 td {
     font-size: 1rem;
     font-family: 'Roboto', sans-serif;

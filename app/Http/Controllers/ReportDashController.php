@@ -531,7 +531,7 @@ class ReportDashController extends Controller
                                 <td><?php echo $l_name; ?></td>
 
                                 <!-- Buyer --->
-                                <td>
+                                <td class="td-padding">
                                     <table class="m-auto text-center table table-bordered custom-table-border-color">
                                         <tbody>
                                             <tr>
@@ -559,7 +559,7 @@ class ReportDashController extends Controller
                 </table>
                 </td>
                 <!-- Style No. -->
-                <td>
+                <td class="td-padding">
                     <table class="m-auto text-center table table-bordered custom-table-border-color">
                         <tbody>
                             <tr>
@@ -585,7 +585,7 @@ class ReportDashController extends Controller
                         </tbody>
                     </table>
                 </td>
-                <td>
+                <td class="td-padding">
                     <table class="m-auto text-start table table-bordered custom-table-border-color">
                         <tbody>
                             <tr class="">
@@ -611,7 +611,7 @@ class ReportDashController extends Controller
                 <!-- Main Target --->
                 <td class="main_target_history<?php echo $l_id; ?>"><?php echo number_format($main_target + $ot_main_target); ?></td>
 
-                <td>
+                <td class="td-padding">
                     <table class="m-auto text-start table table-bordered custom-table-border-color">
                         <tbody>
                             <td><?php echo $man_target; ?></td>
@@ -646,7 +646,7 @@ class ReportDashController extends Controller
                 </td>
 
                 <!-- Sewing Input --->
-                <td>
+                <td class="td-padding">
                     <table class="m-auto text-center table table-bordered custom-table-border-color">
                         <tbody>
                             <tr>
@@ -672,7 +672,7 @@ class ReportDashController extends Controller
                     </table>
                 </td>
                 <!-- Sewing Total --->
-                <td>
+                <td class="td-padding">
                     <table class="m-auto text-center table table-bordered custom-table-border-color">
                         <tbody>
                             <tr>
@@ -698,7 +698,7 @@ class ReportDashController extends Controller
                     </table>
                 </td>
                 <!-- Clothes Input --->
-                <td>
+                <td class="td-padding">
                     <table class="m-auto text-center table table-bordered custom-table-border-color">
                         <tbody>
                             <tr>
@@ -725,7 +725,7 @@ class ReportDashController extends Controller
                     </table>
                 </td>
                 <!-- Clothes Total --->
-                <td>
+                <td class="td-padding">
                     <table class="m-auto text-center table table-bordered custom-table-border-color">
                         <tbody>
                             <tr>
@@ -752,7 +752,7 @@ class ReportDashController extends Controller
                     </table>
                 </td>
                 <!-- CMP($) -->
-                <td>
+                <td class="td-padding">
                     <table class="table table-bordered">
                         <tbody>
                             <tr>
@@ -780,7 +780,7 @@ class ReportDashController extends Controller
                     </table>
                 </td>
                 <!-- Daily CMP income -->
-                <td>
+                <td class="td-padding">
                     <table class="table table-bordered">
                         <tbody>
                             <tr>
@@ -852,7 +852,7 @@ class ReportDashController extends Controller
                 </script>
 
                 <!-- Inline --->
-                <td>
+                <td class="td-padding">
                     <table class="m-auto text-center table table-bordered custom-table-border-color">
                         <tbody>
                             <tr>
@@ -878,7 +878,7 @@ class ReportDashController extends Controller
                     </table>
                 </td>
                 <!-- H/over Input --->
-                <td>
+                <td class="td-padding">
                     <table class="m-auto text-center table table-bordered custom-table-border-color">
                         <tbody>
                             <tr>
@@ -906,7 +906,7 @@ class ReportDashController extends Controller
                 </td>
 
                 <!-- H/over Total --->
-                <td>
+                <td class="td-padding">
                     <table class="m-auto text-center table table-bordered custom-table-border-color">
                         <tbody>
                             <tr>
@@ -932,7 +932,7 @@ class ReportDashController extends Controller
                     </table>
                 </td>
                 <!-- H/over Balance --->
-                <td>
+                <td class="td-padding">
                     <table class="m-auto text-center table table-bordered custom-table-border-color">
                         <tbody>
                             <tr>
@@ -959,7 +959,7 @@ class ReportDashController extends Controller
                     </table>
                 </td>
 
-                <td>
+                <td class="td-padding">
                     <table class="m-auto text-center w-100 table table-bordered custom-table-border-color">
                         <tbody>
                             <tr>

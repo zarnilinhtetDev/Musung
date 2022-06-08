@@ -258,6 +258,7 @@
                                                                     $p_detail_style_no = $detail->style_no;
                                                                     $div_actual_target_exist =
                                                                     $detail->div_actual_target;
+                                                                    $ot_status = $detail->ot_status;
                                                                     @endphp
 
                                                                     @if($time_id == $p_detail_time_id)
@@ -268,6 +269,8 @@
                                                                                 <h5 class="fw-bold heading-text">#{{
                                                                                     $p_detail_style_no }}, {{
                                                                                     $p_detail_p_name }}</h5>
+                                                                                {{-- &nbsp; &nbsp; <span>{{ $ot_status
+                                                                                    }}</span> --}}
                                                                             </div>
                                                                             <div class="col-12 col-md-4">
                                                                                 <label>Target</label>

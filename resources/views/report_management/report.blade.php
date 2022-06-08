@@ -124,7 +124,7 @@ $date_string_for_export_pdf = date("Y_m_d", strtotime($date_string));
                             <td>{{ $l_name }}</td>
 
                             {{-- Buyer --}}
-                            <td>
+                            <td class="td-padding">
                                 <table class="m-auto text-center table table-bordered custom-table-border-color">
                                     <tbody>
                                         <tr>
@@ -454,7 +454,8 @@ $date_string_for_export_pdf = date("Y_m_d", strtotime($date_string));
                                             <td> - </td>
                                             @endif
                                             @if($cat_actual_target != '')
-                                            <td>{{ number_format($cat_actual_target) }}</td>
+                                            <td class="new_cat_actual_target">{{ number_format($cat_actual_target) }}
+                                            </td>
                                             @endif </tr>
                                             @endif
 
@@ -940,6 +941,119 @@ cmp_hr_ps.text("$ " + div_cmp_hr_ps.toFixed(1));
 
                     </script>
                     @endfor
+
+                    @foreach($p_detail_total as $p_t)
+                    @php
+                    $total_output = $p_t->total_output;
+                    $total_order_quantity = $p_t->total_order_quantity;
+                    $total_sewing_input = $p_t->total_sewing_input;
+                    $total_inline = $p_t->total_inline;
+                    $total_h_over = $p_t->total_h_over;
+                    $total_h_over_balance = $p_t->total_h_over_balance;
+                    $total_cmp = $p_t->total_cmp;
+                    @endphp
+                    <tr>
+                        <td>Total</td>
+                        <td></td>
+                        <td></td>
+                        <td id="total_main_target"></td>
+                        <td></td>
+                        <td class="td-padding">{{-- For ManPower ---}}
+                            <table class="m-auto text-start table table-bordered custom-table-border-color">
+                                <tbody>
+                                    <tr>
+                                        <td id="total_man_power"></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                        <td id="new_total_output">{{ $total_output }}</td> {{---- For Output -----}}
+                        <td id="total_output_percent"></td> {{---- For Output Percentage -----}}
+                        <td>{{ $total_order_quantity }}</td> {{---- For Qty -----}}
+                        <td>{{ $total_sewing_input }}</td> {{---- For Sewing Input -----}}
+                        <td></td> {{---- For Input Total -----}}
+                        <td id="total_clothes_output"></td> {{---- For Output -----}}
+                        <td id="total_clothes_output"></td> {{---- For Output Total -----}}
+                        <td>$ {{ $total_cmp }}</td> {{---- For CMP -----}}
+                        <td id="total_daily_cmp_1"></td> {{---- For Daily CMP Income -----}}
+                        <td id="total_accumulation"></td> {{---- For Accumulation -----}}
+                        <td>{{ $total_inline }}</td> {{---- For Inline -----}}
+                        <td>{{ $total_h_over }}</td> {{---- For H Over -----}}
+                        <td>{{ $total_h_over }}</td> {{---- For H/over total -----}}
+                        <td>{{ $total_h_over_balance }}</td> {{---- For H/over balance -----}}
+                        <td id="total_op"></td> {{---- For S,L,Adm Op -----}}
+                        <td></td> {{---- For Time -----}}
+                        <td></td> {{---- For CMP/hr -----}}
+                        <td id="total_cmp_hr_ps"></td> {{---- For CMP/hr/PS -----}}
+                        <td></td> {{---- For Remark -----}}
+                    </tr>
+
+                    <script>
+                        //// Main_Target
+                        var sum0 = 0;
+$('.new_main_target').each(function()
+{
+    sum0 += parseFloat($(this).text().replace(/,/g,''));
+});
+$("#total_main_target").text(sum0);
+//// Main_Target End
+
+  //// DailyCMP
+  var sum1 = 0;
+$('.new_total_daily_cmp').each(function()
+{
+    sum1 += parseFloat($(this).text().substring(2).replace(/,/g,''));
+});
+$("#total_daily_cmp_1").text('$ ' + sum1);
+//// DailyCMP End
+
+//// Accumulation ///
+
+$("#total_accumulation").text('$ ' + sum1);
+
+//// Accumulation End ////
+
+
+//// DailyCMP
+var sum2 = 0;
+$('.new_cmp_hr_ps').each(function()
+{
+    sum2 += parseFloat($(this).text().substring(2).replace(/,/g,''));
+});
+$("#total_cmp_hr_ps").text(sum2);
+//// DailyCMP End
+
+//// actual_m_power
+var sum3 = 0;
+$('.total_actual_m_power').each(function()
+{
+    sum3 += parseFloat($(this).text().replace(/,/g,''));
+});
+$("#total_op").text(sum3);
+//// actual_m_power End
+
+
+//// Total_Clothes Output
+var sum4 = 0;
+$('.new_cat_actual_target').each(function()
+{
+    sum4 += parseFloat($(this).text().replace(/,/g,''));
+});
+$("#total_clothes_output").text(sum4);
+$("#total_clothes_output_2").text(sum4);
+//// Total_Clothes End
+
+var new_total_output = $("#new_total_output").text();
+
+var per_cal = (new_total_output / sum0) * 100;
+
+$("#total_output_percent").text(per_cal.toFixed(0)+ '%');
+
+
+                    </script>
+
+                    @endforeach
 
                     </tbody>
                     </table>
@@ -2140,7 +2254,8 @@ chart.render();
                                             <td> - </td>
                                             @endif
                                             @if($cat_actual_target != '')
-                                            <td>{{ number_format($cat_actual_target) }}</td>
+                                            <td class="new_cat_actual_target">{{ number_format($cat_actual_target) }}
+                                            </td>
                                             @endif </tr>
                                             @endif
 
@@ -2624,6 +2739,118 @@ cmp_hr_ps.text("$ " + div_cmp_hr_ps.toFixed(1));
 
                     </script>
                     @endfor
+
+                    @foreach($p_detail_total as $p_t)
+                    @php
+                    $total_output = $p_t->total_output;
+                    $total_order_quantity = $p_t->total_order_quantity;
+                    $total_sewing_input = $p_t->total_sewing_input;
+                    $total_inline = $p_t->total_inline;
+                    $total_h_over = $p_t->total_h_over;
+                    $total_h_over_balance = $p_t->total_h_over_balance;
+                    $total_cmp = $p_t->total_cmp;
+                    @endphp
+                    <tr>
+                        <td>Total</td>
+                        <td></td>
+                        <td></td>
+                        <td id="total_main_target"></td>
+                        <td></td>
+                        <td class="td-padding">{{-- For ManPower ---}}
+                            <table class="m-auto text-start table table-bordered custom-table-border-color">
+                                <tbody>
+                                    <tr>
+                                        <td id="total_man_power"></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                        <td id="new_total_output">{{ $total_output }}</td> {{---- For Output -----}}
+                        <td id="total_output_percent"></td> {{---- For Output Percentage -----}}
+                        <td>{{ $total_order_quantity }}</td> {{---- For Qty -----}}
+                        <td>{{ $total_sewing_input }}</td> {{---- For Sewing Input -----}}
+                        <td></td> {{---- For Input Total -----}}
+                        <td id="total_clothes_output"></td> {{---- For Output -----}}
+                        <td id="total_clothes_output"></td> {{---- For Output Total -----}}
+                        <td>$ {{ $total_cmp }}</td> {{---- For CMP -----}}
+                        <td id="total_daily_cmp_1"></td> {{---- For Daily CMP Income -----}}
+                        <td id="total_accumulation"></td> {{---- For Accumulation -----}}
+                        <td>{{ $total_inline }}</td> {{---- For Inline -----}}
+                        <td>{{ $total_h_over }}</td> {{---- For H Over -----}}
+                        <td>{{ $total_h_over }}</td> {{---- For H/over total -----}}
+                        <td>{{ $total_h_over_balance }}</td> {{---- For H/over balance -----}}
+                        <td id="total_op"></td> {{---- For S,L,Adm Op -----}}
+                        <td></td> {{---- For Time -----}}
+                        <td></td> {{---- For CMP/hr -----}}
+                        <td id="total_cmp_hr_ps"></td> {{---- For CMP/hr/PS -----}}
+                        <td></td> {{---- For Remark -----}}
+                    </tr>
+
+                    <script>
+                        //// Main_Target
+                        var sum0 = 0;
+$('.new_main_target').each(function()
+{
+    sum0 += parseFloat($(this).text().replace(/,/g,''));
+});
+$("#total_main_target").text(sum0);
+//// Main_Target End
+
+  //// DailyCMP
+  var sum1 = 0;
+$('.new_total_daily_cmp').each(function()
+{
+    sum1 += parseFloat($(this).text().substring(2).replace(/,/g,''));
+});
+$("#total_daily_cmp_1").text('$ ' + sum1);
+//// DailyCMP End
+
+//// Accumulation ///
+
+$("#total_accumulation").text('$ ' + sum1);
+
+//// Accumulation End ////
+
+
+//// DailyCMP
+var sum2 = 0;
+$('.new_cmp_hr_ps').each(function()
+{
+    sum2 += parseFloat($(this).text().substring(2).replace(/,/g,''));
+});
+$("#total_cmp_hr_ps").text(sum2);
+//// DailyCMP End
+
+//// actual_m_power
+var sum3 = 0;
+$('.total_actual_m_power').each(function()
+{
+    sum3 += parseFloat($(this).text().replace(/,/g,''));
+});
+$("#total_op").text(sum3);
+//// actual_m_power End
+
+//// Total_Clothes Output
+var sum4 = 0;
+$('.new_cat_actual_target').each(function()
+{
+    sum4 += parseFloat($(this).text().replace(/,/g,''));
+});
+$("#total_clothes_output").text(sum4);
+$("#total_clothes_output_2").text(sum4);
+//// Total_Clothes End
+
+var new_total_output = $("#new_total_output").text();
+
+var per_cal = (new_total_output / sum0) * 100;
+
+$("#total_output_percent").text(per_cal.toFixed(0)+ '%');
+
+
+                    </script>
+
+                    @endforeach
 
                     </tbody>
                     </table>
@@ -3496,7 +3723,7 @@ chart.render();
                             <td>{{ $l_name }}</td>
 
                             {{-- Buyer --}}
-                            <td>
+                            <td class="td-padding">
                                 <table class="m-auto text-center table table-bordered custom-table-border-color">
                                     <tbody>
                                         <tr>
@@ -3521,7 +3748,7 @@ chart.render();
                                 </table>
                             </td>
                             {{-- Style No. --}}
-                            <td>
+                            <td class="td-padding">
                                 <table class="m-auto text-center table table-bordered custom-table-border-color">
                                     <tbody>
                                         <tr>
@@ -3545,7 +3772,7 @@ chart.render();
                                     </tbody>
                                 </table>
                             </td>
-                            <td>
+                            <td class="td-padding">
                                 <table class="m-auto text-start table table-bordered custom-table-border-color">
                                     <tbody>
                                         <tr>
@@ -3567,7 +3794,7 @@ chart.render();
                                 number_format($main_target+$ot_main_target) }}</td>
 
                             <!-- Man Target --->
-                            <td>
+                            <td class="td-padding">
                                 <table class="m-auto text-start table table-bordered custom-table-border-color">
                                     @if($edit_status)
                                     <tbody class="man_power_input">
@@ -3639,7 +3866,7 @@ chart.render();
                             </script>
 
 
-                            <td>
+                            <td class="td-padding">
                                 <table class="m-auto text-center table table-bordered custom-table-border-color">
                                     @if($edit_status)
                                     <tbody>
@@ -3698,7 +3925,7 @@ chart.render();
                             </td>
 
                             <!-- Sewing Input --->
-                            <td>
+                            <td class="td-padding">
                                 <table class="m-auto text-center table table-bordered custom-table-border-color">
                                     @if($edit_status)
                                     <tbody>
@@ -3757,7 +3984,7 @@ chart.render();
                             </td>
 
                             <!-- Sewing Total --->
-                            <td>
+                            <td class="td-padding">
                                 <table class="m-auto text-center table table-bordered custom-table-border-color">
                                     <tbody>
                                         <tr>
@@ -3783,7 +4010,7 @@ chart.render();
                             </td>
 
                             <!-- Clothes Input --->
-                            <td>
+                            <td class="td-padding">
                                 <table class="m-auto text-center table table-bordered custom-table-border-color">
                                     <tbody>
                                         <tr>
@@ -3812,7 +4039,7 @@ chart.render();
                             </td>
 
                             <!-- Clothes Total --->
-                            <td>
+                            <td class="td-padding">
                                 <table class="m-auto text-center table table-bordered custom-table-border-color">
                                     <tbody>
                                         <tr>
@@ -3826,7 +4053,8 @@ chart.render();
                                             <td> - </td>
                                             @endif
                                             @if($cat_actual_target != '')
-                                            <td>{{ number_format($cat_actual_target) }}</td>
+                                            <td class="new_cat_actual_target">{{ number_format($cat_actual_target) }}
+                                            </td>
                                             @endif </tr>
                                             @endif
 
@@ -3837,7 +4065,7 @@ chart.render();
                             </td>
 
                             {{-- CMP($) --}}
-                            <td>
+                            <td class="td-padding">
                                 <table class="table table-bordered">
                                     <tbody>
                                         <tr>
@@ -3885,7 +4113,7 @@ chart.render();
                 </td>
 
                 {{-- Daily CMP income --}}
-                <td>
+                <td class="td-padding">
                     <table class="table table-bordered">
                         <tbody>
                             <tr>
@@ -3916,7 +4144,7 @@ chart.render();
                                     daily_cmp.text('-');
                                 }
                                 else{
-                                daily_cmp.text("$ " + multiply_cmp.toFixed(1));
+                                daily_cmp.text("$ " + multiply_cmp.toFixed(2));
                                 }
 
 
@@ -3936,7 +4164,7 @@ chart.render();
                 }
 
     });
-        total_cmp_class.text("$ " + total_cmp.toFixed(1));
+        total_cmp_class.text("$ " + total_cmp.toFixed(2));
 
                                 </script>
 
@@ -3958,7 +4186,7 @@ chart.render();
                 accumulation.text(total_cmp_class);
                 </script>
                 <!-- Inline --->
-                <td>
+                <td class="td-padding">
                     <table class="m-auto text-center table table-bordered custom-table-border-color">
                         @if($edit_status)
                         <tbody>
@@ -4014,7 +4242,7 @@ chart.render();
                 </td>
 
                 <!-- H/over Input --->
-                <td>
+                <td class="td-padding">
                     <table class="m-auto text-center table table-bordered custom-table-border-color">
                         @if($edit_status)
                         <tbody>
@@ -4071,7 +4299,7 @@ chart.render();
                 </td>
 
                 <!-- H/over Total --->
-                <td>
+                <td class="td-padding">
                     <table class="m-auto text-center table table-bordered custom-table-border-color">
                         <tbody>
                             <tr>
@@ -4098,7 +4326,7 @@ chart.render();
 
 
                 <!-- H/over Balance --->
-                <td>
+                <td class="td-padding">
                     <table class="m-auto text-center table table-bordered custom-table-border-color">
                         @if($edit_status)
                         <tbody>
@@ -4156,7 +4384,7 @@ chart.render();
                 </td>
 
                 <!-- S,L,ADM OP --->
-                <td>
+                <td class="td-padding">
                     <table class="m-auto text-center w-100 table table-bordered custom-table-border-color">
                         @if($edit_status)
                         <tbody class="m_power_input_2">
@@ -4329,7 +4557,7 @@ cmp_hr_ps.text("$ " + div_cmp_hr_ps.toFixed(1));
                         <td></td>
                         <td id="total_main_target"></td>
                         <td></td>
-                        <td>{{-- For ManPower ---}}
+                        <td class="td-padding">{{-- For ManPower ---}}
                             <table class="m-auto text-start table table-bordered custom-table-border-color">
                                 <tbody>
                                     <tr>
@@ -4344,8 +4572,8 @@ cmp_hr_ps.text("$ " + div_cmp_hr_ps.toFixed(1));
                         <td>{{ $total_order_quantity }}</td> {{---- For Qty -----}}
                         <td>{{ $total_sewing_input }}</td> {{---- For Sewing Input -----}}
                         <td></td> {{---- For Input Total -----}}
-                        <td></td> {{---- For Output -----}}
-                        <td></td> {{---- For Output Total -----}}
+                        <td id="total_clothes_output"></td> {{---- For Output -----}}
+                        <td id="total_clothes_output"></td> {{---- For Output Total -----}}
                         <td>$ {{ $total_cmp }}</td> {{---- For CMP -----}}
                         <td id="total_daily_cmp_1"></td> {{---- For Daily CMP Income -----}}
                         <td id="total_accumulation"></td> {{---- For Accumulation -----}}
@@ -4402,7 +4630,17 @@ $('.total_actual_m_power').each(function()
     sum3 += parseFloat($(this).text().replace(/,/g,''));
 });
 $("#total_op").text(sum3);
-//// DailyCMP End
+//// actual_m_power End
+
+//// Total_Clothes Output
+var sum4 = 0;
+$('.new_cat_actual_target').each(function()
+{
+    sum4 += parseFloat($(this).text().replace(/,/g,''));
+});
+$("#total_clothes_output").text(sum4);
+$("#total_clothes_output_2").text(sum4);
+//// Total_Clothes End
 
 var new_total_output = $("#new_total_output").text();
 
@@ -4637,8 +4875,8 @@ $.ajax({
         url: "/cmp_put",
         data: ajax_post,
         success: function(data) {
-            console.log(data);
-            // window.location.href = "/report?update=ok";
+            // console.log(data);
+            window.location.href = "/report?update=ok";
         }
     });
 });
@@ -5349,7 +5587,8 @@ chart.render();
                                     </tbody>
                                 </table>
                             </td>
-                            <td class="main_target_{{ $l_id }}">{{ number_format($main_target+$ot_main_target)}}</td>
+                            <td class="main_target_{{ $l_id }} new_main_target">{{
+                                number_format($main_target+$ot_main_target)}}</td>
 
                             <!-- Man Target --->
                             <td>
@@ -5391,8 +5630,8 @@ chart.render();
                                             $man_target_2=$daily_report_product_2_decode[$j]['man_target'];
                                             $man_actual_target_2=$daily_report_product_2_decode[$j]['man_actual_target'];
                                             @endphp @if($l_id_2==$l_id) <tr>
-                                            <td>{{ $man_target_2 }}</td>
-                                            <td>{{ $man_actual_target_2 }}</td>
+                                            <td class="new_man_target">{{ $man_target_2 }}</td>
+                                            <td class="new_man_actual_target">{{ $man_actual_target_2 }}</td>
                                             </tr>
                                             @endif
 
@@ -5611,7 +5850,8 @@ chart.render();
                                             <td> - </td>
                                             @endif
                                             @if($cat_actual_target != '')
-                                            <td>{{ number_format($cat_actual_target) }}</td>
+                                            <td class="new_cat_actual_target">{{ number_format($cat_actual_target) }}
+                                            </td>
                                             @endif </tr>
                                             @endif
 
@@ -5935,6 +6175,114 @@ chart.render();
                             </tr>
 
                             @endfor
+
+                            @foreach($p_detail_total as $p_t)
+                            @php
+                            $total_output = $p_t->total_output;
+                            $total_order_quantity = $p_t->total_order_quantity;
+                            $total_sewing_input = $p_t->total_sewing_input;
+                            $total_inline = $p_t->total_inline;
+                            $total_h_over = $p_t->total_h_over;
+                            $total_h_over_balance = $p_t->total_h_over_balance;
+                            $total_cmp = $p_t->total_cmp;
+                            @endphp
+                            <tr>
+                                <td>Total</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td id="total_main_target"></td>
+                                <td class="td-padding">{{-- For ManPower ---}}
+                                    <table class="m-auto text-start table table-bordered custom-table-border-color">
+                                        <tbody>
+                                            <tr>
+                                                <td id="total_man_power"></td>
+                                                <td></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                                <td id="new_total_output">{{ $total_output }}</td> {{---- For Output -----}}
+                                <td id="total_output_percent"></td> {{---- For Output Percentage -----}}
+                                <td>{{ $total_order_quantity }}</td> {{---- For Qty -----}}
+                                <td>{{ $total_sewing_input }}</td> {{---- For Sewing Input -----}}
+                                <td></td> {{---- For Input Total -----}}
+                                <td id="total_clothes_output"></td> {{---- For Output -----}}
+                                <td id="total_clothes_output_2"></td> {{---- For Output Total -----}}
+                                <td>{{ $total_inline }}</td> {{---- For Inline -----}}
+                                <td>{{ $total_h_over }}</td> {{---- For H Over -----}}
+                                <td>{{ $total_h_over }}</td> {{---- For H/over total -----}}
+                                <td>{{ $total_h_over_balance }}</td> {{---- For H/over balance -----}}
+                                <td id="total_op"></td> {{---- For S,L,Adm Op -----}}
+                                <td></td> {{---- For Remark -----}}
+                            </tr>
+
+                            <script>
+                                //// Main_Target
+                        var sum0 = 0;
+$('.new_main_target').each(function()
+{
+    sum0 += parseFloat($(this).text().replace(/,/g,''));
+});
+$("#total_main_target").text(sum0);
+//// Main_Target End
+
+  //// DailyCMP
+  var sum1 = 0;
+$('.new_total_daily_cmp').each(function()
+{
+    sum1 += parseFloat($(this).text().substring(2).replace(/,/g,''));
+});
+$("#total_daily_cmp_1").text('$ ' + sum1);
+//// DailyCMP End
+
+//// Accumulation ///
+
+$("#total_accumulation").text('$ ' + sum1);
+
+//// Accumulation End ////
+
+
+//// DailyCMP
+var sum2 = 0;
+$('.new_cmp_hr_ps').each(function()
+{
+    sum2 += parseFloat($(this).text().substring(2).replace(/,/g,''));
+});
+$("#total_cmp_hr_ps").text(sum2);
+//// DailyCMP End
+
+//// actual_m_power
+var sum3 = 0;
+$('.total_actual_m_power').each(function()
+{
+    sum3 += parseFloat($(this).text().replace(/,/g,''));
+});
+$("#total_op").text(sum3);
+//// actual_m_power End
+
+//// Total_Clothes Output
+var sum4 = 0;
+$('.new_cat_actual_target').each(function()
+{
+    sum4 += parseFloat($(this).text().replace(/,/g,''));
+});
+$("#total_clothes_output").text(sum4);
+$("#total_clothes_output_2").text(sum4);
+//// Total_Clothes End
+
+
+var new_total_output = $("#new_total_output").text();
+
+var per_cal = (new_total_output / sum0) * 100;
+
+$("#total_output_percent").text(per_cal.toFixed(0)+ '%');
+
+
+
+                            </script>
+
+                            @endforeach
 
                     </tbody>
                 </table>
