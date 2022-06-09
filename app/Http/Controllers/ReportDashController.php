@@ -220,65 +220,6 @@ class ReportDashController extends Controller
             }
         }
 
-        //// HandOver Post
-        for ($j = 0; $j < count($h_bal); $j++) {
-            $h_bal_l_id = $h_bal[$j]['h_bal_l_id'];
-            $h_bal_a_id = $h_bal[$j]['h_bal_a_id'];
-            $h_bal_date = $h_bal[$j]['h_bal_date'];
-            $h_bal_p_id = $h_bal[$j]['h_bal_p_id'];
-            $h_bal_val_input = $h_bal[$j]['h_bal_val_input'];
-
-
-            $date_string = date("d.m.Y", strtotime($h_bal_date));
-
-            if ($date_string != '') {
-                $p_detail_query = ProductDetail::where('p_detail_id', $h_bal_p_id)
-                    ->where('l_id', $h_bal_l_id)
-                    ->where('assign_id', $h_bal_a_id)
-                    ->update(['h_balance' => $h_bal_val_input]);
-            }
-
-            if ($h_bal_date == '') {
-                $date_string = date("d.m.Y");
-
-                $p_detail_query = ProductDetail::where('p_detail_id', $h_bal_p_id)
-                    ->where('l_id', $h_bal_l_id)
-                    ->where('assign_id', $h_bal_a_id)
-                    ->update(['h_balance' => $h_bal_val_input]);
-            }
-        }
-
-
-        /// Order Post
-
-        for ($j = 0; $j < count($order_post); $j++) {
-            $order_l_id = $order_post[$j]['order_l_id'];
-            $order_a_id = $order_post[$j]['order_a_id'];
-            $order_date = $order_post[$j]['order_date'];
-            $order_p_id = $order_post[$j]['order_p_id'];
-            $order_val_input = $order_post[$j]['order_val_input'];
-
-
-            $date_string = date("d.m.Y", strtotime($order_date));
-
-            if ($date_string != '') {
-                $p_detail_query = ProductDetail::where('p_detail_id', $order_p_id)
-                    ->where('l_id', $order_l_id)
-                    ->where('assign_id', $order_a_id)
-                    ->update(['order_quantity' => $order_val_input]);
-            }
-
-            if ($order_date == '') {
-                $date_string = date("d.m.Y");
-
-                $p_detail_query = ProductDetail::where('p_detail_id', $order_p_id)
-                    ->where('l_id', $order_l_id)
-                    ->where('assign_id', $order_a_id)
-                    ->update(['order_quantity' => $order_val_input]);
-            }
-        }
-
-
         /// Handover Post
         for ($j = 0; $j < count($handover_post); $j++) {
             $handover_l_id = $handover_post[$j]['handover_l_id'];
@@ -390,6 +331,64 @@ class ReportDashController extends Controller
                     ->update(['remark' => $note_val_input]);
             }
         }
+
+         //// HandOver Post
+         for ($j = 0; $j < count($h_bal); $j++) {
+            $h_bal_l_id = $h_bal[$j]['h_bal_l_id'];
+            $h_bal_a_id = $h_bal[$j]['h_bal_a_id'];
+            $h_bal_date = $h_bal[$j]['h_bal_date'];
+            $h_bal_p_id = $h_bal[$j]['h_bal_p_id'];
+            $h_bal_val_input = $h_bal[$j]['h_bal_val_input'];
+
+
+            $date_string = date("d.m.Y", strtotime($h_bal_date));
+
+            if ($date_string != '') {
+                $p_detail_query = ProductDetail::where('p_detail_id', $h_bal_p_id)
+                    ->where('l_id', $h_bal_l_id)
+                    ->where('assign_id', $h_bal_a_id)
+                    ->update(['h_balance' => $h_bal_val_input]);
+            }
+
+            if ($h_bal_date == '') {
+                $date_string = date("d.m.Y");
+
+                $p_detail_query = ProductDetail::where('p_detail_id', $h_bal_p_id)
+                    ->where('l_id', $h_bal_l_id)
+                    ->where('assign_id', $h_bal_a_id)
+                    ->update(['h_balance' => $h_bal_val_input]);
+            }
+        }
+
+
+        /// Order Post
+
+        for ($j = 0; $j < count($order_post); $j++) {
+            $order_l_id = $order_post[$j]['order_l_id'];
+            $order_a_id = $order_post[$j]['order_a_id'];
+            $order_date = $order_post[$j]['order_date'];
+            $order_p_id = $order_post[$j]['order_p_id'];
+            $order_val_input = $order_post[$j]['order_val_input'];
+
+
+            $date_string = date("d.m.Y", strtotime($order_date));
+
+            if ($date_string != '') {
+                $p_detail_query = ProductDetail::where('p_detail_id', $order_p_id)
+                    ->where('l_id', $order_l_id)
+                    ->where('assign_id', $order_a_id)
+                    ->update(['order_quantity' => $order_val_input]);
+            }
+
+            if ($order_date == '') {
+                $date_string = date("d.m.Y");
+
+                $p_detail_query = ProductDetail::where('p_detail_id', $order_p_id)
+                    ->where('l_id', $order_l_id)
+                    ->where('assign_id', $order_a_id)
+                    ->update(['order_quantity' => $order_val_input]);
+            }
+        }
     }
 
     public function report_history()
@@ -440,6 +439,12 @@ class ReportDashController extends Controller
         WHERE DATE("time".created_at) >= DATE(NOW()) - INTERVAL \'30\' DAY
         GROUP BY "time".assign_date ORDER BY "time".assign_date ASC');
 
+$p_detail_total = DB::select('SELECT SUM("p_detail".cat_actual_target) AS total_output, SUM("p_detail".order_quantity) AS total_order_quantity, SUM("p_detail".sewing_input) AS total_sewing_input,
+SUM("p_detail".inline) AS total_inline, SUM("p_detail".h_over_input) AS total_h_over, SUM("p_detail".h_balance) AS total_h_over_balance,SUM("p_detail".cmp) AS total_cmp
+FROM line_assign
+JOIN p_detail ON "p_detail".assign_id="line_assign".assign_id
+WHERE "line_assign".assign_date=\'' . $date_string . '\'');
+
         DB::disconnect('musung');
 
         $daily_report_history_decode = json_decode(json_encode($daily_report_history), true);
@@ -448,6 +453,7 @@ class ReportDashController extends Controller
         $category_history_decode = json_decode(json_encode($category_history), true);
         $target_history = json_decode(json_encode($target_history), true);
         $time_history = json_decode(json_encode($time_history), true);
+        $p_detail_total_decode = json_decode(json_encode($p_detail_total), true);
 ?>
         <div class="col-12 col-md-4 my-3 p-0">
             <ul class="horizontal-slide" id="tabs">
@@ -609,7 +615,7 @@ class ReportDashController extends Controller
                 </td>
 
                 <!-- Main Target --->
-                <td class="main_target_history<?php echo $l_id; ?>"><?php echo number_format($main_target + $ot_main_target); ?></td>
+                <td class="main_target_history<?php echo $l_id; ?> new_main_target_history"><?php echo number_format($main_target + $ot_main_target); ?></td>
 
                 <td class="td-padding">
                     <table class="m-auto text-start table table-bordered custom-table-border-color">
@@ -741,7 +747,7 @@ class ReportDashController extends Controller
                                         echo '<td>-</td>';
                                     }
                                     if ($cat_actual_target != '') {
-                                        echo '<td>' . number_format($cat_actual_target) . '</td>';
+                                        echo '<td class="new_cat_actual_target_history">' . number_format($cat_actual_target) . '</td>';
                                     }
                                     echo '</tr>';
                                 }
@@ -785,7 +791,7 @@ class ReportDashController extends Controller
                         <tbody>
                             <tr>
                                 <td colspan="">-</td>
-                                <td class="total_cmp_history_<?php echo $l_id; ?>">total_cmp</td>
+                                <td class="total_cmp_history_<?php echo $l_id; ?> new_total_daily_cmp_history">total_cmp</td>
                             </tr>
                             <?php
                             for ($j = 0; $j < count($daily_report_product_history_decode); $j++) {
@@ -982,7 +988,7 @@ class ReportDashController extends Controller
                                                                                             } ?></td>
                             </tr>
                             <tr>
-                                <td class="total_actual_m_power_history_<?php echo $l_id; ?>" colspan="2"></td>
+                                <td class="total_actual_m_power_history_<?php echo $l_id; ?> total_actual_m_power_history" colspan="2"></td>
                             </tr>
                         </tbody>
                     </table>
@@ -1023,7 +1029,7 @@ class ReportDashController extends Controller
                 <!----- Total Time  End ------>
 
                 <td class="cmp_hr_history_<?php echo $l_id; ?>"></td>
-                <td class="cmp_hr_ps_history_<?php echo $l_id; ?>"></td>
+                <td class="cmp_hr_ps_history_<?php echo $l_id; ?> new_cmp_hr_ps_history"></td>
                 <td>
                     <?php echo $remark; ?>
                 </td>
@@ -1069,9 +1075,125 @@ class ReportDashController extends Controller
                     /// For CMP/ HR/ PS end
                 </script>
 
+
             <?php
                         }
             ?>
+
+            <?php
+    for($k=0; $k<count($p_detail_total_decode);$k++){
+        $total_output = $p_detail_total_decode[$k]['total_output'];
+        $total_order_quantity = $p_detail_total_decode[$k]['total_order_quantity'];
+        $total_sewing_input = $p_detail_total_decode[$k]['total_sewing_input'];
+        $total_inline =$p_detail_total_decode[$k]['total_inline'];
+        $total_h_over = $p_detail_total_decode[$k]['total_h_over'];
+        $total_h_over_balance = $p_detail_total_decode[$k]['total_h_over_balance'];
+        $total_cmp = $p_detail_total_decode[$k]['total_cmp'];
+
+        ?>
+        <tr>
+                        <td>Total</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td id="total_main_target_history"></td>
+                        <td class="td-padding">  <!-- For ManPower  -->
+                            <table class="m-auto text-start table table-bordered custom-table-border-color">
+                                <tbody>
+                                    <tr>
+                                        <td id="total_man_power_history"></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                        <td id="new_total_output_history"><?php echo $total_output; ?></td> <!-- {{---- For Output -----}} -->
+                        <td id="total_output_percent_history"></td>  <!-- {{---- For Output Percentage -----}} -->
+                        <td><?php echo $total_order_quantity; ?></td>  <!-- {{---- For Qty -----}} -->
+                        <td><?php echo $total_sewing_input; ?></td>  <!-- {{---- For Sewing Input -----}} -->
+                        <td></td>  <!-- {{---- For Input Total -----}} -->
+                        <td id="total_clothes_output_history"></td> <!-- {{---- For Output -----}} -->
+                        <td id="total_clothes_output_history"></td>  <!-- {{---- For Output Total -----}} -->
+                        <td>$ <?php echo number_format((float)$total_cmp, 2, '.', ''); ?></td>  <!-- {{---- For CMP -----}} -->
+                        <td id="total_daily_cmp_1_history"></td>  <!-- {{---- For Daily CMP Income -----}} -->
+                        <td id="total_accumulation_history"></td>  <!-- {{---- For Accumulation -----}} -->
+                        <td><?php echo $total_inline; ?></td>  <!-- {{---- For Inline -----}} -->
+                        <td><?php echo $total_h_over; ?></td>  <!-- {{---- For H Over -----}} -->
+                        <td><?php echo $total_h_over; ?></td>  <!-- {{---- For H/over total -----}} -->
+                        <td><?php echo $total_h_over_balance; ?></td>  <!-- {{---- For H/over balance -----}} -->
+                        <td id="total_op_history"></td>  <!-- {{---- For S,L,Adm Op -----}} -->
+                        <td></td>  <!-- {{---- For Time -----}} -->
+                        <td></td>  <!-- {{---- For CMP/hr -----}} -->
+                        <td id="total_cmp_hr_ps_history"></td>  <!-- {{---- For CMP/hr/PS -----}} -->
+                        <td></td>  <!-- {{---- For Remark -----}} -->
+                    </tr>
+
+                    <script>
+                        //// Main_Target
+                        var sum0 = 0;
+$('.new_main_target_history').each(function()
+{
+    sum0 += parseFloat($(this).text().replace(/,/g,''));
+});
+$("#total_main_target_history").text(sum0);
+//// Main_Target End
+
+  //// DailyCMP
+  var sum1 = 0;
+$('.new_total_daily_cmp_history').each(function()
+{
+    sum1 += parseFloat($(this).text().substring(2).replace(/,/g,''));
+});
+$("#total_daily_cmp_1_history").text('$ ' + sum1.toFixed(2));
+//// DailyCMP End
+
+//// Accumulation ///
+
+$("#total_accumulation_history").text('$ ' + sum1.toFixed(2));
+
+//// Accumulation End ////
+
+
+//// DailyCMP
+var sum2 = 0;
+$('.new_cmp_hr_ps_history').each(function()
+{
+    sum2 += parseFloat($(this).text().substring(2).replace(/,/g,''));
+});
+$("#total_cmp_hr_ps_history").text(sum2.toFixed(2));
+//// DailyCMP End
+
+//// actual_m_power
+var sum3 = 0;
+$('.total_actual_m_power_history').each(function()
+{
+    sum3 += parseFloat($(this).text().replace(/,/g,''));
+});
+$("#total_op_history").text(sum3);
+//// actual_m_power End
+
+//// Total_Clothes Output
+var sum4 = 0;
+$('.new_cat_actual_target_history').each(function()
+{
+    sum4 += parseFloat($(this).text().replace(/,/g,''));
+});
+$("#total_clothes_output_history").text(sum4);
+$("#total_clothes_output_2_history").text(sum4);
+//// Total_Clothes End
+
+var new_total_output = $("#new_total_output_history").text();
+
+var per_cal = (new_total_output / sum0) * 100;
+
+$("#total_output_percent_history").text(per_cal.toFixed(0)+ '%');
+
+
+                    </script>
+
+<?php
+    }
+?>
 
             </tbody>
             </table>

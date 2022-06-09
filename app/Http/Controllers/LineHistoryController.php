@@ -569,7 +569,7 @@ if(parseInt(div_actual_target_percent.text()) <= 80){
 
                     //// Do not delete (get last rank data)
                     var max_num = Math.max(...val_arr);
-                    $(".t_line_" + max_num).css({
+                    $(".t_line_" + 10).css({
                         'background-color': 'red',
                         'color': '#fff'
                     });

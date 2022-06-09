@@ -81,10 +81,11 @@
                                 @foreach($p_detail_3 as $p_3)
                                 @if($p_3->l_id == $g_line_id)
                                 <tr style="border-bottom: 1px solid #848484;">
-                                    <td class="item_name_{{ $g_line_id }}">
-                                        <div style="width:10rem;overflow-x:scroll;">
+                                    <td class="text-center item_name_{{ $g_line_id }}">
+                                        {{ $p_3->p_name }}
+                                        {{-- <div style="width:10rem;overflow-x:scroll;">
                                             {{ $p_3->p_name }}
-                                        </div>
+                                        </div> --}}
                                     </td>
                                 </tr>
                                 @endif
@@ -122,31 +123,37 @@
                                         number_format($t_2->actual_target_entry) }}
                                         @endif
                                     </span></td>
+                                    <td><span id="div_target_total_{{ $t_2->time_id }}" class="hide_div_target_total d-none">{{ $t_2->div_target }}</span></td>
                             </tr>
                             <tr class="text-white">
-                                <td id="td_div_actual_target_{{ $t_2->time_id }}">
+                                <td id="td_div_actual_target_{{ $t_2->time_id }}" class="td_div_actual_target">
                                     <span id="div_actual_target_{{ $t_2->time_id }}"
                                         class="div_actual_target_{{ $g_line_id }}">@if($t_2->div_actual_target !=
                                         ''){{
-                                        $t_2->div_actual_target }} @endif</spa </td>
+                                        $t_2->div_actual_target }} @endif</span> </td>
+                                <td><span id="div_actual_target_total_{{ $t_2->time_id }}" class="hide_div_actual_target_total d-none"></span></td>
                             </tr>
                             <tr class="text-white">
                                 <td id="td_div_actual_target_percent_{{ $t_2->time_id }}"><span
                                         id="div_actual_target_percent_{{ $t_2->time_id }}"></span>
                                 </td>
+                                <td class="d-none"></td>
                             </tr>
                         </table>
                     </td>
                     <script>
                         window.addEventListener('initSomething', event => {
                                     var prev_target = parseInt($("#div_actual_target_<?php echo $prev_target; ?>").text());
+
+
+
 var current_target = parseInt($("#div_actual_target_<?php echo $current_target; ?>").text());
 
 var total = prev_target+current_target;
 var current_target_total = $("#div_actual_target_total_<?php echo $current_target; ?>");
 
 if(Number.isNaN(total)){
-current_target_total.text('');
+current_target_total.text(current_target);
 }
 if(!Number.isNaN(total)){
 current_target_total.text(total);
@@ -164,15 +171,15 @@ new_div_actual_target_total_current.text("");
 }
 if(!Number.isNaN(new_total)){
     new_div_actual_target_total_current.text(new_total);
+    // console.log(new_div_actual_target_total);
 }
 }
 
 var new_div_target = $("#new_div_target_<?php echo $current_target; ?>").text();
 var div_actual_target = parseInt($("#div_actual_target_<?php echo $current_target; ?>").text());
 
-var percentage =(div_actual_target / new_div_target) * 100;
+var percentage =(parseInt(current_target_total.text()) / parseInt($("#div_target_total_<?php echo $current_target; ?>").text()) ) * 100;
 var div_actual_target_percent = $("#div_actual_target_percent_<?php echo $current_target; ?>");
-
 
 if(Number.isNaN(div_actual_target)){
 if(div_actual_target!=''){
@@ -699,12 +706,19 @@ new_total_percent.append('%');
                                         }
                                         if (!Number.isNaN(t_percent)) {
                                             t_percent_span.text(parseInt(t_percent));
-                                            if (parseInt(t_percent_span.text()) >= 100) {
-                                                td_t_percent.css('background-color', 'green');
-                                            }
-                                            if (parseInt(t_percent_span.text()) < 100) {
-                                                td_t_percent.css('background-color', 'red');
-                                            }
+
+
+if(parseInt(t_percent_span.text()) <= 80){
+    td_t_percent.css('background-color','rgba(255,0,0,0.8)');
+    td_a_percent.css('background-color','rgba(255,0,0,0.8)');
+}if(parseInt(t_percent_span.text()) > 80){
+    td_t_percent.css({'background-color':'#FF8000','color':'#fff'});
+    td_a_percent.css({'background-color':'#FF8000','color':'#fff'});
+}
+if(parseInt(t_percent_span.text()) >= 100){
+    td_t_percent.css({'background-color':'rgba(30,113,0,1)','color':'#fff'});
+    td_a_percent.css({'background-color':'rgba(30,113,0,1)','color':'#fff'});
+}
                                             t_percent_span.append('%');
                                         }
                                     }

@@ -1005,12 +1005,12 @@ $('.new_total_daily_cmp').each(function()
 {
     sum1 += parseFloat($(this).text().substring(2).replace(/,/g,''));
 });
-$("#total_daily_cmp_1").text('$ ' + sum1);
+$("#total_daily_cmp_1").text('$ ' + sum1.toFixed(2));
 //// DailyCMP End
 
 //// Accumulation ///
 
-$("#total_accumulation").text('$ ' + sum1);
+$("#total_accumulation").text('$ ' + sum1.toFixed(2));
 
 //// Accumulation End ////
 
@@ -1021,7 +1021,7 @@ $('.new_cmp_hr_ps').each(function()
 {
     sum2 += parseFloat($(this).text().substring(2).replace(/,/g,''));
 });
-$("#total_cmp_hr_ps").text(sum2);
+$("#total_cmp_hr_ps").text(sum2.toFixed(2));
 //// DailyCMP End
 
 //// actual_m_power
@@ -2803,12 +2803,12 @@ $('.new_total_daily_cmp').each(function()
 {
     sum1 += parseFloat($(this).text().substring(2).replace(/,/g,''));
 });
-$("#total_daily_cmp_1").text('$ ' + sum1);
+$("#total_daily_cmp_1").text('$ ' + sum1.toFixed(2));
 //// DailyCMP End
 
 //// Accumulation ///
 
-$("#total_accumulation").text('$ ' + sum1);
+$("#total_accumulation").text('$ ' + sum1.toFixed(2));
 
 //// Accumulation End ////
 
@@ -2819,7 +2819,7 @@ $('.new_cmp_hr_ps').each(function()
 {
     sum2 += parseFloat($(this).text().substring(2).replace(/,/g,''));
 });
-$("#total_cmp_hr_ps").text(sum2);
+$("#total_cmp_hr_ps").text(sum2.toFixed(2));
 //// DailyCMP End
 
 //// actual_m_power
@@ -4555,8 +4555,8 @@ cmp_hr_ps.text("$ " + div_cmp_hr_ps.toFixed(1));
                         <td>Total</td>
                         <td></td>
                         <td></td>
-                        <td id="total_main_target"></td>
                         <td></td>
+                        <td id="total_main_target"></td>
                         <td class="td-padding">{{-- For ManPower ---}}
                             <table class="m-auto text-start table table-bordered custom-table-border-color">
                                 <tbody>
@@ -4574,7 +4574,7 @@ cmp_hr_ps.text("$ " + div_cmp_hr_ps.toFixed(1));
                         <td></td> {{---- For Input Total -----}}
                         <td id="total_clothes_output"></td> {{---- For Output -----}}
                         <td id="total_clothes_output"></td> {{---- For Output Total -----}}
-                        <td>$ {{ $total_cmp }}</td> {{---- For CMP -----}}
+                        <td>$ {{ number_format((float)$total_cmp, 2, '.', '') }}</td> {{---- For CMP -----}}
                         <td id="total_daily_cmp_1"></td> {{---- For Daily CMP Income -----}}
                         <td id="total_accumulation"></td> {{---- For Accumulation -----}}
                         <td>{{ $total_inline }}</td> {{---- For Inline -----}}
@@ -4604,12 +4604,12 @@ $('.new_total_daily_cmp').each(function()
 {
     sum1 += parseFloat($(this).text().substring(2).replace(/,/g,''));
 });
-$("#total_daily_cmp_1").text('$ ' + sum1);
+$("#total_daily_cmp_1").text('$ ' + sum1.toFixed(2));
 //// DailyCMP End
 
 //// Accumulation ///
 
-$("#total_accumulation").text('$ ' + sum1);
+$("#total_accumulation").text('$ ' + sum1.toFixed(2));
 
 //// Accumulation End ////
 
@@ -4620,7 +4620,7 @@ $('.new_cmp_hr_ps').each(function()
 {
     sum2 += parseFloat($(this).text().substring(2).replace(/,/g,''));
 });
-$("#total_cmp_hr_ps").text(sum2);
+$("#total_cmp_hr_ps").text(sum2.toFixed(2));
 //// DailyCMP End
 
 //// actual_m_power
@@ -6233,12 +6233,12 @@ $('.new_total_daily_cmp').each(function()
 {
     sum1 += parseFloat($(this).text().substring(2).replace(/,/g,''));
 });
-$("#total_daily_cmp_1").text('$ ' + sum1);
+$("#total_daily_cmp_1").text('$ ' + sum1.toFixed(2));
 //// DailyCMP End
 
 //// Accumulation ///
 
-$("#total_accumulation").text('$ ' + sum1);
+$("#total_accumulation").text('$ ' + sum1.toFixed(2));
 
 //// Accumulation End ////
 
@@ -6249,7 +6249,7 @@ $('.new_cmp_hr_ps').each(function()
 {
     sum2 += parseFloat($(this).text().substring(2).replace(/,/g,''));
 });
-$("#total_cmp_hr_ps").text(sum2);
+$("#total_cmp_hr_ps").text(sum2.toFixed(2));
 //// DailyCMP End
 
 //// actual_m_power
@@ -7065,9 +7065,9 @@ chart.render();
                         var docDefinition = {
                             content: [{
                                 image: data,
-                                width: 800,
+                                width: 950,
                             }],
-                            pageSize: 'A4',
+                            pageSize: 'LEGAL',
                             pageOrientation: 'landscape',
                             pageMargins: [ 20, 20, 20, 20 ],
                         };
