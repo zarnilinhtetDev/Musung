@@ -1,5 +1,6 @@
 <div class="panel-body d-flex flex-row" wire:poll.1000ms>
     @php $time_arr = [];
+    $new_num_1 = 1;
     foreach(array_reverse($time) as $t3){
     $time_arr[] = $t3->time_name;
     }
@@ -8,6 +9,7 @@
     @endphp
 
     @if(count($time_arr) > 0)
+
     <div class="flex-grow-1">
         <table class="table table-hover table-striped table-bordered text-center table-dash" id="live_dash_1">
             <thead>
@@ -398,18 +400,19 @@ $(".t_line_" + max_num).css({
                     <td></td>
                     <td></td>
                     @foreach ($total_main_target as $t_main_target)
-
                     <td style="vertical-align: middle;"><span id="t_main_target">{{
                             number_format($t_main_target->t_main_target + $t_main_target->ot_main_target)
                             }}</span></td>
+
                     @endforeach
                     @foreach($total_div_target as $t_div_target)
                     @php $total_time_name = $t_div_target->time_name;$new_num = 0; @endphp
                     <td id="{{ $t_div_target->time_name }}">
                         <table class="w-100 text-center table table-bordered m-0" border="1">
                             <tr>
-                                <td><span id="new_t_div_target_num_{{ $t_div_target->row_num_1 }}">{{
-                                        number_format($t_div_target->t_div_target) }}</span></td>
+                                <td><span id="new_t_div_target_num_{{ $t_div_target->row_num_1 }}" class="new_t_div_target_num">
+                                    {{ number_format($t_div_target->t_div_target) }}
+                               </span></td>
                             </tr>
 
                             @foreach ($total_div_actual_target as $t_div_actual_target_1)
@@ -417,53 +420,29 @@ $(".t_line_" + max_num).css({
                             @if($total_time_name == $t_div_actual_target_1->time_name)
 
                             <tr class="text-white">
-                                <input type="hidden"
-                                    id="new_t_div_actual_target_num_{{ $t_div_actual_target_1->row_num }}"
-                                    class="new_t_div_actual_target_num"
-                                    value="{{ $t_div_actual_target_1->t_div_actual_target_1 }}" />
-                                <td id="td_tmp_num_{{ $t_div_actual_target_1->row_num }}">
-                                    <span id="tmp_num_{{ $t_div_actual_target_1->row_num }}"
-                                        class="">@if($t_div_actual_target_1->t_div_actual_target_1 !=''){{
-                                        number_format($t_div_actual_target_1->t_div_actual_target_1) }}
-                                        @endif</span>
+                                <td id="td_tmp_num_{{ $new_num_1 }}">
+                                    <span id="new_t_div_actual_target_num_{{ $new_num_1 }}"
+                                        class="new_t_div_actual_target_num_{{ $new_num_1 }}">
 
+                                        {{ number_format($t_div_actual_target_1->t_div_actual_target_1) }}
+
+                                    </span>
                                 </td>
                             </tr>
                             <tr class="text-white">
-                                <td id="total_percent_{{ $t_div_actual_target_1->row_num }}">
+                                <td id="total_percent_{{ $new_num_1}}">
                                 </td>
                             </tr>
                             <script>
                                 window.addEventListener('additionalInit', event => {
-                                    var curr_target_num_val = $("#new_t_div_actual_target_num_{{ $t_div_actual_target_1->row_num }}");
+var new_t_div_target_num = parseInt($("#new_t_div_target_num_{{ $t_div_target->row_num_1 }}").text());
+var new_t_div_actual_target_num = parseInt($("#new_t_div_actual_target_num_{{ $new_num_1 }}").text());
 
-                                    var curr_target_val = parseInt("<?php echo $t_div_actual_target_1->t_div_actual_target_1; ?>");
-var tmp_num_val = $("#tmp_num_{{ $t_div_actual_target_1->row_num }}");
-
-var new_t_div_target_num = parseInt($("#new_t_div_target_num_{{ $t_div_actual_target_1->row_num }}").text());
-var new_t_div_target_num_disable = $("#new_t_div_target_num_{{ $t_div_actual_target_1->row_num }}");
-var new_t_div_actual_target_num = parseInt($("#new_t_div_actual_target_num_{{ $t_div_actual_target_1->row_num }}").val());
 var total_percentage =(new_t_div_actual_target_num / new_t_div_target_num) * 100;
-var new_total_percent = $("#total_percent_{{ $t_div_actual_target_1->row_num }}");
-var tmp_num = $("#tmp_num_{{ $t_div_actual_target_1->row_num }}").text();
-
-// console.log(new_t_div_target_num);
-if(!tmp_num){
-    new_t_div_target_num_disable.text('');
-}
+var new_total_percent = $("#total_percent_{{ $new_num_1 }}");
 
 new_total_percent.text(parseInt(total_percentage));
-
-
-// if(parseInt(new_t_div_target_num) > parseInt(tmp_num)){
-// $("#td_tmp_num_{{ $t_div_actual_target_1->row_num }}").css('background-color','red');
-// }
-// if(parseInt(new_t_div_target_num) <= parseInt(tmp_num)){
-// $("#td_tmp_num_{{ $t_div_actual_target_1->row_num }}").css('background-color','green');
-// }
-
-
-    if(Number.isNaN(total_percentage)){
+if(Number.isNaN(total_percentage)){
         new_total_percent.text("");
     }
     if(!Number.isNaN(total_percentage)){
@@ -471,24 +450,25 @@ new_total_percent.text(parseInt(total_percentage));
 
 
 if(parseInt(total_percentage) <= 80){
-   $("#total_percent_{{ $t_div_actual_target_1->row_num }}").css('background-color','rgba(255,0,0,0.8)');
-   $("#td_tmp_num_{{ $t_div_actual_target_1->row_num }}").css('background-color','rgba(255,0,0,0.8)');
+   $("#total_percent_{{ $new_num_1 }}").css('background-color','rgba(255,0,0,0.8)');
+   $("#td_tmp_num_{{ $new_num_1 }}").css('background-color','rgba(255,0,0,0.8)');
 }
 if(parseInt(total_percentage) > 80){
-   $("#total_percent_{{ $t_div_actual_target_1->row_num }}").css({'background-color':'#FF8000','color':'#fff'});
-   $("#td_tmp_num_{{ $t_div_actual_target_1->row_num }}").css({'background-color':'#FF8000','color':'#fff'});
+   $("#total_percent_{{ $new_num_1 }}").css({'background-color':'#FF8000','color':'#fff'});
+   $("#td_tmp_num_{{ $new_num_1 }}").css({'background-color':'#FF8000','color':'#fff'});
 }
 if(parseInt(total_percentage) >= 100){
-   $("#total_percent_{{ $t_div_actual_target_1->row_num }}").css({'background-color':'#085820','color':'#fff'});
-   $("#td_tmp_num_{{ $t_div_actual_target_1->row_num }}").css({'background-color':'#085820','color':'#fff'});
+   $("#total_percent_{{ $new_num_1 }}").css({'background-color':'#085820','color':'#fff'});
+   $("#td_tmp_num_{{ $new_num_1 }}").css({'background-color':'#085820','color':'#fff'});
 }
 
 new_total_percent.append('%');
     }
-                                });
+});
+
                             </script>
                             @endif
-
+                            @php $new_num_1++; @endphp
                             @endforeach
                         </table>
 
@@ -505,18 +485,20 @@ new_total_percent.append('%');
                                 </td>
 
                                 <script>
-                                    var t_main_target = $("#t_main_target").text();
-                                var t_overall_target = $("#t_overall_target");
-                                t_overall_target.text(t_main_target);
+                                //     var t_main_target = $("#t_main_target").text();
+                                // var t_overall_target = $("#t_overall_target");
+                                // t_overall_target.text(t_main_target);
+
                                 </script>
                                 @endforeach
                             </tr>
                             <tr class="text-white">
                                 @foreach($total_overall_actual_target as $t_overall_actual_target)
                                 <td class='fw-bold' id="t_overall_actual_target">
-                                    {{ number_format($t_overall_actual_target->t_overall_actual_target) }}
+
                                 </td>
                                 @endforeach
+
                             </tr>
                             <tr class="text-white">
                                 <td id="t_overall_percent" class='fw-bold'></td>
@@ -621,10 +603,8 @@ new_total_percent.append('%');
 
                                 @if($p_3->l_id == $g_line_id)
                                 <tr style="border-bottom: 1px #000">
-                                    <td class="item_name_{{ $g_line_id }}">
-                                        <div style="width:0px !important;overflow-x:scroll;">
-                                            {{ $p_3->p_name }}
-                                        </div>
+                                    <td class="item_name_{{ $g_line_id }}" colspan="0">
+                                        <div style="text-overflow:ellipsis;width:0px !important; opacity:0;"> {{ $p_3->p_name }}</div>
                                     </td>
                                 </tr>
                                 @endif
@@ -634,7 +614,7 @@ new_total_percent.append('%');
                         </table>
                     </td>
                     <td>
-                        <table class=" w-100 text-center table m-0">
+                        <table class="w-100 text-center table m-0">
 
                             @foreach($actual_target_total as $a_total)
                             @if ($g_line_id == $a_total->line_id)
@@ -824,16 +804,9 @@ $(".t_line_" + 10).css({
                             <tr>
                                 @foreach($total_overall_target as $t_overall_target)
                                 <td class='fw-bold' id="t_overall_target_2">
-                                    {{
-                                    $t_overall_target->t_overall_target }}
+                                    {{ $t_overall_target->t_overall_target }}
                                 </td>
 
-                                <script>
-                                    var t_main_target = $("#t_main_target").text();
-                                var t_overall_target = $("#t_overall_target");
-                                var t_overall_target_2 = $("#t_overall_target_2");
-                                t_overall_target_2.text(t_main_target);
-                                </script>
                                 @endforeach
                             </tr>
                             <tr class="text-white">

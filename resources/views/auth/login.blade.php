@@ -10,14 +10,14 @@
         <div class="card login-card">
             <div class="row no-gutters">
                 <div class="col-md-5 m-auto">
-                    <img src="" alt="company_logo" class="login-card-img img-fluid p-3" id="login-logo" />
+                    <img src="img/logo.png" alt="Musung Garment" class="login-card-img img-fluid p-3" id="login-logo" />
                 </div>
                 <div class=" col-md-7">
                     <div class="card-body">
                         <div class="brand-wrapper">
                             <div class="row">
                                 <div class="col-2">
-                                    <img src="img/logo_2.png" alt="company_logo" class="logo" />
+                                    <img src="img/logo_2.png" alt="Musung Garment" class="logo" />
                                 </div>
                                 <div class="col m-auto">
                                     <span class="h3 fw-bolder login-heading-text">Musung
