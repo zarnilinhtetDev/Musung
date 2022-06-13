@@ -878,7 +878,6 @@ ul.scroll-horizontal-ul {
 }
 
 .bounce {
-    background: #ed2828 !important;
     -webkit-animation: fadeinout 3s linear infinite;
     animation: fadeinout 3s linear infinite;
 }
