@@ -88,6 +88,14 @@ class Dash1 extends Component
         $total_overall_actual_target = DB::select('SELECT SUM("time".div_actual_target) AS t_overall_actual_target
         FROM time WHERE "time".assign_date=\'' . $date_string . '\'');
 
+        //// Total Percent Accumulation
+        $total_percent_accumulation = DB::select('SELECT DISTINCT ROW_NUMBER() OVER(partition BY "time".actual_target_entry ORDER BY "time".time_name ASC) AS row_num,
+		SUM("time".actual_target_entry) over (ORDER BY "time".time_name) AS t_div_target,
+        SUM("time".div_actual_target) over (ORDER BY "time".time_name) AS t_div_actual_target_1,"time".time_name
+        FROM time WHERE "time".assign_date=\'' . $date_string . '\' AND NOT "time".time_name=\'temp\' AND "time".div_actual_target IS NOT NULL
+        GROUP BY "time".time_name,"time".actual_target_entry,"time".div_actual_target ORDER BY "time".time_name ASC');
+        //// Total Percent Accumulation End
+
         $top_line = DB::select('SELECT line.l_id,line.l_name,line_assign.main_target AS main_target,SUM(time.div_actual_target) AS total_actual,
         ROUND((SUM(time.div_actual_target)*100/line_assign.main_target),0) AS diff_target_percent,
         ROW_NUMBER() OVER(ORDER BY  ROUND((SUM(time.div_actual_target)*100/line_assign.main_target),0) DESC) AS row_num
@@ -106,7 +114,7 @@ class Dash1 extends Component
 
         return view(
             'livewire.dash1',
-            compact('getLine', 'time', 'time_2', 'total_main_target', 'total_div_target', 'total_div_actual_target', 'target_total', 'actual_target_total', 'top_line', 'total_overall_target', 'total_overall_actual_target', 'total_inline', 'p_detail_2', 'time_name_list', 'p_detail_3'),
+            compact('getLine', 'time', 'time_2', 'total_main_target', 'total_div_target', 'total_div_actual_target', 'target_total', 'actual_target_total', 'top_line', 'total_overall_target', 'total_overall_actual_target', 'total_inline', 'p_detail_2', 'time_name_list', 'p_detail_3', 'total_percent_accumulation'),
         );
     }
 }

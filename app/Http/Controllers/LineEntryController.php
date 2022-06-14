@@ -62,6 +62,7 @@ class LineEntryController extends Controller
         $line_id = request()->post('line_id');
         $assign_date = request()->post('assign_date');
 
+
         // echo $p_detail_id_arr;
         $number = count($p_detail_id_arr);
         // echo $div_actual_target . $div_actual_percent;
@@ -77,19 +78,25 @@ class LineEntryController extends Controller
             if ($number > 0) {
                 for ($i = 0; $i < $number; $i++) { ///// Insert data [] to p_detail & time table
 
-                    LineEntryHistory::create(['time_id' => $time_id, 'l_id' => $line_id, 'p_id' => $p_detail_id_arr[$i], 'actual_target' => $p_detail_actual_target_arr[$i], 'assign_date' => $assign_date, 'status' => 1]);
-
-                    $product_detail_select = ProductDetail::where('p_detail_id', $p_detail_id_arr[$i])->first();
-                    if ($product_detail_select->cat_actual_target == '') {
-                        ProductDetail::where('p_detail_id', $p_detail_id_arr[$i])->update(['cat_actual_target' => $p_detail_actual_target_arr[$i]]);
-                    } else {
-                        $total = $product_detail_select->cat_actual_target + $p_detail_actual_target_arr[$i];
-                        ProductDetail::where('p_detail_id', $p_detail_id_arr[$i])->update(['cat_actual_target' => $total]);
+                    $line_entry_history_exist = LineEntryHistory::select('time_id')->where('time_id', $time_id)->where('p_id', $p_detail_id_arr[$i])->where('l_id', $line_id)->where('actual_target', $p_detail_actual_target_arr[$i])->where('assign_date', $assign_date);
+                    if ($line_entry_history_exist->count() > 0) {
+                        LineEntryHistory::where('time_id', $time_id)->where('p_id', $p_detail_id_arr[$i])->where('l_id', $line_id)->where('actual_target', $p_detail_actual_target_arr[$i])->where('assign_date', $assign_date)->update(['actual_target' => $p_detail_actual_target_arr[$i]]);
                     }
+                    else{
+                        LineEntryHistory::create(['time_id' => $time_id, 'l_id' => $line_id, 'p_id' => $p_detail_id_arr[$i], 'actual_target' => $p_detail_actual_target_arr[$i], 'assign_date' => $assign_date, 'status' => 1]);
 
-                    $product_detail = ProductDetail::where('p_detail_id', $p_detail_id_arr[$i])->update(['p_actual_target' => $p_detail_actual_target_arr[$i]]);
-                    if ($product_detail == true) {
-                        Time::where('time_id', $time_id)->update(['status' => 1, 'div_actual_target' => $div_actual_target, 'div_actual_percent' => $explode_percent[0]]);
+                        $product_detail_select = ProductDetail::where('p_detail_id', $p_detail_id_arr[$i])->first();
+                        if ($product_detail_select->cat_actual_target == '') {
+                            ProductDetail::where('p_detail_id', $p_detail_id_arr[$i])->update(['cat_actual_target' => $p_detail_actual_target_arr[$i]]);
+                        } else {
+                            $total = $product_detail_select->cat_actual_target + $p_detail_actual_target_arr[$i];
+                            ProductDetail::where('p_detail_id', $p_detail_id_arr[$i])->update(['cat_actual_target' => $total]);
+                        }
+
+                        $product_detail = ProductDetail::where('p_detail_id', $p_detail_id_arr[$i])->update(['p_actual_target' => $p_detail_actual_target_arr[$i]]);
+                        if ($product_detail == true) {
+                            Time::where('time_id', $time_id)->update(['status' => 1, 'div_actual_target' => $div_actual_target, 'div_actual_percent' => $explode_percent[0]]);
+                        }
                     }
                 }
                 return redirect('/line_entry?status=create_ok');

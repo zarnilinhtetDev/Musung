@@ -817,7 +817,7 @@ WHERE "line_assign".assign_date=\'' . $date_string . '\'');
                                         if (Number.isNaN(multiply_cmp)) {
                                             daily_cmp.text('-');
                                         } else {
-                                            daily_cmp.text("$ " + multiply_cmp.toFixed(1));
+                                            daily_cmp.text("$ " + multiply_cmp.toFixed(2));
                                         }
 
 
@@ -835,7 +835,7 @@ WHERE "line_assign".assign_date=\'' . $date_string . '\'');
                                                 total_cmp += substring;
                                             }
                                         });
-                                        total_cmp_class.text("$ " + total_cmp.toFixed(1));
+                                        total_cmp_class.text("$ " + total_cmp.toFixed(2));
                                     </script>
 
                             <?php

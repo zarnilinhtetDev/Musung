@@ -687,11 +687,14 @@ class LineAssignController extends Controller
 
     public function deleteAssignLine($a_id, $l_id)
     {
+        $date_string = date("d.m.Y");
+
         $del_line_assign = LineAssign::where('assign_id', $a_id)->where('l_id', $l_id)->delete();
         $del_p_detail = ProductDetail::where('assign_id', $a_id)->where('l_id', $l_id)->delete();
         $del_time = Time::where('assign_id', $a_id)->where('line_id', $l_id)->delete();
+        $del_entry_history = LineEntryHistory::where('l_id', $l_id)->where('assign_date',$date_string)->delete();
         $l_status = Line::where('l_id', $l_id)->update(['a_status' => 0]);
-        if ($del_line_assign == true && $del_p_detail == true && $del_time == true && $l_status == true) {
+        if ($del_line_assign == true && $del_p_detail == true && $del_time == true && $l_status == true && $del_entry_history == true) {
             return redirect('/line_setting?status=delete_ok');
         }
     }

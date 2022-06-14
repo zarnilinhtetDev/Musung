@@ -546,7 +546,7 @@ $date_string_for_export_pdf = date("Y_m_d", strtotime($date_string));
                                     daily_cmp.text('-');
                                 }
                                 else{
-                                daily_cmp.text("$ " + multiply_cmp.toFixed(1));
+                                daily_cmp.text("$ " + multiply_cmp.toFixed(2));
                                 }
 
 
@@ -566,7 +566,7 @@ $date_string_for_export_pdf = date("Y_m_d", strtotime($date_string));
                 }
 
     });
-        total_cmp_class.text("$ " + total_cmp.toFixed(1));
+        total_cmp_class.text("$ " + total_cmp.toFixed(2));
 
                                 </script>
 
@@ -2344,7 +2344,7 @@ chart.render();
                                     daily_cmp.text('-');
                                 }
                                 else{
-                                daily_cmp.text("$ " + multiply_cmp.toFixed(1));
+                                daily_cmp.text("$ " + multiply_cmp.toFixed(2));
                                 }
 
 
@@ -2364,7 +2364,7 @@ chart.render();
                 }
 
     });
-        total_cmp_class.text("$ " + total_cmp.toFixed(1));
+        total_cmp_class.text("$ " + total_cmp.toFixed(2));
 
                                 </script>
 
