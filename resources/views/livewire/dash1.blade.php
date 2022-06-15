@@ -418,10 +418,21 @@ $(".t_line_" + max_num).css({
                             @if($total_time_name == $t_div_actual_target_1->time_name)
 
                             <tr class="text-white">
+                                 @foreach($total_percent_accumulation as $t_per_acc)
+                                @if($total_time_name == $t_per_acc->time_name)
+                                    <input type="hidden" id="new_t_per_acc_num_{{ $t_per_acc->row_num }}" class="new_t_per_acc_num" value="{{ $t_per_acc->t_div_target }}" />
+                                @endif
+                                @endforeach
+
+                                @foreach($total_percent_accumulation as $t_per_acc)
+                                @if($total_time_name == $t_per_acc->time_name)
                                 <input type="hidden"
-                                id="new_t_div_actual_target_num_{{ $t_div_actual_target_1->row_num }}"
+                                id="new_t_div_actual_target_num_{{ $t_per_acc->row_num }}"
                                 class="new_t_div_actual_target_num"
-                                value="{{ $t_div_actual_target_1->t_div_actual_target_1 }}" />
+                                value="{{ $t_per_acc->t_div_actual_target }}" />
+                                @endif
+                                @endforeach
+
                             <td id="td_tmp_num_{{ $t_div_actual_target_1->row_num }}">
                                 <span id="tmp_num_{{ $t_div_actual_target_1->row_num }}"
                                     class="">@if($t_div_actual_target_1->t_div_actual_target_1 !=''){{
@@ -440,8 +451,9 @@ $(".t_line_" + max_num).css({
 var tmp_num_val = $("#tmp_num_{{ $t_div_actual_target_1->row_num }}");
 var new_t_div_target_num = parseInt($("#new_t_div_target_num_{{ $t_div_actual_target_1->row_num }}").text());
 var new_t_div_target_num_disable = $("#new_t_div_target_num_{{ $t_div_actual_target_1->row_num }}");
+var new_t_per_acc_num = parseInt($("#new_t_per_acc_num_{{ $t_div_actual_target_1->row_num }}").val());
 var new_t_div_actual_target_num = parseInt($("#new_t_div_actual_target_num_{{ $t_div_actual_target_1->row_num }}").val());
-var total_percentage =(new_t_div_actual_target_num / new_t_div_target_num) * 100;
+var total_percentage =(new_t_div_actual_target_num / new_t_per_acc_num) * 100;
 var new_total_percent = $("#total_percent_{{ $t_div_actual_target_1->row_num }}");
 var tmp_num = $("#tmp_num_{{ $t_div_actual_target_1->row_num }}").text();
 // console.log(new_t_div_target_num);
@@ -455,7 +467,7 @@ if(Number.isNaN(total_percentage)){
         new_total_percent.text("");
     }
     if(!Number.isNaN(total_percentage)){
-        new_total_percent.text(parseInt(total_percentage));
+        new_total_percent.text(parseFloat(total_percentage).toFixed(0));
 
 
 if(parseInt(total_percentage) <= 80){

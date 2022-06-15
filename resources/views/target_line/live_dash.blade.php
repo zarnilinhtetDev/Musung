@@ -76,64 +76,6 @@
     </div>
 </div>
 
-
-<script>
-    $("#exportPDF").click(function() {
-
-html2canvas($('#live_dash_1')[0], {
-    onrendered: function(canvas) {
-        var data = canvas.toDataURL();
-        var docDefinition = {
-            content: [{
-                image: data,
-                width: 500
-            }]
-        };
-        pdfMake.createPdf(docDefinition).download("<?php echo $date_string_for_export_pdf . '_daily_dash'; ?>.pdf");
-    }
-});
-
-});
-</script>
-
-
-<script>
-    var tableToExcel = (function() {
-    var uri = 'data:application/vnd.ms-excel;base64,',
-        template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="https://www.w3.org/TR/REC-html40"><head></head><body><table border="1" style="text-align:center;">{table}</table></body></html>',
-        base64 = function(s) {
-            return window.btoa(unescape(encodeURIComponent(s)))
-        },
-        format = function(s, c) {
-            return s.replace(/{(\w+)}/g, function(m, p) {
-                return c[p];
-            })
-        }
-    return function(table, name, filename) {
-        if (!table.nodeType) table = document.getElementById(table)
-        var ctx = {
-            worksheet: name || 'Worksheet',
-            table: table.innerHTML
-        }
-
-        document.getElementById("dlink").href = uri + base64(format(template, ctx));
-        document.getElementById("dlink").download = filename;
-        document.getElementById("dlink").target = "_blank";
-        document.getElementById("dlink").click();
-
-    }
-})();
-
-function download() {
-    $(document).find('tfoot').remove();
-    var name = document.getElementById("name").innerHTML;
-    tableToExcel('live_dash_1', 'Sheet 1', name.replace(/\s+/g, ' ') + '.xls')
-    //setTimeout("window.location.reload()",0.0000001);
-
-}
-var btn = document.getElementById("btn");
-btn.addEventListener("click", download);
-</script>
 @endsection
 
 @endsection
