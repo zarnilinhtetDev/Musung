@@ -89,11 +89,11 @@ class Dash1 extends Component
         FROM time WHERE "time".assign_date=\'' . $date_string . '\'');
 
         //// Total Percent Accumulation
-        $total_percent_accumulation = DB::select('SELECT DISTINCT ROW_NUMBER() OVER(partition BY "time".actual_target_entry ORDER BY "time".time_name ASC) AS row_num,
+        $total_percent_accumulation = DB::select('SELECT DISTINCT "time".time_name,
 		SUM("time".actual_target_entry) over (ORDER BY "time".time_name) AS t_div_target,
-        SUM("time".div_actual_target) over (ORDER BY "time".time_name) AS t_div_actual_target,"time".time_name
+        SUM("time".div_actual_target) over (ORDER BY "time".time_name) AS t_div_actual_target
         FROM time WHERE "time".assign_date=\'' . $date_string . '\' AND NOT "time".time_name=\'temp\' AND "time".div_actual_target IS NOT NULL
-        GROUP BY "time".time_name,"time".actual_target_entry,"time".div_actual_target ORDER BY "time".time_name ASC');
+        GROUP BY "time".time_name,"time".actual_target_entry,"time".div_actual_target,"time".assign_date ORDER BY "time".time_name ASC');
         //// Total Percent Accumulation End
 
         $top_line = DB::select('SELECT line.l_id,line.l_name,line_assign.main_target AS main_target,SUM(time.div_actual_target) AS total_actual,

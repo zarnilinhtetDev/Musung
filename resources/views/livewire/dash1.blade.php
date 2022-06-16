@@ -404,6 +404,8 @@ $(".t_line_" + max_num).css({
                             }}</span></td>
 
                     @endforeach
+
+                    @php $new_num_1 = 1; @endphp
                     @foreach($total_div_target as $t_div_target)
                     @php $total_time_name = $t_div_target->time_name;$new_num = 0; @endphp
                     <td id="{{ $t_div_target->time_name }}">
@@ -415,47 +417,48 @@ $(".t_line_" + max_num).css({
 
                             @foreach ($total_div_actual_target as $t_div_actual_target_1)
 
+
                             @if($total_time_name == $t_div_actual_target_1->time_name)
 
                             <tr class="text-white">
                                  @foreach($total_percent_accumulation as $t_per_acc)
                                 @if($total_time_name == $t_per_acc->time_name)
-                                    <input type="hidden" id="new_t_per_acc_num_{{ $t_per_acc->row_num }}" class="new_t_per_acc_num" value="{{ $t_per_acc->t_div_target }}" />
+                                    <input type="hidden" id="new_t_per_acc_num_{{ $new_num_1 }}" class="new_t_per_acc_num" value="{{ $t_per_acc->t_div_target }}" />
                                 @endif
                                 @endforeach
 
                                 @foreach($total_percent_accumulation as $t_per_acc)
                                 @if($total_time_name == $t_per_acc->time_name)
                                 <input type="hidden"
-                                id="new_t_div_actual_target_num_{{ $t_per_acc->row_num }}"
+                                id="new_t_div_actual_target_num_{{ $new_num_1}}"
                                 class="new_t_div_actual_target_num"
                                 value="{{ $t_per_acc->t_div_actual_target }}" />
                                 @endif
                                 @endforeach
 
-                            <td id="td_tmp_num_{{ $t_div_actual_target_1->row_num }}">
-                                <span id="tmp_num_{{ $t_div_actual_target_1->row_num }}"
+                            <td id="td_tmp_num_{{ $new_num_1 }}">
+                                <span id="tmp_num_{{ $new_num_1 }}"
                                     class="">@if($t_div_actual_target_1->t_div_actual_target_1 !=''){{
                                     number_format($t_div_actual_target_1->t_div_actual_target_1) }}
                                     @endif</span>
                                 </td>
                             </tr>
                             <tr class="text-white">
-                                <td id="total_percent_{{ $t_div_actual_target_1->row_num }}">
+                                <td id="total_percent_{{ $new_num_1 }}">
                                 </td>
                             </tr>
                             <script>
                                 window.addEventListener('additionalInit', event => {
-                                    var curr_target_num_val = $("#new_t_div_actual_target_num_{{ $t_div_actual_target_1->row_num }}");
+                                    var curr_target_num_val = $("#new_t_div_actual_target_num_{{ $new_num_1}}");
                                     var curr_target_val = parseInt("<?php echo $t_div_actual_target_1->t_div_actual_target_1; ?>");
-var tmp_num_val = $("#tmp_num_{{ $t_div_actual_target_1->row_num }}");
-var new_t_div_target_num = parseInt($("#new_t_div_target_num_{{ $t_div_actual_target_1->row_num }}").text());
-var new_t_div_target_num_disable = $("#new_t_div_target_num_{{ $t_div_actual_target_1->row_num }}");
-var new_t_per_acc_num = parseInt($("#new_t_per_acc_num_{{ $t_div_actual_target_1->row_num }}").val());
-var new_t_div_actual_target_num = parseInt($("#new_t_div_actual_target_num_{{ $t_div_actual_target_1->row_num }}").val());
+var tmp_num_val = $("#tmp_num_{{ $new_num_1 }}");
+var new_t_div_target_num = parseInt($("#new_t_div_target_num_{{ $new_num_1 }}").text());
+var new_t_div_target_num_disable = $("#new_t_div_target_num_{{ $new_num_1 }}");
+var new_t_per_acc_num = parseInt($("#new_t_per_acc_num_{{ $new_num_1 }}").val());
+var new_t_div_actual_target_num = parseInt($("#new_t_div_actual_target_num_{{ $new_num_1 }}").val());
 var total_percentage =(new_t_div_actual_target_num / new_t_per_acc_num) * 100;
-var new_total_percent = $("#total_percent_{{ $t_div_actual_target_1->row_num }}");
-var tmp_num = $("#tmp_num_{{ $t_div_actual_target_1->row_num }}").text();
+var new_total_percent = $("#total_percent_{{ $new_num_1 }}");
+var tmp_num = $("#tmp_num_{{ $new_num_1 }}").text();
 // console.log(new_t_div_target_num);
 if(!tmp_num){
     new_t_div_target_num_disable.text('');
@@ -471,16 +474,16 @@ if(Number.isNaN(total_percentage)){
 
 
 if(parseInt(total_percentage) <= 80){
-   $("#total_percent_{{ $t_div_actual_target_1->row_num }}").css('background-color','rgba(255,0,0,0.8)');
-   $("#td_tmp_num_{{ $t_div_actual_target_1->row_num }}").css('background-color','rgba(255,0,0,0.8)');
+   $("#total_percent_{{ $new_num_1 }}").css('background-color','rgba(255,0,0,0.8)');
+   $("#td_tmp_num_{{ $new_num_1 }}").css('background-color','rgba(255,0,0,0.8)');
 }
 if(parseInt(total_percentage) > 80){
-   $("#total_percent_{{ $t_div_actual_target_1->row_num }}").css({'background-color':'#FF8000','color':'#fff'});
-   $("#td_tmp_num_{{ $t_div_actual_target_1->row_num }}").css({'background-color':'#FF8000','color':'#fff'});
+   $("#total_percent_{{ $new_num_1 }}").css({'background-color':'#FF8000','color':'#fff'});
+   $("#td_tmp_num_{{ $new_num_1 }}").css({'background-color':'#FF8000','color':'#fff'});
 }
 if(parseInt(total_percentage) >= 100){
-   $("#total_percent_{{ $t_div_actual_target_1->row_num }}").css({'background-color':'#085820','color':'#fff'});
-   $("#td_tmp_num_{{ $t_div_actual_target_1->row_num }}").css({'background-color':'#085820','color':'#fff'});
+   $("#total_percent_{{ $new_num_1 }}").css({'background-color':'#085820','color':'#fff'});
+   $("#td_tmp_num_{{ $new_num_1 }}").css({'background-color':'#085820','color':'#fff'});
 }
 
 new_total_percent.append('%');
@@ -488,6 +491,8 @@ new_total_percent.append('%');
 });
 
                             </script>
+
+                          @php $new_num_1++; @endphp
                             @endif
 
                             @endforeach
