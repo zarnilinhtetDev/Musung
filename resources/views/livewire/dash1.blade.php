@@ -124,15 +124,18 @@
                                         number_format($t_2->actual_target_entry) }}
                                         @endif
                                     </span></td>
-                                    <td><span id="div_target_total_{{ $t_2->time_id }}" class="hide_div_target_total d-none">{{ $t_2->div_target }}</span></td>
+                                <td><span id="div_target_total_{{ $t_2->time_id }}"
+                                        class="hide_div_target_total d-none">{{ $t_2->div_target }}</span></td>
                             </tr>
                             <tr class="text-white">
                                 <td id="td_div_actual_target_{{ $t_2->time_id }}" class="td_div_actual_target">
                                     <span id="div_actual_target_{{ $t_2->time_id }}"
                                         class="div_actual_target_{{ $g_line_id }}">@if($t_2->div_actual_target !=
                                         ''){{
-                                        $t_2->div_actual_target }} @endif</span> </td>
-                                <td><span id="div_actual_target_total_{{ $t_2->time_id }}" class="hide_div_actual_target_total d-none"></span></td>
+                                        $t_2->div_actual_target }} @endif</span>
+                                </td>
+                                <td><span id="div_actual_target_total_{{ $t_2->time_id }}"
+                                        class="hide_div_actual_target_total d-none"></span></td>
                             </tr>
                             <tr class="text-white">
                                 <td id="td_div_actual_target_percent_{{ $t_2->time_id }}"><span
@@ -179,7 +182,7 @@ if(!Number.isNaN(new_total)){
 var new_div_target = $("#new_div_target_<?php echo $current_target; ?>").text();
 var div_actual_target = parseInt($("#div_actual_target_<?php echo $current_target; ?>").text());
 
-var percentage =(parseInt(current_target_total.text()) / parseInt($("#div_target_total_<?php echo $current_target; ?>").text()) ) * 100;
+var percentage =(parseInt(current_target) / parseInt(new_div_target) ) * 100;
 var div_actual_target_percent = $("#div_actual_target_percent_<?php echo $current_target; ?>");
 
 if(Number.isNaN(div_actual_target)){
@@ -412,7 +415,7 @@ $(".t_line_" + max_num).css({
                         <table class="w-100 text-center table table-bordered m-0" border="1">
                             <tr>
                                 <td><span id="new_t_div_target_num_{{ $t_div_target->row_num_1 }}">{{
-                                    number_format($t_div_target->t_div_target) }}</span></td>
+                                        number_format($t_div_target->t_div_target) }}</span></td>
                             </tr>
 
                             @foreach ($total_div_actual_target as $t_div_actual_target_1)
@@ -421,26 +424,25 @@ $(".t_line_" + max_num).css({
                             @if($total_time_name == $t_div_actual_target_1->time_name)
 
                             <tr class="text-white">
-                                 @foreach($total_percent_accumulation as $t_per_acc)
+                                @foreach($total_percent_accumulation as $t_per_acc)
                                 @if($total_time_name == $t_per_acc->time_name)
-                                    <input type="hidden" id="new_t_per_acc_num_{{ $new_num_1 }}" class="new_t_per_acc_num" value="{{ $t_per_acc->t_div_target }}" />
+                                <input type="hidden" id="new_t_per_acc_num_{{ $new_num_1 }}" class="new_t_per_acc_num"
+                                    value="{{ $t_per_acc->t_div_target }}" />
                                 @endif
                                 @endforeach
 
                                 @foreach($total_percent_accumulation as $t_per_acc)
                                 @if($total_time_name == $t_per_acc->time_name)
-                                <input type="hidden"
-                                id="new_t_div_actual_target_num_{{ $new_num_1}}"
-                                class="new_t_div_actual_target_num"
-                                value="{{ $t_per_acc->t_div_actual_target }}" />
+                                <input type="hidden" id="new_t_div_actual_target_num_{{ $new_num_1}}"
+                                    class="new_t_div_actual_target_num" value="{{ $t_per_acc->t_div_actual_target }}" />
                                 @endif
                                 @endforeach
 
-                            <td id="td_tmp_num_{{ $new_num_1 }}">
-                                <span id="tmp_num_{{ $new_num_1 }}"
-                                    class="">@if($t_div_actual_target_1->t_div_actual_target_1 !=''){{
-                                    number_format($t_div_actual_target_1->t_div_actual_target_1) }}
-                                    @endif</span>
+                                <td id="td_tmp_num_{{ $new_num_1 }}">
+                                    <span id="tmp_num_{{ $new_num_1 }}"
+                                        class="">@if($t_div_actual_target_1->t_div_actual_target_1 !=''){{
+                                        number_format($t_div_actual_target_1->t_div_actual_target_1) }}
+                                        @endif</span>
                                 </td>
                             </tr>
                             <tr class="text-white">
@@ -456,7 +458,7 @@ var new_t_div_target_num = parseInt($("#new_t_div_target_num_{{ $new_num_1 }}").
 var new_t_div_target_num_disable = $("#new_t_div_target_num_{{ $new_num_1 }}");
 var new_t_per_acc_num = parseInt($("#new_t_per_acc_num_{{ $new_num_1 }}").val());
 var new_t_div_actual_target_num = parseInt($("#new_t_div_actual_target_num_{{ $new_num_1 }}").val());
-var total_percentage =(new_t_div_actual_target_num / new_t_per_acc_num) * 100;
+var total_percentage =(tmp_num_val.text() / new_t_div_target_num) * 100;
 var new_total_percent = $("#total_percent_{{ $new_num_1 }}");
 var tmp_num = $("#tmp_num_{{ $new_num_1 }}").text();
 // console.log(new_t_div_target_num);
@@ -466,9 +468,6 @@ if(!tmp_num){
 
 new_total_percent.text(parseInt(total_percentage));
 
-if(Number.isNaN(total_percentage)){
-        new_total_percent.text("");
-    }
     if(!Number.isNaN(total_percentage)){
         new_total_percent.text(parseFloat(total_percentage).toFixed(0));
 
@@ -488,11 +487,16 @@ if(parseInt(total_percentage) >= 100){
 
 new_total_percent.append('%');
     }
+
+
+if(Number.isNaN(total_percentage) || total_percentage == 0){
+        new_total_percent.text("");
+    }
 });
 
                             </script>
 
-                          @php $new_num_1++; @endphp
+                            @php $new_num_1++; @endphp
                             @endif
 
                             @endforeach
@@ -511,7 +515,7 @@ new_total_percent.append('%');
                                 </td>
 
                                 <script>
-                               var t_main_target = $("#t_main_target").text();
+                                    var t_main_target = $("#t_main_target").text();
                                 var t_overall_target = $("#t_overall_target");
                                 t_overall_target.text(t_main_target);
 
@@ -630,7 +634,8 @@ new_total_percent.append('%');
                                 @if($p_3->l_id == $g_line_id)
                                 <tr style="border-bottom: 1px #000">
                                     <td class="item_name_{{ $g_line_id }}" colspan="0">
-                                        <div style="text-overflow:ellipsis;width:0px !important; opacity:0;"> {{ $p_3->p_name }}</div>
+                                        <div style="text-overflow:ellipsis;width:0px !important; opacity:0;"> {{
+                                            $p_3->p_name }}</div>
                                     </td>
                                 </tr>
                                 @endif
