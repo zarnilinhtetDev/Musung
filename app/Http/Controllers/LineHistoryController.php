@@ -427,12 +427,25 @@ if(parseInt(div_actual_target_percent.text()) <= 80){
                                                 }
                                                 if (!Number.isNaN(t_percent)) {
                                                     t_percent_span.text(parseInt(t_percent));
-                                                    if (parseInt(t_percent_span.text()) >= 100) {
-                                                        td_t_percent.css('background-color', 'green');
-                                                    }
-                                                    if (parseInt(t_percent_span.text()) < 100) {
-                                                        td_t_percent.css('background-color', 'red');
-                                                    }
+
+                                                    if(parseInt(t_percent_span.text()) <= 80){
+                                                        td_t_percent.css("background-color","rgba(255,0,0,0.8)");
+                                                        td_a_percent.css("background-color","rgba(255,0,0,0.8)");
+ }if(parseInt(t_percent_span.text()) > 80){
+    td_t_percent.css({"background-color":"#FF8000","color":"#fff"});
+    td_a_percent.css({"background-color":"#FF8000","color":"#fff"});
+ }
+ if(parseInt(t_percent_span.text()) >= 100){
+    td_t_percent.css({"background-color":"rgba(30,113,0,1)","color":"#fff"});
+    td_a_percent.css({"background-color":"rgba(30,113,0,1)","color":"#fff"});
+ }
+
+                                                    // if (parseInt(t_percent_span.text()) >= 100) {
+                                                    //     td_t_percent.css('background-color', 'green');
+                                                    // }
+                                                    // if (parseInt(t_percent_span.text()) < 100) {
+                                                    //     td_t_percent.css('background-color', '');
+                                                    // }
                                                     t_percent_span.append('%');
                                                 }
                                             }
