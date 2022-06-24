@@ -93,9 +93,9 @@ class ReportDashController extends Controller
            WHERE "line_assign".assign_date=\'' . $date_string . '\'');
         }
 
-        $category = DB::select('SELECT p_cat_id,SUM(cat_actual_target) AS t_cat_actual,p_name FROM p_detail
-        WHERE DATE(created_at) >= DATE(NOW()) - INTERVAL \'30\' DAY
-		GROUP BY p_cat_id,p_name');
+        $category = DB::select('SELECT SUM(cat_actual_target) AS t_cat_actual,p_name FROM p_detail
+        WHERE DATE(created_at) >= DATE(NOW()) - INTERVAL \'30\' DAY AND cat_actual_target IS NOT NULL
+		GROUP BY p_name');
 
         $target = DB::select('SELECT "line_assign".assign_date,SUM("line_assign".main_target) AS t_main_target FROM line_assign
         WHERE DATE("line_assign".created_at) >= DATE(NOW()) - INTERVAL \'30\' DAY
@@ -159,7 +159,6 @@ class ReportDashController extends Controller
                     } elseif ($role == 99 || $role == "") {   ///SuperAdmin
                         $p_detail_query = ProductDetail::where('p_detail_id', $p_id_input)->where('assign_id', $a_id_input)->where('l_id', $l_id_input)->update(['cmp' => $cmp_input]);
                     }
-                    // $p_detail_query = ProductDetail::where('p_detail_id', $p_id_input)->where('assign_id', $a_id_input)->where('l_id', $l_id_input)->update(['cmp' => $cmp_input]);
                 }
             }
         }
@@ -332,8 +331,8 @@ class ReportDashController extends Controller
             }
         }
 
-         //// HandOver Post
-         for ($j = 0; $j < count($h_bal); $j++) {
+        //// HandOver Post
+        for ($j = 0; $j < count($h_bal); $j++) {
             $h_bal_l_id = $h_bal[$j]['h_bal_l_id'];
             $h_bal_a_id = $h_bal[$j]['h_bal_a_id'];
             $h_bal_date = $h_bal[$j]['h_bal_date'];
@@ -439,7 +438,7 @@ class ReportDashController extends Controller
         WHERE DATE("time".created_at) >= DATE(NOW()) - INTERVAL \'30\' DAY
         GROUP BY "time".assign_date ORDER BY "time".assign_date ASC');
 
-$p_detail_total = DB::select('SELECT SUM("p_detail".cat_actual_target) AS total_output, SUM("p_detail".order_quantity) AS total_order_quantity, SUM("p_detail".sewing_input) AS total_sewing_input,
+        $p_detail_total = DB::select('SELECT SUM("p_detail".cat_actual_target) AS total_output, SUM("p_detail".order_quantity) AS total_order_quantity, SUM("p_detail".sewing_input) AS total_sewing_input,
 SUM("p_detail".inline) AS total_inline, SUM("p_detail".h_over_input) AS total_h_over, SUM("p_detail".h_balance) AS total_h_over_balance,SUM("p_detail".cmp) AS total_cmp
 FROM line_assign
 JOIN p_detail ON "p_detail".assign_id="line_assign".assign_id
@@ -464,8 +463,6 @@ WHERE "line_assign".assign_date=\'' . $date_string . '\'');
                     <a id="dlink" style="display:none;"></a>
                     <div id="name" style="display:none;"><?php echo $date_string_for_export_pdf . "_report_dash"; ?></div>
                     <button id="btn" class="icon-btn-one icon-btn-one-2 btn my-2">Export to Excel</button>
-                    <!-- <button onclick="tablesToExcel(['history_dash_1','history_dash_2','history_dash_3'], ['Table1','Table2','Table3'], '<?php //echo $getDate;
-                                                                                                                                                ?>.xls', 'Excel')" class="icon-btn-one icon-btn-one-2 btn my-2">Export to Excel</button> -->
                 </li>
                 <li class="span2 bg-transparent">
                     <button type="button" id="exportPDF" class="icon-btn-one icon-btn-one-2 btn my-2">Export to PDF</button>
@@ -476,7 +473,8 @@ WHERE "line_assign".assign_date=\'' . $date_string . '\'');
         <a class='btn custom-btn-theme custom-btn-theme-edit text-white' href="/report?edit=1&date=<?php echo $date_history; ?>">Edit</a>
 
         <form method="POST" id="cmp_put">
-            <div style="overflow-x:auto;max-width:100%;">
+            <div style="overflow-x:auto;max-width:100%;" id="report_history_table">
+                <h2 class="fw-bold text-center report-history-title" style="display:none;">Musung Garment Co.,Ltd.</h2>
                 <table class="table table-striped my-4 tableFixHead results p-0 text-center table-bordered" id="report_history_table">
                     <thead>
                         <tr class="tr-2">
@@ -516,7 +514,7 @@ WHERE "line_assign".assign_date=\'' . $date_string . '\'');
                             </th>
                         </tr>
                     </thead>
-                    <tbody id="myTable">
+                    <tbody id="myTable" class="report_tbl_2_history">
                         <?php
                         for ($i = 0; $i < count($daily_report_history_decode); $i++) {
                             $l_id = $daily_report_history_decode[$i]['l_id'];
@@ -548,659 +546,704 @@ WHERE "line_assign".assign_date=\'' . $date_string . '\'');
                                                 $l_id_2 = $daily_report_product_history_decode[$j]['l_id'];
                                                 $p_cat_name = $daily_report_product_history_decode[$j]['buyer_name'];
 
+                                                if ($l_id_2 == $l_id) { ?>
+                                                    <tr>
+                                                        <?php
+                                                        if ($p_cat_name == '') { ?>
+                                                            <td>-</td>
+                                                        <?php
+                                                        }
+
+                                                        if ($p_cat_name != '') { ?>
+                                                            <td><?php echo $p_cat_name; ?></td>
+                                                <?php
+                                                        }
+                                                    }
+                                                }
+                                                ?>
+                                                    </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                                <!-- Style No. -->
+                                <td class="td-padding">
+                                    <table class="m-auto text-center table table-bordered custom-table-border-color">
+                                        <tbody>
+                                            <tr>
+                                                <td>-</td>
+                                            </tr>
+                                            <?php
+                                            for ($j = 0; $j < count($daily_report_product_history_decode); $j++) {
+                                                $l_id_2 = $daily_report_product_history_decode[$j]['l_id'];
+                                                $style_no_2 = $daily_report_product_history_decode[$j]['style_no'];
+
                                                 if ($l_id_2 == $l_id) {
                                                     echo '<tr>';
-                                                    if ($p_cat_name == '') {
+                                                    if ($style_no_2 == '') {
                                                         echo '<td>-</td>';
                                                     }
-
-                                                    if ($p_cat_name != '') {
-                                                        echo '<td>' . $p_cat_name . '</td>';
+                                                    if ($style_no_2 != '') {
+                                                        echo '<td>' . $style_no_2 . '</td>';
                                                     }
+                                                    echo '</tr>';
                                                 }
                                             }
                                             ?>
-                            </tr>
-                    </tbody>
-                </table>
-                </td>
-                <!-- Style No. -->
-                <td class="td-padding">
-                    <table class="m-auto text-center table table-bordered custom-table-border-color">
-                        <tbody>
-                            <tr>
-                                <td>-</td>
-                            </tr>
-                            <?php
-                            for ($j = 0; $j < count($daily_report_product_history_decode); $j++) {
-                                $l_id_2 = $daily_report_product_history_decode[$j]['l_id'];
-                                $style_no_2 = $daily_report_product_history_decode[$j]['style_no'];
-
-                                if ($l_id_2 == $l_id) {
-                                    echo '<tr>';
-                                    if ($style_no_2 == '') {
-                                        echo '<td>-</td>';
-                                    }
-                                    if ($style_no_2 != '') {
-                                        echo '<td>' . $style_no_2 . '</td>';
-                                    }
-                                    echo '</tr>';
-                                }
-                            }
-                            ?>
-                        </tbody>
-                    </table>
-                </td>
-                <td class="td-padding">
-                    <table class="m-auto text-start table table-bordered custom-table-border-color">
-                        <tbody>
-                            <tr class="">
-                                <td>-</td>
-                            </tr>
-                            <?php for ($j = 0; $j < count($daily_report_product_history_decode); $j++) {
-                                $l_id_2 = $daily_report_product_history_decode[$j]['l_id'];
-                                $p_name = $daily_report_product_history_decode[$j]['p_name'];
-                                if ($l_id_2 == $l_id) {
-                                    echo '<tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                                <td class="td-padding">
+                                    <table class="m-auto text-start table table-bordered custom-table-border-color">
+                                        <tbody>
+                                            <tr class="">
+                                                <td>-</td>
+                                            </tr>
+                                            <?php for ($j = 0; $j < count($daily_report_product_history_decode); $j++) {
+                                                $l_id_2 = $daily_report_product_history_decode[$j]['l_id'];
+                                                $p_name = $daily_report_product_history_decode[$j]['p_name'];
+                                                if ($l_id_2 == $l_id) {
+                                                    echo '<tr>
                                     <td>' . $p_name . '</td>
                                     </tr>';
-                                }
-                            ?>
+                                                }
+                                            ?>
 
-                            <?php
-                            }
-                            ?>
-                        </tbody>
-                    </table>
-                </td>
+                                            <?php
+                                            }
+                                            ?>
+                                        </tbody>
+                                    </table>
+                                </td>
 
-                <!-- Main Target --->
-                <td class="main_target_history<?php echo $l_id; ?> new_main_target_history"><?php echo number_format($main_target + $ot_main_target); ?></td>
+                                <!-- Main Target --->
+                                <td class="main_target_history<?php echo $l_id; ?> new_main_target_history"><?php echo number_format($main_target + $ot_main_target); ?></td>
 
-                <td class="td-padding">
-                    <table class="m-auto text-start table table-bordered custom-table-border-color">
-                        <tbody>
-                            <td><?php echo $man_target; ?></td>
-                            <td><?php echo $man_actual_target; ?></td>
-                        </tbody>
-                    </table>
-                </td>
-                <td class="actual_target_history<?php echo $l_id; ?>"><?php if ($actual_target != '') {
-                                                                            echo number_format($actual_target);
-                                                                        }
-                                                                        ?></td>
-                <td class="percent_history<?php echo $l_id; ?>"></td>
-                <script>
-                    var main_target = parseInt($('.main_target_history<?php echo $l_id; ?>').text().replace(/,/g, ''));
-                    var actual_target = parseInt($('.actual_target_history<?php echo $l_id; ?>').text().replace(/,/g, ''));
-                    var percent_class = $(".percent_history<?php echo $l_id; ?>");
+                                <td class="td-padding">
+                                    <table class="m-auto text-start table table-bordered custom-table-border-color">
+                                        <tbody>
+                                            <td><?php echo $man_target; ?></td>
+                                            <td><?php echo $man_actual_target; ?></td>
+                                        </tbody>
+                                    </table>
+                                </td>
+                                <td class="actual_target_history<?php echo $l_id; ?>"><?php if ($actual_target != '') {
+                                                                                            echo number_format($actual_target);
+                                                                                        }
+                                                                                        ?></td>
+                                <td class="percent_history<?php echo $l_id; ?>"></td>
+                                <script>
+                                    var main_target = parseInt($('.main_target_history<?php echo $l_id; ?>').text().replace(/,/g, ''));
+                                    var actual_target = parseInt($('.actual_target_history<?php echo $l_id; ?>').text().replace(/,/g, ''));
+                                    var percent_class = $(".percent_history<?php echo $l_id; ?>");
 
-                    if (Number.isNaN(actual_target)) {
-                        actual_target = 0;
-                    }
-                    var percent = (actual_target / main_target) * 100;
+                                    if (Number.isNaN(actual_target)) {
+                                        actual_target = 0;
+                                    }
+                                    var percent = (actual_target / main_target) * 100;
 
-                    if (Number.isNaN(percent)) {
-                        $('.percent_<?php echo $l_id; ?>').text("");
-                    } else {
-                        $('.percent_<?php echo $l_id; ?>').text(percent.toFixed(0) + "%");
-                    }
-                    percent_class.text(percent.toFixed(0) + "%");
-                </script>
-                <td>
+                                    if (Number.isNaN(percent)) {
+                                        $('.percent_<?php echo $l_id; ?>').text("");
+                                    } else {
+                                        $('.percent_<?php echo $l_id; ?>').text(percent.toFixed(0) + "%");
+                                    }
+                                    percent_class.text(percent.toFixed(0) + "%");
+                                </script>
 
-                </td>
+                                <!-- Qty -->
+                                <td class="td-padding">
+                                    <table class="m-auto text-center table table-bordered custom-table-border-color">
+                                        <table class="m-auto text-center table table-bordered custom-table-border-color">
+                                            <tbody>
+                                                <tr>
+                                                    <td>-</td>
+                                                </tr>
+                                                <?php
+                                                for ($j = 0; $j < count($daily_report_product_history_decode); $j++) {
+                                                    $l_id_2 = $daily_report_product_history_decode[$j]['l_id'];
+                                                    $order_qty = $daily_report_product_history_decode[$j]['order_quantity'];
+                                                    if ($l_id_2 == $l_id) { ?>
+                                                        <tr>
+                                                            <?php if ($order_qty == '') { ?>
+                                                                <td> - </td>
+                                                            <?php
+                                                            }
+                                                            if ($order_qty != '') { ?>
+                                                                <td><?php echo number_format($order_qty); ?></td>
+                                                            <?php
+                                                            }
+                                                            ?>
+                                                        </tr>
+                                                <?php
+                                                    }
+                                                }
+                                                ?>
+                                            </tbody>
+                                        </table>
+                                </td>
 
-                <!-- Sewing Input --->
-                <td class="td-padding">
-                    <table class="m-auto text-center table table-bordered custom-table-border-color">
-                        <tbody>
-                            <tr>
-                                <td>-</td>
-                            </tr>
-                            <?php
-                            for ($j = 0; $j < count($daily_report_product_history_decode); $j++) {
-                                $l_id_2 = $daily_report_product_history_decode[$j]['l_id'];
-                                $sewing_input = $daily_report_product_history_decode[$j]['sewing_input'];
-                                if ($l_id_2 == $l_id) {
-                                    echo '<tr>';
-                                    if ($sewing_input == '') {
-                                        echo '<td>-</td>';
-                                    }
-                                    if ($sewing_input != '') {
-                                        echo '<td>' . number_format($sewing_input) . '</td>';
-                                    }
-                                    echo '</tr>';
-                                }
-                            }
-                            ?>
-                        </tbody>
-                    </table>
-                </td>
-                <!-- Sewing Total --->
-                <td class="td-padding">
-                    <table class="m-auto text-center table table-bordered custom-table-border-color">
-                        <tbody>
-                            <tr>
-                                <td>-</td>
-                            </tr>
-                            <?php
-                            for ($j = 0; $j < count($daily_report_product_history_decode); $j++) {
-                                $l_id_2 = $daily_report_product_history_decode[$j]['l_id'];
-                                $sewing_input = $daily_report_product_history_decode[$j]['sewing_input'];
-                                if ($l_id_2 == $l_id) {
-                                    echo '<tr>';
-                                    if ($sewing_input == '') {
-                                        echo '<td>-</td>';
-                                    }
-                                    if ($sewing_input != '') {
-                                        echo '<td>' . number_format($sewing_input) . '</td>';
-                                    }
-                                    echo '</tr>';
-                                }
-                            }
-                            ?>
-                        </tbody>
-                    </table>
-                </td>
-                <!-- Clothes Input --->
-                <td class="td-padding">
-                    <table class="m-auto text-center table table-bordered custom-table-border-color">
-                        <tbody>
-                            <tr>
-                                <td>-</td>
-                            </tr>
-                            <?php for ($j = 0; $j < count($daily_report_product_history_decode); $j++) {
-                                $l_id_2 = $daily_report_product_history_decode[$j]['l_id'];
-                                $p_id_2 = $daily_report_product_history_decode[$j]['p_detail_id'];
-                                $cat_actual_target = $daily_report_product_history_decode[$j]['cat_actual_target'];
-                                if ($l_id_2 == $l_id) {
-                                    echo '<tr>';
+                                <!-- Sewing Input --->
+                                <td class="td-padding">
+                                    <table class="m-auto text-center table table-bordered custom-table-border-color">
+                                        <tbody>
+                                            <tr>
+                                                <td>-</td>
+                                            </tr>
+                                            <?php
+                                            for ($j = 0; $j < count($daily_report_product_history_decode); $j++) {
+                                                $l_id_2 = $daily_report_product_history_decode[$j]['l_id'];
+                                                $sewing_input = $daily_report_product_history_decode[$j]['sewing_input'];
+                                                if ($l_id_2 == $l_id) {
+                                                    echo '<tr>';
+                                                    if ($sewing_input == '') {
+                                                        echo '<td>-</td>';
+                                                    }
+                                                    if ($sewing_input != '') {
+                                                        echo '<td>' . number_format($sewing_input) . '</td>';
+                                                    }
+                                                    echo '</tr>';
+                                                }
+                                            }
+                                            ?>
+                                        </tbody>
+                                    </table>
+                                </td>
+                                <!-- Sewing Total --->
+                                <td class="td-padding">
+                                    <table class="m-auto text-center table table-bordered custom-table-border-color">
+                                        <tbody>
+                                            <tr>
+                                                <td>-</td>
+                                            </tr>
+                                            <?php
+                                            for ($j = 0; $j < count($daily_report_product_history_decode); $j++) {
+                                                $l_id_2 = $daily_report_product_history_decode[$j]['l_id'];
+                                                $sewing_input = $daily_report_product_history_decode[$j]['sewing_input'];
+                                                if ($l_id_2 == $l_id) {
+                                                    echo '<tr>';
+                                                    if ($sewing_input == '') {
+                                                        echo '<td>-</td>';
+                                                    }
+                                                    if ($sewing_input != '') {
+                                                        echo '<td>' . number_format($sewing_input) . '</td>';
+                                                    }
+                                                    echo '</tr>';
+                                                }
+                                            }
+                                            ?>
+                                        </tbody>
+                                    </table>
+                                </td>
+                                <!-- Clothes Input --->
+                                <td class="td-padding">
+                                    <table class="m-auto text-center table table-bordered custom-table-border-color">
+                                        <tbody>
+                                            <tr>
+                                                <td>-</td>
+                                            </tr>
+                                            <?php for ($j = 0; $j < count($daily_report_product_history_decode); $j++) {
+                                                $l_id_2 = $daily_report_product_history_decode[$j]['l_id'];
+                                                $p_id_2 = $daily_report_product_history_decode[$j]['p_detail_id'];
+                                                $cat_actual_target = $daily_report_product_history_decode[$j]['cat_actual_target'];
+                                                if ($l_id_2 == $l_id) {
+                                                    echo '<tr>';
 
-                                    if ($cat_actual_target == '') {
-                                        echo '<td>-</td>';
-                                    }
-                                    if ($cat_actual_target != '') {
-                                        echo '<td class="cat_actual_target_history_' . $p_id_2 . '">' . number_format($cat_actual_target) . '</td>';
-                                    }
-                                    echo '</tr>';
-                                }
-                            }
-                            ?>
-                        </tbody>
-                    </table>
-                </td>
-                <!-- Clothes Total --->
-                <td class="td-padding">
-                    <table class="m-auto text-center table table-bordered custom-table-border-color">
-                        <tbody>
-                            <tr>
-                                <td>-</td>
-                            </tr>
-                            <?php
-                            for ($j = 0; $j < count($daily_report_product_history_decode); $j++) {
-                                $l_id_2 = $daily_report_product_history_decode[$j]['l_id'];
-                                $cat_actual_target = $daily_report_product_history_decode[$j]['cat_actual_target'];
-                                if ($l_id_2 == $l_id) {
-                                    echo '<tr>';
-                                    if ($cat_actual_target == '') {
-                                        echo '<td>-</td>';
-                                    }
-                                    if ($cat_actual_target != '') {
-                                        echo '<td class="new_cat_actual_target_history">' . number_format($cat_actual_target) . '</td>';
-                                    }
-                                    echo '</tr>';
-                                }
-                            }
-                            ?>
+                                                    if ($cat_actual_target == '') {
+                                                        echo '<td>-</td>';
+                                                    }
+                                                    if ($cat_actual_target != '') {
+                                                        echo '<td class="cat_actual_target_history_' . $p_id_2 . '">' . number_format($cat_actual_target) . '</td>';
+                                                    }
+                                                    echo '</tr>';
+                                                }
+                                            }
+                                            ?>
+                                        </tbody>
+                                    </table>
+                                </td>
+                                <!-- Clothes Total --->
+                                <td class="td-padding">
+                                    <table class="m-auto text-center table table-bordered custom-table-border-color">
+                                        <tbody>
+                                            <tr>
+                                                <td>-</td>
+                                            </tr>
+                                            <?php
+                                            for ($j = 0; $j < count($daily_report_product_history_decode); $j++) {
+                                                $l_id_2 = $daily_report_product_history_decode[$j]['l_id'];
+                                                $cat_actual_target = $daily_report_product_history_decode[$j]['cat_actual_target'];
+                                                if ($l_id_2 == $l_id) {
+                                                    echo '<tr>';
+                                                    if ($cat_actual_target == '') {
+                                                        echo '<td>-</td>';
+                                                    }
+                                                    if ($cat_actual_target != '') {
+                                                        echo '<td class="new_cat_actual_target_history">' . number_format($cat_actual_target) . '</td>';
+                                                    }
+                                                    echo '</tr>';
+                                                }
+                                            }
+                                            ?>
 
-                        </tbody>
-                    </table>
-                </td>
-                <!-- CMP($) -->
-                <td class="td-padding">
-                    <table class="table table-bordered">
-                        <tbody>
-                            <tr>
-                                <td>-</td>
-                            </tr>
-                            <?php for ($j = 0; $j < count($daily_report_product_history_decode); $j++) {
-                                $l_id_2 = $daily_report_product_history_decode[$j]['l_id'];
-                                $a_id_2 = $daily_report_product_history_decode[$j]['assign_id'];
-                                $p_id_2 = $daily_report_product_history_decode[$j]['p_detail_id'];
-                                $cmp = $daily_report_product_history_decode[$j]['cmp'];
+                                        </tbody>
+                                    </table>
+                                </td>
+                                <!-- CMP($) -->
+                                <td class="td-padding">
+                                    <table class="table table-bordered">
+                                        <tbody>
+                                            <tr>
+                                                <td>-</td>
+                                            </tr>
+                                            <?php for ($j = 0; $j < count($daily_report_product_history_decode); $j++) {
+                                                $l_id_2 = $daily_report_product_history_decode[$j]['l_id'];
+                                                $a_id_2 = $daily_report_product_history_decode[$j]['assign_id'];
+                                                $p_id_2 = $daily_report_product_history_decode[$j]['p_detail_id'];
+                                                $cmp = $daily_report_product_history_decode[$j]['cmp'];
 
-                                if ($l_id_2 == $l_id) {
-                                    echo '<tr>';
-                                    if ($cmp == '') {
-                                        echo '<td>-</td>';
-                                    }
-                                    if ($cmp != '') {
-                                        echo '<td class="cmp_value_history_' . $p_id_2 . '" id="cmp_value_history">' . '$ ' . $cmp . '</td>';
-                                    }
-                                    echo '</tr>';
-                                }
-                            }
-                            ?>
-                        </tbody>
-                    </table>
-                </td>
-                <!-- Daily CMP income -->
-                <td class="td-padding">
-                    <table class="table table-bordered">
-                        <tbody>
-                            <tr>
-                                <td colspan="">-</td>
-                                <td class="total_cmp_history_<?php echo $l_id; ?> new_total_daily_cmp_history">total_cmp</td>
-                            </tr>
-                            <?php
-                            for ($j = 0; $j < count($daily_report_product_history_decode); $j++) {
-                                $l_id_2 = $daily_report_product_history_decode[$j]['l_id'];
-                                $p_id_2 = $daily_report_product_history_decode[$j]['p_detail_id'];
-                                if ($l_id_2 == $l_id) {
-                                    echo '<tr>
+                                                if ($l_id_2 == $l_id) {
+                                                    echo '<tr>';
+                                                    if ($cmp == '') {
+                                                        echo '<td>-</td>';
+                                                    }
+                                                    if ($cmp != '') {
+                                                        echo '<td class="cmp_value_history_' . $p_id_2 . '" id="cmp_value_history">' . '$ ' . $cmp . '</td>';
+                                                    }
+                                                    echo '</tr>';
+                                                }
+                                            }
+                                            ?>
+                                        </tbody>
+                                    </table>
+                                </td>
+                                <!-- Daily CMP income -->
+                                <td class="td-padding">
+                                    <table class="table table-bordered">
+                                        <tbody>
+                                            <tr>
+                                                <td colspan="">-</td>
+                                                <td class="total_cmp_history_<?php echo $l_id; ?> new_total_daily_cmp_history">total_cmp</td>
+                                            </tr>
+                                            <?php
+                                            for ($j = 0; $j < count($daily_report_product_history_decode); $j++) {
+                                                $l_id_2 = $daily_report_product_history_decode[$j]['l_id'];
+                                                $p_id_2 = $daily_report_product_history_decode[$j]['p_detail_id'];
+                                                if ($l_id_2 == $l_id) {
+                                                    echo '<tr>
                                 <td class="daily_cmp_history_' . $p_id_2 . ' cmp_product_history_' . $l_id_2 . '">
 
                                 </td>
                                 </tr>';
-                            ?>
+                                            ?>
+
+                                                    <script>
+                                                        var clothes_output = parseFloat($(".cat_actual_target_history_<?php echo $p_id_2; ?>").text().replace(/,/g, ''));
+                                                        var cmp = parseFloat($('.cmp_value_history_<?php echo $p_id_2; ?>').text().substring(2).replace(/,/g, ''));
+                                                        var daily_cmp = $('.daily_cmp_history_<?php echo $p_id_2; ?>');
+
+                                                        // console.log(cmp);
+
+                                                        var multiply_cmp = clothes_output * cmp;
+
+                                                        if (Number.isNaN(multiply_cmp)) {
+                                                            daily_cmp.text('-');
+                                                        } else {
+                                                            daily_cmp.text("$ " + multiply_cmp.toFixed(2));
+                                                        }
+
+
+                                                        var cmp_product = $(".cmp_product_history_<?php echo $l_id_2; ?>");
+                                                        var total_cmp_class = $(".total_cmp_history_<?php echo $l_id_2; ?>");
+                                                        var total_cmp = 0;
+
+                                                        cmp_product.each(function() {
+                                                            var cmp_product_text = $(this).text();
+                                                            var substring = parseFloat(cmp_product_text.substring(2));
+
+                                                            if (Number.isNaN(substring)) {
+                                                                substring = 0;
+                                                            } else {
+                                                                total_cmp += substring;
+                                                            }
+                                                        });
+                                                        total_cmp_class.text("$ " + total_cmp.toFixed(2));
+                                                    </script>
+
+                                            <?php
+                                                }
+                                            }
+                                            ?>
+                                        </tbody>
+                                    </table>
+
+                                </td>
+                                <td class="accumulation_history_<?php echo $l_id; ?>">
+
+                                </td>
+
+                                <script>
+                                    var total_cmp_class = $(".total_cmp_history_<?php echo $l_id; ?>").text();
+                                    var accumulation = $('.accumulation_history_<?php echo $l_id; ?>');
+
+                                    accumulation.text(total_cmp_class);
+                                </script>
+
+                                <!-- Inline --->
+                                <td class="td-padding">
+                                    <table class="m-auto text-center table table-bordered custom-table-border-color">
+                                        <tbody>
+                                            <tr>
+                                                <td>-</td>
+                                            </tr>
+                                            <?php for ($j = 0; $j < count($daily_report_product_history_decode); $j++) {
+                                                $l_id_2 = $daily_report_product_history_decode[$j]['l_id'];
+                                                $inline_2 = $daily_report_product_history_decode[$j]['inline'];
+                                                if ($l_id_2 == $l_id) {
+                                                    echo '<tr>';
+                                                    if ($inline_2 == '') {
+                                                        echo '<td>-</td>';
+                                                    }
+                                                    if ($inline_2 != '') {
+                                                        echo '<td>' . number_format($inline_2) . '</td>';
+                                                    }
+                                                    echo '</tr>';
+                                                }
+                                            }
+
+                                            ?>
+                                        </tbody>
+                                    </table>
+                                </td>
+                                <!-- H/over Input --->
+                                <td class="td-padding">
+                                    <table class="m-auto text-center table table-bordered custom-table-border-color">
+                                        <tbody>
+                                            <tr>
+                                                <td>-</td>
+                                            </tr>
+                                            <?php
+                                            for ($j = 0; $j < count($daily_report_product_history_decode); $j++) {
+                                                $l_id_2 = $daily_report_product_history_decode[$j]['l_id'];
+                                                $h_over_input = $daily_report_product_history_decode[$j]['h_over_input'];
+                                                if ($l_id_2 == $l_id) {
+                                                    echo '<tr>';
+                                                    if ($h_over_input == '') {
+                                                        echo '<td>-</td>';
+                                                    }
+                                                    if ($h_over_input != '') {
+                                                        echo '<td>' . number_format($h_over_input) . '</td>';
+                                                    }
+                                                    echo '</tr>';
+                                                }
+                                            }
+                                            ?>
+
+                                        </tbody>
+                                    </table>
+                                </td>
+
+                                <!-- H/over Total --->
+                                <td class="td-padding">
+                                    <table class="m-auto text-center table table-bordered custom-table-border-color">
+                                        <tbody>
+                                            <tr>
+                                                <td>-</td>
+                                            </tr>
+                                            <?php for ($j = 0; $j < count($daily_report_product_history_decode); $j++) {
+                                                $l_id_2 = $daily_report_product_history_decode[$j]['l_id'];
+                                                $h_over_input = $daily_report_product_history_decode[$j]['h_over_input'];
+                                                if ($l_id_2 == $l_id) {
+                                                    echo '<tr>';
+                                                    if ($h_over_input == '') {
+                                                        echo '<td>-</td>';
+                                                    }
+                                                    if ($h_over_input != '') {
+                                                        echo '<td>' . number_format($h_over_input) . '</td>';
+                                                    }
+                                                    echo '</tr>';
+                                                }
+                                            }
+
+                                            ?>
+                                        </tbody>
+                                    </table>
+                                </td>
+                                <!-- H/over Balance --->
+                                <td class="td-padding">
+                                    <table class="m-auto text-center table table-bordered custom-table-border-color">
+                                        <tbody>
+                                            <tr>
+                                                <td>-</td>
+                                            </tr>
+                                            <?php
+                                            for ($j = 0; $j < count($daily_report_product_history_decode); $j++) {
+                                                $l_id_2 = $daily_report_product_history_decode[$j]['l_id'];
+                                                $h_balance = $daily_report_product_history_decode[$j]['h_balance'];
+                                                if ($l_id_2 == $l_id) {
+                                                    echo '<tr>';
+                                                    if ($h_balance == '') {
+                                                        echo '<td> - </td>';
+                                                    }
+                                                    if ($h_balance != '') {
+                                                        echo '<td>' . number_format($h_balance) . '</td>';
+                                                    }
+                                                    echo '</tr>';
+                                                }
+                                            }
+                                            ?>
+                                        </tbody>
+                                    </table>
+                                </td>
+
+                                <td class="td-padding">
+                                    <table class="m-auto text-center w-100 table table-bordered custom-table-border-color">
+                                        <tbody>
+                                            <tr>
+                                                <td class="m_power_value_history_<?php echo $l_id; ?>">
+                                                    <?php if ($m_power != '') {
+                                                        echo number_format($m_power);
+                                                    } ?>
+                                                    <?php if ($m_power == '') {
+                                                        echo "0";
+                                                    } ?>
+                                                </td>
+                                                <td class="hp_value_history_<?php echo $l_id; ?>">
+                                                    <?php if ($hp != '') {
+                                                        echo $hp;
+                                                    } ?>
+                                                    <?php if ($hp == '') {
+                                                        echo "0";
+                                                    } ?>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="total_m_power_history_<?php echo $l_id; ?>" colspan="2" id="total_m_power_history"></td>
+                                            </tr>
+                                            <tr>
+                                                <td class=" actual_m_power_value_history_<?php echo $l_id; ?>">
+                                                    <?php if ($actual_m_power != '') {
+                                                        echo $actual_m_power;
+                                                    } ?>
+                                                    <?php if ($actual_m_power == '') {
+                                                        echo "0";
+                                                    } ?>
+                                                </td>
+                                                <td class="actual_hp_value_history_<?php echo $l_id; ?>">
+                                                    <?php if ($actual_hp != '') {
+                                                        echo $actual_hp;
+                                                    } ?>
+                                                    <?php if ($actual_hp == '') {
+                                                        echo "0";
+                                                    } ?>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="total_actual_m_power_history_<?php echo $l_id; ?> total_actual_m_power_history" colspan="2">
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
 
                                     <script>
-                                        var clothes_output = parseFloat($(".cat_actual_target_history_<?php echo $p_id_2; ?>").text().replace(/,/g, ''));
-                                        var cmp = parseFloat($('.cmp_value_history_<?php echo $p_id_2; ?>').text().substring(2).replace(/,/g, ''));
-                                        var daily_cmp = $('.daily_cmp_history_<?php echo $p_id_2; ?>');
+                                        var m_power_value_history = parseInt($('.m_power_value_history_<?php echo $l_id; ?>').text());
+                                        var hp_value = parseInt($('.hp_value_history_<?php echo $l_id; ?>').text());
+                                        var actual_m_power = parseInt($('.actual_m_power_value_history_<?php echo $l_id; ?>').text());
+                                        var actual_hp_value = parseInt($('.actual_hp_value_history_<?php echo $l_id; ?>').text());
 
-                                        // console.log(cmp);
 
-                                        var multiply_cmp = clothes_output * cmp;
+                                        var total_m_power_value = $('.total_m_power_history_<?php echo $l_id; ?>');
+                                        var total_actual_m_power_value = $('.total_actual_m_power_history_<?php echo $l_id; ?>');
 
-                                        if (Number.isNaN(multiply_cmp)) {
-                                            daily_cmp.text('-');
+                                        var total_m_power = m_power_value_history + hp_value;
+                                        var total_actual_m_power = actual_m_power + actual_hp_value;
+
+                                        if (Number.isNaN(total_m_power)) {
+                                            total_m_power_value.text('');
+                                            total_actual_m_power_value.text('');
                                         } else {
-                                            daily_cmp.text("$ " + multiply_cmp.toFixed(2));
+                                            total_m_power_value.text(total_m_power);
+                                            total_actual_m_power_value.text(total_actual_m_power);
                                         }
-
-
-                                        var cmp_product = $(".cmp_product_history_<?php echo $l_id_2; ?>");
-                                        var total_cmp_class = $(".total_cmp_history_<?php echo $l_id_2; ?>");
-                                        var total_cmp = 0;
-
-                                        cmp_product.each(function() {
-                                            var cmp_product_text = $(this).text();
-                                            var substring = parseFloat(cmp_product_text.substring(2));
-
-                                            if (Number.isNaN(substring)) {
-                                                substring = 0;
-                                            } else {
-                                                total_cmp += substring;
-                                            }
-                                        });
-                                        total_cmp_class.text("$ " + total_cmp.toFixed(2));
                                     </script>
+                                </td>
 
-                            <?php
+                                <!----- Total Time ------>
+                                <?php
+                                for ($k = 0; $k < count($daily_report_history_decode); $k++) {
+                                    $l_id_2 = $daily_report_history_decode[$k]['l_id'];
+                                    $total_time = (int)$daily_report_history_decode[$k]['total_time'];
+                                    if ($l_id_2 == $l_id) {
+                                        echo '<td class="total_time_history_' . $l_id_2 . '">' . $total_time . '</td>';
+                                    }
                                 }
-                            }
-                            ?>
-                        </tbody>
-                    </table>
+                                ?>
+                                <!----- Total Time  End ------>
 
-                </td>
-                <td class="accumulation_history_<?php echo $l_id; ?>">
-
-                </td>
-
-                <script>
-                    var total_cmp_class = $(".total_cmp_history_<?php echo $l_id; ?>").text();
-                    var accumulation = $('.accumulation_history_<?php echo $l_id; ?>');
-
-                    accumulation.text(total_cmp_class);
-                </script>
-
-                <!-- Inline --->
-                <td class="td-padding">
-                    <table class="m-auto text-center table table-bordered custom-table-border-color">
-                        <tbody>
-                            <tr>
-                                <td>-</td>
+                                <td class="cmp_hr_history_<?php echo $l_id; ?>"></td>
+                                <td class="cmp_hr_ps_history_<?php echo $l_id; ?> new_cmp_hr_ps_history"></td>
+                                <td>
+                                    <?php echo $remark; ?>
+                                </td>
                             </tr>
-                            <?php for ($j = 0; $j < count($daily_report_product_history_decode); $j++) {
-                                $l_id_2 = $daily_report_product_history_decode[$j]['l_id'];
-                                $inline_2 = $daily_report_product_history_decode[$j]['inline'];
-                                if ($l_id_2 == $l_id) {
-                                    echo '<tr>';
-                                    if ($inline_2 == '') {
-                                        echo '<td>-</td>';
+
+                            <script>
+                                // For CMP/hr
+                                var total_cmp_2 = $('.total_cmp_history_<?php echo $l_id; ?>').text();
+                                var substring_2 = parseFloat(total_cmp_2.substring(2));
+                                var total_time_2 = parseInt($('.total_time_history_<?php echo $l_id; ?>').text());
+
+                                var cmp_hr = $('.cmp_hr_history_<?php echo $l_id; ?>');
+
+                                var div_time = substring_2 / total_time_2;
+
+
+                                cmp_hr.text("$ " + div_time.toFixed(2));
+
+                                /// For CMP/hr end
+
+                                /// For CMP/ HR/ PS
+                                var total_actual_m_power_2 = $('.total_actual_m_power_history_<?php echo $l_id; ?>').text();
+                                var cmp_hr_3 = $('.cmp_hr_history_<?php echo $l_id; ?>').text();
+                                var cmp_hr_ps = $('.cmp_hr_ps_history_<?php echo $l_id; ?>');
+
+
+                                var substring_3 = parseFloat(cmp_hr_3.substring(2));
+                                var substring_4 = parseFloat(total_actual_m_power_2.substring(2));
+
+                                var div_cmp_hr_ps = substring_3 / total_actual_m_power_2;
+
+                                if (total_actual_m_power_2 != '') {
+                                    if (Number.isNaN(div_cmp_hr_ps)) {
+                                        cmp_hr_ps.text("$ " + 0);
+                                    } else {
+                                        cmp_hr_ps.text("$ " + div_cmp_hr_ps.toFixed(2));
                                     }
-                                    if ($inline_2 != '') {
-                                        echo '<td>' . number_format($inline_2) . '</td>';
-                                    }
-                                    echo '</tr>';
                                 }
-                            }
 
-                            ?>
-                        </tbody>
-                    </table>
-                </td>
-                <!-- H/over Input --->
-                <td class="td-padding">
-                    <table class="m-auto text-center table table-bordered custom-table-border-color">
-                        <tbody>
-                            <tr>
-                                <td>-</td>
-                            </tr>
-                            <?php
-                            for ($j = 0; $j < count($daily_report_product_history_decode); $j++) {
-                                $l_id_2 = $daily_report_product_history_decode[$j]['l_id'];
-                                $h_over_input = $daily_report_product_history_decode[$j]['h_over_input'];
-                                if ($l_id_2 == $l_id) {
-                                    echo '<tr>';
-                                    if ($h_over_input == '') {
-                                        echo '<td>-</td>';
-                                    }
-                                    if ($h_over_input != '') {
-                                        echo '<td>' . number_format($h_over_input) . '</td>';
-                                    }
-                                    echo '</tr>';
-                                }
-                            }
-                            ?>
-
-                        </tbody>
-                    </table>
-                </td>
-
-                <!-- H/over Total --->
-                <td class="td-padding">
-                    <table class="m-auto text-center table table-bordered custom-table-border-color">
-                        <tbody>
-                            <tr>
-                                <td>-</td>
-                            </tr>
-                            <?php for ($j = 0; $j < count($daily_report_product_history_decode); $j++) {
-                                $l_id_2 = $daily_report_product_history_decode[$j]['l_id'];
-                                $h_over_input = $daily_report_product_history_decode[$j]['h_over_input'];
-                                if ($l_id_2 == $l_id) {
-                                    echo '<tr>';
-                                    if ($h_over_input == '') {
-                                        echo '<td>-</td>';
-                                    }
-                                    if ($h_over_input != '') {
-                                        echo '<td>' . number_format($h_over_input) . '</td>';
-                                    }
-                                    echo '</tr>';
-                                }
-                            }
-
-                            ?>
-                        </tbody>
-                    </table>
-                </td>
-                <!-- H/over Balance --->
-                <td class="td-padding">
-                    <table class="m-auto text-center table table-bordered custom-table-border-color">
-                        <tbody>
-                            <tr>
-                                <td>-</td>
-                            </tr>
-                            <?php
-                            for ($j = 0; $j < count($daily_report_product_history_decode); $j++) {
-                                $l_id_2 = $daily_report_product_history_decode[$j]['l_id'];
-                                $h_balance = $daily_report_product_history_decode[$j]['h_balance'];
-                                if ($l_id_2 == $l_id) {
-                                    echo '<tr>';
-                                    if ($h_balance == '') {
-                                        echo '<td> - </td>';
-                                    }
-                                    if ($h_balance != '') {
-                                        echo '<td>' . number_format($h_balance) . '</td>';
-                                    }
-                                    echo '</tr>';
-                                }
-                            }
-                            ?>
-
-                        </tbody>
-                    </table>
-                </td>
-
-                <td class="td-padding">
-                    <table class="m-auto text-center w-100 table table-bordered custom-table-border-color">
-                        <tbody>
-                            <tr>
-                                <td class="m_power_value_history_<?php echo $l_id; ?>"><?php if ($m_power != '') {
-                                                                                            echo number_format($m_power);
-                                                                                        } ?></td>
-                                <td class="hp_value_history_<?php echo $l_id; ?>"><?php if ($hp != '') {
-                                                                                        echo $hp;
-                                                                                    } ?></td>
-                            </tr>
-                            <tr>
-                                <td class="total_m_power_history_<?php echo $l_id; ?>" colspan="2"></td>
-                            </tr>
-                            <tr>
-                                <td class="actual_m_power_value_history_<?php echo $l_id; ?>"><?php if ($actual_m_power != '') {
-                                                                                                    echo $actual_m_power;
-                                                                                                } ?></td>
-                                <td class="actual_hp_value_history_<?php echo $l_id; ?>"><?php if ($actual_hp != '') {
-                                                                                                echo $actual_hp;
-                                                                                            } ?></td>
-                            </tr>
-                            <tr>
-                                <td class="total_actual_m_power_history_<?php echo $l_id; ?> total_actual_m_power_history" colspan="2"></td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                    <script>
-                        var m_power_value_history = parseInt($('.m_power_value_history_<?php echo $l_id; ?>').text());
-                        var hp_value = parseInt($('.hp_value_history_<?php echo $l_id; ?>').text());
-                        var actual_m_power = parseInt($('.actual_m_power_value_history_<?php echo $l_id; ?>').text());
-                        var actual_hp_value = parseInt($('.actual_hp_value_history_<?php echo $l_id; ?>').text());
+                                /// For CMP/ HR/ PS end
+                            </script>
 
 
-                        var total_m_power_value = $('.total_m_power_history_<?php echo $l_id; ?>');
-                        var total_actual_m_power_value = $('.total_actual_m_power_history_<?php echo $l_id; ?>');
-
-                        var total_m_power = m_power_value_history + hp_value;
-                        var total_actual_m_power = actual_m_power + actual_hp_value;
-
-                        if (Number.isNaN(total_m_power)) {
-                            total_m_power_value.text('');
-                            total_actual_m_power_value.text('');
-                        } else {
-                            total_m_power_value.text(total_m_power);
-                            total_actual_m_power_value.text(total_actual_m_power);
+                        <?php
                         }
-                    </script>
-                </td>
+                        ?>
 
-                <!----- Total Time ------>
-                <?php
-                            for ($k = 0; $k < count($daily_report_history_decode); $k++) {
-                                $l_id_2 = $daily_report_history_decode[$k]['l_id'];
-                                $total_time = (int)$daily_report_history_decode[$k]['total_time'];
-                                if ($l_id_2 == $l_id) {
-                                    echo '<td class="total_time_history_' . $l_id_2 . '">' . $total_time . '</td>';
-                                }
-                            }
-                ?>
-                <!----- Total Time  End ------>
+                        <?php
+                        for ($k = 0; $k < count($p_detail_total_decode); $k++) {
+                            $total_output = $p_detail_total_decode[$k]['total_output'];
+                            $total_order_quantity = $p_detail_total_decode[$k]['total_order_quantity'];
+                            $total_sewing_input = $p_detail_total_decode[$k]['total_sewing_input'];
+                            $total_inline = $p_detail_total_decode[$k]['total_inline'];
+                            $total_h_over = $p_detail_total_decode[$k]['total_h_over'];
+                            $total_h_over_balance = $p_detail_total_decode[$k]['total_h_over_balance'];
+                            $total_cmp = $p_detail_total_decode[$k]['total_cmp'];
 
-                <td class="cmp_hr_history_<?php echo $l_id; ?>"></td>
-                <td class="cmp_hr_ps_history_<?php echo $l_id; ?> new_cmp_hr_ps_history"></td>
-                <td>
-                    <?php echo $remark; ?>
-                </td>
-                </tr>
+                        ?>
+                            <tr>
+                                <td>Total</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td id="total_main_target_history"></td>
+                                <td class="td-padding">
+                                    <!-- For ManPower  -->
+                                    <table class="m-auto text-start table table-bordered custom-table-border-color">
+                                        <tbody>
+                                            <tr>
+                                                <td id="total_man_power_history"></td>
+                                                <td></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                                <td id="new_total_output_history"><?php echo $total_output; ?></td> <!-- {{---- For Output -----}} -->
+                                <td id="total_output_percent_history"></td> <!-- {{---- For Output Percentage -----}} -->
+                                <td><?php echo $total_order_quantity; ?></td> <!-- {{---- For Qty -----}} -->
+                                <td><?php echo $total_sewing_input; ?></td> <!-- {{---- For Sewing Input -----}} -->
+                                <td></td> <!-- {{---- For Input Total -----}} -->
+                                <td id="total_clothes_output_history"></td> <!-- {{---- For Output -----}} -->
+                                <td id="total_clothes_output_history"></td> <!-- {{---- For Output Total -----}} -->
+                                <td>$ <?php echo number_format((float)$total_cmp, 2, '.', ''); ?></td> <!-- {{---- For CMP -----}} -->
+                                <td id="total_daily_cmp_1_history"></td> <!-- {{---- For Daily CMP Income -----}} -->
+                                <td id="total_accumulation_history"></td> <!-- {{---- For Accumulation -----}} -->
+                                <td><?php echo $total_inline; ?></td> <!-- {{---- For Inline -----}} -->
+                                <td><?php echo $total_h_over; ?></td> <!-- {{---- For H Over -----}} -->
+                                <td><?php echo $total_h_over; ?></td> <!-- {{---- For H/over total -----}} -->
+                                <td><?php echo $total_h_over_balance; ?></td> <!-- {{---- For H/over balance -----}} -->
+                                <td id="total_op_history"></td> <!-- {{---- For S,L,Adm Op -----}} -->
+                                <td></td> <!-- {{---- For Time -----}} -->
+                                <td></td> <!-- {{---- For CMP/hr -----}} -->
+                                <td id="total_cmp_hr_ps_history"></td> <!-- {{---- For CMP/hr/PS -----}} -->
+                                <td></td> <!-- {{---- For Remark -----}} -->
+                            </tr>
 
-                <script>
-                    // For CMP/hr
-                    var total_cmp_2 = $('.total_cmp_history_<?php echo $l_id; ?>').text();
-                    var substring_2 = parseFloat(total_cmp_2.substring(2));
-                    var total_time_2 = parseInt($('.total_time_history_<?php echo $l_id; ?>').text());
+                            <script>
+                                //// Main_Target
+                                var sum0 = 0;
+                                $('.new_main_target_history').each(function() {
+                                    sum0 += parseFloat($(this).text().replace(/,/g, ''));
+                                });
+                                $("#total_main_target_history").text(sum0);
+                                //// Main_Target End
 
-                    var cmp_hr = $('.cmp_hr_history_<?php echo $l_id; ?>');
+                                //// DailyCMP
+                                var sum1 = 0;
+                                $('.new_total_daily_cmp_history').each(function() {
+                                    sum1 += parseFloat($(this).text().substring(2).replace(/,/g, ''));
+                                });
+                                $("#total_daily_cmp_1_history").text('$ ' + sum1.toFixed(2));
+                                //// DailyCMP End
 
-                    var div_time = substring_2 / total_time_2;
+                                //// Accumulation ///
+
+                                $("#total_accumulation_history").text('$ ' + sum1.toFixed(2));
+
+                                //// Accumulation End ////
 
 
-                    cmp_hr.text("$ " + div_time.toFixed(1));
+                                //// DailyCMP
+                                var sum2 = 0;
+                                $('.new_cmp_hr_ps_history').each(function() {
+                                    sum2 += parseFloat($(this).text().substring(2).replace(/,/g, ''));
+                                });
+                                $("#total_cmp_hr_ps_history").text("$ " + sum2.toFixed(2));
+                                //// DailyCMP End
 
-                    /// For CMP/hr end
+                                //// actual_m_power
+                                var sum3 = 0;
+                                $('.total_actual_m_power_history').each(function() {
+                                    sum3 += parseFloat($(this).text().replace(/,/g, ''));
+                                });
+                                $("#total_op_history").text(sum3);
+                                //// actual_m_power End
 
-                    /// For CMP/ HR/ PS
-                    var total_actual_m_power_2 = $('.total_actual_m_power_history_<?php echo $l_id; ?>').text();
-                    var cmp_hr_3 = $('.cmp_hr_history_<?php echo $l_id; ?>').text();
-                    var cmp_hr_ps = $('.cmp_hr_ps_history_<?php echo $l_id; ?>');
+                                //// Total_Clothes Output
+                                var sum4 = 0;
+                                $('.new_cat_actual_target_history').each(function() {
+                                    sum4 += parseFloat($(this).text().replace(/,/g, ''));
+                                });
+                                $("#total_clothes_output_history").text(sum4);
+                                $("#total_clothes_output_2_history").text(sum4);
+                                //// Total_Clothes End
 
+                                var new_total_output = $("#new_total_output_history").text();
 
-                    var substring_3 = parseFloat(cmp_hr_3.substring(2));
-                    var substring_4 = parseFloat(total_actual_m_power_2.substring(2));
+                                var per_cal = (new_total_output / sum0) * 100;
 
-                    var div_cmp_hr_ps = substring_3 / total_actual_m_power_2;
+                                $("#total_output_percent_history").text(per_cal.toFixed(0) + '%');
+                            </script>
 
-                    if (total_actual_m_power_2 != '') {
-                        if (Number.isNaN(div_cmp_hr_ps)) {
-                            cmp_hr_ps.text('');
-                        } else {
-                            cmp_hr_ps.text("$ " + div_cmp_hr_ps.toFixed(1));
-
-                            // console.log(div_cmp_hr_ps);
-
+                        <?php
                         }
-                    }
+                        ?>
 
-                    /// For CMP/ HR/ PS end
-                </script>
-
-
-            <?php
-                        }
-            ?>
-
-            <?php
-    for($k=0; $k<count($p_detail_total_decode);$k++){
-        $total_output = $p_detail_total_decode[$k]['total_output'];
-        $total_order_quantity = $p_detail_total_decode[$k]['total_order_quantity'];
-        $total_sewing_input = $p_detail_total_decode[$k]['total_sewing_input'];
-        $total_inline =$p_detail_total_decode[$k]['total_inline'];
-        $total_h_over = $p_detail_total_decode[$k]['total_h_over'];
-        $total_h_over_balance = $p_detail_total_decode[$k]['total_h_over_balance'];
-        $total_cmp = $p_detail_total_decode[$k]['total_cmp'];
-
-        ?>
-        <tr>
-                        <td>Total</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td id="total_main_target_history"></td>
-                        <td class="td-padding">  <!-- For ManPower  -->
-                            <table class="m-auto text-start table table-bordered custom-table-border-color">
-                                <tbody>
-                                    <tr>
-                                        <td id="total_man_power_history"></td>
-                                        <td></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </td>
-                        <td id="new_total_output_history"><?php echo $total_output; ?></td> <!-- {{---- For Output -----}} -->
-                        <td id="total_output_percent_history"></td>  <!-- {{---- For Output Percentage -----}} -->
-                        <td><?php echo $total_order_quantity; ?></td>  <!-- {{---- For Qty -----}} -->
-                        <td><?php echo $total_sewing_input; ?></td>  <!-- {{---- For Sewing Input -----}} -->
-                        <td></td>  <!-- {{---- For Input Total -----}} -->
-                        <td id="total_clothes_output_history"></td> <!-- {{---- For Output -----}} -->
-                        <td id="total_clothes_output_history"></td>  <!-- {{---- For Output Total -----}} -->
-                        <td>$ <?php echo number_format((float)$total_cmp, 2, '.', ''); ?></td>  <!-- {{---- For CMP -----}} -->
-                        <td id="total_daily_cmp_1_history"></td>  <!-- {{---- For Daily CMP Income -----}} -->
-                        <td id="total_accumulation_history"></td>  <!-- {{---- For Accumulation -----}} -->
-                        <td><?php echo $total_inline; ?></td>  <!-- {{---- For Inline -----}} -->
-                        <td><?php echo $total_h_over; ?></td>  <!-- {{---- For H Over -----}} -->
-                        <td><?php echo $total_h_over; ?></td>  <!-- {{---- For H/over total -----}} -->
-                        <td><?php echo $total_h_over_balance; ?></td>  <!-- {{---- For H/over balance -----}} -->
-                        <td id="total_op_history"></td>  <!-- {{---- For S,L,Adm Op -----}} -->
-                        <td></td>  <!-- {{---- For Time -----}} -->
-                        <td></td>  <!-- {{---- For CMP/hr -----}} -->
-                        <td id="total_cmp_hr_ps_history"></td>  <!-- {{---- For CMP/hr/PS -----}} -->
-                        <td></td>  <!-- {{---- For Remark -----}} -->
-                    </tr>
-
-                    <script>
-                        //// Main_Target
-                        var sum0 = 0;
-$('.new_main_target_history').each(function()
-{
-    sum0 += parseFloat($(this).text().replace(/,/g,''));
-});
-$("#total_main_target_history").text(sum0);
-//// Main_Target End
-
-  //// DailyCMP
-  var sum1 = 0;
-$('.new_total_daily_cmp_history').each(function()
-{
-    sum1 += parseFloat($(this).text().substring(2).replace(/,/g,''));
-});
-$("#total_daily_cmp_1_history").text('$ ' + sum1.toFixed(2));
-//// DailyCMP End
-
-//// Accumulation ///
-
-$("#total_accumulation_history").text('$ ' + sum1.toFixed(2));
-
-//// Accumulation End ////
-
-
-//// DailyCMP
-var sum2 = 0;
-$('.new_cmp_hr_ps_history').each(function()
-{
-    sum2 += parseFloat($(this).text().substring(2).replace(/,/g,''));
-});
-$("#total_cmp_hr_ps_history").text(sum2.toFixed(2));
-//// DailyCMP End
-
-//// actual_m_power
-var sum3 = 0;
-$('.total_actual_m_power_history').each(function()
-{
-    sum3 += parseFloat($(this).text().replace(/,/g,''));
-});
-$("#total_op_history").text(sum3);
-//// actual_m_power End
-
-//// Total_Clothes Output
-var sum4 = 0;
-$('.new_cat_actual_target_history').each(function()
-{
-    sum4 += parseFloat($(this).text().replace(/,/g,''));
-});
-$("#total_clothes_output_history").text(sum4);
-$("#total_clothes_output_2_history").text(sum4);
-//// Total_Clothes End
-
-var new_total_output = $("#new_total_output_history").text();
-
-var per_cal = (new_total_output / sum0) * 100;
-
-$("#total_output_percent_history").text(per_cal.toFixed(0)+ '%');
-
-
-                    </script>
-
-<?php
-    }
-?>
-
-            </tbody>
-            </table>
+                    </tbody>
+                </table>
             </div>
         </form>
         <script>
             $("#exportPDF").click(function() {
+                $(".report_tbl_2_history td").css("padding", 0);
+                $(".report-history-title").css("display", 'block');
 
                 html2canvas($('#report_history_table')[0], {
                     onrendered: function(canvas) {
@@ -1208,8 +1251,11 @@ $("#total_output_percent_history").text(per_cal.toFixed(0)+ '%');
                         var docDefinition = {
                             content: [{
                                 image: data,
-                                width: 500
-                            }]
+                                width: 950,
+                            }],
+                            pageSize: 'LEGAL',
+                            pageOrientation: 'landscape',
+                            pageMargins: [20, 20, 20, 20],
                         };
                         pdfMake.createPdf(docDefinition).download("<?php echo $date_string_for_export_pdf . '_report'; ?>.pdf");
                     }

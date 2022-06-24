@@ -23,8 +23,6 @@
     $actual_target=$d->actual_target_entry;
     $assign_date = $d->assign_date;
 
-    // $date_string = date("d.m.Y");
-
     @endphp
     @endforeach
     @php $date_string = date("d.m.Y");

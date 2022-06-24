@@ -40,11 +40,6 @@
                     <button type="button" id="sidebarCollapse" class="btn">
                         <i class="fas fa-bars fa-lg"></i>
                     </button>
-                    {{-- <img src="https://www.nawpic.com/media/2020/mountain-nawpic-5.jpg" class="img-fluid rounded-3"
-                        alt="Company Logo" width="60" height="auto" /> --}}
-                    {{-- <span class="fw-bolder fs-5 my-auto" style="color:#6495ed;">
-                        MUSUNG Garment Line Target and Production Data
-                    </span> --}}
                 </div>
                 <div class="mx-3 not-mobile">
                     <a class="fw-bolder fs-5 my-auto navbar-heading-text" href="{{ url('/home') }}">
@@ -128,12 +123,6 @@
                         </li>
                     </ul>
                 </li>
-                {{-- <li>
-                    <a class="sidebar-link" href="{{ url('/daily_prod') }}"><img src="img/icon/theme.png"
-                            class="img-fluid rounded-3" alt="Theme" width="25" height="auto" />
-                        &nbsp;Daily Production Detail
-                    </a>
-                </li> --}}
                 <li>
                     <a class="sidebar-link" href="{{ url('/report') }}"> <img src="img/icon/report.png"
                             class="img-fluid rounded-3" alt="Report" width="25" height="auto" />
@@ -179,11 +168,6 @@
                     <button type="button" id="sidebarCollapse" class="btn">
                         <i class="fas fa-bars fa-lg"></i>
                     </button>
-                    {{-- <img src="https://www.nawpic.com/media/2020/mountain-nawpic-5.jpg" class="img-fluid rounded-3"
-                        alt="Company Logo" width="60" height="auto" /> --}}
-                    {{-- <span class="fw-bolder fs-5 my-auto" style="color:#6495ed;">
-                        MUSUNG Garment Line Target and Production Data
-                    </span> --}}
                 </div>
                 <div class="mx-3 not-mobile">
                     <a class="fw-bolder fs-5 my-auto navbar-heading-text" href="{{ url('/home') }}">
@@ -268,12 +252,6 @@
                         </li>
                     </ul>
                 </li>
-                {{-- <li>
-                    <a class="sidebar-link" href="{{ url('/daily_prod') }}"><img src="img/icon/theme.png"
-                            class="img-fluid rounded-3" alt="Theme" width="25" height="auto" />
-                        &nbsp;Daily Production Detail
-                    </a>
-                </li> --}}
                 <li>
                     <a class="sidebar-link" href="{{ url('/report') }}"> <img src="img/icon/report.png"
                             class="img-fluid rounded-3" alt="Report" width="25" height="auto" />
@@ -319,11 +297,6 @@
                     <button type="button" id="sidebarCollapse" class="btn">
                         <i class="fas fa-bars fa-lg"></i>
                     </button>
-                    {{-- <img src="https://www.nawpic.com/media/2020/mountain-nawpic-5.jpg" class="img-fluid rounded-3"
-                        alt="Company Logo" width="60" height="auto" /> --}}
-                    {{-- <span class="fw-bolder fs-5 my-auto" style="color:#6495ed;">
-                        MUSUNG Garment Line Target and Production Data
-                    </span> --}}
                 </div>
                 <div class="mx-3 not-mobile">
                     <a class="fw-bolder fs-5 my-auto navbar-heading-text" href="{{ url('/home') }}">
@@ -408,12 +381,6 @@
                         </li>
                     </ul>
                 </li>
-                {{-- <li>
-                    <a class="sidebar-link" href="{{ url('/daily_prod') }}"><img src="img/icon/theme.png"
-                            class="img-fluid rounded-3" alt="Theme" width="25" height="auto" />
-                        &nbsp;Daily Production Detail
-                    </a>
-                </li> --}}
                 <li>
                     <a class="sidebar-link" href="{{ url('/report') }}"> <img src="img/icon/report.png"
                             class="img-fluid rounded-3" alt="Report" width="25" height="auto" />
@@ -459,11 +426,6 @@
                     <button type="button" id="sidebarCollapse" class="btn">
                         <i class="fas fa-bars fa-lg"></i>
                     </button>
-                    {{-- <img src="https://www.nawpic.com/media/2020/mountain-nawpic-5.jpg" class="img-fluid rounded-3"
-                        alt="Company Logo" width="60" height="auto" /> --}}
-                    {{-- <span class="fw-bolder fs-5 my-auto" style="color:#6495ed;">
-                        MUSUNG Garment Line Target and Production Data
-                    </span> --}}
                 </div>
                 <div class="mx-3 not-mobile">
                     <a class="fw-bolder fs-5 my-auto navbar-heading-text" href="{{ url('/home') }}">
@@ -545,12 +507,6 @@
                         </li>
                     </ul>
                 </li>
-                {{-- <li>
-                    <a class="sidebar-link" href="{{ url('/daily_prod') }}"><img src="img/icon/theme.png"
-                            class="img-fluid rounded-3" alt="Theme" width="25" height="auto" />
-                        &nbsp;Daily Production Detail
-                    </a>
-                </li> --}}
                 <li>
                     <a class="sidebar-link" href="{{ url('/report') }}"> <img src="img/icon/report.png"
                             class="img-fluid rounded-3" alt="Report" width="25" height="auto" />
@@ -596,11 +552,6 @@
                     <button type="button" id="sidebarCollapse" class="btn">
                         <i class="fas fa-bars fa-lg"></i>
                     </button>
-                    {{-- <img src="https://www.nawpic.com/media/2020/mountain-nawpic-5.jpg" class="img-fluid rounded-3"
-                        alt="Company Logo" width="60" height="auto" /> --}}
-                    {{-- <span class="fw-bolder fs-5 my-auto" style="color:#6495ed;">
-                        MUSUNG Garment Line Target and Production Data
-                    </span> --}}
                 </div>
                 <div class="mx-3 not-mobile">
                     <a class="fw-bolder fs-5 my-auto navbar-heading-text" href="{{ url('/home') }}">
@@ -624,9 +575,6 @@
         <nav class="navbar navbar-expand-lg my-2">
             <div class="container-fluid p-0">
                 <div class="nav-heading nav-heading-2 text-center m-auto w-80" style="padding-left:5rem;">
-                    {{-- <a class="fw-bolder fs-4 my-auto text-secondary" href="{{ url('/home') }}">
-                        MUSUNG Garment Line Entry
-                    </a> --}}
                     <h1 class="fw-bolder fs-4 my-auto text-secondary">
                         MUSUNG Garment Line Entry
                     </h1>

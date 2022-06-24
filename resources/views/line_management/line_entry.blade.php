@@ -78,31 +78,6 @@
                 </ul>
             </div>
         </div>
-
-        {{-- <div class="container-fluid row p-0 m-0 d-flex align-items-center">
-            <div class="col-12 col-md-4 my-3 p-0">
-                <ul class="horizontal-slide" id="tabs">
-                    <li class="span2">
-                        <p>Date - {{ $date_string }} </p>
-                    </li>
-                    <li class="span2">
-                        <p>{{ $start_time }} - {{ $end_time }}</p>
-                    </li>
-                </ul>
-            </div>
-            <div class="col text-center text-md-start">
-                <div class="row m-0 p-0">
-                    {{-- <div class="col-6">
-                        <div id="digital-clock" class="text-white bg-secondary rounded-2 p-2 fs-5 text-center">
-                        </div>
-                    </div> --}}
-                    {{-- <div class="col d-flex align-items-center">
-                        <h1 class="fs-3 fw-bolder m-0">Target = <span class="text-white bg-danger p-2 rounded-2">
-                                {{ $m_target }}</span></h1>
-                    </div>
-                </div>
-            </div>
-        </div> --}}
         <script>
             /// Live Clock in line_entry.blade
             function showTime() {
@@ -135,17 +110,6 @@
                             {{ $m_target }}</span></h1>
                 </div>
             </div>
-            {{-- <ul class="horizontal-slide" id="nav">
-                <li class="span2">
-                    <a href="#" class="active"> {{$l_name}}</a>
-                </li>
-                <li class="span3 bg-primary">
-
-                </li>
-                <li class="span3">
-
-                </li>
-            </ul> --}}
             <div id="tab-content">
                 <div id="tab1" class="div_1">
                     <div class="row container-fluid p-0 m-0">
@@ -188,17 +152,18 @@
                                             <td>
                                                 <?php echo date('g:i A',strtotime($time_name)); ?>
                                             </td>
-                                            <td><span id="div_target_{{ $time_id }}">{{ $actual_target_entry }}
+                                            <td>
+                                                <span id="div_target_{{ $time_id }}">{{ $actual_target_entry }}
                                                 </span>
                                             </td>
                                             <td>
                                                 @if ($div_actual_target!='')
-                                                <span id="new_div_actual_target_{{ $time_id }}"> {{ $div_actual_target
-                                                    }}</span>
+                                                <span id="new_div_actual_target_{{ $time_id }}">
+                                                    {{ $div_actual_target }}
+                                                </span>
 
                                                 @elseif($div_actual_target=='')
                                                 <input type="hidden" id="actual_target_{{ $time_id }}" />
-                                                {{-- <span id="actual_target_{{ $time_id }}"></span> --}}
                                                 @endif
                                             </td>
                                             <td>
@@ -209,10 +174,10 @@
 
                                                 @elseif($div_actual_percent=='')
                                                 <input type="hidden" id="actual_percentage_{{ $time_id }}" />
-                                                {{-- <span id="actual_percentage_{{ $time_id }}"></span> --}}
                                                 @endif
                                             </td>
-                                            <td> <button type="button" class="btn btn-primary w-100"
+                                            <td>
+                                                <button type="button" class="btn btn-primary w-100"
                                                     data-bs-toggle="modal"
                                                     data-bs-target="#LineEntryModal<?php echo $time_id; ?>"
                                                     data-bs-time-id="{{ $time_id }}"
@@ -242,7 +207,8 @@
                                                                 <?php echo date('g:i A',strtotime($time_name)); ?>
                                                             </h1>
                                                             <button type="button" class="btn-close"
-                                                                data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                data-bs-dismiss="modal" aria-label="Close">
+                                                            </button>
                                                         </div>
                                                         <div class="modal-body">
                                                             <div class="container-fluid">
@@ -269,8 +235,6 @@
                                                                                 <h5 class="fw-bold heading-text">#{{
                                                                                     $p_detail_style_no }}, {{
                                                                                     $p_detail_p_name }}</h5>
-                                                                                {{-- &nbsp; &nbsp; <span>{{ $ot_status
-                                                                                    }}</span> --}}
                                                                             </div>
                                                                             <div class="col-12 col-md-4">
                                                                                 <label>Target</label>
@@ -296,49 +260,6 @@
                                                                                     id="p_detail_actual_target_{{ $time_id }}"
                                                                                     required
                                                                                     value="{{ $div_actual_target_exist }}" />
-
-                                                                                {{-- @foreach($line_entry_history as
-                                                                                $l_history)
-                                                                                @php
-                                                                                $l_history_time_id =
-                                                                                $l_history->time_id;
-                                                                                $l_history_p_id = $l_history->p_id;
-                                                                                $l_history_actual_target =
-                                                                                $l_history->actual_target;
-                                                                                $l_history_status = $l_history->status;
-                                                                                @endphp
-
-                                                                                @if($p_detail_time_id==$l_history_time_id
-                                                                                && $p_detail_id == $l_history_p_id)
-                                                                                <input type="number"
-                                                                                    class="form-control"
-                                                                                    name="p_detail_actual_target[]"
-                                                                                    id="p_detail_actual_target_{{ $time_id }}"
-                                                                                    required
-                                                                                    value="{{ $l_history_actual_target }}" />
-                                                                                @else
-                                                                                {{-- <input type="number"
-                                                                                    class="form-control"
-                                                                                    name="p_detail_actual_target[]"
-                                                                                    id="p_detail_actual_target_{{ $time_id }}"
-                                                                                    required value="" />
-                                                                                @endif
-                                                                                @endforeach --}}
-
-                                                                                {{-- <input type="number"
-                                                                                    class="form-control"
-                                                                                    name="p_detail_actual_target_secondary[]"
-                                                                                    id="p_detail_actual_target_secondary_{{ $time_id }}"
-                                                                                    value="" required /> --}}
-
-                                                                                {{-- <script>
-                                                                                    var p_detail_primary = $("[id=p_detail_actual_target_{{ $time_id }}]").val();
-                                                                                        var p_detail_secondary =$("[id=p_detail_actual_target_secondary_{{ $time_id }}]");
-
-                                                                                        if(p_detail_primary != ""){
-                                                                                            p_detail_secondary.css('display','none');
-                                                                                        }
-                                                                                </script> --}}
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -364,24 +285,6 @@
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary"
                                                                 data-bs-dismiss="modal">Close</button>
-                                                            {{-- @foreach($p_detail as $detail)
-                                                            @php $p_detail_id =
-                                                            $detail->p_detail_id;$p_detail_assign_id=
-                                                            $detail->assign_id;$p_detail_l_id=$detail->l_id;
-                                                            $p_detail_p_cat_id
-                                                            =$detail->p_cat_id;$p_detail_p_name
-                                                            =$detail->p_name;$p_detail_qty=$detail->quantity;
-                                                            $p_detail_time_id = $detail->time_id;
-                                                            $p_detail_style_no = $detail->style_no;
-                                                            $div_actual_target_exist =
-                                                            $detail->div_actual_target;
-                                                            @endphp
-
-                                                            {{-- @if($time_id == $p_detail_time_id)
-                                                            @if($div_actual_target_exist == '') --}}
-                                                            {{-- <button type="submit" class="btn btn-primary">Save
-                                                                @endif </button>
-                                                            @endif @endforeach --}}
                                                             <button type="submit" class="btn btn-primary">Save
                                                             </button>
                                                         </div>
@@ -428,172 +331,15 @@
                                     </tbody>
                                 </table>
                             </div>
-
-                            {{-- <div class=" row container-fluid p-0 m-0">
-                                <div class="col">Time</div>
-                                <div class="col-2"></div>
-                                <div class="col">Target</div>
-                                <div class="col">Actual</div>
-                            </div> --}}
-                            {{-- <form action="{{ url('line_entry_post') }}" action="POST">
-
-                                {{-- @for($i=0;$i<count($json);$i++) @php $data_id=$json[$i]['data_id'];
-                                    $status=$json[$i]['status'];
-                                    $time_name=$json[$i]['time_name'];$line_name=$json[$i]['line_name'];
-                                    $target=$json[$i]['target']; $actual=$json[$i]['actual_target'];
-                                    $time_id=$json[$i]['time_id']; $line_id=$json[$i]['line_id']; @endphp
-                                    @if($status=='0' ) <div class="row container-fluid p-0 my-2">
-                                    <div class="col">
-                                        <input class="btn btn-secondary text-center text-white fw-bold w-100"
-                                            type="text" value="{{ $time_name }}" readonly />
-                                    </div>
-                                    <div class="col-2 text-center m-auto">
-                                        <span class="fw-bolder">=</span>
-                                    </div>
-                                    <div class="col">
-                                        <input type="number" class="form-control text-center" value="{{ $actual }}"
-                                            style="background-color:#607a9f !important; color:#fff;" readonly />
-                                    </div>
-                                    <div class="col">
-                                        <input class="btn text-center text-dark fw-bold w-100"
-                                            style="background-color:#ececec;" type="text" value="{{ $target }}"
-                                            readonly />
-                                    </div> --}}
-                                    {{--
-                        </div> --}}
-
-                        {{-- @endif --}}
-
-                        {{-- @if($status=='1')
-                        <input type="hidden" name="status_one" value="1" />
-                        <input type="hidden" name="data_id_one" value="{{ $data_id }}" />
-                        <input type="hidden" name="time_id_one" value="{{ $time_id }}" />
-                        <div class="row container-fluid p-0 my-2">
-                            <div class="col">
-                                <input class="btn btn-secondary text-center text-white fw-bold w-100" type="text"
-                                    value="{{ $time_name }}" name="time_one" id="last-input" readonly />
-                            </div>
-                            <div class="col-2 text-center m-auto">
-                                <span class="fw-bolder">=</span>
-                            </div>
-                            <div class="col">
-                                <input class="input-numeric-one form-control text-center" type="number"
-                                    style="background: #6ec33c !important;color:#fff;" name="actual_one" name="actual"
-                                    value="{{ $actual }}" readonly />
-                            </div>
-                            <div class="col">
-                                <input class="btn text-center text-dark fw-bold w-100" style="background-color:#ececec;"
-                                    type="text" value="{{ $target }}" name="target_one" readonly />
-                            </div>
-                        </div>
-                        @endif --}}
-
-                        {{-- @if($status=='2')
-                        <input type="hidden" name="user_id" value="{{ Auth::user()->id }}" />
-                        <input type="hidden" name="line_id" value="{{ $line_id }}" />
-                        <input type="hidden" name="time_id" value="{{ $time_id }}" />
-                        <input type="hidden" name="status" value="{{ $status }}" />
-                        <input type="hidden" name="data_id" value="{{ $data_id }}" />
-                        <div class="row container-fluid p-0 my-2">
-                            <div class="col">
-                                <input class="btn btn-secondary text-center text-white fw-bold w-100" type="text"
-                                    value="{{ $time_name }}" name="time" id="last-input" readonly />
-                            </div>
-                            <div class="col-2 text-center m-auto">
-                                <span class="fw-bolder">=</span>
-                            </div>
-                            <div class="col">
-                                <input class="input-numeric form-control text-center" type="number" name="actual"
-                                    style="background: #6ec33c !important;color:#fff;" placeholder="Number" readonly />
-                            </div>
-                            <div class="col">
-                                <input class="btn text-center text-dark fw-bold w-100" style="background-color:#ececec;"
-                                    type="text" value="100" name="target" readonly />
-                            </div>
-                        </div>
-                        @endif --}}
-                        {{-- @endfor --}}
-                        {{-- <input type="hidden" id="add-time" name="add_time" /> --}}
-                        {{--
-                    </div>
-                    <div class="col-12 col-md-6 p-0 m-auto">
-                        <div id="numeric">
-                            <table class="table-numeric">
-                                <tbody>
-                                    <tr>
-                                        <td><button type="button" class="key" data-key="1">1</button>
-                                        </td>
-                                        <td><button type="button" class="key" data-key="2">2</button>
-                                        </td>
-                                        <td><button type="button" class="key" data-key="3">3</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><button type="button" class="key" data-key="4">4</button>
-                                        </td>
-                                        <td><button type="button" class="key" data-key="5">5</button>
-                                        </td>
-                                        <td><button type="button" class="key" data-key="6">6</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><button type="button" class="key" data-key="7">7</button>
-                                        </td>
-                                        <td><button type="button" class="key" data-key="8">8</button>
-                                        </td>
-                                        <td><button type="button" class="key" data-key="9">9</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><button type="button" class="key-del" disabled>Del</button>
-                                        </td>
-                                        <td><button type="button" class="key" data-key="0">0</button>
-                                        </td>
-                                        <td><button type="button" class="key-clear" disabled>Clear</button></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div id="numeric_one" style="display:none;">
-                            <table class="table-numeric">
-                                <tbody>
-                                    <tr>
-                                        <td><button type="button" class="key-one" data-key="1">1</button></td>
-                                        <td><button type="button" class="key-one" data-key="2">2</button></td>
-                                        <td><button type="button" class="key-one" data-key="3">3</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td><button type="button" class="key-one" data-key="4">4</button></td>
-                                        <td><button type="button" class="key-one" data-key="5">5</button></td>
-                                        <td><button type="button" class="key-one" data-key="6">6</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td><button type="button" class="key-one" data-key="7">7</button></td>
-                                        <td><button type="button" class="key-one" data-key="8">8</button></td>
-                                        <td><button type="button" class="key-one" data-key="9">9</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td><button type="button" class="key-del-one" disabled>Del</button></td>
-                                        <td><button type="button" class="key-one" data-key="0">0</button></td>
-                                        <td><button type="button" class="key-clear-one" disabled>Clear</button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="text-center my-4">
-                            <input class="icon-btn-one btn my-2 w-50" type="submit" value="Save" name="submit" />
                         </div>
                     </div>
-                    </form> --}}
                 </div>
             </div>
+            @endif
+            @endif
         </div>
+
     </div>
-    @endif
-    @endif
-
-
 </div>
 
 @operator

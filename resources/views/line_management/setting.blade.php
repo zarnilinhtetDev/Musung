@@ -528,10 +528,6 @@ foreach($l_manager_list as $l_list){
     $line_id = $l_list->l_id;
     $assign_id = $l_list->assign_id;
     ?>
-    {{-- data-p-id="
-    <?php //echo $p_id; ?>" data-a-id="
-    <?php //echo $a_id; ?>" data-l-id="
-    <?php //echo $l_id_2; ?>" --}}
     <li class="list-group-item span2 open2 vertical_<?php echo $user_id; ?>" data-l-id="<?php echo $line_id; ?>"
         data-user-id="<?php echo $user_id; ?>" data-assign-id="<?php echo $assign_id; ?>">
         <?php
@@ -969,66 +965,64 @@ cache: true
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body text-start">
-                {{-- <form action="{{ url('line_assign_post') }}" method="POST" id="line_assign_post"> --}}
-                    <form method="POST" id="line_assign_post">
-                        <input type="hidden" name="l_id" id="l_id_2">
-                        <input type="hidden" id="s_time" />
-                        <input type="hidden" id="e_time" />
+                <form method="POST" id="line_assign_post">
+                    <input type="hidden" name="l_id" id="l_id_2">
+                    <input type="hidden" id="s_time" />
+                    <input type="hidden" id="e_time" />
 
-                        <div class="mt-2 mb-4">
-                            <h1 class="fw-bold heading-text" id="l_setting_name_2"></h1>
+                    <div class="mt-2 mb-4">
+                        <h1 class="fw-bold heading-text" id="l_setting_name_2"></h1>
+                    </div>
+                    <div class="row g-3 my-2">
+                        <div class="col-12 col-md-4 mt-0">
+                            <label>Line Manager</label>​
+                            <select class="form-control" name="l_manager" required>
+                                <option> </option>
+                                @for($i=0;$i<count($json2);$i++) @php $u_id=$json2[$i]['id'];
+                                    $u_name=$json2[$i]['name'];$u_role=$json2[$i]['role']; @endphp @if($u_role==2)
+                                    <option value="{{$u_id}}">
+                                    {{$u_name}}
+                                    </option> @endif @endfor
+                            </select>
                         </div>
-                        <div class="row g-3 my-2">
-                            <div class="col-12 col-md-4 mt-0">
-                                <label>Line Manager</label>​
-                                <select class="form-control" name="l_manager" required>
-                                    <option> </option>
-                                    @for($i=0;$i<count($json2);$i++) @php $u_id=$json2[$i]['id'];
-                                        $u_name=$json2[$i]['name'];$u_role=$json2[$i]['role']; @endphp @if($u_role==2)
-                                        <option value="{{$u_id}}">
-                                        {{$u_name}}
-                                        </option> @endif @endfor
-                                </select>
-                            </div>
-                            <div class="col-12 col-md-4 mt-0">
-                                <br />
-                                <input type="button" class="btn btn-secondary" value="Autofill Time" id="time_type_1">
-                            </div>
-                            <input type="hidden" class="form-control" name="work_hour" placeholder="7 Hours"
-                                id="work_hour" required readonly />
+                        <div class="col-12 col-md-4 mt-0">
+                            <br />
+                            <input type="button" class="btn btn-secondary" value="Autofill Time" id="time_type_1">
                         </div>
-                        <div class="row g-3 my-2">
-                            <div class="col-12 col-md-4 mt-0">
-                                <label>Starting Time</label>​<br />
-                                <input type="time" class="form-control" id="start_time" name="start_time" step="300"
-                                    required>
-                            </div>
-                            <div class="col-12 col-md-4 mt-0">
-                                <label>Lunch Time</label>​<br />
-                                <div class="row">
-                                    <div class="col-6">
-                                        <input type="time" class="form-control" name="lunch_start" id="lunch_start"
-                                            step="300" required>
-                                    </div>
-                                    <div class="col-6">
-                                        <input type="time" class="form-control" name="lunch_end" id="lunch_end"
-                                            step="300" required>
-                                    </div>
+                        <input type="hidden" class="form-control" name="work_hour" placeholder="7 Hours" id="work_hour"
+                            required readonly />
+                    </div>
+                    <div class="row g-3 my-2">
+                        <div class="col-12 col-md-4 mt-0">
+                            <label>Starting Time</label>​<br />
+                            <input type="time" class="form-control" id="start_time" name="start_time" step="300"
+                                required>
+                        </div>
+                        <div class="col-12 col-md-4 mt-0">
+                            <label>Lunch Time</label>​<br />
+                            <div class="row">
+                                <div class="col-6">
+                                    <input type="time" class="form-control" name="lunch_start" id="lunch_start"
+                                        step="300" required>
+                                </div>
+                                <div class="col-6">
+                                    <input type="time" class="form-control" name="lunch_end" id="lunch_end" step="300"
+                                        required>
                                 </div>
                             </div>
-                            <div class="col-12 col-md-4 mt-0">
-                                <label>Ending Time</label>​<br />
-                                <input type="time" class="form-control" id="end_time" name="end_time" step="300"
-                                    required>
-                            </div>
                         </div>
-                        <div class="row g-3 my-2">
-                            <div class="col-12 col-md-4 mt-0">
-                                <label>Work Progress by (minute)</label>​
-                                <input type="number" class="form-control" name="progress" id="progress" placeholder="30"
-                                    required />
-                            </div>
+                        <div class="col-12 col-md-4 mt-0">
+                            <label>Ending Time</label>​<br />
+                            <input type="time" class="form-control" id="end_time" name="end_time" step="300" required>
                         </div>
+                    </div>
+                    <div class="row g-3 my-2">
+                        <div class="col-12 col-md-4 mt-0">
+                            <label>Work Progress by (minute)</label>​
+                            <input type="number" class="form-control" name="progress" id="progress" placeholder="30"
+                                required />
+                        </div>
+                    </div>
             </div>
 
             <script>
@@ -1448,11 +1442,6 @@ cache: true
                                     </div>
                                 </div>
                             </td>
-                            {{-- <td>
-                                <a class='btn btn-danger text-white'
-                                    href="{{ url('/item_delete')}}?id={{ $item->item_id }}"
-                                    onclick="return confirm('Confirm deleting item?')"><i class="fas fa-trash"></i></a>
-                            </td> --}}
                         </tr>
                         @endforeach
                     </tbody>
@@ -1531,7 +1520,6 @@ cache: true
                         <th>Buyer Name</th>
                         <th>Remark</th>
                         <th>Edit</th>
-                        {{-- <th>Delete</th> --}}
                     </tr>
                 </thead>
                 <tbody>
@@ -1594,11 +1582,6 @@ cache: true
                                 </div>
                             </div>
                         </td>
-                        {{-- <td>
-                            <a class='btn btn-danger text-white' href="{{ url('/buyer_delete')}}?id={{ $buyer->buyer_id
-                                    }}" onclick="return confirm('Confirm deleting buyer?')"><i
-                                    class="fas fa-trash"></i></a>
-                        </td> --}}
                     </tr>
                     @endforeach
                 </tbody>
@@ -2016,66 +1999,64 @@ cache: true
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body text-start">
-                {{-- <form action="{{ url('line_assign_post') }}" method="POST" id="line_assign_post"> --}}
-                    <form method="POST" id="line_assign_post">
-                        <input type="hidden" name="l_id" id="l_id_2">
-                        <input type="hidden" id="s_time" />
-                        <input type="hidden" id="e_time" />
+                <form method="POST" id="line_assign_post">
+                    <input type="hidden" name="l_id" id="l_id_2">
+                    <input type="hidden" id="s_time" />
+                    <input type="hidden" id="e_time" />
 
-                        <div class="mt-2 mb-4">
-                            <h1 class="fw-bold heading-text" id="l_setting_name_2"></h1>
+                    <div class="mt-2 mb-4">
+                        <h1 class="fw-bold heading-text" id="l_setting_name_2"></h1>
+                    </div>
+                    <div class="row g-3 my-2">
+                        <div class="col-12 col-md-4 mt-0">
+                            <label>Line Manager</label>​
+                            <select class="form-control" name="l_manager" required>
+                                <option> </option>
+                                @for($i=0;$i<count($json2);$i++) @php $u_id=$json2[$i]['id'];
+                                    $u_name=$json2[$i]['name'];$u_role=$json2[$i]['role']; @endphp @if($u_role==2)
+                                    <option value="{{$u_id}}">
+                                    {{$u_name}}
+                                    </option> @endif @endfor
+                            </select>
                         </div>
-                        <div class="row g-3 my-2">
-                            <div class="col-12 col-md-4 mt-0">
-                                <label>Line Manager</label>​
-                                <select class="form-control" name="l_manager" required>
-                                    <option> </option>
-                                    @for($i=0;$i<count($json2);$i++) @php $u_id=$json2[$i]['id'];
-                                        $u_name=$json2[$i]['name'];$u_role=$json2[$i]['role']; @endphp @if($u_role==2)
-                                        <option value="{{$u_id}}">
-                                        {{$u_name}}
-                                        </option> @endif @endfor
-                                </select>
-                            </div>
-                            <div class="col-12 col-md-4 mt-0">
-                                <br />
-                                <input type="button" class="btn btn-secondary" value="Autofill Time" id="time_type_1">
-                            </div>
-                            <input type="hidden" class="form-control" name="work_hour" placeholder="7 Hours"
-                                id="work_hour" required readonly />
+                        <div class="col-12 col-md-4 mt-0">
+                            <br />
+                            <input type="button" class="btn btn-secondary" value="Autofill Time" id="time_type_1">
                         </div>
-                        <div class="row g-3 my-2">
-                            <div class="col-12 col-md-4 mt-0">
-                                <label>Starting Time</label>​<br />
-                                <input type="time" class="form-control" id="start_time" name="start_time" step="300"
-                                    required>
-                            </div>
-                            <div class="col-12 col-md-4 mt-0">
-                                <label>Lunch Time</label>​<br />
-                                <div class="row">
-                                    <div class="col-6">
-                                        <input type="time" class="form-control" name="lunch_start" id="lunch_start"
-                                            step="300" required>
-                                    </div>
-                                    <div class="col-6">
-                                        <input type="time" class="form-control" name="lunch_end" id="lunch_end"
-                                            step="300" required>
-                                    </div>
+                        <input type="hidden" class="form-control" name="work_hour" placeholder="7 Hours" id="work_hour"
+                            required readonly />
+                    </div>
+                    <div class="row g-3 my-2">
+                        <div class="col-12 col-md-4 mt-0">
+                            <label>Starting Time</label>​<br />
+                            <input type="time" class="form-control" id="start_time" name="start_time" step="300"
+                                required>
+                        </div>
+                        <div class="col-12 col-md-4 mt-0">
+                            <label>Lunch Time</label>​<br />
+                            <div class="row">
+                                <div class="col-6">
+                                    <input type="time" class="form-control" name="lunch_start" id="lunch_start"
+                                        step="300" required>
+                                </div>
+                                <div class="col-6">
+                                    <input type="time" class="form-control" name="lunch_end" id="lunch_end" step="300"
+                                        required>
                                 </div>
                             </div>
-                            <div class="col-12 col-md-4 mt-0">
-                                <label>Ending Time</label>​<br />
-                                <input type="time" class="form-control" id="end_time" name="end_time" step="300"
-                                    required>
-                            </div>
                         </div>
-                        <div class="row g-3 my-2">
-                            <div class="col-12 col-md-4 mt-0">
-                                <label>Work Progress by (minute)</label>​
-                                <input type="number" class="form-control" name="progress" id="progress" placeholder="30"
-                                    required />
-                            </div>
+                        <div class="col-12 col-md-4 mt-0">
+                            <label>Ending Time</label>​<br />
+                            <input type="time" class="form-control" id="end_time" name="end_time" step="300" required>
                         </div>
+                    </div>
+                    <div class="row g-3 my-2">
+                        <div class="col-12 col-md-4 mt-0">
+                            <label>Work Progress by (minute)</label>​
+                            <input type="number" class="form-control" name="progress" id="progress" placeholder="30"
+                                required />
+                        </div>
+                    </div>
             </div>
 
             <script>
@@ -2430,7 +2411,6 @@ cache: true
                             <th>Item Name</th>
                             <th>Remark</th>
                             <th>Edit</th>
-                            {{-- <th>Delete</th> --}}
                         </tr>
                     </thead>
                     <tbody>
@@ -2495,11 +2475,6 @@ cache: true
                                     </div>
                                 </div>
                             </td>
-                            {{-- <td>
-                                <a class='btn btn-danger text-white'
-                                    href="{{ url('/item_delete')}}?id={{ $item->item_id }}"
-                                    onclick="return confirm('Confirm deleting item?')"><i class="fas fa-trash"></i></a>
-                            </td> --}}
                         </tr>
                         @endforeach
                     </tbody>
@@ -2578,7 +2553,6 @@ cache: true
                         <th>Buyer Name</th>
                         <th>Remark</th>
                         <th>Edit</th>
-                        {{-- <th>Delete</th> --}}
                     </tr>
                 </thead>
                 <tbody>
@@ -2641,11 +2615,6 @@ cache: true
                                 </div>
                             </div>
                         </td>
-                        {{-- <td>
-                            <a class='btn btn-danger text-white' href="{{ url('/buyer_delete')}}?id={{ $buyer->buyer_id
-                                    }}" onclick="return confirm('Confirm deleting buyer?')"><i
-                                    class="fas fa-trash"></i></a>
-                        </td> --}}
                     </tr>
                     @endforeach
                 </tbody>
@@ -3065,67 +3034,64 @@ cache: true
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body text-start">
-                {{-- <form action="{{ url('line_assign_post') }}" method="POST" id="line_assign_post">
-                    --}}
-                    <form method="POST" id="line_assign_post">
-                        <input type="hidden" name="l_id" id="l_id_2">
-                        <input type="hidden" id="s_time" />
-                        <input type="hidden" id="e_time" />
+                <form method="POST" id="line_assign_post">
+                    <input type="hidden" name="l_id" id="l_id_2">
+                    <input type="hidden" id="s_time" />
+                    <input type="hidden" id="e_time" />
 
-                        <div class="mt-2 mb-4">
-                            <h1 class="fw-bold heading-text" id="l_setting_name_2"></h1>
+                    <div class="mt-2 mb-4">
+                        <h1 class="fw-bold heading-text" id="l_setting_name_2"></h1>
+                    </div>
+                    <div class="row g-3 my-2">
+                        <div class="col-12 col-md-4 mt-0">
+                            <label>Line Manager</label>​
+                            <select class="form-control" name="l_manager" required>
+                                <option> </option>
+                                @for($i=0;$i<count($json2);$i++) @php $u_id=$json2[$i]['id'];
+                                    $u_name=$json2[$i]['name'];$u_role=$json2[$i]['role']; @endphp @if($u_role==2)
+                                    <option value="{{$u_id}}">
+                                    {{$u_name}}
+                                    </option> @endif @endfor
+                            </select>
                         </div>
-                        <div class="row g-3 my-2">
-                            <div class="col-12 col-md-4 mt-0">
-                                <label>Line Manager</label>​
-                                <select class="form-control" name="l_manager" required>
-                                    <option> </option>
-                                    @for($i=0;$i<count($json2);$i++) @php $u_id=$json2[$i]['id'];
-                                        $u_name=$json2[$i]['name'];$u_role=$json2[$i]['role']; @endphp @if($u_role==2)
-                                        <option value="{{$u_id}}">
-                                        {{$u_name}}
-                                        </option> @endif @endfor
-                                </select>
-                            </div>
-                            <div class="col-12 col-md-4 mt-0">
-                                <br />
-                                <input type="button" class="btn btn-secondary" value="Autofill Time" id="time_type_1">
-                            </div>
-                            <input type="hidden" class="form-control" name="work_hour" placeholder="7 Hours"
-                                id="work_hour" required readonly />
+                        <div class="col-12 col-md-4 mt-0">
+                            <br />
+                            <input type="button" class="btn btn-secondary" value="Autofill Time" id="time_type_1">
                         </div>
-                        <div class="row g-3 my-2">
-                            <div class="col-12 col-md-4 mt-0">
-                                <label>Starting Time</label>​<br />
-                                <input type="time" class="form-control" id="start_time" name="start_time" step="300"
-                                    required>
-                            </div>
-                            <div class="col-12 col-md-4 mt-0">
-                                <label>Lunch Time</label>​<br />
-                                <div class="row">
-                                    <div class="col-6">
-                                        <input type="time" class="form-control" name="lunch_start" id="lunch_start"
-                                            step="300" required>
-                                    </div>
-                                    <div class="col-6">
-                                        <input type="time" class="form-control" name="lunch_end" id="lunch_end"
-                                            step="300" required>
-                                    </div>
+                        <input type="hidden" class="form-control" name="work_hour" placeholder="7 Hours" id="work_hour"
+                            required readonly />
+                    </div>
+                    <div class="row g-3 my-2">
+                        <div class="col-12 col-md-4 mt-0">
+                            <label>Starting Time</label>​<br />
+                            <input type="time" class="form-control" id="start_time" name="start_time" step="300"
+                                required>
+                        </div>
+                        <div class="col-12 col-md-4 mt-0">
+                            <label>Lunch Time</label>​<br />
+                            <div class="row">
+                                <div class="col-6">
+                                    <input type="time" class="form-control" name="lunch_start" id="lunch_start"
+                                        step="300" required>
+                                </div>
+                                <div class="col-6">
+                                    <input type="time" class="form-control" name="lunch_end" id="lunch_end" step="300"
+                                        required>
                                 </div>
                             </div>
-                            <div class="col-12 col-md-4 mt-0">
-                                <label>Ending Time</label>​<br />
-                                <input type="time" class="form-control" id="end_time" name="end_time" step="300"
-                                    required>
-                            </div>
                         </div>
-                        <div class="row g-3 my-2">
-                            <div class="col-12 col-md-4 mt-0">
-                                <label>Work Progress by (minute)</label>​
-                                <input type="number" class="form-control" name="progress" id="progress" placeholder="30"
-                                    required />
-                            </div>
+                        <div class="col-12 col-md-4 mt-0">
+                            <label>Ending Time</label>​<br />
+                            <input type="time" class="form-control" id="end_time" name="end_time" step="300" required>
                         </div>
+                    </div>
+                    <div class="row g-3 my-2">
+                        <div class="col-12 col-md-4 mt-0">
+                            <label>Work Progress by (minute)</label>​
+                            <input type="number" class="form-control" name="progress" id="progress" placeholder="30"
+                                required />
+                        </div>
+                    </div>
             </div>
 
 
@@ -3541,11 +3507,6 @@ cache: true
                                     </div>
                                 </div>
                             </td>
-                            {{-- <td>
-                                <a class='btn btn-danger text-white'
-                                    href="{{ url('/item_delete')}}?id={{ $item->item_id }}"
-                                    onclick="return confirm('Confirm deleting item?')"><i class="fas fa-trash"></i></a>
-                            </td> --}}
                         </tr>
                         @endforeach
                     </tbody>
@@ -3624,7 +3585,6 @@ cache: true
                         <th>Buyer Name</th>
                         <th>Remark</th>
                         <th>Edit</th>
-                        {{-- <th>Delete</th> --}}
                     </tr>
                 </thead>
                 <tbody>
@@ -3687,11 +3647,6 @@ cache: true
                                 </div>
                             </div>
                         </td>
-                        {{-- <td>
-                            <a class='btn btn-danger text-white' href="{{ url('/buyer_delete')}}?id={{ $buyer->buyer_id
-                                    }}" onclick="return confirm('Confirm deleting buyer?')"><i
-                                    class="fas fa-trash"></i></a>
-                        </td> --}}
                     </tr>
                     @endforeach
                 </tbody>

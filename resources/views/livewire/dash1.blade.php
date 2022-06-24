@@ -36,9 +36,6 @@
                         @endphp
                     </th>
                     @endforeach
-                    {{-- <th scope="col" style="vertical-align: middle;">Total</th>
-                    <th scope="col" style="vertical-align: middle;">Rank</th>
-                    <th scope="col" style="vertical-align: middle;">%</th> --}}
                 </tr>
             </thead>
             <tbody>
@@ -84,9 +81,6 @@
                                 <tr style="border-bottom: 1px solid #848484;">
                                     <td class="text-center item_name_{{ $g_line_id }}">
                                         {{ $p_3->p_name }}
-                                        {{-- <div style="width:10rem;overflow-x:scroll;">
-                                            {{ $p_3->p_name }}
-                                        </div> --}}
                                     </td>
                                 </tr>
                                 @endif
@@ -226,173 +220,6 @@ div_actual_target_percent.append('%');
                     @endif
 
                     @endforeach
-
-                    {{-- @foreach($target_total as $t_2_total)
-                    @if ($g_line_id == $t_2_total->line_id && $t_2_total->total != 0)
-                    <td>
-                        <table class="w-100 text-center table m-0">
-                            @foreach($actual_target_total as $a_total)
-                            @if ($g_line_id == $a_total->line_id)
-                            <tr>
-                                <td><span class="fw-bold t_2_total_{{ $t_2_total->line_id }}">{{ $t_2_total->total
-                                        }}</span>
-
-                                </td>
-                                <script>
-                                    // var main_target_total = $("#g_main_target_{{ $g_line_id }}").text();
-                                // var t_2_total = $(".t_2_total_{{ $t_2_total->line_id }}");
-                                // t_2_total.text(main_target_total);
-                                </script>
-                            </tr>
-                            <tr class="text-white">
-                                <td class="fw-bold td_a_total_{{ $t_2_total->line_id }}">
-                                    <span class="a_total_{{ $t_2_total->line_id }}">{{
-                                        $a_total->total_actual_target
-                                        }}</span>
-                                </td>
-                            </tr>
-                            <tr class="text-white">
-                                <td class="fw-bold td_t_percent_{{ $t_2_total->line_id }}">
-                                    <span class="t_percent_{{ $t_2_total->line_id }}"></span>
-                                </td>
-                            </tr>
-                            <script>
-                                window.addEventListener('additionalInit', event => {
-                                    var t_2_total = parseInt($('.t_2_total_{{ $t_2_total->line_id }}').text().replace(/,/g, ''));
-                                    var a_total = parseInt($('.a_total_{{ $t_2_total->line_id }}').text().replace(/,/g, ''));
-                                    var t_percent_span = $('.t_percent_{{ $t_2_total->line_id }}');
-                                    var td_t_percent = $('.td_a_total_{{ $t_2_total->line_id }}');
-                                    var td_a_percent = $('.td_t_percent_{{ $t_2_total->line_id }}');
-                                    var g_line = $('.line_name_{{ $t_2_total->line_id }}');
-                                    var tr_line = $(".tr_line_{{ $t_2_total->line_id }}");
-                                    var item_name = $(".item_name_{{ $t_2_total->line_id }}");
-                                    var g_main_target =$("#g_main_target_{{ $t_2_total->line_id }}");
-                                    var line_column = $(".line_column_{{ $t_2_total->line_id }}");
-
-                                    if(parseInt(t_2_total) > parseInt(a_total)){
-                                        td_a_percent.css('background-color','red');
-                                        // td_a_percent.addClass('bounce');
-                                        // g_line.css('color','white');
-                                        // item_name.css('color','white');
-                                        // g_main_target.css('color','white');
-                                        // tr_line.addClass('tr_live_dash');
-                                        line_column.addClass('bounce');
-                                        // line_column.removeClass('bounce2');
-                                    }
-                                    if(parseInt(t_2_total) <= parseInt(a_total)){
-                                        td_a_percent.css('background-color','green');
-                                        // td_a_percent.removeClass('bounce');
-                                        // g_line.css('color','#000');
-                                        // item_name.css('color','#000');
-                                        // g_main_target.css('color','#000');
-                                        // tr_line.removeClass('tr_live_dash');
-                                        line_column.removeClass('bounce');
-                                        // line_column.addClass('bounce2');
-                                    }
-
-                                    if (Number.isNaN(t_2_total)) {
-                                        t_percent_span.text("");
-                                    }
-                                    if (!Number.isNaN(t_2_total)) {
-                                        var t_percent = (a_total / t_2_total) * 100;
-                                        if (Number.isNaN(t_percent)) {
-                                            t_percent_span.text("");
-                                        }
-                                        if (!Number.isNaN(t_percent)) {
-                                            t_percent_span.text(parseInt(t_percent));
-                                            if (parseInt(t_percent_span.text()) >= 100) {
-                                                td_t_percent.css('background-color', 'green');
-                                            }
-                                            if (parseInt(t_percent_span.text()) < 100) {
-                                                td_t_percent.css('background-color', 'red');
-                                            }
-                                            t_percent_span.append('%');
-                                        }
-                                    }
-                                  });
-                            </script>
-                            @endif
-                            @endforeach
-                        </table>
-                    </td>
-                    @endif
-                    @endforeach
-
-                    @foreach($top_line as $t_line)
-                    @if ($g_line_id == $t_line->l_id)
-                    <td style="vertical-align: middle;" class="t_line_{{ $t_line->row_num }} t_line_count fw-bold">
-                        {{
-                        $t_line->row_num }}
-                    </td>
-
-                    @endif
-                    @endforeach
-
-
-                    @foreach($top_line as $t_line)
-                    @if ($g_line_id == $t_line->l_id)
-                    <td style="vertical-align: middle;" class="t_line_{{ $t_line->row_num }} t_line_count">
-                        <span class="input_row_num_{{ $t_line->row_num }} input_row_num" style="display:none;">{{
-                            $t_line->row_num
-                            }}</span>
-                        {{
-                        $t_line->diff_target_percent }}%
-                    </td>
-
-                    @endif
-                    @endforeach
-                    <script>
-                        window.addEventListener('additionalInit', event => {
-
-        var t_line_count = $('.input_row_num').text();
-var val_arr = [];
-
-for (var i = 0; i < t_line_count.length; i++) {
-    if (t_line_count[i] != ' ' && t_line_count[i] != '\n') {
-        val_arr.push(parseInt(t_line_count[i]));
-    }
-}
-
-var lowestToHighest = val_arr.sort((a, b) => a - b);
-
-var top_1 = lowestToHighest[0];
-var top_2 = lowestToHighest[1];
-var top_3 = lowestToHighest[2];
-
-if(top_1 != ''){
-    $('.t_line_' + top_1).css({
-        'background-color': 'green',
-        'color': '#fff'
-    });
-}
-if(top_2 != ''){
-    $('.t_line_' + top_2).css({
-        'background-color': 'green',
-        'color': '#fff'
-    });
-}
-if(top_3 != ''){
-    $('.t_line_' + top_3).css({
-        'background-color': 'green',
-        'color': '#fff'
-    });
-}
-
-  /// Do not delete (get last rank data)
-                                    // var max_num = Math.max(...val_arr);
-
-                                    // $(".t_line_" + max_num).css({
-                                    //     'background-color': 'red',
-                                    //     'color': '#fff'
-                                    // });
-                                    var max_num = Math.max(...val_arr);
-
-$(".t_line_" + max_num).css({
-    'background-color': 'red',
-    'color': '#fff'
-});
-    });
-                    </script> --}}
                 </tr>
                 @endforeach
                 <tr>
@@ -655,11 +482,6 @@ if(Number.isNaN(total_percentage) || total_percentage == 0){
                                     </span>
 
                                 </td>
-                                <script>
-                                    //     var main_target_total = $("#g_main_target_{{ $g_line_id }}").text();
-                                // var t_2_total = $(".t_2_total_{{ $t_2_total->line_id }}");
-                                // t_2_total.text(main_target_total);
-                                </script>
                             </tr>
                             <tr class="text-white">
                                 <td class="fw-bold td_a_total_{{ $t_2_total->line_id }}">
@@ -795,7 +617,7 @@ if(top_3 != ''){
                                     //     'background-color': 'red',
                                     //     'color': '#fff'
                                     // });
-                                    var max_num = Math.max(...val_arr);
+                                    // var max_num = Math.max(...val_arr);
 
 $(".t_line_" + 10).css({
     'background-color': 'red',

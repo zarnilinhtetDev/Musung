@@ -85,6 +85,11 @@ class LineHistoryController extends Controller
         JOIN line_assign ON "line_assign".assign_id="p_detail".assign_id AND "p_detail".l_id="line_assign".l_id AND "line_assign".assign_date=\'' . $date_string . '\'
         ORDER BY "p_detail".p_detail_id ASC');
 
+        $p_detail_3 = DB::select('SELECT DISTINCT "p_detail".l_id,"p_detail".p_name
+        FROM p_detail
+        JOIN line_assign ON "line_assign".assign_id="p_detail".assign_id AND "p_detail".l_id="line_assign".l_id AND "line_assign".assign_date=\'' . $date_string . '\'
+        ');
+
         $total_main_target = DB::select('SELECT SUM("line_assign".main_target) AS t_main_target, SUM("line_assign".ot_main_target) AS ot_main_target FROM line_assign WHERE "line_assign".assign_date=\'' . $date_string . '\'');
 
         $total_div_target = DB::select('SELECT ROW_NUMBER() OVER(ORDER BY "time".time_name ASC) AS row_num_1,SUM("time".actual_target_entry) AS t_div_target,"time".time_name FROM time WHERE "time".assign_date=\'' . $date_string . '\'
@@ -208,12 +213,12 @@ class LineHistoryController extends Controller
                                <table class="m-auto text-start table table-bordered">
                         <tbody>';
 
-                foreach ($p_detail_2 as $p_2) {
-                    if ($p_2->l_id == $g_line_id) {
+                foreach ($p_detail_3 as $p_3) {
+                    if ($p_3->l_id == $g_line_id) {
                         echo '<tr style="border-bottom: 1px solid #848484;">
                             <td>
-                                <div style="width:10rem;overflow-x:scroll;">
-                                    #' . $p_2->style_no .  ', ' .  $p_2->p_name . '
+                                <div class="text-center">
+                                    ' . $p_3->p_name . '
                                 </div>
                             </td>
                         </tr>';
@@ -428,24 +433,30 @@ if(parseInt(div_actual_target_percent.text()) <= 80){
                                                 if (!Number.isNaN(t_percent)) {
                                                     t_percent_span.text(parseInt(t_percent));
 
-                                                    if(parseInt(t_percent_span.text()) <= 80){
-                                                        td_t_percent.css("background-color","rgba(255,0,0,0.8)");
-                                                        td_a_percent.css("background-color","rgba(255,0,0,0.8)");
- }if(parseInt(t_percent_span.text()) > 80){
-    td_t_percent.css({"background-color":"#FF8000","color":"#fff"});
-    td_a_percent.css({"background-color":"#FF8000","color":"#fff"});
- }
- if(parseInt(t_percent_span.text()) >= 100){
-    td_t_percent.css({"background-color":"rgba(30,113,0,1)","color":"#fff"});
-    td_a_percent.css({"background-color":"rgba(30,113,0,1)","color":"#fff"});
- }
-
-                                                    // if (parseInt(t_percent_span.text()) >= 100) {
-                                                    //     td_t_percent.css('background-color', 'green');
-                                                    // }
-                                                    // if (parseInt(t_percent_span.text()) < 100) {
-                                                    //     td_t_percent.css('background-color', '');
-                                                    // }
+                                                    if (parseInt(t_percent_span.text()) <= 80) {
+                                                        td_t_percent.css("background-color", "rgba(255,0,0,0.8)");
+                                                        td_a_percent.css("background-color", "rgba(255,0,0,0.8)");
+                                                    }
+                                                    if (parseInt(t_percent_span.text()) > 80) {
+                                                        td_t_percent.css({
+                                                            "background-color": "#FF8000",
+                                                            "color": "#fff"
+                                                        });
+                                                        td_a_percent.css({
+                                                            "background-color": "#FF8000",
+                                                            "color": "#fff"
+                                                        });
+                                                    }
+                                                    if (parseInt(t_percent_span.text()) >= 100) {
+                                                        td_t_percent.css({
+                                                            "background-color": "rgba(30,113,0,1)",
+                                                            "color": "#fff"
+                                                        });
+                                                        td_a_percent.css({
+                                                            "background-color": "rgba(30,113,0,1)",
+                                                            "color": "#fff"
+                                                        });
+                                                    }
                                                     t_percent_span.append('%');
                                                 }
                                             }
@@ -468,69 +479,6 @@ if(parseInt(div_actual_target_percent.text()) <= 80){
                 <?php
                     }
                 } ?>
-
-                <script>
-                    // var t_line_count = $('.t_line_count').text();
-                    // var val_arr = [];
-
-                    // for (var i = 0; i < t_line_count.length; i++) {
-                    //     if (t_line_count[i] != ' ' && t_line_count[i] != '\n') {
-                    //         val_arr.push(parseInt(t_line_count[i]));
-                    //     }
-                    // }
-
-                    // var lowestToHighest = val_arr.sort((a, b) => a - b);
-
-                    // var top_1 = lowestToHighest[0];
-                    // var top_2 = lowestToHighest[1];
-                    // var top_3 = lowestToHighest[2];
-
-                    // // if (top_1 != '') {
-                    // //     $('.t_line_' + top_1).css({
-                    // //         'background-color': 'green',
-                    // //         'color': '#fff'
-                    // //     });
-                    // // }
-                    // // if (top_2 != '') {
-                    // //     $('.t_line_' + top_2).css({
-                    // //         'background-color': 'green',
-                    // //         'color': '#fff'
-                    // //     });
-                    // // }
-                    // // if (top_3 != '') {
-                    // //     $('.t_line_' + top_3).css({
-                    // //         'background-color': 'green',
-                    // //         'color': '#fff'
-                    // //     });
-                    // // }
-
-                    // $('.t_line_1').css({
-                    //     'background-color': 'green',
-                    //     'color': '#fff'
-                    // });
-                    // $('.t_line_2').css({
-                    //     'background-color': 'green',
-                    //     'color': '#fff'
-                    // });
-                    // $('.t_line_3').css({
-                    //     'background-color': 'green',
-                    //     'color': '#fff'
-                    // });
-
-
-                    // //// Do not delete (get last rank data)
-                    // // var max_num = Math.max(...val_arr);
-                    // // $(".t_line_" + max_num).css({
-                    // //     'background-color': 'red',
-                    // //     'color': '#fff'
-                    // // });
-                    // //// Do not delete (get last rank data)
-
-                    // $(".t_line_" + 10).css({
-                    //     'background-color': 'red',
-                    //     'color': '#fff'
-                    // });
-                </script>
 
                 <?php for ($h = 0; $h < count($top_line_decode); $h++) {
                     $row_num = $top_line_decode[$h]['row_num'];
@@ -640,8 +588,6 @@ if(parseInt(div_actual_target_percent.text()) <= 80){
                             var tmp_num_val = $("#tmp_num_<?php echo $total_div_actual_target_decode[$m]['row_num']; ?>");
 
                             var total_row_num_val = prev_target_num_val + curr_target_val;
-                            // console.log(total_row_num_val);
-
                             var new_t_div_target_num = parseInt($("#new_t_div_target_num_<?php echo $total_div_actual_target_decode[$m]['row_num']; ?>").text());
                             var new_t_div_actual_target_num = parseInt($("#new_t_div_actual_target_num_<?php echo $total_div_actual_target_decode[$m]['row_num']; ?>").val());
                             var total_percentage = (new_t_div_actual_target_num / new_t_div_target_num) * 100;
@@ -686,14 +632,6 @@ if(parseInt(div_actual_target_percent.text()) <= 80){
                                         'color': '#fff'
                                     });
                                 }
-
-                                if (parseInt(new_t_div_actual_target_num) >= parseInt(new_t_div_target_num)) {
-                                    $("#total_percent_<?php echo  $total_div_actual_target_decode[$m]['row_num']; ?>").css("background-color", "green");
-                                }
-                                if (parseInt(new_t_div_actual_target_num) < parseInt(new_t_div_target_num)) {
-                                    $("#total_percent_<?php echo $total_div_actual_target_decode[$m]['row_num']; ?>").css("background-color", "red");
-                                }
-
                                 new_total_percent.append(" % ");
                             }
                         </script>
@@ -755,11 +693,29 @@ if(parseInt(div_actual_target_percent.text()) <= 80){
                     if (!Number.isNaN(t_percent_cal)) {
                         t_overall_percent.text(parseInt(t_percent_cal));
 
-                        if (parseInt(t_overall_actual_target) >= parseInt(t_overall_target)) {
-                            t_overall_percent.css('background-color', 'green');
+                        if (parseInt(t_percent_cal) <= 80) {
+                            $("#t_overall_actual_target").css('background-color', 'rgba(255,0,0,0.8)');
+                            t_overall_percent.css('background-color', 'rgba(255,0,0,0.8)');
                         }
-                        if (parseInt(t_overall_actual_target) < parseInt(t_overall_target)) {
-                            t_overall_percent.css('background-color', 'red');
+                        if (parseInt(t_percent_cal) > 80) {
+                            $("#t_overall_actual_target").css({
+                                'background-color': '#FF8000',
+                                'color': '#fff'
+                            });
+                            t_overall_percent.css({
+                                'background-color': '#FF8000',
+                                'color': '#fff'
+                            });
+                        }
+                        if (parseInt(t_percent_cal) >= 100) {
+                            $("#t_overall_actual_target").css({
+                                'background-color': '#085820',
+                                'color': '#fff'
+                            });
+                            t_overall_percent.css({
+                                'background-color': '#085820',
+                                'color': '#fff'
+                            });
                         }
                         t_overall_percent.append('%');
                     }

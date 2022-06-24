@@ -113,17 +113,6 @@ class LineAssignController extends Controller
         $lunch_end = request()->post('lunch_end');
         $progress = request()->post('progress');
 
-
-        // $category = request()->post('category');
-        // $category_target = request()->post('category_target');
-        // $p_name = request()->post('p_name');
-        // $number = count($category);
-
-
-        // $category_1 = request()->post('category_1');
-        // $p_name_1 = request()->post('p_name_1');
-        // $category_target_1 = request()->post('category_target_1');
-
         $category = [];
         $style_no = [];
         $p_name = [];
@@ -142,7 +131,6 @@ class LineAssignController extends Controller
                 $category[] = $category_select;
             } elseif (!is_numeric($category_select)) {
                 $category_select_format = str_replace(' ', '', strtolower($category_select));;
-                // echo $category_select_format;
 
                 $buyer_name_check = BuyerList::select('buyer_id', 'buyer_name')->get();
 
@@ -167,7 +155,6 @@ class LineAssignController extends Controller
                 $p_name[] = $p_name_post;
             } elseif (!is_numeric($p_name_post)) {
                 $p_name_post_format = str_replace(' ', '', strtolower($p_name_post));;
-                // echo $category_select_format;
 
                 $style_name_check = ItemList::select('item_id', 'item_name')->get();
 
@@ -191,10 +178,6 @@ class LineAssignController extends Controller
             $style_no[] = $sub[$x]['style_no'];
             $category_target[] = $sub[$x]['category_target'];
         }
-        // print_r($category_target);
-
-        // print_r($category);
-        // print_r($p_name);
 
         $number = count($category);
         $t_category_target =  array_sum($category_target);
@@ -231,7 +214,6 @@ class LineAssignController extends Controller
         $total_time = strtotime($endOfArray_to_date) + strtotime($minute) + ($lunch_to_time - $lunch_from_time);
         $lunch_end_time =  date('H:i', $total_time);
         $lunch_end_time_to_period = new DateTime($lunch_end_time);
-        // echo $lunch_end_time;
 
         $cal_end_time = new DatePeriod($lunch_end_time_to_period, $interval, $end_time);
 
@@ -253,8 +235,6 @@ class LineAssignController extends Controller
         }
         $totalTimeArr = array_merge($timeArr, $endTimeArr);
         $countTotalTimeArr = count($totalTimeArr);
-
-        // print_r($totalTimeArr);
 
         $total_division = round(($t_category_target / $countTotalTimeArr), 0);
         $total_division_2 = $total_division;
@@ -299,14 +279,6 @@ class LineAssignController extends Controller
                                 'actual_target_entry' => $target_for_line_entry[$j],
                                 'assign_date' => $date_string,
                             ]);
-                            // LineEntryHistory::create([
-                            //     'time_id' => 0,
-                            //     'l_id' => $l_id,
-                            //     'p_id' => 0,
-                            //     'actual_target' => $target_for_line_entry[$j],
-                            //     'actual_target_entry' => $target_for_line_entry[$j],
-                            //     'assign_date' => $date_string,
-                            // ]);
                         }
                         //// For temp in time_table
                         Time::create([
@@ -381,7 +353,6 @@ class LineAssignController extends Controller
                     $category[] = $category_select;
                 } elseif (!is_numeric($category_select)) {
                     $category_select_format = str_replace(' ', '', strtolower($category_select));;
-                    // echo $category_select_format;
 
                     $buyer_name_check = BuyerList::select('buyer_id', 'buyer_name')->get();
 
@@ -406,7 +377,6 @@ class LineAssignController extends Controller
                     $p_name[] = $p_name_post;
                 } elseif (!is_numeric($p_name_post)) {
                     $p_name_post_format = str_replace(' ', '', strtolower($p_name_post));;
-                    // echo $category_select_format;
 
                     $style_name_check = ItemList::select('item_id', 'item_name')->get();
 
@@ -433,11 +403,7 @@ class LineAssignController extends Controller
             }
         }
 
-        // print_r($category);
-        // print_r($p_name);
-
         $over_time_target = array_sum($category_target);
-        // echo $over_time_target;
 
         $assign_id = DB::select('SELECT "line_assign".assign_id,"line_assign".user_id,"line_assign".l_id,"line_assign".main_target,"line_assign".s_time,"line_assign".e_time,"line_assign".lunch_s_time,
             "line_assign".lunch_e_time,"line_assign".cal_work_min,"line_assign".t_work_hr,"line_assign".assign_date
@@ -466,7 +432,6 @@ class LineAssignController extends Controller
         for ($m = 0; $m < $div_over_time; $m++) {
 
             $time = ($over_time_minute - $cal_work_min) * $num;
-            // echo $time;
             if ($time == 0) {
                 $min_arr[] = $over_time_minute;
             } elseif ($time < 0) {
@@ -477,8 +442,6 @@ class LineAssignController extends Controller
             $num++;
         }
 
-        // print_r($min_arr);
-
         $time_arr = [];
         for ($i = 0; $i < count($min_arr); $i++) {
             $total_over_time = strtotime($e_time) + ($min_arr[$i] * 60);
@@ -487,10 +450,7 @@ class LineAssignController extends Controller
             $time_arr[] = $format_over_time;
         }
 
-        // print_r($time_arr);
-
         $countTotalTimeArr = count($time_arr);
-        // echo $countTotalTimeArr;
 
         $total_division = round(($over_time_target / $countTotalTimeArr), 0);
         $total_division_2 = $total_division;
@@ -536,53 +496,6 @@ class LineAssignController extends Controller
                     if ($countTotalTimeArr > 0) {
                         for ($j = 0; $j < $countTotalTimeArr; $j++) { ///// Insert data [] to time table
 
-                            // $time_query = Time::where('assign_date', $date_string)->where('time_name', $time_arr[$j])->get();
-
-                            // $time_query_decode = json_decode(json_encode($time_query), true);
-
-                            // for ($z = 0; $z < count($time_query_decode); $z++) {
-                            //     $time_name = $time_query_decode[$z]['time_name'];
-                            //     $ot_status = $time_query_decode[$z]['ot_status'];
-
-                            //     // if ($time_name == $time_arr[$j] && $ot_status == '0') {
-                            //     //     Time::where('time_name', $time_name)
-                            //     //         ->where('line_id', $l_id)
-                            //     //         ->where('assign_id', $a_id_2)
-                            //     //         ->update(['div_target' => $div_target[$j], 'actual_target_entry' => $target_for_line_entry[$j], 'ot_status' => '1']);
-                            //     //     $time_arr_2[] = [];
-                            //     // }
-                            //     // else {
-                            //     //     Time::create([
-                            //     //         'time_name' => $time_arr[$j],
-                            //     //         'line_id' => $l_id,
-                            //     //         'assign_id' => $a_id_2,
-                            //     //         'div_target' => $div_target[$j],
-                            //     //         'actual_target_entry' => $target_for_line_entry[$j],
-                            //     //         'assign_date' => $date_string,
-                            //     //         'ot_status' => 1,
-                            //     //     ]);
-                            //     //     $time_arr_2[] = $time_arr[$j];
-                            //     // }
-
-                            //     // echo count($time_arr_2);
-                            //     // if (count($time_arr_2) == 0) {
-                            //     //     echo 'hello';
-                            //     // }
-                            //     // for ($x = 0; $x < count($time_arr_2); $x++) {
-                            //     //     for ($z = 0; $z < count($line_assign_not_over_time_decode); $z++) {
-                            //     //         Time::create([
-                            //     //             'time_name' => $time_arr_2[$x],
-                            //     //             'line_id' => $line_assign_not_over_time_decode[$z]['l_id'],
-                            //     //             'assign_id' => $line_assign_not_over_time_decode[$z]['assign_id'],
-                            //     //             'div_target' => 0,
-                            //     //             'actual_target_entry' => 0,
-                            //     //             'assign_date' => $date_string,
-                            //     //             'ot_status' => 0,
-                            //     //         ]);
-                            //     //     }
-                            //     // }
-                            // }
-
                             $time_name_check = Time::select('time_id', 'time_name', 'assign_id')->where('assign_date', $date_string)->where('time_name', $time_arr[$j])->where('assign_id', $a_id_2)->where('ot_status', 0);
 
                             if ($time_name_check->count() > 0) {
@@ -602,53 +515,7 @@ class LineAssignController extends Controller
                                     'ot_status' => 1,
                                 ]);
                             }
-
-                            // $time_name_check_2 = DB::select('SELECT time_id,time_name,assign_id,line_id FROM time WHERE assign_date=\'' . $date_string . '\' AND NOT time_name=\'temp\' AND ot_status IS NULL ORDER BY time_id ASC');
-
-                            // $time_new_check_2_decode = json_decode(json_encode($time_name_check_2), true);
-
-                            // for ($x = 0; $x < count($time_new_check_2_decode); $x++) {
-                            //     $time_id = $time_new_check_2_decode[$x]['time_id'];
-                            //     $time_name = $time_new_check_2_decode[$x]['time_name'];
-                            //     $assign_id = $time_new_check_2_decode[$x]['assign_id'];
-                            //     $line_id = $time_new_check_2_decode[$x]['line_id'];
-
-
-                            //     $time_name_check_2 = Time::select('time_id', 'time_name', 'assign_id')->where('assign_date', $date_string)->where('time_name', $time_arr[$j])->where('assign_id', $assign_id)->where('ot_status', 0);
-
-                            //     if ($time_name_check_2->count() <= 0) {
-                            //         Time::create([
-                            //             'time_name' => $time_arr[$j],
-                            //             'line_id' => $line_id,
-                            //             'assign_id' => $assign_id,
-                            //             'div_target' => 0,
-                            //             'actual_target_entry' => 0,
-                            //             'assign_date' => $date_string,
-                            //             'ot_status' => 0,
-                            //         ]);
-                            //     } else {
-                            //         $time_name_check_2_decode = json_decode(json_encode($time_name_check_2->get()), true);
-                            //         $time_id = $time_name_check_2_decode[0]['time_id'];
-                            //         $time_name = $time_name_check_2_decode[0]['time_name'];
-                            //         $assign_id = $time_name_check_2_decode[0]['assign_id'];
-                            //         Time::where('time_id', $time_id)->where('time_name', $time_name)->where('assign_id', $assign_id)->update(['div_target' => $div_target[$j], 'actual_target_entry' => $target_for_line_entry[$j], 'ot_status' => 1]);
-                            //     }
-                            // }
                         }
-
-                        // for ($x = 0; $x < count($time_arr_2); $x++) {
-                        //     for ($z = 0; $z < count($line_assign_not_over_time_decode); $z++) {
-                        //         Time::create([
-                        //             'time_name' => $time_arr_2[$x],
-                        //             'line_id' => $line_assign_not_over_time_decode[$z]['l_id'],
-                        //             'assign_id' => $line_assign_not_over_time_decode[$z]['assign_id'],
-                        //             'div_target' => 0,
-                        //             'actual_target_entry' => 0,
-                        //             'assign_date' => $date_string,
-                        //             'ot_status' => 0,
-                        //         ]);
-                        //     }
-                        // }
 
                         if ($number > 0) {
                             for ($i = 0; $i < $number; $i++) {  ///// Insert data [] to p_detail table
@@ -692,7 +559,7 @@ class LineAssignController extends Controller
         $del_line_assign = LineAssign::where('assign_id', $a_id)->where('l_id', $l_id)->delete();
         $del_p_detail = ProductDetail::where('assign_id', $a_id)->where('l_id', $l_id)->delete();
         $del_time = Time::where('assign_id', $a_id)->where('line_id', $l_id)->delete();
-        $del_entry_history = LineEntryHistory::where('l_id', $l_id)->where('assign_date',$date_string)->delete();
+        $del_entry_history = LineEntryHistory::where('l_id', $l_id)->where('assign_date', $date_string)->delete();
         $l_status = Line::where('l_id', $l_id)->update(['a_status' => 0]);
         if ($del_line_assign == true && $del_p_detail == true && $del_time == true && $l_status == true && $del_entry_history == true) {
             return redirect('/line_setting?status=delete_ok');
@@ -929,8 +796,6 @@ class LineAssignController extends Controller
         if ($buyer_search == '') {
             $buyers = BuyerList::orderby('buyer_name', 'asc')->select('buyer_id', 'buyer_name')->limit(10)->get();
         } else {
-            // $buyers_list = DB::select('SELECT buyer_id,buyer_name FROM buyer WHERE UPPER(buyer_name) LIKE "%' . $buyer_search . '%" ORDER BY buyer_name ASC LIMIT 10');
-            // $buyers = json_decode(json_encode($buyers_list), true);
             $buyers = BuyerList::orderby('buyer_name', 'asc')->select('buyer_id', 'buyer_name')->where('buyer_name', 'ILIKE', '%' . $buyer_search . '%')->limit(10)->get();
         }
 
@@ -951,8 +816,6 @@ class LineAssignController extends Controller
         if ($item_search == '') {
             $items = ItemList::orderby('item_name', 'asc')->select('item_id', 'item_name')->limit(10)->get();
         } else {
-            // $items_list = DB::select('SELECT item_id,item_name FROM item WHERE UPPER(item_name) LIKE "%' . $item_search . '%" ORDER BY item_name ASC LIMIT 10');
-            // $items = json_decode(json_encode($items_list), true);
             $items = ItemList::orderby('item_name', 'asc')->select('item_id', 'item_name')->where('item_name', 'ILIKE', '%' . $item_search . '%')->limit(10)->get();
         }
 

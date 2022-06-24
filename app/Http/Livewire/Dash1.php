@@ -30,13 +30,6 @@ class Dash1 extends Component
         FROM time,line_assign WHERE "time".assign_id="line_assign".assign_id
         AND "line_assign".assign_date=\'' . $date_string . '\' GROUP BY "time".assign_id,"time".line_id');
 
-        //        SELECT "time".line_id,"time".assign_id,"time".div_actual_target,"time".time_name,"time".div_target
-        // FROM time,line_assign WHERE "time".assign_id="line_assign".assign_id
-        // AND "line_assign".assign_date=\'' . $date_string . '\'
-        // AND "time".div_actual_target IS NOT NULL
-        //        GROUP BY "time".assign_id,"time".line_id,"time".div_actual_target,"time".time_name,"time".div_target
-        // 	   ORDER BY "time".line_id,"time".time_name
-
         $actual_target_total = DB::select('SELECT "time".line_id,"time".assign_id,SUM("time".actual_target_entry) AS total_div_target,SUM("time".div_actual_target) AS total_actual_target
         FROM time,line_assign WHERE "time".assign_id="line_assign".assign_id AND "line_assign".assign_date=\'' . $date_string . '\' AND "time".div_actual_target IS NOT NULL
         GROUP BY "time".line_id,"time".assign_id');
@@ -78,10 +71,6 @@ class Dash1 extends Component
         $total_div_actual_target = DB::select('SELECT ROW_NUMBER() OVER(ORDER BY "time".time_name ASC) AS row_num,SUM("time".div_actual_target) AS t_div_actual_target_1,"time".time_name FROM time WHERE "time".assign_date=\'' . $date_string . '\'
         GROUP BY "time".time_name ORDER BY "time".time_name ASC');
 
-        // $total_div_actual_target = DB::select('SELECT DISTINCT SUM("time".div_actual_target) over (ORDER BY "time".time_name) AS t_div_actual_target_1,
-        // "time".time_name FROM time WHERE "time".assign_date=\'' . $date_string . '\' AND "time".div_actual_target IS NOT NULL
-        //         GROUP BY "time".time_name,"time".div_actual_target ORDER BY "time".time_name ASC');
-
         $total_overall_target = DB::select('SELECT SUM("time".actual_target_entry) AS t_overall_target
         FROM time WHERE "time".assign_date=\'' . $date_string . '\' AND "time".div_actual_target IS NOT NULL');
 
@@ -105,8 +94,6 @@ class Dash1 extends Component
         WHERE "time".div_actual_target IS NOT NULL
         GROUP BY line.l_id,line.l_name,line_assign.main_target
         ORDER BY diff_target_percent DESC');
-
-        // $time_name_list = Time::select('time_name')->where('assign_date', $date_string)->distinct()->orderBy('time_name', 'asc')->get();
 
         $time_name_list = DB::select('SELECT DISTINCT time_name FROM time WHERE "time".assign_date=\'' . $date_string . '\' AND NOT "time".time_name=\'temp\' ORDER BY time_name ASC');
 

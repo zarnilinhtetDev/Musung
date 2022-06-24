@@ -27,12 +27,7 @@
                     @php $list_num++; @endphp
                     <script>
                         window.addEventListener('initSomething3', event => {
-                        //     var top_percent = $("#actual_target_percent_actual_chart_{{ $g_line_id }}").text();
-                        // var top_actual_percent = $("#top_actual_percent_{{ $g_line_id }}");
-                        // top_actual_percent.text(top_percent);
-                        $top_1 = $("#tr_top")
-                        // $top_1_th = $("#top_name");
-                        // $top_1_td = $("#tr_top td")
+                        $top_1 = $("#tr_top");
 
                         $top_1.css('background-color','green');
                     });

@@ -61,17 +61,9 @@ class LineEntryController extends Controller
         $p_detail_actual_target_arr = request()->post('p_detail_actual_target');
         $line_id = request()->post('line_id');
         $assign_date = request()->post('assign_date');
-
-
-        // echo $p_detail_id_arr;
         $number = count($p_detail_id_arr);
-        // echo $div_actual_target . $div_actual_percent;
 
         $explode_percent = explode("%", $div_actual_percent);
-
-        // print_r($p_detail_id_arr);
-        // print_r($p_detail_actual_target_arr);
-        // echo $assign_date;
 
 
         if ($div_actual_target != '' && $div_actual_percent != '') {
@@ -81,8 +73,7 @@ class LineEntryController extends Controller
                     $line_entry_history_exist = LineEntryHistory::select('time_id')->where('time_id', $time_id)->where('p_id', $p_detail_id_arr[$i])->where('l_id', $line_id)->where('actual_target', $p_detail_actual_target_arr[$i])->where('assign_date', $assign_date);
                     if ($line_entry_history_exist->count() > 0) {
                         LineEntryHistory::where('time_id', $time_id)->where('p_id', $p_detail_id_arr[$i])->where('l_id', $line_id)->where('actual_target', $p_detail_actual_target_arr[$i])->where('assign_date', $assign_date)->update(['actual_target' => $p_detail_actual_target_arr[$i]]);
-                    }
-                    else{
+                    } else {
                         LineEntryHistory::create(['time_id' => $time_id, 'l_id' => $line_id, 'p_id' => $p_detail_id_arr[$i], 'actual_target' => $p_detail_actual_target_arr[$i], 'assign_date' => $assign_date, 'status' => 1]);
 
                         $product_detail_select = ProductDetail::where('p_detail_id', $p_detail_id_arr[$i])->first();
@@ -110,18 +101,10 @@ class LineEntryController extends Controller
                     LineEntryHistory::where('time_id', $time_id)->where('l_id', $line_id)->where('p_id', $p_detail_id_arr[$i])->where('assign_date', $assign_date)->update(['actual_target' => $p_detail_actual_target_arr[$i]]);
 
                     $product_detail_select = ProductDetail::where('p_detail_id', $p_detail_id_arr[$i])->first();
-
-
-                    // $get_actual_target = LineEntryHistory::where('time_id', $time_id)->where('l_id', $line_id)->where('p_id', $p_detail_id_arr[$i])->where('assign_date', $assign_date)->select('p_id', 'actual_target');
-
                     $get_actual_target = DB::select('SELECT p_id,SUM(actual_target) AS total_actual_target FROM line_entry_history WHERE p_id=' . $p_detail_id_arr[$i] . ' AND assign_date=\'' . $assign_date . '\' GROUP BY p_id');
-
-                    // echo $get_actual_target->p_id . $get_actual_target->actual_target;
-                    // echo $get_actual_target;
 
 
                     $get_actual_target_decode = json_decode(json_encode($get_actual_target), true);
-                    // print_r($get_actual_target_decode);
 
                     for ($j = 0; $j < count($get_actual_target_decode); $j++) {
                         $new_p_id = $get_actual_target_decode[$j]['p_id'];

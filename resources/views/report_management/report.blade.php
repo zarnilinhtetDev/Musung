@@ -45,8 +45,6 @@ $date_string_for_export_pdf = date("Y_m_d", strtotime($date_string));
                     <?php echo $date_string_for_export_pdf . "_report_dash"; ?>
                 </div>
                 <button id="btn" class="icon-btn-one icon-btn-one-2 btn my-2">Export to Excel</button>
-                <!-- <button onclick="tablesToExcel(['history_dash_1','history_dash_2','history_dash_3'], ['Table1','Table2','Table3'], '<?php //echo $getDate;
-                                                                                                                                            ?>.xls', 'Excel')" class="icon-btn-one icon-btn-one-2 btn my-2">Export to Excel</button> -->
             </li>
             <li class="span2 bg-transparent">
                 <button type="button" id="exportPDF" class="icon-btn-one icon-btn-one-2 btn my-2">Export to PDF</button>
@@ -197,7 +195,7 @@ $date_string_for_export_pdf = date("Y_m_d", strtotime($date_string));
 
                             <!-- Man Target -->
                             <td>
-                                <table class="m-auto text-start table table-bordered custom-table-border-color">
+                                <table class="m-auto text-center table table-bordered custom-table-border-color">
                                     @if($edit_status)
                                     <tbody class="man_power_input">
                                         <input type="hidden" id="man_target_l_id_input" name="man_target_l_id[]"
@@ -241,10 +239,6 @@ $date_string_for_export_pdf = date("Y_m_d", strtotime($date_string));
                                             @endif
 
                                             @endfor
-                                            {{-- <tr>
-                                                <td>{{ $man_target }}</td>
-                                                <td>{{ $man_actual_target }}</td>
-                                            </tr> --}}
                                     </tbody>
                                     @endif
                                 </table>
@@ -908,7 +902,7 @@ $date_string_for_export_pdf = date("Y_m_d", strtotime($date_string));
     var div_time = substring_2 / total_time_2;
 
 
-    cmp_hr.text("$ " + div_time.toFixed(1));
+    cmp_hr.text("$ " + div_time.toFixed(2));
 
     /// For CMP/hr end
 
@@ -932,7 +926,7 @@ if(total_actual_m_power_2 != ''){
     cmp_hr_ps.text('');
 }
                             else{
-cmp_hr_ps.text("$ " + div_cmp_hr_ps.toFixed(1));
+cmp_hr_ps.text("$ " + div_cmp_hr_ps.toFixed(2));
 
 
                             }
@@ -959,7 +953,7 @@ cmp_hr_ps.text("$ " + div_cmp_hr_ps.toFixed(1));
                         <td id="total_main_target"></td>
                         <td></td>
                         <td class="td-padding">{{-- For ManPower ---}}
-                            <table class="m-auto text-start table table-bordered custom-table-border-color">
+                            <table class="m-auto text-center table table-bordered custom-table-border-color">
                                 <tbody>
                                     <tr>
                                         <td id="total_man_power"></td>
@@ -1305,513 +1299,6 @@ error: function(result) {
 });
 });
 </script>
-
-<div class="row container-fluid">
-    <div class="col-12 col-md-6 my-4 rounded shadow" id="production_chart">
-    </div>
-    <div class="col-12 col-md-6 my-auto" id="product_chart">
-    </div>
-</div>
-<script>
-    let getTheme = localStorage.getItem("style");
-</script>
-
-<script>
-    if(getTheme=='light'){
-        var options = {
-    series: [{
-    name: 'Target',
-    data: [
-    @foreach($target as $t)
-    @php
-    $t_main_target = $t->t_main_target;
-    echo $t_main_target . ',';
-    @endphp
-    @endforeach]
-    }, {
-    name: 'Actual Target',
-    data: [@foreach($time as $t)
-@php
-$t_div_actual_target = $t->t_actual_target;
-echo $t_div_actual_target . ',';
-@endphp
-@endforeach]
-    }],
-    title: {
-    text: 'Production Report of last 30 days',
-    align: 'left',
-    margin: 10,
-    offsetX: 0,
-    offsetY: 0,
-    floating: false,
-    style: {
-      fontSize:  '14px',
-      fontWeight:  'bold',
-      fontFamily:  'Arial',
-      color:  '#263238'
-    },
-},
-    chart: {
-    height: 350,
-    type: 'area',
-    toolbar: {
-    show: true
-},
-    },
-legend: {
-      labels: {
-          colors: ['#263238'],
-          useSeriesColors: false
-      },
-    },
-    dataLabels: {
-    enabled: true,
-    },
-    stroke: {
-    curve: 'smooth'
-    },
-    xaxis: {
-    categories: [
-    @foreach($target as $t_2)
-    @php
-    $assign_date = $t_2->assign_date;
-    $month = date('m', strtotime($assign_date)); // Create date object to store the DateTime format
-    $day = date('d', strtotime($assign_date));
-    $dateObj = DateTime::createFromFormat('!m', $month);
-
-    // Store the month name to variable
-    $monthName = $dateObj->format('F');
-    $full_format = $day . ' ' . $monthName;
-
-    echo '"' . $full_format . '"' . ',';;
-    @endphp
-    @endforeach],
-    labels: {
-          show: true,
-          style: {
-              colors: '#263238',
-              fontSize: '12px',
-              fontFamily: 'Helvetica, Arial, sans-serif',
-              fontWeight: 400,
-              cssClass: 'apexcharts-xaxis-label',
-          },
-    },
-    },
-    yaxis:{
-    labels: {
-          show: true,
-          style:{
-              colors:'#263238',
-          },
-    },
-    },
-    tooltip: {
-    theme: 'dark'
-  },
-    };
-
-    var chart = new ApexCharts(document.querySelector("#production_chart"), options);
-    chart.render();
-    }
-
-    if(getTheme=='dark'){
-        var options = {
-    series: [{
-    name: 'Target',
-    data: [
-    @foreach($target as $t)
-    @php
-    $t_main_target = $t->t_main_target;
-    echo $t_main_target . ',';
-    @endphp
-    @endforeach]
-    }, {
-    name: 'Actual Target',
-    data: [@foreach($time as $t)
-@php
-$t_div_actual_target = $t->t_actual_target;
-echo $t_div_actual_target . ',';
-@endphp
-@endforeach]
-    }],
-    title: {
-    text: 'Production Report of last 30 days',
-    align: 'left',
-    margin: 10,
-    offsetX: 0,
-    offsetY: 0,
-    floating: false,
-    style: {
-      fontSize:  '14px',
-      fontWeight:  'bold',
-      fontFamily:  'Arial',
-      color:  '#fff'
-    },
-},
-    chart: {
-    height: 350,
-    type: 'area',
-    toolbar: {
-    show: true
-},
-    },
-legend: {
-      labels: {
-          colors: ['#fff'],
-          useSeriesColors: false
-      },
-    },
-    dataLabels: {
-    enabled: true,
-    },
-    stroke: {
-    curve: 'smooth'
-    },
-    xaxis: {
-    categories: [
-    @foreach($target as $t_2)
-    @php
-    $assign_date = $t_2->assign_date;
-    $month = date('m', strtotime($assign_date)); // Create date object to store the DateTime format
-    $day = date('d', strtotime($assign_date));
-    $dateObj = DateTime::createFromFormat('!m', $month);
-
-    // Store the month name to variable
-    $monthName = $dateObj->format('F');
-    $full_format = $day . ' ' . $monthName;
-
-    echo '"' . $full_format . '"' . ',';;
-    @endphp
-    @endforeach],
-    labels: {
-          show: true,
-          style: {
-              colors: '#fff',
-              fontSize: '12px',
-              fontFamily: 'Helvetica, Arial, sans-serif',
-              fontWeight: 400,
-              cssClass: 'apexcharts-xaxis-label',
-          },
-    },
-    },
-    yaxis:{
-    labels: {
-          show: true,
-          style:{
-              colors:'#fff',
-          },
-    },
-    },
-    tooltip: {
-    theme: 'dark'
-  },
-    };
-
-    var chart = new ApexCharts(document.querySelector("#production_chart"), options);
-    chart.render();
-    }
-
-    if(getTheme=='gray'){
-        var options = {
-    series: [{
-    name: 'Target',
-    data: [
-    @foreach($target as $t)
-    @php
-    $t_main_target = $t->t_main_target;
-    echo $t_main_target . ',';
-    @endphp
-    @endforeach]
-    }, {
-    name: 'Actual Target',
-    data: [@foreach($time as $t)
-@php
-$t_div_actual_target = $t->t_actual_target;
-echo $t_div_actual_target . ',';
-@endphp
-@endforeach]
-    }],
-    title: {
-    text: 'Production Report of last 30 days',
-    align: 'left',
-    margin: 10,
-    offsetX: 0,
-    offsetY: 0,
-    floating: false,
-    style: {
-      fontSize:  '14px',
-      fontWeight:  'bold',
-      fontFamily:  'Arial',
-      color:  '#fff'
-    },
-},
-    chart: {
-    height: 350,
-    type: 'area',
-    toolbar: {
-    show: true
-},
-    },
-legend: {
-      labels: {
-          colors: ['#fff'],
-          useSeriesColors: false
-      },
-    },
-    dataLabels: {
-    enabled: true,
-    },
-    stroke: {
-    curve: 'smooth'
-    },
-    xaxis: {
-    categories: [
-    @foreach($target as $t_2)
-    @php
-    $assign_date = $t_2->assign_date;
-    $month = date('m', strtotime($assign_date)); // Create date object to store the DateTime format
-    $day = date('d', strtotime($assign_date));
-    $dateObj = DateTime::createFromFormat('!m', $month);
-
-    // Store the month name to variable
-    $monthName = $dateObj->format('F');
-    $full_format = $day . ' ' . $monthName;
-
-    echo '"' . $full_format . '"' . ',';;
-    @endphp
-    @endforeach],
-    labels: {
-          show: true,
-          style: {
-              colors: '#fff',
-              fontSize: '12px',
-              fontFamily: 'Helvetica, Arial, sans-serif',
-              fontWeight: 400,
-              cssClass: 'apexcharts-xaxis-label',
-          },
-    },
-    },
-    yaxis:{
-    labels: {
-          show: true,
-          style:{
-              colors:'#fff',
-          },
-    },
-    },
-    tooltip: {
-    theme: 'dark'
-  },
-    };
-
-    var chart = new ApexCharts(document.querySelector("#production_chart"), options);
-    chart.render();
-    }
-</script>
-
-<script>
-    if(getTheme=='dark'){
-        var options = {
-  series: [@foreach($category as $c)
-@php
-$cat_actual = $c->t_cat_actual;
-if($cat_actual == ''){
-$cat_actual = 0;
-}
-if($cat_actual!=''){
-$cat_actual = $cat_actual;
-}
-echo $cat_actual . ',';
-@endphp
-@endforeach],
-  chart: {
-      width:'100%',
-      height:'80%',
-      type: 'pie',
-      toolbar: {
-    show: true,
-},
-},title: {
-    text: 'Production Report of Items for 30 days',
-    align: 'left',
-    margin: 10,
-    offsetX: 0,
-    offsetY: 0,
-    floating: false,
-    style: {
-      fontSize:  '14px',
-      fontWeight:  'bold',
-      fontFamily:  'Arial',
-      color:  '#fff'
-    },
-},
-legend: {
-      position: 'right',
-      labels: {
-          colors: ['#fff'],
-          useSeriesColors: false
-      },
-    },
-labels: [
-@foreach($category as $c)
-@php
-$p_name = $c->p_name;
-echo '"' . $p_name . '"' . ',';
-@endphp
-@endforeach],
-responsive: [{
-  breakpoint: 480,
-  options: {
-    chart: {
-    //   width: 200
-    },
-    legend: {
-      position: 'bottom'
-    },
-  }
-}]
-};
-
-var chart = new ApexCharts(document.querySelector("#product_chart"), options);
-chart.render();
-    }
-
-    if(getTheme=='light'){
-        var options = {
-  series: [@foreach($category as $c)
-@php
-$cat_actual = $c->t_cat_actual;
-if($cat_actual == ''){
-$cat_actual = 0;
-}
-if($cat_actual!=''){
-$cat_actual = $cat_actual;
-}
-echo $cat_actual . ',';
-@endphp
-@endforeach],
-  chart: {
-      width:'100%',
-      height:'80%',
-    //   background: '#fff',
-      type: 'pie',
-      toolbar: {
-    show: true,
-},
-},title: {
-    text: 'Production Report of Items for 30 days',
-    align: 'left',
-    margin: 10,
-    offsetX: 0,
-    offsetY: 0,
-    floating: false,
-    style: {
-      fontSize:  '14px',
-      fontWeight:  'bold',
-      fontFamily:  'Arial',
-      color: '#263238'
-    },
-},
-legend: {
-      position: 'right',
-    //   labels: {
-    //       colors: ['#fff'],
-    //       useSeriesColors: false
-    //   },
-    },
-labels: [
-@foreach($category as $c)
-@php
-$p_name = $c->p_name;
-echo '"' . $p_name . '"' . ',';
-@endphp
-@endforeach],
-responsive: [{
-  breakpoint: 480,
-  options: {
-    chart: {
-    //   width: 200
-    },
-    legend: {
-      position: 'bottom'
-    },
-  }
-}]
-};
-
-var chart = new ApexCharts(document.querySelector("#product_chart"), options);
-chart.render();
-    }
-
-    if(getTheme=='gray'){
-        var options = {
-  series: [@foreach($category as $c)
-@php
-$cat_actual = $c->t_cat_actual;
-if($cat_actual == ''){
-$cat_actual = 0;
-}
-if($cat_actual!=''){
-$cat_actual = $cat_actual;
-}
-echo $cat_actual . ',';
-@endphp
-@endforeach],
-  chart: {
-      width:'100%',
-      height:'80%',
-      type: 'pie',
-      toolbar: {
-    show: true,
-},
-},title: {
-    text: 'Production Report of Items for 30 days',
-    align: 'left',
-    margin: 10,
-    offsetX: 0,
-    offsetY: 0,
-    floating: false,
-    style: {
-      fontSize:  '14px',
-      fontWeight:  'bold',
-      fontFamily:  'Arial',
-      color:  '#fff'
-    },
-},
-legend: {
-      position: 'right',
-      labels: {
-          colors: ['#fff'],
-          useSeriesColors: false
-      },
-    },
-labels: [
-@foreach($category as $c)
-@php
-$p_name = $c->p_name;
-echo '"' . $p_name . '"' . ',';
-@endphp
-@endforeach],
-responsive: [{
-  breakpoint: 480,
-  options: {
-    chart: {
-    //   width: 200
-    },
-    legend: {
-      position: 'bottom'
-    },tooltip: {
-    theme: 'dark'
-  },
-  }
-}]
-};
-
-var chart = new ApexCharts(document.querySelector("#product_chart"), options);
-chart.render();
-    }
-
-</script>
 @endsuperadmin
 
 @owner
@@ -1848,8 +1335,6 @@ chart.render();
                     <?php echo $date_string_for_export_pdf . "_report_dash"; ?>
                 </div>
                 <button id="btn" class="icon-btn-one icon-btn-one-2 btn my-2">Export to Excel</button>
-                <!-- <button onclick="tablesToExcel(['history_dash_1','history_dash_2','history_dash_3'], ['Table1','Table2','Table3'], '<?php //echo $getDate;
-                                                                                                                                            ?>.xls', 'Excel')" class="icon-btn-one icon-btn-one-2 btn my-2">Export to Excel</button> -->
             </li>
             <li class="span2 bg-transparent">
                 <button type="button" id="exportPDF" class="icon-btn-one icon-btn-one-2 btn my-2">Export to PDF</button>
@@ -2041,10 +1526,6 @@ chart.render();
                                             @endif
 
                                             @endfor
-                                            {{-- <tr>
-                                                <td>{{ $man_target }}</td>
-                                                <td>{{ $man_actual_target }}</td>
-                                            </tr> --}}
                                     </tbody>
                                     @endif
                                 </table>
@@ -2706,7 +2187,7 @@ chart.render();
     var div_time = substring_2 / total_time_2;
 
 
-    cmp_hr.text("$ " + div_time.toFixed(1));
+    cmp_hr.text("$ " + div_time.toFixed(2));
 
     /// For CMP/hr end
 
@@ -2730,7 +2211,7 @@ if(total_actual_m_power_2 != ''){
     cmp_hr_ps.text('');
 }
                             else{
-cmp_hr_ps.text("$ " + div_cmp_hr_ps.toFixed(1));
+cmp_hr_ps.text("$ " + div_cmp_hr_ps.toFixed(2));
 
 
                             }
@@ -2757,7 +2238,7 @@ cmp_hr_ps.text("$ " + div_cmp_hr_ps.toFixed(1));
                         <td id="total_main_target"></td>
                         <td></td>
                         <td class="td-padding">{{-- For ManPower ---}}
-                            <table class="m-auto text-start table table-bordered custom-table-border-color">
+                            <table class="m-auto text-center table table-bordered custom-table-border-color">
                                 <tbody>
                                     <tr>
                                         <td id="total_man_power"></td>
@@ -3102,513 +2583,6 @@ error: function(result) {
 });
 </script>
 
-<div class="row container-fluid">
-    <div class="col-12 col-md-6 my-4 rounded shadow" id="production_chart">
-    </div>
-    <div class="col-12 col-md-6 my-auto" id="product_chart">
-    </div>
-</div>
-<script>
-    let getTheme = localStorage.getItem("style");
-</script>
-
-<script>
-    if(getTheme=='light'){
-        var options = {
-    series: [{
-    name: 'Target',
-    data: [
-    @foreach($target as $t)
-    @php
-    $t_main_target = $t->t_main_target;
-    echo $t_main_target . ',';
-    @endphp
-    @endforeach]
-    }, {
-    name: 'Actual Target',
-    data: [@foreach($time as $t)
-@php
-$t_div_actual_target = $t->t_actual_target;
-echo $t_div_actual_target . ',';
-@endphp
-@endforeach]
-    }],
-    title: {
-    text: 'Production Report of last 30 days',
-    align: 'left',
-    margin: 10,
-    offsetX: 0,
-    offsetY: 0,
-    floating: false,
-    style: {
-      fontSize:  '14px',
-      fontWeight:  'bold',
-      fontFamily:  'Arial',
-      color:  '#263238'
-    },
-},
-    chart: {
-    height: 350,
-    type: 'area',
-    toolbar: {
-    show: true
-},
-    },
-legend: {
-      labels: {
-          colors: ['#263238'],
-          useSeriesColors: false
-      },
-    },
-    dataLabels: {
-    enabled: true,
-    },
-    stroke: {
-    curve: 'smooth'
-    },
-    xaxis: {
-    categories: [
-    @foreach($target as $t_2)
-    @php
-    $assign_date = $t_2->assign_date;
-    $month = date('m', strtotime($assign_date)); // Create date object to store the DateTime format
-    $day = date('d', strtotime($assign_date));
-    $dateObj = DateTime::createFromFormat('!m', $month);
-
-    // Store the month name to variable
-    $monthName = $dateObj->format('F');
-    $full_format = $day . ' ' . $monthName;
-
-    echo '"' . $full_format . '"' . ',';;
-    @endphp
-    @endforeach],
-    labels: {
-          show: true,
-          style: {
-              colors: '#263238',
-              fontSize: '12px',
-              fontFamily: 'Helvetica, Arial, sans-serif',
-              fontWeight: 400,
-              cssClass: 'apexcharts-xaxis-label',
-          },
-    },
-    },
-    yaxis:{
-    labels: {
-          show: true,
-          style:{
-              colors:'#263238',
-          },
-    },
-    },
-    tooltip: {
-    theme: 'dark'
-  },
-    };
-
-    var chart = new ApexCharts(document.querySelector("#production_chart"), options);
-    chart.render();
-    }
-
-    if(getTheme=='dark'){
-        var options = {
-    series: [{
-    name: 'Target',
-    data: [
-    @foreach($target as $t)
-    @php
-    $t_main_target = $t->t_main_target;
-    echo $t_main_target . ',';
-    @endphp
-    @endforeach]
-    }, {
-    name: 'Actual Target',
-    data: [@foreach($time as $t)
-@php
-$t_div_actual_target = $t->t_actual_target;
-echo $t_div_actual_target . ',';
-@endphp
-@endforeach]
-    }],
-    title: {
-    text: 'Production Report of last 30 days',
-    align: 'left',
-    margin: 10,
-    offsetX: 0,
-    offsetY: 0,
-    floating: false,
-    style: {
-      fontSize:  '14px',
-      fontWeight:  'bold',
-      fontFamily:  'Arial',
-      color:  '#fff'
-    },
-},
-    chart: {
-    height: 350,
-    type: 'area',
-    toolbar: {
-    show: true
-},
-    },
-legend: {
-      labels: {
-          colors: ['#fff'],
-          useSeriesColors: false
-      },
-    },
-    dataLabels: {
-    enabled: true,
-    },
-    stroke: {
-    curve: 'smooth'
-    },
-    xaxis: {
-    categories: [
-    @foreach($target as $t_2)
-    @php
-    $assign_date = $t_2->assign_date;
-    $month = date('m', strtotime($assign_date)); // Create date object to store the DateTime format
-    $day = date('d', strtotime($assign_date));
-    $dateObj = DateTime::createFromFormat('!m', $month);
-
-    // Store the month name to variable
-    $monthName = $dateObj->format('F');
-    $full_format = $day . ' ' . $monthName;
-
-    echo '"' . $full_format . '"' . ',';;
-    @endphp
-    @endforeach],
-    labels: {
-          show: true,
-          style: {
-              colors: '#fff',
-              fontSize: '12px',
-              fontFamily: 'Helvetica, Arial, sans-serif',
-              fontWeight: 400,
-              cssClass: 'apexcharts-xaxis-label',
-          },
-    },
-    },
-    yaxis:{
-    labels: {
-          show: true,
-          style:{
-              colors:'#fff',
-          },
-    },
-    },
-    tooltip: {
-    theme: 'dark'
-  },
-    };
-
-    var chart = new ApexCharts(document.querySelector("#production_chart"), options);
-    chart.render();
-    }
-
-    if(getTheme=='gray'){
-        var options = {
-    series: [{
-    name: 'Target',
-    data: [
-    @foreach($target as $t)
-    @php
-    $t_main_target = $t->t_main_target;
-    echo $t_main_target . ',';
-    @endphp
-    @endforeach]
-    }, {
-    name: 'Actual Target',
-    data: [@foreach($time as $t)
-@php
-$t_div_actual_target = $t->t_actual_target;
-echo $t_div_actual_target . ',';
-@endphp
-@endforeach]
-    }],
-    title: {
-    text: 'Production Report of last 30 days',
-    align: 'left',
-    margin: 10,
-    offsetX: 0,
-    offsetY: 0,
-    floating: false,
-    style: {
-      fontSize:  '14px',
-      fontWeight:  'bold',
-      fontFamily:  'Arial',
-      color:  '#fff'
-    },
-},
-    chart: {
-    height: 350,
-    type: 'area',
-    toolbar: {
-    show: true
-},
-    },
-legend: {
-      labels: {
-          colors: ['#fff'],
-          useSeriesColors: false
-      },
-    },
-    dataLabels: {
-    enabled: true,
-    },
-    stroke: {
-    curve: 'smooth'
-    },
-    xaxis: {
-    categories: [
-    @foreach($target as $t_2)
-    @php
-    $assign_date = $t_2->assign_date;
-    $month = date('m', strtotime($assign_date)); // Create date object to store the DateTime format
-    $day = date('d', strtotime($assign_date));
-    $dateObj = DateTime::createFromFormat('!m', $month);
-
-    // Store the month name to variable
-    $monthName = $dateObj->format('F');
-    $full_format = $day . ' ' . $monthName;
-
-    echo '"' . $full_format . '"' . ',';;
-    @endphp
-    @endforeach],
-    labels: {
-          show: true,
-          style: {
-              colors: '#fff',
-              fontSize: '12px',
-              fontFamily: 'Helvetica, Arial, sans-serif',
-              fontWeight: 400,
-              cssClass: 'apexcharts-xaxis-label',
-          },
-    },
-    },
-    yaxis:{
-    labels: {
-          show: true,
-          style:{
-              colors:'#fff',
-          },
-    },
-    },
-    tooltip: {
-    theme: 'dark'
-  },
-    };
-
-    var chart = new ApexCharts(document.querySelector("#production_chart"), options);
-    chart.render();
-    }
-</script>
-
-<script>
-    if(getTheme=='dark'){
-        var options = {
-  series: [@foreach($category as $c)
-@php
-$cat_actual = $c->t_cat_actual;
-if($cat_actual == ''){
-$cat_actual = 0;
-}
-if($cat_actual!=''){
-$cat_actual = $cat_actual;
-}
-echo $cat_actual . ',';
-@endphp
-@endforeach],
-  chart: {
-      width:'100%',
-      height:'80%',
-      type: 'pie',
-      toolbar: {
-    show: true,
-},
-},title: {
-    text: 'Production Report of Items for 30 days',
-    align: 'left',
-    margin: 10,
-    offsetX: 0,
-    offsetY: 0,
-    floating: false,
-    style: {
-      fontSize:  '14px',
-      fontWeight:  'bold',
-      fontFamily:  'Arial',
-      color:  '#fff'
-    },
-},
-legend: {
-      position: 'right',
-      labels: {
-          colors: ['#fff'],
-          useSeriesColors: false
-      },
-    },
-labels: [
-@foreach($category as $c)
-@php
-$p_name = $c->p_name;
-echo '"' . $p_name . '"' . ',';
-@endphp
-@endforeach],
-responsive: [{
-  breakpoint: 480,
-  options: {
-    chart: {
-    //   width: 200
-    },
-    legend: {
-      position: 'bottom'
-    },
-  }
-}]
-};
-
-var chart = new ApexCharts(document.querySelector("#product_chart"), options);
-chart.render();
-    }
-
-    if(getTheme=='light'){
-        var options = {
-  series: [@foreach($category as $c)
-@php
-$cat_actual = $c->t_cat_actual;
-if($cat_actual == ''){
-$cat_actual = 0;
-}
-if($cat_actual!=''){
-$cat_actual = $cat_actual;
-}
-echo $cat_actual . ',';
-@endphp
-@endforeach],
-  chart: {
-      width:'100%',
-      height:'80%',
-    //   background: '#fff',
-      type: 'pie',
-      toolbar: {
-    show: true,
-},
-},title: {
-    text: 'Production Report of Items for 30 days',
-    align: 'left',
-    margin: 10,
-    offsetX: 0,
-    offsetY: 0,
-    floating: false,
-    style: {
-      fontSize:  '14px',
-      fontWeight:  'bold',
-      fontFamily:  'Arial',
-      color: '#263238'
-    },
-},
-legend: {
-      position: 'right',
-    //   labels: {
-    //       colors: ['#fff'],
-    //       useSeriesColors: false
-    //   },
-    },
-labels: [
-@foreach($category as $c)
-@php
-$p_name = $c->p_name;
-echo '"' . $p_name . '"' . ',';
-@endphp
-@endforeach],
-responsive: [{
-  breakpoint: 480,
-  options: {
-    chart: {
-    //   width: 200
-    },
-    legend: {
-      position: 'bottom'
-    },
-  }
-}]
-};
-
-var chart = new ApexCharts(document.querySelector("#product_chart"), options);
-chart.render();
-    }
-
-    if(getTheme=='gray'){
-        var options = {
-  series: [@foreach($category as $c)
-@php
-$cat_actual = $c->t_cat_actual;
-if($cat_actual == ''){
-$cat_actual = 0;
-}
-if($cat_actual!=''){
-$cat_actual = $cat_actual;
-}
-echo $cat_actual . ',';
-@endphp
-@endforeach],
-  chart: {
-      width:'100%',
-      height:'80%',
-      type: 'pie',
-      toolbar: {
-    show: true,
-},
-},title: {
-    text: 'Production Report of Items for 30 days',
-    align: 'left',
-    margin: 10,
-    offsetX: 0,
-    offsetY: 0,
-    floating: false,
-    style: {
-      fontSize:  '14px',
-      fontWeight:  'bold',
-      fontFamily:  'Arial',
-      color:  '#fff'
-    },
-},
-legend: {
-      position: 'right',
-      labels: {
-          colors: ['#fff'],
-          useSeriesColors: false
-      },
-    },
-labels: [
-@foreach($category as $c)
-@php
-$p_name = $c->p_name;
-echo '"' . $p_name . '"' . ',';
-@endphp
-@endforeach],
-responsive: [{
-  breakpoint: 480,
-  options: {
-    chart: {
-    //   width: 200
-    },
-    legend: {
-      position: 'bottom'
-    },tooltip: {
-    theme: 'dark'
-  },
-  }
-}]
-};
-
-var chart = new ApexCharts(document.querySelector("#product_chart"), options);
-chart.render();
-    }
-
-</script>
-
 @endowner
 
 
@@ -3631,7 +2605,8 @@ chart.render();
         <ul class="horizontal-slide" id="tabs">
             <li class="span2">
                 <p>Date -
-                    <?php if(!$edit_status && !$date){
+                    <?php
+                    if(!$edit_status && !$date){
                                 echo $date_string;
                             }else{
                                 echo $format_date;
@@ -3645,8 +2620,6 @@ chart.render();
                     <?php echo $date_string_for_export_pdf . "_report_dash"; ?>
                 </div>
                 <button id="btn" class="icon-btn-one icon-btn-one-2 btn my-2">Export to Excel</button>
-                <!-- <button onclick="tablesToExcel(['history_dash_1','history_dash_2','history_dash_3'], ['Table1','Table2','Table3'], '<?php //echo $getDate;
-                                                                                                                                            ?>.xls', 'Excel')" class="icon-btn-one icon-btn-one-2 btn my-2">Export to Excel</button> -->
             </li>
             <li class="span2 bg-transparent">
                 <button type="button" id="exportPDF" class="icon-btn-one icon-btn-one-2 btn my-2">Export to PDF</button>
@@ -3795,7 +2768,7 @@ chart.render();
 
                             <!-- Man Target --->
                             <td class="td-padding">
-                                <table class="m-auto text-start table table-bordered custom-table-border-color">
+                                <table class="m-auto text-center table table-bordered custom-table-border-color">
                                     @if($edit_status)
                                     <tbody class="man_power_input">
                                         <input type="hidden" id="man_target_l_id_input" name="man_target_l_id[]"
@@ -3839,10 +2812,6 @@ chart.render();
                                             @endif
 
                                             @endfor
-                                            {{-- <tr>
-                                                <td>{{ $man_target }}</td>
-                                                <td>{{ $man_actual_target }}</td>
-                                            </tr> --}}
                                     </tbody>
                                     @endif
                                 </table>
@@ -3917,7 +2886,6 @@ chart.render();
                                             @endif
 
                                             @endfor
-
                                     </tbody>
                                     @endif
 
@@ -4421,19 +3389,43 @@ chart.render();
                         @else
                         <tbody>
                             <tr>
-                                <td class="m_power_value_{{ $l_id }}">@if($m_power != ''){{ number_format($m_power) }}
-                                    @endif</td>
-                                <td class="hp_value_{{ $l_id }}">@if($hp != ''){{ number_format($hp) }} @endif</td>
+                                <td class="m_power_value_{{ $l_id }}">
+                                    @if($m_power != '')
+                                    {{ number_format($m_power) }}
+                                    @endif
+                                    @if($m_power == '')
+                                    0
+                                    @endif
+                                </td>
+                                <td class="hp_value_{{ $l_id }}">
+                                    @if($hp != '')
+                                    {{ number_format($hp) }}
+                                    @endif
+                                    @if($hp == '')
+                                    0
+                                    @endif
+                                </td>
                             </tr>
                             <tr>
                                 <td class="total_m_power_{{ $l_id }}" colspan="2" id="total_m_power"></td>
                             </tr>
                             <tr>
-                                <td class="actual_m_power_value_{{ $l_id }}">@if($actual_m_power != ''){{
-                                    number_format($actual_m_power) }} @endif</td>
-                                <td class="actual_hp_value_{{ $l_id }}">@if($actual_hp != ''){{
+                                <td class="actual_m_power_value_{{ $l_id }}">
+                                    @if($actual_m_power != ''){{
+                                    number_format($actual_m_power) }}
+                                    @endif
+                                    @if($actual_m_power == '')
+                                    0
+                                    @endif
+                                </td>
+                                <td class="actual_hp_value_{{ $l_id }}">
+                                    @if($actual_hp != ''){{
                                     number_format($actual_hp)
-                                    }}@endif</td>
+                                    }}@endif
+                                    @if($actual_hp == '')
+                                    0
+                                    @endif
+                                </td>
                             </tr>
                             <tr>
                                 <td class="total_actual_m_power_{{ $l_id }} total_actual_m_power" colspan="2"
@@ -4507,7 +3499,7 @@ chart.render();
     var div_time = substring_2 / total_time_2;
 
 
-    cmp_hr.text("$ " + div_time.toFixed(1));
+    cmp_hr.text("$ " + div_time.toFixed(2));
 
     /// For CMP/hr end
 
@@ -4528,10 +3520,10 @@ var div_cmp_hr_ps = substring_3 / total_actual_m_power_2;
 if(total_actual_m_power_2 != ''){
 
     if(Number.isNaN(div_cmp_hr_ps)){
-    cmp_hr_ps.text('');
+    cmp_hr_ps.text("$ " + 0);
 }
                             else{
-cmp_hr_ps.text("$ " + div_cmp_hr_ps.toFixed(1));
+cmp_hr_ps.text("$ " + div_cmp_hr_ps.toFixed(2));
 
 
                             }
@@ -4558,7 +3550,7 @@ cmp_hr_ps.text("$ " + div_cmp_hr_ps.toFixed(1));
                         <td></td>
                         <td id="total_main_target"></td>
                         <td class="td-padding">{{-- For ManPower ---}}
-                            <table class="m-auto text-start table table-bordered custom-table-border-color">
+                            <table class="m-auto text-center table table-bordered custom-table-border-color">
                                 <tbody>
                                     <tr>
                                         <td id="total_man_power"></td>
@@ -4620,7 +3612,7 @@ $('.new_cmp_hr_ps').each(function()
 {
     sum2 += parseFloat($(this).text().substring(2).replace(/,/g,''));
 });
-$("#total_cmp_hr_ps").text(sum2.toFixed(2));
+$("#total_cmp_hr_ps").text("$ " + sum2.toFixed(2));
 //// DailyCMP End
 
 //// actual_m_power
@@ -4907,513 +3899,6 @@ error: function(result) {
 });
 </script>
 
-<div class="row container-fluid">
-    <div class="col-12 col-md-6 my-4 rounded shadow" id="production_chart">
-    </div>
-    <div class="col-12 col-md-6 my-auto" id="product_chart">
-    </div>
-</div>
-<script>
-    let getTheme = localStorage.getItem("style");
-</script>
-
-<script>
-    if(getTheme=='light'){
-        var options = {
-    series: [{
-    name: 'Target',
-    data: [
-    @foreach($target as $t)
-    @php
-    $t_main_target = $t->t_main_target;
-    echo $t_main_target . ',';
-    @endphp
-    @endforeach]
-    }, {
-    name: 'Actual Target',
-    data: [@foreach($time as $t)
-@php
-$t_div_actual_target = $t->t_actual_target;
-echo $t_div_actual_target . ',';
-@endphp
-@endforeach]
-    }],
-    title: {
-    text: 'Production Report of last 30 days',
-    align: 'left',
-    margin: 10,
-    offsetX: 0,
-    offsetY: 0,
-    floating: false,
-    style: {
-      fontSize:  '14px',
-      fontWeight:  'bold',
-      fontFamily:  'Arial',
-      color:  '#263238'
-    },
-},
-    chart: {
-    height: 350,
-    type: 'area',
-    toolbar: {
-    show: true
-},
-    },
-legend: {
-      labels: {
-          colors: ['#263238'],
-          useSeriesColors: false
-      },
-    },
-    dataLabels: {
-    enabled: true,
-    },
-    stroke: {
-    curve: 'smooth'
-    },
-    xaxis: {
-    categories: [
-    @foreach($target as $t_2)
-    @php
-    $assign_date = $t_2->assign_date;
-    $month = date('m', strtotime($assign_date)); // Create date object to store the DateTime format
-    $day = date('d', strtotime($assign_date));
-    $dateObj = DateTime::createFromFormat('!m', $month);
-
-    // Store the month name to variable
-    $monthName = $dateObj->format('F');
-    $full_format = $day . ' ' . $monthName;
-
-    echo '"' . $full_format . '"' . ',';;
-    @endphp
-    @endforeach],
-    labels: {
-          show: true,
-          style: {
-              colors: '#263238',
-              fontSize: '12px',
-              fontFamily: 'Helvetica, Arial, sans-serif',
-              fontWeight: 400,
-              cssClass: 'apexcharts-xaxis-label',
-          },
-    },
-    },
-    yaxis:{
-    labels: {
-          show: true,
-          style:{
-              colors:'#263238',
-          },
-    },
-    },
-    tooltip: {
-    theme: 'dark'
-  },
-    };
-
-    var chart = new ApexCharts(document.querySelector("#production_chart"), options);
-    chart.render();
-    }
-
-    if(getTheme=='dark'){
-        var options = {
-    series: [{
-    name: 'Target',
-    data: [
-    @foreach($target as $t)
-    @php
-    $t_main_target = $t->t_main_target;
-    echo $t_main_target . ',';
-    @endphp
-    @endforeach]
-    }, {
-    name: 'Actual Target',
-    data: [@foreach($time as $t)
-@php
-$t_div_actual_target = $t->t_actual_target;
-echo $t_div_actual_target . ',';
-@endphp
-@endforeach]
-    }],
-    title: {
-    text: 'Production Report of last 30 days',
-    align: 'left',
-    margin: 10,
-    offsetX: 0,
-    offsetY: 0,
-    floating: false,
-    style: {
-      fontSize:  '14px',
-      fontWeight:  'bold',
-      fontFamily:  'Arial',
-      color:  '#fff'
-    },
-},
-    chart: {
-    height: 350,
-    type: 'area',
-    toolbar: {
-    show: true
-},
-    },
-legend: {
-      labels: {
-          colors: ['#fff'],
-          useSeriesColors: false
-      },
-    },
-    dataLabels: {
-    enabled: true,
-    },
-    stroke: {
-    curve: 'smooth'
-    },
-    xaxis: {
-    categories: [
-    @foreach($target as $t_2)
-    @php
-    $assign_date = $t_2->assign_date;
-    $month = date('m', strtotime($assign_date)); // Create date object to store the DateTime format
-    $day = date('d', strtotime($assign_date));
-    $dateObj = DateTime::createFromFormat('!m', $month);
-
-    // Store the month name to variable
-    $monthName = $dateObj->format('F');
-    $full_format = $day . ' ' . $monthName;
-
-    echo '"' . $full_format . '"' . ',';;
-    @endphp
-    @endforeach],
-    labels: {
-          show: true,
-          style: {
-              colors: '#fff',
-              fontSize: '12px',
-              fontFamily: 'Helvetica, Arial, sans-serif',
-              fontWeight: 400,
-              cssClass: 'apexcharts-xaxis-label',
-          },
-    },
-    },
-    yaxis:{
-    labels: {
-          show: true,
-          style:{
-              colors:'#fff',
-          },
-    },
-    },
-    tooltip: {
-    theme: 'dark'
-  },
-    };
-
-    var chart = new ApexCharts(document.querySelector("#production_chart"), options);
-    chart.render();
-    }
-
-    if(getTheme=='gray'){
-        var options = {
-    series: [{
-    name: 'Target',
-    data: [
-    @foreach($target as $t)
-    @php
-    $t_main_target = $t->t_main_target;
-    echo $t_main_target . ',';
-    @endphp
-    @endforeach]
-    }, {
-    name: 'Actual Target',
-    data: [@foreach($time as $t)
-@php
-$t_div_actual_target = $t->t_actual_target;
-echo $t_div_actual_target . ',';
-@endphp
-@endforeach]
-    }],
-    title: {
-    text: 'Production Report of last 30 days',
-    align: 'left',
-    margin: 10,
-    offsetX: 0,
-    offsetY: 0,
-    floating: false,
-    style: {
-      fontSize:  '14px',
-      fontWeight:  'bold',
-      fontFamily:  'Arial',
-      color:  '#fff'
-    },
-},
-    chart: {
-    height: 350,
-    type: 'area',
-    toolbar: {
-    show: true
-},
-    },
-legend: {
-      labels: {
-          colors: ['#fff'],
-          useSeriesColors: false
-      },
-    },
-    dataLabels: {
-    enabled: true,
-    },
-    stroke: {
-    curve: 'smooth'
-    },
-    xaxis: {
-    categories: [
-    @foreach($target as $t_2)
-    @php
-    $assign_date = $t_2->assign_date;
-    $month = date('m', strtotime($assign_date)); // Create date object to store the DateTime format
-    $day = date('d', strtotime($assign_date));
-    $dateObj = DateTime::createFromFormat('!m', $month);
-
-    // Store the month name to variable
-    $monthName = $dateObj->format('F');
-    $full_format = $day . ' ' . $monthName;
-
-    echo '"' . $full_format . '"' . ',';;
-    @endphp
-    @endforeach],
-    labels: {
-          show: true,
-          style: {
-              colors: '#fff',
-              fontSize: '12px',
-              fontFamily: 'Helvetica, Arial, sans-serif',
-              fontWeight: 400,
-              cssClass: 'apexcharts-xaxis-label',
-          },
-    },
-    },
-    yaxis:{
-    labels: {
-          show: true,
-          style:{
-              colors:'#fff',
-          },
-    },
-    },
-    tooltip: {
-    theme: 'dark'
-  },
-    };
-
-    var chart = new ApexCharts(document.querySelector("#production_chart"), options);
-    chart.render();
-    }
-</script>
-
-<script>
-    if(getTheme=='dark'){
-        var options = {
-  series: [@foreach($category as $c)
-@php
-$cat_actual = $c->t_cat_actual;
-if($cat_actual == ''){
-$cat_actual = 0;
-}
-if($cat_actual!=''){
-$cat_actual = $cat_actual;
-}
-echo $cat_actual . ',';
-@endphp
-@endforeach],
-  chart: {
-      width:'100%',
-      height:'80%',
-      type: 'pie',
-      toolbar: {
-    show: true,
-},
-},title: {
-    text: 'Production Report of Items for 30 days',
-    align: 'left',
-    margin: 10,
-    offsetX: 0,
-    offsetY: 0,
-    floating: false,
-    style: {
-      fontSize:  '14px',
-      fontWeight:  'bold',
-      fontFamily:  'Arial',
-      color:  '#fff'
-    },
-},
-legend: {
-      position: 'right',
-      labels: {
-          colors: ['#fff'],
-          useSeriesColors: false
-      },
-    },
-labels: [
-@foreach($category as $c)
-@php
-$p_name = $c->p_name;
-echo '"' . $p_name . '"' . ',';
-@endphp
-@endforeach],
-responsive: [{
-  breakpoint: 480,
-  options: {
-    chart: {
-    //   width: 200
-    },
-    legend: {
-      position: 'bottom'
-    },
-  }
-}]
-};
-
-var chart = new ApexCharts(document.querySelector("#product_chart"), options);
-chart.render();
-    }
-
-    if(getTheme=='light'){
-        var options = {
-  series: [@foreach($category as $c)
-@php
-$cat_actual = $c->t_cat_actual;
-if($cat_actual == ''){
-$cat_actual = 0;
-}
-if($cat_actual!=''){
-$cat_actual = $cat_actual;
-}
-echo $cat_actual . ',';
-@endphp
-@endforeach],
-  chart: {
-      width:'100%',
-      height:'80%',
-    //   background: '#fff',
-      type: 'pie',
-      toolbar: {
-    show: true,
-},
-},title: {
-    text: 'Production Report of Items for 30 days',
-    align: 'left',
-    margin: 10,
-    offsetX: 0,
-    offsetY: 0,
-    floating: false,
-    style: {
-      fontSize:  '14px',
-      fontWeight:  'bold',
-      fontFamily:  'Arial',
-      color: '#263238'
-    },
-},
-legend: {
-      position: 'right',
-    //   labels: {
-    //       colors: ['#fff'],
-    //       useSeriesColors: false
-    //   },
-    },
-labels: [
-@foreach($category as $c)
-@php
-$p_name = $c->p_name;
-echo '"' . $p_name . '"' . ',';
-@endphp
-@endforeach],
-responsive: [{
-  breakpoint: 480,
-  options: {
-    chart: {
-    //   width: 200
-    },
-    legend: {
-      position: 'bottom'
-    },
-  }
-}]
-};
-
-var chart = new ApexCharts(document.querySelector("#product_chart"), options);
-chart.render();
-    }
-
-    if(getTheme=='gray'){
-        var options = {
-  series: [@foreach($category as $c)
-@php
-$cat_actual = $c->t_cat_actual;
-if($cat_actual == ''){
-$cat_actual = 0;
-}
-if($cat_actual!=''){
-$cat_actual = $cat_actual;
-}
-echo $cat_actual . ',';
-@endphp
-@endforeach],
-  chart: {
-      width:'100%',
-      height:'80%',
-      type: 'pie',
-      toolbar: {
-    show: true,
-},
-},title: {
-    text: 'Production Report of Items for 30 days',
-    align: 'left',
-    margin: 10,
-    offsetX: 0,
-    offsetY: 0,
-    floating: false,
-    style: {
-      fontSize:  '14px',
-      fontWeight:  'bold',
-      fontFamily:  'Arial',
-      color:  '#fff'
-    },
-},
-legend: {
-      position: 'right',
-      labels: {
-          colors: ['#fff'],
-          useSeriesColors: false
-      },
-    },
-labels: [
-@foreach($category as $c)
-@php
-$p_name = $c->p_name;
-echo '"' . $p_name . '"' . ',';
-@endphp
-@endforeach],
-responsive: [{
-  breakpoint: 480,
-  options: {
-    chart: {
-    //   width: 200
-    },
-    legend: {
-      position: 'bottom'
-    },tooltip: {
-    theme: 'dark'
-  },
-  }
-}]
-};
-
-var chart = new ApexCharts(document.querySelector("#product_chart"), options);
-chart.render();
-    }
-
-</script>
-
 @endadmin
 
 @operator
@@ -5448,8 +3933,6 @@ chart.render();
                     <?php echo $date_string_for_export_pdf . "_report_dash"; ?>
                 </div>
                 <button id="btn" class="icon-btn-one icon-btn-one-2 btn my-2">Export to Excel</button>
-                <!-- <button onclick="tablesToExcel(['history_dash_1','history_dash_2','history_dash_3'], ['Table1','Table2','Table3'], '<?php //echo $getDate;
-                                                                                                                                            ?>.xls', 'Excel')" class="icon-btn-one icon-btn-one-2 btn my-2">Export to Excel</button> -->
             </li>
             <li class="span2 bg-transparent">
                 <button type="button" id="exportPDF" class="icon-btn-one icon-btn-one-2 btn my-2">Export to PDF</button>
@@ -5592,7 +4075,7 @@ chart.render();
 
                             <!-- Man Target --->
                             <td>
-                                <table class="m-auto text-start table table-bordered custom-table-border-color">
+                                <table class="m-auto text-center table table-bordered custom-table-border-color">
                                     @if($edit_status)
                                     <tbody class="man_power_input">
                                         <input type="hidden" id="man_target_l_id_input" name="man_target_l_id[]"
@@ -5636,10 +4119,6 @@ chart.render();
                                             @endif
 
                                             @endfor
-                                            {{-- <tr>
-                                                <td>{{ $man_target }}</td>
-                                                <td>{{ $man_actual_target }}</td>
-                                            </tr> --}}
                                     </tbody>
                                     @endif
                                 </table>
@@ -6358,25 +4837,6 @@ $(".h_over_input").each(function(){
     handover_arr.push(handover_obj);
 })
 
-// var box = {};
-// var boxes = [];
-// $('.td_input').each(function() {
-//     var l_id_input = $('#l_id_input', this).val();
-//     var a_id_input = $('#a_id_input', this).val();
-//     var p_id_input = $('#p_id_input', this).val();
-//     var cmp_input = $('#cmp_input',this).val();
-//     var date_input = $('#date_input',this).val();
-// box = {
-// l_id_input: l_id_input,
-// a_id_input: a_id_input,
-// p_id_input: p_id_input,
-// cmp_input: cmp_input,
-// date_input: date_input,
-// }
-// boxes.push(box);
-// });
-
-
 var sewing_obj = {};
 var sewing_arr = [];
 $(".sewing_input").each(function(){
@@ -6535,6 +4995,15 @@ error: function(result) {
 });
 });
 </script>
+
+@endoperator
+
+@line_manager
+<script type="text/javascript">
+    window.location = "{{url('line_entry')}}";
+</script>
+@endline_manager
+
 
 <div class="row container-fluid">
     <div class="col-12 col-md-6 my-4 rounded shadow" id="production_chart">
@@ -6944,10 +5413,6 @@ echo $cat_actual . ',';
 },
 legend: {
       position: 'right',
-    //   labels: {
-    //       colors: ['#fff'],
-    //       useSeriesColors: false
-    //   },
     },
 labels: [
 @foreach($category as $c)
@@ -7042,14 +5507,6 @@ chart.render();
     }
 
 </script>
-@endoperator
-
-@line_manager
-<script type="text/javascript">
-    window.location = "{{url('line_entry')}}";
-</script>
-@endline_manager
-
 
 <script>
     $("#exportPDF").click(function() {
@@ -7079,11 +5536,6 @@ chart.render();
 </script>
 
 <script>
-    function toggle_div_fun(id) {
-        var divelement = document.getElementById(id);
-        if (divelement.style.display == "none") divelement.style.display = "block";
-        else divelement.style.display = "none";
-    }
     var tableToExcel = (function() {
 
         var uri = 'data:application/vnd.ms-excel;base64,',
