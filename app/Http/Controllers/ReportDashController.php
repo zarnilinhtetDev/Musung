@@ -122,6 +122,8 @@ class ReportDashController extends Controller
         $order_post = request()->post('order_qty');
         $h_bal = request()->post('h_bal');
 
+        // print_r($note_post);
+
         if ($boxes) {
             for ($i = 0; $i < count($boxes); $i++) {
                 $l_id_input = $boxes[$i]['l_id_input'];
@@ -473,9 +475,13 @@ WHERE "line_assign".assign_date=\'' . $date_string . '\'');
         <a class='btn custom-btn-theme custom-btn-theme-edit text-white' href="/report?edit=1&date=<?php echo $date_history; ?>">Edit</a>
 
         <form method="POST" id="cmp_put">
-            <div style="overflow-x:auto;max-width:100%;" id="report_history_table">
+            <div id="report_history_table">
                 <h2 class="fw-bold text-center report-history-title" style="display:none;">Musung Garment Co.,Ltd.</h2>
-                <table class="table table-striped my-4 tableFixHead results p-0 text-center table-bordered" id="report_history_table">
+                <h4 class="date-history-title" style="display:none;">
+                    Date -
+                    <?php echo $date_string; ?>
+                </h4>
+                <table class="table table-striped my-4 tableFixHead results p-0 text-center table-bordered">
                     <thead>
                         <tr class="tr-2">
                             <th scope="col">Line</th>
@@ -619,7 +625,7 @@ WHERE "line_assign".assign_date=\'' . $date_string . '\'');
                                 <td class="main_target_history<?php echo $l_id; ?> new_main_target_history"><?php echo number_format($main_target + $ot_main_target); ?></td>
 
                                 <td class="td-padding">
-                                    <table class="m-auto text-start table table-bordered custom-table-border-color">
+                                    <table class="m-auto text-center table table-bordered custom-table-border-color">
                                         <tbody>
                                             <td><?php echo $man_target; ?></td>
                                             <td><?php echo $man_actual_target; ?></td>
@@ -1242,25 +1248,60 @@ WHERE "line_assign".assign_date=\'' . $date_string . '\'');
         </form>
         <script>
             $("#exportPDF").click(function() {
+
+                $("#report_history_table th").css("padding", 0);
                 $(".report_tbl_2_history td").css("padding", 0);
                 $(".report-history-title").css("display", 'block');
+                $(".date-history-title").css("display", "block");
+                // $("[id=total_m_power]").css("display", "none");
+                // $("[id=total_actual_m_power]").css("display", "none");
 
-                html2canvas($('#report_history_table')[0], {
-                    onrendered: function(canvas) {
-                        var data = canvas.toDataURL();
-                        var docDefinition = {
-                            content: [{
-                                image: data,
-                                width: 950,
-                            }],
-                            pageSize: 'LEGAL',
-                            pageOrientation: 'landscape',
-                            pageMargins: [20, 20, 20, 20],
-                        };
-                        pdfMake.createPdf(docDefinition).download("<?php echo $date_string_for_export_pdf . '_report'; ?>.pdf");
+                var element = document.getElementById('report_history_table');
+                var opt = {
+                    margin: 1,
+                    filename: '<?php echo $date_string_for_export_pdf . "_report"; ?>.pdf',
+                    image: {
+                        type: 'jpeg',
+                        quality: 1
+                    },
+                    html2canvas: {
+                        scale: 2,
+                        letterRendering: true,
+                        width: 2800,
+                        height: 2550,
+                    },
+                    jsPDF: {
+                        unit: 'px',
+                        format: 'letter',
+                        orientation: 'portrait'
                     }
-                });
+                };
+
+                // New Promise-based usage:
+                html2pdf().set(opt).from(element).save()
             });
+
+            // $("#exportPDF").click(function() {
+            //     $(".report_tbl_2_history td").css("padding", 0);
+            //     $(".report-history-title").css("display", 'block');
+
+            //     html2canvas($('#report_history_table')[0], {
+            //         onrendered: function(canvas) {
+            //             var data = canvas.toDataURL();
+            //             var docDefinition = {
+            //                 content: [{
+            //                     image: data,
+            //                     width: 950,
+            //                 }],
+            //                 pageSize: 'LEGAL',
+            //                 pageOrientation: 'landscape',
+            //                 pageMargins: [20, 20, 20, 20],
+            //             };
+            //             pdfMake.createPdf(docDefinition).download("<?php //echo $date_string_for_export_pdf . '_report';
+                                                                        ?>.pdf");
+            //         }
+            //     });
+            // });
         </script>
 
         <script>

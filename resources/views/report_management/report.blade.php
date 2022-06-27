@@ -47,7 +47,11 @@ $date_string_for_export_pdf = date("Y_m_d", strtotime($date_string));
                 <button id="btn" class="icon-btn-one icon-btn-one-2 btn my-2">Export to Excel</button>
             </li>
             <li class="span2 bg-transparent">
-                <button type="button" id="exportPDF" class="icon-btn-one icon-btn-one-2 btn my-2">Export to PDF</button>
+                {{-- <button type="button" id="exportPDF" class="icon-btn-one icon-btn-one-2 btn my-2">Export to
+                    PDF</button> --}}
+                <button type="button" onclick="javascript:demoFromHTML();" class=" icon-btn-one icon-btn-one-2 btn
+                    my-2">Export to PDF</button>
+
             </li>
         </ul>
     </div>
@@ -69,7 +73,7 @@ $date_string_for_export_pdf = date("Y_m_d", strtotime($date_string));
             <input class="icon-btn-one btn my-2" type="submit" value="Update" name="submit" />
             <a href="{{ url('/report') }}" class="btn-secondary btn my-2">Cancel</a>
             @endif
-            <div style="overflow-x:auto;max-width:100%;">
+            <div style="overflow-x:auto;max-width:100%;" id="table1">
                 <table class="table table-striped my-4 tableFixHead results p-0 text-center table-bordered"
                     id="report_table">
                     <thead>
@@ -1268,8 +1272,8 @@ $.ajax({
             h_bal : h_bal_arr,
         },
         success: function(data) {
-            console.log(data);
-            // window.location.href = "/report?update=ok";
+            // console.log(data);
+            window.location.href = "/report?update=ok";
         }
     });
 });
@@ -1359,9 +1363,13 @@ error: function(result) {
             <input class="icon-btn-one btn my-2" type="submit" value="Update" name="submit" />
             <a href="{{ url('/report') }}" class="btn-secondary btn my-2">Cancel</a>
             @endif
-            <div style="overflow-x:auto;max-width:100%;">
-                <table class="table table-striped my-4 tableFixHead results p-0 text-center table-bordered"
-                    id="report_table">
+            <div id="report_table" class="text-center">
+                <h2 class="fw-bold text-center report-title pt-2" style="display:none;">Musung Garment Co.,Ltd.</h2>
+                <h4 class="fw-bold date-title pt-2" style="display:none;">
+                    Date -
+                    <?php echo $date_string; ?>
+                </h4>
+                <table class="table table-striped my-4 tableFixHead results p-0 text-center table-bordered">
                     <thead>
                         <tr class="tr-2">
                             <th scope="col">Line</th>
@@ -2608,10 +2616,11 @@ error: function(result) {
                     <?php
                     if(!$edit_status && !$date){
                                 echo $date_string;
-                            }else{
-                                echo $format_date;
-                            }
-                            ?>
+                    }
+                    else{
+                        echo $format_date;
+                    }
+                    ?>
                 </p>
             </li>
             <li class="span2 bg-transparent">
@@ -2622,7 +2631,10 @@ error: function(result) {
                 <button id="btn" class="icon-btn-one icon-btn-one-2 btn my-2">Export to Excel</button>
             </li>
             <li class="span2 bg-transparent">
-                <button type="button" id="exportPDF" class="icon-btn-one icon-btn-one-2 btn my-2">Export to PDF</button>
+                <button type="button" id="exportPDF" class="icon-btn-one icon-btn-one-2 btn my-2">Export to
+                    PDF</button>
+                {{-- <button type="button" onclick="javascript:demoFromHTML();" class="icon-btn-one icon-btn-one-2 btn
+                my-2">Export to PDF</button> --}}
             </li>
         </ul>
     </div>
@@ -2644,8 +2656,13 @@ error: function(result) {
             <input class="icon-btn-one btn my-2" type="submit" value="Update" name="submit" />
             <a href="{{ url('/report') }}" class="btn-secondary btn my-2">Cancel</a>
             @endif
-            <div style="overflow-x:auto;max-width:100%;" id="report_table">
-                <h2 class="fw-bold text-center report-title" style="display:none;">Musung Garment Co.,Ltd.</h2>
+            <div style="" id="report_table" class="text-center">
+                <h2 class="fw-bold text-center report-title pt-2" style="display:none;">Musung Garment Co.,Ltd.
+                </h2>
+                <h4 class="fw-bold date-title pt-2" style="display:none;">
+                    Date -
+                    <?php echo $date_string; ?>
+                </h4>
                 <table class="table table-striped my-4 tableFixHead results p-0 text-center table-bordered">
                     <thead>
                         <tr class="tr-2">
@@ -3871,7 +3888,7 @@ $.ajax({
             window.location.href = "/report?update=ok";
         }
     });
-});
+ });
 
         </script>
     </div>
@@ -3957,9 +3974,13 @@ error: function(result) {
             <input class="icon-btn-one btn my-2" type="submit" value="Update" name="submit" />
             <a href="{{ url('/report') }}" class="btn-secondary btn my-2">Cancel</a>
             @endif
-            <div style="overflow-x:auto;max-width:100%;">
-                <table class="table table-striped my-4 tableFixHead results p-0 text-center table-bordered"
-                    id="report_table">
+            <div style="" id="report_table" class="text-center">
+                <h2 class="fw-bold text-center report-title pt-2" style="display:none;">Musung Garment Co.,Ltd.</h2>
+                <h4 class="fw-bold date-title pt-2" style="display:none;">
+                    Date -
+                    <?php echo $date_string; ?>
+                </h4>
+                <table class="table table-striped my-4 tableFixHead results p-0 text-center table-bordered">
                     <thead>
                         <tr class="tr-2">
                             <th scope="col">Line</th>
@@ -5511,28 +5532,61 @@ chart.render();
 <script>
     $("#exportPDF").click(function() {
 
+    $("#report_table th").css("padding", 0);
     $(".report_tbl_2 td").css("padding", 0);
     $(".report-title").css("display",'block');
+    $(".date-title").css("display","block");
     $("[id=total_m_power]").css("display","none");
     $("[id=total_actual_m_power]").css("display","none");
 
-        html2canvas($('#report_table')[0], {
-                    onrendered: function(canvas) {
-                        var data = canvas.toDataURL();
-                        var docDefinition = {
-                            content: [{
-                                image: data,
-                                width: 950,
-                            }],
-                            pageSize: 'LEGAL',
-                            pageOrientation: 'landscape',
-                            pageMargins: [ 20, 20, 20, 20 ],
-                        };
-                        pdfMake.createPdf(docDefinition).download("<?php echo $date_string_for_export_pdf . '_report'; ?>.pdf");
-                    }
-                });
+    var element = document.getElementById('report_table');
+var opt = {
+  margin: 1,
+  filename:'<?php echo $date_string_for_export_pdf . "_report"; ?>.pdf',
+  image:{
+    type: 'jpeg',
+    quality: 1
+    },
+  html2canvas:
+  {
+    scale: 2,
+    letterRendering: true,
+    width: 2800,
+    height: 2550,
+},
+  jsPDF:{
+    unit: 'px',
+    format: 'letter',
+    orientation: 'portrait'
+    }
+};
 
-    });
+// New Promise-based usage:
+html2pdf().set(opt).from(element).save()
+});
+
+    // $(".report_tbl_2 td").css("padding", 0);
+    // $(".report-title").css("display",'block');
+    // $("[id=total_m_power]").css("display","none");
+    // $("[id=total_actual_m_power]").css("display","none");
+
+    //     html2canvas($('#report_table')[0], {
+    //                 onrendered: function(canvas) {
+    //                     var data = canvas.toDataURL();
+    //                     var docDefinition = {
+    //                         content: [{
+    //                             image: data,
+    //                             width: 950,
+    //                         }],
+    //                         pageSize: 'LEGAL',
+    //                         pageOrientation: 'landscape',
+    //                         pageMargins: [ 20, 20, 20, 20 ],
+    //                     };
+    //                     pdfMake.createPdf(docDefinition).download("<?php echo $date_string_for_export_pdf . '_report'; ?>.pdf");
+    //                 }
+    //             });
+
+    // });
 </script>
 
 <script>
