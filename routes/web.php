@@ -43,14 +43,6 @@ Route::get('/report', 'ReportDashController@index')->middleware('auth');
 Route::post('/cmp_put', 'ReportDashController@cmpPut')->middleware('auth');
 Route::post('/report_history', 'ReportDashController@report_history')->middleware('auth');
 
-
-/// Daily Production Detail
-Route::get('/daily_prod', 'DailyProductionController@index')->middleware('auth');
-Route::post('/daily_prod', 'DailyProductionController@postLineId')->middleware('auth');
-Route::post('/daily_prod_item', 'DailyProductionController@postItemId')->middleware('auth');
-Route::post('/daily_production_post', 'DailyProductionController@postDailyProductionData')->middleware('auth');
-Route::post('/daily_production_post_2', 'DailyProductionController@postDailyProductionData2')->middleware('auth');
-
 /// Theme Setting
 Route::view('/theme_setting', 'theme_setting.theme_setting')->middleware('auth');
 
@@ -61,12 +53,6 @@ Route::get('/live_dash_1', [LiveDash::class, 'render'])->middleware('auth');
 Route::post('/history', 'LineHistoryController@index')->middleware('auth');
 
 //// API Routes /////
-
-//// Line Entry ////
-Route::get('/api/data', 'DataApiController@getData');
-Route::get('/api/data_status_zero', 'DataApiController@getDataStatusZero');
-Route::post('/api/data', 'DataApiController@postData');
-Route::put('/api/data', 'DataApiController@putData');
 
 /// Time ////
 Route::get('/api/time', 'TimeApiController@getTime');

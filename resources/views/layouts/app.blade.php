@@ -94,8 +94,7 @@
     @stack('select-box-scripts')
     @stack('select-box-scripts-2')
 
-    {{--
-    <livewire:scripts /> --}}
+    {{-- <livewire:scripts /> --}}
 
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"></script>
 

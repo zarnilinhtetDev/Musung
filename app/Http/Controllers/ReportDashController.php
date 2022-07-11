@@ -1253,8 +1253,6 @@ WHERE "line_assign".assign_date=\'' . $date_string . '\'');
                 $(".report_tbl_2_history td").css("padding", 0);
                 $(".report-history-title").css("display", 'block');
                 $(".date-history-title").css("display", "block");
-                // $("[id=total_m_power]").css("display", "none");
-                // $("[id=total_actual_m_power]").css("display", "none");
 
                 var element = document.getElementById('report_history_table');
                 var opt = {
@@ -1276,32 +1274,8 @@ WHERE "line_assign".assign_date=\'' . $date_string . '\'');
                         orientation: 'portrait'
                     }
                 };
-
-                // New Promise-based usage:
                 html2pdf().set(opt).from(element).save()
             });
-
-            // $("#exportPDF").click(function() {
-            //     $(".report_tbl_2_history td").css("padding", 0);
-            //     $(".report-history-title").css("display", 'block');
-
-            //     html2canvas($('#report_history_table')[0], {
-            //         onrendered: function(canvas) {
-            //             var data = canvas.toDataURL();
-            //             var docDefinition = {
-            //                 content: [{
-            //                     image: data,
-            //                     width: 950,
-            //                 }],
-            //                 pageSize: 'LEGAL',
-            //                 pageOrientation: 'landscape',
-            //                 pageMargins: [20, 20, 20, 20],
-            //             };
-            //             pdfMake.createPdf(docDefinition).download("<?php //echo $date_string_for_export_pdf . '_report';
-                                                                        ?>.pdf");
-            //         }
-            //     });
-            // });
         </script>
 
         <script>

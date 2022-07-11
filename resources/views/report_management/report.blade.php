@@ -5097,11 +5097,12 @@ legend: {
     $assign_date = $t_2->assign_date;
     $month = date('m', strtotime($assign_date)); // Create date object to store the DateTime format
     $day = date('d', strtotime($assign_date));
+    $year = date('Y', strtotime($assign_date));
     $dateObj = DateTime::createFromFormat('!m', $month);
 
     // Store the month name to variable
-    $monthName = $dateObj->format('F');
-    $full_format = $day . ' ' . $monthName;
+    // $monthName = $dateObj->format('F');
+    $full_format = $day . '.' . $month . '.' . $year;
 
     echo '"' . $full_format . '"' . ',';;
     @endphp
@@ -5194,11 +5195,12 @@ legend: {
     $assign_date = $t_2->assign_date;
     $month = date('m', strtotime($assign_date)); // Create date object to store the DateTime format
     $day = date('d', strtotime($assign_date));
+    $year = date('Y', strtotime($assign_date));
     $dateObj = DateTime::createFromFormat('!m', $month);
 
     // Store the month name to variable
-    $monthName = $dateObj->format('F');
-    $full_format = $day . ' ' . $monthName;
+    // $monthName = $dateObj->format('F');
+    $full_format = $day . '.' . $month . '.' . $year;
 
     echo '"' . $full_format . '"' . ',';;
     @endphp
@@ -5291,11 +5293,12 @@ legend: {
     $assign_date = $t_2->assign_date;
     $month = date('m', strtotime($assign_date)); // Create date object to store the DateTime format
     $day = date('d', strtotime($assign_date));
+    $year = date('Y', strtotime($assign_date));
     $dateObj = DateTime::createFromFormat('!m', $month);
 
     // Store the month name to variable
-    $monthName = $dateObj->format('F');
-    $full_format = $day . ' ' . $monthName;
+    // $monthName = $dateObj->format('F');
+    $full_format = $day . '.' . $month . '.' . $year;
 
     echo '"' . $full_format . '"' . ',';;
     @endphp
