@@ -156,6 +156,26 @@
     window.location = "{{url('line_entry')}}";
 </script>
 @endline_manager
+
+<script>
+    // var collapse_div_nav = $("#collapse_div");
+    // var percent_dash_wrapper = $("#percent_dash_wrapper");
+    // var live_dash_wrapper = $("#live_dash_wrapper");
+    // $("#btn_navbar_close").click(function () {
+    //     if (
+    //         $(collapse_div_nav).hasClass("dis-to-none") &&
+    //         $(percent_dash_wrapper).hasClass("dis-to-none")
+    //     ) {
+    //         $(collapse_div_nav).removeClass("dis-to-none");
+    //         $(percent_dash_wrapper).removeClass("dis-to-none");
+    //         $(live_dash_wrapper).addClass("col-md-8");
+    //     } else {
+    //         $(collapse_div_nav).addClass("dis-to-none");
+    //         $(percent_dash_wrapper).addClass("dis-to-none");
+    //         $(live_dash_wrapper).removeClass("col-md-8");
+    //     }
+    // });
+</script>
 @endsection
 
 @endsection

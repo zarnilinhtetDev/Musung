@@ -5197,9 +5197,6 @@ legend: {
     $day = date('d', strtotime($assign_date));
     $year = date('Y', strtotime($assign_date));
     $dateObj = DateTime::createFromFormat('!m', $month);
-
-    // Store the month name to variable
-    // $monthName = $dateObj->format('F');
     $full_format = $day . '.' . $month . '.' . $year;
 
     echo '"' . $full_format . '"' . ',';;
@@ -5567,29 +5564,6 @@ var opt = {
 // New Promise-based usage:
 html2pdf().set(opt).from(element).save()
 });
-
-    // $(".report_tbl_2 td").css("padding", 0);
-    // $(".report-title").css("display",'block');
-    // $("[id=total_m_power]").css("display","none");
-    // $("[id=total_actual_m_power]").css("display","none");
-
-    //     html2canvas($('#report_table')[0], {
-    //                 onrendered: function(canvas) {
-    //                     var data = canvas.toDataURL();
-    //                     var docDefinition = {
-    //                         content: [{
-    //                             image: data,
-    //                             width: 950,
-    //                         }],
-    //                         pageSize: 'LEGAL',
-    //                         pageOrientation: 'landscape',
-    //                         pageMargins: [ 20, 20, 20, 20 ],
-    //                     };
-    //                     pdfMake.createPdf(docDefinition).download("<?php echo $date_string_for_export_pdf . '_report'; ?>.pdf");
-    //                 }
-    //             });
-
-    // });
 </script>
 
 <script>
@@ -5629,6 +5603,29 @@ html2pdf().set(opt).from(element).save()
     }
     var btn = document.getElementById("btn");
     btn.addEventListener("click", download);
+</script>
+
+<script>
+    //// Show Hide Navbar
+
+      var collapse_div_nav = $("#collapse_div");
+    var percent_dash_wrapper = $("#percent_dash_wrapper");
+    var live_dash_wrapper = $("#live_dash_wrapper");
+
+    $("#btn_navbar_close").click(function () {
+        if (
+            $(collapse_div_nav).hasClass("dis-to-none") ||
+            $(percent_dash_wrapper).hasClass("dis-to-none")
+        ) {
+            $(collapse_div_nav).removeClass("dis-to-none");
+            $(percent_dash_wrapper).removeClass("dis-to-none");
+            $(live_dash_wrapper).addClass("col-md-8");
+        } else {
+            $(collapse_div_nav).addClass("dis-to-none");
+            $(percent_dash_wrapper).addClass("dis-to-none");
+            $(live_dash_wrapper).removeClass("col-md-8");
+        }
+    });
 </script>
 @endsection
 

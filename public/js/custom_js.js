@@ -69,7 +69,7 @@ $(document).ready(function () {
 
     $("#btn_navbar_close").click(function () {
         if (
-            $(collapse_div_nav).hasClass("dis-to-none") &&
+            $(collapse_div_nav).hasClass("dis-to-none") ||
             $(percent_dash_wrapper).hasClass("dis-to-none")
         ) {
             $(collapse_div_nav).removeClass("dis-to-none");
@@ -80,25 +80,6 @@ $(document).ready(function () {
             $(percent_dash_wrapper).addClass("dis-to-none");
             $(live_dash_wrapper).removeClass("col-md-8");
         }
-
-        // //get collapse content selector
-        // var collapse_content_selector = $(this).attr("href");
-        // // console.log(collapse_content_selector);
-        // //make the collapse content to be shown or hide
-        // var toggle_switch = $(this);
-        // $(collapse_content_selector).toggle(function () {
-        //     if ($(this).css("display") == "none") {
-        //         //change the button label to be 'Show'
-        //         toggle_switch.html(
-        //             "<span class='text-white'>Show Navigation Bar</span>"
-        //         );
-        //     } else {
-        //         //change the button label to be 'Hide'
-        //         toggle_switch.html(
-        //             "<span class='text-white'>Hide Navigation Bar</span>"
-        //         );
-        //     }
-        // });
     });
 });
 
@@ -122,17 +103,6 @@ LineModal.addEventListener("show.bs.modal", function (event) {
     l_id_input.value = l_id;
     l_setting_name_2.innerHTML = l_name;
 });
-// var i = 1;
-// $("#add_product_detail").click(function () {
-//     i++;
-//     $("#dynamic_field").append(
-//         '<tr id="row' +
-//             i +
-//             '"><td><label>Category</label><select class="form-control" name="category[]" required><option></option><option value="2">Hello</option></select></td><td><label>Product Name</label><input type="text" class="form-control" name="p_name_1[]" placeholder="Musung Shirt" required /></td><td><label>Target</label><input type="text" class="form-control" name="category_target[]" id="setting_target" placeholder="Target" required /></td><td><br/><button type="button" name="remove" id="' +
-//             i +
-//             '" class="btn btn-danger btn_remove">X</button></td></tr>'
-//     );
-// });
 
 ///// Time Diff in Line Setting /////
 $(document).ready(function () {

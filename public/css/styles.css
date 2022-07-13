@@ -154,6 +154,7 @@ a {
     background: #39ac31;
     margin: 20px 0;
     display: inline-block;
+    #
 }
 
 .contant_box_404 {
@@ -215,6 +216,7 @@ a {
     min-width: 270px;
     max-width: 270px;
     background: #fcfcfc;
+    box-shadow: 3px 3px cadetblue;
     -webkit-transition: all 0.3s;
     -o-transition: all 0.3s;
     transition: all 0.3s;

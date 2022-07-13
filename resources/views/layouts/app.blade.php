@@ -23,6 +23,7 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="js/custom_js.js" defer></script>
+    <script src="js/clock.js" defer></script>
     <script src="js/jquery_numpad.js" defer></script>
     <script src="js/theme_setting.js" defer></script>
 
@@ -71,6 +72,7 @@
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="css/jquery_numpad.css" rel="stylesheet">
+    <link href="css/clock.css" rel="stylesheet">
     <link href="css/styles.css" rel="stylesheet">
     <link rel="shortcut icon" href="img/logo_2.png">
 
@@ -94,7 +96,8 @@
     @stack('select-box-scripts')
     @stack('select-box-scripts-2')
 
-    {{-- <livewire:scripts /> --}}
+    {{--
+    <livewire:scripts /> --}}
 
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"></script>
 
