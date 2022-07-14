@@ -99,7 +99,7 @@ class ReportDashController extends Controller
 
         $target = DB::select('SELECT "line_assign".assign_date,SUM("line_assign".main_target) AS t_main_target FROM line_assign
         WHERE DATE("line_assign".created_at) >= DATE(NOW()) - INTERVAL \'30\' DAY
-        GROUP BY "line_assign".assign_date ORDER BY "line_assign".assign_date ASC');
+        GROUP BY "line_assign".assign_date ORDER BY to_date("line_assign".assign_date, \'dd/mm/yyyy\') ASC');
 
         $time = DB::select('SELECT SUM("time".div_actual_target) AS t_actual_target FROM time
         WHERE DATE("time".created_at) >= DATE(NOW()) - INTERVAL \'30\' DAY

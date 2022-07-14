@@ -3038,7 +3038,8 @@ error: function(result) {
                                             <td> - </td>
                                             @endif
                                             @if($cat_actual_target != '')
-                                            <td class="new_cat_actual_target">{{ number_format($cat_actual_target) }}
+                                            <td class="new_cat_actual_target">{{ number_format($cat_actual_target)
+                                                }}
                                             </td>
                                             @endif </tr>
                                             @endif

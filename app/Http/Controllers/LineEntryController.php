@@ -103,7 +103,6 @@ class LineEntryController extends Controller
                     $product_detail_select = ProductDetail::where('p_detail_id', $p_detail_id_arr[$i])->first();
                     $get_actual_target = DB::select('SELECT p_id,SUM(actual_target) AS total_actual_target FROM line_entry_history WHERE p_id=' . $p_detail_id_arr[$i] . ' AND assign_date=\'' . $assign_date . '\' GROUP BY p_id');
 
-
                     $get_actual_target_decode = json_decode(json_encode($get_actual_target), true);
 
                     for ($j = 0; $j < count($get_actual_target_decode); $j++) {

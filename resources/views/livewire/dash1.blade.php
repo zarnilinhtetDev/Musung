@@ -97,8 +97,7 @@
                     </td>
                     <td style="vertical-align: middle;"><span id="g_main_target_{{ $g_line_id }}">@if($g_ot_main_target
                             !=
-                            '') {{
-                            number_format($g_main_target + $g_ot_main_target) }}
+                            '') {{ number_format($g_main_target + $g_ot_main_target) }}
                             @else {{ number_format($g_main_target) }}
                             @endif</span></td>
 

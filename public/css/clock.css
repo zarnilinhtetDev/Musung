@@ -7,7 +7,7 @@
 
 .unit {
     /* background: linear-gradient(#aaa, #777); */
-    background: #000;
+    background: #666;
     border-radius: 0.5rem;
     /* box-shadow: 0 2px 2px #444; */
     color: #fff;
@@ -18,7 +18,8 @@
     margin: 0 10px;
     text-align: center;
     text-shadow: 0 2px 2px #666;
-    width: 6rem;
+    width: auto;
+    padding: 0.3rem;
 }
 
 .unit2 {
