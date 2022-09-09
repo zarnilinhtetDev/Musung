@@ -27,7 +27,8 @@
     @endforeach
     @php $date_string = date("d.m.Y");
     $date_string_for_export_pdf = date("Y_m_d", strtotime($date_string)); @endphp
-    <div class="row container-fluid pt-4 m-0">
+
+    {{-- <div class="row container-fluid pt-4 m-0">
         <div
             class="col-12 col-md-5 d-flex align-items-center justify-content-center justify-content-md-start text-center text-md-start mb-2 mb-lg-0">
             <h2 class="m-0 fw-bold fs-2 date_string">{{ $date_string }}</h2>
@@ -42,13 +43,42 @@
                 <span id="seconds"></span>
                 <span id="ampm"></span>
             </p>
-            {{-- <span class="unit2">:</span>
+            <span class="unit2">:</span>
             <p class="unit" id="minutes"></p>
             <span class="unit2">:</span>
             <p class="unit" id="seconds"></p>
-            <p class="unit" id="ampm"></p> --}}
+            <p class="unit" id="ampm"></p>
+        </div>
+    </div> --}}
+
+    <div class="row container-fluid pt-4">
+        <div class="col-12 col-md-6 m-auto">
+            <ul class="horizontal-slide" style="" id="tabs">
+                <li class="span2 bg-transparent">
+                    <h2 class="m-0 fw-bold">Date - {{ $date_string }}</h2>
+                </li>
+            </ul>
+        </div>
+        <div class="col-12 col-md-6 my-auto text-center text-md-start p-0">
+            <div>
+                <h2 class="m-0 fw-bold" id="digital-clock-2"></h2>
+            </div>
+            <script>
+                /// Live Clock in line_entry.blade
+                function showTime() {
+                    var date = new Date().toLocaleTimeString(
+                        "en-US",
+                        Intl.DateTimeFormat().resolvedOptions().timeZone
+                    );
+                    document.getElementById("digital-clock-2").innerHTML = date;
+                }
+                setInterval(showTime, 1000);
+                /// Live Clock in line_entry.blade End
+            </script>
         </div>
     </div>
+
+
     <div id="history_div">
         <div class="row container-fluid p-0 my-3 mx-auto">
             <div class="col-12 col-md-8" id="live_dash_wrapper">
