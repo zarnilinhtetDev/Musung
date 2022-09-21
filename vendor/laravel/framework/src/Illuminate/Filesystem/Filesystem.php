@@ -316,6 +316,7 @@ class Filesystem
      */
     public function copy($path, $target)
     {
+        //dd($path, $target);
         return copy($path, $target);
     }
 

@@ -58,13 +58,13 @@
                     <td>
                         <table class="w-100 text-center table table-bordered">
                             <tr>
-                                <div style="width:2rem;overflow-x:scroll;">
+                                <div style="height:9px;width:2rem;overflow-x:scroll;">
                                     <td>{{ $g_m_power }}</td>
                                     <td>{{ $g_hp }}</td>
                                 </div>
                             </tr>
                             <tr>
-                                <div style="width:2rem;overflow-x:scroll;">
+                                <div style="height:8px;width:2rem;overflow-x:scroll;">
                                     <td>{{ $g_actual_m_power }}</td>
                                     <td>{{ $g_actual_hp }}</td>
                                 </div>
@@ -479,7 +479,6 @@ if(Number.isNaN(total_percentage) || total_percentage == 0){
                                 <td><span class="fw-bold t_2_total_{{ $t_2_total->line_id }}">
                                         {{ $a_total->total_div_target }}
                                     </span>
-
                                 </td>
                             </tr>
                             <tr class="text-white">
