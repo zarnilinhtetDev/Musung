@@ -50,7 +50,7 @@
                 $g_hp = $g_line->hp;
                 $g_actual_hp = $g_line->actual_hp;
 
-                $a_id = -$g_line->assign_id;
+                $a_id = $g_line->assign_id;
                 @endphp
                 <tr style="border-bottom: 2px solid black;" class="tr_line_{{ $g_line_id }}">
                     <td class="line_column_{{ $g_line_id }}"></td>
