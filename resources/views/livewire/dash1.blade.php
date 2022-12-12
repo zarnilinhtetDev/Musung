@@ -49,12 +49,23 @@
                 $g_actual_m_power = $g_line->actual_m_power;
                 $g_hp = $g_line->hp;
                 $g_actual_hp = $g_line->actual_hp;
+
+                $a_id = -$g_line->assign_id;
                 @endphp
                 <tr style="border-bottom: 2px solid black;" class="tr_line_{{ $g_line_id }}">
                     <td class="line_column_{{ $g_line_id }}"></td>
-                    <td class="fw-bold line_name_{{ $g_line_id }} fs-4" style="vertical-align: middle;">{{ $g_line_name
-                        }}
+
+                    <td class="fw-bold line_name_{{ $g_line_id }} fs-4" style="vertical-align: middle;"><a
+                            href="/one_line/{{ $a_id }}">
+                            {{
+                            $g_line_name
+                            }}
+                            {{
+                            $a_id
+                            }}
+                        </a>
                     </td>
+
                     <td>
                         <table class="w-100 text-center table table-bordered">
                             <tr>

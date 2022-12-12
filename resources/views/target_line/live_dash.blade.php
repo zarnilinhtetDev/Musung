@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @section('content')
 @section('content_2')
+
 <div class="container-fluid">
     @php
     $json_encode = json_encode($responseBody);

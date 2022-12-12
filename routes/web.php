@@ -6,10 +6,16 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\URL;
 use App\Http\Livewire\LiveDash;
 
+use App\Http\Controllers\OneLineController;
+
 Route::view('/', 'auth.login')->name('login_1');
 
 Auth::routes();
 
+// one line dash //
+Route::get('/one_line/{id}', 'OneLineController@index')->name('one_line')->middleware('auth');
+
+//
 Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
 Route::get('/menu', 'MainMenuController@index')->name('menu')->middleware('auth');
 
