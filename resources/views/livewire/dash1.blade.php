@@ -59,7 +59,7 @@
                     <td class="line_column_{{ $g_line_id }}"></td>
 
                     <td class="fw-bold line_name_{{ $g_line_id }} fs-4" style="vertical-align: middle;"><a
-                            href="/one_line/{{ $one_line_id }}/{{ $one_line_date }}">
+                            href="/one_line/{{ $one_line_id }}/{{ $a_id }}/{{ $one_line_date }}">
                             {{
                             $g_line_name
                             }}

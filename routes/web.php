@@ -13,7 +13,7 @@ Route::view('/', 'auth.login')->name('login_1');
 Auth::routes();
 
 // one line dash //
-Route::get('/one_line/{id}/{date}', 'OneLineController@index')->name('one_line')->middleware('auth');
+Route::get('/one_line/{id}/{assign_id}/{date}', 'OneLineController@index')->name('one_line')->middleware('auth');
 
 //
 Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
