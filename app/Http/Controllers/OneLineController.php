@@ -1,5 +1,7 @@
 <?php
 
+
+
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
@@ -22,6 +24,12 @@ class OneLineController extends Controller
         });
     }
 
+    public function dehydrate()
+    {
+        $this->dispatchBrowserEvent('initSomething');
+        $this->dispatchBrowserEvent('additionalInit');
+    }
+
     public function index($id, $assign_id, $date)
     {
         $line_id = $id;
@@ -29,7 +37,8 @@ class OneLineController extends Controller
         $date_string = $date;
         $line_assign_id = $assign_id;
 
-        $date_string = date("d.m.Y");
+        $date_string = date($date);
+        $u_id = Auth::user()->id;
 
         $time = DB::select('SELECT time_name FROM time
         JOIN line_assign ON "time".assign_id="line_assign".assign_id AND

@@ -3,19 +3,15 @@
 @section('content_2')
 
 
-<link href="{{ asset('/css/styles.css') }}" rel="stylesheet">
 {{--
-<link href="{{ URL::asset('css/styles.css') }}" rel="stylesheet"> --}}
+<link href="{{ asset('/css/styles.css') }}" rel="stylesheet"> --}}
+
+
+<link href="{{ URL::asset('css/styles.css') }}" rel="stylesheet">
 
 
 
 <div class="container-fluid">
-
-
-
-
-
-
 
     @php $date_string = date("d.m.Y");
     $date_string_for_export_pdf = date("Y_m_d", strtotime($date_string)); @endphp
@@ -57,9 +53,9 @@
 
 
 
-    <div id="history_div">
+    {{-- <div id="history_div">
         <div class="row container-fluid p-0 my-3 mx-auto">
-            <div class="col-12 col-md-8" id="live_dash_wrapper">
+            <div class="col-12 col-md-8" id="live_dash_wrapper"> --}}
                 <div class="panel-body d-flex flex-row" wire:poll.1000ms>
                     @php $time_arr = [];
                     foreach(array_reverse($time) as $t3){
@@ -817,12 +813,14 @@ if(Number.isNaN(total_percentage) || total_percentage == 0){
                 </div>
 
             </div>
-            <div class="col-12 col-md-4 p-sm-0 p-md-2 my-sm-2 my-md-0 top-3" id="percent_dash_wrapper">
+            {{-- <div class="col-12 col-md-4 p-sm-0 p-md-2 my-sm-2 my-md-0 top-3" id="percent_dash_wrapper">
                 <livewire:dash-chart />
             </div>
         </div>
     </div>
+</div> --}}
 </div>
+
 
 @endsection
 
