@@ -24,7 +24,6 @@
 <link href="{{ asset('/css/styles.css') }}" rel="stylesheet"> --}}
 
 
-
 <div class="container-fluid">
 
     @php $date_string = date("d.m.Y");

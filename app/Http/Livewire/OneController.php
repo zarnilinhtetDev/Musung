@@ -1,8 +1,9 @@
 <?php
 
 
+namespace App\Http\Livewire;
 
-namespace App\Http\Controllers;
+
 
 use Livewire\Component;
 use App\Http\Controllers\Controller;
@@ -13,7 +14,7 @@ use App\Models\Line;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 
-class OneLineController extends Component
+class OneController extends Component
 {
 
 

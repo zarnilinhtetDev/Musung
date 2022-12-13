@@ -23,10 +23,18 @@
     </script>
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
-    <script src="js/custom_js.js" defer></script>
+    {{-- <script src="js/custom_js.js" defer></script>
     <script src="js/clock.js" defer></script>
     <script src="js/jquery_numpad.js" defer></script>
-    <script src="js/theme_setting.js" defer></script>
+    <script src="js/theme_setting.js" defer></script> --}}
+
+
+    <!-- Kaungkaung Setting --->
+    <script src="{{ asset('js/custom_js.js') }}" defer></script>
+    <script src="{{ asset('js/clock.js') }}" defer></script>
+    <script src="{{ asset('js/jquery_numpad.js') }}" defer></script>
+    <script src="{{ asset('js/theme_setting.js') }}" defer></script>
+
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -71,11 +79,22 @@
 
     <!-- Styles -->
 
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet" defer>
+    {{--
     <link href="css/jquery_numpad.css" rel="stylesheet">
     <link href="css/clock.css" rel="stylesheet">
     <link href="css/styles.css" rel="stylesheet">
-    <link rel="shortcut icon" href="img/logo_2.png">
+    <link rel="shortcut icon" href="img/logo_2.png"> --}}
+
+
+
+    <!-- Kaungkaung Setting --->
+    <link href="{{ asset('css/jquery_numpad.css') }}" rel="stylesheet" defer>
+    <link href="{{ asset('css/clock.css') }}" rel="stylesheet" defer>
+    <link href="{{ asset('css/styles.css') }}" rel="stylesheet" defer>
+    <link rel="shortcut icon" href="{{URL::asset('img/logo_2.png')}}" defer>
+
+
 
     <!-- For Theme Setting --->
     <link rel="stylesheet" id="switcher-id" href="">
