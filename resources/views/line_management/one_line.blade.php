@@ -1,3 +1,3 @@
 <p>
-    hello
+    hello {{ $line_id }} {{ $line_date }}
 </p>

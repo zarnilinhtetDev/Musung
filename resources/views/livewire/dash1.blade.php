@@ -50,13 +50,16 @@
                 $g_hp = $g_line->hp;
                 $g_actual_hp = $g_line->actual_hp;
 
+
                 $a_id = $g_line->assign_id;
+                $one_line_id = $g_line->l_id;
+                $one_line_date = $g_line->assign_date;
                 @endphp
                 <tr style="border-bottom: 2px solid black;" class="tr_line_{{ $g_line_id }}">
                     <td class="line_column_{{ $g_line_id }}"></td>
 
                     <td class="fw-bold line_name_{{ $g_line_id }} fs-4" style="vertical-align: middle;"><a
-                            href="/one_line/{{ $a_id }}">
+                            href="/one_line/{{ $one_line_id }}/{{ $one_line_date }}">
                             {{
                             $g_line_name
                             }}

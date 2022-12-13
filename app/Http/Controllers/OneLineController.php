@@ -22,9 +22,12 @@ class OneLineController extends Controller
         });
     }
 
-    public function index()
+    public function index($id, $date)
     {
-        return view('line_management.one_line');
+        $line_id = $id;
+        $line_date = $date;
+
+        return view('line_management.one_line', compact('line_id', 'line_date'));
     }
 
     public function undoUser()
