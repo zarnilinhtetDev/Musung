@@ -14,6 +14,7 @@ use App\Models\Line;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 
+
 class OneController extends Component
 {
 
