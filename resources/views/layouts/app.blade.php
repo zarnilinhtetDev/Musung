@@ -125,6 +125,7 @@ ini_set('memory_limit', '-1');
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"></script>
 
     @livewireChartsScripts
+
 </body>
 
 </html>

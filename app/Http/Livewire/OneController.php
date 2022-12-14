@@ -21,11 +21,11 @@ class OneController extends Component
 
     public function dehydrate()
     {
-        $this->dispatchBrowserEvent('initSomething');
-        $this->dispatchBrowserEvent('additionalInit');
+        $this->dispatchBrowserEvent('initSomething10');
+        $this->dispatchBrowserEvent('additionalInit10');
     }
 
-    public function index($id, $assign_id, $date)
+    public function render($id, $assign_id, $date)
     {
         $line_id = $id;
         $line_date = $date;
