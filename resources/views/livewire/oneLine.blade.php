@@ -351,6 +351,8 @@ div_actual_target_percent.append('%');
 
 
                                 @endforeach
+
+
                                 <tr>
                                     <td></td>
                                     <td class="fw-bold total fs-4" style=" vertical-align: middle;">Total</td>
@@ -368,7 +370,17 @@ div_actual_target_percent.append('%');
                                     @php $new_num_1 = 1; @endphp
                                     @foreach($total_div_target as $t_div_target)
                                     @php $total_time_name = $t_div_target->time_name;$new_num = 0; @endphp
-                                    <td id="{{ $t_div_target->time_name }}">
+
+
+
+                                    @php
+                                    $one_time = explode(':', $t_div_target->time_name);
+                                    $one_time = (int) $one_time[0];
+                                    @endphp
+
+
+                                    @if($one_time === (int) date("H") || $one_time > (int) date("H") || $one_time < 8)
+                                        <td id="{{ $t_div_target->time_name }}">
                                         <table class="w-100 text-center table table-bordered m-0" border="1">
                                             <tr>
                                                 <td><span id="new_t_div_target_num_{{ $t_div_target->row_num_1 }}">{{
@@ -458,44 +470,51 @@ if(Number.isNaN(total_percentage) || total_percentage == 0){
                                             @php $new_num_1++; @endphp
                                             @endif
 
+
+
+
                                             @endforeach
                                         </table>
 
+                                        </td>
 
-                                    </td>
-                                    @endforeach
+                                        @break
+                                        @endif
 
-                                    <td class="d-none">
-                                        <table class="w-100 text-center table table-bordered m-0" border="1">
-                                            <tr>
-                                                @foreach($total_overall_target as $t_overall_target)
-                                                <td class='fw-bold' id="t_overall_target">
+                                        @endforeach
 
-                                                </td>
+                                        <td class="d-none">
+                                            <table class="w-100 text-center table table-bordered m-0" border="1">
+                                                <tr>
+                                                    @foreach($total_overall_target as $t_overall_target)
+                                                    <td class='fw-bold' id="t_overall_target">
 
-                                                <script>
-                                                    var t_main_target = $("#t_main_target").text();
+                                                    </td>
+
+                                                    <script>
+                                                        var t_main_target = $("#t_main_target").text();
                                 var t_overall_target = $("#t_overall_target");
                                 t_overall_target.text(t_main_target);
 
-                                                </script>
-                                                @endforeach
-                                            </tr>
-                                            <tr class="text-white">
-                                                @foreach($total_overall_actual_target as $t_overall_actual_target)
-                                                <td class='fw-bold' id="t_overall_actual_target">
-                                                    {{ number_format($t_overall_actual_target->t_overall_actual_target)
-                                                    }}
-                                                </td>
-                                                @endforeach
+                                                    </script>
+                                                    @endforeach
+                                                </tr>
+                                                <tr class="text-white">
+                                                    @foreach($total_overall_actual_target as $t_overall_actual_target)
+                                                    <td class='fw-bold' id="t_overall_actual_target">
+                                                        {{
+                                                        number_format($t_overall_actual_target->t_overall_actual_target)
+                                                        }}
+                                                    </td>
+                                                    @endforeach
 
-                                            </tr>
-                                            <tr class="text-white">
-                                                <td id="t_overall_percent" class='fw-bold'></td>
-                                            </tr>
-                                        </table>
-                                        <script>
-                                            window.addEventListener('additionalInit10', event => {
+                                                </tr>
+                                                <tr class="text-white">
+                                                    <td id="t_overall_percent" class='fw-bold'></td>
+                                                </tr>
+                                            </table>
+                                            <script>
+                                                window.addEventListener('additionalInit10', event => {
                                 var t_overall_target = parseInt($("#t_overall_target").text().replace(/,/g, ''));
                                 var t_overall_actual_target = parseInt($("#t_overall_actual_target").text().replace(/,/g, ''));
                                 var t_overall_percent = $("#t_overall_percent");
@@ -526,13 +545,14 @@ if(Number.isNaN(total_percentage) || total_percentage == 0){
                                 }
 
                         });
-                                        </script>
-                                    </td>
-                                    <td class="d-none" style="vertical-align:middle;" class="fw-bolder">-</td>
-                                    <td class="d-none" style="vertical-align:middle;" class="fw-bolder">-</td>
+                                            </script>
+                                        </td>
+                                        <td class="d-none" style="vertical-align:middle;" class="fw-bolder">-</td>
+                                        <td class="d-none" style="vertical-align:middle;" class="fw-bolder">-</td>
                                 </tr>
                             </tbody>
                         </table>
+
                     </div>
 
 
