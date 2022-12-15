@@ -888,9 +888,6 @@ if(Number.isNaN(total_percentage) || total_percentage == 0){
 </div>
 
 
-<div style="display: none;">
-    <livewire:dash1 />
-</div>
 
 
 <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"></script>

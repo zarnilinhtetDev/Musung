@@ -105,6 +105,8 @@ ini_set('memory_limit', '-1');
 </head>
 
 <body>
+    
+    
     <div id="app">
         <main class="">
             @if(request()->is('/'))

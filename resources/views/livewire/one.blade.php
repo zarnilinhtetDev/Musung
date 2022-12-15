@@ -1,64 +1,3 @@
-{{--
-<link rel="shortcut icon" href="{{URL::asset('img/logo_2.png')}}"> --}}
-
-{{--
-<link href="{{ URL::asset('css/styles.css') }}" rel="stylesheet">
-<link href="{{ URL::asset('css/app.css') }}" rel="stylesheet">
-<link href="{{ URL::asset('css/jquery_numpad.css') }}" rel="stylesheet">
-<link href="{{ URL::asset('css/clock.css') }}" rel="stylesheet"> --}}
-
-@section('jQuery')
-<script src="{{ asset('js/app.js') }}"></script>
-<script src="{{ asset('js/custom.js') }}"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
-@endsection
-
-
-@extends('layouts.app')
-@section('content')
-@section('content_2')
-
-{{--
-<link href="{{ asset('/css/styles.css') }}" rel="stylesheet"> --}}
-
-
-
-<div class="container-fluid">
-
-    @php $date_string = date("d.m.Y");
-    $date_string_for_export_pdf = date("Y_m_d", strtotime($date_string)); @endphp
-    <div class="row container-fluid pt-4">
-        <div class="col-12 col-md-6 m-auto">
-            <ul class="horizontal-slide" style="" id="tabs">
-                <li class="span2 bg-transparent">
-                    <h2 class="m-0 fw-bold">Date - {{ $date_string }}</h2>
-                </li>
-            </ul>
-        </div>
-        <div class="col-12 col-md-6 my-auto text-center text-md-start p-0">
-            <div>
-                <h2 class="m-0 fw-bold" id="digital-clock-2"></h2>
-            </div>
-            <script>
-                /// Live Clock in line_entry.blade
-            function showTime() {
-                var date = new Date().toLocaleTimeString(
-                    "en-US",
-                    Intl.DateTimeFormat().resolvedOptions().timeZone
-                );
-                document.getElementById("digital-clock-2").innerHTML = date;
-            }
-            setInterval(showTime, 1000);
-            /// Live Clock in line_entry.blade End
-            </script>
-        </div>
-    </div>
-
-
-
-
 
 
 
@@ -108,6 +47,7 @@
                                         echo date('g:i A',strtotime($t->time_name));
                                         @endphp
                                     </th>
+                                    @break
                                     @endforeach
                                 </tr>
                             </thead>
@@ -182,7 +122,9 @@
                                         @if($t_inline->l_id == $g_line_id)
                                         {{ $t_inline->total_inline }}
                                         @endif
+                                        @break
                                         @endforeach
+
                                     </td>
                                     <td style="vertical-align: middle;"><span
                                             id="g_main_target_{{ $g_line_id }}">@if($g_ot_main_target
@@ -191,13 +133,30 @@
                                             @else {{ number_format($g_main_target) }}
                                             @endif</span></td>
 
+
                                     @foreach($time_2 as $t_2)
+
                                     @if($g_line_id==$t_2->line_id && $t_2->time_name != 'temp')
+
                                     @php $current_target=$t_2->time_id;
                                     $prev_target = ((int)$current_target)-1;
                                     @endphp
-                                    <td id="{{ $t_2->time_name }}">
+
+
+
+                                    {{-- set onttime for oneline --}}
+                                    @php
+                                    $one_time = explode(':', $t_2->time_name);
+                                    $one_time = (int) $one_time[0];
+                                    @endphp
+
+
+                                    {{-- one line --}}
+                                    @if($one_time === (int) date("H") || $one_time > (int) date("H") || $one_time < 8)
+                                        <td id="{{ $t_2->time_name }}">
+
                                         <table class="w-100 text-center table table-bordered m-0" border="1">
+
                                             <tr>
                                                 <td><span id="new_div_target_{{ $t_2->time_id }}"
                                                         class="new_div_target">
@@ -212,6 +171,8 @@
                                                         class="hide_div_target_total d-none">{{ $t_2->div_target
                                                         }}</span></td>
                                             </tr>
+
+
                                             <tr class="text-white">
                                                 <td id="td_div_actual_target_{{ $t_2->time_id }}"
                                                     class="td_div_actual_target">
@@ -230,10 +191,14 @@
                                                 </td>
                                                 <td class="d-none"></td>
                                             </tr>
+
                                         </table>
-                                    </td>
-                                    <script>
-                                        window.addEventListener('initSomething', event => {
+                                        </td>
+
+
+
+                                        <script>
+                                            window.addEventListener('initSomething10', event => {
                                     var prev_target = parseInt($("#div_actual_target_<?php echo $prev_target; ?>").text());
 
 
@@ -309,16 +274,24 @@ div_actual_target_percent.append('%');
 }
 
 })
-                                    </script>
-                                    @endif
+                                        </script>
 
-                                    @endforeach
+                                        @break
+                                        @endif
+                                        {{-- oneline end if --}}
+
+
+                                        @endif
+
+                                        @endforeach
                                 </tr>
 
                                 @endif
 
 
                                 @endforeach
+
+
                                 <tr>
                                     <td></td>
                                     <td class="fw-bold total fs-4" style=" vertical-align: middle;">Total</td>
@@ -336,7 +309,17 @@ div_actual_target_percent.append('%');
                                     @php $new_num_1 = 1; @endphp
                                     @foreach($total_div_target as $t_div_target)
                                     @php $total_time_name = $t_div_target->time_name;$new_num = 0; @endphp
-                                    <td id="{{ $t_div_target->time_name }}">
+
+
+
+                                    @php
+                                    $one_time = explode(':', $t_div_target->time_name);
+                                    $one_time = (int) $one_time[0];
+                                    @endphp
+
+
+                                    @if($one_time === (int) date("H") || $one_time > (int) date("H") || $one_time < 8)
+                                        <td id="{{ $t_div_target->time_name }}">
                                         <table class="w-100 text-center table table-bordered m-0" border="1">
                                             <tr>
                                                 <td><span id="new_t_div_target_num_{{ $t_div_target->row_num_1 }}">{{
@@ -377,7 +360,7 @@ div_actual_target_percent.append('%');
                                                 </td>
                                             </tr>
                                             <script>
-                                                window.addEventListener('additionalInit', event => {
+                                                window.addEventListener('additionalInit10', event => {
                                     var curr_target_num_val = $("#new_t_div_actual_target_num_{{ $new_num_1}}");
                                     var curr_target_val = parseInt("<?php echo $t_div_actual_target_1->t_div_actual_target_1; ?>");
 var tmp_num_val = $("#tmp_num_{{ $new_num_1 }}");
@@ -426,44 +409,51 @@ if(Number.isNaN(total_percentage) || total_percentage == 0){
                                             @php $new_num_1++; @endphp
                                             @endif
 
+
+
+
                                             @endforeach
                                         </table>
 
+                                        </td>
 
-                                    </td>
-                                    @endforeach
+                                        @break
+                                        @endif
 
-                                    <td class="d-none">
-                                        <table class="w-100 text-center table table-bordered m-0" border="1">
-                                            <tr>
-                                                @foreach($total_overall_target as $t_overall_target)
-                                                <td class='fw-bold' id="t_overall_target">
+                                        @endforeach
 
-                                                </td>
+                                        <td class="d-none">
+                                            <table class="w-100 text-center table table-bordered m-0" border="1">
+                                                <tr>
+                                                    @foreach($total_overall_target as $t_overall_target)
+                                                    <td class='fw-bold' id="t_overall_target">
 
-                                                <script>
-                                                    var t_main_target = $("#t_main_target").text();
+                                                    </td>
+
+                                                    <script>
+                                                        var t_main_target = $("#t_main_target").text();
                                 var t_overall_target = $("#t_overall_target");
                                 t_overall_target.text(t_main_target);
 
-                                                </script>
-                                                @endforeach
-                                            </tr>
-                                            <tr class="text-white">
-                                                @foreach($total_overall_actual_target as $t_overall_actual_target)
-                                                <td class='fw-bold' id="t_overall_actual_target">
-                                                    {{ number_format($t_overall_actual_target->t_overall_actual_target)
-                                                    }}
-                                                </td>
-                                                @endforeach
+                                                    </script>
+                                                    @endforeach
+                                                </tr>
+                                                <tr class="text-white">
+                                                    @foreach($total_overall_actual_target as $t_overall_actual_target)
+                                                    <td class='fw-bold' id="t_overall_actual_target">
+                                                        {{
+                                                        number_format($t_overall_actual_target->t_overall_actual_target)
+                                                        }}
+                                                    </td>
+                                                    @endforeach
 
-                                            </tr>
-                                            <tr class="text-white">
-                                                <td id="t_overall_percent" class='fw-bold'></td>
-                                            </tr>
-                                        </table>
-                                        <script>
-                                            window.addEventListener('additionalInit', event => {
+                                                </tr>
+                                                <tr class="text-white">
+                                                    <td id="t_overall_percent" class='fw-bold'></td>
+                                                </tr>
+                                            </table>
+                                            <script>
+                                                window.addEventListener('additionalInit10', event => {
                                 var t_overall_target = parseInt($("#t_overall_target").text().replace(/,/g, ''));
                                 var t_overall_actual_target = parseInt($("#t_overall_actual_target").text().replace(/,/g, ''));
                                 var t_overall_percent = $("#t_overall_percent");
@@ -494,18 +484,16 @@ if(Number.isNaN(total_percentage) || total_percentage == 0){
                                 }
 
                         });
-                                        </script>
-                                    </td>
-                                    <td class="d-none" style="vertical-align:middle;" class="fw-bolder">-</td>
-                                    <td class="d-none" style="vertical-align:middle;" class="fw-bolder">-</td>
+                                            </script>
+                                        </td>
+                                        <td class="d-none" style="vertical-align:middle;" class="fw-bolder">-</td>
+                                        <td class="d-none" style="vertical-align:middle;" class="fw-bolder">-</td>
                                 </tr>
                             </tbody>
                         </table>
+
                     </div>
 
-                    @else
-                    <h1 class="fw-bold text-danger fs-4">Please Assign Line First</h1>
-                    @endif
 
 
                     <div class="">
@@ -612,7 +600,7 @@ if(Number.isNaN(total_percentage) || total_percentage == 0){
                                                 </td>
                                             </tr>
                                             <script>
-                                                window.addEventListener('additionalInit', event => {
+                                                window.addEventListener('additionalInit10', event => {
                                                 var t_2_total = parseInt($('.t_2_total_{{ $t_2_total->line_id }}').text().replace(/,/g, ''));
                                                 var a_total = parseInt($('.a_total_{{ $t_2_total->line_id }}').text().replace(/,/g, ''));
                                                 var t_percent_span = $('.t_percent_{{ $t_2_total->line_id }}');
@@ -693,7 +681,7 @@ if(Number.isNaN(total_percentage) || total_percentage == 0){
                                     @endif
                                     @endforeach
                                     <script>
-                                        window.addEventListener('additionalInit', event => {
+                                        window.addEventListener('additionalInit10', event => {
 
                     var t_line_count = $('.input_row_num').text();
             var val_arr = [];
@@ -781,7 +769,7 @@ if(Number.isNaN(total_percentage) || total_percentage == 0){
                                             </tr>
                                         </table>
                                         <script>
-                                            window.addEventListener('additionalInit', event => {
+                                            window.addEventListener('additionalInit10', event => {
                                             var t_overall_target_2 = parseInt($("#t_overall_target_2").text().replace(/,/g, ''));
                                             var t_overall_actual_target_2 = parseInt($("#t_overall_actual_target_2").text().replace(/,/g, ''));
                                             var t_overall_percent_2 = $("#t_overall_percent_2");
@@ -823,6 +811,9 @@ if(Number.isNaN(total_percentage) || total_percentage == 0){
                         </table>
                     </div>
 
+                    @else
+                    <h1 class="fw-bold text-danger fs-4">Please Assign Line First</h1>
+                    @endif
 
                 </div>
 
@@ -836,6 +827,5 @@ if(Number.isNaN(total_percentage) || total_percentage == 0){
 </div>
 
 
-@endsection
 
-@endsection
+

@@ -6,15 +6,22 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\URL;
 use App\Http\Livewire\LiveDash;
 
+
 use App\Http\Controllers\OneLineController;
+use App\Http\Controllers\OnepaperController;
 use App\Http\Livewire\OneController;
+use App\Http\Livewire\One;
 
 Route::view('/', 'auth.login')->name('login_1');
 
 Auth::routes();
 
+
+Route::get('/one_line/{id}/{assign_id}/{date}', 'OnepaperController@index')->name('one_line')->middleware('auth');
+// Route::get('/one_line/{id}/{assign_id}/{date}', [OnepaperController::class, 'index'])->name('one_line')->middleware('auth');
+
 // one line dash //
-Route::get('/one_line/{id}/{assign_id}/{date}', [OneController::class, 'render'])->name('one_line')->middleware('auth');
+Route::get('/one_line2/{id}/{assign_id}/{date}', [One::class, 'render'])->name('one_line2')->middleware('auth');
 
 //
 Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');

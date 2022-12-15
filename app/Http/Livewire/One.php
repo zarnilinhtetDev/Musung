@@ -1,8 +1,6 @@
 <?php
 
-
-
-namespace App\Http\Controllers;
+namespace App\Http\Livewire;
 
 use Livewire\Component;
 use App\Http\Controllers\Controller;
@@ -13,24 +11,44 @@ use App\Models\Line;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 
-class OneLineController extends Component
+
+class One extends Component
 {
 
+    public $line_id;
+    public $line_assign_id;
+    public $line_date;
 
     public function dehydrate()
     {
-        $this->dispatchBrowserEvent('initSomething');
-        $this->dispatchBrowserEvent('additionalInit');
+        $this->dispatchBrowserEvent('initSomething10');
+        $this->dispatchBrowserEvent('additionalInit10');
     }
 
-    public function index($id, $assign_id, $date)
-    {
-        $line_id = $id;
-        $line_date = $date;
-        $date_string = $date;
-        $line_assign_id = $assign_id;
 
-        $date_string = date($date);
+    public function mount($line_id, $line_assign_id, $line_date){
+        $this->line_id = $line_id;
+        $this->line_assign_id = $line_assign_id;
+        $this->line_date = $line_date;
+    }
+
+    // public function render($id, $assign_id, $date)
+    public function render()
+    {
+        // $line_id = $id;
+        // $line_date = $date;
+        // $date_string = $date;
+        // $line_assign_id = $assign_id;
+
+        // $date_string = date($date);
+
+        $line_id = $this->line_id;
+        $line_date = $this->line_date;
+        $date_string = $this->line_date;
+        $line_assign_id = $this->line_assign_id;
+
+        $date_string = date($this->line_date);
+
         $u_id = Auth::user()->id;
 
         $time = DB::select('SELECT time_name FROM time
@@ -113,7 +131,7 @@ class OneLineController extends Component
 
         DB::disconnect('musung');
 
-        return view('livewire.oneLine', compact(
+        return view('livewire.one', compact(
             'line_id',
             'line_assign_id',
             'line_date',
@@ -135,21 +153,5 @@ class OneLineController extends Component
             'total_percent_accumulation',
             'top_line'
         ));
-    }
-
-    public function undoUser()
-    {
-        $id = request()->get('id');
-
-        $request = Request::create(
-            '/api/user_undo',
-            'PUT',
-            [
-                'id' => request()->get('id'),
-            ]
-        );
-        $response = Route::dispatch($request);
-
-        return redirect('/member');
     }
 }
