@@ -36,14 +36,14 @@
 
 
 
-<div class="col-12 col-md-8" id="live_dash_wrapper">
-@livewire('one', ['line_id' => $line_id,
-                  'line_assign_id' => $line_assign_id,
-                  'line_date' => $line_date
-                  ])
-</div>
+    {{-- <div class="col-12 col-md-8" id="live_dash_wrapper"> --}}
+        @livewire('one', ['line_id' => $line_id,
+        'line_assign_id' => $line_assign_id,
+        'line_date' => $line_date
+        ])
+        {{-- </div> --}}
 
 
-@endsection
+    @endsection
 
-@endsection
+    @endsection
