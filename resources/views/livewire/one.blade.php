@@ -30,12 +30,17 @@
                     <th scope="col" style="vertical-align: middle;">Inline<br />Stock</th>
                     <th scope="col" style="vertical-align: middle;">Target</th>
                     @foreach(array_reverse($time) as $t)
+
+                    @if((int) $t->time_name == (int) date("H"))
                     <th scope="col" id="th_{{ $t->time_name }}" style="vertical-align: middle;">
+
                         @php
                         echo date('g:i A',strtotime($t->time_name));
                         @endphp
+
                     </th>
-                    @break
+                    @endif
+
                     @endforeach
                 </tr>
             </thead>
@@ -136,6 +141,7 @@
                     $one_time = explode(':', $t_2->time_name);
                     $one_time = (int) $one_time[0];
                     @endphp
+
 
 
                     {{-- one line --}}
@@ -258,8 +264,20 @@ div_actual_target_percent.append('%');
 }
 }
 
+
+// var time_get = "<?php echo date('g:i A',strtotime($t->time_name)); ?>";
+// var magice_time = document.getElementById("th_<?php echo $t->time_name; ?>");
+// magice_time.innerHTML = time_get;
+
+
 })
+
+// console.log("<?php echo date('g:i A',strtotime($t->time_name)); ?>");
+
+
+
                         </script>
+
 
                         @break
                         @endif
