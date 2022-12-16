@@ -28,7 +28,7 @@
                     </th> --}}
                     {{-- <th scope="col" style="vertical-align: middle;">Item Name</th> --}}
                     {{-- <th scope="col" style="vertical-align: middle;">Inline<br />Stock</th> --}}
-                    <th scope="col" style="vertical-align: middle;">Target</th>
+                    {{-- <th scope="col" style="vertical-align: middle;">Target</th> --}}
                     @foreach(array_reverse($time) as $t)
 
                     @if((int) $t->time_name == (int) date("H"))
@@ -114,11 +114,12 @@
                         @endforeach
 
                     </td> --}}
-                    <td style="vertical-align: middle;"><span id="g_main_target_{{ $g_line_id }}">@if($g_ot_main_target
+                    {{-- <td style="vertical-align: middle;"><span
+                            id="g_main_target_{{ $g_line_id }}">@if($g_ot_main_target
                             !=
                             '') {{ number_format($g_main_target + $g_ot_main_target) }}
                             @else {{ number_format($g_main_target) }}
-                            @endif</span></td>
+                            @endif</span></td> --}}
 
 
                     @foreach($time_2 as $t_2)
@@ -143,7 +144,7 @@
                     @if($one_time === (int) date("H") || $one_time > (int) date("H") || $one_time < 8) <td
                         id="{{ $t_2->time_name }}">
 
-                        <table class="w-100 text-center table table-bordered m-0" border="1">
+                        <table class="w-100 text-center table table-bordered m-4" border="1">
 
                             <tr>
                                 <td><span id="new_div_target_{{ $t_2->time_id }}" class="new_div_target">
@@ -286,13 +287,13 @@ div_actual_target_percent.append('%');
                     {{-- <td></td>
                     <td></td>
                     <td></td> --}}
-                    @foreach ($total_main_target as $t_main_target)
+                    {{-- @foreach ($total_main_target as $t_main_target)
                     <td style="vertical-align: middle;"><span id="t_main_target">{{
                             number_format($t_main_target->t_main_target +
                             $t_main_target->ot_main_target)
                             }}</span></td>
 
-                    @endforeach
+                    @endforeach --}}
 
                     @php $new_num_1 = 1; @endphp
                     @foreach($total_div_target as $t_div_target)
@@ -303,6 +304,7 @@ div_actual_target_percent.append('%');
                     @php
                     $one_time = explode(':', $t_div_target->time_name);
                     $one_time = (int) $one_time[0];
+                    $one_time_line = (int) date("H");
                     @endphp
 
 
@@ -316,6 +318,13 @@ div_actual_target_percent.append('%');
                             </tr>
 
                             @foreach ($total_div_actual_target as $t_div_actual_target_1)
+
+
+                            @php
+                            $two_time = explode(':', $t_div_actual_target_1->time_name);
+                            $two_time = $two_time[0];
+                            $two_time_now = (int) date("H");
+                            @endphp
 
 
                             {{-- @php
@@ -406,15 +415,18 @@ if(Number.isNaN(total_percentage) || total_percentage == 0){
 
 // remote old line for displaying one line
 var magic = document.getElementById("td_tmp_num_{{ $new_num_1 }}");
-
 console.log($("#total_percent_{{ $new_num_1 }}"))
 
-// if($("#total_percent_{{ $new_num_1 }}")){
-//     magic.style.display = "display";
-// }
-// else{
+
+var two_time = "<?php echo $two_time; ?>";
+var two_time_line = "<?php echo $two_time_now; ?>";
+
+if( two_time == two_time_line) {
+    magic.style.display = "display";
+}
+else{
     magic.style.display = "none";
-// }
+}
 
 });
 
