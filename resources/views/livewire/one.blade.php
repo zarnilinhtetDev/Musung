@@ -167,7 +167,7 @@
                                         class="div_actual_target_{{ $g_line_id }}">@if($t_2->div_actual_target
                                         !=
                                         ''){{
-                                        $t_2->div_actual_target }} @endif</span>sssssssssssssss
+                                        $t_2->div_actual_target }} @endif</span>
                                 </td>
                                 <td><span id="div_actual_target_total_{{ $t_2->time_id }}"
                                         class="hide_div_actual_target_total d-none"></span></td>
@@ -435,7 +435,7 @@ var two_time = "<?php echo $two_time; ?>";
 var two_time_line = "<?php echo $two_time_now; ?>";
 
 if( two_time == two_time_line) {
-    magic.style.display = "display";
+    // magic.style.display = "display";
 }
 else{
     magic.style.display = "none";
