@@ -144,7 +144,7 @@
                     @if($one_time === (int) date("H") || $one_time > (int) date("H") || $one_time < 8) <td
                         id="{{ $t_2->time_name }}">
 
-                        <table class="w-100 text-center table table-bordered m-4" border="1">
+                        <table class="w-100 text-center table table-bordered m-0" border="1">
 
                             <tr>
                                 <td><span id="new_div_target_{{ $t_2->time_id }}" class="new_div_target">
@@ -259,6 +259,19 @@ if(parseInt(div_actual_target_percent.text()) >= 100){
 div_actual_target_percent.append('%');
 }
 }
+
+var m_one = "<?php echo $t_2->div_actual_target; ?>"
+if (!m_one) {
+    var del = document.getElementById("<?php echo $t_2->time_name; ?>");
+    var del2 = document.getElementById("th_<?php echo  $t->time_name ?>");
+
+
+    del.style.display = 'none';
+    del2.style.display = 'none';
+}
+
+
+
 
 })
                         </script>
@@ -415,8 +428,6 @@ if(Number.isNaN(total_percentage) || total_percentage == 0){
 
 // remote old line for displaying one line
 var magic = document.getElementById("td_tmp_num_{{ $new_num_1 }}");
-console.log($("#total_percent_{{ $new_num_1 }}"))
-
 
 var two_time = "<?php echo $two_time; ?>";
 var two_time_line = "<?php echo $two_time_now; ?>";
@@ -426,6 +437,14 @@ if( two_time == two_time_line) {
 }
 else{
     magic.style.display = "none";
+}
+
+var m_one = "<?php echo $t_2->div_actual_target; ?>"
+if (!m_one) {
+ var del1 = document.getElementById("td_tmp_num_<?php echo  $new_num_1 ?>");
+ var del2 = document.getElementById("total_percent_<?php echo  $new_num_1 ?>");
+
+ del2.style.display = 'none';
 }
 
 });
@@ -841,3 +860,6 @@ else{
     @endif
 
 </div>
+
+
+
