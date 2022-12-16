@@ -13,9 +13,9 @@
         <table class="table table-hover table-striped table-bordered text-center table-dash" id="live_dash_1">
             <thead>
                 <tr class="tr-2 tr-3">
-                    <th scope="col" style="vertical-align: middle;">Status</th>
+                    {{-- <th scope="col" style="vertical-align: middle;">Status</th> --}}
                     <th scope="col" style="vertical-align: middle;">Line</th>
-                    <th scope="col" style="vertical-align: middle;" class="p-0">
+                    {{-- <th scope="col" style="vertical-align: middle;" class="p-0">
                         <table class="w-100 text-center table m-0 text-white table-bordered" border="1">
                             <tr class="">
                                 <th colspan="2">Manpower</th>
@@ -25,9 +25,9 @@
                                 <td>HP</td>
                             </tr>
                         </table>
-                    </th>
-                    <th scope="col" style="vertical-align: middle;">Item Name</th>
-                    <th scope="col" style="vertical-align: middle;">Inline<br />Stock</th>
+                    </th> --}}
+                    {{-- <th scope="col" style="vertical-align: middle;">Item Name</th> --}}
+                    {{-- <th scope="col" style="vertical-align: middle;">Inline<br />Stock</th> --}}
                     <th scope="col" style="vertical-align: middle;">Target</th>
                     @foreach(array_reverse($time) as $t)
 
@@ -63,21 +63,16 @@
                 @endphp
                 @if($line_id == $g_line_id)
                 <tr style="border-bottom: 2px solid black;" class="tr_line_{{ $g_line_id }}">
-                    <td class="line_column_{{ $g_line_id }}"></td>
+                    {{-- <td class="line_column_{{ $g_line_id }}"></td> --}}
 
                     <td class="fw-bold line_name_{{ $g_line_id }} fs-4" style="vertical-align: middle;">
-                        <a href="/one_line/{{ $one_line_id }}/{{ $one_line_date }}">
-                            @if($line_id == $g_line_id)
-                            {{
-                            $g_line_name
-                            }}
-                            {{
-                            $a_id
-                            }}
-                            @endif
-                        </a>
+                        @if($line_id == $g_line_id)
+                        {{
+                        $g_line_name
+                        }}
+                        @endif
                     </td>
-                    <td>
+                    {{-- <td>
                         <table class="w-100 text-center table table-bordered">
                             <tr>
                                 <div style="height:9px;width:2rem;overflow-x:scroll;">
@@ -92,10 +87,10 @@
                                 </div>
                             </tr>
                         </table>
-                    </td>
+                    </td> --}}
 
                     <!-- Item Name --->
-                    <td>
+                    {{-- <td>
                         <table class="m-auto text-start table table-bordered">
                             <tbody>
                                 @foreach($p_detail_3 as $p_3)
@@ -110,15 +105,15 @@
                                 @endforeach
                             </tbody>
                         </table>
-                    </td>
-                    <td style=" vertical-align: middle;">@foreach($total_inline as $t_inline)
+                    </td> --}}
+                    {{-- <td style=" vertical-align: middle;">@foreach($total_inline as $t_inline)
                         @if($t_inline->l_id == $g_line_id)
                         {{ $t_inline->total_inline }}
                         @endif
                         @break
                         @endforeach
 
-                    </td>
+                    </td> --}}
                     <td style="vertical-align: middle;"><span id="g_main_target_{{ $g_line_id }}">@if($g_ot_main_target
                             !=
                             '') {{ number_format($g_main_target + $g_ot_main_target) }}
@@ -264,19 +259,9 @@ div_actual_target_percent.append('%');
 }
 }
 
-
-// var time_get = "<?php echo date('g:i A',strtotime($t->time_name)); ?>";
-// var magice_time = document.getElementById("th_<?php echo $t->time_name; ?>");
-// magice_time.innerHTML = time_get;
-
-
 })
-
-// console.log("<?php echo date('g:i A',strtotime($t->time_name)); ?>");
-
-
-
                         </script>
+
 
 
                         @break
@@ -296,11 +281,11 @@ div_actual_target_percent.append('%');
 
 
                 <tr>
-                    <td></td>
+
                     <td class="fw-bold total fs-4" style=" vertical-align: middle;">Total</td>
+                    {{-- <td></td>
                     <td></td>
-                    <td></td>
-                    <td></td>
+                    <td></td> --}}
                     @foreach ($total_main_target as $t_main_target)
                     <td style="vertical-align: middle;"><span id="t_main_target">{{
                             number_format($t_main_target->t_main_target +
@@ -370,6 +355,7 @@ div_actual_target_percent.append('%');
                                     <td id="total_percent_{{ $new_num_1 }}">
                                     </td>
                                 </tr>
+
                                 <script>
                                     window.addEventListener('additionalInit10', event => {
                                     var curr_target_num_val = $("#new_t_div_actual_target_num_{{ $new_num_1}}");
@@ -416,10 +402,19 @@ if(Number.isNaN(total_percentage) || total_percentage == 0){
     }
 
 
-// remote old line for disolaying one line
-var magic = document.getElementById("td_tmp_num_{{ $new_num_1 }}");
-magic.style.display = "none";
 
+
+// remote old line for displaying one line
+var magic = document.getElementById("td_tmp_num_{{ $new_num_1 }}");
+
+console.log($("#total_percent_{{ $new_num_1 }}"))
+
+// if($("#total_percent_{{ $new_num_1 }}")){
+//     magic.style.display = "display";
+// }
+// else{
+    magic.style.display = "none";
+// }
 
 });
 
@@ -441,12 +436,9 @@ magic.style.display = "none";
                         @break
                         @endif
 
-                        <script>
-
-                        </script>
-
 
                         @endforeach
+
 
 
                         <td class="d-none">
