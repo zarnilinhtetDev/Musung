@@ -278,8 +278,8 @@ if (!m_one) {
 // var m_one = document.getElementsByClassName("confuse");
 // m_one[1].remove();
 
-// var m_two = document.getElementsByClassName("confuse2");
-// m_two[1].remove();
+var m_two = document.getElementsByClassName("confuse2");
+m_two[1].remove();
 
 
 })
@@ -434,12 +434,10 @@ if(Number.isNaN(total_percentage) || total_percentage == 0){
     }
 
 
-
- alert("wef");
 // remote old line for displaying one line
 var magic = document.getElementById("td_tmp_num_{{ $new_num_1 }}");
-// var twice = document.getElementById("<?php echo $t_div_actual_target_1->t_div_actual_target_1; ?>");
-
+var twice = document.getElementById("<?php echo $t_div_actual_target_1->t_div_actual_target_1; ?>");
+console.log(twice);
 
 var two_time = "<?php echo $two_time; ?>";
 var two_time_line = "<?php echo $two_time_now; ?>";
