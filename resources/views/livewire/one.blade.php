@@ -435,10 +435,10 @@ if(Number.isNaN(total_percentage) || total_percentage == 0){
 
 
 
- 
+ alert("wef");
 // remote old line for displaying one line
 var magic = document.getElementById("td_tmp_num_{{ $new_num_1 }}");
-var twice = document.getElementById("<?php echo $t_div_actual_target_1->t_div_actual_target_1; ?>");
+// var twice = document.getElementById("<?php echo $t_div_actual_target_1->t_div_actual_target_1; ?>");
 
 
 var two_time = "<?php echo $two_time; ?>";
