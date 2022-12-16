@@ -32,7 +32,7 @@
                     @foreach(array_reverse($time) as $t)
 
                     @if((int) $t->time_name == (int) date("H"))
-                    <th scope="col" id="th_{{ $t->time_name }}" style="vertical-align: middle;">
+                    <th scope="col" id="th_{{ $t->time_name }}" style="vertical-align: middle;" class="confuse">
 
                         @php
                         echo date('g:i A',strtotime($t->time_name));
@@ -141,7 +141,7 @@
 
 
                     {{-- one line --}}
-                    @if($one_time === (int) date("H") || $one_time > (int) date("H") || $one_time < 8) <td class="confuse"
+                    @if($one_time === (int) date("H") || $one_time > (int) date("H") || $one_time < 8) <td class="confuse2"
                         id="{{ $t_2->time_name }}">
 
                         <table class="w-100 text-center table table-bordered m-0" border="1">
@@ -260,19 +260,26 @@ div_actual_target_percent.append('%');
 }
 }
 
+
 var m_one = "<?php echo $t_2->div_actual_target; ?>"
 if (!m_one) {
     var del = document.getElementById("<?php echo $t_2->time_name; ?>");
     var del2 = document.getElementById("th_<?php echo  $t->time_name ?>");
 
 
-    del.style.display = 'none';
-    del2.style.display = 'none';
+    // del.style.display = 'none';
+    // del2.style.display = 'none';
+
+    del.remove();
+    del2.remove();
+
 }
 
+// var m_one = document.getElementsByClassName("confuse");
+// m_one[1].remove();
 
-var m_two = document.getElementsByClassName("confuse");
-m_two[1].style.display = 'none';
+// var m_two = document.getElementsByClassName("confuse2");
+// m_two[1].remove();
 
 
 })
@@ -324,7 +331,7 @@ m_two[1].style.display = 'none';
 
 
 
-                    @if($one_time === (int) date("H") || $one_time > (int) date("H") || $one_time < 8) <td
+                    @if($one_time === (int) date("H") || $one_time > (int) date("H") || $one_time < 8) <td class="confuse3"
                         id="{{ $t_div_target->time_name }}">
                         <table class="w-100 text-center table table-bordered m-0" border="1">
                             <tr>
@@ -381,6 +388,7 @@ m_two[1].style.display = 'none';
                                 </tr>
 
                                 <script>
+
                                     window.addEventListener('additionalInit10', event => {
                                     var curr_target_num_val = $("#new_t_div_actual_target_num_{{ $new_num_1}}");
                                     var curr_target_val = parseInt("<?php echo $t_div_actual_target_1->t_div_actual_target_1; ?>");
@@ -427,21 +435,26 @@ if(Number.isNaN(total_percentage) || total_percentage == 0){
 
 
 
-
+ 
 // remote old line for displaying one line
 var magic = document.getElementById("td_tmp_num_{{ $new_num_1 }}");
+var twice = document.getElementById("<?php echo $t_div_actual_target_1->t_div_actual_target_1; ?>");
+
 
 var two_time = "<?php echo $two_time; ?>";
 var two_time_line = "<?php echo $two_time_now; ?>";
 
 if( two_time == two_time_line) {
-    // magic.style.display = "display";
+    magic.style.display = "display";
 }
 else{
+    
     magic.style.display = "none";
+  
 }
 
-
+// var m_three = document.getElementsByClassName("confuse3");
+// m_three[1].remove();
 
 });
 
