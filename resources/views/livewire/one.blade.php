@@ -141,7 +141,7 @@
 
 
                     {{-- one line --}}
-                    @if($one_time === (int) date("H") || $one_time > (int) date("H") || $one_time < 8) <td
+                    @if($one_time === (int) date("H") || $one_time > (int) date("H") || $one_time < 8) <td class="confuse"
                         id="{{ $t_2->time_name }}">
 
                         <table class="w-100 text-center table table-bordered m-0" border="1">
@@ -167,7 +167,7 @@
                                         class="div_actual_target_{{ $g_line_id }}">@if($t_2->div_actual_target
                                         !=
                                         ''){{
-                                        $t_2->div_actual_target }} @endif</span>
+                                        $t_2->div_actual_target }} @endif</span>sssssssssssssss
                                 </td>
                                 <td><span id="div_actual_target_total_{{ $t_2->time_id }}"
                                         class="hide_div_actual_target_total d-none"></span></td>
@@ -271,6 +271,8 @@ if (!m_one) {
 }
 
 
+var m_two = document.getElementsByClassName("confuse");
+m_two[1].style.display = 'none';
 
 
 })
@@ -439,13 +441,7 @@ else{
     magic.style.display = "none";
 }
 
-var m_one = "<?php echo $t_2->div_actual_target; ?>"
-if (!m_one) {
- var del1 = document.getElementById("td_tmp_num_<?php echo  $new_num_1 ?>");
- var del2 = document.getElementById("total_percent_<?php echo  $new_num_1 ?>");
 
- del2.style.display = 'none';
-}
 
 });
 
@@ -863,3 +859,16 @@ if (!m_one) {
 
 
 
+<script>
+
+    // if (window.localStorage) {
+//     if (!localStorage.getItem('reload')) {
+//         localStorage['reload'] = true;
+//         window.location.reload();
+//     }
+// else {
+//     localStorage.removeItem('reload');
+// }
+    // }
+
+</script>
