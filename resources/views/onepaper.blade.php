@@ -3,6 +3,10 @@
 @section('content_2')
 
 
+<div style="height: 40px"></div>
+
+
+
 <div class="container-fluid">
 
     @php $date_string = date("d.m.Y");
@@ -33,6 +37,10 @@
             </script>
         </div>
     </div>
+
+
+
+    <div style="height: 70px"></div>
 
 
 
