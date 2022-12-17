@@ -141,8 +141,8 @@
 
 
                     {{-- one line --}}
-                    @if($one_time === (int) date("H") || $one_time > (int) date("H") || $one_time < 8) <td class="confuse2"
-                        id="{{ $t_2->time_name }}">
+                    @if($one_time === (int) date("H") || $one_time > (int) date("H") || $one_time < 8) <td
+                        class="confuse2" id="{{ $t_2->time_name }}">
 
                         <table class="w-100 text-center table table-bordered m-0" border="1">
 
@@ -331,8 +331,8 @@ m_two[1].remove();
 
 
 
-                    @if($one_time === (int) date("H") || $one_time > (int) date("H") || $one_time < 8) <td class="confuse3"
-                        id="{{ $t_div_target->time_name }}">
+                    @if($one_time === (int) date("H") || $one_time > (int) date("H") || $one_time < 8) <td
+                        class="confuse3" id="{{ $t_div_target->time_name }}">
                         <table class="w-100 text-center table table-bordered m-0" border="1">
                             <tr>
                                 <td><span id="new_t_div_target_num_{{ $t_div_target->row_num_1 }}">{{
@@ -388,10 +388,10 @@ m_two[1].remove();
                                 </tr>
 
                                 <script>
-
                                     window.addEventListener('additionalInit10', event => {
                                     var curr_target_num_val = $("#new_t_div_actual_target_num_{{ $new_num_1}}");
                                     var curr_target_val = parseInt("<?php echo $t_div_actual_target_1->t_div_actual_target_1; ?>");
+
 var tmp_num_val = $("#tmp_num_{{ $new_num_1 }}");
 var new_t_div_target_num = parseInt($("#new_t_div_target_num_{{ $new_num_1 }}").text());
 var new_t_div_target_num_disable = $("#new_t_div_target_num_{{ $new_num_1 }}");
@@ -436,8 +436,8 @@ if(Number.isNaN(total_percentage) || total_percentage == 0){
 
 // remote old line for displaying one line
 var magic = document.getElementById("td_tmp_num_{{ $new_num_1 }}");
-var twice = document.getElementById("<?php echo $t_div_actual_target_1->t_div_actual_target_1; ?>");
-console.log(twice);
+
+
 
 var two_time = "<?php echo $two_time; ?>";
 var two_time_line = "<?php echo $two_time_now; ?>";
@@ -446,9 +446,9 @@ if( two_time == two_time_line) {
     magic.style.display = "display";
 }
 else{
-    
+    if(Number.isNaN(total_percentage) || total_percentage == 0){
     magic.style.display = "none";
-  
+    }
 }
 
 // var m_three = document.getElementsByClassName("confuse3");
@@ -871,7 +871,6 @@ else{
 
 
 <script>
-
     // if (window.localStorage) {
 //     if (!localStorage.getItem('reload')) {
 //         localStorage['reload'] = true;
