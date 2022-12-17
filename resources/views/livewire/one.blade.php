@@ -148,6 +148,7 @@
                     $static_hour = (int) date("H");
                     $static_hour2 = date("h:i");
 
+
                     // echo date($t_2->
                     // time_name, strtotime("+30 minutes"))
                     @endphp
