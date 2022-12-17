@@ -126,9 +126,8 @@
 
                     @foreach($time_2 as $t_2)
 
+
                     {{-- @if(!$t_2->div_actual_target)
-
-
 
                     @endif --}}
 
@@ -142,7 +141,7 @@
 
                     {{-- set onttime for oneline --}}
                     @php
-                    echo $loop->index;
+                    // echo $loop->index;
                     $one_time = explode(':', $t_2->time_name);
                     $one_time = (int) $one_time[0];
 
@@ -154,7 +153,8 @@
 
                     {{-- one line --}}
                     @if($one_time === (int) date("H") || $one_time > (int) date("H") || $one_time < 8) {{-- @if((string)
-                        $t_2->time_name == (string) date("h:i") || $one_time> (int) date("H") || $one_time
+                        $t_2->time_name == (string) date("h:i") || $one_time> (int) date("H") ||
+                        $one_time
                         < 8 ) --}} <td class="confuse2" id="{{ $t_2->time_name }}">
 
                             <table class="w-100 text-center table table-bordered m-0" border="1">
