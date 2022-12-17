@@ -122,7 +122,10 @@
                             @endif</span></td> --}}
 
 
+
+
                     @foreach($time_2 as $t_2)
+
 
                     @if($g_line_id==$t_2->line_id && $t_2->time_name != 'temp')
 
@@ -131,61 +134,64 @@
                     @endphp
 
 
-
                     {{-- set onttime for oneline --}}
                     @php
                     $one_time = explode(':', $t_2->time_name);
                     $one_time = (int) $one_time[0];
+
+                    // echo date($t_2->
+                    // time_name, strtotime("+30 minutes"))
                     @endphp
 
 
 
                     {{-- one line --}}
-                    @if($one_time === (int) date("H") || $one_time > (int) date("H") || $one_time < 8) <td
-                        class="confuse2" id="{{ $t_2->time_name }}">
+                    @if($one_time === (int) date("H") || $one_time > (int) date("H") || $one_time < 8) {{-- @if((string)
+                        $t_2->time_name == (string) date("h:i") || $one_time> (int) date("H") || $one_time
+                        < 8 ) --}} <td class="confuse2" id="{{ $t_2->time_name }}">
 
-                        <table class="w-100 text-center table table-bordered m-0" border="1">
+                            <table class="w-100 text-center table table-bordered m-0" border="1">
 
-                            <tr>
-                                <td><span id="new_div_target_{{ $t_2->time_id }}" class="new_div_target">
-                                        @if($t_2->div_actual_target=='') <span style="color:#adadad;">{{
-                                            number_format($t_2->actual_target_entry) }}</span>
-                                        @elseif($t_2->
-                                        div_actual_target!='') {{
-                                        number_format($t_2->actual_target_entry) }}
-                                        @endif
-                                    </span></td>
-                                <td><span id="div_target_total_{{ $t_2->time_id }}"
-                                        class="hide_div_target_total d-none">{{ $t_2->div_target
-                                        }}</span></td>
-                            </tr>
-
-
-                            <tr class="text-white">
-                                <td id="td_div_actual_target_{{ $t_2->time_id }}" class="td_div_actual_target">
-                                    <span id="div_actual_target_{{ $t_2->time_id }}"
-                                        class="div_actual_target_{{ $g_line_id }}">@if($t_2->div_actual_target
-                                        !=
-                                        ''){{
-                                        $t_2->div_actual_target }} @endif</span>
-                                </td>
-                                <td><span id="div_actual_target_total_{{ $t_2->time_id }}"
-                                        class="hide_div_actual_target_total d-none"></span></td>
-                            </tr>
-                            <tr class="text-white">
-                                <td id="td_div_actual_target_percent_{{ $t_2->time_id }}"><span
-                                        id="div_actual_target_percent_{{ $t_2->time_id }}"></span>
-                                </td>
-                                <td class="d-none"></td>
-                            </tr>
-
-                        </table>
-                        </td>
+                                <tr>
+                                    <td><span id="new_div_target_{{ $t_2->time_id }}" class="new_div_target">
+                                            @if($t_2->div_actual_target=='') <span style="color:#adadad;">{{
+                                                number_format($t_2->actual_target_entry) }}</span>
+                                            @elseif($t_2->
+                                            div_actual_target!='') {{
+                                            number_format($t_2->actual_target_entry) }}
+                                            @endif
+                                        </span></td>
+                                    <td><span id="div_target_total_{{ $t_2->time_id }}"
+                                            class="hide_div_target_total d-none">{{ $t_2->div_target
+                                            }}</span></td>
+                                </tr>
 
 
+                                <tr class="text-white">
+                                    <td id="td_div_actual_target_{{ $t_2->time_id }}" class="td_div_actual_target">
+                                        <span id="div_actual_target_{{ $t_2->time_id }}"
+                                            class="div_actual_target_{{ $g_line_id }}">@if($t_2->div_actual_target
+                                            !=
+                                            ''){{
+                                            $t_2->div_actual_target }} @endif</span>
+                                    </td>
+                                    <td><span id="div_actual_target_total_{{ $t_2->time_id }}"
+                                            class="hide_div_actual_target_total d-none"></span></td>
+                                </tr>
+                                <tr class="text-white">
+                                    <td id="td_div_actual_target_percent_{{ $t_2->time_id }}"><span
+                                            id="div_actual_target_percent_{{ $t_2->time_id }}"></span>
+                                    </td>
+                                    <td class="d-none"></td>
+                                </tr>
 
-                        <script>
-                            window.addEventListener('initSomething10', event => {
+                            </table>
+                            </td>
+
+
+
+                            <script>
+                                window.addEventListener('initSomething10', event => {
                                     var prev_target = parseInt($("#div_actual_target_<?php echo $prev_target; ?>").text());
 
 
@@ -283,18 +289,18 @@ m_two[1].remove();
 
 
 })
-                        </script>
+                            </script>
 
 
 
-                        @break
-                        @endif
-                        {{-- oneline end if --}}
+                            @break
+                            @endif
+                            {{-- oneline end if --}}
 
 
-                        @endif
+                            @endif
 
-                        @endforeach
+                            @endforeach
                 </tr>
 
                 @endif
