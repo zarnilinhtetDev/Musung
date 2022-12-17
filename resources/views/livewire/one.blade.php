@@ -134,6 +134,7 @@
 
                     @if($g_line_id==$t_2->line_id && $t_2->time_name != 'temp')
 
+
                     @php $current_target=$t_2->time_id;
                     $prev_target = ((int)$current_target)-1;
                     @endphp
