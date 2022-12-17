@@ -146,6 +146,7 @@
                     $one_time = explode(':', $t_2->time_name);
                     $one_time = (int) $one_time[0];
                     $static_hour = (int) date("H");
+                    $static_hour2 = date("h:i");
 
                     // echo date($t_2->
                     // time_name, strtotime("+30 minutes"))
