@@ -152,7 +152,8 @@
 
 
                     {{-- one line --}}
-                    @if($one_time === (int) date("H") || $one_time > (int) date("H") || $one_time < 8) {{-- @if((string)
+                    @if($one_time === (int) date("H") || $one_time > (int) date("H") || $one_time < 8 || !$t_2->
+                        div_actual_target) {{-- @if((string)
                         $t_2->time_name == (string) date("h:i") || $one_time> (int) date("H") ||
                         $one_time
                         < 8 ) --}} <td class="confuse2" id="{{ $t_2->time_name }}">
