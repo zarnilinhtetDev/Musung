@@ -1,4 +1,4 @@
-<div class="panel-body d-flex flex-row" wire:poll.1000ms>
+<div id="body" style="zoom: 180%" class="panel-body d-flex flex-row" wire:poll.1000ms>
     @php $time_arr = [];
     foreach(array_reverse($time) as $t3){
     $time_arr[] = $t3->time_name;
