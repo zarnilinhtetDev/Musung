@@ -126,6 +126,12 @@
 
                     @foreach($time_2 as $t_2)
 
+                    {{-- @if(!$t_2->div_actual_target)
+
+
+
+                    @endif --}}
+
 
                     @if($g_line_id==$t_2->line_id && $t_2->time_name != 'temp')
 
@@ -136,6 +142,7 @@
 
                     {{-- set onttime for oneline --}}
                     @php
+                    echo $loop->index;
                     $one_time = explode(':', $t_2->time_name);
                     $one_time = (int) $one_time[0];
 
