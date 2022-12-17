@@ -146,9 +146,15 @@
                     $one_time = explode(':', $t_2->time_name);
                     $one_time = (int) $one_time[0];
                     $static_hour = (int) date("H");
-                    $static_hour2 = date("h.i");
-                    $a = (float) $static_hour2;
                     
+                    $static_hour2 = date("h.i");
+                    $static_hour2 = (float) $static_hour2;
+                    
+                    
+                    if ($static_hour2 >= 9.00 && $static_hour2 < 9.30) {
+                        $static_hour = 8;
+                        
+                    }
 
                     // echo date($t_2->
                     // time_name, strtotime("+30 minutes"))
@@ -157,7 +163,7 @@
 
 
                     {{-- one line --}}
-                    @if($one_time === (int) date("H") || $one_time > (int) date("H") || $one_time < 8 || !$t_2->
+                    @if($one_time === $static_hour || $one_time > (int) date("H") || $one_time < 8 || !$t_2->
                         div_actual_target) {{-- @if((string)
                         $t_2->time_name == (string) date("h:i") || $one_time> (int) date("H") ||
                         $one_time
@@ -289,17 +295,18 @@ if (!m_one) {
     // del.style.display = 'none';
     // del2.style.display = 'none';
 
-    del.remove();
-    del2.remove();
+    // del.remove();
+    // del2.remove();
 
 }
 
 // var m_one = document.getElementsByClassName("confuse");
 // m_one[1].remove();
 
+if (!m_one) {
 var m_two = document.getElementsByClassName("confuse2");
 m_two[1].remove();
-
+}
 
 })
                             </script>
@@ -346,11 +353,20 @@ m_two[1].remove();
                     $one_time = explode(':', $t_div_target->time_name);
                     $one_time = (int) $one_time[0];
                     $one_time_line = (int) date("H");
+                    $static_hour = (int) date("H");
+
+                    $static_hour2 = date("h.i");
+                    $static_hour2 = (float) $static_hour2;
+                    
+                    
+                    if ($static_hour2 >= 9.00 && $static_hour2 < 9.30) {
+                        $static_hour = 8;
+                    }
                     @endphp
 
 
 
-                    @if($one_time === (int) date("H") || $one_time > (int) date("H") || $one_time < 8) <td
+                    @if($one_time === $static_hour || $one_time > (int) date("H") || $one_time < 8) <td
                         class="confuse3" id="{{ $t_div_target->time_name }}">
                         <table class="w-100 text-center table table-bordered m-0" border="1">
                             <tr>
