@@ -147,8 +147,11 @@
                     $one_time = (int) $one_time[0];
                     $static_hour = (int) date("H");
                     
+                    
+                    
                     $static_hour2 = date("h.i");
                     $static_hour2 = (float) $static_hour2;
+                    
 
                     
                     // morning time with half condition
@@ -167,7 +170,7 @@
                         $static_hour = 10;
                         }
                     }
-                    elseif ($static_hour2 >= 11.30 && $static_hour2 < 1.00) {
+                    elseif ($static_hour2 >= 11.30 && $static_hour2 < 13.00) {
                         if ($t_2->time_name == "11:30") {
                         $static_hour = 11;
                         }
@@ -181,8 +184,7 @@
 
 
                     {{-- one line --}}
-                    @if($one_time === $static_hour || $one_time > (int) date("H") || $one_time < 8 || !$t_2->
-                        div_actual_target) {{-- @if((string)
+                    @if($one_time === $static_hour || $one_time > (int) date("H") || $one_time < 8) {{-- @if((string)
                         $t_2->time_name == (string) date("h:i") || $one_time> (int) date("H") ||
                         $one_time
                         < 8 ) --}} <td class="confuse2" id="{{ $t_2->time_name }}">
@@ -321,10 +323,11 @@ if (!m_one) {
 // var m_one = document.getElementsByClassName("confuse");
 // m_one[1].remove();
 
-if (!m_one) {
+// if (!m_one) {
 var m_two = document.getElementsByClassName("confuse2");
+// m_two[1].remove();
 m_two[1].remove();
-}
+// }
 
 })
                             </script>
