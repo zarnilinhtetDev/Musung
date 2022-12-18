@@ -149,7 +149,7 @@
                     
                     $static_hour2 = date("h.i");
                     $static_hour2 = (float) $static_hour2;
-                    echo $t_2->time_name;
+
                     
                     // morning time with half condition
                     if ($static_hour2 >= 9.00 && $static_hour2 < 9.30) {
@@ -378,7 +378,24 @@ m_two[1].remove();
                     
                     
                     if ($static_hour2 >= 9.00 && $static_hour2 < 9.30) {
+                        if ($t_2->time_name == "08:30") {
                         $static_hour = 8;
+                        }
+                    }
+                    elseif ($static_hour2 >= 10.00 && $static_hour2 < 10.30) {
+                        if ($t_2->time_name == "09:30") {
+                        $static_hour = 9;
+                        }
+                    }
+                    elseif ($static_hour2 >= 11.00 && $static_hour2 < 11.30) {
+                        if ($t_2->time_name == "10:30") {
+                        $static_hour = 10;
+                        }
+                    }
+                    elseif ($static_hour2 >= 11.30 && $static_hour2 < 1.00) {
+                        if ($t_2->time_name == "11:30") {
+                        $static_hour = 11;
+                        }
                     }
                     @endphp
 
