@@ -146,91 +146,93 @@
                     $one_time = explode(':', $t_2->time_name);
                     $one_time = (int) $one_time[0];
                     $static_hour = (int) date("H");
-                    
-                    
-                    
-                    $static_hour2 = date("h.i");
-                    $static_hour2 = (float) $static_hour2;
-                    
 
-                    
+
+
+                    $static_hour2 = date("H.i");
+                    $static_hour2 = (float) $static_hour2;
+
+
+
+
                     // morning time with half condition
-                    if ($static_hour2 >= 9.00 && $static_hour2 < 9.30) {
-                        if ($t_2->time_name == "08:30") {
+                    if ($static_hour2 >= 9.00 && $static_hour2 < 9.30) { if ($t_2->time_name == "08:30") {
                         $static_hour = 8;
                         }
-                    }
-                    elseif ($static_hour2 >= 10.00 && $static_hour2 < 10.30) {
-                        if ($t_2->time_name == "09:30") {
-                        $static_hour = 9;
                         }
-                    }
-                    elseif ($static_hour2 >= 11.00 && $static_hour2 < 11.30) {
-                        if ($t_2->time_name == "10:30") {
-                        $static_hour = 10;
-                        }
-                    }
-                    elseif ($static_hour2 >= 11.30 && $static_hour2 < 13.00) {
-                        if ($t_2->time_name == "11:30") {
-                        $static_hour = 11;
-                        }
-                    }
+                        elseif ($static_hour2 >= 10.00 && $static_hour2 < 10.30) { if ($t_2->time_name == "09:30") {
+                            $static_hour = 9;
+                            }
+                            }
+                            elseif ($static_hour2 >= 11.00 && $static_hour2 < 11.30) { if ($t_2->time_name == "10:30") {
+                                $static_hour = 10;
+                                }
+                                }
+                                elseif ($static_hour2 >= 11.30 && $static_hour2 < 13.00) { if ($t_2->time_name ==
+                                    "11:30") {
+                                    $static_hour = 11;
+                                    }
+                                    }
 
 
-                    // echo date($t_2->
-                    // time_name, strtotime("+30 minutes"))
-                    @endphp
-
-
-
-                    {{-- one line --}}
-                    @if($one_time === $static_hour || $one_time > (int) date("H") || $one_time < 8) {{-- @if((string)
-                        $t_2->time_name == (string) date("h:i") || $one_time> (int) date("H") ||
-                        $one_time
-                        < 8 ) --}} <td class="confuse2" id="{{ $t_2->time_name }}">
-
-                            <table class="w-100 text-center table table-bordered m-0" border="1">
-
-                                <tr>
-                                    <td><span id="new_div_target_{{ $t_2->time_id }}" class="new_div_target">
-                                            @if($t_2->div_actual_target=='') <span style="color:#adadad;">{{
-                                                number_format($t_2->actual_target_entry) }}</span>
-                                            @elseif($t_2->
-                                            div_actual_target!='') {{
-                                            number_format($t_2->actual_target_entry) }}
-                                            @endif
-                                        </span></td>
-                                    <td><span id="div_target_total_{{ $t_2->time_id }}"
-                                            class="hide_div_target_total d-none">{{ $t_2->div_target
-                                            }}</span></td>
-                                </tr>
-
-
-                                <tr class="text-white">
-                                    <td id="td_div_actual_target_{{ $t_2->time_id }}" class="td_div_actual_target">
-                                        <span id="div_actual_target_{{ $t_2->time_id }}"
-                                            class="div_actual_target_{{ $g_line_id }}">@if($t_2->div_actual_target
-                                            !=
-                                            ''){{
-                                            $t_2->div_actual_target }} @endif</span>
-                                    </td>
-                                    <td><span id="div_actual_target_total_{{ $t_2->time_id }}"
-                                            class="hide_div_actual_target_total d-none"></span></td>
-                                </tr>
-                                <tr class="text-white">
-                                    <td id="td_div_actual_target_percent_{{ $t_2->time_id }}"><span
-                                            id="div_actual_target_percent_{{ $t_2->time_id }}"></span>
-                                    </td>
-                                    <td class="d-none"></td>
-                                </tr>
-
-                            </table>
-                            </td>
+                                    // echo date($t_2->
+                                    // time_name, strtotime("+30 minutes"))
+                                    @endphp
 
 
 
-                            <script>
-                                window.addEventListener('initSomething10', event => {
+                                    {{-- one line --}}
+                                    @if($one_time === $static_hour || $one_time > (int) date("H") || $one_time < 8) {{--
+                                        @if((string) $t_2->time_name == (string) date("h:i") || $one_time> (int)
+                                        date("H") ||
+                                        $one_time
+                                        < 8 ) --}} <td class="confuse2" id="{{ $t_2->time_name }}">
+
+                                            <table class="w-100 text-center table table-bordered m-0" border="1">
+
+                                                <tr>
+                                                    <td><span id="new_div_target_{{ $t_2->time_id }}"
+                                                            class="new_div_target">
+                                                            @if($t_2->div_actual_target=='') <span
+                                                                style="color:#adadad;">{{
+                                                                number_format($t_2->actual_target_entry) }}</span>
+                                                            @elseif($t_2->
+                                                            div_actual_target!='') {{
+                                                            number_format($t_2->actual_target_entry) }}
+                                                            @endif
+                                                        </span></td>
+                                                    <td><span id="div_target_total_{{ $t_2->time_id }}"
+                                                            class="hide_div_target_total d-none">{{ $t_2->div_target
+                                                            }}</span></td>
+                                                </tr>
+
+
+                                                <tr class="text-white">
+                                                    <td id="td_div_actual_target_{{ $t_2->time_id }}"
+                                                        class="td_div_actual_target">
+                                                        <span id="div_actual_target_{{ $t_2->time_id }}"
+                                                            class="div_actual_target_{{ $g_line_id }}">@if($t_2->div_actual_target
+                                                            !=
+                                                            ''){{
+                                                            $t_2->div_actual_target }} @endif</span>
+                                                    </td>
+                                                    <td><span id="div_actual_target_total_{{ $t_2->time_id }}"
+                                                            class="hide_div_actual_target_total d-none"></span></td>
+                                                </tr>
+                                                <tr class="text-white">
+                                                    <td id="td_div_actual_target_percent_{{ $t_2->time_id }}"><span
+                                                            id="div_actual_target_percent_{{ $t_2->time_id }}"></span>
+                                                    </td>
+                                                    <td class="d-none"></td>
+                                                </tr>
+
+                                            </table>
+                                            </td>
+
+
+
+                                            <script>
+                                                window.addEventListener('initSomething10', event => {
                                     var prev_target = parseInt($("#div_actual_target_<?php echo $prev_target; ?>").text());
 
 
@@ -330,18 +332,18 @@ m_two[1].remove();
 // }
 
 })
-                            </script>
+                                            </script>
 
 
 
-                            @break
-                            @endif
-                            {{-- oneline end if --}}
+                                            @break
+                                            @endif
+                                            {{-- oneline end if --}}
 
 
-                            @endif
+                                            @endif
 
-                            @endforeach
+                                            @endforeach
                 </tr>
 
                 @endif
@@ -378,90 +380,91 @@ m_two[1].remove();
 
                     $static_hour2 = date("h.i");
                     $static_hour2 = (float) $static_hour2;
-                    
-                    
-                    if ($static_hour2 >= 9.00 && $static_hour2 < 9.30) {
-                        if ($t_2->time_name == "08:30") {
+
+
+                    if ($static_hour2 >= 9.00 && $static_hour2 < 9.30) { if ($t_2->time_name == "08:30") {
                         $static_hour = 8;
                         }
-                    }
-                    elseif ($static_hour2 >= 10.00 && $static_hour2 < 10.30) {
-                        if ($t_2->time_name == "09:30") {
-                        $static_hour = 9;
                         }
-                    }
-                    elseif ($static_hour2 >= 11.00 && $static_hour2 < 11.30) {
-                        if ($t_2->time_name == "10:30") {
-                        $static_hour = 10;
-                        }
-                    }
-                    elseif ($static_hour2 >= 11.30 && $static_hour2 < 1.00) {
-                        if ($t_2->time_name == "11:30") {
-                        $static_hour = 11;
-                        }
-                    }
-                    @endphp
+                        elseif ($static_hour2 >= 10.00 && $static_hour2 < 10.30) { if ($t_2->time_name == "09:30") {
+                            $static_hour = 9;
+                            }
+                            }
+                            elseif ($static_hour2 >= 11.00 && $static_hour2 < 11.30) { if ($t_2->time_name == "10:30") {
+                                $static_hour = 10;
+                                }
+                                }
+                                elseif ($static_hour2 >= 11.30 && $static_hour2 < 13.00) { if ($t_2->time_name ==
+                                    "11:30") {
+                                    $static_hour = 11;
+                                    }
+                                    }
+                                    @endphp
 
 
 
-                    @if($one_time === $static_hour || $one_time > (int) date("H") || $one_time < 8) <td
-                        class="confuse3" id="{{ $t_div_target->time_name }}">
-                        <table class="w-100 text-center table table-bordered m-0" border="1">
-                            <tr>
-                                <td><span id="new_t_div_target_num_{{ $t_div_target->row_num_1 }}">{{
-                                        number_format($t_div_target->t_div_target) }}</span></td>
-                            </tr>
+                                    @if($one_time === $static_hour || $one_time > (int) date("H") || $one_time < 8) <td
+                                        class="confuse3" id="{{ $t_div_target->time_name }}">
+                                        <table class="w-100 text-center table table-bordered m-0" border="1">
+                                            <tr>
+                                                <td><span id="new_t_div_target_num_{{ $t_div_target->row_num_1 }}">{{
+                                                        number_format($t_div_target->t_div_target) }}</span></td>
+                                            </tr>
 
-                            @foreach ($total_div_actual_target as $t_div_actual_target_1)
-
-
-                            @php
-                            $two_time = explode(':', $t_div_actual_target_1->time_name);
-                            $two_time = $two_time[0];
-                            $two_time_now = (int) date("H");
-                            @endphp
+                                            @foreach ($total_div_actual_target as $t_div_actual_target_1)
 
 
-                            {{-- @php
-                            $one_time = explode(':', $t_div_actual_target_1->time_name);
-                            $one_time = (int) $one_time[0];
-                            @endphp
+                                            @php
+                                            $two_time = explode(':', $t_div_actual_target_1->time_name);
+                                            $two_time = $two_time[0];
+                                            $two_time_now = (int) date("H");
+                                            @endphp
 
 
-                            @if($one_time === (int) date("H") || $one_time > (int) date("H") || $one_time < 8) --}} {{--
-                                @if($total_time_name==$t_div_actual_target_1->time_name) --}}
+                                            {{-- @php
+                                            $one_time = explode(':', $t_div_actual_target_1->time_name);
+                                            $one_time = (int) $one_time[0];
+                                            @endphp
 
-                                <tr class="text-white">
-                                    @foreach($total_percent_accumulation as $t_per_acc)
-                                    @if($total_time_name == $t_per_acc->time_name)
-                                    <input type="hidden" id="new_t_per_acc_num_{{ $new_num_1 }}"
-                                        class="new_t_per_acc_num" value="{{ $t_per_acc->t_div_target }}" />
-                                    @endif
-                                    @endforeach
 
-                                    @foreach($total_percent_accumulation as $t_per_acc)
-                                    @if($total_time_name == $t_per_acc->time_name)
-                                    <input type="hidden" id="new_t_div_actual_target_num_{{ $new_num_1}}"
-                                        class="new_t_div_actual_target_num"
-                                        value="{{ $t_per_acc->t_div_actual_target }}" />
-                                    @endif
-                                    @endforeach
+                                            @if($one_time === (int) date("H") || $one_time > (int) date("H") ||
+                                            $one_time < 8) --}} {{-- @if($total_time_name==$t_div_actual_target_1->
+                                                time_name) --}}
 
-                                    <td id="td_tmp_num_{{ $new_num_1 }}">
-                                        <span id="tmp_num_{{ $new_num_1 }}"
-                                            class="">@if($t_div_actual_target_1->t_div_actual_target_1
-                                            !=''){{
-                                            number_format($t_div_actual_target_1->t_div_actual_target_1) }}
-                                            @endif</span>
-                                    </td>
-                                </tr>
-                                <tr class="text-white">
-                                    <td id="total_percent_{{ $new_num_1 }}">
-                                    </td>
-                                </tr>
+                                                <tr class="text-white">
+                                                    @foreach($total_percent_accumulation as $t_per_acc)
+                                                    @if($total_time_name == $t_per_acc->time_name)
+                                                    <input type="hidden" id="new_t_per_acc_num_{{ $new_num_1 }}"
+                                                        class="new_t_per_acc_num"
+                                                        value="{{ $t_per_acc->t_div_target }}" />
+                                                    @endif
+                                                    @endforeach
 
-                                <script>
-                                    window.addEventListener('additionalInit10', event => {
+                                                    @foreach($total_percent_accumulation as $t_per_acc)
+                                                    @if($total_time_name == $t_per_acc->time_name)
+                                                    <input type="hidden"
+                                                        id="new_t_div_actual_target_num_{{ $new_num_1}}"
+                                                        class="new_t_div_actual_target_num"
+                                                        value="{{ $t_per_acc->t_div_actual_target }}" />
+                                                    @endif
+                                                    @endforeach
+
+                                                    <td id="td_tmp_num_{{ $new_num_1 }}">
+                                                        <span id="tmp_num_{{ $new_num_1 }}"
+                                                            class="">@if($t_div_actual_target_1->t_div_actual_target_1
+                                                            !=''){{
+                                                            number_format($t_div_actual_target_1->t_div_actual_target_1)
+                                                            }}
+                                                            @endif</span>
+                                                    </td>
+                                                </tr>
+                                                <tr class="text-white">
+                                                    <td id="total_percent_{{ $new_num_1 }}">
+                                                    </td>
+                                                </tr>
+
+                                                <script>
+                                                    window.addEventListener('additionalInit10', event => {
                                     var curr_target_num_val = $("#new_t_div_actual_target_num_{{ $new_num_1}}");
                                     var curr_target_val = parseInt("<?php echo $t_div_actual_target_1->t_div_actual_target_1; ?>");
 
@@ -529,61 +532,61 @@ else{
 
 });
 
-                                </script>
+                                                </script>
 
-                                @php $new_num_1++; @endphp
-                                {{-- @endif --}}
-
-
+                                                @php $new_num_1++; @endphp
+                                                {{-- @endif --}}
 
 
 
-                                @endforeach
-                        </table>
-
-                        </td>
 
 
-                        @break
-                        @endif
+                                                @endforeach
+                                        </table>
+
+                                        </td>
 
 
-                        @endforeach
+                                        @break
+                                        @endif
+
+
+                                        @endforeach
 
 
 
-                        <td class="d-none">
-                            <table class="w-100 text-center table table-bordered m-0" border="1">
-                                <tr>
-                                    @foreach($total_overall_target as $t_overall_target)
-                                    <td class='fw-bold' id="t_overall_target">
+                                        <td class="d-none">
+                                            <table class="w-100 text-center table table-bordered m-0" border="1">
+                                                <tr>
+                                                    @foreach($total_overall_target as $t_overall_target)
+                                                    <td class='fw-bold' id="t_overall_target">
 
-                                    </td>
+                                                    </td>
 
-                                    <script>
-                                        var t_main_target = $("#t_main_target").text();
+                                                    <script>
+                                                        var t_main_target = $("#t_main_target").text();
                                 var t_overall_target = $("#t_overall_target");
                                 t_overall_target.text(t_main_target);
 
-                                    </script>
-                                    @endforeach
-                                </tr>
-                                <tr class="text-white">
-                                    @foreach($total_overall_actual_target as $t_overall_actual_target)
-                                    <td class='fw-bold' id="t_overall_actual_target">
-                                        {{
-                                        number_format($t_overall_actual_target->t_overall_actual_target)
-                                        }}
-                                    </td>
-                                    @endforeach
+                                                    </script>
+                                                    @endforeach
+                                                </tr>
+                                                <tr class="text-white">
+                                                    @foreach($total_overall_actual_target as $t_overall_actual_target)
+                                                    <td class='fw-bold' id="t_overall_actual_target">
+                                                        {{
+                                                        number_format($t_overall_actual_target->t_overall_actual_target)
+                                                        }}
+                                                    </td>
+                                                    @endforeach
 
-                                </tr>
-                                <tr class="text-white">
-                                    <td id="t_overall_percent" class='fw-bold'></td>
-                                </tr>
-                            </table>
-                            <script>
-                                window.addEventListener('additionalInit10', event => {
+                                                </tr>
+                                                <tr class="text-white">
+                                                    <td id="t_overall_percent" class='fw-bold'></td>
+                                                </tr>
+                                            </table>
+                                            <script>
+                                                window.addEventListener('additionalInit10', event => {
                                 var t_overall_target = parseInt($("#t_overall_target").text().replace(/,/g, ''));
                                 var t_overall_actual_target = parseInt($("#t_overall_actual_target").text().replace(/,/g, ''));
                                 var t_overall_percent = $("#t_overall_percent");
@@ -614,10 +617,10 @@ else{
                                 }
 
                         });
-                            </script>
-                        </td>
-                        <td class="d-none" style="vertical-align:middle;" class="fw-bolder">-</td>
-                        <td class="d-none" style="vertical-align:middle;" class="fw-bolder">-</td>
+                                            </script>
+                                        </td>
+                                        <td class="d-none" style="vertical-align:middle;" class="fw-bolder">-</td>
+                                        <td class="d-none" style="vertical-align:middle;" class="fw-bolder">-</td>
                 </tr>
             </tbody>
         </table>

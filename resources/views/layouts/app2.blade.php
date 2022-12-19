@@ -114,7 +114,7 @@ ini_set('memory_limit', '-1');
             @yield('content')
             @else
             @yield('content')
-            @include('layouts.navbar_sidebar')
+            @include('layouts.navbar_sidebar2')
             @endif
         </main>
     </div>

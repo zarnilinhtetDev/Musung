@@ -1,7 +1,19 @@
-@extends('layouts.app')
+@extends('layouts.app2')
 @section('content')
 @section('content_2')
 
+<head>
+    {{-- <img src="{{asset('img/logo_2.png')}}"> --}}
+    <script src="{{ asset('js/custom_js.js') }}" defer></script>
+    <script src="{{ asset('js/clock.js') }}" defer></script>
+    <script src="{{ asset('js/jquery_numpad.js') }}" defer></script>
+    <script src="{{ asset('js/theme_setting.js') }}" defer></script>
+
+    <link href="{{ asset('css/jquery_numpad.css') }}" rel="stylesheet" defer>
+    <link href="{{ asset('css/clock.css') }}" rel="stylesheet" defer>
+    <link href="{{ asset('css/styles.css') }}" rel="stylesheet" defer>
+    <link rel="shortcut icon" href="{{URL::asset('img/logo_2.png')}}" defer>
+</head>
 
 <div style="height: 40px"></div>
 
