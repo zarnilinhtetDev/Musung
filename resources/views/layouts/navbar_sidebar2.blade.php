@@ -43,7 +43,7 @@
                 </div>
                 <div class="mx-3 not-mobile">
                     <a class="fw-bolder fs-5 my-auto navbar-heading-text" href="{{ url('/home') }}">
-                        <img src="img/logo_2.png" class="img-fluid rounded-3" alt="Company Logo" width="60"
+                        <img src="{{asset('img/logo_2.png')}}" class="img-fluid rounded-3" alt="Company Logo" width="60"
                             height="auto" />
                         MUSUNG Garment Line Target and Production Data
                     </a>
@@ -130,8 +130,9 @@
                     </a>
                 </li>
                 <li>
-                    <a class="sidebar-link" href="{{ url('/theme_setting') }}"><img src="img/icon/theme.png"
-                            class="img-fluid rounded-3" alt="Theme" width="25" height="auto" />
+                    <a class="sidebar-link" href="{{ url('/theme_setting') }}"><img
+                            src="{{asset('img/icon/theme.png')}}" class="img-fluid rounded-3" alt="Theme" width="25"
+                            height="auto" />
                         &nbsp;Change Theme
                     </a>
                 </li>
@@ -318,25 +319,25 @@
     <nav id="sidebar" class="d-flex flex-column flex-shrink-0 justify-content-between active">
         <div class="p-4">
             <div class="sidebar-header">
-                <a href="#"><img src="img/logo_2.png" class="img-fluid rounded-3" alt="Company Logo" width="200"
-                        height="auto" />
+                <img src="{{asset('img/logo_2.png')}}" class="img-fluid rounded-3" alt="Company Logo" width="200"
+                    height="auto" />
                 </a>
             </div>
             <ul class="nav nav-pills flex-column list-unstyled components mb-5">
                 <li class="active">
-                    <a href="{{ url('/home') }}" class="sidebar-link"><img src="img/icon/dashboard.png"
+                    <a href="{{ url('/home') }}" class="sidebar-link"><img src="{{asset('img/icon/dashboard.png')}}"
                             class="img-fluid rounded-3" alt="Dashboard" width="25" height="auto" />
                         &nbsp;Dashboard</a>
                 </li>
                 <li class="">
-                    <a href="{{ url('/menu') }}" class="sidebar-link"><img src="img/icon/home.png"
+                    <a href="{{ url('/menu') }}" class="sidebar-link"><img src="{{asset('img/icon/home.png')}}"
                             class="img-fluid rounded-3" alt="Home" width="25" height="auto" /> &nbsp;Main
                         Menu</a>
                 </li>
                 <li>
                     <a class="sidebar-link" href="#account_management" data-bs-toggle="collapse" aria-expanded="false"
                         class="dropdown-toggle">
-                        <img src="img/icon/team_icon.png" class="img-fluid rounded-3" alt="Team" width="25"
+                        <img src="{{asset('img/icon/team_icon.png')}}" class="img-fluid rounded-3" alt="Team" width="25"
                             height="auto" />
                         &nbsp;Account Management
                     </a>
@@ -349,8 +350,8 @@
                 <li>
                     <a class="sidebar-link" href="#target" data-bs-toggle="collapse" aria-expanded="false"
                         class="dropdown-toggle">
-                        <img src="img/icon/target_line.png" class="img-fluid rounded-3" alt="Target Line" width="25"
-                            height="auto" />
+                        <img src="{{asset('img/icon/target_line.png')}}" class="img-fluid rounded-3" alt="Target Line"
+                            width="25" height="auto" />
                         &nbsp;Production Status
                     </a>
                     <ul class="collapse" id="target" role="list">
@@ -365,8 +366,8 @@
                 <li>
                     <a class="sidebar-link" href="#line" data-bs-toggle="collapse" aria-expanded="false"
                         class="dropdown-toggle">
-                        <img src="img/icon/line_manage.png" class="img-fluid rounded-3" alt="Line Management" width="25"
-                            height="auto" />
+                        <img src="{{asset('img/icon/line_manage.png')}}" class="img-fluid rounded-3"
+                            alt="Line Management" width="25" height="auto" />
                         &nbsp;Line Managment
                     </a>
                     <ul class="collapse" id="line" role="list">
@@ -382,14 +383,15 @@
                     </ul>
                 </li>
                 <li>
-                    <a class="sidebar-link" href="{{ url('/report') }}"> <img src="img/icon/report.png"
+                    <a class="sidebar-link" href="{{ url('/report') }}"> <img src="{{asset('img/icon/report.png')}}"
                             class="img-fluid rounded-3" alt="Report" width="25" height="auto" />
                         &nbsp;Report
                     </a>
                 </li>
                 <li>
-                    <a class="sidebar-link" href="{{ url('/theme_setting') }}"><img src="img/icon/theme.png"
-                            class="img-fluid rounded-3" alt="Theme" width="25" height="auto" />
+                    <a class="sidebar-link" href="{{ url('/theme_setting') }}"><img
+                            src="{{asset('img/icon/theme.png')}}" class="img-fluid rounded-3" alt="Theme" width="25"
+                            height="auto" />
                         &nbsp;Change Theme
                     </a>
                 </li>
@@ -429,13 +431,14 @@
                 </div>
                 <div class="mx-3 not-mobile">
                     <a class="fw-bolder fs-5 my-auto navbar-heading-text" href="{{ url('/home') }}">
-                        <img src="img/logo_2.png" class="img-fluid rounded-3" alt="Company Logo" width="60"
+                        <img src="{{asset('img/logo_2.png')}}" class="img-fluid rounded-3" alt="Company Logo" width="60"
                             height="auto" />
                         MUSUNG Garment Line Target and Production Data
                     </a>
                 </div>
                 <div class="mx-2 mobile">
-                    <img src="img/logo_2.png" class="img-fluid rounded-3" alt="Company Logo" width="60" height="auto" />
+                    <img src="{{asset('img/logo_2.png')}}" class="img-fluid rounded-3" alt="Company Logo" width="60"
+                        height="auto" />
                 </div>
             </div>
         </nav>

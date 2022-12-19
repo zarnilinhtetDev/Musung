@@ -1,4 +1,4 @@
-<div id="body" style="zoom: 180%" class="panel-body d-flex flex-row" wire:poll.1000ms>
+<div id="body" style="zoom: 240%" class="panel-body d-flex flex-row" wire:poll.1000ms>
     @php $time_arr = [];
     foreach(array_reverse($time) as $t3){
     $time_arr[] = $t3->time_name;
@@ -152,8 +152,7 @@
                     $static_hour2 = date("H.i");
                     $static_hour2 = (float) $static_hour2;
 
-
-
+                    echo $t_2->div_target;
 
                     // morning time with half condition
                     if ($static_hour2 >= 9.00 && $static_hour2 < 9.30) { if ($t_2->time_name == "08:30") {
@@ -201,7 +200,8 @@
                                                             number_format($t_2->actual_target_entry) }}
                                                             @endif
                                                         </span></td>
-                                                    <td><span id="div_target_total_{{ $t_2->time_id }}"
+                                                    <td style="display: none;"><span
+                                                            id="div_target_total_{{ $t_2->time_id }}"
                                                             class="hide_div_target_total d-none">{{ $t_2->div_target
                                                             }}</span></td>
                                                 </tr>
@@ -216,8 +216,10 @@
                                                             ''){{
                                                             $t_2->div_actual_target }} @endif</span>
                                                     </td>
-                                                    <td><span id="div_actual_target_total_{{ $t_2->time_id }}"
+                                                    <td style="display: none;"><span
+                                                            id="div_actual_target_total_{{ $t_2->time_id }}"
                                                             class="hide_div_actual_target_total d-none"></span></td>
+
                                                 </tr>
                                                 <tr class="text-white">
                                                     <td id="td_div_actual_target_percent_{{ $t_2->time_id }}"><span
