@@ -60,10 +60,19 @@
 
                                 if ($static_hour2 >= 11.30 && $static_hour2 < 13.00) { $t->time_name = "11:30";
                                     }
+                                    elseif ($static_hour2 >= 9.00 && $static_hour2 < 9.30) { $t->time_name = "8:30";
+                                        }
+                                        elseif ($static_hour2 >= 10.00 && $static_hour2 < 10.30) { $t->time_name =
+                                            "9:30";
+                                            }
+                                            elseif ($static_hour2 >= 11.00 && $static_hour2 < 11.30) { $t->time_name =
+                                                "10:30";
+                                                }
 
-                                    echo date('g:i A',strtotime($t->time_name));
 
-                                    @endphp
+                                                echo date('g:i A',strtotime($t->time_name));
+
+                                                @endphp
 
                             </th>
                             @endif
