@@ -31,17 +31,44 @@
                     {{-- <th scope="col" style="vertical-align: middle;">Target</th> --}}
                     @foreach(array_reverse($time) as $t)
 
-                    @if((int) $t->time_name == (int) date("H"))
-                    <th scope="col" id="th_{{ $t->time_name }}" style="vertical-align: middle;" class="confuse">
+                    @php
+                    $static_hour2 = date("H.i");
+                    $static_hour2 = (float) $static_hour2;
 
-                        @php
-                        echo date('g:i A',strtotime($t->time_name));
-                        @endphp
 
-                    </th>
-                    @endif
 
-                    @endforeach
+                    if ($static_hour2 >= 11.30 && $static_hour2 < 12.00) { if ($t->time_name == "11:30") {
+                        $t->time_name = 11;
+                        }
+                        }
+                        elseif ($static_hour2 >= 12.00 && $static_hour2 < 13.00) { if ($t->time_name == "11:30") {
+                            $t->time_name = 12;
+                            }
+                            }
+
+                            @endphp
+
+
+                            @if((int) $t->time_name == (int) date("H"))
+
+
+                            <th scope="col" id="th_{{ $t->time_name }}" style="vertical-align: middle;" class="confuse">
+
+                                @php
+                                $static_hour2 = date("H.i");
+                                $static_hour2 = (float) $static_hour2;
+
+                                if ($static_hour2 >= 11.30 && $static_hour2 < 13.00) { $t->time_name = "11:30";
+                                    }
+
+                                    echo date('g:i A',strtotime($t->time_name));
+
+                                    @endphp
+
+                            </th>
+                            @endif
+
+                            @endforeach
                 </tr>
             </thead>
             <tbody>
