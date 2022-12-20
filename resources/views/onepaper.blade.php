@@ -12,7 +12,8 @@
     <link href="{{ asset('css/jquery_numpad.css') }}" rel="stylesheet" defer>
     <link href="{{ asset('css/clock.css') }}" rel="stylesheet" defer>
     <link href="{{ asset('css/styles.css') }}" rel="stylesheet" defer>
-    <link rel="shortcut icon" href="{{URL::asset('img/logo_2.png')}}" defer>
+    {{--
+    <link rel="shortcut icon" href="{{URL::asset('img/logo_2.png')}}" defer> --}}
 </head>
 
 <div style="height: 40px"></div>
