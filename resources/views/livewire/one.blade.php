@@ -36,7 +36,7 @@
                     $static_hour2 = (float) $static_hour2;
 
 
-
+                    // check between 11:30 am and 1:00 pm
                     if ($static_hour2 >= 11.30 && $static_hour2 < 12.00) { if ($t->time_name == "11:30") {
                         $t->time_name = 11;
                         }
@@ -58,6 +58,8 @@
                                 $static_hour2 = date("H.i");
                                 $static_hour2 = (float) $static_hour2;
 
+
+                                // half time check for exact time
                                 if ($static_hour2 >= 11.30 && $static_hour2 < 13.00) { $t->time_name = "11:30";
                                     }
                                     elseif ($static_hour2 >= 9.00 && $static_hour2 < 9.30) { $t->time_name = "8:30";
