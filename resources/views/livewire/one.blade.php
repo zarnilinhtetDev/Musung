@@ -394,7 +394,14 @@ m_two[1].remove();
 
                 <tr>
 
-                    <td class="fw-bold total fs-4" style=" vertical-align: middle;">Total</td>
+                    {{-- ***************** <td class="fw-bold total fs-4" style=" vertical-align: middle;">Total</td>
+                    --}}
+
+
+
+
+
+
                     {{-- <td></td>
                     <td></td>
                     <td></td> --}}
@@ -445,11 +452,12 @@ m_two[1].remove();
 
                                     @if($one_time === $static_hour || $one_time > (int) date("H") || $one_time < 8) <td
                                         class="confuse3" id="{{ $t_div_target->time_name }}">
-                                        <table class="w-100 text-center table table-bordered m-0" border="1">
+                                        {{-- ************************ <table
+                                            class="w-100 text-center table table-bordered m-0" border="1">
                                             <tr>
                                                 <td><span id="new_t_div_target_num_{{ $t_div_target->row_num_1 }}">{{
                                                         number_format($t_div_target->t_div_target) }}</span></td>
-                                            </tr>
+                                            </tr> --}}
 
                                             @foreach ($total_div_actual_target as $t_div_actual_target_1)
 
@@ -461,50 +469,38 @@ m_two[1].remove();
                                             @endphp
 
 
-                                            {{-- @php
-                                            $one_time = explode(':', $t_div_actual_target_1->time_name);
-                                            $one_time = (int) $one_time[0];
-                                            @endphp
+                                            {{-- <tr class="text-white">
+                                                @foreach($total_percent_accumulation as $t_per_acc)
+                                                @if($total_time_name == $t_per_acc->time_name)
+                                                <input type="hidden" id="new_t_per_acc_num_{{ $new_num_1 }}"
+                                                    class="new_t_per_acc_num" value="{{ $t_per_acc->t_div_target }}" />
+                                                @endif
+                                                @endforeach
 
+                                                @foreach($total_percent_accumulation as $t_per_acc)
+                                                @if($total_time_name == $t_per_acc->time_name)
+                                                <input type="hidden" id="new_t_div_actual_target_num_{{ $new_num_1}}"
+                                                    class="new_t_div_actual_target_num"
+                                                    value="{{ $t_per_acc->t_div_actual_target }}" />
+                                                @endif
+                                                @endforeach
 
-                                            @if($one_time === (int) date("H") || $one_time > (int) date("H") ||
-                                            $one_time < 8) --}} {{-- @if($total_time_name==$t_div_actual_target_1->
-                                                time_name) --}}
+                                                <td id="td_tmp_num_{{ $new_num_1 }}">
+                                                    <span id="tmp_num_{{ $new_num_1 }}"
+                                                        class="">@if($t_div_actual_target_1->t_div_actual_target_1
+                                                        !=''){{
+                                                        number_format($t_div_actual_target_1->t_div_actual_target_1)
+                                                        }}
+                                                        @endif</span>
+                                                </td>
+                                            </tr>
+                                            <tr class="text-white">
+                                                <td id="total_percent_{{ $new_num_1 }}">
+                                                </td>
+                                            </tr> --}}
 
-                                                <tr class="text-white">
-                                                    @foreach($total_percent_accumulation as $t_per_acc)
-                                                    @if($total_time_name == $t_per_acc->time_name)
-                                                    <input type="hidden" id="new_t_per_acc_num_{{ $new_num_1 }}"
-                                                        class="new_t_per_acc_num"
-                                                        value="{{ $t_per_acc->t_div_target }}" />
-                                                    @endif
-                                                    @endforeach
-
-                                                    @foreach($total_percent_accumulation as $t_per_acc)
-                                                    @if($total_time_name == $t_per_acc->time_name)
-                                                    <input type="hidden"
-                                                        id="new_t_div_actual_target_num_{{ $new_num_1}}"
-                                                        class="new_t_div_actual_target_num"
-                                                        value="{{ $t_per_acc->t_div_actual_target }}" />
-                                                    @endif
-                                                    @endforeach
-
-                                                    <td id="td_tmp_num_{{ $new_num_1 }}">
-                                                        <span id="tmp_num_{{ $new_num_1 }}"
-                                                            class="">@if($t_div_actual_target_1->t_div_actual_target_1
-                                                            !=''){{
-                                                            number_format($t_div_actual_target_1->t_div_actual_target_1)
-                                                            }}
-                                                            @endif</span>
-                                                    </td>
-                                                </tr>
-                                                <tr class="text-white">
-                                                    <td id="total_percent_{{ $new_num_1 }}">
-                                                    </td>
-                                                </tr>
-
-                                                <script>
-                                                    window.addEventListener('additionalInit10', event => {
+                                            <script>
+                                                window.addEventListener('additionalInit10', event => {
                                     var curr_target_num_val = $("#new_t_div_actual_target_num_{{ $new_num_1}}");
                                     var curr_target_val = parseInt("<?php echo $t_div_actual_target_1->t_div_actual_target_1; ?>");
 
@@ -576,19 +572,19 @@ else{
 
 });
 
-                                                </script>
+                                            </script>
 
-                                                @php $new_num_1++; @endphp
-                                                {{-- @endif --}}
-
+                                            @php $new_num_1++; @endphp
 
 
 
 
-                                                @endforeach
+
+                                            @endforeach
+                                            {{--
                                         </table>
 
-                                        </td>
+                                        </td> --}}
 
 
                                         @break
@@ -679,9 +675,9 @@ else{
                 <tr class="tr-2 tr-3">
                     <th scope="col" style="padding:0px; border:none;background-color:#000;"></th>
                     <th scope="col" style="padding:0px; border:none;"></th>
-                    <th scope="col" style="vertical-align: middle; height:73px !important;">Total</th>
-                    <th scope="col" style="vertical-align: middle; height:73px !important;">Rank</th>
-                    <th scope="col" style="vertical-align: middle; height:73`px !important;">%</th>
+                    <th scope="col" style="vertical-align: middle; height:43px !important;">Total</th>
+                    <th scope="col" style="vertical-align: middle; height:43px !important;">Rank</th>
+                    <th scope="col" style="vertical-align: middle; height:43px !important;">%</th>
                 </tr>
             </thead>
             <tbody>
@@ -906,7 +902,7 @@ else{
                 </tr>
                 @endif
                 @endforeach
-                <tr>
+                {{-- <tr>
                     <td colspan="0" style="background:#000 !important;">
                         <div style="width:0px !important;overflow-x:scroll;">
 
@@ -938,7 +934,7 @@ else{
                             <tr class="text-white">
                                 <td id="t_overall_percent_2" class='fw-bold'></td>
                             </tr>
-                        </table>
+                        </table> --}}
                         <script>
                             window.addEventListener('additionalInit10', event => {
                                             var t_overall_target_2 = parseInt($("#t_overall_target_2").text().replace(/,/g, ''));
@@ -972,11 +968,12 @@ else{
 
                                     });
                         </script>
+                        {{--
                     </td>
                     <td style="vertical-align:middle;" class="fw-bolder">-</td>
                     <td style="vertical-align:middle;" class="fw-bolder">-</td>
 
-                </tr>
+                </tr> --}}
 
             </tbody>
         </table>
