@@ -1034,3 +1034,59 @@ else{
     // }
 
 </script>
+
+
+
+
+
+
+
+
+{{-- @foreach($top_line as $t_line)
+
+
+@if ($g_line_id == $t_line->l_id)
+
+
+@php
+if ($t_line->row_num == 1) {
+
+foreach ($top_line as $t_line2) {
+if ($t_line2->row_num == 2){
+echo "<h1>" . $t_line2->row_num . "</h1>";
+}
+}
+}
+@endphp
+
+
+
+
+
+<td style="vertical-align: middle;" class="t_line_{{ $t_line->row_num }} t_line_count fw-bold">
+    {{
+    $t_line->row_num }}
+</td>
+
+
+
+
+
+@endif
+
+@endforeach
+
+
+
+@foreach($top_line as $t_line)
+@if ($g_line_id == $t_line->l_id)
+<td style="vertical-align: middle;" class="t_line_{{ $t_line->row_num }} t_line_count">
+    <span class="input_row_num_{{ $t_line->row_num }} input_row_num" style="display:none;">{{
+        $t_line->row_num
+        }}</span>
+    {{
+    $t_line->diff_target_percent }}%
+</td>
+
+@endif
+@endforeach --}}
