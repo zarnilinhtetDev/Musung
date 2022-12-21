@@ -12,7 +12,8 @@
     <div class="flex-grow-1">
         <table class="table table-hover table-striped table-bordered text-center table-dash" id="live_dash_1">
             <thead>
-                <tr class="tr-2 tr-3">
+                {{-- <tr class="tr-2 tr-3"> --}}
+                <tr>
                     {{-- <th scope="col" style="vertical-align: middle;">Status</th> --}}
                     <th scope="col" style="vertical-align: middle;">Line</th>
                     {{-- <th scope="col" style="vertical-align: middle;" class="p-0">
@@ -101,6 +102,9 @@
                 @endphp
                 @if($line_id == $g_line_id)
                 <tr style="border-bottom: 2px solid black;" class="tr_line_{{ $g_line_id }}">
+                    {{--
+                <tr class="tr_line_{{ $g_line_id }}"> --}}
+
                     {{-- <td class="line_column_{{ $g_line_id }}"></td> --}}
 
                     <td class="fw-bold line_name_{{ $g_line_id }} fs-4" style="vertical-align: middle;">
@@ -245,7 +249,7 @@
                                                 </tr>
 
 
-                                                <tr class="text-white">
+                                                <tr class="text-dark">
                                                     <td id="td_div_actual_target_{{ $t_2->time_id }}"
                                                         class="td_div_actual_target">
                                                         <span id="div_actual_target_{{ $t_2->time_id }}"
@@ -259,7 +263,7 @@
                                                             class="hide_div_actual_target_total d-none"></span></td>
 
                                                 </tr>
-                                                <tr class="text-white">
+                                                <tr class="text-dark">
                                                     <td id="td_div_actual_target_percent_{{ $t_2->time_id }}"><span
                                                             id="div_actual_target_percent_{{ $t_2->time_id }}"></span>
                                                     </td>
@@ -332,15 +336,24 @@ div_actual_target_percent.text(parseInt(percentage));
 
 
 if(parseInt(div_actual_target_percent.text()) <= 80){
-   $("#td_div_actual_target_percent_<?php echo $current_target; ?>").css('background-color','rgba(255,0,0,0.8)');
-   $("#td_div_actual_target_<?php echo $current_target; ?>").css('background-color','rgba(255,0,0,0.8)');
+    $("#td_div_actual_target_percent_<?php echo $current_target; ?>").css('color','black');
+   $("#td_div_actual_target_<?php echo $current_target; ?>").css('color','black)');
+
+//    $("#td_div_actual_target_percent_<?php echo $current_target; ?>").css('background-color','rgba(255,0,0,0.8)');
+//    $("#td_div_actual_target_<?php echo $current_target; ?>").css('background-color','rgba(255,0,0,0.8)');
 }if(parseInt(div_actual_target_percent.text()) > 80){
-   $("#td_div_actual_target_percent_<?php echo $current_target; ?>").css({'background-color':'#FF8000','color':'#fff'});
-   $("#td_div_actual_target_<?php echo $current_target; ?>").css({'background-color':'#FF8000','color':'#fff'});
+    $("#td_div_actual_target_percent_<?php echo $current_target; ?>").css('color','black');
+   $("#td_div_actual_target_<?php echo $current_target; ?>").css('color','black)');
+
+//    $("#td_div_actual_target_percent_<?php echo $current_target; ?>").css({'background-color':'#FF8000','color':'#fff'});
+//    $("#td_div_actual_target_<?php echo $current_target; ?>").css({'background-color':'#FF8000','color':'#fff'});
 }
 if(parseInt(div_actual_target_percent.text()) >= 100){
-   $("#td_div_actual_target_percent_<?php echo $current_target; ?>").css({'background-color':'rgba(30,113,0,1)','color':'#fff'});
-   $("#td_div_actual_target_<?php echo $current_target; ?>").css({'background-color':'rgba(30,113,0,1)','color':'#fff'});
+    $("#td_div_actual_target_percent_<?php echo $current_target; ?>").css('color','black');
+   $("#td_div_actual_target_<?php echo $current_target; ?>").css('color','black)');
+
+//    $("#td_div_actual_target_percent_<?php echo $current_target; ?>").css({'background-color':'rgba(30,113,0,1)','color':'#fff'});
+//    $("#td_div_actual_target_<?php echo $current_target; ?>").css({'background-color':'rgba(30,113,0,1)','color':'#fff'});
 }
 
 div_actual_target_percent.append('%');
@@ -525,16 +538,25 @@ new_total_percent.text(parseInt(total_percentage));
 
 
 if(parseInt(total_percentage) <= 80){
-   $("#total_percent_{{ $new_num_1 }}").css('background-color','rgba(255,0,0,0.8)');
-   $("#td_tmp_num_{{ $new_num_1 }}").css('background-color','rgba(255,0,0,0.8)');
+    $("#total_percent_{{ $new_num_1 }}").css('color','black');
+   $("#td_tmp_num_{{ $new_num_1 }}").css('color','black');
+
+//    $("#total_percent_{{ $new_num_1 }}").css('background-color','rgba(255,0,0,0.8)');
+//    $("#td_tmp_num_{{ $new_num_1 }}").css('background-color','rgba(255,0,0,0.8)');
 }
 if(parseInt(total_percentage) > 80){
-   $("#total_percent_{{ $new_num_1 }}").css({'background-color':'#FF8000','color':'#fff'});
-   $("#td_tmp_num_{{ $new_num_1 }}").css({'background-color':'#FF8000','color':'#fff'});
+    $("#total_percent_{{ $new_num_1 }}").css('color','black');
+   $("#td_tmp_num_{{ $new_num_1 }}").css('color','black');
+
+//    $("#total_percent_{{ $new_num_1 }}").css({'background-color':'#FF8000','color':'#fff'});
+//    $("#td_tmp_num_{{ $new_num_1 }}").css({'background-color':'#FF8000','color':'#fff'});
 }
 if(parseInt(total_percentage) >= 100){
-   $("#total_percent_{{ $new_num_1 }}").css({'background-color':'#085820','color':'#fff'});
-   $("#td_tmp_num_{{ $new_num_1 }}").css({'background-color':'#085820','color':'#fff'});
+    $("#total_percent_{{ $new_num_1 }}").css('color','black');
+   $("#td_tmp_num_{{ $new_num_1 }}").css('color','black');
+
+//    $("#total_percent_{{ $new_num_1 }}").css({'background-color':'#085820','color':'#fff'});
+//    $("#td_tmp_num_{{ $new_num_1 }}").css({'background-color':'#085820','color':'#fff'});
 }
 
 new_total_percent.append('%');
@@ -611,7 +633,7 @@ else{
                                                     </script>
                                                     @endforeach
                                                 </tr>
-                                                <tr class="text-white">
+                                                <tr class="text-dark">
                                                     @foreach($total_overall_actual_target as $t_overall_actual_target)
                                                     <td class='fw-bold' id="t_overall_actual_target">
                                                         {{
@@ -621,7 +643,7 @@ else{
                                                     @endforeach
 
                                                 </tr>
-                                                <tr class="text-white">
+                                                <tr class="text-dark">
                                                     <td id="t_overall_percent" class='fw-bold'></td>
                                                 </tr>
                                             </table>
@@ -672,7 +694,8 @@ else{
     <div class="">
         <table class="table table-hover table-striped table-bordered text-center table-dash" id="live_dash_1">
             <thead>
-                <tr class="tr-2 tr-3">
+                {{-- <tr class="tr-2 tr-3"> --}}
+                <tr>
                     <th scope="col" style="padding:0px; border:none;background-color:#000;"></th>
                     <th scope="col" style="padding:0px; border:none;"></th>
                     <th scope="col" style="vertical-align: middle; height:43px !important;">Total</th>
@@ -695,7 +718,10 @@ else{
                 @endphp
 
                 @if($line_id == $g_line_id)
+                {{-- need to remove this --}}
+                {{-- <tr class="tr_line_{{ $g_line_id }}"> --}}
                 <tr style="border-bottom: 3px solid #000;" class="tr_line_{{ $g_line_id }}">
+
                     @foreach($target_total as $t_2_total)
 
                     @if ($g_line_id == $t_2_total->line_id)
@@ -757,14 +783,14 @@ else{
                                     </span>
                                 </td>
                             </tr>
-                            <tr class="text-white">
+                            <tr class="text-dark">
                                 <td class="fw-bold td_a_total_{{ $t_2_total->line_id }}">
                                     <span class="a_total_{{ $t_2_total->line_id }}">{{
                                         $a_total->total_actual_target
                                         }}</span>
                                 </td>
                             </tr>
-                            <tr class="text-white">
+                            <tr class="text-dark">
                                 <td class="fw-bold td_t_percent_{{ $t_2_total->line_id }}">
                                     <span class="t_percent_{{ $t_2_total->line_id }}"></span>
                                 </td>
@@ -795,21 +821,30 @@ else{
 
 
             if(parseInt(t_percent_span.text()) <= 80){
-                td_t_percent.css('background-color','rgba(255,0,0,0.8)');
-                td_a_percent.css('background-color','rgba(255,0,0,0.8)');
-                                                    line_column.addClass('bounce');
-                                                    line_column.css('background-color','red');
+                td_t_percent.css('color', 'black');
+                td_a_percent.css('color', 'black');
+
+                // td_t_percent.css('background-color','rgba(255,0,0,0.8)');
+                // td_a_percent.css('background-color','rgba(255,0,0,0.8)');
+                //                                     line_column.addClass('bounce');
+                //                                     line_column.css('background-color','red');
             }if(parseInt(t_percent_span.text()) > 80){
-                td_t_percent.css({'background-color':'#FF8000','color':'#fff'});
-                td_a_percent.css({'background-color':'#FF8000','color':'#fff'});
-                                                    line_column.addClass('bounce');
-                                                    line_column.css('background-color','#FF8000');
+                td_t_percent.css('color', 'black');
+                td_a_percent.css('color', 'black');
+
+                // td_t_percent.css({'background-color':'#FF8000','color':'#fff'});
+                // td_a_percent.css({'background-color':'#FF8000','color':'#fff'});
+                //                                     line_column.addClass('bounce');
+                //                                     line_column.css('background-color','#FF8000');
             }
             if(parseInt(t_percent_span.text()) >= 100){
-                td_t_percent.css({'background-color':'rgba(30,113,0,1)','color':'#fff'});
-                td_a_percent.css({'background-color':'rgba(30,113,0,1)','color':'#fff'});
-                                                    line_column.addClass('bounce');
-                                                    line_column.css('background-color','rgba(30,113,0,1)');
+                td_t_percent.css('color', 'black');
+                td_a_percent.css('color', 'black');
+
+                // td_t_percent.css({'background-color':'rgba(30,113,0,1)','color':'#fff'});
+                // td_a_percent.css({'background-color':'rgba(30,113,0,1)','color':'#fff'});
+                //                                     line_column.addClass('bounce');
+                //                                     line_column.css('background-color','rgba(30,113,0,1)');
             }
 
                                                         t_percent_span.append('%');
@@ -867,20 +902,20 @@ else{
 
             if(top_1 != ''){
                 $('.t_line_' + top_1).css({
-                    'background-color': 'green',
-                    'color': '#fff'
+                    // 'background-color': 'green',
+                    // 'color': '#fff'
                 });
             }
             if(top_2 != ''){
                 $('.t_line_' + top_2).css({
-                    'background-color': 'green',
-                    'color': '#fff'
+                    // 'background-color': 'green',
+                    // 'color': '#fff'
                 });
             }
             if(top_3 != ''){
                 $('.t_line_' + top_3).css({
-                    'background-color': 'green',
-                    'color': '#fff'
+                    // 'background-color': 'green',
+                    // 'color': '#fff'
                 });
             }
 
@@ -894,7 +929,7 @@ else{
                                                 // var max_num = Math.max(...val_arr);
 
             $(".t_line_" + 10).css({
-                'background-color': 'red',
+                // 'background-color': 'red',
                 'color': '#fff'
             });
                 });
@@ -951,18 +986,18 @@ else{
                                             if (!Number.isNaN(t_percent_cal_2)) {
                                                 t_overall_percent_2.text(parseFloat(t_percent_cal_2).toFixed(0));
 
-                                                    if(parseInt(t_overall_percent_2.text()) <= 80){
-                                                        t_overall_percent_2.css('background-color','rgba(255,0,0,0.8)');
-                                                        $("#t_overall_actual_target_2").css('background-color','rgba(255,0,0,0.8)');
-                                                    }
-                                                    if(parseInt(t_overall_percent_2.text()) > 80){
-                                                        t_overall_percent_2.css({'background-color':'#FF8000','color':'#fff'});
-                                                        $("#t_overall_actual_target_2").css({'background-color':'#FF8000','color':'#fff'});
-                                                    }
-                                                    if(parseInt(t_overall_percent_2.text()) >= 100){
-                                                        t_overall_percent_2.css({'background-color':'rgba(30,113,0,1)','color':'#fff'});
-                                                        $("#t_overall_actual_target_2").css({'background-color':'rgba(30,113,0,1)','color':'#fff'});
-                                                    }
+                                                    // if(parseInt(t_overall_percent_2.text()) <= 80){
+                                                    //     t_overall_percent_2.css('background-color','rgba(255,0,0,0.8)');
+                                                    //     $("#t_overall_actual_target_2").css('background-color','rgba(255,0,0,0.8)');
+                                                    // }
+                                                    // if(parseInt(t_overall_percent_2.text()) > 80){
+                                                    //     t_overall_percent_2.css({'background-color':'#FF8000','color':'#fff'});
+                                                    //     $("#t_overall_actual_target_2").css({'background-color':'#FF8000','color':'#fff'});
+                                                    // }
+                                                    // if(parseInt(t_overall_percent_2.text()) >= 100){
+                                                    //     t_overall_percent_2.css({'background-color':'rgba(30,113,0,1)','color':'#fff'});
+                                                    //     $("#t_overall_actual_target_2").css({'background-color':'rgba(30,113,0,1)','color':'#fff'});
+                                                    // }
                                                     t_overall_percent_2.append('%');
                                             }
 
