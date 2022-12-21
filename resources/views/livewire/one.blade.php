@@ -560,6 +560,10 @@ var two_time_line = "<?php echo $two_time_now; ?>";
 
 if( two_time == two_time_line) {
     magic.style.display = "display";
+
+    if(Number.isNaN(total_percentage) || total_percentage == 0){
+    magic.style.display = "none";
+    }
 }
 else{
     if(Number.isNaN(total_percentage) || total_percentage == 0){
