@@ -1056,9 +1056,8 @@ foreach ($top_line as $t_line2) {
         echo "<h1>" . $t_line2->row_num . "</h1>";
         }
 }
+
 }
-
-
 @endphp
 
 
