@@ -1107,8 +1107,8 @@ elseif ($t_line->row_num == 2) {
 
             echo "
             <div style='display: flex;margin:auto;width:620px;'>"
-                . "<div style='display: flex;min-width:160px;margin-right:220px;'>
-                <h1><i class='bi bi-arrow-up-short'></i></h1>
+                . "<div style='display: flex;min-width:220px;margin-right:220px;'>
+                <h1><i class='bi bi-arrow-up-short' style='background:#1e7100;color:white;'></i></h1>&nbsp;&nbsp;
                 <h1>Line - </h1>           &nbsp;&nbsp;
                 <h1>" . $magic . "<h1>
                     </div>" .
@@ -1116,7 +1116,8 @@ elseif ($t_line->row_num == 2) {
                     "<h1>Rank</h1>           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
                 <h1 style='margin-right: 100px;'>" . $t_line2->row_num . "</h1>" .
-                "<h1>" . $t_line2->diff_target_percent . "%" . "</h1>
+                "<h1 style='position: relative;bottom:20px;padding:20px 0 0 0;min-width:130px;height:85px;background:#1e7100;border-radius: 40%;text-align: center;'
+                    class='text-white'>" . $t_line2->diff_target_percent . "%" . "</h1>
 
                 </div>
                     <br>";
@@ -1132,7 +1133,8 @@ elseif ($t_line->row_num == 2) {
 
             echo "
             <div style='display: flex;margin:auto;width:620px;'>"
-                . "<div style='display: flex;min-width:160px;margin-right:220px;'>
+                . "<div style='display: flex;min-width:220px;margin-right:220px;'>
+                <h1><i class='bi bi-arrow-down-short' style='background:#ff0000;color:white;'></i></h1>&nbsp;&nbsp;
                 <h1>Line - </h1>           &nbsp;&nbsp;
                 <h1>" . $magic . "<h1>
                     </div>" .
@@ -1140,7 +1142,8 @@ elseif ($t_line->row_num == 2) {
                     "<h1>Rank</h1>           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
                 <h1 style='margin-right: 100px;'>" . $t_line2->row_num . "</h1>" .
-                "<h1>" . $t_line2->diff_target_percent . "%" . "</h1>
+                "<h1 style='position: relative;bottom:20px;padding:20px 0 0 0;min-width:130px;height:85px;background:#ff0000;border-radius: 40%;text-align: center;'
+                    class='text-white'>" . $t_line2->diff_target_percent . "%" . "</h1>
 
                 </div>
                     <br>";
