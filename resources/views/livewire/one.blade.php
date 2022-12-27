@@ -1038,7 +1038,7 @@ else{
 
 
 
-
+<div style="height: 50px;"></div>
 
 
 @foreach ($getLine as $g_line)
@@ -1077,10 +1077,43 @@ foreach ($top_line as $t_line2) {
 elseif ($t_line->row_num == 2) {
     foreach ($top_line as $t_line2) {
         if ($t_line2->row_num == 1){
-        echo "<h1>" . $t_line2->diff_target_percent . "</h1>";
+
+            foreach ($getLine as $g_line) {
+                if($t_line2->l_id == $g_line->l_id) {
+                    $magic = $g_line->l_name;
+                    break;
+                }
+            }
+            echo $magic;
+
+            echo "
+            <div style='display: flex;margin:auto;width:420px;'>
+                <h1>Rank</h1>           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                <h1 style='margin-right: 280px;'>" . $t_line2->row_num . "</h1>" .
+                "<h1>" . $t_line2->diff_target_percent . "%" . "</h1>
+
+                </div>
+                    <br>";
         }
         if ($t_line2->row_num == 3){
-        echo "<h1>" . $t_line2->diff_target_percent . "</h1>";
+
+            foreach ($getLine as $g_line) {
+                if($t_line2->l_id == $g_line->l_id) {
+                    $magic = $g_line->l_name;
+                    break;
+                }
+            }
+            echo $magic;
+
+            echo "<div style='display: flex;margin:auto;width:420px;'>
+                <h1>Rank</h1>           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                <h1 style='margin-right: 280px;'>" . $t_line2->row_num . "</h1>" .
+
+                "<h1>" . $t_line2->diff_target_percent . "%" . "</h1>
+
+                </div>";
         }
 }
 }
@@ -1089,6 +1122,36 @@ elseif ($t_line->row_num == 2) {
 elseif ($t_line->row_num == 3) {
     foreach ($top_line as $t_line2) {
         if ($t_line2->row_num == 2){
+        echo "<h1>" . $t_line2->diff_target_percent . "</h1>";
+        }
+        if ($t_line2->row_num == 4){
+        echo "<h1>" . $t_line2->diff_target_percent . "</h1>";
+        }
+}
+}
+
+
+elseif ($t_line->row_num == 4) {
+    foreach ($top_line as $t_line2) {
+        if ($t_line2->row_num == 3){
+        echo "<h1>" . $t_line2->diff_target_percent . "</h1>";
+        }
+        if ($t_line2->row_num == 5){
+        echo "<h1>" . $t_line2->diff_target_percent . "</h1>";
+        }
+}
+}
+
+
+
+
+
+elseif ($t_line->row_num == 3) {
+    foreach ($top_line as $t_line2) {
+        if ($t_line2->row_num == 2){
+        echo "<h1>" . $t_line2->diff_target_percent . "</h1>";
+        }
+        if ($t_line2->row_num == 4){
         echo "<h1>" . $t_line2->diff_target_percent . "</h1>";
         }
 }
