@@ -1039,47 +1039,83 @@ else{
 
 
 
-
-
-
-{{-- @foreach($top_line as $t_line)
-
+@foreach ($getLine as $g_line)
 @php
-    echo $g_line_id;
-@endphp
+                $g_line_id=$g_line->l_id;
+                $g_line_name = $g_line->l_name;
+                $g_main_target = $g_line->main_target;
+                $g_ot_main_target = $g_line->ot_main_target;
+                $g_m_power = $g_line->m_power;
+                $g_actual_m_power = $g_line->actual_m_power;
+                $g_hp = $g_line->hp;
+                $g_actual_hp = $g_line->actual_hp;
 
+                @endphp
+
+@if($line_id == $g_line_id)
+
+
+
+
+@foreach($top_line as $t_line)
 @if ($g_line_id == $t_line->l_id)
 
 
 @php
 
 if ($t_line->row_num == 1) {
-
 foreach ($top_line as $t_line2) {
         if ($t_line2->row_num == 2){
-        echo "<h1>" . $t_line2->row_num . "</h1>";
+        echo "<h1>" . $t_line2->diff_target_percent . "</h1>";
         }
 }
 }
 
 
+elseif ($t_line->row_num == 2) {
+    foreach ($top_line as $t_line2) {
+        if ($t_line2->row_num == 1){
+        echo "<h1>" . $t_line2->diff_target_percent . "</h1>";
+        }
+        if ($t_line2->row_num == 3){
+        echo "<h1>" . $t_line2->diff_target_percent . "</h1>";
+        }
+}
+}
+
+
+elseif ($t_line->row_num == 3) {
+    foreach ($top_line as $t_line2) {
+        if ($t_line2->row_num == 2){
+        echo "<h1>" . $t_line2->diff_target_percent . "</h1>";
+        }
+}
+}
+
 @endphp
 
 
 
-<td style="vertical-align: middle;" class="t_line_{{ $t_line->row_num }} t_line_count fw-bold">
+{{-- <td style="vertical-align: middle;" class="t_line_{{ $t_line->row_num }} t_line_count fw-bold">
     {{
     $t_line->row_num }}
-</td>
+</td> --}}
+
+
+@endif
+@endforeach
 
 
 
 @endif
-
-@endforeach --}}
-
+@endforeach
 
 
+
+
+
+
+{{--
 @foreach ($getLine as $g_line)
 @php
                 $g_line_id=$g_line->l_id;
@@ -1118,4 +1154,4 @@ foreach ($top_line as $t_line2) {
                     @endif
                     @endforeach
                     @endif
-                    @endforeach
+                    @endforeach --}}
