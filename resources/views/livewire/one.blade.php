@@ -1,4 +1,5 @@
-<div id="body" style="zoom: 240%" class="panel-body d-flex flex-row" wire:poll.1000ms>
+<div wire:poll.1000ms>
+<div id="body" style="zoom: 240%" class="panel-body d-flex flex-row">
     @php $time_arr = [];
     foreach(array_reverse($time) as $t3){
     $time_arr[] = $t3->time_name;
@@ -1039,6 +1040,7 @@ else{
 
 
 
+
 @foreach ($getLine as $g_line)
 @php
                 $g_line_id=$g_line->l_id;
@@ -1110,7 +1112,7 @@ elseif ($t_line->row_num == 3) {
 @endif
 @endforeach
 
-
+</div>
 
 
 
