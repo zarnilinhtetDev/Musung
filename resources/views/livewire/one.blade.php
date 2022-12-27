@@ -1108,6 +1108,7 @@ elseif ($t_line->row_num == 2) {
             echo "
             <div style='display: flex;margin:auto;width:620px;'>"
                 . "<div style='display: flex;min-width:160px;margin-right:220px;'>
+                <h1><i class='bi bi-arrow-up-short'></i></h1>
                 <h1>Line - </h1>           &nbsp;&nbsp;
                 <h1>" . $magic . "<h1>
                     </div>" .
