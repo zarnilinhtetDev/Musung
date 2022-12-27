@@ -930,7 +930,7 @@ else{
 
             $(".t_line_" + 10).css({
                 // 'background-color': 'red',
-                'color': '#fff'
+                // 'color': '#fff'
             });
                 });
                     </script>
@@ -1042,13 +1042,17 @@ else{
 
 
 
-@foreach($top_line as $t_line)
+{{-- @foreach($top_line as $t_line)
 
+@php
+    echo $g_line_id;
+@endphp
 
 @if ($g_line_id == $t_line->l_id)
 
 
 @php
+
 if ($t_line->row_num == 1) {
 
 foreach ($top_line as $t_line2) {
@@ -1063,8 +1067,6 @@ foreach ($top_line as $t_line2) {
 
 
 
-
-
 <td style="vertical-align: middle;" class="t_line_{{ $t_line->row_num }} t_line_count fw-bold">
     {{
     $t_line->row_num }}
@@ -1072,23 +1074,48 @@ foreach ($top_line as $t_line2) {
 
 
 
-
-
 @endif
 
-@endforeach
+@endforeach --}}
 
 
+
+@foreach ($getLine as $g_line)
+@php
+                $g_line_id=$g_line->l_id;
+                $g_line_name = $g_line->l_name;
+                $g_main_target = $g_line->main_target;
+                $g_ot_main_target = $g_line->ot_main_target;
+                $g_m_power = $g_line->m_power;
+                $g_actual_m_power = $g_line->actual_m_power;
+                $g_hp = $g_line->hp;
+                $g_actual_hp = $g_line->actual_hp;
+
+                @endphp
+
+@if($line_id == $g_line_id)
 
 @foreach($top_line as $t_line)
-@if ($g_line_id == $t_line->l_id)
-<td style="vertical-align: middle;" class="t_line_{{ $t_line->row_num }} t_line_count">
-    <span class="input_row_num_{{ $t_line->row_num }} input_row_num" style="display:none;">{{
-        $t_line->row_num
-        }}</span>
-    {{
-    $t_line->diff_target_percent }}%
-</td>
+                    @if ($g_line_id == $t_line->l_id)
+                    <td style="vertical-align: middle;" class="t_line_{{ $t_line->row_num }} t_line_count fw-bold">
+                        {{
+                        $t_line->row_num }}
+                    </td>
 
-@endif
-@endforeach
+                    @endif
+                    @endforeach
+
+                    @foreach($top_line as $t_line)
+                    @if ($g_line_id == $t_line->l_id)
+                    <td style="vertical-align: middle;" class="t_line_{{ $t_line->row_num }} t_line_count">
+                        <span class="input_row_num_{{ $t_line->row_num }} input_row_num" style="display:none;">{{
+                            $t_line->row_num
+                            }}</span>
+                        {{
+                        $t_line->diff_target_percent }}%
+                    </td>
+
+                    @endif
+                    @endforeach
+                    @endif
+                    @endforeach
