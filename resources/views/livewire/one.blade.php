@@ -11,7 +11,8 @@
     @if(count($time_arr) > 0)
 
     <div class="flex-grow-1">
-        <table class="table table-hover table-striped table-bordered text-center table-dash" id="live_dash_1">
+        <table class="" id="live_dash_1">
+            {{-- <table class="table table-hover table-striped table-bordered text-center table-dash" id="live_dash_1"> ********************************* --}}
             <thead>
                 {{-- <tr class="tr-2 tr-3"> --}}
                 <tr>
@@ -102,7 +103,13 @@
                 $one_line_date = $g_line->assign_date;
                 @endphp
                 @if($line_id == $g_line_id)
-                <tr style="border-bottom: 2px solid black;" class="tr_line_{{ $g_line_id }}">
+
+                <tr style="" class="tr_line_{{ $g_line_id }}">
+                {{-- <tr style="border-bottom: 2px solid black;" class="tr_line_{{ $g_line_id }}"> ********************************* --}}
+
+
+
+
                     {{--
                 <tr class="tr_line_{{ $g_line_id }}"> --}}
 
@@ -230,7 +237,9 @@
                                         $one_time
                                         < 8 ) --}} <td class="confuse2" id="{{ $t_2->time_name }}">
 
-                                            <table class="w-100 text-center table table-bordered m-0" border="1">
+
+                                            <table class="w-100 text-center">
+                                            {{-- <table class="w-100 text-center table table-bordered m-0" border="1"> ********************************* --}}
 
                                                 <tr>
                                                     <td><span id="new_div_target_{{ $t_2->time_id }}"
