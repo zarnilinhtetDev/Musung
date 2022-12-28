@@ -16,7 +16,7 @@
     <link rel="shortcut icon" href="{{URL::asset('img/logo_2.png')}}" defer> --}}
 </head>
 
-<div style="height: 40px"></div>
+<div style="height: 10px"></div>
 
 
 

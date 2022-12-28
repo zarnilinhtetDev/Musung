@@ -11,7 +11,7 @@
     @if(count($time_arr) > 0)
 
     <div class="flex-grow-1">
-        <table class="" id="live_dash_1" style="margin-left: 200px;margin-right:100px;">
+        <table class="" id="live_dash_1" style="margin-left: 80px;margin-right:100px;">
             {{-- <table class="table table-hover table-striped table-bordered text-center table-dash" id="live_dash_1"> ********************************* --}}
             <thead>
                 {{-- <tr class="tr-2 tr-3"> --}}
@@ -75,7 +75,7 @@
                                                 }
 
 
-                                                echo "<div style='margin-left:210px;border-style: solid;padding: 2px 5px 2px 5px;font-size:13px;'>" . date('g:i A',strtotime($t->time_name)) . "</div>";
+                                                echo "<div style='margin-left:110px;border-style: solid;padding: 2px 5px 2px 5px;font-size:13px;'>" . date('g:i A',strtotime($t->time_name)) . "</div>";
 
                                                 @endphp
 
@@ -238,11 +238,11 @@
                                         < 8 ) --}} <td class="confuse2" id="{{ $t_2->time_name }}">
 
 
-                                            <table class="w-100 text-center" style="margin-left:170px;max-width:140px;">
+                                            <table class="w-100 text-center table table-bordered table-sm" style="margin-left:120px;max-width:50px;">
                                             {{-- <table class="w-100 text-center table table-bordered m-0" border="1"> ********************************* --}}
 
                                                 <tr>
-                                                    <td><span id="new_div_target_{{ $t_2->time_id }}"
+                                                    <td style="height:10px;"><span style="font-size: 12px;" id="new_div_target_{{ $t_2->time_id }}"
                                                             class="new_div_target">
                                                             @if($t_2->div_actual_target=='') <span
                                                                 style="color:#adadad;">{{
@@ -252,7 +252,7 @@
                                                             number_format($t_2->actual_target_entry) }}
                                                             @endif
                                                         </span></td>
-                                                    <td style="display: none;"><span
+                                                    <td style="display: none;"><span style="font-size: 12px;"
                                                             id="div_target_total_{{ $t_2->time_id }}"
                                                             class="hide_div_target_total d-none">{{ $t_2->div_target
                                                             }}</span></td>
@@ -260,9 +260,9 @@
 
 
                                                 <tr class="text-dark">
-                                                    <td id="td_div_actual_target_{{ $t_2->time_id }}"
+                                                    <td id="td_div_actual_target_{{ $t_2->time_id }}" style="height:10px;"
                                                         class="td_div_actual_target">
-                                                        <span id="div_actual_target_{{ $t_2->time_id }}"
+                                                        <span style="font-size: 12px;" id="div_actual_target_{{ $t_2->time_id }}"
                                                             class="div_actual_target_{{ $g_line_id }}">@if($t_2->div_actual_target
                                                             !=
                                                             ''){{
@@ -274,7 +274,7 @@
 
                                                 </tr>
                                                 <tr class="text-dark">
-                                                    <td id="td_div_actual_target_percent_{{ $t_2->time_id }}" style="height:80px;border-radius: 47%;"><span
+                                                    <td id="td_div_actual_target_percent_{{ $t_2->time_id }}" style="height:10px;font-size: 12px;"><span
                                                             id="div_actual_target_percent_{{ $t_2->time_id }}"></span>
                                                     </td>
                                                     <td class="d-none"></td>
