@@ -1085,7 +1085,7 @@ foreach ($top_line as $t_line2) {
 
                     "<h1 style='font-weight: bold;'>Rank</h1>           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-                <h1 style='margin-right: 50px;font-weight: bold;'>" . $t_line2->row_num . "</h1>" .
+                <h1 style='margin-right: 50px;font-weight: bold;min-width:50px;'>" . $t_line2->row_num . "</h1>" .
                 "<p style='font-size: 26px;position: relative;bottom:20px;padding:20px 0 0 0;min-width:130px;height:85px;background:#ff0000;border-radius: 40%;text-align: center;'
                     class='text-white'>" . $t_line2->diff_target_percent . "%" . "</p>
 
@@ -1117,7 +1117,7 @@ elseif ($t_line->row_num == 2) {
 
                     "<h1 style='font-weight: bold;'>Rank</h1>           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-                <h1 style='margin-right: 50px;font-weight: bold;'>" . $t_line2->row_num . "</h1>" .
+                <h1 style='margin-right: 50px;font-weight: bold;min-width:50px;'>" . $t_line2->row_num . "</h1>" .
                 "<p style=' font-size: 26px;position: relative;bottom:20px;padding:20px 0 0 0;min-width:130px;height:85px;background:#1e7100;border-radius: 40%;text-align: center;'
                     class='text-white'>" . $t_line2->diff_target_percent . "%" . "</p>
 
@@ -1143,7 +1143,7 @@ elseif ($t_line->row_num == 2) {
 
                     "<h1 style='font-weight: bold;'>Rank</h1>           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-                <h1 style='margin-right: 50px;font-weight: bold;'>" . $t_line2->row_num . "</h1>" .
+                <h1 style='margin-right: 50px;font-weight: bold;min-width:50px;'>" . $t_line2->row_num . "</h1>" .
                 "<p style='font-size: 26px;position: relative;bottom:20px;padding:20px 0 0 0;min-width:130px;height:85px;background:#ff0000;border-radius: 40%;text-align: center;'
                     class='text-white'>" . $t_line2->diff_target_percent . "%" . "</p>
 
@@ -1174,7 +1174,7 @@ elseif ($t_line->row_num == 3) {
 
                     "<h1 style='font-weight: bold;'>Rank</h1>           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-                <h1 style='margin-right: 50px;font-weight: bold;'>" . $t_line2->row_num . "</h1>" .
+                <h1 style='margin-right: 50px;font-weight: bold;min-width:50px;'>" . $t_line2->row_num . "</h1>" .
                 "<p style=' font-size: 26px;position: relative;bottom:20px;padding:20px 0 0 0;min-width:130px;height:85px;background:#1e7100;border-radius: 40%;text-align: center;'
                     class='text-white'>" . $t_line2->diff_target_percent . "%" . "</p>
 
@@ -1182,7 +1182,29 @@ elseif ($t_line->row_num == 3) {
                     <br>";
         }
         if ($t_line2->row_num == 4){
-        echo "<h1>" . $t_line2->diff_target_percent . "</h1>";
+            foreach ($getLine as $g_line) {
+                if($t_line2->l_id == $g_line->l_id) {
+                    $magic = $g_line->l_name;
+                    break;
+                }
+            }
+
+            echo "
+            <div style='display: flex;margin:auto;width:620px;'>"
+                . "<div style='display: flex;min-width:220px;margin-right:220px;'>
+                <h1><i class='bi bi-arrow-down-short' style='background:#ff0000;color:white;'></i></h1>&nbsp;&nbsp;
+                <h1 style='font-weight: bold;'>Line - </h1>           &nbsp;&nbsp;
+                <h1 style='font-weight: bold;'>" . $magic . "<p>
+                    </div>" .
+
+                    "<h1 style='font-weight: bold;'>Rank</h1>           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                <h1 style='margin-right: 50px;font-weight: bold;min-width:50px;'>" . $t_line2->row_num . "</h1>" .
+                "<p style='font-size: 26px;position: relative;bottom:20px;padding:20px 0 0 0;min-width:130px;height:85px;background:#ff0000;border-radius: 40%;text-align: center;'
+                    class='text-white'>" . $t_line2->diff_target_percent . "%" . "</p>
+
+                </div>
+                    <br>";
         }
 }
 }
@@ -1191,10 +1213,54 @@ elseif ($t_line->row_num == 3) {
 elseif ($t_line->row_num == 4) {
     foreach ($top_line as $t_line2) {
         if ($t_line2->row_num == 3){
-        echo "<h1>" . $t_line2->diff_target_percent . "</h1>";
+            foreach ($getLine as $g_line) {
+                if($t_line2->l_id == $g_line->l_id) {
+                    $magic = $g_line->l_name;
+                    break;
+                }
+            }
+
+            echo "
+            <div style='display: flex;margin:auto;width:620px;'>"
+                . "<div style='display: flex;min-width:220px;margin-right:220px;'>
+                <h1><i class='bi bi-arrow-up-short' style='background:#1e7100;color:white;'></i></h1>&nbsp;&nbsp;
+                <h1 style='font-weight: bold;'>Line - </h1>           &nbsp;&nbsp;
+                <h1 style='font-weight: bold;'>" . $magic . "</h1>
+                    </div>" .
+
+                    "<h1 style='font-weight: bold;'>Rank</h1>           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                <h1 style='margin-right: 50px;font-weight: bold;min-width:50px;'>" . $t_line2->row_num . "</h1>" .
+                "<p style=' font-size: 26px;position: relative;bottom:20px;padding:20px 0 0 0;min-width:130px;height:85px;background:#1e7100;border-radius: 40%;text-align: center;'
+                    class='text-white'>" . $t_line2->diff_target_percent . "%" . "</p>
+
+                </div>
+                    <br>";
         }
         if ($t_line2->row_num == 5){
-        echo "<h1>" . $t_line2->diff_target_percent . "</h1>";
+            foreach ($getLine as $g_line) {
+                if($t_line2->l_id == $g_line->l_id) {
+                    $magic = $g_line->l_name;
+                    break;
+                }
+            }
+
+            echo "
+            <div style='display: flex;margin:auto;width:620px;'>"
+                . "<div style='display: flex;min-width:220px;margin-right:220px;'>
+                <h1><i class='bi bi-arrow-down-short' style='background:#ff0000;color:white;'></i></h1>&nbsp;&nbsp;
+                <h1 style='font-weight: bold;'>Line - </h1>           &nbsp;&nbsp;
+                <h1 style='font-weight: bold;'>" . $magic . "<p>
+                    </div>" .
+
+                    "<h1 style='font-weight: bold;'>Rank</h1>           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                <h1 style='margin-right: 50px;font-weight: bold;min-width:50px;'>" . $t_line2->row_num . "</h1>" .
+                "<p style='font-size: 26px;position: relative;bottom:20px;padding:20px 0 0 0;min-width:130px;height:85px;background:#ff0000;border-radius: 40%;text-align: center;'
+                    class='text-white'>" . $t_line2->diff_target_percent . "%" . "</p>
+
+                </div>
+                    <br>";
         }
 }
 }
@@ -1202,17 +1268,318 @@ elseif ($t_line->row_num == 4) {
 
 
 
-
-elseif ($t_line->row_num == 3) {
+elseif ($t_line->row_num == 5) {
     foreach ($top_line as $t_line2) {
-        if ($t_line2->row_num == 2){
-        echo "<h1>" . $t_line2->diff_target_percent . "</h1>";
-        }
         if ($t_line2->row_num == 4){
-        echo "<h1>" . $t_line2->diff_target_percent . "</h1>";
+            foreach ($getLine as $g_line) {
+                if($t_line2->l_id == $g_line->l_id) {
+                    $magic = $g_line->l_name;
+                    break;
+                }
+            }
+
+            echo "
+            <div style='display: flex;margin:auto;width:620px;'>"
+                . "<div style='display: flex;min-width:220px;margin-right:220px;'>
+                <h1><i class='bi bi-arrow-up-short' style='background:#1e7100;color:white;'></i></h1>&nbsp;&nbsp;
+                <h1 style='font-weight: bold;'>Line - </h1>           &nbsp;&nbsp;
+                <h1 style='font-weight: bold;'>" . $magic . "</h1>
+                    </div>" .
+
+                    "<h1 style='font-weight: bold;'>Rank</h1>           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                <h1 style='margin-right: 50px;font-weight: bold;min-width:50px;'>" . $t_line2->row_num . "</h1>" .
+                "<p style=' font-size: 26px;position: relative;bottom:20px;padding:20px 0 0 0;min-width:130px;height:85px;background:#1e7100;border-radius: 40%;text-align: center;'
+                    class='text-white'>" . $t_line2->diff_target_percent . "%" . "</p>
+
+                </div>
+                    <br>";
+        }
+        if ($t_line2->row_num == 6){
+            foreach ($getLine as $g_line) {
+                if($t_line2->l_id == $g_line->l_id) {
+                    $magic = $g_line->l_name;
+                    break;
+                }
+            }
+
+            echo "
+            <div style='display: flex;margin:auto;width:620px;'>"
+                . "<div style='display: flex;min-width:220px;margin-right:220px;'>
+                <h1><i class='bi bi-arrow-down-short' style='background:#ff0000;color:white;'></i></h1>&nbsp;&nbsp;
+                <h1 style='font-weight: bold;'>Line - </h1>           &nbsp;&nbsp;
+                <h1 style='font-weight: bold;'>" . $magic . "<p>
+                    </div>" .
+
+                    "<h1 style='font-weight: bold;'>Rank</h1>           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                <h1 style='margin-right: 50px;font-weight: bold;min-width:50px;'>" . $t_line2->row_num . "</h1>" .
+                "<p style='font-size: 26px;position: relative;bottom:20px;padding:20px 0 0 0;min-width:130px;height:85px;background:#ff0000;border-radius: 40%;text-align: center;'
+                    class='text-white'>" . $t_line2->diff_target_percent . "%" . "</p>
+
+                </div>
+                    <br>";
         }
 }
 }
+
+
+elseif ($t_line->row_num == 6) {
+    foreach ($top_line as $t_line2) {
+        if ($t_line2->row_num == 5){
+            foreach ($getLine as $g_line) {
+                if($t_line2->l_id == $g_line->l_id) {
+                    $magic = $g_line->l_name;
+                    break;
+                }
+            }
+
+            echo "
+            <div style='display: flex;margin:auto;width:620px;'>"
+                . "<div style='display: flex;min-width:220px;margin-right:220px;'>
+                <h1><i class='bi bi-arrow-up-short' style='background:#1e7100;color:white;'></i></h1>&nbsp;&nbsp;
+                <h1 style='font-weight: bold;'>Line - </h1>           &nbsp;&nbsp;
+                <h1 style='font-weight: bold;'>" . $magic . "</h1>
+                    </div>" .
+
+                    "<h1 style='font-weight: bold;'>Rank</h1>           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                <h1 style='margin-right: 50px;font-weight: bold;min-width:50px;'>" . $t_line2->row_num . "</h1>" .
+                "<p style=' font-size: 26px;position: relative;bottom:20px;padding:20px 0 0 0;min-width:130px;height:85px;background:#1e7100;border-radius: 40%;text-align: center;'
+                    class='text-white'>" . $t_line2->diff_target_percent . "%" . "</p>
+
+                </div>
+                    <br>";
+        }
+        if ($t_line2->row_num == 7){
+            foreach ($getLine as $g_line) {
+                if($t_line2->l_id == $g_line->l_id) {
+                    $magic = $g_line->l_name;
+                    break;
+                }
+            }
+
+            echo "
+            <div style='display: flex;margin:auto;width:620px;'>"
+                . "<div style='display: flex;min-width:220px;margin-right:220px;'>
+                <h1><i class='bi bi-arrow-down-short' style='background:#ff0000;color:white;'></i></h1>&nbsp;&nbsp;
+                <h1 style='font-weight: bold;'>Line - </h1>           &nbsp;&nbsp;
+                <h1 style='font-weight: bold;'>" . $magic . "<p>
+                    </div>" .
+
+                    "<h1 style='font-weight: bold;'>Rank</h1>           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                <h1 style='margin-right: 50px;font-weight: bold;min-width:50px;'>" . $t_line2->row_num . "</h1>" .
+                "<p style='font-size: 26px;position: relative;bottom:20px;padding:20px 0 0 0;min-width:130px;height:85px;background:#ff0000;border-radius: 40%;text-align: center;'
+                    class='text-white'>" . $t_line2->diff_target_percent . "%" . "</p>
+
+                </div>
+                    <br>";
+        }
+}
+}
+
+
+
+elseif ($t_line->row_num == 7) {
+    foreach ($top_line as $t_line2) {
+        if ($t_line2->row_num == 6){
+            foreach ($getLine as $g_line) {
+                if($t_line2->l_id == $g_line->l_id) {
+                    $magic = $g_line->l_name;
+                    break;
+                }
+            }
+
+            echo "
+            <div style='display: flex;margin:auto;width:620px;'>"
+                . "<div style='display: flex;min-width:220px;margin-right:220px;'>
+                <h1><i class='bi bi-arrow-up-short' style='background:#1e7100;color:white;'></i></h1>&nbsp;&nbsp;
+                <h1 style='font-weight: bold;'>Line - </h1>           &nbsp;&nbsp;
+                <h1 style='font-weight: bold;'>" . $magic . "</h1>
+                    </div>" .
+
+                    "<h1 style='font-weight: bold;'>Rank</h1>           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                <h1 style='margin-right: 50px;font-weight: bold;min-width:50px;'>" . $t_line2->row_num . "</h1>" .
+                "<p style=' font-size: 26px;position: relative;bottom:20px;padding:20px 0 0 0;min-width:130px;height:85px;background:#1e7100;border-radius: 40%;text-align: center;'
+                    class='text-white'>" . $t_line2->diff_target_percent . "%" . "</p>
+
+                </div>
+                    <br>";
+        }
+        if ($t_line2->row_num == 8){
+            foreach ($getLine as $g_line) {
+                if($t_line2->l_id == $g_line->l_id) {
+                    $magic = $g_line->l_name;
+                    break;
+                }
+            }
+
+            echo "
+            <div style='display: flex;margin:auto;width:620px;'>"
+                . "<div style='display: flex;min-width:220px;margin-right:220px;'>
+                <h1><i class='bi bi-arrow-down-short' style='background:#ff0000;color:white;'></i></h1>&nbsp;&nbsp;
+                <h1 style='font-weight: bold;'>Line - </h1>           &nbsp;&nbsp;
+                <h1 style='font-weight: bold;'>" . $magic . "<p>
+                    </div>" .
+
+                    "<h1 style='font-weight: bold;'>Rank</h1>           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                <h1 style='margin-right: 50px;font-weight: bold;min-width:50px;'>" . $t_line2->row_num . "</h1>" .
+                "<p style='font-size: 26px;position: relative;bottom:20px;padding:20px 0 0 0;min-width:130px;height:85px;background:#ff0000;border-radius: 40%;text-align: center;'
+                    class='text-white'>" . $t_line2->diff_target_percent . "%" . "</p>
+
+                </div>
+                    <br>";
+        }
+}
+}
+
+
+
+elseif ($t_line->row_num == 8) {
+    foreach ($top_line as $t_line2) {
+        if ($t_line2->row_num == 7){
+            foreach ($getLine as $g_line) {
+                if($t_line2->l_id == $g_line->l_id) {
+                    $magic = $g_line->l_name;
+                    break;
+                }
+            }
+
+            echo "
+            <div style='display: flex;margin:auto;width:620px;'>"
+                . "<div style='display: flex;min-width:220px;margin-right:220px;'>
+                <h1><i class='bi bi-arrow-up-short' style='background:#1e7100;color:white;'></i></h1>&nbsp;&nbsp;
+                <h1 style='font-weight: bold;'>Line - </h1>           &nbsp;&nbsp;
+                <h1 style='font-weight: bold;'>" . $magic . "</h1>
+                    </div>" .
+
+                    "<h1 style='font-weight: bold;'>Rank</h1>           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                <h1 style='margin-right: 50px;font-weight: bold;min-width:50px;'>" . $t_line2->row_num . "</h1>" .
+                "<p style=' font-size: 26px;position: relative;bottom:20px;padding:20px 0 0 0;min-width:130px;height:85px;background:#1e7100;border-radius: 40%;text-align: center;'
+                    class='text-white'>" . $t_line2->diff_target_percent . "%" . "</p>
+
+                </div>
+                    <br>";
+        }
+        if ($t_line2->row_num == 9){
+            foreach ($getLine as $g_line) {
+                if($t_line2->l_id == $g_line->l_id) {
+                    $magic = $g_line->l_name;
+                    break;
+                }
+            }
+
+            echo "
+            <div style='display: flex;margin:auto;width:620px;'>"
+                . "<div style='display: flex;min-width:220px;margin-right:220px;'>
+                <h1><i class='bi bi-arrow-down-short' style='background:#ff0000;color:white;'></i></h1>&nbsp;&nbsp;
+                <h1 style='font-weight: bold;'>Line - </h1>           &nbsp;&nbsp;
+                <h1 style='font-weight: bold;'>" . $magic . "<p>
+                    </div>" .
+
+                    "<h1 style='font-weight: bold;'>Rank</h1>           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                <h1 style='margin-right: 50px;font-weight: bold;min-width:50px;'>" . $t_line2->row_num . "</h1>" .
+                "<p style='font-size: 26px;position: relative;bottom:20px;padding:20px 0 0 0;min-width:130px;height:85px;background:#ff0000;border-radius: 40%;text-align: center;'
+                    class='text-white'>" . $t_line2->diff_target_percent . "%" . "</p>
+
+                </div>
+                    <br>";
+        }
+}
+}
+
+
+elseif ($t_line->row_num == 9) {
+    foreach ($top_line as $t_line2) {
+        if ($t_line2->row_num == 8){
+            foreach ($getLine as $g_line) {
+                if($t_line2->l_id == $g_line->l_id) {
+                    $magic = $g_line->l_name;
+                    break;
+                }
+            }
+
+            echo "
+            <div style='display: flex;margin:auto;width:620px;'>"
+                . "<div style='display: flex;min-width:220px;margin-right:220px;'>
+                <h1><i class='bi bi-arrow-up-short' style='background:#1e7100;color:white;'></i></h1>&nbsp;&nbsp;
+                <h1 style='font-weight: bold;'>Line - </h1>           &nbsp;&nbsp;
+                <h1 style='font-weight: bold;'>" . $magic . "</h1>
+                    </div>" .
+
+                    "<h1 style='font-weight: bold;'>Rank</h1>           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                <h1 style='margin-right: 50px;font-weight: bold;min-width:50px;'>" . $t_line2->row_num . "</h1>" .
+                "<p style=' font-size: 26px;position: relative;bottom:20px;padding:20px 0 0 0;min-width:130px;height:85px;background:#1e7100;border-radius: 40%;text-align: center;'
+                    class='text-white'>" . $t_line2->diff_target_percent . "%" . "</p>
+
+                </div>
+                    <br>";
+        }
+        if ($t_line2->row_num == 10){
+            foreach ($getLine as $g_line) {
+                if($t_line2->l_id == $g_line->l_id) {
+                    $magic = $g_line->l_name;
+                    break;
+                }
+            }
+
+            echo "
+            <div style='display: flex;margin:auto;width:620px;'>"
+                . "<div style='display: flex;min-width:220px;margin-right:220px;'>
+                <h1><i class='bi bi-arrow-down-short' style='background:#ff0000;color:white;'></i></h1>&nbsp;&nbsp;
+                <h1 style='font-weight: bold;'>Line - </h1>           &nbsp;&nbsp;
+                <h1 style='font-weight: bold;'>" . $magic . "<p>
+                    </div>" .
+
+                    "<h1 style='font-weight: bold;'>Rank</h1>           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                <h1 style='margin-right: 50px;font-weight: bold;min-width:50px;'>" . $t_line2->row_num . "</h1>" .
+                "<p style='font-size: 26px;position: relative;bottom:20px;padding:20px 0 0 0;min-width:130px;height:85px;background:#ff0000;border-radius: 40%;text-align: center;'
+                    class='text-white'>" . $t_line2->diff_target_percent . "%" . "</p>
+
+                </div>
+                    <br>";
+        }
+}
+}
+
+
+elseif ($t_line->row_num == 10) {
+    foreach ($top_line as $t_line2) {
+        if ($t_line2->row_num == 9){
+            foreach ($getLine as $g_line) {
+                if($t_line2->l_id == $g_line->l_id) {
+                    $magic = $g_line->l_name;
+                    break;
+                }
+            }
+
+            echo "
+            <div style='display: flex;margin:auto;width:620px;'>"
+                . "<div style='display: flex;min-width:220px;margin-right:220px;'>
+                <h1><i class='bi bi-arrow-up-short' style='background:#1e7100;color:white;'></i></h1>&nbsp;&nbsp;
+                <h1 style='font-weight: bold;'>Line - </h1>           &nbsp;&nbsp;
+                <h1 style='font-weight: bold;'>" . $magic . "</h1>
+                    </div>" .
+
+                    "<h1 style='font-weight: bold;'>Rank</h1>           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                <h1 style='margin-right: 50px;font-weight: bold;min-width:50px;'>" . $t_line2->row_num . "</h1>" .
+                "<p style=' font-size: 26px;position: relative;bottom:20px;padding:20px 0 0 0;min-width:130px;height:85px;background:#1e7100;border-radius: 40%;text-align: center;'
+                    class='text-white'>" . $t_line2->diff_target_percent . "%" . "</p>
+
+                </div>
+                    <br>";
+        }
+}
+}
+
 
 @endphp
 
