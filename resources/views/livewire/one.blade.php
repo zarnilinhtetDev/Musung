@@ -737,7 +737,7 @@ else{
                     @foreach($top_line as $t_line)
                     @if ($g_line_id == $t_line->l_id)
 
-                    <table class="m-auto text-start text-center" style="width: 100px;position: relative;right:37px">
+                    <table class="m-auto text-start text-center" style="width: 100px;position: relative;right:37px;">
                     <tbody>
                     <tr>
                         <td style="vertical-align: middle;">
@@ -882,7 +882,7 @@ else{
         </table>
     </td>
     <td>
-        <table class="w-100 text-center table m-0 table-bordered" style="max-width:50px;">
+        <table class="w-100 text-center table m-0 table-bordered totalTable" style="max-width:50px;">
 <tr>
     <td>
         Total

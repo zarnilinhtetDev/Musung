@@ -1094,3 +1094,16 @@ ul.scroll-horizontal-ul {
 }
 
 /*# sourceMappingURL=login.css.map */
+
+
+
+.totalTable {
+    position: relative;
+    right: 40px;
+}
+
+@media(max-width:1513px) {
+    .totalTable {
+        right: 10px;
+    }
+}
