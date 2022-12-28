@@ -1,5 +1,5 @@
 <div wire:poll.1000ms>
-<div id="body" style="zoom: 240%" class="panel-body d-flex flex-row">
+<div id="body" style="zoom: 210%;" class="panel-body d-flex flex-row">
     @php $time_arr = [];
     foreach(array_reverse($time) as $t3){
     $time_arr[] = $t3->time_name;
@@ -11,7 +11,7 @@
     @if(count($time_arr) > 0)
 
     <div class="flex-grow-1">
-        <table class="" id="live_dash_1">
+        <table class="" id="live_dash_1" style="margin-left: 200px;margin-right:100px;">
             {{-- <table class="table table-hover table-striped table-bordered text-center table-dash" id="live_dash_1"> ********************************* --}}
             <thead>
                 {{-- <tr class="tr-2 tr-3"> --}}
@@ -75,7 +75,7 @@
                                                 }
 
 
-                                                echo date('g:i A',strtotime($t->time_name));
+                                                echo "<div style='margin-left:210px;border-style: solid;padding: 2px 5px 2px 5px;font-size:13px;'>" . date('g:i A',strtotime($t->time_name)) . "</div>";
 
                                                 @endphp
 
@@ -117,9 +117,9 @@
 
                     <td class="fw-bold line_name_{{ $g_line_id }} fs-4" style="vertical-align: middle;">
                         @if($line_id == $g_line_id)
-                        {{
+                        <h3 class='text-center' style="border-style: solid;color:black;padding: 2px;">{{
                         $g_line_name
-                        }}
+                        }}</h3>
                         @endif
                     </td>
                     {{-- <td>
@@ -238,7 +238,7 @@
                                         < 8 ) --}} <td class="confuse2" id="{{ $t_2->time_name }}">
 
 
-                                            <table class="w-100 text-center">
+                                            <table class="w-100 text-center" style="margin-left:170px;max-width:140px;">
                                             {{-- <table class="w-100 text-center table table-bordered m-0" border="1"> ********************************* --}}
 
                                                 <tr>
@@ -274,7 +274,7 @@
 
                                                 </tr>
                                                 <tr class="text-dark">
-                                                    <td id="td_div_actual_target_percent_{{ $t_2->time_id }}"><span
+                                                    <td id="td_div_actual_target_percent_{{ $t_2->time_id }}" style="height:80px;border-radius: 47%;"><span
                                                             id="div_actual_target_percent_{{ $t_2->time_id }}"></span>
                                                     </td>
                                                     <td class="d-none"></td>
@@ -346,24 +346,24 @@ div_actual_target_percent.text(parseInt(percentage));
 
 
 if(parseInt(div_actual_target_percent.text()) <= 80){
-    $("#td_div_actual_target_percent_<?php echo $current_target; ?>").css('color','black');
-   $("#td_div_actual_target_<?php echo $current_target; ?>").css('color','black)');
+//     $("#td_div_actual_target_percent_<?php echo $current_target; ?>").css('color','black');
+//    $("#td_div_actual_target_<?php echo $current_target; ?>").css('color','black)');
 
-//    $("#td_div_actual_target_percent_<?php echo $current_target; ?>").css('background-color','rgba(255,0,0,0.8)');
-//    $("#td_div_actual_target_<?php echo $current_target; ?>").css('background-color','rgba(255,0,0,0.8)');
+   $("#td_div_actual_target_percent_<?php echo $current_target; ?>").css('background-color','rgba(255,0,0,0.8)');
+   $("#td_div_actual_target_<?php echo $current_target; ?>").css('color','rgba(255,0,0,0.8)');
 }if(parseInt(div_actual_target_percent.text()) > 80){
-    $("#td_div_actual_target_percent_<?php echo $current_target; ?>").css('color','black');
-   $("#td_div_actual_target_<?php echo $current_target; ?>").css('color','black)');
+//     $("#td_div_actual_target_percent_<?php echo $current_target; ?>").css('color','black');
+//    $("#td_div_actual_target_<?php echo $current_target; ?>").css('color','black)');
 
-//    $("#td_div_actual_target_percent_<?php echo $current_target; ?>").css({'background-color':'#FF8000','color':'#fff'});
-//    $("#td_div_actual_target_<?php echo $current_target; ?>").css({'background-color':'#FF8000','color':'#fff'});
+   $("#td_div_actual_target_percent_<?php echo $current_target; ?>").css({'background-color':'#FF8000','color':'#fff'});
+   $("#td_div_actual_target_<?php echo $current_target; ?>").css({'color':'#FF8000','color':'#fff'});
 }
 if(parseInt(div_actual_target_percent.text()) >= 100){
-    $("#td_div_actual_target_percent_<?php echo $current_target; ?>").css('color','black');
-   $("#td_div_actual_target_<?php echo $current_target; ?>").css('color','black)');
+//     $("#td_div_actual_target_percent_<?php echo $current_target; ?>").css('color','black');
+//    $("#td_div_actual_target_<?php echo $current_target; ?>").css('color','black)');
 
-//    $("#td_div_actual_target_percent_<?php echo $current_target; ?>").css({'background-color':'rgba(30,113,0,1)','color':'#fff'});
-//    $("#td_div_actual_target_<?php echo $current_target; ?>").css({'background-color':'rgba(30,113,0,1)','color':'#fff'});
+   $("#td_div_actual_target_percent_<?php echo $current_target; ?>").css({'background-color':'rgba(30,113,0,1)','color':'#fff'});
+   $("#td_div_actual_target_<?php echo $current_target; ?>").css({'color':'rgba(30,113,0,1)','color':'#fff'});
 }
 
 div_actual_target_percent.append('%');
@@ -912,20 +912,20 @@ else{
 
             if(top_1 != ''){
                 $('.t_line_' + top_1).css({
-                    // 'background-color': 'green',
-                    // 'color': '#fff'
+                    'background-color': 'green',
+                    'color': '#fff'
                 });
             }
             if(top_2 != ''){
                 $('.t_line_' + top_2).css({
-                    // 'background-color': 'green',
-                    // 'color': '#fff'
+                    'background-color': 'green',
+                    'color': '#fff'
                 });
             }
             if(top_3 != ''){
                 $('.t_line_' + top_3).css({
-                    // 'background-color': 'green',
-                    // 'color': '#fff'
+                    'background-color': 'green',
+                    'color': '#fff'
                 });
             }
 
@@ -939,8 +939,8 @@ else{
                                                 // var max_num = Math.max(...val_arr);
 
             $(".t_line_" + 10).css({
-                // 'background-color': 'red',
-                // 'color': '#fff'
+                'background-color': 'red',
+                'color': '#fff'
             });
                 });
                     </script>
@@ -1047,7 +1047,7 @@ else{
 
 
 
-<div style="height: 50px;"></div>
+<div style="height: 80px;"></div>
 
 
 @foreach ($getLine as $g_line)
@@ -1087,15 +1087,15 @@ foreach ($top_line as $t_line2) {
             echo "
             <div style='display: flex;margin:auto;width:620px;'>"
                 . "<div style='display: flex;min-width:220px;margin-right:220px;'>
-                <h1><i class='bi bi-arrow-down-short' style='background:#ff0000;color:white;'></i></h1>&nbsp;&nbsp;
-                <h1 style='font-weight: bold;'>Line - </h1>           &nbsp;&nbsp;
-                <h1 style='font-weight: bold;'>" . $magic . "<p>
+                <h3><i class='bi bi-arrow-down-short' style='background:#ff0000;color:white;'></i></h3>&nbsp;&nbsp;
+                <h3 style='font-weight: bold;'>Line - </h3>           &nbsp;&nbsp;
+                <h3 style='font-weight: bold;'>" . $magic . "</h3>
                     </div>" .
 
-                    "<h1 style='font-weight: bold;'>Rank</h1>           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    "<h3 style='font-weight: bold;'>Rank</h3>           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-                <h1 style='margin-right: 50px;font-weight: bold;min-width:50px;'>" . $t_line2->row_num . "</h1>" .
-                "<p style='font-size: 26px;position: relative;bottom:20px;padding:20px 0 0 0;min-width:130px;height:85px;background:#ff0000;border-radius: 40%;text-align: center;'
+                <h3 style='margin-right: 50px;font-weight: bold;min-width:50px;'>" . $t_line2->row_num . "</h3>" .
+                "<p style='font-size: 24px;position: relative;bottom:25px;padding:20px 0 0 0;min-width:130px;height:85px;background:#ff0000;border-radius: 40%;text-align: center;'
                     class='text-white'>" . $t_line2->diff_target_percent . "%" . "</p>
 
                 </div>
@@ -1119,15 +1119,15 @@ elseif ($t_line->row_num == 2) {
             echo "
             <div style='display: flex;margin:auto;width:620px;'>"
                 . "<div style='display: flex;min-width:220px;margin-right:220px;'>
-                <h1><i class='bi bi-arrow-up-short' style='background:#1e7100;color:white;'></i></h1>&nbsp;&nbsp;
-                <h1 style='font-weight: bold;'>Line - </h1>           &nbsp;&nbsp;
-                <h1 style='font-weight: bold;'>" . $magic . "</h1>
+                <h3><i class='bi bi-arrow-up-short' style='background:#1e7100;color:white;'></i></h3>&nbsp;&nbsp;
+                <h3 style='font-weight: bold;'>Line - </h3>           &nbsp;&nbsp;
+                <h3 style='font-weight: bold;'>" . $magic . "</h3>
                     </div>" .
 
-                    "<h1 style='font-weight: bold;'>Rank</h1>           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    "<h3 style='font-weight: bold;'>Rank</h3>           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-                <h1 style='margin-right: 50px;font-weight: bold;min-width:50px;'>" . $t_line2->row_num . "</h1>" .
-                "<p style=' font-size: 26px;position: relative;bottom:20px;padding:20px 0 0 0;min-width:130px;height:85px;background:#1e7100;border-radius: 40%;text-align: center;'
+                <h3 style='margin-right: 50px;font-weight: bold;min-width:50px;'>" . $t_line2->row_num . "</h3>" .
+                "<p style=' font-size: 24px;position: relative;bottom:25px;padding:20px 0 0 0;min-width:130px;height:85px;background:#1e7100;border-radius: 40%;text-align: center;'
                     class='text-white'>" . $t_line2->diff_target_percent . "%" . "</p>
 
                 </div>
@@ -1145,15 +1145,15 @@ elseif ($t_line->row_num == 2) {
             echo "
             <div style='display: flex;margin:auto;width:620px;'>"
                 . "<div style='display: flex;min-width:220px;margin-right:220px;'>
-                <h1><i class='bi bi-arrow-down-short' style='background:#ff0000;color:white;'></i></h1>&nbsp;&nbsp;
-                <h1 style='font-weight: bold;'>Line - </h1>           &nbsp;&nbsp;
-                <h1 style='font-weight: bold;'>" . $magic . "<p>
+                <h3><i class='bi bi-arrow-down-short' style='background:#ff0000;color:white;'></i></h3>&nbsp;&nbsp;
+                <h3 style='font-weight: bold;'>Line - </h3>           &nbsp;&nbsp;
+                <h3 style='font-weight: bold;'>" . $magic . "</h3>
                     </div>" .
 
-                    "<h1 style='font-weight: bold;'>Rank</h1>           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    "<h3 style='font-weight: bold;'>Rank</h3>           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-                <h1 style='margin-right: 50px;font-weight: bold;min-width:50px;'>" . $t_line2->row_num . "</h1>" .
-                "<p style='font-size: 26px;position: relative;bottom:20px;padding:20px 0 0 0;min-width:130px;height:85px;background:#ff0000;border-radius: 40%;text-align: center;'
+                <h3 style='margin-right: 50px;font-weight: bold;min-width:50px;'>" . $t_line2->row_num . "</h3>" .
+                "<p style='font-size: 24px;position: relative;bottom:25px;padding:20px 0 0 0;min-width:130px;height:85px;background:#ff0000;border-radius: 40%;text-align: center;'
                     class='text-white'>" . $t_line2->diff_target_percent . "%" . "</p>
 
                 </div>
@@ -1176,15 +1176,15 @@ elseif ($t_line->row_num == 3) {
             echo "
             <div style='display: flex;margin:auto;width:620px;'>"
                 . "<div style='display: flex;min-width:220px;margin-right:220px;'>
-                <h1><i class='bi bi-arrow-up-short' style='background:#1e7100;color:white;'></i></h1>&nbsp;&nbsp;
-                <h1 style='font-weight: bold;'>Line - </h1>           &nbsp;&nbsp;
-                <h1 style='font-weight: bold;'>" . $magic . "</h1>
+                <h3><i class='bi bi-arrow-up-short' style='background:#1e7100;color:white;'></i></h3>&nbsp;&nbsp;
+                <h3 style='font-weight: bold;'>Line - </h3>           &nbsp;&nbsp;
+                <h3 style='font-weight: bold;'>" . $magic . "</h3>
                     </div>" .
 
-                    "<h1 style='font-weight: bold;'>Rank</h1>           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    "<h3 style='font-weight: bold;'>Rank</h3>           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-                <h1 style='margin-right: 50px;font-weight: bold;min-width:50px;'>" . $t_line2->row_num . "</h1>" .
-                "<p style=' font-size: 26px;position: relative;bottom:20px;padding:20px 0 0 0;min-width:130px;height:85px;background:#1e7100;border-radius: 40%;text-align: center;'
+                <h3 style='margin-right: 50px;font-weight: bold;min-width:50px;'>" . $t_line2->row_num . "</h3>" .
+                "<p style=' font-size: 24px;position: relative;bottom:25px;padding:20px 0 0 0;min-width:130px;height:85px;background:#1e7100;border-radius: 40%;text-align: center;'
                     class='text-white'>" . $t_line2->diff_target_percent . "%" . "</p>
 
                 </div>
@@ -1201,15 +1201,15 @@ elseif ($t_line->row_num == 3) {
             echo "
             <div style='display: flex;margin:auto;width:620px;'>"
                 . "<div style='display: flex;min-width:220px;margin-right:220px;'>
-                <h1><i class='bi bi-arrow-down-short' style='background:#ff0000;color:white;'></i></h1>&nbsp;&nbsp;
-                <h1 style='font-weight: bold;'>Line - </h1>           &nbsp;&nbsp;
-                <h1 style='font-weight: bold;'>" . $magic . "<p>
+                <h3><i class='bi bi-arrow-down-short' style='background:#ff0000;color:white;'></i></h3>&nbsp;&nbsp;
+                <h3 style='font-weight: bold;'>Line - </h3>           &nbsp;&nbsp;
+                <h3 style='font-weight: bold;'>" . $magic . "</h3>
                     </div>" .
 
-                    "<h1 style='font-weight: bold;'>Rank</h1>           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    "<h3 style='font-weight: bold;'>Rank</h3>           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-                <h1 style='margin-right: 50px;font-weight: bold;min-width:50px;'>" . $t_line2->row_num . "</h1>" .
-                "<p style='font-size: 26px;position: relative;bottom:20px;padding:20px 0 0 0;min-width:130px;height:85px;background:#ff0000;border-radius: 40%;text-align: center;'
+                <h3 style='margin-right: 50px;font-weight: bold;min-width:50px;'>" . $t_line2->row_num . "</h3>" .
+                "<p style='font-size: 24px;position: relative;bottom:25px;padding:20px 0 0 0;min-width:130px;height:85px;background:#ff0000;border-radius: 40%;text-align: center;'
                     class='text-white'>" . $t_line2->diff_target_percent . "%" . "</p>
 
                 </div>
@@ -1232,15 +1232,15 @@ elseif ($t_line->row_num == 4) {
             echo "
             <div style='display: flex;margin:auto;width:620px;'>"
                 . "<div style='display: flex;min-width:220px;margin-right:220px;'>
-                <h1><i class='bi bi-arrow-up-short' style='background:#1e7100;color:white;'></i></h1>&nbsp;&nbsp;
-                <h1 style='font-weight: bold;'>Line - </h1>           &nbsp;&nbsp;
-                <h1 style='font-weight: bold;'>" . $magic . "</h1>
+                <h3><i class='bi bi-arrow-up-short' style='background:#1e7100;color:white;'></i></h3>&nbsp;&nbsp;
+                <h3 style='font-weight: bold;'>Line - </h3>           &nbsp;&nbsp;
+                <h3 style='font-weight: bold;'>" . $magic . "</h3>
                     </div>" .
 
-                    "<h1 style='font-weight: bold;'>Rank</h1>           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    "<h3 style='font-weight: bold;'>Rank</h3>           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-                <h1 style='margin-right: 50px;font-weight: bold;min-width:50px;'>" . $t_line2->row_num . "</h1>" .
-                "<p style=' font-size: 26px;position: relative;bottom:20px;padding:20px 0 0 0;min-width:130px;height:85px;background:#1e7100;border-radius: 40%;text-align: center;'
+                <h3 style='margin-right: 50px;font-weight: bold;min-width:50px;'>" . $t_line2->row_num . "</h3>" .
+                "<p style=' font-size: 24px;position: relative;bottom:25px;padding:20px 0 0 0;min-width:130px;height:85px;background:#1e7100;border-radius: 40%;text-align: center;'
                     class='text-white'>" . $t_line2->diff_target_percent . "%" . "</p>
 
                 </div>
@@ -1257,15 +1257,15 @@ elseif ($t_line->row_num == 4) {
             echo "
             <div style='display: flex;margin:auto;width:620px;'>"
                 . "<div style='display: flex;min-width:220px;margin-right:220px;'>
-                <h1><i class='bi bi-arrow-down-short' style='background:#ff0000;color:white;'></i></h1>&nbsp;&nbsp;
-                <h1 style='font-weight: bold;'>Line - </h1>           &nbsp;&nbsp;
-                <h1 style='font-weight: bold;'>" . $magic . "<p>
+                <h3><i class='bi bi-arrow-down-short' style='background:#ff0000;color:white;'></i></h3>&nbsp;&nbsp;
+                <h3 style='font-weight: bold;'>Line - </h3>           &nbsp;&nbsp;
+                <h3 style='font-weight: bold;'>" . $magic . "</h3>
                     </div>" .
 
-                    "<h1 style='font-weight: bold;'>Rank</h1>           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    "<h3 style='font-weight: bold;'>Rank</h3>           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-                <h1 style='margin-right: 50px;font-weight: bold;min-width:50px;'>" . $t_line2->row_num . "</h1>" .
-                "<p style='font-size: 26px;position: relative;bottom:20px;padding:20px 0 0 0;min-width:130px;height:85px;background:#ff0000;border-radius: 40%;text-align: center;'
+                <h3 style='margin-right: 50px;font-weight: bold;min-width:50px;'>" . $t_line2->row_num . "</h3>" .
+                "<p style='font-size: 24px;position: relative;bottom:25px;padding:20px 0 0 0;min-width:130px;height:85px;background:#ff0000;border-radius: 40%;text-align: center;'
                     class='text-white'>" . $t_line2->diff_target_percent . "%" . "</p>
 
                 </div>
@@ -1290,15 +1290,15 @@ elseif ($t_line->row_num == 5) {
             echo "
             <div style='display: flex;margin:auto;width:620px;'>"
                 . "<div style='display: flex;min-width:220px;margin-right:220px;'>
-                <h1><i class='bi bi-arrow-up-short' style='background:#1e7100;color:white;'></i></h1>&nbsp;&nbsp;
-                <h1 style='font-weight: bold;'>Line - </h1>           &nbsp;&nbsp;
-                <h1 style='font-weight: bold;'>" . $magic . "</h1>
+                <h3><i class='bi bi-arrow-up-short' style='background:#1e7100;color:white;'></i></h3>&nbsp;&nbsp;
+                <h3 style='font-weight: bold;'>Line - </h3>           &nbsp;&nbsp;
+                <h3 style='font-weight: bold;'>" . $magic . "</h3>
                     </div>" .
 
-                    "<h1 style='font-weight: bold;'>Rank</h1>           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    "<h3 style='font-weight: bold;'>Rank</h3>           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-                <h1 style='margin-right: 50px;font-weight: bold;min-width:50px;'>" . $t_line2->row_num . "</h1>" .
-                "<p style=' font-size: 26px;position: relative;bottom:20px;padding:20px 0 0 0;min-width:130px;height:85px;background:#1e7100;border-radius: 40%;text-align: center;'
+                <h3 style='margin-right: 50px;font-weight: bold;min-width:50px;'>" . $t_line2->row_num . "</h3>" .
+                "<p style=' font-size: 24px;position: relative;bottom:25px;padding:20px 0 0 0;min-width:130px;height:85px;background:#1e7100;border-radius: 40%;text-align: center;'
                     class='text-white'>" . $t_line2->diff_target_percent . "%" . "</p>
 
                 </div>
@@ -1315,15 +1315,15 @@ elseif ($t_line->row_num == 5) {
             echo "
             <div style='display: flex;margin:auto;width:620px;'>"
                 . "<div style='display: flex;min-width:220px;margin-right:220px;'>
-                <h1><i class='bi bi-arrow-down-short' style='background:#ff0000;color:white;'></i></h1>&nbsp;&nbsp;
-                <h1 style='font-weight: bold;'>Line - </h1>           &nbsp;&nbsp;
-                <h1 style='font-weight: bold;'>" . $magic . "<p>
+                <h3><i class='bi bi-arrow-down-short' style='background:#ff0000;color:white;'></i></h3>&nbsp;&nbsp;
+                <h3 style='font-weight: bold;'>Line - </h3>           &nbsp;&nbsp;
+                <h3 style='font-weight: bold;'>" . $magic . "</h3>
                     </div>" .
 
-                    "<h1 style='font-weight: bold;'>Rank</h1>           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    "<h3 style='font-weight: bold;'>Rank</h3>           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-                <h1 style='margin-right: 50px;font-weight: bold;min-width:50px;'>" . $t_line2->row_num . "</h1>" .
-                "<p style='font-size: 26px;position: relative;bottom:20px;padding:20px 0 0 0;min-width:130px;height:85px;background:#ff0000;border-radius: 40%;text-align: center;'
+                <h3 style='margin-right: 50px;font-weight: bold;min-width:50px;'>" . $t_line2->row_num . "</h3>" .
+                "<p style='font-size: 24px;position: relative;bottom:25px;padding:20px 0 0 0;min-width:130px;height:85px;background:#ff0000;border-radius: 40%;text-align: center;'
                     class='text-white'>" . $t_line2->diff_target_percent . "%" . "</p>
 
                 </div>
@@ -1346,15 +1346,15 @@ elseif ($t_line->row_num == 6) {
             echo "
             <div style='display: flex;margin:auto;width:620px;'>"
                 . "<div style='display: flex;min-width:220px;margin-right:220px;'>
-                <h1><i class='bi bi-arrow-up-short' style='background:#1e7100;color:white;'></i></h1>&nbsp;&nbsp;
-                <h1 style='font-weight: bold;'>Line - </h1>           &nbsp;&nbsp;
-                <h1 style='font-weight: bold;'>" . $magic . "</h1>
+                <h3><i class='bi bi-arrow-up-short' style='background:#1e7100;color:white;'></i></h3>&nbsp;&nbsp;
+                <h3 style='font-weight: bold;'>Line - </h3>           &nbsp;&nbsp;
+                <h3 style='font-weight: bold;'>" . $magic . "</h3>
                     </div>" .
 
-                    "<h1 style='font-weight: bold;'>Rank</h1>           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    "<h3 style='font-weight: bold;'>Rank</h3>           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-                <h1 style='margin-right: 50px;font-weight: bold;min-width:50px;'>" . $t_line2->row_num . "</h1>" .
-                "<p style=' font-size: 26px;position: relative;bottom:20px;padding:20px 0 0 0;min-width:130px;height:85px;background:#1e7100;border-radius: 40%;text-align: center;'
+                <h3 style='margin-right: 50px;font-weight: bold;min-width:50px;'>" . $t_line2->row_num . "</h3>" .
+                "<p style=' font-size: 24px;position: relative;bottom:25px;padding:20px 0 0 0;min-width:130px;height:85px;background:#1e7100;border-radius: 40%;text-align: center;'
                     class='text-white'>" . $t_line2->diff_target_percent . "%" . "</p>
 
                 </div>
@@ -1371,15 +1371,15 @@ elseif ($t_line->row_num == 6) {
             echo "
             <div style='display: flex;margin:auto;width:620px;'>"
                 . "<div style='display: flex;min-width:220px;margin-right:220px;'>
-                <h1><i class='bi bi-arrow-down-short' style='background:#ff0000;color:white;'></i></h1>&nbsp;&nbsp;
-                <h1 style='font-weight: bold;'>Line - </h1>           &nbsp;&nbsp;
-                <h1 style='font-weight: bold;'>" . $magic . "<p>
+                <h3><i class='bi bi-arrow-down-short' style='background:#ff0000;color:white;'></i></h3>&nbsp;&nbsp;
+                <h3 style='font-weight: bold;'>Line - </h3>           &nbsp;&nbsp;
+                <h3 style='font-weight: bold;'>" . $magic . "</h3>
                     </div>" .
 
-                    "<h1 style='font-weight: bold;'>Rank</h1>           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    "<h3 style='font-weight: bold;'>Rank</h3>           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-                <h1 style='margin-right: 50px;font-weight: bold;min-width:50px;'>" . $t_line2->row_num . "</h1>" .
-                "<p style='font-size: 26px;position: relative;bottom:20px;padding:20px 0 0 0;min-width:130px;height:85px;background:#ff0000;border-radius: 40%;text-align: center;'
+                <h3 style='margin-right: 50px;font-weight: bold;min-width:50px;'>" . $t_line2->row_num . "</h3>" .
+                "<p style='font-size: 24px;position: relative;bottom:25px;padding:20px 0 0 0;min-width:130px;height:85px;background:#ff0000;border-radius: 40%;text-align: center;'
                     class='text-white'>" . $t_line2->diff_target_percent . "%" . "</p>
 
                 </div>
@@ -1403,15 +1403,15 @@ elseif ($t_line->row_num == 7) {
             echo "
             <div style='display: flex;margin:auto;width:620px;'>"
                 . "<div style='display: flex;min-width:220px;margin-right:220px;'>
-                <h1><i class='bi bi-arrow-up-short' style='background:#1e7100;color:white;'></i></h1>&nbsp;&nbsp;
-                <h1 style='font-weight: bold;'>Line - </h1>           &nbsp;&nbsp;
-                <h1 style='font-weight: bold;'>" . $magic . "</h1>
+                <h3><i class='bi bi-arrow-up-short' style='background:#1e7100;color:white;'></i></h3>&nbsp;&nbsp;
+                <h3 style='font-weight: bold;'>Line - </h3>           &nbsp;&nbsp;
+                <h3 style='font-weight: bold;'>" . $magic . "</h3>
                     </div>" .
 
-                    "<h1 style='font-weight: bold;'>Rank</h1>           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    "<h3 style='font-weight: bold;'>Rank</h3>           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-                <h1 style='margin-right: 50px;font-weight: bold;min-width:50px;'>" . $t_line2->row_num . "</h1>" .
-                "<p style=' font-size: 26px;position: relative;bottom:20px;padding:20px 0 0 0;min-width:130px;height:85px;background:#1e7100;border-radius: 40%;text-align: center;'
+                <h3 style='margin-right: 50px;font-weight: bold;min-width:50px;'>" . $t_line2->row_num . "</h3>" .
+                "<p style=' font-size: 24px;position: relative;bottom:25px;padding:20px 0 0 0;min-width:130px;height:85px;background:#1e7100;border-radius: 40%;text-align: center;'
                     class='text-white'>" . $t_line2->diff_target_percent . "%" . "</p>
 
                 </div>
@@ -1428,15 +1428,15 @@ elseif ($t_line->row_num == 7) {
             echo "
             <div style='display: flex;margin:auto;width:620px;'>"
                 . "<div style='display: flex;min-width:220px;margin-right:220px;'>
-                <h1><i class='bi bi-arrow-down-short' style='background:#ff0000;color:white;'></i></h1>&nbsp;&nbsp;
-                <h1 style='font-weight: bold;'>Line - </h1>           &nbsp;&nbsp;
-                <h1 style='font-weight: bold;'>" . $magic . "<p>
+                <h3><i class='bi bi-arrow-down-short' style='background:#ff0000;color:white;'></i></h3>&nbsp;&nbsp;
+                <h3 style='font-weight: bold;'>Line - </h3>           &nbsp;&nbsp;
+                <h3 style='font-weight: bold;'>" . $magic . "</h3>
                     </div>" .
 
-                    "<h1 style='font-weight: bold;'>Rank</h1>           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    "<h3 style='font-weight: bold;'>Rank</h3>           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-                <h1 style='margin-right: 50px;font-weight: bold;min-width:50px;'>" . $t_line2->row_num . "</h1>" .
-                "<p style='font-size: 26px;position: relative;bottom:20px;padding:20px 0 0 0;min-width:130px;height:85px;background:#ff0000;border-radius: 40%;text-align: center;'
+                <h3 style='margin-right: 50px;font-weight: bold;min-width:50px;'>" . $t_line2->row_num . "</h3>" .
+                "<p style='font-size: 24px;position: relative;bottom:25px;padding:20px 0 0 0;min-width:130px;height:85px;background:#ff0000;border-radius: 40%;text-align: center;'
                     class='text-white'>" . $t_line2->diff_target_percent . "%" . "</p>
 
                 </div>
@@ -1460,15 +1460,15 @@ elseif ($t_line->row_num == 8) {
             echo "
             <div style='display: flex;margin:auto;width:620px;'>"
                 . "<div style='display: flex;min-width:220px;margin-right:220px;'>
-                <h1><i class='bi bi-arrow-up-short' style='background:#1e7100;color:white;'></i></h1>&nbsp;&nbsp;
-                <h1 style='font-weight: bold;'>Line - </h1>           &nbsp;&nbsp;
-                <h1 style='font-weight: bold;'>" . $magic . "</h1>
+                <h3><i class='bi bi-arrow-up-short' style='background:#1e7100;color:white;'></i></h3>&nbsp;&nbsp;
+                <h3 style='font-weight: bold;'>Line - </h3>           &nbsp;&nbsp;
+                <h3 style='font-weight: bold;'>" . $magic . "</h3>
                     </div>" .
 
-                    "<h1 style='font-weight: bold;'>Rank</h1>           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    "<h3 style='font-weight: bold;'>Rank</h3>           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-                <h1 style='margin-right: 50px;font-weight: bold;min-width:50px;'>" . $t_line2->row_num . "</h1>" .
-                "<p style=' font-size: 26px;position: relative;bottom:20px;padding:20px 0 0 0;min-width:130px;height:85px;background:#1e7100;border-radius: 40%;text-align: center;'
+                <h3 style='margin-right: 50px;font-weight: bold;min-width:50px;'>" . $t_line2->row_num . "</h3>" .
+                "<p style=' font-size: 24px;position: relative;bottom:25px;padding:20px 0 0 0;min-width:130px;height:85px;background:#1e7100;border-radius: 40%;text-align: center;'
                     class='text-white'>" . $t_line2->diff_target_percent . "%" . "</p>
 
                 </div>
@@ -1485,15 +1485,15 @@ elseif ($t_line->row_num == 8) {
             echo "
             <div style='display: flex;margin:auto;width:620px;'>"
                 . "<div style='display: flex;min-width:220px;margin-right:220px;'>
-                <h1><i class='bi bi-arrow-down-short' style='background:#ff0000;color:white;'></i></h1>&nbsp;&nbsp;
-                <h1 style='font-weight: bold;'>Line - </h1>           &nbsp;&nbsp;
-                <h1 style='font-weight: bold;'>" . $magic . "<p>
+                <h3><i class='bi bi-arrow-down-short' style='background:#ff0000;color:white;'></i></h3>&nbsp;&nbsp;
+                <h3 style='font-weight: bold;'>Line - </h3>           &nbsp;&nbsp;
+                <h3 style='font-weight: bold;'>" . $magic . "</h3>
                     </div>" .
 
-                    "<h1 style='font-weight: bold;'>Rank</h1>           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    "<h3 style='font-weight: bold;'>Rank</h3>           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-                <h1 style='margin-right: 50px;font-weight: bold;min-width:50px;'>" . $t_line2->row_num . "</h1>" .
-                "<p style='font-size: 26px;position: relative;bottom:20px;padding:20px 0 0 0;min-width:130px;height:85px;background:#ff0000;border-radius: 40%;text-align: center;'
+                <h3 style='margin-right: 50px;font-weight: bold;min-width:50px;'>" . $t_line2->row_num . "</h3>" .
+                "<p style='font-size: 24px;position: relative;bottom:25px;padding:20px 0 0 0;min-width:130px;height:85px;background:#ff0000;border-radius: 40%;text-align: center;'
                     class='text-white'>" . $t_line2->diff_target_percent . "%" . "</p>
 
                 </div>
@@ -1516,15 +1516,15 @@ elseif ($t_line->row_num == 9) {
             echo "
             <div style='display: flex;margin:auto;width:620px;'>"
                 . "<div style='display: flex;min-width:220px;margin-right:220px;'>
-                <h1><i class='bi bi-arrow-up-short' style='background:#1e7100;color:white;'></i></h1>&nbsp;&nbsp;
-                <h1 style='font-weight: bold;'>Line - </h1>           &nbsp;&nbsp;
-                <h1 style='font-weight: bold;'>" . $magic . "</h1>
+                <h3><i class='bi bi-arrow-up-short' style='background:#1e7100;color:white;'></i></h3>&nbsp;&nbsp;
+                <h3 style='font-weight: bold;'>Line - </h3>           &nbsp;&nbsp;
+                <h3 style='font-weight: bold;'>" . $magic . "</h3>
                     </div>" .
 
-                    "<h1 style='font-weight: bold;'>Rank</h1>           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    "<h3 style='font-weight: bold;'>Rank</h3>           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-                <h1 style='margin-right: 50px;font-weight: bold;min-width:50px;'>" . $t_line2->row_num . "</h1>" .
-                "<p style=' font-size: 26px;position: relative;bottom:20px;padding:20px 0 0 0;min-width:130px;height:85px;background:#1e7100;border-radius: 40%;text-align: center;'
+                <h3 style='margin-right: 50px;font-weight: bold;min-width:50px;'>" . $t_line2->row_num . "</h3>" .
+                "<p style=' font-size: 24px;position: relative;bottom:25px;padding:20px 0 0 0;min-width:130px;height:85px;background:#1e7100;border-radius: 40%;text-align: center;'
                     class='text-white'>" . $t_line2->diff_target_percent . "%" . "</p>
 
                 </div>
@@ -1541,15 +1541,15 @@ elseif ($t_line->row_num == 9) {
             echo "
             <div style='display: flex;margin:auto;width:620px;'>"
                 . "<div style='display: flex;min-width:220px;margin-right:220px;'>
-                <h1><i class='bi bi-arrow-down-short' style='background:#ff0000;color:white;'></i></h1>&nbsp;&nbsp;
-                <h1 style='font-weight: bold;'>Line - </h1>           &nbsp;&nbsp;
-                <h1 style='font-weight: bold;'>" . $magic . "<p>
+                <h3><i class='bi bi-arrow-down-short' style='background:#ff0000;color:white;'></i></h3>&nbsp;&nbsp;
+                <h3 style='font-weight: bold;'>Line - </h3>           &nbsp;&nbsp;
+                <h3 style='font-weight: bold;'>" . $magic . "</h3>
                     </div>" .
 
-                    "<h1 style='font-weight: bold;'>Rank</h1>           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    "<h3 style='font-weight: bold;'>Rank</h3>           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-                <h1 style='margin-right: 50px;font-weight: bold;min-width:50px;'>" . $t_line2->row_num . "</h1>" .
-                "<p style='font-size: 26px;position: relative;bottom:20px;padding:20px 0 0 0;min-width:130px;height:85px;background:#ff0000;border-radius: 40%;text-align: center;'
+                <h3 style='margin-right: 50px;font-weight: bold;min-width:50px;'>" . $t_line2->row_num . "</h3>" .
+                "<p style='font-size: 24px;position: relative;bottom:25px;padding:20px 0 0 0;min-width:130px;height:85px;background:#ff0000;border-radius: 40%;text-align: center;'
                     class='text-white'>" . $t_line2->diff_target_percent . "%" . "</p>
 
                 </div>
@@ -1572,15 +1572,15 @@ elseif ($t_line->row_num == 10) {
             echo "
             <div style='display: flex;margin:auto;width:620px;'>"
                 . "<div style='display: flex;min-width:220px;margin-right:220px;'>
-                <h1><i class='bi bi-arrow-up-short' style='background:#1e7100;color:white;'></i></h1>&nbsp;&nbsp;
-                <h1 style='font-weight: bold;'>Line - </h1>           &nbsp;&nbsp;
-                <h1 style='font-weight: bold;'>" . $magic . "</h1>
+                <h3><i class='bi bi-arrow-up-short' style='background:#1e7100;color:white;'></i></h3>&nbsp;&nbsp;
+                <h3 style='font-weight: bold;'>Line - </h3>           &nbsp;&nbsp;
+                <h3 style='font-weight: bold;'>" . $magic . "</h3>
                     </div>" .
 
-                    "<h1 style='font-weight: bold;'>Rank</h1>           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    "<h3 style='font-weight: bold;'>Rank</h3>           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-                <h1 style='margin-right: 50px;font-weight: bold;min-width:50px;'>" . $t_line2->row_num . "</h1>" .
-                "<p style=' font-size: 26px;position: relative;bottom:20px;padding:20px 0 0 0;min-width:130px;height:85px;background:#1e7100;border-radius: 40%;text-align: center;'
+                <h3 style='margin-right: 50px;font-weight: bold;min-width:50px;'>" . $t_line2->row_num . "</h3>" .
+                "<p style=' font-size: 24px;position: relative;bottom:25px;padding:20px 0 0 0;min-width:130px;height:85px;background:#1e7100;border-radius: 40%;text-align: center;'
                     class='text-white'>" . $t_line2->diff_target_percent . "%" . "</p>
 
                 </div>
