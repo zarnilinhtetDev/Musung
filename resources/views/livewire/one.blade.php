@@ -737,12 +737,13 @@ else{
                     @foreach($top_line as $t_line)
                     @if ($g_line_id == $t_line->l_id)
 
-                    <table class="m-auto text-start table table-bordered text-center" style="width: 100px;">
+                    <table class="m-auto text-start text-center" style="width: 100px;position: relative;right:37px">
                     <tbody>
                     <tr>
-                    <td style="vertical-align: middle;" class="t_line_{{ $t_line->row_num }} t_line_count fw-bold">
-                        {{
-                        $t_line->row_num }}
+                        <td style="vertical-align: middle;">
+                    {{-- <td style="vertical-align: middle;" class="t_line_{{ $t_line->row_num }} t_line_count fw-bold"> ******************************** --}}
+                        <h3>Rank {{
+                        $t_line->row_num }}</h3>
                     </td>
                 </tr>
 
@@ -753,12 +754,13 @@ else{
                     @if ($g_line_id == $t_line->l_id)
 
                     <tr>
-                    <td style="vertical-align: middle;" class="t_line_{{ $t_line->row_num }} t_line_count">
-                        <span class="input_row_num_{{ $t_line->row_num }} input_row_num" style="display:none;">{{
+                    <td style="font-size:10px;vertical-align: middle;min-width:250px;height:150px;border-radius:47%;" class="t_line_{{ $t_line->row_num }} t_line_count">
+                        <span class="input_row_num_{{ $t_line->row_num }} input_row_num" style="display:none;"><h3>{{
                             $t_line->row_num
-                            }}</span>
-                        {{
+                            }}</h3></span>
+                        <span><h3 class="text-white">{{
                         $t_line->diff_target_percent }}%
+                        </h3></span>
                     </td>
                 </tr>
             </table>
@@ -889,21 +891,21 @@ else{
             @foreach($actual_target_total as $a_total)
             @if ($g_line_id == $a_total->line_id)
             <tr>
-                <td><span class="fw-bold t_2_total_{{ $t_2_total->line_id }}" style="font-size:9px">
+                <td><span class="fw-bold t_2_total_{{ $t_2_total->line_id }}" style="font-size:10px">
                         {{ $a_total->total_div_target }}
                     </span>
                 </td>
             </tr>
             <tr class="text-dark">
                 <td class="fw-bold td_a_total_{{ $t_2_total->line_id }}">
-                    <span class="a_total_{{ $t_2_total->line_id }}" style="font-size:9px">{{
+                    <span class="a_total_{{ $t_2_total->line_id }}" style="font-size:10px">{{
                         $a_total->total_actual_target
                         }}</span>
                 </td>
             </tr>
             <tr class="text-dark">
                 <td class="fw-bold td_t_percent_{{ $t_2_total->line_id }}">
-                    <span class="t_percent_{{ $t_2_total->line_id }}" style="font-size:9px"></span>
+                    <span class="t_percent_{{ $t_2_total->line_id }}" style="font-size:10px"></span>
                 </td>
             </tr>
             <script>
