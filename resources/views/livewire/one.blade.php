@@ -10,7 +10,8 @@
 
     @if(count($time_arr) > 0)
 
-    <div class="flex-grow-1">
+    <div>
+    {{-- <div class="flex-grow-1"> ******************************** --}}
         <table class="" id="live_dash_1" style="margin-left: 80px;margin-right:100px;">
             {{-- <table class="table table-hover table-striped table-bordered text-center table-dash" id="live_dash_1"> ********************************* --}}
             <thead>
@@ -701,18 +702,17 @@ else{
 
 
 
-    <div class="">
+    {{-- <div class=""> --}}
         <table class="text-center" id="live_dash_1">
             {{-- <table class="table table-hover table-striped table-bordered text-center table-dash" id="live_dash_1"> ******************************** --}}
             <thead>
                 {{-- <tr class="tr-2 tr-3"> --}}
                 <tr>
-                    {{-- <th scope="col" style="padding:0px; border:none;background-color:#000;"></th>
-                    <th scope="col" style="padding:0px; border:none;"></th> ******************************** --}}
-
-                    <th scope="col" style="vertical-align: middle; height:43px !important;">Total</th>
-                    <th scope="col" style="vertical-align: middle; height:43px !important;">Rank</th>
-                    <th scope="col" style="vertical-align: middle; height:43px !important;">%</th>
+                    {{-- <th scope="col" style="padding:0px; border:none;background-color:#000;"></th> ******************************** --}}
+                    {{-- <th scope="col" style="padding:0px; border:none;"></th> --}}
+                    {{-- <th scope="col" style="vertical-align: middle; height:43px !important;">Total</th> --}}
+                    {{-- <th scope="col" style="vertical-align: middle; height:43px !important;">Rank</th>
+                    <th scope="col" style="vertical-align: middle; height:43px !important;">%</th> --}}
                 </tr>
             </thead>
             <tbody>
@@ -731,160 +731,28 @@ else{
 
                 @if($line_id == $g_line_id)
                 {{-- need to remove this --}}
-                    <tr class="tr_line_{{ $g_line_id }}">
-                    {{-- <tr style="border-bottom: 3px solid #000;" class="tr_line_{{ $g_line_id }}"> ******************************** --}}
-
-                    @foreach($target_total as $t_2_total)
-
-                    @if ($g_line_id == $t_2_total->line_id)
-
-                    {{-- <td colspan="0" style="background:#000;">
-                        <table class="text-center table table-bordered border-dark" style="background:#000;">
-                            <tr style="border-bottom: 1px solid transparent; background:#000;">
-                                <td style="background:#000;">
-                                    <div style="width:0px !important;overflow-x:scroll;">{{ $g_m_power
-                                        }}
-                                    </div>
-                                </td>
-                                <td style="background:#000;">
-                                    <div style="width:0px !important;overflow-x:scroll;">{{ $g_hp }}
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr style="border-bottom: 1px solid transparent;background:#000;">
-                                <td style="background:#000;">
-                                    <div style="width:0px !important;overflow-x:scroll;">{{
-                                        $g_actual_m_power }}</div>
-                                </td>
-                                <td style="background:#000;">
-                                    <div style="width:0px !important;overflow-x:scroll;">{{ $g_actual_hp
-                                        }}
-                                    </div>
-                                </td>
-                            </tr>
-                        </table>
-                    </td> ******************************** --}}
-
-                    <td colspan="0">
-                        <table class="m-auto text-start table table-bordered">
-                            <tbody>
-                                @foreach($p_detail_3 as $p_3)
-
-                                @if($p_3->l_id == $g_line_id)
-                                <tr>
-                                {{-- <tr style="border-bottom: 1px #000">******************************** --}}
-                                    <td class="item_name_{{ $g_line_id }}" colspan="0" style="display: none;">
-                                        <div style="text-overflow:ellipsis;width:0px !important; opacity:0;">
-                                            {{
-                                            $p_3->p_name }}</div>
-                                    </td>
-                                </tr>
-                                @endif
-
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </td>
-                    <td>
-                        <table class="w-100 text-center table m-0">
-
-                            @foreach($actual_target_total as $a_total)
-                            @if ($g_line_id == $a_total->line_id)
-                            <tr>
-                                <td><span class="fw-bold t_2_total_{{ $t_2_total->line_id }}">
-                                        {{ $a_total->total_div_target }}
-                                    </span>
-                                </td>
-                            </tr>
-                            <tr class="text-dark">
-                                <td class="fw-bold td_a_total_{{ $t_2_total->line_id }}">
-                                    <span class="a_total_{{ $t_2_total->line_id }}">{{
-                                        $a_total->total_actual_target
-                                        }}</span>
-                                </td>
-                            </tr>
-                            <tr class="text-dark">
-                                <td class="fw-bold td_t_percent_{{ $t_2_total->line_id }}">
-                                    <span class="t_percent_{{ $t_2_total->line_id }}"></span>
-                                </td>
-                            </tr>
-                            <script>
-                                window.addEventListener('additionalInit10', event => {
-                                                var t_2_total = parseInt($('.t_2_total_{{ $t_2_total->line_id }}').text().replace(/,/g, ''));
-                                                var a_total = parseInt($('.a_total_{{ $t_2_total->line_id }}').text().replace(/,/g, ''));
-                                                var t_percent_span = $('.t_percent_{{ $t_2_total->line_id }}');
-                                                var td_t_percent = $('.td_a_total_{{ $t_2_total->line_id }}');
-                                                var td_a_percent = $('.td_t_percent_{{ $t_2_total->line_id }}');
-                                                var g_line = $('.line_name_{{ $t_2_total->line_id }}');
-                                                var tr_line = $(".tr_line_{{ $t_2_total->line_id }}");
-                                                var item_name = $(".item_name_{{ $t_2_total->line_id }}");
-                                                var g_main_target =$("#g_main_target_{{ $t_2_total->line_id }}");
-                                                var line_column = $(".line_column_{{ $t_2_total->line_id }}");
-
-                                                if (Number.isNaN(t_2_total)) {
-                                                    t_percent_span.text("");
-                                                }
-                                                if (!Number.isNaN(t_2_total)) {
-                                                    var t_percent = (a_total / t_2_total) * 100;
-                                                    if (Number.isNaN(t_percent)) {
-                                                        t_percent_span.text("");
-                                                    }
-                                                    if (!Number.isNaN(t_percent)) {
-                                                        t_percent_span.text(parseInt(t_percent));
 
 
-            if(parseInt(t_percent_span.text()) <= 80){
-                td_t_percent.css('color', 'black');
-                td_a_percent.css('color', 'black');
-
-                // td_t_percent.css('background-color','rgba(255,0,0,0.8)');
-                // td_a_percent.css('background-color','rgba(255,0,0,0.8)');
-                //                                     line_column.addClass('bounce');
-                //                                     line_column.css('background-color','red');
-            }if(parseInt(t_percent_span.text()) > 80){
-                td_t_percent.css('color', 'black');
-                td_a_percent.css('color', 'black');
-
-                // td_t_percent.css({'background-color':'#FF8000','color':'#fff'});
-                // td_a_percent.css({'background-color':'#FF8000','color':'#fff'});
-                //                                     line_column.addClass('bounce');
-                //                                     line_column.css('background-color','#FF8000');
-            }
-            if(parseInt(t_percent_span.text()) >= 100){
-                td_t_percent.css('color', 'black');
-                td_a_percent.css('color', 'black');
-
-                // td_t_percent.css({'background-color':'rgba(30,113,0,1)','color':'#fff'});
-                // td_a_percent.css({'background-color':'rgba(30,113,0,1)','color':'#fff'});
-                //                                     line_column.addClass('bounce');
-                //                                     line_column.css('background-color','rgba(30,113,0,1)');
-            }
-
-                                                        t_percent_span.append('%');
-                                                    }
-                                                }
-                                              });
-                            </script>
-                            @endif
-                            @endforeach
-
-                        </table>
-                    </td>
-                    @endif
-                    @endforeach
 
                     @foreach($top_line as $t_line)
                     @if ($g_line_id == $t_line->l_id)
+
+                    <table class="m-auto text-start table table-bordered text-center" style="width: 100px;">
+                    <tbody>
+                    <tr>
                     <td style="vertical-align: middle;" class="t_line_{{ $t_line->row_num }} t_line_count fw-bold">
                         {{
                         $t_line->row_num }}
                     </td>
+                </tr>
 
                     @endif
                     @endforeach
 
                     @foreach($top_line as $t_line)
                     @if ($g_line_id == $t_line->l_id)
+
+                    <tr>
                     <td style="vertical-align: middle;" class="t_line_{{ $t_line->row_num }} t_line_count">
                         <span class="input_row_num_{{ $t_line->row_num }} input_row_num" style="display:none;">{{
                             $t_line->row_num
@@ -892,6 +760,9 @@ else{
                         {{
                         $t_line->diff_target_percent }}%
                     </td>
+                </tr>
+            </table>
+        </tbody>
 
                     @endif
                     @endforeach
@@ -948,6 +819,163 @@ else{
                 });
                     </script>
                 </tr>
+
+
+
+
+{{-- ******************************** NEWENEWNEWNENNWNEW ******************************** --}}
+
+<tr class="tr_line_{{ $g_line_id }}">
+    {{-- <tr style="border-bottom: 3px solid #000;" class="tr_line_{{ $g_line_id }}"> ******************************** --}}
+
+    @foreach($target_total as $t_2_total)
+
+    @if ($g_line_id == $t_2_total->line_id)
+
+    {{-- <td colspan="0" style="background:#000;">
+        <table class="text-center table table-bordered border-dark" style="background:#000;">
+            <tr style="border-bottom: 1px solid transparent; background:#000;">
+                <td style="background:#000;">
+                    <div style="width:0px !important;overflow-x:scroll;">{{ $g_m_power
+                        }}
+                    </div>
+                </td>
+                <td style="background:#000;">
+                    <div style="width:0px !important;overflow-x:scroll;">{{ $g_hp }}
+                    </div>
+                </td>
+            </tr>
+            <tr style="border-bottom: 1px solid transparent;background:#000;">
+                <td style="background:#000;">
+                    <div style="width:0px !important;overflow-x:scroll;">{{
+                        $g_actual_m_power }}</div>
+                </td>
+                <td style="background:#000;">
+                    <div style="width:0px !important;overflow-x:scroll;">{{ $g_actual_hp
+                        }}
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </td> ******************************** --}}
+
+    <td colspan="0" style="display: none;">
+        <table class="m-auto text-start table table-bordered">
+            <tbody>
+                @foreach($p_detail_3 as $p_3)
+
+                @if($p_3->l_id == $g_line_id)
+                <tr>
+                {{-- <tr style="border-bottom: 1px #000">******************************** --}}
+                    <td class="item_name_{{ $g_line_id }}" colspan="0" style="display: none;">
+                        <div style="text-overflow:ellipsis;width:0px !important; opacity:0;">
+                            {{
+                            $p_3->p_name }}</div>
+                    </td>
+                </tr>
+                @endif
+
+                @endforeach
+            </tbody>
+        </table>
+    </td>
+    <td>
+        <table class="w-100 text-center table m-0 table-bordered" style="max-width:50px;">
+<tr>
+    <td>
+        Total
+    </td>
+</tr>
+            @foreach($actual_target_total as $a_total)
+            @if ($g_line_id == $a_total->line_id)
+            <tr>
+                <td><span class="fw-bold t_2_total_{{ $t_2_total->line_id }}" style="font-size:9px">
+                        {{ $a_total->total_div_target }}
+                    </span>
+                </td>
+            </tr>
+            <tr class="text-dark">
+                <td class="fw-bold td_a_total_{{ $t_2_total->line_id }}">
+                    <span class="a_total_{{ $t_2_total->line_id }}" style="font-size:9px">{{
+                        $a_total->total_actual_target
+                        }}</span>
+                </td>
+            </tr>
+            <tr class="text-dark">
+                <td class="fw-bold td_t_percent_{{ $t_2_total->line_id }}">
+                    <span class="t_percent_{{ $t_2_total->line_id }}" style="font-size:9px"></span>
+                </td>
+            </tr>
+            <script>
+                window.addEventListener('additionalInit10', event => {
+                                var t_2_total = parseInt($('.t_2_total_{{ $t_2_total->line_id }}').text().replace(/,/g, ''));
+                                var a_total = parseInt($('.a_total_{{ $t_2_total->line_id }}').text().replace(/,/g, ''));
+                                var t_percent_span = $('.t_percent_{{ $t_2_total->line_id }}');
+                                var td_t_percent = $('.td_a_total_{{ $t_2_total->line_id }}');
+                                var td_a_percent = $('.td_t_percent_{{ $t_2_total->line_id }}');
+                                var g_line = $('.line_name_{{ $t_2_total->line_id }}');
+                                var tr_line = $(".tr_line_{{ $t_2_total->line_id }}");
+                                var item_name = $(".item_name_{{ $t_2_total->line_id }}");
+                                var g_main_target =$("#g_main_target_{{ $t_2_total->line_id }}");
+                                var line_column = $(".line_column_{{ $t_2_total->line_id }}");
+
+                                if (Number.isNaN(t_2_total)) {
+                                    t_percent_span.text("");
+                                }
+                                if (!Number.isNaN(t_2_total)) {
+                                    var t_percent = (a_total / t_2_total) * 100;
+                                    if (Number.isNaN(t_percent)) {
+                                        t_percent_span.text("");
+                                    }
+                                    if (!Number.isNaN(t_percent)) {
+                                        t_percent_span.text(parseInt(t_percent));
+
+
+if(parseInt(t_percent_span.text()) <= 80){
+td_t_percent.css('color', 'black');
+td_a_percent.css('color', 'black');
+
+// td_t_percent.css('background-color','rgba(255,0,0,0.8)');
+// td_a_percent.css('background-color','rgba(255,0,0,0.8)');
+//                                     line_column.addClass('bounce');
+//                                     line_column.css('background-color','red');
+}if(parseInt(t_percent_span.text()) > 80){
+td_t_percent.css('color', 'black');
+td_a_percent.css('color', 'black');
+
+// td_t_percent.css({'background-color':'#FF8000','color':'#fff'});
+// td_a_percent.css({'background-color':'#FF8000','color':'#fff'});
+//                                     line_column.addClass('bounce');
+//                                     line_column.css('background-color','#FF8000');
+}
+if(parseInt(t_percent_span.text()) >= 100){
+td_t_percent.css('color', 'black');
+td_a_percent.css('color', 'black');
+
+// td_t_percent.css({'background-color':'rgba(30,113,0,1)','color':'#fff'});
+// td_a_percent.css({'background-color':'rgba(30,113,0,1)','color':'#fff'});
+//                                     line_column.addClass('bounce');
+//                                     line_column.css('background-color','rgba(30,113,0,1)');
+}
+
+                                        t_percent_span.append('%');
+                                    }
+                                }
+                              });
+            </script>
+            @endif
+            @endforeach
+
+        </table>
+    </td>
+    @endif
+    @endforeach
+
+
+
+
+
+
                 @endif
                 @endforeach
                 {{-- <tr>
@@ -1025,7 +1053,7 @@ else{
 
             </tbody>
         </table>
-    </div>
+    {{-- </div> --}}
 
     @else
     <h1 class="fw-bold text-danger fs-4">Please Assign Line First</h1>
