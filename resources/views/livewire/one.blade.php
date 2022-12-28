@@ -238,7 +238,7 @@
                                         < 8 ) --}} <td class="confuse2" id="{{ $t_2->time_name }}">
 
 
-                                            <table class="w-100 text-center table table-bordered table-sm" style="margin-left:120px;max-width:50px;">
+                                            <table class="w-100 text-center table table-bordered table-sm" style="margin-left:115px;max-width:50px;">
                                             {{-- <table class="w-100 text-center table table-bordered m-0" border="1"> ********************************* --}}
 
                                                 <tr>
@@ -356,14 +356,14 @@ if(parseInt(div_actual_target_percent.text()) <= 80){
 //    $("#td_div_actual_target_<?php echo $current_target; ?>").css('color','black)');
 
    $("#td_div_actual_target_percent_<?php echo $current_target; ?>").css({'background-color':'#FF8000','color':'#fff'});
-   $("#td_div_actual_target_<?php echo $current_target; ?>").css({'color':'#FF8000','color':'#fff'});
+   $("#td_div_actual_target_<?php echo $current_target; ?>").css({'color':'#FF8000'});
 }
 if(parseInt(div_actual_target_percent.text()) >= 100){
 //     $("#td_div_actual_target_percent_<?php echo $current_target; ?>").css('color','black');
 //    $("#td_div_actual_target_<?php echo $current_target; ?>").css('color','black)');
 
    $("#td_div_actual_target_percent_<?php echo $current_target; ?>").css({'background-color':'rgba(30,113,0,1)','color':'#fff'});
-   $("#td_div_actual_target_<?php echo $current_target; ?>").css({'color':'rgba(30,113,0,1)','color':'#fff'});
+   $("#td_div_actual_target_<?php echo $current_target; ?>").css({'color':'rgba(30,113,0,1)'});
 }
 
 div_actual_target_percent.append('%');
@@ -702,12 +702,14 @@ else{
 
 
     <div class="">
-        <table class="table table-hover table-striped table-bordered text-center table-dash" id="live_dash_1">
+        <table class="text-center" id="live_dash_1">
+            {{-- <table class="table table-hover table-striped table-bordered text-center table-dash" id="live_dash_1"> ******************************** --}}
             <thead>
                 {{-- <tr class="tr-2 tr-3"> --}}
                 <tr>
-                    <th scope="col" style="padding:0px; border:none;background-color:#000;"></th>
-                    <th scope="col" style="padding:0px; border:none;"></th>
+                    {{-- <th scope="col" style="padding:0px; border:none;background-color:#000;"></th>
+                    <th scope="col" style="padding:0px; border:none;"></th> ******************************** --}}
+
                     <th scope="col" style="vertical-align: middle; height:43px !important;">Total</th>
                     <th scope="col" style="vertical-align: middle; height:43px !important;">Rank</th>
                     <th scope="col" style="vertical-align: middle; height:43px !important;">%</th>
@@ -729,14 +731,14 @@ else{
 
                 @if($line_id == $g_line_id)
                 {{-- need to remove this --}}
-                {{-- <tr class="tr_line_{{ $g_line_id }}"> --}}
-                <tr style="border-bottom: 3px solid #000;" class="tr_line_{{ $g_line_id }}">
+                    <tr class="tr_line_{{ $g_line_id }}">
+                    {{-- <tr style="border-bottom: 3px solid #000;" class="tr_line_{{ $g_line_id }}"> ******************************** --}}
 
                     @foreach($target_total as $t_2_total)
 
                     @if ($g_line_id == $t_2_total->line_id)
 
-                    <td colspan="0" style="background:#000;">
+                    {{-- <td colspan="0" style="background:#000;">
                         <table class="text-center table table-bordered border-dark" style="background:#000;">
                             <tr style="border-bottom: 1px solid transparent; background:#000;">
                                 <td style="background:#000;">
@@ -761,7 +763,7 @@ else{
                                 </td>
                             </tr>
                         </table>
-                    </td>
+                    </td> ******************************** --}}
 
                     <td colspan="0">
                         <table class="m-auto text-start table table-bordered">
@@ -769,8 +771,9 @@ else{
                                 @foreach($p_detail_3 as $p_3)
 
                                 @if($p_3->l_id == $g_line_id)
-                                <tr style="border-bottom: 1px #000">
-                                    <td class="item_name_{{ $g_line_id }}" colspan="0">
+                                <tr>
+                                {{-- <tr style="border-bottom: 1px #000">******************************** --}}
+                                    <td class="item_name_{{ $g_line_id }}" colspan="0" style="display: none;">
                                         <div style="text-overflow:ellipsis;width:0px !important; opacity:0;">
                                             {{
                                             $p_3->p_name }}</div>
