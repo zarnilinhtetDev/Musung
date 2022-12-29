@@ -34,7 +34,7 @@
         </div>
         <div class="col-12 col-md-6 my-auto text-center text-md-start p-0">
             <div>
-                <h3 class="m-0 fw-bold" id="digital-clock-2"></h4>
+                <h3 class="m-0 fw-bold" style='position: relative;right:40px;' id="digital-clock-2"></h3>
             </div>
             <script>
                 /// Live Clock in line_entry.blade
