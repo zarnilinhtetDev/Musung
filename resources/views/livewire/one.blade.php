@@ -1135,32 +1135,6 @@ foreach ($top_line as $t_line2) {
                     <br>";
         }
 
-        // ******************************** we do not need to use this, it just used for front-end line design ********************************
-        if ($t_line2->row_num == 2){
-            foreach ($getLine as $g_line) {
-                if($t_line2->l_id == $g_line->l_id) {
-                    $magic = $g_line->l_name;
-                    break;
-                }
-            }
-            echo "
-            <div style='display: flex;margin:auto;width:750px;'>"
-                . "<div style='display: flex;min-width:220px;margin-right:220px;'>
-                <h3></h3>&nbsp;&nbsp;
-                <h3 style='font-weight: bold;font-size:40px;'></h3>           &nbsp;&nbsp;
-                <h3 style='font-weight: bold;font-size:40px;'></h3>
-                    </div>" .
-
-                    "<h3 style='font-weight: bold;font-size:40px;'></h3>           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-                <h3 style='margin-right: 50px;font-weight: bold;min-width:50px;font-size:40px;'></h3>" .
-                "<p style='font-size:40px;position: relative;bottom:25px;padding:15px 0 0 0;min-width:160px;height:95px;border-radius: 40%;text-align: center;'
-                    class='text-white'></p>
-                </div>
-                    <br>";
-        }
-        // ******************************** end ********************************
-
 }
 }
 
@@ -1671,32 +1645,6 @@ elseif ($t_line->row_num == 10) {
                 </div>
                     <br>";
         }
-
-        // ******************************** we do not need to use this, it just used for front-end line design ********************************
-        if ($t_line2->row_num == 9){
-            foreach ($getLine as $g_line) {
-                if($t_line2->l_id == $g_line->l_id) {
-                    $magic = $g_line->l_name;
-                    break;
-                }
-            }
-            echo "
-            <div style='display: flex;margin:auto;width:750px;'>"
-                . "<div style='display: flex;min-width:220px;margin-right:220px;'>
-                <h3></h3>&nbsp;&nbsp;
-                <h3 style='font-weight: bold;font-size:40px;'></h3>           &nbsp;&nbsp;
-                <h3 style='font-weight: bold;font-size:40px;'></h3>
-                    </div>" .
-
-                    "<h3 style='font-weight: bold;font-size:40px;'></h3>           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-                <h3 style='margin-right: 50px;font-weight: bold;min-width:50px;font-size:40px;'></h3>" .
-                "<p style='font-size:40px;position: relative;bottom:25px;padding:15px 0 0 0;min-width:160px;height:95px;border-radius: 40%;text-align: center;'
-                    class='text-white'></p>
-                </div>
-                    <br>";
-        }
-        // ******************************** end ********************************
 }
 }
 
