@@ -13,13 +13,13 @@
 
     <div>
     {{-- <div class="flex-grow-1"> ******************************** --}}
-        <table class="" id="live_dash_1" style="margin-left: 60px;margin-right:100px;">
+        <table class="" id="live_dash_1" style="margin-left: 60px;margin-right:10px;">
             {{-- <table class="table table-hover table-striped table-bordered text-center table-dash" id="live_dash_1"> ********************************* --}}
             <thead>
                 {{-- <tr class="tr-2 tr-3"> --}}
                 <tr>
                     {{-- <th scope="col" style="vertical-align: middle;">Status</th> --}}
-                    <th scope="col" style="vertical-align: middle;position: relative;left:88px;top:60px;">Line</th>
+                    <th scope="col" style="vertical-align: middle;position: relative;left:88px;top:60px;"></th>
                     {{-- <th scope="col" style="vertical-align: middle;" class="p-0">
                         <table class="w-100 text-center table m-0 text-white table-bordered" border="1">
                             <tr class="">
@@ -73,9 +73,10 @@
 
                     <td class="fw-bold line_name_{{ $g_line_id }} fs-4" style="vertical-align: middle;min-width: 40px;">
                         @if($line_id == $g_line_id)
-                        <h3 class='text-center' style="border-style: solid;color:black;padding: 2px;position: relative;left:85px;top:60px;font-size:40px;">{{
+                        <h1 class='text-center' style="font-weight: bold;border-style: solid;color:black;padding: 0 10px 0 10px;position: relative;left:99px;top:10px;font-size:80px;width:130px;
+                        background:#e6f0ff;">{{
                         $g_line_name
-                        }}</h3>
+                        }}</h1>
                         @endif
                     </td>
                 </tbody>
@@ -176,8 +177,8 @@
                                                         }
 
 
-                                                        echo "<div style='position: relative;top:100px;
-                                                        margin-left:105px;border-style: solid;padding: 4px 0 4px 0;font-size:13px;min-width:120px;margin-bottom:10px;
+                                                        echo "<div style='position: relative;top:25px;left:60px;
+                                                        margin-left:105px;border-style: solid;height:30px;padding: 0 0 0 0;font-size:24px;min-width:120px;margin-bottom:10px;
                                                                         text-align:center;font-size:19px;'><h3>"
                                                             . date('g:i A',strtotime($t->time_name)) . "</h3></div>";
 
@@ -271,21 +272,21 @@
                                         < 8 ) --}} <td class="confuse2" id="{{ $t_2->time_name }}">
 
 
-                                            <table class="w-100 text-center table table-bordered table-sm" style="margin-left:105px;max-width:120px;position:relative;top:100px;">
+                                            <table class="w-100 text-center table table-bordered table-sm border-dark" style="margin-left:105px;max-width:120px;position:relative;top:30px;left:60px;">
                                             {{-- <table class="w-100 text-center table table-bordered m-0" border="1"> ********************************* --}}
 
                                                 <tr>
-                                                    <td style="height:10px;"><span style="font-size:19px;x;<h3>" id="new_div_target_{{ $t_2->time_id }}"
+                                                    <td style="height:10px;"><span style="font-size:24px;x;<h3>" id="new_div_target_{{ $t_2->time_id }}"
                                                             class="new_div_ta</h3>rget">
                                                             @if($t_2->div_actual_target=='') <span
-                                                                style="color:#adadad;">{{
+                                                                style="color:black;">{{
                                                                 number_format($t_2->actual_target_entry) }}</span>
                                                             @elseif($t_2->
                                                             div_actual_target!='') {{
                                                             number_format($t_2->actual_target_entry) }}
                                                             @endif
                                                         </span></td>
-                                                    <td style="display: none;"><span style="font-size: 12px;"
+                                                    <td style="display: none;"><span style="font-size: 24px;"
                                                             id="div_target_total_{{ $t_2->time_id }}"
                                                             class="hide_div_target_total d-none">{{ $t_2->div_target
                                                             }}</span></td>
@@ -295,7 +296,7 @@
                                                 <tr class="text-dark">
                                                     <td id="td_div_actual_target_{{ $t_2->time_id }}" style="height:40px;"
                                                         class="td_div_actual_target">
-                                                        <span style="font-size: 19px;" id="div_actual_target_{{ $t_2->time_id }}"
+                                                        <span style="font-size: 24px;" id="div_actual_target_{{ $t_2->time_id }}"
                                                             class="div_actual_target_{{ $g_line_id }}">@if($t_2->div_actual_target
                                                             !=
                                                             ''){{
@@ -307,7 +308,7 @@
 
                                                 </tr>
                                                 <tr class="text-dark">
-                                                    <td id="td_div_actual_target_percent_{{ $t_2->time_id }}" style="height:40px;font-size: 19px;"><span
+                                                    <td id="td_div_actual_target_percent_{{ $t_2->time_id }}" style="height:40px;font-size: 24px;"><span
                                                             id="div_actual_target_percent_{{ $t_2->time_id }}"></span>
                                                     </td>
                                                     <td class="d-none"></td>
@@ -383,20 +384,20 @@ if(parseInt(div_actual_target_percent.text()) <= 80){
 //    $("#td_div_actual_target_<?php echo $current_target; ?>").css('color','black)');
 
    $("#td_div_actual_target_percent_<?php echo $current_target; ?>").css('background-color','rgba(255,0,0,0.8)');
-   $("#td_div_actual_target_<?php echo $current_target; ?>").css('color','rgba(255,0,0,0.8)');
+//    $("#td_div_actual_target_<?php echo $current_target; ?>").css('color','rgba(255,0,0,0.8)');
 }if(parseInt(div_actual_target_percent.text()) > 80){
 //     $("#td_div_actual_target_percent_<?php echo $current_target; ?>").css('color','black');
 //    $("#td_div_actual_target_<?php echo $current_target; ?>").css('color','black)');
 
    $("#td_div_actual_target_percent_<?php echo $current_target; ?>").css({'background-color':'#FF8000','color':'#fff'});
-   $("#td_div_actual_target_<?php echo $current_target; ?>").css({'color':'#FF8000'});
+//    $("#td_div_actual_target_<?php echo $current_target; ?>").css({'color':'#FF8000'});
 }
 if(parseInt(div_actual_target_percent.text()) >= 100){
 //     $("#td_div_actual_target_percent_<?php echo $current_target; ?>").css('color','black');
 //    $("#td_div_actual_target_<?php echo $current_target; ?>").css('color','black)');
 
    $("#td_div_actual_target_percent_<?php echo $current_target; ?>").css({'background-color':'rgba(30,113,0,1)','color':'#fff'});
-   $("#td_div_actual_target_<?php echo $current_target; ?>").css({'color':'rgba(30,113,0,1)'});
+//    $("#td_div_actual_target_<?php echo $current_target; ?>").css({'color':'rgba(30,113,0,1)'});
 }
 
 div_actual_target_percent.append('%');
@@ -769,12 +770,12 @@ else{
                     @foreach($top_line as $t_line)
                     @if ($g_line_id == $t_line->l_id)
 
-                    <table class="m-auto text-start text-center" style="width: 100px;position: relative;right:110px;top:-30px;">
+                    <table class="m-auto text-start text-center" style="width: 100px;position: relative;right:40px;top:-30px;">
                     <tbody>
                     <tr>
                         <td style="vertical-align: middle;">
                     {{-- <td style="vertical-align: middle;" class="t_line_{{ $t_line->row_num }} t_line_count fw-bold"> ******************************** --}}
-                        <h3 style="font-size: 35px;">Rank {{
+                        <h3 style="font-size: 50px;font-weight: bold;">Rank {{
                         $t_line->row_num }}</h3>
                     </td>
                 </tr>
@@ -786,11 +787,11 @@ else{
                     @if ($g_line_id == $t_line->l_id)
 
                     <tr>
-                    <td style="font-size:10px;vertical-align: middle;min-width:350px;height:200px;border-radius:10%;" class="t_line_{{ $t_line->row_num }} t_line_count">
+                    <td style="font-size:10px;vertical-align: middle;min-width:220px;height:120px;" class="t_line_{{ $t_line->row_num }} t_line_count">
                         <span class="input_row_num_{{ $t_line->row_num }} input_row_num" style="display:none;"><h3>{{
                             $t_line->row_num
                             }}</h3></span>
-                        <span><h3 class="text-white" style="font-size: 60px;">{{
+                        <span><h3 class="text-white" style="font-size: 60px;font-weight: bold;">{{
                         $t_line->diff_target_percent }}%
                         </h3></span>
                     </td>
@@ -917,30 +918,28 @@ else{
 
 
     <td>
-        <table class="w-100 text-center table m-0 table-bordered totalTable" style="max-width:150px;max-height:50px;position:relative;right:110px;top:174px;">
-<tr>
-    <td style="height: 10px;font-size:19px;">
-        <h3>Total</h3>
-    </td>
-</tr>
+        <table class="w-100 text-center table m-0 table-bordered totalTable table-sm border-dark" style="height:0px;position:relative;right:57px;top:180px;">
+
+        <h3 style="height:30px;min-width:120px;font-size:24px;position: relative;left:62px;top:135px;border-style: solid;color:black;padding: 0 0 0 0;text-align:center;">Total</h3>
+
             @foreach($actual_target_total as $a_total)
             @if ($g_line_id == $a_total->line_id)
             <tr>
-                <td style="height: 10px;"><span class="fw-bold t_2_total_{{ $t_2_total->line_id }}" style="font-size:19px">
+                <td style="height: 2px;"><span class="fw-bold t_2_total_{{ $t_2_total->line_id }}" style="font-size:24px">
                         {{ $a_total->total_div_target }}
                     </span>
                 </td>
             </tr>
             <tr class="text-dark">
-                <td style="height:10px;" class="fw-bold td_a_total_{{ $t_2_total->line_id }}">
-                    <span class="a_total_{{ $t_2_total->line_id }}" style="font-size:19px">{{
+                <td style="height:2px;" class="fw-bold td_a_total_{{ $t_2_total->line_id }}">
+                    <span class="a_total_{{ $t_2_total->line_id }}" style="font-size:24px">{{
                         $a_total->total_actual_target
                         }}</span>
                 </td>
             </tr>
             <tr class="text-dark">
-                <td style="height:10px;" class="fw-bold td_t_percent_{{ $t_2_total->line_id }}">
-                    <span class="t_percent_{{ $t_2_total->line_id }}" style="font-size:19px"></span>
+                <td style="height:2px;min-width:120px;" class="fw-bold td_t_percent_{{ $t_2_total->line_id }}">
+                    <span class="t_percent_{{ $t_2_total->line_id }}" style="font-size:24px"></span>
                 </td>
             </tr>
             <script>
@@ -973,26 +972,26 @@ td_t_percent.css('color', 'black');
 td_a_percent.css('color', 'black');
 
 // td_t_percent.css('background-color','rgba(255,0,0,0.8)');
-// td_a_percent.css('background-color','rgba(255,0,0,0.8)');
-//                                     line_column.addClass('bounce');
-//                                     line_column.css('background-color','red');
+td_a_percent.css('background-color','rgba(255,0,0,0.8)');
+                                    line_column.addClass('bounce');
+                                    line_column.css('background-color','red');
 }if(parseInt(t_percent_span.text()) > 80){
 td_t_percent.css('color', 'black');
 td_a_percent.css('color', 'black');
 
 // td_t_percent.css({'background-color':'#FF8000','color':'#fff'});
-// td_a_percent.css({'background-color':'#FF8000','color':'#fff'});
-//                                     line_column.addClass('bounce');
-//                                     line_column.css('background-color','#FF8000');
+td_a_percent.css({'background-color':'#FF8000','color':'#fff'});
+                                    line_column.addClass('bounce');
+                                    line_column.css('background-color','#FF8000');
 }
 if(parseInt(t_percent_span.text()) >= 100){
 td_t_percent.css('color', 'black');
 td_a_percent.css('color', 'black');
 
 // td_t_percent.css({'background-color':'rgba(30,113,0,1)','color':'#fff'});
-// td_a_percent.css({'background-color':'rgba(30,113,0,1)','color':'#fff'});
-//                                     line_column.addClass('bounce');
-//                                     line_column.css('background-color','rgba(30,113,0,1)');
+td_a_percent.css({'background-color':'rgba(30,113,0,1)','color':'#fff'});
+                                    line_column.addClass('bounce');
+                                    line_column.css('background-color','rgba(30,113,0,1)');
 }
 
                                         t_percent_span.append('%');
@@ -1153,21 +1152,21 @@ foreach ($top_line as $t_line2) {
             }
 
             echo "
-            <div style='display: flex;margin:auto;width:750px;'>"
-                . "<div style='display: flex;min-width:220px;margin-right:220px;'>
-                <h3><i class='bi bi-arrow-down-short' style='background:#ff0000;color:white;font-size:40px;'></i></h3>&nbsp;&nbsp;
-                <h3 style='font-weight: bold;font-size:40px;'>Line - </h3>           &nbsp;&nbsp;
+            <div style='display: flex;margin:auto;width:750px;position: relative;top:-135px;left:100px;'>"
+                . "<div style='display: flex;min-width:220px;margin-right:100px;'>
+                <h3><i class='bi bi-arrow-down' style='background:#ff0000;color:white;font-size:40px;'></i></h3>&nbsp;&nbsp;
+                <h3 style='font-weight: bold;font-size:40px;'>Line </h3>           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <h3 style='font-weight: bold;font-size:40px;'>" . $magic . "</h3>
                     </div>" .
 
                     "<h3 style='font-weight: bold;font-size:40px;'>Rank</h3>           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-                <h3 style='margin-right: 50px;font-weight: bold;min-width:50px;font-size:40px;'>" . $t_line2->row_num . "</h3>" .
-                "<p style='font-size:40px;position: relative;bottom:25px;padding:15px 0 0 0;min-width:160px;height:95px;background:#ff0000;border-radius: 40%;text-align: center;'
+                <h3 style='margin-right: 20px;font-weight: bold;min-width:50px;font-size:40px;'>" . $t_line2->row_num . "</h3>" .
+                "<p style='font-size:40px;position: relative;bottom:10px;padding:0 0 0 0;min-width:140px;height:65px;background:#ff0000;text-align: center;'
                     class='text-white'>" . $t_line2->diff_target_percent . "%" . "</p>
 
                 </div>
-                    <br>";
+                    ";
         }
 
 }
@@ -1186,17 +1185,17 @@ elseif ($t_line->row_num == 2) {
             }
 
             echo "
-            <div style='display: flex;margin:auto;width:750px;'>"
-                . "<div style='display: flex;min-width:220px;margin-right:220px;'>
-                <h3><i class='bi bi-arrow-up-short' style='background:#1e7100;color:white;font-size:40px;'></i></h3>&nbsp;&nbsp;
-                <h3 style='font-weight: bold;font-size:40px;'>Line - </h3>           &nbsp;&nbsp;
+            <div style='display: flex;margin:auto;width:750px;position: relative;top:-135px;left:100px;'>"
+                . "<div style='display: flex;min-width:220px;margin-right:100px;'>
+                <h3><i class='bi bi-arrow-up' style='background:#1e7100;color:white;font-size:40px;'></i></h3>&nbsp;&nbsp;
+                <h3 style='font-weight: bold;font-size:40px;'>Line </h3>           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <h3 style='font-weight: bold;font-size:40px;'>" . $magic . "</h3>
                     </div>" .
 
                     "<h3 style='font-weight: bold;font-size:40px;'>Rank</h3>           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-                <h3 style='margin-right: 50px;font-weight: bold;min-width:50px;font-size:40px;'>" . $t_line2->row_num . "</h3>" .
-                "<p style='font-size:40px;position: relative;bottom:25px;padding:15px 0 0 0;min-width:160px;height:95px;background:#1e7100;border-radius: 40%;text-align: center;'
+                <h3 style='margin-right: 20px;font-weight: bold;min-width:50px;font-size:40px;'>" . $t_line2->row_num . "</h3>" .
+                "<p style='font-size:40px;position: relative;bottom:10px;padding:0 0 0 0;min-width:140px;height:65px;background:#1e7100;text-align: center;'
                     class='text-white'>" . $t_line2->diff_target_percent . "%" . "</p>
 
                 </div>
@@ -1212,21 +1211,21 @@ elseif ($t_line->row_num == 2) {
             }
 
             echo "
-            <div style='display: flex;margin:auto;width:750px;'>"
-                . "<div style='display: flex;min-width:220px;margin-right:220px;'>
-                <h3><i class='bi bi-arrow-down-short' style='background:#ff0000;color:white;font-size:40px;'></i></h3>&nbsp;&nbsp;
-                <h3 style='font-weight: bold;font-size:40px;'>Line - </h3>           &nbsp;&nbsp;
+            <div style='display: flex;margin:auto;width:750px;position: relative;top:-135px;left:100px;'>"
+                . "<div style='display: flex;min-width:220px;margin-right:100px;'>
+                <h3><i class='bi bi-arrow-down' style='background:#ff0000;color:white;font-size:40px;'></i></h3>&nbsp;&nbsp;
+                <h3 style='font-weight: bold;font-size:40px;'>Line </h3>           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <h3 style='font-weight: bold;font-size:40px;'>" . $magic . "</h3>
                     </div>" .
 
                     "<h3 style='font-weight: bold;font-size:40px;'>Rank</h3>           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-                <h3 style='margin-right: 50px;font-weight: bold;min-width:50px;font-size:40px;'>" . $t_line2->row_num . "</h3>" .
-                "<p style='font-size:40px;position: relative;bottom:25px;padding:15px 0 0 0;min-width:160px;height:95px;background:#ff0000;border-radius: 40%;text-align: center;'
+                <h3 style='margin-right: 20px;font-weight: bold;min-width:50px;font-size:40px;'>" . $t_line2->row_num . "</h3>" .
+                "<p style='font-size:40px;position: relative;bottom:10px;padding:0 0 0 0;min-width:140px;height:65px;background:#ff0000;text-align: center;'
                     class='text-white'>" . $t_line2->diff_target_percent . "%" . "</p>
 
                 </div>
-                    <br>";
+                    ";
         }
 }
 }
@@ -1243,17 +1242,17 @@ elseif ($t_line->row_num == 3) {
             }
 
             echo "
-            <div style='display: flex;margin:auto;width:750px;'>"
-                . "<div style='display: flex;min-width:220px;margin-right:220px;'>
-                <h3><i class='bi bi-arrow-up-short' style='background:#1e7100;color:white;font-size:40px;'></i></h3>&nbsp;&nbsp;
-                <h3 style='font-weight: bold;font-size:40px;'>Line - </h3>           &nbsp;&nbsp;
+            <div style='display: flex;margin:auto;width:750px;position: relative;top:-135px;left:100px;'>"
+                . "<div style='display: flex;min-width:220px;margin-right:100px;'>
+                <h3><i class='bi bi-arrow-up' style='background:#1e7100;color:white;font-size:40px;'></i></h3>&nbsp;&nbsp;
+                <h3 style='font-weight: bold;font-size:40px;'>Line </h3>           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <h3 style='font-weight: bold;font-size:40px;'>" . $magic . "</h3>
                     </div>" .
 
                     "<h3 style='font-weight: bold;font-size:40px;'>Rank</h3>           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-                <h3 style='margin-right: 50px;font-weight: bold;min-width:50px;font-size:40px;'>" . $t_line2->row_num . "</h3>" .
-                "<p style='font-size:40px;position: relative;bottom:25px;padding:15px 0 0 0;min-width:160px;height:95px;background:#1e7100;border-radius: 40%;text-align: center;'
+                <h3 style='margin-right: 20px;font-weight: bold;min-width:50px;font-size:40px;'>" . $t_line2->row_num . "</h3>" .
+                "<p style='font-size:40px;position: relative;bottom:10px;padding:0 0 0 0;min-width:140px;height:65px;background:#1e7100;text-align: center;'
                     class='text-white'>" . $t_line2->diff_target_percent . "%" . "</p>
 
                 </div>
@@ -1268,21 +1267,21 @@ elseif ($t_line->row_num == 3) {
             }
 
             echo "
-            <div style='display: flex;margin:auto;width:750px;'>"
-                . "<div style='display: flex;min-width:220px;margin-right:220px;'>
-                <h3><i class='bi bi-arrow-down-short' style='background:#ff0000;color:white;font-size:40px;'></i></h3>&nbsp;&nbsp;
-                <h3 style='font-weight: bold;font-size:40px;'>Line - </h3>           &nbsp;&nbsp;
+            <div style='display: flex;margin:auto;width:750px;position: relative;top:-135px;left:100px;'>"
+                . "<div style='display: flex;min-width:220px;margin-right:100px;'>
+                <h3><i class='bi bi-arrow-down' style='background:#ff0000;color:white;font-size:40px;'></i></h3>&nbsp;&nbsp;
+                <h3 style='font-weight: bold;font-size:40px;'>Line </h3>           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <h3 style='font-weight: bold;font-size:40px;'>" . $magic . "</h3>
                     </div>" .
 
                     "<h3 style='font-weight: bold;font-size:40px;'>Rank</h3>           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-                <h3 style='margin-right: 50px;font-weight: bold;min-width:50px;font-size:40px;'>" . $t_line2->row_num . "</h3>" .
-                "<p style='font-size:40px;position: relative;bottom:25px;padding:15px 0 0 0;min-width:160px;height:95px;background:#ff0000;border-radius: 40%;text-align: center;'
+                <h3 style='margin-right: 20px;font-weight: bold;min-width:50px;font-size:40px;'>" . $t_line2->row_num . "</h3>" .
+                "<p style='font-size:40px;position: relative;bottom:10px;padding:0 0 0 0;min-width:140px;height:65px;background:#ff0000;text-align: center;'
                     class='text-white'>" . $t_line2->diff_target_percent . "%" . "</p>
 
                 </div>
-                    <br>";
+                    ";
         }
 }
 }
@@ -1299,7 +1298,7 @@ elseif ($t_line->row_num == 4) {
             }
 
             echo "
-            <div style='display: flex;margin:auto;width:750px;'>"
+            <div style='display: flex;margin:auto;width:750px;position: relative;top:-220px;'>"
                 . "<div style='display: flex;min-width:220px;margin-right:220px;'>
                 <h3><i class='bi bi-arrow-up-short' style='background:#1e7100;color:white;font-size:40px;'></i></h3>&nbsp;&nbsp;
                 <h3 style='font-weight: bold;font-size:40px;'>Line - </h3>           &nbsp;&nbsp;
@@ -1309,7 +1308,7 @@ elseif ($t_line->row_num == 4) {
                     "<h3 style='font-weight: bold;font-size:40px;'>Rank</h3>           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
                 <h3 style='margin-right: 50px;font-weight: bold;min-width:50px;font-size:40px;'>" . $t_line2->row_num . "</h3>" .
-                "<p style='font-size:40px;position: relative;bottom:25px;padding:15px 0 0 0;min-width:160px;height:95px;background:#1e7100;border-radius: 40%;text-align: center;'
+                "<p style='font-size:40px;position: relative;bottom:25px;padding:15px 0 0 0;min-width:160px;height:95px;background:#1e7100;text-align: center;'
                     class='text-white'>" . $t_line2->diff_target_percent . "%" . "</p>
 
                 </div>
@@ -1324,7 +1323,7 @@ elseif ($t_line->row_num == 4) {
             }
 
             echo "
-            <div style='display: flex;margin:auto;width:750px;'>"
+            <div style='display: flex;margin:auto;width:750px;position: relative;top:-220px;'>"
                 . "<div style='display: flex;min-width:220px;margin-right:220px;'>
                 <h3><i class='bi bi-arrow-down-short' style='background:#ff0000;color:white;font-size:40px;'></i></h3>&nbsp;&nbsp;
                 <h3 style='font-weight: bold;font-size:40px;'>Line - </h3>           &nbsp;&nbsp;
@@ -1334,11 +1333,11 @@ elseif ($t_line->row_num == 4) {
                     "<h3 style='font-weight: bold;font-size:40px;'>Rank</h3>           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
                 <h3 style='margin-right: 50px;font-weight: bold;min-width:50px;font-size:40px;'>" . $t_line2->row_num . "</h3>" .
-                "<p style='font-size:40px;position: relative;bottom:25px;padding:15px 0 0 0;min-width:160px;height:95px;background:#ff0000;border-radius: 40%;text-align: center;'
+                "<p style='font-size:40px;position: relative;bottom:25px;padding:15px 0 0 0;min-width:160px;height:95px;background:#ff0000;text-align: center;'
                     class='text-white'>" . $t_line2->diff_target_percent . "%" . "</p>
 
                 </div>
-                    <br>";
+                    ";
         }
 }
 }
@@ -1357,7 +1356,7 @@ elseif ($t_line->row_num == 5) {
             }
 
             echo "
-            <div style='display: flex;margin:auto;width:750px;'>"
+            <div style='display: flex;margin:auto;width:750px;position: relative;top:-220px;'>"
                 . "<div style='display: flex;min-width:220px;margin-right:220px;'>
                 <h3><i class='bi bi-arrow-up-short' style='background:#1e7100;color:white;font-size:40px;'></i></h3>&nbsp;&nbsp;
                 <h3 style='font-weight: bold;font-size:40px;'>Line - </h3>           &nbsp;&nbsp;
@@ -1367,7 +1366,7 @@ elseif ($t_line->row_num == 5) {
                     "<h3 style='font-weight: bold;font-size:40px;'>Rank</h3>           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
                 <h3 style='margin-right: 50px;font-weight: bold;min-width:50px;font-size:40px;'>" . $t_line2->row_num . "</h3>" .
-                "<p style='font-size:40px;position: relative;bottom:25px;padding:15px 0 0 0;min-width:160px;height:95px;background:#1e7100;border-radius: 40%;text-align: center;'
+                "<p style='font-size:40px;position: relative;bottom:25px;padding:15px 0 0 0;min-width:160px;height:95px;background:#1e7100;text-align: center;'
                     class='text-white'>" . $t_line2->diff_target_percent . "%" . "</p>
 
                 </div>
@@ -1382,7 +1381,7 @@ elseif ($t_line->row_num == 5) {
             }
 
             echo "
-            <div style='display: flex;margin:auto;width:750px;'>"
+            <div style='display: flex;margin:auto;width:750px;position: relative;top:-220px;'>"
                 . "<div style='display: flex;min-width:220px;margin-right:220px;'>
                 <h3><i class='bi bi-arrow-down-short' style='background:#ff0000;color:white;font-size:40px;'></i></h3>&nbsp;&nbsp;
                 <h3 style='font-weight: bold;font-size:40px;'>Line - </h3>           &nbsp;&nbsp;
@@ -1392,11 +1391,11 @@ elseif ($t_line->row_num == 5) {
                     "<h3 style='font-weight: bold;font-size:40px;'>Rank</h3>           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
                 <h3 style='margin-right: 50px;font-weight: bold;min-width:50px;font-size:40px;'>" . $t_line2->row_num . "</h3>" .
-                "<p style='font-size:40px;position: relative;bottom:25px;padding:15px 0 0 0;min-width:160px;height:95px;background:#ff0000;border-radius: 40%;text-align: center;'
+                "<p style='font-size:40px;position: relative;bottom:25px;padding:15px 0 0 0;min-width:160px;height:95px;background:#ff0000;text-align: center;'
                     class='text-white'>" . $t_line2->diff_target_percent . "%" . "</p>
 
                 </div>
-                    <br>";
+                    ";
         }
 }
 }
@@ -1413,7 +1412,7 @@ elseif ($t_line->row_num == 6) {
             }
 
             echo "
-            <div style='display: flex;margin:auto;width:750px;'>"
+            <div style='display: flex;margin:auto;width:750px;position: relative;top:-220px;'>"
                 . "<div style='display: flex;min-width:220px;margin-right:220px;'>
                 <h3><i class='bi bi-arrow-up-short' style='background:#1e7100;color:white;font-size:40px;'></i></h3>&nbsp;&nbsp;
                 <h3 style='font-weight: bold;font-size:40px;'>Line - </h3>           &nbsp;&nbsp;
@@ -1423,7 +1422,7 @@ elseif ($t_line->row_num == 6) {
                     "<h3 style='font-weight: bold;font-size:40px;'>Rank</h3>           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
                 <h3 style='margin-right: 50px;font-weight: bold;min-width:50px;font-size:40px;'>" . $t_line2->row_num . "</h3>" .
-                "<p style='font-size:40px;position: relative;bottom:25px;padding:15px 0 0 0;min-width:160px;height:95px;background:#1e7100;border-radius: 40%;text-align: center;'
+                "<p style='font-size:40px;position: relative;bottom:25px;padding:15px 0 0 0;min-width:160px;height:95px;background:#1e7100;text-align: center;'
                     class='text-white'>" . $t_line2->diff_target_percent . "%" . "</p>
 
                 </div>
@@ -1438,7 +1437,7 @@ elseif ($t_line->row_num == 6) {
             }
 
             echo "
-            <div style='display: flex;margin:auto;width:750px;'>"
+            <div style='display: flex;margin:auto;width:750px;position: relative;top:-220px;'>"
                 . "<div style='display: flex;min-width:220px;margin-right:220px;'>
                 <h3><i class='bi bi-arrow-down-short' style='background:#ff0000;color:white;font-size:40px;'></i></h3>&nbsp;&nbsp;
                 <h3 style='font-weight: bold;font-size:40px;'>Line - </h3>           &nbsp;&nbsp;
@@ -1448,11 +1447,11 @@ elseif ($t_line->row_num == 6) {
                     "<h3 style='font-weight: bold;font-size:40px;'>Rank</h3>           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
                 <h3 style='margin-right: 50px;font-weight: bold;min-width:50px;font-size:40px;'>" . $t_line2->row_num . "</h3>" .
-                "<p style='font-size:40px;position: relative;bottom:25px;padding:15px 0 0 0;min-width:160px;height:95px;background:#ff0000;border-radius: 40%;text-align: center;'
+                "<p style='font-size:40px;position: relative;bottom:25px;padding:15px 0 0 0;min-width:160px;height:95px;background:#ff0000;text-align: center;'
                     class='text-white'>" . $t_line2->diff_target_percent . "%" . "</p>
 
                 </div>
-                    <br>";
+                    ";
         }
 
 }
@@ -1473,7 +1472,7 @@ elseif ($t_line->row_num == 7) {
             }
 
             echo "
-            <div style='display: flex;margin:auto;width:750px;'>"
+            <div style='display: flex;margin:auto;width:750px;position: relative;top:-220px;'>"
                 . "<div style='display: flex;min-width:220px;margin-right:220px;'>
                 <h3><i class='bi bi-arrow-up-short' style='background:#1e7100;color:white;font-size:40px;'></i></h3>&nbsp;&nbsp;
                 <h3 style='font-weight: bold;font-size:40px;'>Line - </h3>           &nbsp;&nbsp;
@@ -1483,7 +1482,7 @@ elseif ($t_line->row_num == 7) {
                     "<h3 style='font-weight: bold;font-size:40px;'>Rank</h3>           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
                 <h3 style='margin-right: 50px;font-weight: bold;min-width:50px;font-size:40px;'>" . $t_line2->row_num . "</h3>" .
-                "<p style='font-size:40px;position: relative;bottom:25px;padding:15px 0 0 0;min-width:160px;height:95px;background:#1e7100;border-radius: 40%;text-align: center;'
+                "<p style='font-size:40px;position: relative;bottom:25px;padding:15px 0 0 0;min-width:160px;height:95px;background:#1e7100;text-align: center;'
                     class='text-white'>" . $t_line2->diff_target_percent . "%" . "</p>
 
                 </div>
@@ -1499,7 +1498,7 @@ elseif ($t_line->row_num == 7) {
             }
 
             echo "
-            <div style='display: flex;margin:auto;width:750px;'>"
+            <div style='display: flex;margin:auto;width:750px;position: relative;top:-220px;'>"
                 . "<div style='display: flex;min-width:220px;margin-right:220px;'>
                 <h3><i class='bi bi-arrow-down-short' style='background:#ff0000;color:white;font-size:40px;'></i></h3>&nbsp;&nbsp;
                 <h3 style='font-weight: bold;font-size:40px;'>Line - </h3>           &nbsp;&nbsp;
@@ -1509,11 +1508,11 @@ elseif ($t_line->row_num == 7) {
                     "<h3 style='font-weight: bold;font-size:40px;'>Rank</h3>           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
                 <h3 style='margin-right: 50px;font-weight: bold;min-width:50px;font-size:40px;'>" . $t_line2->row_num . "</h3>" .
-                "<p style='font-size:40px;position: relative;bottom:25px;padding:15px 0 0 0;min-width:160px;height:95px;background:#ff0000;border-radius: 40%;text-align: center;'
+                "<p style='font-size:40px;position: relative;bottom:25px;padding:15px 0 0 0;min-width:160px;height:95px;background:#ff0000;text-align: center;'
                     class='text-white'>" . $t_line2->diff_target_percent . "%" . "</p>
 
                 </div>
-                    <br>";
+                    ";
         }
 
 }
@@ -1532,7 +1531,7 @@ elseif ($t_line->row_num == 8) {
             }
 
             echo "
-            <div style='display: flex;margin:auto;width:750px;'>"
+            <div style='display: flex;margin:auto;width:750px;position: relative;top:-220px;'>"
                 . "<div style='display: flex;min-width:220px;margin-right:220px;'>
                 <h3><i class='bi bi-arrow-up-short' style='background:#1e7100;color:white;font-size:40px;'></i></h3>&nbsp;&nbsp;
                 <h3 style='font-weight: bold;font-size:40px;'>Line - </h3>           &nbsp;&nbsp;
@@ -1542,7 +1541,7 @@ elseif ($t_line->row_num == 8) {
                     "<h3 style='font-weight: bold;font-size:40px;'>Rank</h3>           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
                 <h3 style='margin-right: 50px;font-weight: bold;min-width:50px;font-size:40px;'>" . $t_line2->row_num . "</h3>" .
-                "<p style='font-size:40px;position: relative;bottom:25px;padding:15px 0 0 0;min-width:160px;height:95px;background:#1e7100;border-radius: 40%;text-align: center;'
+                "<p style='font-size:40px;position: relative;bottom:25px;padding:15px 0 0 0;min-width:160px;height:95px;background:#1e7100;text-align: center;'
                     class='text-white'>" . $t_line2->diff_target_percent . "%" . "</p>
 
                 </div>
@@ -1557,7 +1556,7 @@ elseif ($t_line->row_num == 8) {
             }
 
             echo "
-            <div style='display: flex;margin:auto;width:750px;'>"
+            <div style='display: flex;margin:auto;width:750px;position: relative;top:-220px;'>"
                 . "<div style='display: flex;min-width:220px;margin-right:220px;'>
                 <h3><i class='bi bi-arrow-down-short' style='background:#ff0000;color:white;font-size:40px;'></i></h3>&nbsp;&nbsp;
                 <h3 style='font-weight: bold;font-size:40px;'>Line - </h3>           &nbsp;&nbsp;
@@ -1567,32 +1566,12 @@ elseif ($t_line->row_num == 8) {
                     "<h3 style='font-weight: bold;font-size:40px;'>Rank</h3>           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
                 <h3 style='margin-right: 50px;font-weight: bold;min-width:50px;font-size:40px;'>" . $t_line2->row_num . "</h3>" .
-                "<p style='font-size:40px;position: relative;bottom:25px;padding:15px 0 0 0;min-width:160px;height:95px;background:#ff0000;border-radius: 40%;text-align: center;'
+                "<p style='font-size:40px;position: relative;bottom:25px;padding:15px 0 0 0;min-width:160px;height:95px;background:#ff0000;text-align: center;'
                     class='text-white'>" . $t_line2->diff_target_percent . "%" . "</p>
 
                 </div>
-                    <br>";
+                    ";
         }
-
-        if (!$t_line2->row_num){
-            echo "
-            <div style='display: flex;margin:auto;width:750px;'>"
-                . "<div style='display: flex;min-width:220px;margin-right:220px;'>
-                <h3></h3>&nbsp;&nbsp;
-                <h3 style='font-weight: bold;font-size:40px;'></h3>           &nbsp;&nbsp;
-                <h3 style='font-weight: bold;font-size:40px;'></h3>
-                    </div>" .
-
-                    "<h3 style='font-weight: bold;font-size:40px;'></h3>           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-                <h3 style='margin-right: 50px;font-weight: bold;min-width:50px;font-size:40px;'></h3>" .
-                "<p style='font-size:40px;position: relative;bottom:25px;padding:15px 0 0 0;min-width:160px;height:95px;border-radius: 40%;text-align: center;'
-                    class='text-white'></p>
-                </div>
-                    <br>";
-            break;
-        }
-        // ******************************** end ********************************
 }
 }
 
@@ -1608,7 +1587,7 @@ elseif ($t_line->row_num == 9) {
             }
 
             echo "
-            <div style='display: flex;margin:auto;width:750px;'>"
+            <div style='display: flex;margin:auto;width:750px;position: relative;top:-220px;'>"
                 . "<div style='display: flex;min-width:220px;margin-right:220px;'>
                 <h3><i class='bi bi-arrow-up-short' style='background:#1e7100;color:white;font-size:40px;'></i></h3>&nbsp;&nbsp;
                 <h3 style='font-weight: bold;font-size:40px;'>Line - </h3>           &nbsp;&nbsp;
@@ -1618,7 +1597,7 @@ elseif ($t_line->row_num == 9) {
                     "<h3 style='font-weight: bold;font-size:40px;'>Rank</h3>           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
                 <h3 style='margin-right: 50px;font-weight: bold;min-width:50px;font-size:40px;'>" . $t_line2->row_num . "</h3>" .
-                "<p style='font-size:40px;position: relative;bottom:25px;padding:15px 0 0 0;min-width:160px;height:95px;background:#1e7100;border-radius: 40%;text-align: center;'
+                "<p style='font-size:40px;position: relative;bottom:25px;padding:15px 0 0 0;min-width:160px;height:95px;background:#1e7100;text-align: center;'
                     class='text-white'>" . $t_line2->diff_target_percent . "%" . "</p>
 
                 </div>
@@ -1633,7 +1612,7 @@ elseif ($t_line->row_num == 9) {
             }
 
             echo "
-            <div style='display: flex;margin:auto;width:750px;'>"
+            <div style='display: flex;margin:auto;width:750px;position: relative;top:-220px;'>"
                 . "<div style='display: flex;min-width:220px;margin-right:220px;'>
                 <h3><i class='bi bi-arrow-down-short' style='background:#ff0000;color:white;font-size:40px;'></i></h3>&nbsp;&nbsp;
                 <h3 style='font-weight: bold;font-size:40px;'>Line - </h3>           &nbsp;&nbsp;
@@ -1643,11 +1622,11 @@ elseif ($t_line->row_num == 9) {
                     "<h3 style='font-weight: bold;font-size:40px;'>Rank</h3>           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
                 <h3 style='margin-right: 50px;font-weight: bold;min-width:50px;font-size:40px;'>" . $t_line2->row_num . "</h3>" .
-                "<p style='font-size:40px;position: relative;bottom:25px;padding:15px 0 0 0;min-width:160px;height:95px;background:#ff0000;border-radius: 40%;text-align: center;'
+                "<p style='font-size:40px;position: relative;bottom:25px;padding:15px 0 0 0;min-width:160px;height:95px;background:#ff0000;text-align: center;'
                     class='text-white'>" . $t_line2->diff_target_percent . "%" . "</p>
 
                 </div>
-                    <br>";
+                    ";
         }
 }
 }
@@ -1664,7 +1643,7 @@ elseif ($t_line->row_num == 10) {
             }
 
             echo "
-            <div style='display: flex;margin:auto;width:750px;'>"
+            <div style='display: flex;margin:auto;width:750px;position: relative;top:-220px;'>"
                 . "<div style='display: flex;min-width:220px;margin-right:220px;'>
                 <h3><i class='bi bi-arrow-up-short' style='background:#1e7100;color:white;font-size:40px;'></i></h3>&nbsp;&nbsp;
                 <h3 style='font-weight: bold;font-size:40px;'>Line - </h3>           &nbsp;&nbsp;
@@ -1674,11 +1653,11 @@ elseif ($t_line->row_num == 10) {
                     "<h3 style='font-weight: bold;font-size:40px;'>Rank</h3>           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
                 <h3 style='margin-right: 50px;font-weight: bold;min-width:50px;font-size:40px;'>" . $t_line2->row_num . "</h3>" .
-                "<p style='font-size:40px;position: relative;bottom:25px;padding:15px 0 0 0;min-width:160px;height:95px;background:#1e7100;border-radius: 40%;text-align: center;'
+                "<p style='font-size:40px;position: relative;bottom:25px;padding:15px 0 0 0;min-width:160px;height:95px;background:#1e7100;text-align: center;'
                     class='text-white'>" . $t_line2->diff_target_percent . "%" . "</p>
 
                 </div>
-                    <br>";
+                    ";
         }
 }
 }
@@ -1711,36 +1690,7 @@ elseif ($t_line->row_num == 10) {
 
 
 
-<div class="container-fluid" style="position: relative;left:1500px;top:-620px;">
 
-    @php $date_string = date("d.m.Y");
-    $date_string_for_export_pdf = date("Y_m_d", strtotime($date_string)); @endphp
-    <div>
-        <div>
-            <ul class="horizontal-slide" style="" id="tabs">
-                <li class="span2 bg-transparent">
-                    <h2 class="m-0 fw-bold">Date - {{ $date_string }}</h2>
-                </li>
-            </ul>
-        </div>
-        <div>
-            <div>
-                <h3 class="" style='' id="digital-clock-2"></h3>
-            </div>
-            <script>
-                /// Live Clock in line_entry.blade
-            function showTime() {
-                var date = new Date().toLocaleTimeString(
-                    "en-US",
-                    Intl.DateTimeFormat().resolvedOptions().timeZone
-                );
-                document.getElementById("digital-clock-2").innerHTML = date;
-            }
-            setInterval(showTime, 1000);
-            /// Live Clock in line_entry.blade End
-            </script>
-        </div>
-    </div>
 
 
 {{--
