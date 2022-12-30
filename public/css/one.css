@@ -1,0 +1,6 @@
+html, body {
+    max-width: 1900px;
+    background-color: #fff;
+    overflow: auto !important;
+    -webkit-print-color-adjust: exact;
+}
