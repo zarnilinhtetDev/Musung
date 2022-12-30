@@ -20,13 +20,12 @@
 <div style="height: 10px"></div>
 
 
-<div class="" style="position:relative;top:160px;width:270px;right:245px;margin-left:1645px;
-height:130px;border-style: solid;color:black;padding: 0 0 0 0;text-align:center;background:#f3f3f3;">
+<div class="js_time_border" style="">
     @php $date_string = date("d.m.Y");
     $date_string_for_export_pdf = date("Y_m_d", strtotime($date_string)); @endphp
     <div>
         <div>
-            <ul class="horizontal-slide" style="" id="tabs">
+            <ul class="horizontal-slide" id="tabs">
                 <li class="span2 bg-transparent">
                     {{-- <h2 class="m-0 fw-bold">Date - {{ $date_string }}</h2> --}}
                 </li>
@@ -34,7 +33,7 @@ height:130px;border-style: solid;color:black;padding: 0 0 0 0;text-align:center;
         </div>
         <div>
             <div>
-                <h1 class="" style='font-weight:bold;font-size:49px;width:180px;text-align:center;position: relative;left:35px;letter-spacing: 5px;bottom:20px;' id="digital-clock-2"></h1>
+                <h1 class="js_time" id="digital-clock-2"></h1>
             </div>
             <script>
                 /// Live Clock in line_entry.blade
