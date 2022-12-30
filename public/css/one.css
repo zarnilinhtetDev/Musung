@@ -137,15 +137,53 @@ html, body {
     .magic { position: relative; left: -200px; }
     .js_time_border { position:relative;top:0px;width:270px;right:245px;margin-left:1210px;}
 
-    .right_table .right_table_text1 { font-size:23px; }
-    .right_table .right_table_text2 { font-size:23px; }
-    .right_table .right_table_text3 { font-size:23px; }
+    .right_table .right_table_text1 { font-size:24px; }
+    .right_table .right_table_text2 { font-size:24px; }
+    .right_table .right_table_text3 { font-size:24px; }
 }
 
 
-   @media(max-width:1286px) {
+@media(max-width:1286px) {
+    .magic { position: relative; left: -230px; }
+    .js_time_border { position:relative;top:0px;width:270px;right:245px;margin-left:1180px;}
 
-   }
+    .right_table .right_table_text1 { font-size:24px; }
+    .right_table .right_table_text2 { font-size:24px; }
+    .right_table .right_table_text3 { font-size:24px; }
+}
+
+
+@media(max-width:1138px) {
+    .kbody { zoom: 160%;}
+    .top_rank {zoom: 160%;}
+    .bottom_rank{ zoom: 160%;}
+
+    .magic { position: relative; left: -205px; }
+    .js_time_border { position:relative;top:0px;width:250px;right:245px;margin-left:1067px;}
+    .js_time { font-weight:bold;font-size:45px;width:160px;text-align:center;position: relative;left:35px;letter-spacing: 5px;bottom:20px;}
+}
+
+
+@media(max-width:1120px) {
+    .magic { position: relative; left: -210px; }
+    .js_time_border { position:relative;top:0px;width:270px;right:245px;margin-left:1040px;}
+}
+
+
+@media(max-width:1024px) {
+    .kbody { zoom: 140%;}
+    .top_rank {zoom: 140%;}
+    .bottom_rank{ zoom: 140%;}
+
+    .magic { position: relative; left: -210px; }
+    .js_time_border { position:relative;top:0px;width:220px;right:245px;margin-left:934px;}
+    .js_time { font-weight:bold;font-size:37px;width:150px;text-align:center;position: relative;left:35px;letter-spacing: 5px;bottom:20px;}
+
+    .right_table .right_table_text1 { font-size:24px; }
+    .right_table .right_table_text2 { font-size:24px; }
+    .right_table .right_table_text3 { font-size:24px; }
+}
+
 
    @media(max-width:720px) {
 
