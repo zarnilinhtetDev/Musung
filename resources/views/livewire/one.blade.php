@@ -1,6 +1,6 @@
 
 <div wire:poll.1000ms>
-    <div id="body" style="zoom: 210%;" class="d-flex flex-row">
+    <div id="body" class="d-flex flex-row kbody">
         {{-- <div id="body" style="zoom: 210%;background:red;" class="panel-body d-flex flex-row"> ********************************* --}}
     @php $time_arr = [];
     foreach(array_reverse($time) as $t3){

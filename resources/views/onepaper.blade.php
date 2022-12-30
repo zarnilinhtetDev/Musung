@@ -20,7 +20,8 @@
 <div style="height: 10px"></div>
 
 
-<div style="float: right;position: relative;top:30px;width:270px;right:245px;height:130px;border-style: solid;color:black;padding: 0 0 0 0;text-align:center;background:#f3f3f3;">
+<div class="" style="position:relative;top:160px;width:270px;right:245px;margin-left:1645px;
+height:130px;border-style: solid;color:black;padding: 0 0 0 0;text-align:center;background:#f3f3f3;">
     @php $date_string = date("d.m.Y");
     $date_string_for_export_pdf = date("Y_m_d", strtotime($date_string)); @endphp
     <div>
@@ -89,10 +90,16 @@
 
 
     {{-- <div class="col-12 col-md-8" id="live_dash_wrapper"> --}}
+        <div class="magic">
+
+        
         @livewire('one', ['line_id' => $line_id,
         'line_assign_id' => $line_assign_id,
         'line_date' => $line_date
         ])
+
+
+        </div>
         {{-- </div> --}}
 
 

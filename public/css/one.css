@@ -1,6 +1,31 @@
 html, body {
-    max-width: 1900px;
+    max-width: 1790px;
     background-color: #fff;
     overflow: auto !important;
     -webkit-print-color-adjust: exact;
 }
+
+.kbody {
+    zoom: 210%;
+    text-align: center;
+    }
+
+
+
+@media(max-width:1698px) {
+    .magic {
+        position: relative;
+        left: -205px;
+        top: -165px;
+       }
+   }
+
+
+@media(max-width:1366px) {
+    .magic {
+        position: relative;
+        left: -325px;
+        top: -165px;
+       }
+   }
+
