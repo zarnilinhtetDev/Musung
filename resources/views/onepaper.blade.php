@@ -20,7 +20,7 @@
 
 
 
-<div class="container-fluid">
+{{-- <div class="container-fluid">
 
     @php $date_string = date("d.m.Y");
     $date_string_for_export_pdf = date("Y_m_d", strtotime($date_string)); @endphp
@@ -49,11 +49,11 @@
             /// Live Clock in line_entry.blade End
             </script>
         </div>
-    </div>
+    </div> --}}
 
 
 
-    <div style="height: 70px"></div>
+    <div style="height: 10px"></div>
 
 
 

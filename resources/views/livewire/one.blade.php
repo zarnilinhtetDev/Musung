@@ -1,5 +1,6 @@
 <div wire:poll.1000ms>
-<div id="body" style="zoom: 210%;" class="panel-body d-flex flex-row">
+    <div id="body" style="zoom: 210%;" class="d-flex flex-row">
+        {{-- <div id="body" style="zoom: 210%;background:red;" class="panel-body d-flex flex-row"> ********************************* --}}
     @php $time_arr = [];
     foreach(array_reverse($time) as $t3){
     $time_arr[] = $t3->time_name;
@@ -18,7 +19,7 @@
                 {{-- <tr class="tr-2 tr-3"> --}}
                 <tr>
                     {{-- <th scope="col" style="vertical-align: middle;">Status</th> --}}
-                    <th scope="col" style="vertical-align: middle;">Line</th>
+                    <th scope="col" style="vertical-align: middle;position: relative;left:88px;top:60px;">Line</th>
                     {{-- <th scope="col" style="vertical-align: middle;" class="p-0">
                         <table class="w-100 text-center table m-0 text-white table-bordered" border="1">
                             <tr class="">
@@ -33,59 +34,13 @@
                     {{-- <th scope="col" style="vertical-align: middle;">Item Name</th> --}}
                     {{-- <th scope="col" style="vertical-align: middle;">Inline<br />Stock</th> --}}
                     {{-- <th scope="col" style="vertical-align: middle;">Target</th> --}}
-                    @foreach(array_reverse($time) as $t)
 
-                    @php
-                    $static_hour2 = date("H.i");
-                    $static_hour2 = (float) $static_hour2;
-
-
-                    // check between 11:30 am and 1:00 pm
-                    if ($static_hour2 >= 11.30 && $static_hour2 < 12.00) { if ($t->time_name == "11:30") {
-                        $t->time_name = 11;
-                        }
-                        }
-                        elseif ($static_hour2 >= 12.00 && $static_hour2 < 13.00) { if ($t->time_name == "11:30") {
-                            $t->time_name = 12;
-                            }
-                            }
-
-                            @endphp
-
-
-                            @if((int) $t->time_name == (int) date("H"))
-
-
-                            <th scope="col" id="th_{{ $t->time_name }}" style="vertical-align: middle;" class="confuse">
-
-                                @php
-                                $static_hour2 = date("H.i");
-                                $static_hour2 = (float) $static_hour2;
-
-
-                                // half time check for exact time
-                                if ($static_hour2 >= 11.30 && $static_hour2 < 13.00) { $t->time_name = "11:30";
-                                    }
-                                    elseif ($static_hour2 >= 9.00 && $static_hour2 < 9.30) { $t->time_name = "8:30";
-                                        }
-                                        elseif ($static_hour2 >= 10.00 && $static_hour2 < 10.30) { $t->time_name =
-                                            "9:30";
-                                            }
-                                            elseif ($static_hour2 >= 11.00 && $static_hour2 < 11.30) { $t->time_name =
-                                                "10:30";
-                                                }
-
-
-                                                echo "<div style='margin-left:110px;border-style: solid;padding: 2px 5px 2px 5px;font-size:13px;'>" . date('g:i A',strtotime($t->time_name)) . "</div>";
-
-                                                @endphp
-
-                            </th>
-                            @endif
-
-                            @endforeach
                 </tr>
             </thead>
+
+
+
+
             <tbody>
                 @foreach ($getLine as $g_line)
                 @php
@@ -118,11 +73,13 @@
 
                     <td class="fw-bold line_name_{{ $g_line_id }} fs-4" style="vertical-align: middle;min-width: 40px;">
                         @if($line_id == $g_line_id)
-                        <h3 class='text-center' style="border-style: solid;color:black;padding: 2px;">{{
+                        <h3 class='text-center' style="border-style: solid;color:black;padding: 2px;position: relative;left:85px;top:60px;font-size:40px;">{{
                         $g_line_name
                         }}</h3>
                         @endif
                     </td>
+                </tbody>
+            </table>
                     {{-- <td>
                         <table class="w-100 text-center table table-bordered">
                             <tr>
@@ -171,6 +128,81 @@
                             '') {{ number_format($g_main_target + $g_ot_main_target) }}
                             @else {{ number_format($g_main_target) }}
                             @endif</span></td> --}}
+
+
+
+
+
+
+                            @foreach(array_reverse($time) as $t)
+                            @php
+                            $static_hour2 = date("H.i");
+                            $static_hour2 = (float) $static_hour2;
+
+
+                            // check between 11:30 am and 1:00 pm
+                            if ($static_hour2 >= 11.30 && $static_hour2 < 12.00) { if ($t->time_name == "11:30") {
+                                $t->time_name = 11;
+                                }
+                                }
+                                elseif ($static_hour2 >= 12.00 && $static_hour2 < 13.00) { if ($t->time_name == "11:30") {
+                                    $t->time_name = 12;
+                                    }
+                                    }
+
+                                    @endphp
+
+
+                                    @if((int) $t->time_name == (int) date("H"))
+
+
+                                    <div scope="col" id="th_{{ $t->time_name }}" style="vertical-align: middle;" class="confuse">
+
+                                        @php
+                                        $static_hour2 = date("H.i");
+                                        $static_hour2 = (float) $static_hour2;
+
+
+                                        // half time check for exact time
+                                        if ($static_hour2 >= 11.30 && $static_hour2 < 13.00) { $t->time_name = "11:30";
+                                            }
+                                            elseif ($static_hour2 >= 9.00 && $static_hour2 < 9.30) { $t->time_name = "8:30";
+                                                }
+                                                elseif ($static_hour2 >= 10.00 && $static_hour2 < 10.30) { $t->time_name =
+                                                    "9:30";
+                                                    }
+                                                    elseif ($static_hour2 >= 11.00 && $static_hour2 < 11.30) { $t->time_name =
+                                                        "10:30";
+                                                        }
+
+
+                                                        echo "<div style='position: relative;top:100px;
+                                                        margin-left:105px;border-style: solid;padding: 4px 0 4px 0;font-size:13px;min-width:120px;margin-bottom:10px;
+                                                                        text-align:center;font-size:19px;'><h3>"
+                                                            . date('g:i A',strtotime($t->time_name)) . "</h3></div>";
+
+                                                        @endphp
+
+                                                                        </div>
+                                    @endif
+
+                                    @endforeach
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -239,12 +271,12 @@
                                         < 8 ) --}} <td class="confuse2" id="{{ $t_2->time_name }}">
 
 
-                                            <table class="w-100 text-center table table-bordered table-sm" style="margin-left:115px;max-width:50px;">
+                                            <table class="w-100 text-center table table-bordered table-sm" style="margin-left:105px;max-width:120px;position:relative;top:100px;">
                                             {{-- <table class="w-100 text-center table table-bordered m-0" border="1"> ********************************* --}}
 
                                                 <tr>
-                                                    <td style="height:10px;"><span style="font-size: 12px;" id="new_div_target_{{ $t_2->time_id }}"
-                                                            class="new_div_target">
+                                                    <td style="height:10px;"><span style="font-size:19px;x;<h3>" id="new_div_target_{{ $t_2->time_id }}"
+                                                            class="new_div_ta</h3>rget">
                                                             @if($t_2->div_actual_target=='') <span
                                                                 style="color:#adadad;">{{
                                                                 number_format($t_2->actual_target_entry) }}</span>
@@ -261,9 +293,9 @@
 
 
                                                 <tr class="text-dark">
-                                                    <td id="td_div_actual_target_{{ $t_2->time_id }}" style="height:10px;"
+                                                    <td id="td_div_actual_target_{{ $t_2->time_id }}" style="height:40px;"
                                                         class="td_div_actual_target">
-                                                        <span style="font-size: 12px;" id="div_actual_target_{{ $t_2->time_id }}"
+                                                        <span style="font-size: 19px;" id="div_actual_target_{{ $t_2->time_id }}"
                                                             class="div_actual_target_{{ $g_line_id }}">@if($t_2->div_actual_target
                                                             !=
                                                             ''){{
@@ -275,7 +307,7 @@
 
                                                 </tr>
                                                 <tr class="text-dark">
-                                                    <td id="td_div_actual_target_percent_{{ $t_2->time_id }}" style="height:10px;font-size: 12px;"><span
+                                                    <td id="td_div_actual_target_percent_{{ $t_2->time_id }}" style="height:40px;font-size: 19px;"><span
                                                             id="div_actual_target_percent_{{ $t_2->time_id }}"></span>
                                                     </td>
                                                     <td class="d-none"></td>
@@ -628,7 +660,7 @@ else{
 
 
 
-                                        <td class="d-none">
+                                        {{-- <td class="d-none">                        *************************************************************************************************
                                             <table class="w-100 text-center table table-bordered m-0" border="1">
                                                 <tr>
                                                     @foreach($total_overall_target as $t_overall_target)
@@ -657,7 +689,7 @@ else{
                                                 <tr class="text-dark">
                                                     <td id="t_overall_percent" class='fw-bold'></td>
                                                 </tr>
-                                            </table>
+                                            </table> --}}
                                             <script>
                                                 window.addEventListener('additionalInit10', event => {
                                 var t_overall_target = parseInt($("#t_overall_target").text().replace(/,/g, ''));
@@ -691,19 +723,19 @@ else{
 
                         });
                                             </script>
-                                        </td>
+                                        {{-- </td> --}}
+                                        {{-- <td class="d-none" style="vertical-align:middle;" class="fw-bolder">-</td>
                                         <td class="d-none" style="vertical-align:middle;" class="fw-bolder">-</td>
-                                        <td class="d-none" style="vertical-align:middle;" class="fw-bolder">-</td>
-                </tr>
-            </tbody>
-        </table>
+                </tr> --}}
+            {{-- </tbody>
+                        </table> ******************************************************** --}}
     </div>
 
 
 
 
     {{-- <div class=""> --}}
-        <table class="text-center" id="live_dash_1">
+        <table class="text-center" id="live_dash_1" style="margin-left:170px;">
             {{-- <table class="table table-hover table-striped table-bordered text-center table-dash" id="live_dash_1"> ******************************** --}}
             <thead>
                 {{-- <tr class="tr-2 tr-3"> --}}
@@ -737,7 +769,7 @@ else{
                     @foreach($top_line as $t_line)
                     @if ($g_line_id == $t_line->l_id)
 
-                    <table class="m-auto text-start text-center" style="width: 100px;position: relative;right:40px;">
+                    <table class="m-auto text-start text-center" style="width: 100px;position: relative;right:110px;top:-30px;">
                     <tbody>
                     <tr>
                         <td style="vertical-align: middle;">
@@ -754,7 +786,7 @@ else{
                     @if ($g_line_id == $t_line->l_id)
 
                     <tr>
-                    <td style="font-size:10px;vertical-align: middle;min-width:250px;height:150px;border-radius:10%;" class="t_line_{{ $t_line->row_num }} t_line_count">
+                    <td style="font-size:10px;vertical-align: middle;min-width:350px;height:200px;border-radius:10%;" class="t_line_{{ $t_line->row_num }} t_line_count">
                         <span class="input_row_num_{{ $t_line->row_num }} input_row_num" style="display:none;"><h3>{{
                             $t_line->row_num
                             }}</h3></span>
@@ -881,31 +913,34 @@ else{
             </tbody>
         </table>
     </td>
+
+
+
     <td>
-        <table class="w-100 text-center table m-0 table-bordered totalTable" style="max-width:50px;">
+        <table class="w-100 text-center table m-0 table-bordered totalTable" style="max-width:150px;max-height:50px;position:relative;right:110px;top:174px;">
 <tr>
-    <td>
-        Total
+    <td style="height: 10px;font-size:19px;">
+        <h3>Total</h3>
     </td>
 </tr>
             @foreach($actual_target_total as $a_total)
             @if ($g_line_id == $a_total->line_id)
             <tr>
-                <td><span class="fw-bold t_2_total_{{ $t_2_total->line_id }}" style="font-size:10px">
+                <td style="height: 10px;"><span class="fw-bold t_2_total_{{ $t_2_total->line_id }}" style="font-size:19px">
                         {{ $a_total->total_div_target }}
                     </span>
                 </td>
             </tr>
             <tr class="text-dark">
-                <td class="fw-bold td_a_total_{{ $t_2_total->line_id }}">
-                    <span class="a_total_{{ $t_2_total->line_id }}" style="font-size:10px">{{
+                <td style="height:10px;" class="fw-bold td_a_total_{{ $t_2_total->line_id }}">
+                    <span class="a_total_{{ $t_2_total->line_id }}" style="font-size:19px">{{
                         $a_total->total_actual_target
                         }}</span>
                 </td>
             </tr>
             <tr class="text-dark">
-                <td class="fw-bold td_t_percent_{{ $t_2_total->line_id }}">
-                    <span class="t_percent_{{ $t_2_total->line_id }}" style="font-size:10px"></span>
+                <td style="height:10px;" class="fw-bold td_t_percent_{{ $t_2_total->line_id }}">
+                    <span class="t_percent_{{ $t_2_total->line_id }}" style="font-size:19px"></span>
                 </td>
             </tr>
             <script>
@@ -1080,7 +1115,7 @@ td_a_percent.css('color', 'black');
 
 
 
-<div style="height: 80px;"></div>
+<div></div>
 
 
 @foreach ($getLine as $g_line)
@@ -1719,9 +1754,45 @@ elseif ($t_line->row_num == 10) {
 @endif
 @endforeach
 
+
+
 </div>
 
 
+
+
+
+
+<div class="container-fluid" style="position: relative;left:1500px;top:-620px;">
+
+    @php $date_string = date("d.m.Y");
+    $date_string_for_export_pdf = date("Y_m_d", strtotime($date_string)); @endphp
+    <div>
+        <div>
+            <ul class="horizontal-slide" style="" id="tabs">
+                <li class="span2 bg-transparent">
+                    <h2 class="m-0 fw-bold">Date - {{ $date_string }}</h2>
+                </li>
+            </ul>
+        </div>
+        <div>
+            <div>
+                <h3 class="" style='' id="digital-clock-2"></h3>
+            </div>
+            <script>
+                /// Live Clock in line_entry.blade
+            function showTime() {
+                var date = new Date().toLocaleTimeString(
+                    "en-US",
+                    Intl.DateTimeFormat().resolvedOptions().timeZone
+                );
+                document.getElementById("digital-clock-2").innerHTML = date;
+            }
+            setInterval(showTime, 1000);
+            /// Live Clock in line_entry.blade End
+            </script>
+        </div>
+    </div>
 
 
 {{--
