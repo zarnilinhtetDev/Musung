@@ -297,8 +297,8 @@
                                             {{-- <table class="w-100 text-center table table-bordered m-0" border="1"> ********************************* --}}
 
                                                 <tr>
-                                                    <td style="height:47px;"><span style="font-size:24px;" id="new_div_target_{{ $t_2->time_id }}"
-                                                            class="new_div_target">
+                                                    <td style="height:47px;"><span style="font-size:24px;" id="knew_div_target"
+                                                            class="knew_div_target">
                                                             @if($t_2->div_actual_target=='') <span
                                                                 style="color:black;">{{
                                                                 number_format($t_2->actual_target_entry) }}</span>
@@ -308,29 +308,29 @@
                                                             @endif
                                                         </span></td>
                                                     <td style="display: none;"><span style="font-size: 24px;"
-                                                            id="div_target_total_{{ $t_2->time_id }}"
-                                                            class="hide_div_target_total d-none">{{ $t_2->div_target
+                                                            id="kdiv_target_total"
+                                                            class="khide_div_target_total d-none">{{ $t_2->div_target
                                                             }}</span></td>
                                                 </tr>
 
 
                                                 <tr class="text-dark">
-                                                    <td id="td_div_actual_target_{{ $t_2->time_id }}" style="height:48px;"
-                                                        class="td_div_actual_target">
-                                                        <span style="font-size: 24px;" id="div_actual_target_{{ $t_2->time_id }}"
-                                                            class="div_actual_target_{{ $g_line_id }}">@if($t_2->div_actual_target
+                                                    <td id="ktd_div_actual_target" style="height:48px;"
+                                                        class="ktd_div_actual_target">
+                                                        <span style="font-size: 24px;" id="kdiv_actual_target"
+                                                            class="kdiv_actual_target">@if($t_2->div_actual_target
                                                             !=
                                                             ''){{
                                                             $t_2->div_actual_target }} @endif</span>
                                                     </td>
                                                     <td style="display: none;"><span
-                                                            id="div_actual_target_total_{{ $t_2->time_id }}"
-                                                            class="hide_div_actual_target_total d-none"></span></td>
+                                                            id="kdiv_actual_target_total"
+                                                            class="khide_div_actual_target_total d-none"></span></td>
 
                                                 </tr>
                                                 <tr class="text-dark">
-                                                    <td id="td_div_actual_target_percent_{{ $t_2->time_id }}" style="height:47.5px;font-size: 24px;"><span
-                                                            id="div_actual_target_percent_{{ $t_2->time_id }}">{{ $t_2->div_actual_percent }}%</span>
+                                                    <td id="ktd_div_actual_target_percent" style="height:47.5px;font-size: 24px;"><span
+                                                            id="kdiv_actual_target_percent">{{ $t_2->div_actual_percent }}%</span>
                                                     </td>
                                                     <td class="d-none"></td>
                                                 </tr>
@@ -342,14 +342,14 @@
                                             <script>
                                                 window.addEventListener('initSomething10', event => {
 
-                                    var prev_target = parseInt($("#div_actual_target_<?php echo $prev_target; ?>").text());
+                                    var prev_target = parseInt($("#kdiv_actual_target").text());
 
 
 
-var current_target = parseInt($("#div_actual_target_<?php echo $current_target; ?>").text());
+var current_target = parseInt($("#kdiv_actual_target").text());
 
 var total = prev_target+current_target;
-var current_target_total = $("#div_actual_target_total_<?php echo $current_target; ?>");
+var current_target_total = $("#kdiv_actual_target_total");
 
 if(Number.isNaN(total)){
 current_target_total.text(current_target);
@@ -358,10 +358,10 @@ if(!Number.isNaN(total)){
 current_target_total.text(total);
 }
 
-var new_div_actual_target_total_prev = $("#div_actual_target_total_<?php echo $prev_target; ?>").text();
-var new_div_actual_target_total_current = $("#div_actual_target_total_<?php echo $current_target; ?>");
-var new_div_actual_target_prev = $("#div_actual_target_<?php echo $prev_target; ?>").text();
-var new_div_actual_target_current = $("#div_actual_target_<?php echo $current_target; ?>").text();
+var new_div_actual_target_total_prev = $("#kdiv_actual_target_total").text();
+var new_div_actual_target_total_current = $("#kdiv_actual_target_total");
+var new_div_actual_target_prev = $("#kdiv_actual_target").text();
+var new_div_actual_target_current = $("#kdiv_actual_target").text();
 
 if(new_div_actual_target_total_prev!=''){
 var new_total = parseInt(new_div_actual_target_total_prev) + parseInt(new_div_actual_target_current);
@@ -374,12 +374,12 @@ if(!Number.isNaN(new_total)){
 }
 }
 
-var new_div_target = $("#new_div_target_<?php echo $current_target; ?>").text();
-var div_actual_target = parseInt($("#div_actual_target_<?php echo $current_target; ?>").text());
+var new_div_target = $("#knew_div_target").text();
+var div_actual_target = parseInt($("#kdiv_actual_target").text());
 
 var percentage =(parseInt(current_target) / parseInt(new_div_target) ) * 100;
 
-var div_actual_target_percent = $("#div_actual_target_percent_<?php echo $current_target; ?>");
+var div_actual_target_percent = $("#kdiv_actual_target_percent");
 
 if(Number.isNaN(div_actual_target)){
 if(div_actual_target!=''){
@@ -407,20 +407,20 @@ if(parseInt(div_actual_target_percent.text()) <= 80){
 //     $("#td_div_actual_target_percent_<?php echo $current_target; ?>").css('color','black');
 //    $("#td_div_actual_target_<?php echo $current_target; ?>").css('color','black)');
 
-   $("#td_div_actual_target_percent_<?php echo $current_target; ?>").css('background-color','rgba(255,0,0,0.8)');
+   $("#ktd_div_actual_target_percent").css('background-color','rgba(255,0,0,0.8)');
 //    $("#td_div_actual_target_<?php echo $current_target; ?>").css('color','rgba(255,0,0,0.8)');
 }if(parseInt(div_actual_target_percent.text()) > 80){
 //     $("#td_div_actual_target_percent_<?php echo $current_target; ?>").css('color','black');
 //    $("#td_div_actual_target_<?php echo $current_target; ?>").css('color','black)');
 
-   $("#td_div_actual_target_percent_<?php echo $current_target; ?>").css({'background-color':'#FF8000','color':'#fff'});
+   $("#ktd_div_actual_target_percent").css({'background-color':'#FF8000','color':'#fff'});
 //    $("#td_div_actual_target_<?php echo $current_target; ?>").css({'color':'#FF8000'});
 }
 if(parseInt(div_actual_target_percent.text()) >= 100){
 //     $("#td_div_actual_target_percent_<?php echo $current_target; ?>").css('color','black');
 //    $("#td_div_actual_target_<?php echo $current_target; ?>").css('color','black)');
 
-   $("#td_div_actual_target_percent_<?php echo $current_target; ?>").css({'background-color':'rgba(30,113,0,1)','color':'#fff'});
+   $("#ktd_div_actual_target_percent").css({'background-color':'rgba(30,113,0,1)','color':'#fff'});
 //    $("#td_div_actual_target_<?php echo $current_target; ?>").css({'color':'rgba(30,113,0,1)'});
 }
 
