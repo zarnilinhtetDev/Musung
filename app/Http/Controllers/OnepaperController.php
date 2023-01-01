@@ -25,6 +25,10 @@ class OnepaperController extends Controller
     //         return $next($request);
     //     });
     // }
+    public function __construct()
+    {
+    ini_set('max_execution_time', 300);
+    }
 
     public function index($id, $assign_id, $date)
     {

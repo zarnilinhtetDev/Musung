@@ -193,7 +193,8 @@
                                                                         </div>
 
 
-                                    @elseif((int) $t->time_name != (int) date("H") && (int) date("H") < 8 && (int) $t->time_name != 7 && (int) $t->time_name != 6)
+                                    
+        @elseif((int) $t->time_name != (int) date("H") && (int) date("H") < 8 && (int) $t->time_name != 7 && (int) $t->time_name != 6)
                                     <div scope="col" id="th_{{ $t->time_name }}" style="vertical-align: middle;" class="confuse">
                                     @php
                                     if($first == 'true' && $duplicate != 'true'){
@@ -205,7 +206,6 @@
                                     }                      
                                     @endphp
                                     </div>
-
 
                 
                                     @endif
@@ -259,21 +259,20 @@
                     $static_hour2 = (float) $static_hour2;
 
 
-
                     // morning time with half condition
                     if ($static_hour2 >= 9.00 && $static_hour2 < 9.30) { if ($t_2->time_name == "08:30") {
                         $static_hour = 8;
                         }
                         }
-                        elseif ($static_hour2 >= 10.00 && $static_hour2 < 10.30) { if ($t_2->time_name == "09:30") {
+                        if ($static_hour2 >= 10.00 && $static_hour2 < 10.30) { if ($t_2->time_name == "09:30") {
                             $static_hour = 9;
                             }
                             }
-                            elseif ($static_hour2 >= 11.00 && $static_hour2 < 11.30) { if ($t_2->time_name == "10:30") {
+                            if ($static_hour2 >= 11.00 && $static_hour2 < 11.30) { if ($t_2->time_name == "10:30") {
                                 $static_hour = 10;
                                 }
                                 }
-                                elseif ($static_hour2 >= 11.30 && $static_hour2 < 13.00) { if ($t_2->time_name ==
+                                if ($static_hour2 >= 11.30 && $static_hour2 < 13.00) { if ($t_2->time_name ==
                                     "11:30") {
                                     $static_hour = 11;
                                     }
@@ -287,7 +286,7 @@
 
 
                                     {{-- one line --}}
-                                    @if($one_time === $static_hour || $one_time > (int) date("H") || $one_time < 8) {{--
+                                    @if($one_time == $static_hour || $one_time > (int) date("H") || $one_time < 8) {{--
                                         @if((string) $t_2->time_name == (string) date("h:i") || $one_time> (int)
                                         date("H") ||
                                         $one_time
@@ -298,8 +297,8 @@
                                             {{-- <table class="w-100 text-center table table-bordered m-0" border="1"> ********************************* --}}
 
                                                 <tr>
-                                                    <td style="height:47px;"><span style="font-size:24px;x;<h3>" id="new_div_target_{{ $t_2->time_id }}"
-                                                            class="new_div_ta</h3>rget">
+                                                    <td style="height:47px;"><span style="font-size:24px;" id="new_div_target_{{ $t_2->time_id }}"
+                                                            class="new_div_target">
                                                             @if($t_2->div_actual_target=='') <span
                                                                 style="color:black;">{{
                                                                 number_format($t_2->actual_target_entry) }}</span>
@@ -331,7 +330,7 @@
                                                 </tr>
                                                 <tr class="text-dark">
                                                     <td id="td_div_actual_target_percent_{{ $t_2->time_id }}" style="height:47.5px;font-size: 24px;"><span
-                                                            id="div_actual_target_percent_{{ $t_2->time_id }}"></span>
+                                                            id="div_actual_target_percent_{{ $t_2->time_id }}">{{ $t_2->div_actual_percent }}%</span>
                                                     </td>
                                                     <td class="d-none"></td>
                                                 </tr>
@@ -340,9 +339,9 @@
                                             </td>
 
 
-
                                             <script>
                                                 window.addEventListener('initSomething10', event => {
+
                                     var prev_target = parseInt($("#div_actual_target_<?php echo $prev_target; ?>").text());
 
 
@@ -379,11 +378,14 @@ var new_div_target = $("#new_div_target_<?php echo $current_target; ?>").text();
 var div_actual_target = parseInt($("#div_actual_target_<?php echo $current_target; ?>").text());
 
 var percentage =(parseInt(current_target) / parseInt(new_div_target) ) * 100;
+
 var div_actual_target_percent = $("#div_actual_target_percent_<?php echo $current_target; ?>");
 
 if(Number.isNaN(div_actual_target)){
 if(div_actual_target!=''){
+    
     var new_percent = (div_actual_target/new_div_target) * 100;
+    
     if(Number.isNaN(new_percent)){
         div_actual_target_percent.text("");
     }if(!Number.isNaN(new_percent)){
@@ -425,6 +427,10 @@ if(parseInt(div_actual_target_percent.text()) >= 100){
 div_actual_target_percent.append('%');
 }
 }
+
+
+
+
 
 
 var m_one = "<?php echo $t_2->div_actual_target; ?>"
@@ -1702,6 +1708,7 @@ elseif ($t_line->row_num == 10) {
 
 @endif
 @endforeach
+
 
 
 

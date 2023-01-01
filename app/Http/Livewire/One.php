@@ -18,6 +18,10 @@ class One extends Component
     public $line_id;
     public $line_assign_id;
     public $line_date;
+    public function __construct()
+    {
+    ini_set('max_execution_time', 300);
+    }
 
     public function dehydrate()
     {
