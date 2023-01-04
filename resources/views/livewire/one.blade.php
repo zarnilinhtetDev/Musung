@@ -143,7 +143,7 @@
                             @php
                             $static_hour2 = date("H.i");
                             $static_hour2 = (float) $static_hour2;
-
+                            $hour = (int) date("H");
 
                             // check between 11:30 am and 1:00 pm
                             if ($static_hour2 >= 11.30 && $static_hour2 < 12.00) { if ($t->time_name == "11:30") {
@@ -154,12 +154,18 @@
                                     $t->time_name = 12;
                                     }
                                     }
-
+                                
+                                
+                                // change hour for night time view
+                                if ($static_hour2 >= 20.00 && $static_hour2 <= 24.00) { if ($t->time_name == "19:00") {
+                                        $hour = 19;
+                                        }
+                                        }
                                     @endphp
 
                             
 
-                                    @if((int) $t->time_name == (int) date("H"))
+                                    @if((int) $t->time_name == $hour)
 
 
                                     <div scope="col" id="th_{{ $t->time_name }}" style="vertical-align: middle;" class="confuse">
@@ -180,6 +186,9 @@
                                                     }
                                                     elseif ($static_hour2 >= 11.00 && $static_hour2 < 11.30) { $t->time_name =
                                                         "10:30";
+                                                        }
+                                                        elseif ($static_hour2 >= 20.00 && $static_hour2 <= 24.00) { $t->time_name = 
+                                                            "19:00";
                                                         }
 
 
@@ -277,10 +286,16 @@
                                     $static_hour = 11;
                                     }
                                     }
+                                if ($static_hour2 >= 20.00 && $static_hour2 <= 24.00) { if ($t_2->time_name ==
+                                    "19:00") {
+                                    $static_hour = 19;
+                                    }
+                                    }
 
 
                                     // echo date($t_2->
                                     // time_name, strtotime("+30 minutes"))
+                                
                                     @endphp
 
 

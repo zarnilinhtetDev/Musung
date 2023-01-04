@@ -21,7 +21,7 @@ Route::get('/one_line/{id}/{assign_id}/{date}', 'OnepaperController@index')->nam
 // Route::get('/one_line/{id}/{assign_id}/{date}', [OnepaperController::class, 'index'])->name('one_line')->middleware('auth');
 
 // one line dash //
-Route::get('/one_line2/{id}/{assign_id}/{date}', [One::class, 'render'])->name('one_line2')->middleware('auth');
+// Route::get('/one_line2/{id}/{assign_id}/{date}', [One::class, 'render'])->name('one_line2')->middleware('auth');
 
 //
 Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
