@@ -9,6 +9,10 @@ use App\Models\Time;
 
 class Dash1 extends Component
 {
+    public function __construct()
+    {
+    ini_set('max_execution_time', 300);
+    }
     public function dehydrate()
     {
         $this->dispatchBrowserEvent('initSomething');

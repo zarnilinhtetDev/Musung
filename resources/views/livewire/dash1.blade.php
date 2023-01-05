@@ -1,3 +1,6 @@
+<?php
+ini_set('memory_limit', '-1');
+?>
 <div class="panel-body d-flex flex-row" wire:poll.1000ms>
     @php $time_arr = [];
     foreach(array_reverse($time) as $t3){
