@@ -74,10 +74,18 @@
 
                     <td class="fw-bold line_name_{{ $g_line_id }} fs-4" style="vertical-align: middle;min-width: 40px;">
                         @if($line_id == $g_line_id)
+
+                        @if($g_line_name == "Mini")
+                        <h1 class='text-center' style="font-weight: bold;border-style: solid;color:black;padding: 13.2px 10px 13.2px 10px;position: relative;left:99px;top:10px;font-size:58px;width:130px;
+                        background:#e6f0ff;">{{
+                        $g_line_name
+                        }}</h1>
+                        @elseif($g_line_name != "Mini")
                         <h1 class='text-center' style="font-weight: bold;border-style: solid;color:black;padding: 0 10px 0 10px;position: relative;left:99px;top:10px;font-size:80px;width:130px;
                         background:#e6f0ff;">{{
                         $g_line_name
                         }}</h1>
+                        @endif
                         @endif
                     </td>
                 </tbody>
@@ -157,7 +165,7 @@
 
                                     @endphp
 
-                            
+
 
                                     @if((int) $t->time_name == (int) date("H"))
 
@@ -165,7 +173,7 @@
                                     <div scope="col" id="th_{{ $t->time_name }}" style="vertical-align: middle;" class="confuse">
 
                                         @php
-                                        $duplicate = 'true'; 
+                                        $duplicate = 'true';
                                         $static_hour2 = date("H.i");
                                         $static_hour2 = (float) $static_hour2;
 
@@ -187,13 +195,13 @@
                                                         margin-left:105px;border-style: solid;height:30px;padding: 0 0 0 0;font-size:24px;min-width:120px;margin-bottom:10px;
                                                                         text-align:center;font-size:19px;'><h3>"
                                                             . date('g:i A',strtotime($t->time_name)) . "</h3></div>";
-                                                        
+
                                                         @endphp
 
                                                                         </div>
 
 
-                                    
+
         @elseif((int) $t->time_name != (int) date("H") && (int) date("H") < 8 && (int) $t->time_name != 7 && (int) $t->time_name != 6)
                                     <div scope="col" id="th_{{ $t->time_name }}" style="vertical-align: middle;" class="confuse">
                                     @php
@@ -203,11 +211,11 @@
                                                         margin-left:105px;border-style: solid;height:30px;padding: 0 0 0 0;font-size:24px;min-width:120px;margin-bottom:10px;
                                                                         text-align:center;font-size:19px;'><h3>"
                                                             . date('g:i A') . "</h3></div>";
-                                    }                      
+                                    }
                                     @endphp
                                     </div>
 
-                
+
                                     @endif
                                     @endforeach
 
@@ -383,9 +391,9 @@ var div_actual_target_percent = $("#kdiv_actual_target_percent");
 
 if(Number.isNaN(div_actual_target)){
 if(div_actual_target!=''){
-    
+
     var new_percent = (div_actual_target/new_div_target) * 100;
-    
+
     if(Number.isNaN(new_percent)){
         div_actual_target_percent.text("");
     }if(!Number.isNaN(new_percent)){
