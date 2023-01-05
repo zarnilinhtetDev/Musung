@@ -207,8 +207,16 @@
                                                     elseif ($static_hour2 >= 11.00 && $static_hour2 < 11.30) { $t->time_name =
                                                         "10:30";
                                                         }
-                                                        elseif ($static_hour2 >= 20.00 && $static_hour2 <= 24.00) { $t->time_name =
-                                                            "19:00";
+                                                        elseif ($static_hour2 >= 20.00 && $static_hour2 <= 24.00) { 
+                                                            $existed = false;
+                                                            foreach($time as $tt) {
+                                                                    if ($tt->time_name == "19:00"){
+                                                                        $existed = true;
+                                                                    }
+                                                                }
+                                                            if ($existed) {
+                                                                $t->time_name ="19:00";
+                                                            }
                                                         }
 
                                                             elseif ($static_hour2 >= 16.00 && $static_hour2 <= 24.00) {
