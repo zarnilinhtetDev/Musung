@@ -162,13 +162,25 @@
                                     $t->time_name = 12;
                                     }
                                     }
-                                
-                                
+
+
                                 // change hour for night time view
                                 if ($static_hour2 >= 20.00 && $static_hour2 <= 24.00) { if ($t->time_name == "19:00") {
                                         $hour = 19;
                                         }
                                         }
+
+                                if ($static_hour2 >= 16.00 && $static_hour2 <= 24.00) {
+                                    $exist = true;
+                                    foreach($time as $tt) {
+                                        if ($tt->time_name == "19:00"){
+                                            $exist = false;
+                                        }
+                                    }
+                                    if ($t->time_name == "16:00" && $exist) {
+                                            $hour = 16;
+                                }
+                                }
                                     @endphp
 
 
@@ -195,9 +207,21 @@
                                                     elseif ($static_hour2 >= 11.00 && $static_hour2 < 11.30) { $t->time_name =
                                                         "10:30";
                                                         }
-                                                        elseif ($static_hour2 >= 20.00 && $static_hour2 <= 24.00) { $t->time_name = 
+                                                        elseif ($static_hour2 >= 20.00 && $static_hour2 <= 24.00) { $t->time_name =
                                                             "19:00";
                                                         }
+
+                                                            elseif ($static_hour2 >= 16.00 && $static_hour2 <= 24.00) {
+                                                                $exist = true;
+                                                                foreach($time as $tt) {
+                                                                    if ($tt->time_name == "19:00"){
+                                                                        $exist = false;
+                                                                    }
+                                                                }
+                                                                if ($t->time_name == "16:00" && $exist) {
+                                                                    $t->time_name = "16:00";
+                                                                 }
+                                                                }
 
 
                                                         echo "<div style='position: relative;top:25px;left:60px;
@@ -248,7 +272,6 @@
 
 
                     @foreach($time_2 as $t_2)
-
 
                     {{-- @if(!$t_2->div_actual_target)
 
@@ -301,9 +324,22 @@
                                     }
 
 
+                                    if ($static_hour2 >= 16.00 && $static_hour2 <= 24.00) {
+                                        $exist2 = true;
+                                        foreach(array_reverse($time_2) as $ttt){
+                                            if ($ttt->time_name == "19:00"){
+                                                $exist2 = false;
+                                            }
+                                        }
+                                        if ($t_2->time_name =="16:00" && $exist2) {
+                                                $static_hour = 16;
+                                    }
+                                    }
+
+
                                     // echo date($t_2->
                                     // time_name, strtotime("+30 minutes"))
-                                
+
                                     @endphp
 
 
