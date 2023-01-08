@@ -134,7 +134,10 @@
 
 
 
-
+                            @php
+                                $first = 'true';
+                                $duplicate = 'false';
+                            @endphp
 
                             @foreach(array_reverse($time) as $t)
                             @php
@@ -154,6 +157,7 @@
 
                                     @endphp
 
+                            
 
                                     @if((int) $t->time_name == (int) date("H"))
 
@@ -161,6 +165,7 @@
                                     <div scope="col" id="th_{{ $t->time_name }}" style="vertical-align: middle;" class="confuse">
 
                                         @php
+                                        $duplicate = 'true'; 
                                         $static_hour2 = date("H.i");
                                         $static_hour2 = (float) $static_hour2;
 
@@ -182,12 +187,28 @@
                                                         margin-left:105px;border-style: solid;height:30px;padding: 0 0 0 0;font-size:24px;min-width:120px;margin-bottom:10px;
                                                                         text-align:center;font-size:19px;'><h3>"
                                                             . date('g:i A',strtotime($t->time_name)) . "</h3></div>";
-
+                                                        
                                                         @endphp
 
                                                                         </div>
-                                    @endif
 
+
+                                    @elseif((int) $t->time_name != (int) date("H") && (int) date("H") < 8 && (int) $t->time_name != 7 && (int) $t->time_name != 6)
+                                    <div scope="col" id="th_{{ $t->time_name }}" style="vertical-align: middle;" class="confuse">
+                                    @php
+                                    if($first == 'true' && $duplicate != 'true'){
+                                    $first = 'false';
+                                    echo "<div style='position: relative;top:25px;left:60px;
+                                                        margin-left:105px;border-style: solid;height:30px;padding: 0 0 0 0;font-size:24px;min-width:120px;margin-bottom:10px;
+                                                                        text-align:center;font-size:19px;'><h3>"
+                                                            . date('g:i A') . "</h3></div>";
+                                    }                      
+                                    @endphp
+                                    </div>
+
+
+                
+                                    @endif
                                     @endforeach
 
 
