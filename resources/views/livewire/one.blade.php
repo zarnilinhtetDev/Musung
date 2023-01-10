@@ -406,6 +406,14 @@ margin-left:105px;border-style: solid;height:34px;padding: 0 0 0 0;font-size:24p
         @if ($line_id == $g_line_id)
             {{-- need to remove this --}}
 
+            {{-- <table class="m-auto text-start text-center" id="title_table"
+            style="width: 100px;position: relative;right:40px;top:-30px;">
+            <tbody>
+                <tr>
+                    <td style="vertical-align: middle;">
+                        <h3 style="font-size: 40px;font-weight: bold;">Ranking </h3>
+                    </td>
+                </tr> --}}
 
 
             @foreach ($top_line as $t_line)
@@ -420,15 +428,10 @@ margin-left:105px;border-style: solid;height:34px;padding: 0 0 0 0;font-size:24p
                                         {{ $t_line->row_num }}</h3>
                                 </td>
                             </tr>
-                 {{-- @else
-                            <table class="m-auto text-start text-center"
-                            style="width: 100px;position: relative;right:40px;top:-30px;">
-                            <tbody>
-                                <tr>
-                                    <td style="vertical-align: middle;">
-                                        <h3 style="font-size: 40px;font-weight: bold;">Ranking </h3>
-                                    </td>
-                                </tr> --}}
+                    <script>
+                        var title_table = document.getElementById("title_table");
+                        title_table.style.display ="none";
+                    </script>
 
                 @endif
             @endforeach
@@ -449,20 +452,33 @@ margin-left:105px;border-style: solid;height:34px;padding: 0 0 0 0;font-size:24p
                             </span>
                         </td>
                     </tr>
-                    {{-- @else
-                    <tr>
+                    @endif
+            @endforeach
+
+
+                    <tr id="title_table">
                         <td style="font-size:10px;vertical-align: middle;min-width:220px;height:120px;"
                             class="t_line_{{ $t_line->row_num }} t_line_count">
 
                         </td>
-                    </tr> --}}
+                    </tr>
+
+
+                    @foreach ($top_line as $t_line)
+                @if ($g_line_id == $t_line->l_id)
+                <script>
+                    var tt = document.getElementById("title_table");
+                    tt.style.display = "none";
+                </script>
+                @endif
+                @endforeach
+
 
 
 </table>
 </tbody>
 
-@endif
-@endforeach
+
 
 <script>
     window.addEventListener('additionalInit10', event => {
@@ -552,6 +568,20 @@ margin-left:105px;border-style: solid;height:34px;padding: 0 0 0 0;font-size:24p
 @if(isset($actual_target_total))
 
 
+<tr id="tcurrent1">
+    <td style="height: 47px;" >
+    </td>
+</tr>
+<tr class="text-dark" id="tcurrent2">
+    <td style="height:47px;" class="fw-bold td_a_total_{{ $t_2_total->line_id }}">
+    </td>
+</tr>
+<tr class="text-dark" id="tcurrent3">
+    <td style="height:47px;min-width:120px;"
+        class="fw-bold td_t_percent_{{ $t_2_total->line_id }} ">
+    </td>
+</tr>
+
                 @foreach ($actual_target_total as $a_total)
 
 
@@ -583,6 +613,14 @@ margin-left:105px;border-style: solid;height:34px;padding: 0 0 0 0;font-size:24p
 
                         <script>
                             window.addEventListener('additionalInit10', event => {
+                                var t1 = document.getElementById("tcurrent1");
+                                var t2 = document.getElementById("tcurrent2");
+                                var t3 = document.getElementById("tcurrent3");
+                                t1.style.display = "none";
+                                t2.style.display = "none";
+                                t3.style.display = "none";
+
+
                                 var t_2_total = parseInt($('.t_2_total_{{ $t_2_total->line_id }}').text().replace(/,/g, ''));
                                 var a_total = parseInt($('.a_total_{{ $t_2_total->line_id }}').text().replace(/,/g, ''));
                                 var t_percent_span = $('.t_percent_{{ $t_2_total->line_id }}');
@@ -645,25 +683,9 @@ margin-left:105px;border-style: solid;height:34px;padding: 0 0 0 0;font-size:24p
                                 }
                             });
                         </script>
-                    {{-- @else
-                    <tr>
-                        <td style="height: 47px;" id="tcurrent1">
-                        </td>
-                    </tr>
-                    <tr class="text-dark">
-                        <td style="height:47px;" id="tcurrent2" class="fw-bold td_a_total_{{ $t_2_total->line_id }}">
-                        </td>
-                    </tr>
-                    <tr class="text-dark">
-                        <td style="height:47px;min-width:120px;" id="tcurrent3"
-                            class="fw-bold td_t_percent_{{ $t_2_total->line_id }} ">
-                        </td>
-                    </tr> --}}
-
-
                     @endif
                 @endforeach
-                @else
+                {{-- @else
                 <tr>
                     <td style="height: 2px;">
                     </td>
@@ -678,7 +700,7 @@ margin-left:105px;border-style: solid;height:34px;padding: 0 0 0 0;font-size:24p
                         class="fw-bold td_t_percent">
 
                     </td>
-                </tr>
+                </tr> --}}
                 @endif
 
             </table>
