@@ -173,7 +173,7 @@ html, body {
 
 
 @media(max-width:1024px) {
-    .rank_heading { font-size: 23px;}
+    .rank_heading { font-size: 22px;}
     .kbody { zoom: 140%;}
     .top_rank {zoom: 140%;}
     .bottom_rank{ zoom: 140%;}
