@@ -403,20 +403,34 @@ margin-left:105px;border-style: solid;height:34px;padding: 0 0 0 0;font-size:24p
 
         @endphp
 
+        
         @if ($line_id == $g_line_id)
             {{-- need to remove this --}}
 
-            {{-- <table class="m-auto text-start text-center" id="title_table"
+            
+
+@if(!$top_line)
+<table class="m-auto text-start text-center" id="title_table"
             style="width: 100px;position: relative;right:40px;top:-30px;">
             <tbody>
                 <tr>
                     <td style="vertical-align: middle;">
                         <h3 style="font-size: 40px;font-weight: bold;">Ranking </h3>
                     </td>
-                </tr> --}}
+                </tr>
 
+                <tr>
+                        <td style="font-size:10px;vertical-align: middle;min-width:220px;height:120px;"
+                            class="t_line_count">
+
+                        </td>
+                    </tr>
+                    </tbody>
+            </table>
+@endif
 
             @foreach ($top_line as $t_line)
+
                 @if ($g_line_id == $t_line->l_id)
                     <table class="m-auto text-start text-center"
                         style="width: 100px;position: relative;right:40px;top:-30px;">
@@ -428,16 +442,7 @@ margin-left:105px;border-style: solid;height:34px;padding: 0 0 0 0;font-size:24p
                                         {{ $t_line->row_num }}</h3>
                                 </td>
                             </tr>
-                    <script>
-                        var title_table = document.getElementById("title_table");
-                        title_table.style.display ="none";
-                    </script>
 
-                @endif
-            @endforeach
-
-            @foreach ($top_line as $t_line)
-                @if ($g_line_id == $t_line->l_id)
                     <tr>
                         <td style="font-size:10px;vertical-align: middle;min-width:220px;height:120px;"
                             class="t_line_{{ $t_line->row_num }} t_line_count">
@@ -452,31 +457,25 @@ margin-left:105px;border-style: solid;height:34px;padding: 0 0 0 0;font-size:24p
                             </span>
                         </td>
                     </tr>
-                    @endif
-            @endforeach
-
-
-                    <tr id="title_table">
-                        <td style="font-size:10px;vertical-align: middle;min-width:220px;height:120px;"
-                            class="t_line_{{ $t_line->row_num }} t_line_count">
-
-                        </td>
-                    </tr>
-
-
-                    @foreach ($top_line as $t_line)
-                @if ($g_line_id == $t_line->l_id)
-                <script>
-                    var tt = document.getElementById("title_table");
-                    tt.style.display = "none";
-                </script>
-                @endif
-                @endforeach
-
 
 
 </table>
 </tbody>
+
+<script>  
+    var title_table = document.getElementById("title_table");
+    title_table.style.display ="none";
+</script>
+
+@break
+
+
+
+
+@endif
+            @endforeach
+</tr>
+
 
 
 
@@ -522,9 +521,10 @@ margin-left:105px;border-style: solid;height:34px;padding: 0 0 0 0;font-size:24p
             'background-color': 'red',
             'color': '#fff'
         });
+        
     });
+    
 </script>
-</tr>
 
 
 
