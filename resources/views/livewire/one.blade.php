@@ -409,25 +409,6 @@ margin-left:105px;border-style: solid;height:34px;padding: 0 0 0 0;font-size:24p
 
             
 
-@if(!$top_line)
-<table class="m-auto text-start text-center" id="title_table"
-            style="width: 100px;position: relative;right:40px;top:-30px;">
-            <tbody>
-                <tr>
-                    <td style="vertical-align: middle;">
-                        <h3 style="font-size: 40px;font-weight: bold;">Ranking </h3>
-                    </td>
-                </tr>
-
-                <tr>
-                        <td style="font-size:10px;vertical-align: middle;min-width:220px;height:120px;"
-                            class="t_line_count">
-
-                        </td>
-                    </tr>
-                    </tbody>
-            </table>
-@endif
 
             @foreach ($top_line as $t_line)
 
@@ -536,6 +517,25 @@ margin-left:105px;border-style: solid;height:34px;padding: 0 0 0 0;font-size:24p
 
 @foreach ($target_total as $t_2_total)
     @if ($g_line_id == $t_2_total->line_id)
+
+    <table class="m-auto text-start text-center" id="title_table"
+            style="width: 100px;position: relative;right:40px;top:-30px;">
+            <tbody>
+                <tr>
+                    <td style="vertical-align: middle;">
+                        <h3 style="font-size: 40px;font-weight: bold;">Ranking </h3>
+                    </td>
+                </tr>
+                <tr>
+                        <td style="font-size:10px;vertical-align: middle;min-width:220px;height:120px;"
+                            class="t_line_count">
+                        </td>
+                    </tr>
+                    </tbody>
+            </table>
+
+
+
         <td colspan="0" style="display: none;">
             <table class="m-auto text-start table table-bordered">
                 <tbody>
@@ -613,6 +613,9 @@ margin-left:105px;border-style: solid;height:34px;padding: 0 0 0 0;font-size:24p
 
                         <script>
                             window.addEventListener('additionalInit10', event => {
+                                var title_table = document.getElementById("title_table");
+                                title_table.style.display ="none";
+
                                 var t1 = document.getElementById("tcurrent1");
                                 var t2 = document.getElementById("tcurrent2");
                                 var t3 = document.getElementById("tcurrent3");
