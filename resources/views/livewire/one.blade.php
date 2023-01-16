@@ -74,8 +74,7 @@
 margin-left:105px;border-style: solid;height:34px;padding: 0 0 0 0;font-size:24px;min-width:120px;margin-bottom:10px;
                 text-align:center;font-size:19px;'>
             <h3>
-                Total</h3></div>
-
+                Present</h3></div>
 
                 <table class="w-100 text-center table table-bordered table-sm border-dark" id="total_table" style="margin-left:105px;max-width:120px;position:relative;top:30px;left:60px;">
                     <tr>
@@ -95,9 +94,10 @@ margin-left:105px;border-style: solid;height:34px;padding: 0 0 0 0;font-size:24p
 
             @foreach ($actual_target_total as $a_total)
 
-
              @if ($g_line_id == $a_total->line_id)
-                <table class="w-100 text-center table table-bordered table-sm border-dark" style="margin-left:105px;max-width:120px;position:relative;top:30px;left:60px;">
+
+             {{-- kmk --}}
+             <table class="w-100 text-center table table-bordered table-sm border-dark" id="total_table" style="margin-left:105px;max-width:120px;position:relative;top:30px;left:60px;">
                     <tr>
                         <td style="height:47px;">
                             <span style="font-size:24px;"
@@ -119,7 +119,6 @@ margin-left:105px;border-style: solid;height:34px;padding: 0 0 0 0;font-size:24p
                         </td>
                     </tr>
                 </table>
-
 
                     <script>
                         window.addEventListener('additionalInit10', event => {
@@ -188,30 +187,14 @@ margin-left:105px;border-style: solid;height:34px;padding: 0 0 0 0;font-size:24p
                             }
                         });
                     </script>
-              {{-- @else
-              <table class="w-100 text-center table table-bordered table-sm border-dark" style="margin-left:105px;max-width:120px;position:relative;top:30px;left:60px;">
-                <tr>
-                    <td style="height:47px;">
-                    </td>
-                </tr>
-                <tr class="text-dark">
-                    <td style="height:47px;" class="fw-bold td_a_total1_{{ $t_1_total->line_id }}">
-                    </td>
-                </tr>
-                <tr class="text-dark">
-                    <td style="height:47px;"
-                        class="fw-bold td_t_percent1_{{ $t_1_total->line_id }}">
-                    </td>
-                </tr>
-            </table> --}}
+
               @endif
             @endforeach
             @break
-
         @endforeach
 </div>
-    @endif
-    @endforeach
+@endif
+@endforeach
     <tr>
 
 
@@ -403,29 +386,49 @@ margin-left:105px;border-style: solid;height:34px;padding: 0 0 0 0;font-size:24p
 
         @endphp
 
-        
         @if ($line_id == $g_line_id)
             {{-- need to remove this --}}
 
-            
 
+{{-- Update Ranking by msn --}}
+<table class="m-auto text-start text-center"
+style="width: 100px;position: relative;right:40px;top:-30px;" id="ranking_table">
+<tbody>
+    <tr>
+        <td style="vertical-align: middle;">
+            {{-- <td style="vertical-align: middle;" class="t_line_{{ $t_line->row_num }} t_line_count fw-bold"> ******************************** --}}
+            <h3 style="font-size: 40px;font-weight: bold;">Ranking
+            </h3>
+        </td>
+    </tr>
+    <tr>
+        <td style="font-size:10px;vertical-align: middle;min-width:220px;height:120px;"
+          class="t_line t_line_count">
+          <span>
+            <h3 class="text-white" style="font-size: 50px;font-weight: bold;">
+            </h3>
+          </span>
+        </td>
+    </tr>
+</tbody>
+</table>
 
             @foreach ($top_line as $t_line)
-
-                @if ($g_line_id == $t_line->l_id)
+              @if ($g_line_id == $t_line->l_id)
                     <table class="m-auto text-start text-center"
-                        style="width: 100px;position: relative;right:40px;top:-30px;">
+                        style="width: 100px;position: relative;right:40px;top:-60px;" id="ranking_table">
                         <tbody>
                             <tr>
                                 <td style="vertical-align: middle;">
                                     {{-- <td style="vertical-align: middle;" class="t_line_{{ $t_line->row_num }} t_line_count fw-bold"> ******************************** --}}
                                     <h3 style="font-size: 40px;font-weight: bold;">Ranking
-                                        {{ $t_line->row_num }}</h3>
+                                        {{ $t_line->row_num }}
+                                    </h3>
                                 </td>
                             </tr>
 
-                    <tr>
-                        <td style="font-size:10px;vertical-align: middle;min-width:220px;height:120px;"
+                           <tr>
+                               <td style="font-size:10px;vertical-align: middle;min-width:220px;height:120px;"
                             class="t_line_{{ $t_line->row_num }} t_line_count">
                             <span class="input_row_num_{{ $t_line->row_num }} input_row_num"
                                 style="display:none;">
@@ -438,30 +441,13 @@ margin-left:105px;border-style: solid;height:34px;padding: 0 0 0 0;font-size:24p
                             </span>
                         </td>
                     </tr>
-
-
-</table>
-</tbody>
-
-<script>  
-    var title_table = document.getElementById("title_table");
-    title_table.style.display ="none";
-</script>
-
-@break
-
-
-
-
-@endif
-            @endforeach
-</tr>
-
-
-
+                 </tbody>
+                </table>
 
 <script>
     window.addEventListener('additionalInit10', event => {
+        var r = document.getElementById("ranking_table");
+        r.style.display = "none";
 
         var t_line_count = $('.input_row_num').text();
         var val_arr = [];
@@ -502,10 +488,11 @@ margin-left:105px;border-style: solid;height:34px;padding: 0 0 0 0;font-size:24p
             'background-color': 'red',
             'color': '#fff'
         });
-        
     });
-    
 </script>
+@endif
+@endforeach
+</tr>
 
 
 
@@ -517,25 +504,6 @@ margin-left:105px;border-style: solid;height:34px;padding: 0 0 0 0;font-size:24p
 
 @foreach ($target_total as $t_2_total)
     @if ($g_line_id == $t_2_total->line_id)
-
-    <table class="m-auto text-start text-center" id="title_table"
-            style="width: 100px;position: relative;right:40px;top:-30px;">
-            <tbody>
-                <tr>
-                    <td style="vertical-align: middle;">
-                        <h3 style="font-size: 40px;font-weight: bold;">Ranking </h3>
-                    </td>
-                </tr>
-                <tr>
-                        <td style="font-size:10px;vertical-align: middle;min-width:220px;height:120px;"
-                            class="t_line_count">
-                        </td>
-                    </tr>
-                    </tbody>
-            </table>
-
-
-
         <td colspan="0" style="display: none;">
             <table class="m-auto text-start table table-bordered">
                 <tbody>
@@ -562,12 +530,10 @@ margin-left:105px;border-style: solid;height:34px;padding: 0 0 0 0;font-size:24p
             class="w-100 text-center table m-0 table-bordered totalTable table-sm border-dark right_table">
 
                 <h3 class="rank_heading">
-                    Current</h3>
-
-
+                    Total</h3>
 @if(isset($actual_target_total))
 
-
+{{-- kmk --}}
 <tr id="tcurrent1">
     <td style="height: 47px;" >
     </td>
@@ -582,9 +548,8 @@ margin-left:105px;border-style: solid;height:34px;padding: 0 0 0 0;font-size:24p
     </td>
 </tr>
 
+
                 @foreach ($actual_target_total as $a_total)
-
-
                     @if ($g_line_id == $a_total->line_id)
                         <tr>
                             <td style="height: 2px;"><span
@@ -609,12 +574,8 @@ margin-left:105px;border-style: solid;height:34px;padding: 0 0 0 0;font-size:24p
                                 <span class="right_table_text3 t_percent_{{ $t_2_total->line_id }}"></span>
                             </td>
                         </tr>
-
-
                         <script>
                             window.addEventListener('additionalInit10', event => {
-                                var title_table = document.getElementById("title_table");
-                                title_table.style.display ="none";
 
                                 var t1 = document.getElementById("tcurrent1");
                                 var t2 = document.getElementById("tcurrent2");
@@ -622,7 +583,6 @@ margin-left:105px;border-style: solid;height:34px;padding: 0 0 0 0;font-size:24p
                                 t1.style.display = "none";
                                 t2.style.display = "none";
                                 t3.style.display = "none";
-
 
                                 var t_2_total = parseInt($('.t_2_total_{{ $t_2_total->line_id }}').text().replace(/,/g, ''));
                                 var a_total = parseInt($('.a_total_{{ $t_2_total->line_id }}').text().replace(/,/g, ''));
@@ -686,28 +646,11 @@ margin-left:105px;border-style: solid;height:34px;padding: 0 0 0 0;font-size:24p
                                 }
                             });
                         </script>
+
                     @endif
                 @endforeach
-                {{-- @else
-                <tr>
-                    <td style="height: 2px;">
-                    </td>
-                </tr>
-                <tr class="text-dark">
-                    <td style="height:2px;" class="fw-bold td_a_total">
-
-                    </td>
-                </tr>
-                <tr class="text-dark">
-                    <td style="height:2px;min-width:120px;"
-                        class="fw-bold td_t_percent">
-
-                    </td>
-                </tr> --}}
                 @endif
-
             </table>
-
         </td>
          {{-- Total target percentage end --}}
     @endif
@@ -764,6 +707,8 @@ margin-left:105px;border-style: solid;height:34px;padding: 0 0 0 0;font-size:24p
 
 @endphp
 
+
+{{-- Line by msn --}}
 @if ($line_id == $g_line_id)
 @foreach ($top_line as $t_line)
     @if ($g_line_id == $t_line->l_id)
@@ -771,7 +716,7 @@ margin-left:105px;border-style: solid;height:34px;padding: 0 0 0 0;font-size:24p
 
             if ($t_line->row_num == 1) {
                 foreach ($top_line as $t_line2) {
-                    if ($t_line2->row_num == 2) {
+                    if ($t_line2->row_num == 2 || $t_line2->row_num == 3 || $t_line2->row_num == 4) {
                         foreach ($getLine as $g_line) {
                             if ($t_line2->l_id == $g_line->l_id) {
                                 $magic = $g_line->l_name;
@@ -780,7 +725,7 @@ margin-left:105px;border-style: solid;height:34px;padding: 0 0 0 0;font-size:24p
                         }
 
                         echo "
-            <div class='bottom_rank' style='display: flex;margin:auto;width:750px;position: relative;top:-65px;margin-left:323px;'>" .
+            <div class='bottom_rank' style='display: flex;margin:auto;width:750px;position: relative;top:-110px;margin-left:323px;'>" .
                             "<div style='display: flex;min-width:220px;margin-right:-67px;'>
                 <h3><i class='bi bi-arrow-down' style='background:#ff0000;color:white;font-size:19px;position:relative;bottom:5px;'></i></h3>&nbsp;
                 <h3 style='font-weight: bold;font-size:19px;'>Line </h3>           &nbsp;&nbsp;
@@ -801,7 +746,7 @@ margin-left:105px;border-style: solid;height:34px;padding: 0 0 0 0;font-size:24p
 
                 </div>
                     ";
-                    }
+                 }
                 }
             } elseif ($t_line->row_num == 2) {
                 foreach ($top_line as $t_line2) {
@@ -814,7 +759,7 @@ margin-left:105px;border-style: solid;height:34px;padding: 0 0 0 0;font-size:24p
                         }
 
                         echo "
-            <div class='top_rank' style='display: flex;margin:auto;width:750px;position: relative;top:-65px;margin-left:323px;'>" .
+            <div class='top_rank' style='display: flex;margin:auto;width:750px;position: relative;top:-110px;margin-left:323px;'>" .
                             "<div style='display: flex;min-width:220px;margin-right:-67px;'>
                 <h3><i class='bi bi-arrow-up' style='background:#1e7100;color:white;font-size:19px;position:relative;bottom:5px;'></i></h3>&nbsp;
                 <h3 style='font-weight: bold;font-size:19px;'>Line </h3>           &nbsp;&nbsp;
@@ -836,7 +781,7 @@ margin-left:105px;border-style: solid;height:34px;padding: 0 0 0 0;font-size:24p
                 </div>
                     ";
                     }
-                    if ($t_line2->row_num == 3) {
+                    if ($t_line2->row_num == 3 || $t_line2->row_num == 4) {
                         foreach ($getLine as $g_line) {
                             if ($t_line2->l_id == $g_line->l_id) {
                                 $magic = $g_line->l_name;
@@ -845,9 +790,9 @@ margin-left:105px;border-style: solid;height:34px;padding: 0 0 0 0;font-size:24p
                         }
 
                         echo "
-            <div class='bottom_rank' style='display: flex;margin:auto;width:750px;position: relative;top:-65px;margin-left:323px;'>" .
+            <div class='top_rank' style='display: flex;margin:auto;width:750px;position: relative;top:-110px;margin-left:323px;'>" .
                             "<div style='display: flex;min-width:220px;margin-right:-67px;'>
-                <h3><i class='bi bi-arrow-down' style='background:#ff0000;color:white;font-size:19px;position:relative;bottom:5px;'></i></h3>&nbsp;
+                <h3><i class='bi bi-arrow-up' style='background:#ff0000;color:white;font-size:19px;position:relative;bottom:5px;'></i></h3>&nbsp;
                 <h3 style='font-weight: bold;font-size:19px;'>Line </h3>           &nbsp;&nbsp;
                 <h3 style='font-weight: bold;font-size:19px;'>" .
                             $magic .
@@ -870,7 +815,7 @@ margin-left:105px;border-style: solid;height:34px;padding: 0 0 0 0;font-size:24p
                 }
             } elseif ($t_line->row_num == 3) {
                 foreach ($top_line as $t_line2) {
-                    if ($t_line2->row_num == 2) {
+                    if ($t_line2->row_num == 1 || $t_line2->row_num == 2) {
                         foreach ($getLine as $g_line) {
                             if ($t_line2->l_id == $g_line->l_id) {
                                 $magic = $g_line->l_name;
@@ -879,7 +824,7 @@ margin-left:105px;border-style: solid;height:34px;padding: 0 0 0 0;font-size:24p
                         }
 
                         echo "
-            <div class='top_rank' style='display: flex;margin:auto;width:750px;position: relative;top:-65px;margin-left:323px;'>" .
+            <div class='top_rank' style='display: flex;margin:auto;width:750px;position: relative;top:-110px;margin-left:323px;'>" .
                             "<div style='display: flex;min-width:220px;margin-right:-67px;'>
                 <h3><i class='bi bi-arrow-up' style='background:#1e7100;color:white;font-size:19px;position:relative;bottom:5px;'></i></h3>&nbsp;
                 <h3 style='font-weight: bold;font-size:19px;'>Line </h3>           &nbsp;&nbsp;
@@ -910,9 +855,9 @@ margin-left:105px;border-style: solid;height:34px;padding: 0 0 0 0;font-size:24p
                         }
 
                         echo "
-            <div class='bottom_rank' style='display: flex;margin:auto;width:750px;position: relative;top:-65px;margin-left:323px;'>" .
+            <div class='top_rank' style='display: flex;margin:auto;width:750px;position: relative;top:-110px;margin-left:323px;'>" .
                             "<div style='display: flex;min-width:220px;margin-right:-67px;'>
-                <h3><i class='bi bi-arrow-down' style='background:#ff0000;color:white;font-size:19px;position:relative;bottom:5px;'></i></h3>&nbsp;
+                <h3><i class='bi bi-arrow-up' style='background:#ff0000;color:white;font-size:19px;position:relative;bottom:5px;'></i></h3>&nbsp;
                 <h3 style='font-weight: bold;font-size:19px;'>Line </h3>           &nbsp;&nbsp;
                 <h3 style='font-weight: bold;font-size:19px;'>" .
                             $magic .
@@ -935,7 +880,7 @@ margin-left:105px;border-style: solid;height:34px;padding: 0 0 0 0;font-size:24p
                 }
             } elseif ($t_line->row_num == 4) {
                 foreach ($top_line as $t_line2) {
-                    if ($t_line2->row_num == 3) {
+                    if ($t_line2->row_num == 2 || $t_line2->row_num == 3) {
                         foreach ($getLine as $g_line) {
                             if ($t_line2->l_id == $g_line->l_id) {
                                 $magic = $g_line->l_name;
@@ -944,7 +889,7 @@ margin-left:105px;border-style: solid;height:34px;padding: 0 0 0 0;font-size:24p
                         }
 
                         echo "
-            <div class='top_rank' style='display: flex;margin:auto;width:750px;position: relative;top:-65px;margin-left:323px;'>" .
+            <div class='top_rank' style='display: flex;margin:auto;width:750px;position: relative;top:-110px;margin-left:323px;'>" .
                             "<div style='display: flex;min-width:220px;margin-right:-67px;'>
                 <h3><i class='bi bi-arrow-up' style='background:#1e7100;color:white;font-size:19px;position:relative;bottom:5px;'></i></h3>&nbsp;
                 <h3 style='font-weight: bold;font-size:19px;'>Line </h3>           &nbsp;&nbsp;
@@ -975,9 +920,9 @@ margin-left:105px;border-style: solid;height:34px;padding: 0 0 0 0;font-size:24p
                         }
 
                         echo "
-            <div class='bottom_rank' style='display: flex;margin:auto;width:750px;position: relative;top:-65px;margin-left:323px;'>" .
+            <div class='top_rank' style='display: flex;margin:auto;width:750px;position: relative;top:-110px;margin-left:323px;'>" .
                             "<div style='display: flex;min-width:220px;margin-right:-67px;'>
-                <h3><i class='bi bi-arrow-down' style='background:#ff0000;color:white;font-size:19px;position:relative;bottom:5px;'></i></h3>&nbsp;
+                <h3><i class='bi bi-arrow-up' style='background:#ff0000;color:white;font-size:19px;position:relative;bottom:5px;'></i></h3>&nbsp;
                 <h3 style='font-weight: bold;font-size:19px;'>Line </h3>           &nbsp;&nbsp;
                 <h3 style='font-weight: bold;font-size:19px;'>" .
                             $magic .
@@ -1000,7 +945,7 @@ margin-left:105px;border-style: solid;height:34px;padding: 0 0 0 0;font-size:24p
                 }
             } elseif ($t_line->row_num == 5) {
                 foreach ($top_line as $t_line2) {
-                    if ($t_line2->row_num == 4) {
+                    if ($t_line2->row_num == 3 || $t_line2->row_num == 4) {
                         foreach ($getLine as $g_line) {
                             if ($t_line2->l_id == $g_line->l_id) {
                                 $magic = $g_line->l_name;
@@ -1009,7 +954,7 @@ margin-left:105px;border-style: solid;height:34px;padding: 0 0 0 0;font-size:24p
                         }
 
                         echo "
-            <div class='top_rank' style='display: flex;margin:auto;width:750px;position: relative;top:-65px;margin-left:323px;'>" .
+            <div class='top_rank' style='display: flex;margin:auto;width:750px;position: relative;top:-110px;margin-left:323px;'>" .
                             "<div style='display: flex;min-width:220px;margin-right:-67px;'>
                 <h3><i class='bi bi-arrow-up' style='background:#1e7100;color:white;font-size:19px;position:relative;bottom:5px;'></i></h3>&nbsp;
                 <h3 style='font-weight: bold;font-size:19px;'>Line </h3>           &nbsp;&nbsp;
@@ -1040,9 +985,9 @@ margin-left:105px;border-style: solid;height:34px;padding: 0 0 0 0;font-size:24p
                         }
 
                         echo "
-            <div class='bottom_rank' style='display: flex;margin:auto;width:750px;position: relative;top:-65px;margin-left:323px;'>" .
+            <div class='top_rank' style='display: flex;margin:auto;width:750px;position: relative;top:-110px;margin-left:323px;'>" .
                             "<div style='display: flex;min-width:220px;margin-right:-67px;'>
-                <h3><i class='bi bi-arrow-down' style='background:#ff0000;color:white;font-size:19px;position:relative;bottom:5px;'></i></h3>&nbsp;
+                <h3><i class='bi bi-arrow-up' style='background:#ff0000;color:white;font-size:19px;position:relative;bottom:5px;'></i></h3>&nbsp;
                 <h3 style='font-weight: bold;font-size:19px;'>Line </h3>           &nbsp;&nbsp;
                 <h3 style='font-weight: bold;font-size:19px;'>" .
                             $magic .
@@ -1065,7 +1010,7 @@ margin-left:105px;border-style: solid;height:34px;padding: 0 0 0 0;font-size:24p
                 }
             } elseif ($t_line->row_num == 6) {
                 foreach ($top_line as $t_line2) {
-                    if ($t_line2->row_num == 5) {
+                    if ($t_line2->row_num == 4 || $t_line2->row_num == 5) {
                         foreach ($getLine as $g_line) {
                             if ($t_line2->l_id == $g_line->l_id) {
                                 $magic = $g_line->l_name;
@@ -1074,7 +1019,7 @@ margin-left:105px;border-style: solid;height:34px;padding: 0 0 0 0;font-size:24p
                         }
 
                         echo "
-            <div class='top_rank' style='display: flex;margin:auto;width:750px;position: relative;top:-65px;margin-left:323px;'>" .
+            <div class='top_rank' style='display: flex;margin:auto;width:750px;position: relative;top:-110px;margin-left:323px;'>" .
                             "<div style='display: flex;min-width:220px;margin-right:-67px;'>
                 <h3><i class='bi bi-arrow-up' style='background:#1e7100;color:white;font-size:19px;position:relative;bottom:5px;'></i></h3>&nbsp;
                 <h3 style='font-weight: bold;font-size:19px;'>Line </h3>           &nbsp;&nbsp;
@@ -1105,9 +1050,9 @@ margin-left:105px;border-style: solid;height:34px;padding: 0 0 0 0;font-size:24p
                         }
 
                         echo "
-            <div class='bottom_rank' style='display: flex;margin:auto;width:750px;position: relative;top:-65px;margin-left:323px;'>" .
+            <div class='top_rank' style='display: flex;margin:auto;width:750px;position: relative;top:-110px;margin-left:323px;'>" .
                             "<div style='display: flex;min-width:220px;margin-right:-67px;'>
-                <h3><i class='bi bi-arrow-down' style='background:#ff0000;color:white;font-size:19px;position:relative;bottom:5px;'></i></h3>&nbsp;
+                <h3><i class='bi bi-arrow-up' style='background:#ff0000;color:white;font-size:19px;position:relative;bottom:5px;'></i></h3>&nbsp;
                 <h3 style='font-weight: bold;font-size:19px;'>Line </h3>           &nbsp;&nbsp;
                 <h3 style='font-weight: bold;font-size:19px;'>" .
                             $magic .
@@ -1131,7 +1076,7 @@ margin-left:105px;border-style: solid;height:34px;padding: 0 0 0 0;font-size:24p
             } elseif ($t_line->row_num == 7) {
                 $next = null;
                 foreach ($top_line as $t_line2) {
-                    if ($t_line2->row_num == 6) {
+                    if ($t_line2->row_num == 5 || $t_line2->row_num == 6) {
                         $next = true;
                         foreach ($getLine as $g_line) {
                             if ($t_line2->l_id == $g_line->l_id) {
@@ -1141,7 +1086,7 @@ margin-left:105px;border-style: solid;height:34px;padding: 0 0 0 0;font-size:24p
                         }
 
                         echo "
-            <div class='top_rank' style='display: flex;margin:auto;width:750px;position: relative;top:-65px;margin-left:323px;'>" .
+            <div class='top_rank' style='display: flex;margin:auto;width:750px;position: relative;top:-110px;margin-left:323px;'>" .
                             "<div style='display: flex;min-width:220px;margin-right:-67px;'>
                 <h3><i class='bi bi-arrow-up' style='background:#1e7100;color:white;font-size:19px;position:relative;bottom:5px;'></i></h3>&nbsp;
                 <h3 style='font-weight: bold;font-size:19px;'>Line </h3>           &nbsp;&nbsp;
@@ -1164,7 +1109,7 @@ margin-left:105px;border-style: solid;height:34px;padding: 0 0 0 0;font-size:24p
                     ";
                     }
                     if ($t_line2->row_num == 8) {
-                        $next = false;
+                        $next = true;
                         foreach ($getLine as $g_line) {
                             if ($t_line2->l_id == $g_line->l_id) {
                                 $magic = $g_line->l_name;
@@ -1173,9 +1118,9 @@ margin-left:105px;border-style: solid;height:34px;padding: 0 0 0 0;font-size:24p
                         }
 
                         echo "
-            <div class='bottom_rank' style='display: flex;margin:auto;width:750px;position: relative;top:-65px;margin-left:323px;'>" .
+            <div class='top_rank' style='display: flex;margin:auto;width:750px;position: relative;top:-110px;margin-left:323px;'>" .
                             "<div style='display: flex;min-width:220px;margin-right:-67px;'>
-                <h3><i class='bi bi-arrow-down' style='background:#ff0000;color:white;font-size:19px;position:relative;bottom:5px;'></i></h3>&nbsp;
+                <h3><i class='bi bi-arrow-up' style='background:#ff0000;color:white;font-size:19px;position:relative;bottom:5px;'></i></h3>&nbsp;
                 <h3 style='font-weight: bold;font-size:19px;'>Line </h3>           &nbsp;&nbsp;
                 <h3 style='font-weight: bold;font-size:19px;'>" .
                             $magic .
@@ -1195,10 +1140,11 @@ margin-left:105px;border-style: solid;height:34px;padding: 0 0 0 0;font-size:24p
                 </div>
                     ";
                     }
+
                 }
             } elseif ($t_line->row_num == 8) {
                 foreach ($top_line as $t_line2) {
-                    if ($t_line2->row_num == 7) {
+                    if ($t_line2->row_num == 6  || $t_line2->row_num == 7) {
                         foreach ($getLine as $g_line) {
                             if ($t_line2->l_id == $g_line->l_id) {
                                 $magic = $g_line->l_name;
@@ -1207,7 +1153,7 @@ margin-left:105px;border-style: solid;height:34px;padding: 0 0 0 0;font-size:24p
                         }
 
                         echo "
-            <div class='top_rank' style='display: flex;margin:auto;width:750px;position: relative;top:-65px;margin-left:323px;'>" .
+            <div class='top_rank' style='display: flex;margin:auto;width:750px;position: relative;top:-110px;margin-left:323px;'>" .
                             "<div style='display: flex;min-width:220px;margin-right:-67px;'>
                 <h3><i class='bi bi-arrow-up' style='background:#1e7100;color:white;font-size:19px;position:relative;bottom:5px;'></i></h3>&nbsp;
                 <h3 style='font-weight: bold;font-size:19px;'>Line </h3>           &nbsp;&nbsp;
@@ -1238,9 +1184,9 @@ margin-left:105px;border-style: solid;height:34px;padding: 0 0 0 0;font-size:24p
                         }
 
                         echo "
-            <div class='bottom_rank' style='display: flex;margin:auto;width:750px;position: relative;top:-65px;margin-left:323px;'>" .
+            <div class='top_rank' style='display: flex;margin:auto;width:750px;position: relative;top:-110px;margin-left:323px;'>" .
                             "<div style='display: flex;min-width:220px;margin-right:-67px;'>
-                <h3><i class='bi bi-arrow-down' style='background:#ff0000;color:white;font-size:19px;position:relative;bottom:5px;'></i></h3>&nbsp;
+                <h3><i class='bi bi-arrow-up' style='background:#ff0000;color:white;font-size:19px;position:relative;bottom:5px;'></i></h3>&nbsp;
                 <h3 style='font-weight: bold;font-size:19px;'>Line </h3>           &nbsp;&nbsp;
                 <h3 style='font-weight: bold;font-size:19px;'>" .
                             $magic .
@@ -1263,7 +1209,7 @@ margin-left:105px;border-style: solid;height:34px;padding: 0 0 0 0;font-size:24p
                 }
             } elseif ($t_line->row_num == 9) {
                 foreach ($top_line as $t_line2) {
-                    if ($t_line2->row_num == 8) {
+                    if ($t_line2->row_num == 7  || $t_line2->row_num == 8) {
                         foreach ($getLine as $g_line) {
                             if ($t_line2->l_id == $g_line->l_id) {
                                 $magic = $g_line->l_name;
@@ -1272,7 +1218,7 @@ margin-left:105px;border-style: solid;height:34px;padding: 0 0 0 0;font-size:24p
                         }
 
                         echo "
-            <div class='top_rank' style='display: flex;margin:auto;width:750px;position: relative;top:-65px;margin-left:323px;'>" .
+            <div class='top_rank' style='display: flex;margin:auto;width:750px;position: relative;top:-110px;margin-left:323px;'>" .
                             "<div style='display: flex;min-width:220px;margin-right:-67px;'>
                 <h3><i class='bi bi-arrow-up' style='background:#1e7100;color:white;font-size:19px;position:relative;bottom:5px;'></i></h3>&nbsp;
                 <h3 style='font-weight: bold;font-size:19px;'>Line </h3>           &nbsp;&nbsp;
@@ -1303,9 +1249,9 @@ margin-left:105px;border-style: solid;height:34px;padding: 0 0 0 0;font-size:24p
                         }
 
                         echo "
-            <div class='bottom_rank' style='display: flex;margin:auto;width:750px;position: relative;top:-65px;margin-left:323px;'>" .
+            <div class='top_rank' style='display: flex;margin:auto;width:750px;position: relative;top:-110px;margin-left:323px;'>" .
                             "<div style='display: flex;min-width:220px;margin-right:-67px;'>
-                <h3><i class='bi bi-arrow-down' style='background:#ff0000;color:white;font-size:19px;position:relative;bottom:5px;'></i></h3>&nbsp;
+                <h3><i class='bi bi-arrow-up' style='background:#ff0000;color:white;font-size:19px;position:relative;bottom:5px;'></i></h3>&nbsp;
                 <h3 style='font-weight: bold;font-size:19px;'>Line </h3>           &nbsp;&nbsp;
                 <h3 style='font-weight: bold;font-size:19px;'>" .
                             $magic .
@@ -1325,10 +1271,11 @@ margin-left:105px;border-style: solid;height:34px;padding: 0 0 0 0;font-size:24p
                 </div>
                     ";
                     }
+
                 }
             } elseif ($t_line->row_num == 10) {
                 foreach ($top_line as $t_line2) {
-                    if ($t_line2->row_num == 9) {
+                    if ($t_line2->row_num == 8 || $t_line2->row_num == 9) {
                         foreach ($getLine as $g_line) {
                             if ($t_line2->l_id == $g_line->l_id) {
                                 $magic = $g_line->l_name;
@@ -1337,7 +1284,7 @@ margin-left:105px;border-style: solid;height:34px;padding: 0 0 0 0;font-size:24p
                         }
 
                         echo "
-            <div class='top_rank' style='display: flex;margin:auto;width:750px;position: relative;top:-65px;margin-left:323px;'>" .
+            <div class='top_rank' style='display: flex;margin:auto;width:750px;position: relative;top:-110px;margin-left:323px;'>" .
                             "<div style='display: flex;min-width:220px;margin-right:-67px;'>
                 <h3><i class='bi bi-arrow-up' style='background:#1e7100;color:white;font-size:19px;position:relative;bottom:5px;'></i></h3>&nbsp;
                 <h3 style='font-weight: bold;font-size:19px;'>Line </h3>           &nbsp;&nbsp;
@@ -1367,8 +1314,5 @@ margin-left:105px;border-style: solid;height:34px;padding: 0 0 0 0;font-size:24p
 @endforeach
 @endif
 @endforeach
-
-
-
 
 </div>
