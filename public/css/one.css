@@ -36,13 +36,14 @@ html, body {
 }
 
 .js_time_border {
-    position:relative;top:20px;width:400px;margin-left:119px;height:70px;color:black;padding: 0 0 0 0;text-align:center;
+    position:relative;top:30px;width:535px;margin-left:119px;height:90px;color:black;padding: 10px 0 0 7px;text-align:center;
     background: #E9E9E9;
 }
 
 
 .js_time {
-    font-weight:bold;font-size:49px;width:400px;text-align:center;position: relative;left:0px;letter-spacing: 5px;bottom:20px;
+    font-weight:bold;font-size:62px;color:black;
+    width:520px;text-align:center;position: relative;left:0px;letter-spacing: 5px;bottom:20px;
 }
 
 
