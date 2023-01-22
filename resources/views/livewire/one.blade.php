@@ -1026,7 +1026,7 @@ style="width: 100px;position: relative;right:40px;top:-30px;" id="ranking_table"
                                 . "%" .
                                 "</h3> &nbsp;" .
 
-                            "<h3><i class='bi bi-arrow-up' style='color:#09ff00;font-weight:900;font-size:17px;position:relative;bottom:5px;'></i></h3></div>" .
+                            "<h3><i class='bi bi-arrow-up' style='color:#09ff00;font-weight:900;font-size:14px;position:relative;bottom:5px;'></i></h3></div>" .
 
                 "</div><br>
                     ";
@@ -1488,14 +1488,16 @@ style="width: 100px;position: relative;right:40px;top:-30px;" id="ranking_table"
                             '%' .
                             "</p></div>" .
 
-                            "<div style='display: flex;background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
-                                    min-width:70px;margin-left:30px;padding: 0 0 0 10px;
-                                    position: relative;bottom:2px;
-                                    '><h3 style='font-size:17px;color:black;font-weight:900;padding: 3px 0 0 0;'>" . $t_line2->diff_target_percent-$t_line->diff_target_percent
+                            "<div style='display: flex;
+                                    '><h3 style='background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
+                                    min-width:55px;min-height:28px;margin-left:32px;text-align:center;
+                                    position: relative;bottom:3px;left:3.7px;
+                                    font-size:14px;color:black;font-weight:900;padding: 5px 0 0 7px;'>" . $t_line->diff_target_percent-$t_line2->diff_target_percent
                                 . "%" .
                                 "</h3> &nbsp;" .
 
-                            "<h3><i class='bi bi-arrow-up' style='color:#09ff00;font-weight:900;font-size:17px;position:relative;bottom:5px;'></i></h3></div>" .
+                            "<h3><i class='bi bi-arrow-up' style='background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
+                            color:#09ff00;font-weight:900;font-size:20px;position:relative;bottom:4.3px;'></i></h3></div>" .
 
                 "</div><br>
                     ";
@@ -1536,7 +1538,7 @@ style="width: 100px;position: relative;right:40px;top:-30px;" id="ranking_table"
                             "<div style='display: flex;background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
                                     min-width:70px;margin-left:30px;padding: 0 0 0 10px;
                                     position: relative;bottom:2px;
-                                    '><h3 style='font-size:17px;color:black;font-weight:900;padding: 3px 0 0 0;'>" . $t_line->diff_target_percent-$t_line2->diff_target_percent
+                                    '><h3 style='font-size:14px;color:black;font-weight:900;padding: 3px 0 0 0;'>" . $t_line->diff_target_percent-$t_line2->diff_target_percent
                                 . "%" .
                                 "</h3> &nbsp;" .
 
