@@ -1,5 +1,5 @@
 html, body {
-    max-width: 1920px;
+    max-width: 1980px;
     min-width: 2000px;
     background-color: #fff;
     overflow: auto !important;
@@ -60,7 +60,7 @@ html, body {
 }
 
 .present_head {
-    position: relative;top:-87.6px;left:30px;
+    position: relative;top:-87.7px;left:30px;
     margin-left:163px;height:34px;padding: 0 0 0 0;font-size:24px;max-width:120px;margin-bottom:10px;
     text-align:center;background: #ED1C24;
 }
@@ -80,7 +80,53 @@ html, body {
 }
 
 
+@media(max-width:3200px) {
+    .present_head {
+        top:-89.4px;
+    }
+    .present_table {
+        top:-90.7px;
+    }
+}
 
+
+@media(max-width:2400px) {
+    .present_head {
+        top:-88.2px;
+    }
+    .present_table {
+        top:-89.84px;
+    }
+    .right_table {
+        top:224.72px;
+    }
+}
+
+
+@media(max-width:2134px) {
+    .present_head {
+        top:-87.9px;
+    }
+    .present_table {
+        top:-89.3px;
+    }
+    .right_table {
+        top:224.7px;
+    }
+}
+
+
+@media(max-width:2000px) {
+    .present_head {
+        top:-87.7px;
+    }
+    .present_table {
+        top:-89.1px;
+    }
+    .right_table {
+        top:224.7px;
+    }
+}
 
 
 @media(max-width:1600px) {
