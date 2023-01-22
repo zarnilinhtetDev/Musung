@@ -537,7 +537,7 @@ style="width: 100px;position: relative;right:430px;top:-61.7px;" id="ranking_tab
                                 <h3>{{ $t_line->row_num }}</h3>
                             </span>
                             <span>
-                                <h3 class="text-light" style="font-size: 50px;font-weight: bold;">
+                                <h3 class="text-light" style="font-size: 72px;font-weight: bold;">
                                     {{ $t_line->diff_target_percent }}%
                                 </h3>
                             </span>
@@ -900,7 +900,7 @@ style="width: 100px;position: relative;right:430px;top:-61.7px;" id="ranking_tab
                         }
 
                         echo "
-            <div class='bottom_rank' style='padding: 6px 0 0 0;display: flex;margin:auto;width:410px;position: relative;top:-215px;margin-left:460px;height:42px;
+            <div class='bottom_rank' style='padding: 10px 0 0 0;display: flex;margin:auto;width:410px;position: relative;top:-189px;margin-left:490px;height:50px;
             border: solid 1px;'>" .
                             "<div style='display: flex;min-width:270px;margin-right:5px;'>" .
 
@@ -929,7 +929,7 @@ style="width: 100px;position: relative;right:430px;top:-61.7px;" id="ranking_tab
                                 "</h3> &nbsp;" .
 
                             "<div style='margin-left:18px;display:flex;position: relative;bottom:2px;right:27px;
-                            padding:0 0 0 0;min-width:70px;height:30px;background:#ED3334;text-align: center;
+                            padding:0 0 0 0;min-width:70px;height:33px;background:#ED3334;text-align: center;
                             justify-content:center;'>    
                             <p style='font-size:24px;position: relative;bottom:3px;'
                     class='text-light'>" .
