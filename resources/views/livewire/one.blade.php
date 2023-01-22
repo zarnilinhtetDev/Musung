@@ -77,7 +77,8 @@
 
 
 
-
+<div class="float-container">
+    <div class="float-child">
                 <div class='left_head' style=''>
                             <h3>
                                 </h3></div>
@@ -117,11 +118,11 @@
                         </td>
                     </tr>
                 </table>
-
+                </div>
 
 
      {{-- Total percentage by msn--}}
-<div>
+<div class="float-child">
     @foreach($target_total as $t_1_total)
 
 <div class='present_head' style=''>
@@ -289,11 +290,11 @@
             @endforeach
             @break
         @endforeach
-</div>
+        </div>
 @endif
 @endforeach
     <tr>
-
+</div>
 
 
         @php $new_num_1 = 1; @endphp
