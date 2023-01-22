@@ -130,7 +130,7 @@
 
                 <table class="w-100 text-center table table-bordered table-sm border-white present_table" id="total_table" style="">
                     <tr class="text-light">
-                        <td style="height:35px;background: #00c400">
+                        <td style="height:36px;background: #00c400">
                             <span style="font-size:17px;">
                             </span>
                         </td>
@@ -141,7 +141,7 @@
 
 
                     <tr class="text-light">
-                        <td style="height:34px;background: #1a75ff;" class="">
+                        <td style="height:36px;background: #1a75ff;" class="">
                             <span style="font-size:17px;"
                                 class=""></span>
                         </td>
@@ -489,7 +489,7 @@
 
 {{-- Update Ranking by msn --}}
 <table class="m-auto text-start text-center"
-style="width: 100px;position: relative;right:430px;top:-99.7px;" id="ranking_table">
+style="width: 100px;position: relative;right:430px;top:-91.7px;" id="ranking_table">
 <tbody>
     <tr>
         <td style="vertical-align: middle;">
@@ -924,15 +924,16 @@ style="width: 100px;position: relative;right:430px;top:-99.7px;" id="ranking_tab
                             '%' .
                             "</p></div>" .
 
-                            "<div style='display: flex;
-                                    '><h3 style='background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
-                                    min-width:55px;min-height:28px;margin-left:12px;text-align:center;
+                            "<div style='display: flex;background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
+                            margin-left:16px;min-width:81px;height:26px;position: relative;bottom: 2px;
+                                    '><h3 style='
+                                    min-width:55px;min-height:28px;text-align:center;
                                     position: relative;bottom:3px;left:3.7px;
                                     font-size:14px;color:black;font-weight:900;padding: 5px 0 0 7px;'>" . $t_line->diff_target_percent-$t_line2->diff_target_percent
                                 . "%" .
                                 "</h3> &nbsp;" .
 
-                            "<h3><i class='bi bi-caret-down-fill' style='background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
+                            "<h3><i class='bi bi-caret-down-fill' style='
                             color:red;font-weight:900;font-size:20px;position:relative;bottom:4.3px;'></i></h3></div>" .
 
                 "</div><br>
@@ -967,22 +968,23 @@ style="width: 100px;position: relative;right:430px;top:-99.7px;" id="ranking_tab
                             "</h3>
                     </div>" .
 
-                            "<div style='margin-left:10px;display:flex;position: relative;top:1px;padding:0 0 0 0;min-width:40px;height:20px;background:#09ff00;text-align: center;justify-content:center;'>
+                            "<div style='margin-left:10px;display:flex;position: relative;top:1px;padding:0 0 0 0;min-width:40px;height:20px;background:#008000;text-align: center;justify-content:center;'>
                                 <p style='font-size:17px;position: relative;bottom:3px;'
                     class='text-light'>" .
                             $t_line2->diff_target_percent .
                             '%' .
                             "</p></div>" .
 
-                            "<div style='display: flex;
-                                    '><h3 style='background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
-                                    min-width:55px;min-height:28px;margin-left:12px;text-align:center;
+                            "<div style='display: flex;background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
+                            margin-left:16px;min-width:81px;height:26px;position: relative;bottom: 2px;
+                                    '><h3 style='
+                                    min-width:55px;min-height:28px;text-align:center;
                                     position: relative;bottom:3px;left:3.7px;
                                     font-size:14px;color:black;font-weight:900;padding: 5px 0 0 7px;'>" . $t_line2->diff_target_percent-$t_line->diff_target_percent
                                 . "%" .
                                 "</h3> &nbsp;" .
 
-                            "<h3><i class='bi bi-caret-up-fill' style='background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
+                            "<h3><i class='bi bi-caret-up-fill' style='
                             color:#79ff4d;font-weight:900;font-size:20px;position:relative;bottom:4.3px;'></i></h3></div>" .
 
                 "</div><br>
@@ -1021,15 +1023,16 @@ style="width: 100px;position: relative;right:430px;top:-99.7px;" id="ranking_tab
                             '%' .
                             "</p></div>" .
 
-                            "<div style='display: flex;
-                                    '><h3 style='background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
-                                    min-width:55px;min-height:28px;margin-left:12px;text-align:center;
+                            "<div style='display: flex;background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
+                            margin-left:16px;min-width:81px;height:26px;position: relative;bottom: 2px;
+                                    '><h3 style='
+                                    min-width:55px;min-height:28px;text-align:center;
                                     position: relative;bottom:3px;left:3.7px;
                                     font-size:14px;color:black;font-weight:900;padding: 5px 0 0 7px;'>" . $t_line->diff_target_percent-$t_line2->diff_target_percent
                                 . "%" .
                                 "</h3> &nbsp;" .
 
-                            "<h3><i class='bi bi-caret-down-fill' style='background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
+                            "<h3><i class='bi bi-caret-down-fill' style='
                             color:red;font-weight:900;font-size:20px;position:relative;bottom:4.3px;'></i></h3></div>" .
 
                 "</div><br>
@@ -1064,22 +1067,23 @@ style="width: 100px;position: relative;right:430px;top:-99.7px;" id="ranking_tab
                             "</h3>
                     </div>" .
 
-                            "<div style='margin-left:10px;display:flex;position: relative;top:1px;padding:0 0 0 0;min-width:40px;height:20px;background:#09ff00;text-align: center;justify-content:center;'>
+                            "<div style='margin-left:10px;display:flex;position: relative;top:1px;padding:0 0 0 0;min-width:40px;height:20px;background:#008000;text-align: center;justify-content:center;'>
                                 <p style='font-size:17px;position: relative;bottom:3px;'
                     class='text-light'>" .
                             $t_line2->diff_target_percent .
                             '%' .
                             "</p></div>" .
 
-                            "<div style='display: flex;
-                                    '><h3 style='background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
-                                    min-width:55px;min-height:28px;margin-left:12px;text-align:center;
+                            "<div style='display: flex;background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
+                            margin-left:16px;min-width:81px;height:26px;position: relative;bottom: 2px;
+                                    '><h3 style='
+                                    min-width:55px;min-height:28px;text-align:center;
                                     position: relative;bottom:3px;left:3.7px;
                                     font-size:14px;color:black;font-weight:900;padding: 5px 0 0 7px;'>" . $t_line2->diff_target_percent-$t_line->diff_target_percent
                                 . "%" .
                                 "</h3> &nbsp;" .
 
-                            "<h3><i class='bi bi-caret-up-fill' style='background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
+                            "<h3><i class='bi bi-caret-up-fill' style='
                             color:#79ff4d;font-weight:900;font-size:20px;position:relative;bottom:4.3px;'></i></h3></div>" .
 
                 "</div><br>
@@ -1118,15 +1122,16 @@ style="width: 100px;position: relative;right:430px;top:-99.7px;" id="ranking_tab
                             '%' .
                             "</p></div>" .
 
-                            "<div style='display: flex;
-                                    '><h3 style='background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
-                                    min-width:55px;min-height:28px;margin-left:12px;text-align:center;
+                            "<div style='display: flex;background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
+                            margin-left:16px;min-width:81px;height:26px;position: relative;bottom: 2px;
+                                    '><h3 style='
+                                    min-width:55px;min-height:28px;text-align:center;
                                     position: relative;bottom:3px;left:3.7px;
                                     font-size:14px;color:black;font-weight:900;padding: 5px 0 0 7px;'>" . $t_line->diff_target_percent-$t_line2->diff_target_percent
                                 . "%" .
                                 "</h3> &nbsp;" .
 
-                            "<h3><i class='bi bi-caret-down-fill' style='background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
+                            "<h3><i class='bi bi-caret-down-fill' style='
                             color:red;font-weight:900;font-size:20px;position:relative;bottom:4.3px;'></i></h3></div>" .
 
                 "</div><br>
@@ -1161,22 +1166,23 @@ style="width: 100px;position: relative;right:430px;top:-99.7px;" id="ranking_tab
                             "</h3>
                     </div>" .
 
-                            "<div style='margin-left:10px;display:flex;position: relative;top:1px;padding:0 0 0 0;min-width:40px;height:20px;background:#09ff00;text-align: center;justify-content:center;'>
+                            "<div style='margin-left:10px;display:flex;position: relative;top:1px;padding:0 0 0 0;min-width:40px;height:20px;background:#008000;text-align: center;justify-content:center;'>
                                 <p style='font-size:17px;position: relative;bottom:3px;'
                     class='text-light'>" .
                             $t_line2->diff_target_percent .
                             '%' .
                             "</p></div>" .
 
-                            "<div style='display: flex;
-                                    '><h3 style='background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
-                                    min-width:55px;min-height:28px;margin-left:12px;text-align:center;
+                            "<div style='display: flex;background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
+                            margin-left:16px;min-width:81px;height:26px;position: relative;bottom: 2px;
+                                    '><h3 style='
+                                    min-width:55px;min-height:28px;text-align:center;
                                     position: relative;bottom:3px;left:3.7px;
                                     font-size:14px;color:black;font-weight:900;padding: 5px 0 0 7px;'>" . $t_line2->diff_target_percent-$t_line->diff_target_percent
                                 . "%" .
                                 "</h3> &nbsp;" .
 
-                            "<h3><i class='bi bi-caret-up-fill' style='background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
+                            "<h3><i class='bi bi-caret-up-fill' style='
                             color:#79ff4d;font-weight:900;font-size:20px;position:relative;bottom:4.3px;'></i></h3></div>" .
 
                 "</div><br>
@@ -1215,15 +1221,16 @@ style="width: 100px;position: relative;right:430px;top:-99.7px;" id="ranking_tab
                             '%' .
                             "</p></div>" .
 
-                            "<div style='display: flex;
-                                    '><h3 style='background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
-                                    min-width:55px;min-height:28px;margin-left:12px;text-align:center;
+                            "<div style='display: flex;background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
+                            margin-left:16px;min-width:81px;height:26px;position: relative;bottom: 2px;
+                                    '><h3 style='
+                                    min-width:55px;min-height:28px;text-align:center;
                                     position: relative;bottom:3px;left:3.7px;
                                     font-size:14px;color:black;font-weight:900;padding: 5px 0 0 7px;'>" . $t_line->diff_target_percent-$t_line2->diff_target_percent
                                 . "%" .
                                 "</h3> &nbsp;" .
 
-                            "<h3><i class='bi bi-caret-down-fill' style='background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
+                            "<h3><i class='bi bi-caret-down-fill' style='
                             color:red;font-weight:900;font-size:20px;position:relative;bottom:4.3px;'></i></h3></div>" .
 
                 "</div><br>
@@ -1258,22 +1265,23 @@ style="width: 100px;position: relative;right:430px;top:-99.7px;" id="ranking_tab
                             "</h3>
                     </div>" .
 
-                            "<div style='margin-left:10px;display:flex;position: relative;top:1px;padding:0 0 0 0;min-width:40px;height:20px;background:#09ff00;text-align: center;justify-content:center;'>
+                            "<div style='margin-left:10px;display:flex;position: relative;top:1px;padding:0 0 0 0;min-width:40px;height:20px;background:#008000;text-align: center;justify-content:center;'>
                                 <p style='font-size:17px;position: relative;bottom:3px;'
                     class='text-light'>" .
                             $t_line2->diff_target_percent .
                             '%' .
                             "</p></div>" .
 
-                            "<div style='display: flex;
-                                    '><h3 style='background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
-                                    min-width:55px;min-height:28px;margin-left:12px;text-align:center;
+                            "<div style='display: flex;background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
+                            margin-left:16px;min-width:81px;height:26px;position: relative;bottom: 2px;
+                                    '><h3 style='
+                                    min-width:55px;min-height:28px;text-align:center;
                                     position: relative;bottom:3px;left:3.7px;
                                     font-size:14px;color:black;font-weight:900;padding: 5px 0 0 7px;'>" . $t_line2->diff_target_percent-$t_line->diff_target_percent
                                 . "%" .
                                 "</h3> &nbsp;" .
 
-                            "<h3><i class='bi bi-caret-up-fill' style='background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
+                            "<h3><i class='bi bi-caret-up-fill' style='
                             color:#79ff4d;font-weight:900;font-size:20px;position:relative;bottom:4.3px;'></i></h3></div>" .
 
                 "</div><br>
@@ -1312,15 +1320,16 @@ style="width: 100px;position: relative;right:430px;top:-99.7px;" id="ranking_tab
                             '%' .
                             "</p></div>" .
 
-                            "<div style='display: flex;
-                                    '><h3 style='background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
-                                    min-width:55px;min-height:28px;margin-left:12px;text-align:center;
+                            "<div style='display: flex;background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
+                            margin-left:16px;min-width:81px;height:26px;position: relative;bottom: 2px;
+                                    '><h3 style='
+                                    min-width:55px;min-height:28px;text-align:center;
                                     position: relative;bottom:3px;left:3.7px;
                                     font-size:14px;color:black;font-weight:900;padding: 5px 0 0 7px;'>" . $t_line->diff_target_percent-$t_line2->diff_target_percent
                                 . "%" .
                                 "</h3> &nbsp;" .
 
-                            "<h3><i class='bi bi-caret-down-fill' style='background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
+                            "<h3><i class='bi bi-caret-down-fill' style='
                             color:red;font-weight:900;font-size:20px;position:relative;bottom:4.3px;'></i></h3></div>" .
 
                 "</div><br>
@@ -1355,22 +1364,23 @@ style="width: 100px;position: relative;right:430px;top:-99.7px;" id="ranking_tab
                             "</h3>
                     </div>" .
 
-                            "<div style='margin-left:10px;display:flex;position: relative;top:1px;padding:0 0 0 0;min-width:40px;height:20px;background:#09ff00;text-align: center;justify-content:center;'>
+                            "<div style='margin-left:10px;display:flex;position: relative;top:1px;padding:0 0 0 0;min-width:40px;height:20px;background:#008000;text-align: center;justify-content:center;'>
                                 <p style='font-size:17px;position: relative;bottom:3px;'
                     class='text-light'>" .
                             $t_line2->diff_target_percent .
                             '%' .
                             "</p></div>" .
 
-                            "<div style='display: flex;
-                                    '><h3 style='background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
-                                    min-width:55px;min-height:28px;margin-left:12px;text-align:center;
+                            "<div style='display: flex;background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
+                            margin-left:16px;min-width:81px;height:26px;position: relative;bottom: 2px;
+                                    '><h3 style='
+                                    min-width:55px;min-height:28px;text-align:center;
                                     position: relative;bottom:3px;left:3.7px;
                                     font-size:14px;color:black;font-weight:900;padding: 5px 0 0 7px;'>" . $t_line2->diff_target_percent-$t_line->diff_target_percent
                                 . "%" .
                                 "</h3> &nbsp;" .
 
-                            "<h3><i class='bi bi-caret-up-fill' style='background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
+                            "<h3><i class='bi bi-caret-up-fill' style='
                             color:#79ff4d;font-weight:900;font-size:20px;position:relative;bottom:4.3px;'></i></h3></div>" .
 
                 "</div><br>
@@ -1409,15 +1419,16 @@ style="width: 100px;position: relative;right:430px;top:-99.7px;" id="ranking_tab
                             '%' .
                             "</p></div>" .
 
-                            "<div style='display: flex;
-                                    '><h3 style='background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
-                                    min-width:55px;min-height:28px;margin-left:12px;text-align:center;
+                            "<div style='display: flex;background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
+                            margin-left:16px;min-width:81px;height:26px;position: relative;bottom: 2px;
+                                    '><h3 style='
+                                    min-width:55px;min-height:28px;text-align:center;
                                     position: relative;bottom:3px;left:3.7px;
                                     font-size:14px;color:black;font-weight:900;padding: 5px 0 0 7px;'>" . $t_line->diff_target_percent-$t_line2->diff_target_percent
                                 . "%" .
                                 "</h3> &nbsp;" .
 
-                            "<h3><i class='bi bi-caret-down-fill' style='background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
+                            "<h3><i class='bi bi-caret-down-fill' style='
                             color:red;font-weight:900;font-size:20px;position:relative;bottom:4.3px;'></i></h3></div>" .
 
                 "</div><br>
@@ -1454,22 +1465,23 @@ style="width: 100px;position: relative;right:430px;top:-99.7px;" id="ranking_tab
                             "</h3>
                     </div>" .
 
-                            "<div style='margin-left:10px;display:flex;position: relative;top:1px;padding:0 0 0 0;min-width:40px;height:20px;background:#09ff00;text-align: center;justify-content:center;'>
+                            "<div style='margin-left:10px;display:flex;position: relative;top:1px;padding:0 0 0 0;min-width:40px;height:20px;background:#008000;text-align: center;justify-content:center;'>
                                 <p style='font-size:17px;position: relative;bottom:3px;'
                     class='text-light'>" .
                             $t_line2->diff_target_percent .
                             '%' .
                             "</p></div>" .
 
-                            "<div style='display: flex;
-                                    '><h3 style='background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
-                                    min-width:55px;min-height:28px;margin-left:12px;text-align:center;
+                            "<div style='display: flex;background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
+                            margin-left:16px;min-width:81px;height:26px;position: relative;bottom: 2px;
+                                    '><h3 style='
+                                    min-width:55px;min-height:28px;text-align:center;
                                     position: relative;bottom:3px;left:3.7px;
                                     font-size:14px;color:black;font-weight:900;padding: 5px 0 0 7px;'>" . $t_line2->diff_target_percent-$t_line->diff_target_percent
                                 . "%" .
                                 "</h3> &nbsp;" .
 
-                            "<h3><i class='bi bi-caret-up-fill' style='background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
+                            "<h3><i class='bi bi-caret-up-fill' style='
                             color:#79ff4d;font-weight:900;font-size:20px;position:relative;bottom:4.3px;'></i></h3></div>" .
 
                 "</div><br>
@@ -1509,15 +1521,16 @@ style="width: 100px;position: relative;right:430px;top:-99.7px;" id="ranking_tab
                             '%' .
                             "</p></div>" .
 
-                            "<div style='display: flex;
-                                    '><h3 style='background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
-                                    min-width:55px;min-height:28px;margin-left:12px;text-align:center;
+                            "<div style='display: flex;background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
+                            margin-left:16px;min-width:81px;height:26px;position: relative;bottom: 2px;
+                                    '><h3 style='
+                                    min-width:55px;min-height:28px;text-align:center;
                                     position: relative;bottom:3px;left:3.7px;
                                     font-size:14px;color:black;font-weight:900;padding: 5px 0 0 7px;'>" . $t_line->diff_target_percent-$t_line2->diff_target_percent
                                 . "%" .
                                 "</h3> &nbsp;" .
 
-                            "<h3><i class='bi bi-caret-down-fill' style='background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
+                            "<h3><i class='bi bi-caret-down-fill' style='
                             color:red;font-weight:900;font-size:20px;position:relative;bottom:4.3px;'></i></h3></div>" .
 
                 "</div><br>
@@ -1553,22 +1566,23 @@ style="width: 100px;position: relative;right:430px;top:-99.7px;" id="ranking_tab
                             "</h3>
                     </div>" .
 
-                            "<div style='margin-left:10px;display:flex;position: relative;top:1px;padding:0 0 0 0;min-width:40px;height:20px;background:#09ff00;text-align: center;justify-content:center;'>
+                            "<div style='margin-left:10px;display:flex;position: relative;top:1px;padding:0 0 0 0;min-width:40px;height:20px;background:#008000;text-align: center;justify-content:center;'>
                                 <p style='font-size:17px;position: relative;bottom:3px;'
                     class='text-light'>" .
                             $t_line2->diff_target_percent .
                             '%' .
                             "</p></div>" .
 
-                            "<div style='display: flex;
-                                    '><h3 style='background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
-                                    min-width:55px;min-height:28px;margin-left:12px;text-align:center;
+                            "<div style='display: flex;background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
+                            margin-left:16px;min-width:81px;height:26px;position: relative;bottom: 2px;
+                                    '><h3 style='
+                                    min-width:55px;min-height:28px;text-align:center;
                                     position: relative;bottom:3px;left:3.7px;
                                     font-size:14px;color:black;font-weight:900;padding: 5px 0 0 7px;'>" . $t_line2->diff_target_percent-$t_line->diff_target_percent
                                 . "%" .
                                 "</h3> &nbsp;" .
 
-                            "<h3><i class='bi bi-caret-up-fill' style='background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
+                            "<h3><i class='bi bi-caret-up-fill' style='
                             color:#79ff4d;font-weight:900;font-size:20px;position:relative;bottom:4.3px;'></i></h3></div>" .
 
                 "</div><br>
@@ -1607,15 +1621,16 @@ style="width: 100px;position: relative;right:430px;top:-99.7px;" id="ranking_tab
                             '%' .
                             "</p></div>" .
 
-                            "<div style='display: flex;
-                                    '><h3 style='background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
-                                    min-width:55px;min-height:28px;margin-left:12px;text-align:center;
+                            "<div style='display: flex;background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
+                            margin-left:16px;min-width:81px;height:26px;position: relative;bottom: 2px;
+                                    '><h3 style='
+                                    min-width:55px;min-height:28px;text-align:center;
                                     position: relative;bottom:3px;left:3.7px;
                                     font-size:14px;color:black;font-weight:900;padding: 5px 0 0 7px;'>" . $t_line->diff_target_percent-$t_line2->diff_target_percent
                                 . "%" .
                                 "</h3> &nbsp;" .
 
-                            "<h3><i class='bi bi-caret-down-fill' style='background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
+                            "<h3><i class='bi bi-caret-down-fill' style='
                             color:red;font-weight:900;font-size:20px;position:relative;bottom:4.3px;'></i></h3></div>" .
 
                 "</div><br>
@@ -1650,22 +1665,23 @@ style="width: 100px;position: relative;right:430px;top:-99.7px;" id="ranking_tab
                             "</h3>
                     </div>" .
 
-                            "<div style='margin-left:10px;display:flex;position: relative;top:1px;padding:0 0 0 0;min-width:40px;height:20px;background:#09ff00;text-align: center;justify-content:center;'>
+                            "<div style='margin-left:10px;display:flex;position: relative;top:1px;padding:0 0 0 0;min-width:40px;height:20px;background:#008000;text-align: center;justify-content:center;'>
                                 <p style='font-size:17px;position: relative;bottom:3px;'
                     class='text-light'>" .
                             $t_line2->diff_target_percent .
                             '%' .
                             "</p></div>" .
 
-                            "<div style='display: flex;
-                                    '><h3 style='background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
-                                    min-width:55px;min-height:28px;margin-left:12px;text-align:center;
+                            "<div style='display: flex;background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
+                            margin-left:16px;min-width:81px;height:26px;position: relative;bottom: 2px;
+                                    '><h3 style='
+                                    min-width:55px;min-height:28px;text-align:center;
                                     position: relative;bottom:3px;left:3.7px;
                                     font-size:14px;color:black;font-weight:900;padding: 5px 0 0 7px;'>" . $t_line2->diff_target_percent-$t_line->diff_target_percent
                                 . "%" .
                                 "</h3> &nbsp;" .
 
-                            "<h3><i class='bi bi-caret-up-fill' style='background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
+                            "<h3><i class='bi bi-caret-up-fill' style='
                             color:#79ff4d;font-weight:900;font-size:20px;position:relative;bottom:4.3px;'></i></h3></div>" .
 
                 "</div><br>
@@ -1704,15 +1720,16 @@ style="width: 100px;position: relative;right:430px;top:-99.7px;" id="ranking_tab
                             '%' .
                             "</p></div>" .
 
-                            "<div style='display: flex;
-                                    '><h3 style='background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
-                                    min-width:55px;min-height:28px;margin-left:12px;text-align:center;
+                            "<div style='display: flex;background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
+                            margin-left:16px;min-width:81px;height:26px;position: relative;bottom: 2px;
+                                    '><h3 style='
+                                    min-width:55px;min-height:28px;text-align:center;
                                     position: relative;bottom:3px;left:3.7px;
                                     font-size:14px;color:black;font-weight:900;padding: 5px 0 0 7px;'>" . $t_line->diff_target_percent-$t_line2->diff_target_percent
                                 . "%" .
                                 "</h3> &nbsp;" .
 
-                            "<h3><i class='bi bi-caret-down-fill' style='background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
+                            "<h3><i class='bi bi-caret-down-fill' style='
                             color:red;font-weight:900;font-size:20px;position:relative;bottom:4.3px;'></i></h3></div>" .
 
                 "</div><br>
@@ -1748,22 +1765,23 @@ style="width: 100px;position: relative;right:430px;top:-99.7px;" id="ranking_tab
                             "</h3>
                     </div>" .
 
-                            "<div style='margin-left:10px;display:flex;position: relative;top:1px;padding:0 0 0 0;min-width:40px;height:20px;background:#09ff00;text-align: center;justify-content:center;'>
+                            "<div style='margin-left:10px;display:flex;position: relative;top:1px;padding:0 0 0 0;min-width:40px;height:20px;background:#008000;text-align: center;justify-content:center;'>
                                 <p style='font-size:17px;position: relative;bottom:3px;'
                     class='text-light'>" .
                             $t_line2->diff_target_percent .
                             '%' .
                             "</p></div>" .
 
-                            "<div style='display: flex;
-                                    '><h3 style='background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
-                                    min-width:55px;min-height:28px;margin-left:12px;text-align:center;
+                            "<div style='display: flex;background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
+                            margin-left:16px;min-width:81px;height:26px;position: relative;bottom: 2px;
+                                    '><h3 style='
+                                    min-width:55px;min-height:28px;text-align:center;
                                     position: relative;bottom:3px;left:3.7px;
                                     font-size:14px;color:black;font-weight:900;padding: 5px 0 0 7px;'>" . $t_line2->diff_target_percent-$t_line->diff_target_percent
                                 . "%" .
                                 "</h3> &nbsp;" .
 
-                            "<h3><i class='bi bi-caret-up-fill' style='background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
+                            "<h3><i class='bi bi-caret-up-fill' style='
                             color:#79ff4d;font-weight:900;font-size:20px;position:relative;bottom:4.3px;'></i></h3></div>" .
 
                 "</div><br>

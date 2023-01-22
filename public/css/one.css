@@ -1,5 +1,5 @@
 html, body {
-    max-width: 1980px;
+    max-width: 1919px;
     min-width: 2000px;
     background-color: #fff;
     overflow: auto !important;
@@ -13,7 +13,7 @@ html, body {
 }
 
 .k_rank_head {
-    position: relative;right:425px;top:-160px;
+    position: relative;right:425px;top:-153px;
 }
 
 .k_main_percent {
@@ -105,10 +105,10 @@ html, body {
 
 @media(max-width:2134px) {
     .present_head {
-        top:-87.9px;
+        top:-89.7px;
     }
     .present_table {
-        top:-89.3px;
+        top:-91.3px;
     }
     .right_table {
         top:224.7px;
@@ -131,11 +131,11 @@ html, body {
 
 @media(max-width:1600px) {
     .present_head {
-            top:-89.3px;;
+            top:-89.7px;
         }
 
     .present_table {
-            top:-91.3px;
+            top:-91.1px;
         }
    }
 
