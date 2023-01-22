@@ -82,7 +82,7 @@
                             <h3>
                                 </h3></div>
                 <table class="text-center table table-bordered table-sm border-white left_table" style="">
-                    <tr>
+                    <tr class="text-light">
                         <td style="height:35px;background: #00c400;">
                             <span style="font-size:17px;font-weight:bold;"
                             class="">
@@ -95,7 +95,7 @@
                     <tr><td></td></tr>
 
 
-                    <tr class="text-dark">
+                    <tr class="text-light">
                         <td style="height:34px; background: #1a75ff;" class="">
                             <span style="font-size:17px;font-weight:bold;"
                                 class="">Production</span>&nbsp;&nbsp; <span style="font-size:17px;font-weight:bold;">:</span>
@@ -107,7 +107,7 @@
                 <tr><td></td></tr>
 
 
-                    <tr class="text-dark">
+                    <tr class="text-light">
                         <td style="height:40.7px;" id="percent_val"
                             class="">
                             <span style="font-size:17px;font-weight:bold;" class="">
@@ -125,7 +125,7 @@
     @foreach($target_total as $t_1_total)
 
 <div class='present_head' style=''>
-            <h3 style="font-size: 22px;color:black;padding: 2px 0 0 0;">
+            <h3 style="font-size: 22px;color:white;padding: 2px 0 0 0;">
                 Present</h3></div>
 
                 <table class="w-100 text-center table table-bordered table-sm border-white" id="total_table" style="margin-left:105px;max-width:120px;position:relative;top:30px;left:60px;">
@@ -133,11 +133,11 @@
                         <td style="height:47px;">
                         </td>
                     </tr>
-                    <tr class="text-dark">
+                    <tr class="text-light">
                         <td style="height:47px;" class="fw-bold td_a_total1_{{ $t_1_total->line_id }}">
                         </td>
                     </tr>
-                    <tr class="text-dark">
+                    <tr class="text-light">
                         <td style="max-height:46px;"
                             class="fw-bold td_t_percent1_{{ $t_1_total->line_id }}">
                         </td>
@@ -153,7 +153,7 @@
                     <tr>
                         <td style="height:35px;background: #00c400">
                             <span style="font-size:17px;"
-                            class="right_table_text1 fw-bold t_1_total_{{ $t_1_total->line_id }}">
+                            class="text-light right_table_text1 fw-bold t_1_total_{{ $t_1_total->line_id }}">
                               {{ $a_total->total_div_target }}
                             </span>
                         </td>
@@ -163,7 +163,7 @@
                     <tr><td></td></tr>
 
 
-                    <tr class="text-dark">
+                    <tr class="text-light">
                         <td style="height:34px;background: #1a75ff;" class="fw-bold td_a_total1_{{ $t_1_total->line_id }}">
                             <span style="font-size:17px;"
                                 class="right_table_text2 a_total1_{{ $t_1_total->line_id }}">{{ $a_total->total_actual_target }}</span>
@@ -175,7 +175,7 @@
                 <tr><td></td></tr>
 
 
-                    <tr class="text-dark">
+                    <tr class="text-light">
                         <td style="height:40px;"
                             class="fw-bold td_t_percent1_{{ $t_1_total->line_id }}">
                             <span style="font-size:20px;" class="right_table_text3 t_percent1_{{ $t_1_total->line_id }}"></span>
@@ -222,8 +222,8 @@
                                     if (parseInt(t_percent_span.text()) <= 80) {
 
 
-                                        td_t_percent.css('color', 'black');
-                                        td_a_percent.css('color', 'black');
+                                        td_t_percent.css('color', 'white');
+                                        td_a_percent.css('color', 'white');
 
                                         // td_t_percent.css('background-color','rgba(255,0,0,0.8)');
                                         td_a_percent.css('background', '#ED1C24');
@@ -235,8 +235,8 @@
                                         present_third_value.text("red");
                                     }
                                     if (parseInt(t_percent_span.text()) > 80) {
-                                        td_t_percent.css('color', 'black');
-                                        td_a_percent.css('color', 'black');
+                                        td_t_percent.css('color', 'white');
+                                        td_a_percent.css('color', 'white');
 
                                         // td_t_percent.css({'background-color':'#FF8000','color':'#fff'});
                                         td_a_percent.css({'background': '#e68a00',});
@@ -248,8 +248,8 @@
                                         present_third_value.text("orange");
                                     }
                                     if (parseInt(t_percent_span.text()) >= 100) {
-                                        td_t_percent.css('color', 'black');
-                                        td_a_percent.css('color', 'black');
+                                        td_t_percent.css('color', 'white');
+                                        td_a_percent.css('color', 'white');
 
                                         // td_t_percent.css({'background-color':'rgba(30,113,0,1)','color':'#fff'});
                                         td_a_percent.css({'background': '#00c400',});
@@ -485,7 +485,7 @@ style="width: 100px;position: relative;right:40px;top:-30px;" id="ranking_table"
         <td style="font-size:10px;vertical-align: middle;min-width:220px;height:120px;"
           class="t_line t_line_count">
           <span>
-            <h3 class="text-white" style="font-size: 50px;font-weight: bold;">
+            <h3 class="text-light" style="font-size: 50px;font-weight: bold;">
             </h3>
           </span>
         </td>
@@ -612,7 +612,7 @@ style="width: 100px;position: relative;right:40px;top:-30px;" id="ranking_table"
             <table
             class="w-100 text-center table m-0 totalTable table-bordered table-sm border-white right_table">
 
-                <h3 class="rank_heading" style="font-size: 22px;color:black;padding: 2px 0 0 0;">
+                <h3 class="rank_heading" style="font-size: 22px;color:white;padding: 2px 0 0 0;">
                     Daily</h3>
 @if(isset($actual_target_total))
 
@@ -636,7 +636,7 @@ style="width: 100px;position: relative;right:40px;top:-30px;" id="ranking_table"
                     @if ($g_line_id == $a_total->line_id)
                         <tr>
                             <td style="height: 12px;background: #00c400;"><span
-                                    class="right_table_text1 fw-bold t_2_total_{{ $t_2_total->line_id }}">
+                                    class="text-light right_table_text1 fw-bold t_2_total_{{ $t_2_total->line_id }}">
                                     @if($g_ot_main_target
                                     !=
                                     '') {{ number_format($g_main_target + $g_ot_main_target) }}
@@ -650,7 +650,7 @@ style="width: 100px;position: relative;right:40px;top:-30px;" id="ranking_table"
                 <tr><td></td></tr>
 
 
-                        <tr class="text-dark">
+                        <tr class="text-light">
                             <td style="height:2px;background:#1a75ff;" class="fw-bold td_a_total_{{ $t_2_total->line_id }}">
                                 <span
                                     class="right_table_text2 a_total_{{ $t_2_total->line_id }}">{{ $a_total->total_actual_target }}</span>
@@ -661,7 +661,7 @@ style="width: 100px;position: relative;right:40px;top:-30px;" id="ranking_table"
                         <tr><td></td></tr>
 
 
-                        <tr class="text-dark">
+                        <tr class="text-light">
                             <td style="height:2px;min-width:120px;"
                                 class="fw-bold td_t_percent_{{ $t_2_total->line_id }}">
                                 <span class="right_table_text3 t_percent_{{ $t_2_total->line_id }}"></span>
@@ -705,8 +705,8 @@ style="width: 100px;position: relative;right:40px;top:-30px;" id="ranking_table"
                                         t_percent_span.text(parseInt(t_percent));
 
                                         if (present_third_value_color == "red") {
-                                            td_t_percent.css('color', 'black');
-                                            td_a_percent.css('color', 'black');
+                                            td_t_percent.css('color', 'white');
+                                            td_a_percent.css('color', 'white');
 
                                             // td_t_percent.css('background-color','rgba(255,0,0,0.8)');
                                             td_a_percent.css('background', '#ED1C24');
@@ -715,8 +715,8 @@ style="width: 100px;position: relative;right:40px;top:-30px;" id="ranking_table"
                                         }
 
                                         if (present_third_value_color == "orange") {
-                                            td_t_percent.css('color', 'black');
-                                            td_a_percent.css('color', 'black');
+                                            td_t_percent.css('color', 'white');
+                                            td_a_percent.css('color', 'white');
 
                                             // td_t_percent.css({'background-color':'#FF8000','color':'#fff'});
                                             td_a_percent.css({'background': '#e68a00',});
@@ -725,8 +725,8 @@ style="width: 100px;position: relative;right:40px;top:-30px;" id="ranking_table"
                                         }
 
                                         if (present_third_value_color == "green") {
-                                            td_t_percent.css('color', 'black');
-                                            td_a_percent.css('color', 'black');
+                                            td_t_percent.css('color', 'white');
+                                            td_a_percent.css('color', 'white');
 
                                             // td_t_percent.css({'background-color':'rgba(30,113,0,1)','color':'#fff'});
                                             td_a_percent.css({'background': '#00c400',});
