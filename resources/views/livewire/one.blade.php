@@ -675,10 +675,10 @@ style="width: 100px;position: relative;right:430px;top:-61.7px;" id="ranking_tab
                     @if ($g_line_id == $a_total->line_id)
                     <table
             class="w-100 text-center table m-0 totalTable table-bordered table-sm border-white right_table">
-                    <h3 class="rank_heading text-light" style="font-size: 24px;">
+                    <h3 class="rank_heading text-light" style="font-size: 24px;min-width:130px;">
                     Daily</h3>
                         <tr class="">
-                            <td style="height: 60px;background: #E9E9E9;color:black;"><span
+                            <td style="height: 60px;background: #E9E9E9;color:black;min-width:130px;"><span
                                     class="right_table_text1 fw-bold t_2_total_{{ $t_2_total->line_id }}">
                                     @if($g_ot_main_target
                                     !=
@@ -694,7 +694,8 @@ style="width: 100px;position: relative;right:430px;top:-61.7px;" id="ranking_tab
 
 
                         <tr class="">
-                            <td style="height:60px;background:#E9E9E9;color:black;" class="fw-bold td_a_total_{{ $t_2_total->line_id }}">
+                            <td style="height:60px;background:#E9E9E9;color:black;min-width:130px;" 
+                                class="fw-bold td_a_total_{{ $t_2_total->line_id }}">
                                 <span class="right_table_text2 a_total_{{ $t_2_total->line_id }}">{{ $a_total->total_actual_target }}</span>
                             </td>
                         </tr>
@@ -704,7 +705,7 @@ style="width: 100px;position: relative;right:430px;top:-61.7px;" id="ranking_tab
 
 
                         <tr class="text-light">
-                            <td style="height:60px;min-width:120px;"
+                            <td style="height:60px;min-width:120px;min-width:130px;"
                                 class="fw-bold td_t_percent_{{ $t_2_total->line_id }}">
                                 <span class="right_table_text3 t_percent_{{ $t_2_total->line_id }}"></span>
                             </td>
@@ -900,7 +901,7 @@ style="width: 100px;position: relative;right:430px;top:-61.7px;" id="ranking_tab
                         }
 
                         echo "
-            <div class='bottom_rank' style='padding: 10px 0 0 0;display: flex;margin:auto;width:410px;position: relative;top:-189px;margin-left:490px;height:50px;
+            <div class='bottom_rank' style='padding: 10px 0 0 0;display: flex;margin:auto;width:410px;position: relative;top:-189px;margin-left:498px;height:50px;
             border: solid 1.7px;'>" .
                             "<div style='display: flex;min-width:270px;margin-right:5px;margin-left:5px;'>" .
 
@@ -952,7 +953,7 @@ style="width: 100px;position: relative;right:430px;top:-61.7px;" id="ranking_tab
                         }
 
                         echo "
-            <div class='bottom_rank' style='padding: 10px 0 0 0;display: flex;margin:auto;width:410px;position: relative;top:-189px;margin-left:490px;height:50px;
+            <div class='bottom_rank' style='padding: 10px 0 0 0;display: flex;margin:auto;width:410px;position: relative;top:-189px;margin-left:498px;height:50px;
             border: solid 1.7px;'>" .
                             "<div style='display: flex;min-width:270px;margin-right:5px;margin-left:5px;'>" .
 
@@ -1001,7 +1002,7 @@ style="width: 100px;position: relative;right:430px;top:-61.7px;" id="ranking_tab
                         }
 
                         echo "
-            <div class='bottom_rank' style='padding: 10px 0 0 0;display: flex;margin:auto;width:410px;position: relative;top:-189px;margin-left:490px;height:50px;
+            <div class='bottom_rank' style='padding: 10px 0 0 0;display: flex;margin:auto;width:410px;position: relative;top:-189px;margin-left:498px;height:50px;
             border: solid 1.7px;'>" .
                             "<div style='display: flex;min-width:270px;margin-right:5px;margin-left:5px;'>" .
 
@@ -1053,7 +1054,7 @@ style="width: 100px;position: relative;right:430px;top:-61.7px;" id="ranking_tab
                         }
 
                         echo "
-            <div class='bottom_rank' style='padding: 10px 0 0 0;display: flex;margin:auto;width:410px;position: relative;top:-189px;margin-left:490px;height:50px;
+            <div class='bottom_rank' style='padding: 10px 0 0 0;display: flex;margin:auto;width:410px;position: relative;top:-189px;margin-left:498px;height:50px;
             border: solid 1.7px;'>" .
                             "<div style='display: flex;min-width:270px;margin-right:5px;margin-left:5px;'>" .
 
@@ -1102,7 +1103,7 @@ style="width: 100px;position: relative;right:430px;top:-61.7px;" id="ranking_tab
                         }
 
                         echo "
-            <div class='bottom_rank' style='padding: 10px 0 0 0;display: flex;margin:auto;width:410px;position: relative;top:-189px;margin-left:490px;height:50px;
+            <div class='bottom_rank' style='padding: 10px 0 0 0;display: flex;margin:auto;width:410px;position: relative;top:-189px;margin-left:498px;height:50px;
             border: solid 1.7px;'>" .
                             "<div style='display: flex;min-width:270px;margin-right:5px;margin-left:5px;'>" .
 
@@ -1154,7 +1155,7 @@ style="width: 100px;position: relative;right:430px;top:-61.7px;" id="ranking_tab
                         }
 
                         echo "
-            <div class='bottom_rank' style='padding: 10px 0 0 0;display: flex;margin:auto;width:410px;position: relative;top:-189px;margin-left:490px;height:50px;
+            <div class='bottom_rank' style='padding: 10px 0 0 0;display: flex;margin:auto;width:410px;position: relative;top:-189px;margin-left:498px;height:50px;
             border: solid 1.7px;'>" .
                             "<div style='display: flex;min-width:270px;margin-right:5px;margin-left:5px;'>" .
 
@@ -1203,7 +1204,7 @@ style="width: 100px;position: relative;right:430px;top:-61.7px;" id="ranking_tab
                         }
 
                         echo "
-            <div class='bottom_rank' style='padding: 10px 0 0 0;display: flex;margin:auto;width:410px;position: relative;top:-189px;margin-left:490px;height:50px;
+            <div class='bottom_rank' style='padding: 10px 0 0 0;display: flex;margin:auto;width:410px;position: relative;top:-189px;margin-left:498px;height:50px;
             border: solid 1.7px;'>" .
                             "<div style='display: flex;min-width:270px;margin-right:5px;margin-left:5px;'>" .
 
@@ -1255,7 +1256,7 @@ style="width: 100px;position: relative;right:430px;top:-61.7px;" id="ranking_tab
                         }
 
                         echo "
-            <div class='bottom_rank' style='padding: 10px 0 0 0;display: flex;margin:auto;width:410px;position: relative;top:-189px;margin-left:490px;height:50px;
+            <div class='bottom_rank' style='padding: 10px 0 0 0;display: flex;margin:auto;width:410px;position: relative;top:-189px;margin-left:498px;height:50px;
             border: solid 1.7px;'>" .
                             "<div style='display: flex;min-width:270px;margin-right:5px;margin-left:5px;'>" .
 
@@ -1304,7 +1305,7 @@ style="width: 100px;position: relative;right:430px;top:-61.7px;" id="ranking_tab
                         }
 
                         echo "
-            <div class='bottom_rank' style='padding: 10px 0 0 0;display: flex;margin:auto;width:410px;position: relative;top:-189px;margin-left:490px;height:50px;
+            <div class='bottom_rank' style='padding: 10px 0 0 0;display: flex;margin:auto;width:410px;position: relative;top:-189px;margin-left:498px;height:50px;
             border: solid 1.7px;'>" .
                             "<div style='display: flex;min-width:270px;margin-right:5px;margin-left:5px;'>" .
 
@@ -1356,7 +1357,7 @@ style="width: 100px;position: relative;right:430px;top:-61.7px;" id="ranking_tab
                         }
 
                         echo "
-            <div class='bottom_rank' style='padding: 10px 0 0 0;display: flex;margin:auto;width:410px;position: relative;top:-189px;margin-left:490px;height:50px;
+            <div class='bottom_rank' style='padding: 10px 0 0 0;display: flex;margin:auto;width:410px;position: relative;top:-189px;margin-left:498px;height:50px;
             border: solid 1.7px;'>" .
                             "<div style='display: flex;min-width:270px;margin-right:5px;margin-left:5px;'>" .
 
@@ -1405,7 +1406,7 @@ style="width: 100px;position: relative;right:430px;top:-61.7px;" id="ranking_tab
                         }
 
                         echo "
-            <div class='bottom_rank' style='padding: 10px 0 0 0;display: flex;margin:auto;width:410px;position: relative;top:-189px;margin-left:490px;height:50px;
+            <div class='bottom_rank' style='padding: 10px 0 0 0;display: flex;margin:auto;width:410px;position: relative;top:-189px;margin-left:498px;height:50px;
             border: solid 1.7px;'>" .
                             "<div style='display: flex;min-width:270px;margin-right:5px;margin-left:5px;'>" .
 
@@ -1459,7 +1460,7 @@ style="width: 100px;position: relative;right:430px;top:-61.7px;" id="ranking_tab
                         }
 
                         echo "
-            <div class='bottom_rank' style='padding: 10px 0 0 0;display: flex;margin:auto;width:410px;position: relative;top:-189px;margin-left:490px;height:50px;
+            <div class='bottom_rank' style='padding: 10px 0 0 0;display: flex;margin:auto;width:410px;position: relative;top:-189px;margin-left:498px;height:50px;
             border: solid 1.7px;'>" .
                             "<div style='display: flex;min-width:270px;margin-right:5px;margin-left:5px;'>" .
 
@@ -1509,7 +1510,7 @@ style="width: 100px;position: relative;right:430px;top:-61.7px;" id="ranking_tab
                         }
 
                         echo "
-            <div class='bottom_rank' style='padding: 10px 0 0 0;display: flex;margin:auto;width:410px;position: relative;top:-189px;margin-left:490px;height:50px;
+            <div class='bottom_rank' style='padding: 10px 0 0 0;display: flex;margin:auto;width:410px;position: relative;top:-189px;margin-left:498px;height:50px;
             border: solid 1.7px;'>" .
                             "<div style='display: flex;min-width:270px;margin-right:5px;margin-left:5px;'>" .
 
@@ -1562,7 +1563,7 @@ style="width: 100px;position: relative;right:430px;top:-61.7px;" id="ranking_tab
                         }
 
                         echo "
-            <div class='bottom_rank' style='padding: 10px 0 0 0;display: flex;margin:auto;width:410px;position: relative;top:-189px;margin-left:490px;height:50px;
+            <div class='bottom_rank' style='padding: 10px 0 0 0;display: flex;margin:auto;width:410px;position: relative;top:-189px;margin-left:498px;height:50px;
             border: solid 1.7px;'>" .
                             "<div style='display: flex;min-width:270px;margin-right:5px;margin-left:5px;'>" .
 
@@ -1611,7 +1612,7 @@ style="width: 100px;position: relative;right:430px;top:-61.7px;" id="ranking_tab
                         }
 
                         echo "
-            <div class='bottom_rank' style='padding: 10px 0 0 0;display: flex;margin:auto;width:410px;position: relative;top:-189px;margin-left:490px;height:50px;
+            <div class='bottom_rank' style='padding: 10px 0 0 0;display: flex;margin:auto;width:410px;position: relative;top:-189px;margin-left:498px;height:50px;
             border: solid 1.7px;'>" .
                             "<div style='display: flex;min-width:270px;margin-right:5px;margin-left:5px;'>" .
 
@@ -1663,7 +1664,7 @@ style="width: 100px;position: relative;right:430px;top:-61.7px;" id="ranking_tab
                         }
 
                         echo "
-            <div class='bottom_rank' style='padding: 10px 0 0 0;display: flex;margin:auto;width:410px;position: relative;top:-189px;margin-left:490px;height:50px;
+            <div class='bottom_rank' style='padding: 10px 0 0 0;display: flex;margin:auto;width:410px;position: relative;top:-189px;margin-left:498px;height:50px;
             border: solid 1.7px;'>" .
                             "<div style='display: flex;min-width:270px;margin-right:5px;margin-left:5px;'>" .
 
@@ -1712,7 +1713,7 @@ style="width: 100px;position: relative;right:430px;top:-61.7px;" id="ranking_tab
                         }
 
                         echo "
-            <div class='bottom_rank' style='padding: 10px 0 0 0;display: flex;margin:auto;width:410px;position: relative;top:-189px;margin-left:490px;height:50px;
+            <div class='bottom_rank' style='padding: 10px 0 0 0;display: flex;margin:auto;width:410px;position: relative;top:-189px;margin-left:498px;height:50px;
             border: solid 1.7px;'>" .
                             "<div style='display: flex;min-width:270px;margin-right:5px;margin-left:5px;'>" .
 
@@ -1765,7 +1766,7 @@ style="width: 100px;position: relative;right:430px;top:-61.7px;" id="ranking_tab
                         }
 
                         echo "
-            <div class='bottom_rank' style='padding: 10px 0 0 0;display: flex;margin:auto;width:410px;position: relative;top:-189px;margin-left:490px;height:50px;
+            <div class='bottom_rank' style='padding: 10px 0 0 0;display: flex;margin:auto;width:410px;position: relative;top:-189px;margin-left:498px;height:50px;
             border: solid 1.7px;'>" .
                             "<div style='display: flex;min-width:270px;margin-right:5px;margin-left:5px;'>" .
 
