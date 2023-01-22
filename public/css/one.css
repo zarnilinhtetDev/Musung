@@ -49,9 +49,9 @@ html, body {
 
 /* RIGHT TABLE TOTAL */
 .right_table { height:0;position:relative;right:1314px;top:220.9px;}
-.right_table .right_table_text1 { font-size:17px; }
-.right_table .right_table_text2 { font-size:17px; }
-.right_table .right_table_text3 { font-size:20px; }
+.right_table .right_table_text1 { font-size:24px; }
+.right_table .right_table_text2 { font-size:24px; }
+.right_table .right_table_text3 { font-size:24px; }
 
 
 .rank_heading {
@@ -77,12 +77,12 @@ html, body {
 }
 
 .left_table {
-    max-width:120px;position:relative;left:30px;top: -91.7px;
+    max-width:120px;position:relative;left:3px;top: -91.7px;
 }
 
 .float-container {
     margin-left: 34px;
-    padding: 188.4px 0 0 0;
+    padding: 228.4px 0 0 0;
 }
 
 .float-child {
