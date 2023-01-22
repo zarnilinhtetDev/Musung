@@ -107,7 +107,7 @@
                 <tr><td></td></tr>
 
 
-                    <tr class="text-dark">
+                    <tr class="text-dark" style="background-color: #ED1C24;">
                         <td style="height:40.7px;" id="percent_val"
                             class="">
                             <span style="font-size:17px;font-weight:bold;" class="">
@@ -128,18 +128,35 @@
             <h3 style="font-size: 22px;padding: 2px 0 0 0;" class="text-dark">
                 Present</h3></div>
 
-                <table class="w-100 text-center table table-bordered table-sm border-white" id="total_table" style="margin-left:105px;max-width:120px;position:relative;top:30px;left:60px;">
-                    <tr>
-                        <td style="height:47px;">
+                <table class="w-100 text-center table table-bordered table-sm border-white present_table" id="total_table" style="">
+                    <tr class="text-light">
+                        <td style="height:35px;background: #00c400">
+                            <span style="font-size:17px;">
+                            </span>
                         </td>
                     </tr>
+
+
+                    <tr><td></td></tr>
+
+
                     <tr class="text-light">
-                        <td style="height:47px;" class="fw-bold td_a_total1_{{ $t_1_total->line_id }}">
+                        <td style="height:37px;background: #1a75ff;" class="">
+                            <span style="font-size:17px;"
+                                class=""></span>
                         </td>
                     </tr>
-                    <tr class="text-light">
-                        <td style="max-height:46px;"
-                            class="fw-bold td_t_percent1_{{ $t_1_total->line_id }}">
+                </tr>
+
+
+                <tr><td></td></tr>
+
+
+                    <tr class="text-light" style="background-color: #ED1C24;">
+                        <td style="height:40px;"
+                            class="">
+                            <span style="font-size:20px;" class=""></span>
+                            <span id="present_third_value" style="display: none"></span>
                         </td>
                     </tr>
                 </table>
@@ -150,10 +167,10 @@
 
              {{-- kmk --}}
              <table class="w-100 text-center table table-bordered table-sm border-white present_table" id="total_table" style="">
-                    <tr>
+                    <tr class="text-light">
                         <td style="height:35px;background: #00c400">
                             <span style="font-size:17px;"
-                            class="text-light right_table_text1 fw-bold t_1_total_{{ $t_1_total->line_id }}">
+                            class="right_table_text1 fw-bold t_1_total_{{ $t_1_total->line_id }}">
                               {{ $a_total->total_div_target }}
                             </span>
                         </td>
@@ -472,12 +489,13 @@
 
 {{-- Update Ranking by msn --}}
 <table class="m-auto text-start text-center"
-style="width: 100px;position: relative;right:40px;top:-30px;" id="ranking_table">
+style="width: 100px;position: relative;right:430px;top:-99.7px;" id="ranking_table">
 <tbody>
     <tr>
         <td style="vertical-align: middle;">
             {{-- <td style="vertical-align: middle;" class="t_line_{{ $t_line->row_num }} t_line_count fw-bold"> ******************************** --}}
-            <h3 style="font-size: 40px;font-weight: bold;">Rank
+            <h3 style="font-size: 35px;font-weight: 900;color:#000;font-family: Arial, Helvetica, sans-serif;
+                                    border-bottom: 1px solid #86630b;width: 810px;">Rank
             </h3>
         </td>
     </tr>
@@ -610,30 +628,54 @@ style="width: 100px;position: relative;right:40px;top:-30px;" id="ranking_table"
  {{-- Total target percentage start by msn--}}
         <td>
             <table
-            class="w-100 text-center table m-0 totalTable table-bordered table-sm border-white right_table">
+            class="w-100 text-center table m-0 totalTable table-bordered table-sm border-white"
+            id = "tcurrent_table"
+            style="height:0;position:relative;right:1106px;top:224.7px;"
+            >
 
-                <h3 class="rank_heading text-dark" style="font-size: 22px;padding: 2px 0 0 0;">
+                <h3 class="text-dark" style="
+    height:34px;min-width:120px;font-size:24px;position: relative;right:986px;top:182.1px;color:black;text-align:center;
+    background: #ED1C24;
+                font-size: 22px;padding: 2px 0 0 0;" id="tcurrent_head">
                     Daily</h3>
 @if(isset($actual_target_total))
 
+
 {{-- kmk --}}
-<tr id="tcurrent1">
-    <td style="height: 47px;" >
-    </td>
-</tr>
-<tr class="text-dark" id="tcurrent2">
-    <td style="height:47px;" class="fw-bold td_a_total_{{ $t_2_total->line_id }}">
-    </td>
-</tr>
-<tr class="text-dark" id="tcurrent3">
-    <td style="height:47px;min-width:120px;"
-        class="fw-bold td_t_percent_{{ $t_2_total->line_id }} ">
-    </td>
-</tr>
+                <tr id="tcurrent1">
+                            <td style="height: 35.5px;background: #00c400;"><span
+                                    class="text-light">
+                                    
+                                </span>
+                            </td>
+                        </tr>
+
+                <tr id="tcurrent2"><td></td></tr>
+
+                        <tr class="text-light" id="tcurrent3">
+                            <td style="height: 36.6px;background:#1a75ff;" class="">
+                                <span
+                                    class=""></span>
+                            </td>
+                        </tr>
+
+                        <tr id="tcurrent4"><td></td></tr>
+
+                        <tr class="text-light" id="tcurrent5">
+                            <td style="height: 40.5px;min-width:120px;background:#ED1C24;"
+                                class="">
+                                <span class=""></span>
+                            </td>
+                        </tr>
+
 
 
                 @foreach ($actual_target_total as $a_total)
                     @if ($g_line_id == $a_total->line_id)
+                    <table
+            class="w-100 text-center table m-0 totalTable table-bordered table-sm border-white right_table">
+                    <h3 class="rank_heading text-dark" style="font-size: 22px;padding: 2px 0 0 0;">
+                    Daily</h3>
                         <tr>
                             <td style="height: 12px;background: #00c400;"><span
                                     class="text-light right_table_text1 fw-bold t_2_total_{{ $t_2_total->line_id }}">
@@ -670,12 +712,20 @@ style="width: 100px;position: relative;right:40px;top:-30px;" id="ranking_table"
                         <script>
                             window.addEventListener('additionalInit10', event => {
 
+                                var tb = document.getElementById("tcurrent_table");
+                                var th = document.getElementById("tcurrent_head");
                                 var t1 = document.getElementById("tcurrent1");
                                 var t2 = document.getElementById("tcurrent2");
                                 var t3 = document.getElementById("tcurrent3");
+                                var t4 = document.getElementById("tcurrent4");
+                                var t5 = document.getElementById("tcurrent5");
+                                tb.style.display = "none";
+                                th.style.display = "none";
                                 t1.style.display = "none";
                                 t2.style.display = "none";
                                 t3.style.display = "none";
+                                t4.style.display = "none";
+                                t5.style.display = "none";
 
                                 var t_2_total = parseInt($('.t_2_total_{{ $t_2_total->line_id }}').text().replace(/,/g, ''));
                                 var a_total = parseInt($('.a_total_{{ $t_2_total->line_id }}').text().replace(/,/g, ''));
