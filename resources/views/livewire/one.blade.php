@@ -82,7 +82,7 @@
                             <h3>
                                 </h3></div>
                 <table class="text-center table table-bordered table-sm border-white left_table" style="">
-                    <tr class="text-light">
+                    <tr class="text-dark">
                         <td style="height:35px;background: #00c400;">
                             <span style="font-size:17px;font-weight:bold;"
                             class="">
@@ -95,7 +95,7 @@
                     <tr><td></td></tr>
 
 
-                    <tr class="text-light">
+                    <tr class="text-dark">
                         <td style="height:34px; background: #1a75ff;" class="">
                             <span style="font-size:17px;font-weight:bold;"
                                 class="">Production</span>&nbsp;&nbsp; <span style="font-size:17px;font-weight:bold;">:</span>
@@ -107,7 +107,7 @@
                 <tr><td></td></tr>
 
 
-                    <tr class="text-light">
+                    <tr class="text-dark">
                         <td style="height:40.7px;" id="percent_val"
                             class="">
                             <span style="font-size:17px;font-weight:bold;" class="">
@@ -125,7 +125,7 @@
     @foreach($target_total as $t_1_total)
 
 <div class='present_head' style=''>
-            <h3 style="font-size: 22px;color:white;padding: 2px 0 0 0;">
+            <h3 style="font-size: 22px;padding: 2px 0 0 0;" class="text-dark">
                 Present</h3></div>
 
                 <table class="w-100 text-center table table-bordered table-sm border-white" id="total_table" style="margin-left:105px;max-width:120px;position:relative;top:30px;left:60px;">
@@ -612,7 +612,7 @@ style="width: 100px;position: relative;right:40px;top:-30px;" id="ranking_table"
             <table
             class="w-100 text-center table m-0 totalTable table-bordered table-sm border-white right_table">
 
-                <h3 class="rank_heading" style="font-size: 22px;color:white;padding: 2px 0 0 0;">
+                <h3 class="rank_heading text-dark" style="font-size: 22px;padding: 2px 0 0 0;">
                     Daily</h3>
 @if(isset($actual_target_total))
 
