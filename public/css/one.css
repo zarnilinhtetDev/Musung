@@ -1,5 +1,5 @@
 html, body {
-    max-width: 1980px;
+    max-width: 1920px;
     min-width: 2000px;
     background-color: #fff;
     overflow: auto !important;
@@ -78,6 +78,9 @@ html, body {
 .left_table {
     margin-left:38px;max-width:120px;position:relative;top:100.9px;left:30px;
 }
+
+
+
 
 
 @media(max-width:1600px) {
