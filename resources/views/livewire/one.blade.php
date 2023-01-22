@@ -110,7 +110,7 @@
 
 
                     <tr class="text-dark">
-                        <td style="height:41px;" id="percent_val"
+                        <td style="height:40px;" id="percent_val"
                             class="">
                             <span style="font-size:17px;font-weight:bold;" class="">
                             Percentage
@@ -126,10 +126,10 @@
 <div>
     @foreach($target_total as $t_1_total)
 
-<div style='position: relative;top:-90px;left:30px;
+<div style='position: relative;top:-87.2px;left:30px;
 margin-left:155px;height:34px;padding: 0 0 0 0;font-size:24px;max-width:120px;margin-bottom:10px;
                 text-align:center;background: #ED1C24;'>
-            <h3 style="font-size: 22px;color:black;padding: 2px 0 0 0;font-weigth:900;">
+            <h3 style="font-size: 22px;color:black;padding: 2px 0 0 0;">
                 Present</h3></div>
 
                 <table class="w-100 text-center table table-bordered table-sm border-white" id="total_table" style="margin-left:105px;max-width:120px;position:relative;top:30px;left:60px;">
@@ -142,7 +142,7 @@ margin-left:155px;height:34px;padding: 0 0 0 0;font-size:24px;max-width:120px;ma
                         </td>
                     </tr>
                     <tr class="text-dark">
-                        <td style="height:47px;"
+                        <td style="max-height:46px;"
                             class="fw-bold td_t_percent1_{{ $t_1_total->line_id }}">
                         </td>
                     </tr>
@@ -153,7 +153,7 @@ margin-left:155px;height:34px;padding: 0 0 0 0;font-size:24px;max-width:120px;ma
              @if ($g_line_id == $a_total->line_id)
 
              {{-- kmk --}}
-             <table class="w-100 text-center table table-bordered table-sm border-white" id="total_table" style="margin-left:155px;max-width:120px;position:relative;top:-89.6px;left:30px;">
+             <table class="w-100 text-center table table-bordered table-sm border-white" id="total_table" style="margin-left:155px;max-width:120px;position:relative;top:-88.7px;left:30px;">
                     <tr>
                         <td style="height:35px;background: linear-gradient(0deg, rgba(234,229,229) 34%, rgb(11, 189, 88) 63%);">
                             <span style="font-size:17px;"
@@ -180,7 +180,7 @@ margin-left:155px;height:34px;padding: 0 0 0 0;font-size:24px;max-width:120px;ma
 
 
                     <tr class="text-dark">
-                        <td style="height:41px;"
+                        <td style="height:40px;"
                             class="fw-bold td_t_percent1_{{ $t_1_total->line_id }}">
                             <span style="font-size:20px;" class="right_table_text3 t_percent1_{{ $t_1_total->line_id }}"></span>
 

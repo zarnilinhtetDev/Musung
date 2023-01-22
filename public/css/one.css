@@ -58,6 +58,13 @@ html, body {
     background: #ED1C24;
 }
 
+
+@media(max-width:1600px) {
+    .kbody {
+        
+        }
+   }
+
 /* @media(max-width:1920px) {
     .magic { position: relative; left: -40px;}
 
