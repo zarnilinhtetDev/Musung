@@ -141,7 +141,7 @@
 
 
                     <tr class="text-light">
-                        <td style="height:37px;background: #1a75ff;" class="">
+                        <td style="height:34px;background: #1a75ff;" class="">
                             <span style="font-size:17px;"
                                 class=""></span>
                         </td>

@@ -1,5 +1,6 @@
 html, body {
     max-width: 1980px;
+    min-width: 2000px;
     background-color: #fff;
     overflow: auto !important;
     -webkit-print-color-adjust: exact;
@@ -59,7 +60,7 @@ html, body {
 }
 
 .present_head {
-    position: relative;top:-87.2px;left:30px;
+    position: relative;top:-87.6px;left:30px;
     margin-left:163px;height:34px;padding: 0 0 0 0;font-size:24px;max-width:120px;margin-bottom:10px;
     text-align:center;background: #ED1C24;
 }
@@ -81,7 +82,7 @@ html, body {
 
 @media(max-width:1600px) {
     .present_head {
-            top:-88.8px;;
+            top:-89.3px;;
         }
 
     .present_table {
@@ -90,9 +91,55 @@ html, body {
    }
 
 
-   @media(max-width:1582px) {
+   @media(max-width:1581px) {
     .left_table {
         top:100.2px;
+    }
+}
+
+
+@media(max-width:1455px) {
+    .left_table {
+        top:100.5px;
+    }
+    .present_head {
+        top:-89.1px;;
+    }
+    .present_table {
+        top:-90.9px;
+    }
+    .right_table {
+        top:224.1px;
+    }
+}
+
+
+@media(max-width:1300px) {
+    .left_table {
+        top:100.7px;
+    }
+    .present_head {
+        top:-88.7px;;
+    }
+    .present_table {
+        top:-90.3px;
+    }
+    .right_table {
+        top:224.3px;
+    }
+}
+
+
+
+@media(max-width:1067px) {
+    .left_table {
+        top:101px;
+    }
+    .present_head {
+        top:-89.4px;;
+    }
+    .present_table {
+        top:-91.2px;
     }
 }
 
