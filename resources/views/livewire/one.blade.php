@@ -490,12 +490,12 @@
 
 {{-- Update Ranking by msn --}}
 <table class="m-auto text-start text-center"
-style="width: 100px;position: relative;right:430px;top:-91.7px;" id="ranking_table">
+style="width: 100px;position: relative;right:430px;top:-61.7px;" id="ranking_table">
 <tbody>
     <tr>
         <td style="vertical-align: middle;">
             {{-- <td style="vertical-align: middle;" class="t_line_{{ $t_line->row_num }} t_line_count fw-bold"> ******************************** --}}
-            <h3 style="font-size: 35px;font-weight: 900;color:#000;font-family: Arial, Helvetica, sans-serif;
+            <h3 style="font-size: 72px;color:#000;font-weight: bold;
                                     width: 810px;">Rank
             </h3>
         </td>
@@ -520,7 +520,7 @@ style="width: 100px;position: relative;right:430px;top:-91.7px;" id="ranking_tab
                             <div>
                                 <div style="vertical-align: middle;">
                                     {{-- <div style="vertical-align: middle;" class="t_line_{{ $t_line->row_num }} t_line_count fw-bold"> ******************************** --}}
-                                    <h3 style="font-size: 72px;color:#000;font-family: Arial, Helvetica, sans-serif;
+                                    <h3 style="font-size: 72px;color:#000;font-weight:bold;
                                     width: 810px;">Rank
                                         {{ $t_line->row_num }}
                                     </h3>
