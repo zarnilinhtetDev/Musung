@@ -167,9 +167,9 @@
 
              {{-- kmk --}}
              <table class="w-100 text-center table table-bordered table-sm border-white present_table" id="total_table" style="">
-                    <tr class="text-dark">
+                    <tr class="">
                         <td style="height:60px;background: #E9E9E9">
-                            <span style="font-size:24px;position:relative;top:7px;"
+                            <span style="font-size:24px;position:relative;top:7px;color:black;"
                             class="right_table_text1 fw-bold t_1_total_{{ $t_1_total->line_id }}">
                               {{ $a_total->total_div_target }}
                             </span>
@@ -180,9 +180,9 @@
                     <tr><td></td></tr>
 
 
-                    <tr class="text-dark">
+                    <tr class="">
                         <td style="height:60px;background: #E9E9E9;" class="fw-bold td_a_total1_{{ $t_1_total->line_id }}">
-                            <span style="font-size:24px;position:relative;top:7px;"
+                            <span style="font-size:24px;position:relative;top:7px;color:black;"
                                 class="right_table_text2 a_total1_{{ $t_1_total->line_id }}">{{ $a_total->total_actual_target }}</span>
                         </td>
                     </tr>
@@ -192,7 +192,7 @@
                 <tr><td></td></tr>
 
 
-                    <tr class="text-dark">
+                    <tr class="">
                         <td style="height:60px;"
                             class="fw-bold td_t_percent1_{{ $t_1_total->line_id }}">
                             <span style="font-size:24px;position:relative;top:7px;" 
@@ -677,8 +677,8 @@ style="width: 100px;position: relative;right:430px;top:-61.7px;" id="ranking_tab
             class="w-100 text-center table m-0 totalTable table-bordered table-sm border-white right_table">
                     <h3 class="rank_heading text-light" style="font-size: 24px;">
                     Daily</h3>
-                        <tr class="text-dark">
-                            <td style="height: 60px;background: #E9E9E9;"><span
+                        <tr class="">
+                            <td style="height: 60px;background: #E9E9E9;color:black;"><span
                                     class="right_table_text1 fw-bold t_2_total_{{ $t_2_total->line_id }}">
                                     @if($g_ot_main_target
                                     !=
@@ -693,8 +693,8 @@ style="width: 100px;position: relative;right:430px;top:-61.7px;" id="ranking_tab
                 <tr><td></td></tr>
 
 
-                        <tr class="text-dark">
-                            <td style="height:60px;background:#E9E9E9;" class="fw-bold td_a_total_{{ $t_2_total->line_id }}">
+                        <tr class="">
+                            <td style="height:60px;background:#E9E9E9;color:black;" class="fw-bold td_a_total_{{ $t_2_total->line_id }}">
                                 <span class="right_table_text2 a_total_{{ $t_2_total->line_id }}">{{ $a_total->total_actual_target }}</span>
                             </td>
                         </tr>

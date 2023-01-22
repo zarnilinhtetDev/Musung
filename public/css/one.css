@@ -49,8 +49,8 @@ html, body {
 
 /* RIGHT TABLE TOTAL */
 .right_table { height:0;position:relative;right:1514px;top:224px;}
-.right_table .right_table_text1 { font-size:24px;position:relative;top:7px; }
-.right_table .right_table_text2 { font-size:24px;position:relative;top:7px; }
+.right_table .right_table_text1 { font-size:24px;position:relative;top:7px;color:black; }
+.right_table .right_table_text2 { font-size:24px;position:relative;top:7px;color:black; }
 .right_table .right_table_text3 { font-size:24px;position:relative;top:7px; }
 
 
