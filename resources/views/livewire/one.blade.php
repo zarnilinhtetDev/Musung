@@ -50,7 +50,12 @@
                                     <td class="fw-bold line_name_{{ $g_line_id }} fs-4"
                                         style="vertical-align: middle;min-width: 40px;">
                                         @if ($line_id == $g_line_id)
-                                            @if ($g_line_name == 'Mini')
+
+                                        <h1 class='text-center'
+                                                    style="color:rgb(40, 115, 206);position: relative;left:350px;top:-40px;font-size:50px;font-weight: 900;font-family: Arial, Helvetica, sans-serif;">
+                                                    Line-{{ $g_line_name }}</h1>
+
+                                                    {{-- @if ($g_line_name == 'Mini')
                                                 <h1 class='text-center'
                                                     style="font-weight: bold;border-style: solid;color:black;padding: 13.2px 10px 13.2px 10px;position: relative;left:99px;top:10px;font-size:58px;width:130px;
                         background:#e6f0ff;">
@@ -60,18 +65,23 @@
                                                     style="font-weight: bold;border-style: solid;color:black;padding: 0 10px 0 10px;position: relative;left:99px;top:10px;font-size:80px;width:130px;
                         background:#e6f0ff;">
                                                     {{ $g_line_name }}</h1>
-                                            @endif
+                                            @endif --}}
+
                                         @endif
                                     </td>
                     </tbody>
                 </table>
+
+
+
+
 
      {{-- Total percentage by msn--}}
 <div>
     @foreach($target_total as $t_1_total)
 
 <div style='position: relative;top:25px;left:60px;
-margin-left:105px;border-style: solid;height:34px;padding: 0 0 0 0;font-size:24px;min-width:120px;margin-bottom:10px;
+margin-left:105px;border-style: solid;height:34px;padding: 0 0 0 0;font-size:24px;max-width:120px;margin-bottom:10px;
                 text-align:center;font-size:19px;'>
             <h3>
                 Present</h3></div>
@@ -97,7 +107,7 @@ margin-left:105px;border-style: solid;height:34px;padding: 0 0 0 0;font-size:24p
              @if ($g_line_id == $a_total->line_id)
 
              {{-- kmk --}}
-             <table class="w-100 text-center table table-bordered table-sm border-dark" id="total_table" style="margin-left:105px;max-width:120px;position:relative;top:30px;left:60px;">
+             <table class="w-100 text-center table table-sm border-dark" id="total_table" style="margin-left:105px;max-width:120px;position:relative;top:30px;left:60px;">
                     <tr>
                         <td style="height:47px;">
                             <span style="font-size:24px;"
@@ -106,12 +116,29 @@ margin-left:105px;border-style: solid;height:34px;padding: 0 0 0 0;font-size:24p
                             </span>
                         </td>
                     </tr>
+
+
+                    <tr>
+                        <td>
+                        </td>
+                    </tr>
+
+
                     <tr class="text-dark">
                         <td style="height:47px;" class="fw-bold td_a_total1_{{ $t_1_total->line_id }}">
                             <span style="font-size:24px;"
                                 class="right_table_text2 a_total1_{{ $t_1_total->line_id }}">{{ $a_total->total_actual_target }}</span>
                         </td>
                     </tr>
+                </tr>
+
+
+                <tr>
+                    <td>
+                    </td>
+                </tr>
+
+
                     <tr class="text-dark">
                         <td style="height:47px;"
                             class="fw-bold td_t_percent1_{{ $t_1_total->line_id }}">
@@ -415,20 +442,24 @@ style="width: 100px;position: relative;right:40px;top:-30px;" id="ranking_table"
 
             @foreach ($top_line as $t_line)
               @if ($g_line_id == $t_line->l_id)
-                    <table class="m-auto text-start text-center"
-                        style="width: 100px;position: relative;right:40px;top:-60px;" id="ranking_table">
-                        <tbody>
-                            <tr>
-                                <td style="vertical-align: middle;">
-                                    {{-- <td style="vertical-align: middle;" class="t_line_{{ $t_line->row_num }} t_line_count fw-bold"> ******************************** --}}
-                                    <h3 style="font-size: 40px;font-weight: bold;">Ranking
+                    <div class="m-auto text-start text-center"
+                        style="position: relative;right:340px;top:-90px;" id="ranking_table">
+                        <div>
+                            <div>
+                                <div style="vertical-align: middle;">
+                                    {{-- <div style="vertical-align: middle;" class="t_line_{{ $t_line->row_num }} t_line_count fw-bold"> ******************************** --}}
+                                    <h3 style="font-size: 35px;font-weight: 900;color:#000;font-family: Arial, Helvetica, sans-serif;
+                                    border-bottom: 1px solid black;width: 850px;">Rank
                                         {{ $t_line->row_num }}
                                     </h3>
-                                </td>
-                            </tr>
 
-                           <tr>
-                               <td style="font-size:10px;vertical-align: middle;min-width:220px;height:120px;"
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                <div style="font-size:10px;vertical-align: middle;min-width:210px;height:100px;position:relative;right:710px;top:85px;padding: 15px 0 0 0;border-radius:10px;"
                             class="t_line_{{ $t_line->row_num }} t_line_count">
                             <span class="input_row_num_{{ $t_line->row_num }} input_row_num"
                                 style="display:none;">
@@ -439,10 +470,7 @@ style="width: 100px;position: relative;right:40px;top:-30px;" id="ranking_table"
                                     {{ $t_line->diff_target_percent }}%
                                 </h3>
                             </span>
-                        </td>
-                    </tr>
-                 </tbody>
-                </table>
+                        </div>
 
 <script>
     window.addEventListener('additionalInit10', event => {
@@ -522,6 +550,11 @@ style="width: 100px;position: relative;right:40px;top:-30px;" id="ranking_table"
                 </tbody>
             </table>
         </td>
+
+
+
+
+
 
 
  {{-- Total target percentage start by msn--}}
@@ -725,7 +758,7 @@ style="width: 100px;position: relative;right:40px;top:-30px;" id="ranking_table"
                         }
 
                         echo "
-            <div class='bottom_rank' style='display: flex;margin:auto;width:750px;position: relative;top:-110px;margin-left:323px;'>" .
+            <div class='bottom_rank' style='display: flex;margin:auto;width:750px;position: relative;top:-75px;margin-left:485px;'>" .
                             "<div style='display: flex;min-width:220px;margin-right:-67px;'>
                 <h3><i class='bi bi-arrow-down' style='background:#ff0000;color:white;font-size:19px;position:relative;bottom:5px;'></i></h3>&nbsp;
                 <h3 style='font-weight: bold;font-size:19px;'>Line </h3>           &nbsp;&nbsp;
@@ -742,9 +775,9 @@ style="width: 100px;position: relative;right:40px;top:-30px;" id="ranking_table"
                     class='text-white'>" .
                             $t_line2->diff_target_percent .
                             '%' .
-                            "</p>
+                            "</p>" . $t_line->diff_target_percent-$t_line2->diff_target_percent .
 
-                </div>
+                "</div>
                     ";
                  }
                 }
