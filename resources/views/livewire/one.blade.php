@@ -52,7 +52,8 @@
                                         @if ($line_id == $g_line_id)
 
                                         <h1 class='text-center'
-                                                    style="color:rgb(40, 115, 206);position: relative;left:350px;top:-40px;font-size:50px;font-weight: 900;font-family: Arial, Helvetica, sans-serif;">
+                                                    style="color:rgb(40, 115, 206);position: relative;left:350px;top:-40px;width:250px;
+                                                    font-size:50px;font-weight: 900;font-family: Arial, Helvetica, sans-serif;">
                                                     Line-{{ $g_line_name }}</h1>
 
                                                     {{-- @if ($g_line_name == 'Mini')
