@@ -95,9 +95,12 @@
         <div class="magic">
 
 
-        @livewire('one', ['line_id' => $line_id,
+        {{-- @livewire('one', ['line_id' => $line_id,
         'line_assign_id' => $line_assign_id,
         'line_date' => $line_date
+        ]) --}}
+
+        @livewire('one', ['line_id' => $line_id
         ])
 
 

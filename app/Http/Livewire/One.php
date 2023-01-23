@@ -30,10 +30,14 @@ class One extends Component
     }
 
 
-    public function mount($line_id, $line_assign_id, $line_date){
+    // public function mount($line_id, $line_assign_id, $line_date){
+    //     $this->line_id = $line_id;
+    //     $this->line_assign_id = $line_assign_id;
+    //     $this->line_date = $line_date;
+    // }
+
+    public function mount($line_id){
         $this->line_id = $line_id;
-        $this->line_assign_id = $line_assign_id;
-        $this->line_date = $line_date;
     }
 
     // public function render($id, $assign_id, $date)
@@ -47,13 +51,15 @@ class One extends Component
         // $date_string = date($date);
 
         $line_id = $this->line_id;
-        $line_date = $this->line_date;
-        $date_string = $this->line_date;
-        $line_assign_id = $this->line_assign_id;
+        // $line_date = $this->line_date;
+        // $date_string = $this->line_date;
+        // $line_assign_id = $this->line_assign_id;
 
-        $date_string = date($this->line_date);
+        // $date_string = date($this->line_date);
 
-        $u_id = Auth::user()->id;
+        $date_string = date("d.m.Y");
+
+        // $u_id = Auth::user()->id;
 
         $time = DB::select('SELECT time_name FROM time
         JOIN line_assign ON "time".assign_id="line_assign".assign_id AND
@@ -137,8 +143,8 @@ class One extends Component
 
         return view('livewire.one', compact(
             'line_id',
-            'line_assign_id',
-            'line_date',
+            // 'line_assign_id',
+            // 'line_date',
 
             'getLine',
             'time',

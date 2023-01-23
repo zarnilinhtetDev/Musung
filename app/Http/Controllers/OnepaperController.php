@@ -30,15 +30,19 @@ class OnepaperController extends Controller
     ini_set('max_execution_time', 300);
     }
 
-    public function index($id, $assign_id, $date)
+    public function index($id)
+    // public function index($id, $assign_id, $date)
     {
         $line_id = $id;
-        $line_date = $date;
-        $date_string = $date;
-        $line_assign_id = $assign_id;
+        // $line_date = $date;
+        // $date_string = $date;
+        // $line_assign_id = $assign_id;
 
-        $date_string = date($date);
-        $u_id = Auth::user()->id;
+        // $date_string = date($date);
+
+        $date_string = date("d.m.Y");
+
+        // $u_id = Auth::user()->id;
 
         $time = DB::select('SELECT time_name FROM time
         JOIN line_assign ON "time".assign_id="line_assign".assign_id AND
@@ -122,8 +126,8 @@ class OnepaperController extends Controller
 
         return view('onepaper', compact(
             'line_id',
-            'line_assign_id',
-            'line_date',
+            // 'line_assign_id',
+            // 'line_date',
 
             'getLine',
             'time',
