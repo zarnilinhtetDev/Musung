@@ -52,7 +52,7 @@
                                         @if ($line_id == $g_line_id)
 
                                         <h1 class='text-center'
-                                                    style="color:rgb(40, 115, 206);position: relative;left:350px;top:-40px;width:250px;
+                                                    style="color:rgb(40, 115, 206);position: relative;left:285px;top:-40px;width:250px;
                                                     font-size:50px;font-weight: 900;font-family: Arial, Helvetica, sans-serif;">
                                                     Line-{{ $g_line_name }}</h1>
 
@@ -77,17 +77,62 @@
 
 
 
+
+                <div style='position: relative;top:72px;right:0px;
+                margin-left:90px;height:34px;padding: 0 0 0 0;font-size:24px;max-width:120px;margin-bottom:10px;
+                                text-align:center;font-size:19px;background: linear-gradient(0deg, rgb(234, 229, 229) 34%, rgb(231, 52, 73) 63%)'>
+                            <h3>
+                                </h3></div>
+                <table class="text-center table table-bordered table-sm border-white" style="margin-left:30px;max-width:120px;position:relative;top:70px;left:60px;">
+                    <tr>
+                        <td style="height:35px;background: linear-gradient(0deg, rgb(234, 229, 229) 34%, rgb(7, 233, 105) 63%);">
+                            <span style="font-size:17px;font-weight:bold;"
+                            class="">
+                             Target
+                            </span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; <span style="font-size:17px;font-weight:bold;">:</span>
+                        </td>
+                    </tr>
+
+
+                    <tr><td></td></tr>
+
+
+                    <tr class="text-dark">
+                        <td style="height:34px;" class="">
+                            <span style="font-size:17px;font-weight:bold;"
+                                class="">Production</span>&nbsp;&nbsp; <span style="font-size:17px;font-weight:bold;">:</span>
+                        </td>
+                    </tr>
+                </tr>
+
+
+                <tr><td></td></tr>
+
+
+                    <tr class="text-dark">
+                        <td style="height:41px;" id="percent_val"
+                            class="">
+                            <span style="font-size:17px;font-weight:bold;" class="">
+                            Percentage
+                        </span>
+                        &nbsp;<span style="font-size:17px;font-weight:bold;">:</span>
+                        </td>
+                    </tr>
+                </table>
+
+
+
      {{-- Total percentage by msn--}}
 <div>
     @foreach($target_total as $t_1_total)
 
-<div style='position: relative;top:25px;left:60px;
-margin-left:105px;border-style: solid;height:34px;padding: 0 0 0 0;font-size:24px;max-width:120px;margin-bottom:10px;
-                text-align:center;font-size:19px;'>
+<div style='position: relative;top:-120px;left:60px;
+margin-left:155px;height:34px;padding: 0 0 0 0;font-size:24px;max-width:120px;margin-bottom:10px;
+                text-align:center;font-size:19px;background: linear-gradient(0deg, rgb(234, 229, 229) 34%, rgb(231, 52, 73) 63%);'>
             <h3>
                 Present</h3></div>
 
-                <table class="w-100 text-center table table-bordered table-sm border-dark" id="total_table" style="margin-left:105px;max-width:120px;position:relative;top:30px;left:60px;">
+                <table class="w-100 text-center table table-bordered table-sm border-white" id="total_table" style="margin-left:105px;max-width:120px;position:relative;top:30px;left:60px;">
                     <tr>
                         <td style="height:47px;">
                         </td>
@@ -108,10 +153,10 @@ margin-left:105px;border-style: solid;height:34px;padding: 0 0 0 0;font-size:24p
              @if ($g_line_id == $a_total->line_id)
 
              {{-- kmk --}}
-             <table class="w-100 text-center table table-sm border-dark" id="total_table" style="margin-left:105px;max-width:120px;position:relative;top:30px;left:60px;">
+             <table class="w-100 text-center table table-bordered table-sm border-white" id="total_table" style="margin-left:155px;max-width:120px;position:relative;top:-121.6px;left:60px;">
                     <tr>
-                        <td style="height:47px;">
-                            <span style="font-size:24px;"
+                        <td style="height:35px;background: linear-gradient(0deg, rgba(234,229,229) 34%, rgb(7, 233, 105) 63%);">
+                            <span style="font-size:17px;"
                             class="right_table_text1 fw-bold t_1_total_{{ $t_1_total->line_id }}">
                               {{ $a_total->total_div_target }}
                             </span>
@@ -119,31 +164,25 @@ margin-left:105px;border-style: solid;height:34px;padding: 0 0 0 0;font-size:24p
                     </tr>
 
 
-                    <tr>
-                        <td>
-                        </td>
-                    </tr>
+                    <tr><td></td></tr>
 
 
                     <tr class="text-dark">
-                        <td style="height:47px;" class="fw-bold td_a_total1_{{ $t_1_total->line_id }}">
-                            <span style="font-size:24px;"
+                        <td style="height:34px;" class="fw-bold td_a_total1_{{ $t_1_total->line_id }}">
+                            <span style="font-size:17px;"
                                 class="right_table_text2 a_total1_{{ $t_1_total->line_id }}">{{ $a_total->total_actual_target }}</span>
                         </td>
                     </tr>
                 </tr>
 
 
-                <tr>
-                    <td>
-                    </td>
-                </tr>
+                <tr><td></td></tr>
 
 
                     <tr class="text-dark">
-                        <td style="height:47px;"
+                        <td style="height:41px;"
                             class="fw-bold td_t_percent1_{{ $t_1_total->line_id }}">
-                            <span style="font-size:24px;" class="right_table_text3 t_percent1_{{ $t_1_total->line_id }}"></span>
+                            <span style="font-size:20px;" class="right_table_text3 t_percent1_{{ $t_1_total->line_id }}"></span>
                         </td>
                     </tr>
                 </table>
@@ -163,6 +202,7 @@ margin-left:105px;border-style: solid;height:34px;padding: 0 0 0 0;font-size:24p
                             var item_name = $(".item_name_{{ $t_1_total->line_id }}");
                             var g_main_target = $("#g_main_target_{{ $t_1_total->line_id }}");
                             var line_column = $(".line_column_{{ $t_1_total->line_id }}");
+                            var percent_name = $("#percent_val");
 
                             if (Number.isNaN(t_1_total)) {
                                 t_percent_span.text("");
@@ -181,7 +221,9 @@ margin-left:105px;border-style: solid;height:34px;padding: 0 0 0 0;font-size:24p
                                         td_a_percent.css('color', 'black');
 
                                         // td_t_percent.css('background-color','rgba(255,0,0,0.8)');
-                                        td_a_percent.css('background-color', 'rgba(255,0,0,0.8)');
+                                        td_a_percent.css('background', 'linear-gradient(0deg, rgb(234, 229, 229) 34%, rgb(231, 52, 73) 63%)');
+                                        percent_name.css('background', 'linear-gradient(0deg, rgb(234, 229, 229) 34%, rgb(231, 52, 73) 63%)');
+
                                         line_column.addClass('bounce');
                                         line_column.css('background-color', 'red');
                                     }
@@ -425,7 +467,7 @@ style="width: 100px;position: relative;right:40px;top:-30px;" id="ranking_table"
     <tr>
         <td style="vertical-align: middle;">
             {{-- <td style="vertical-align: middle;" class="t_line_{{ $t_line->row_num }} t_line_count fw-bold"> ******************************** --}}
-            <h3 style="font-size: 40px;font-weight: bold;">Ranking
+            <h3 style="font-size: 40px;font-weight: bold;">Rank
             </h3>
         </td>
     </tr>
@@ -444,13 +486,13 @@ style="width: 100px;position: relative;right:40px;top:-30px;" id="ranking_table"
             @foreach ($top_line as $t_line)
               @if ($g_line_id == $t_line->l_id)
                     <div class="m-auto text-start text-center"
-                        style="position: relative;right:340px;top:-90px;" id="ranking_table">
+                        style="position: relative;right:425px;top:-190px;" id="ranking_table">
                         <div>
                             <div>
                                 <div style="vertical-align: middle;">
                                     {{-- <div style="vertical-align: middle;" class="t_line_{{ $t_line->row_num }} t_line_count fw-bold"> ******************************** --}}
                                     <h3 style="font-size: 35px;font-weight: 900;color:#000;font-family: Arial, Helvetica, sans-serif;
-                                    border-bottom: 1px solid black;width: 850px;">Rank
+                                    border-bottom: 1px solid black;width: 810px;">Rank
                                         {{ $t_line->row_num }}
                                     </h3>
 
@@ -561,10 +603,10 @@ style="width: 100px;position: relative;right:40px;top:-30px;" id="ranking_table"
  {{-- Total target percentage start by msn--}}
         <td>
             <table
-            class="w-100 text-center table m-0 table-bordered totalTable table-sm border-dark right_table">
+            class="w-100 text-center table m-0 totalTable table-bordered table-sm border-white right_table">
 
                 <h3 class="rank_heading">
-                    Total</h3>
+                    Daily</h3>
 @if(isset($actual_target_total))
 
 {{-- kmk --}}
@@ -586,7 +628,7 @@ style="width: 100px;position: relative;right:40px;top:-30px;" id="ranking_table"
                 @foreach ($actual_target_total as $a_total)
                     @if ($g_line_id == $a_total->line_id)
                         <tr>
-                            <td style="height: 2px;"><span
+                            <td style="height: 12px;background: linear-gradient(0deg, rgb(234, 229, 229) 34%, rgb(7, 233, 105) 63%);"><span
                                     class="right_table_text1 fw-bold t_2_total_{{ $t_2_total->line_id }}">
                                     @if($g_ot_main_target
                                     !=
@@ -596,12 +638,22 @@ style="width: 100px;position: relative;right:40px;top:-30px;" id="ranking_table"
                                 </span>
                             </td>
                         </tr>
+
+
+                <tr><td></td></tr>
+
+
                         <tr class="text-dark">
                             <td style="height:2px;" class="fw-bold td_a_total_{{ $t_2_total->line_id }}">
                                 <span
                                     class="right_table_text2 a_total_{{ $t_2_total->line_id }}">{{ $a_total->total_actual_target }}</span>
                             </td>
                         </tr>
+
+
+                        <tr><td></td></tr>
+
+
                         <tr class="text-dark">
                             <td style="height:2px;min-width:120px;"
                                 class="fw-bold td_t_percent_{{ $t_2_total->line_id }}">
@@ -646,7 +698,7 @@ style="width: 100px;position: relative;right:40px;top:-30px;" id="ranking_table"
                                             td_a_percent.css('color', 'black');
 
                                             // td_t_percent.css('background-color','rgba(255,0,0,0.8)');
-                                            td_a_percent.css('background-color', 'rgba(255,0,0,0.8)');
+                                            td_a_percent.css('background', 'linear-gradient(0deg, rgb(234, 229, 229) 34%, rgb(231, 52, 73) 63%)');
                                             line_column.addClass('bounce');
                                             line_column.css('background-color', 'red');
                                         }
