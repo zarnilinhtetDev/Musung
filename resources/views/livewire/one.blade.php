@@ -52,7 +52,7 @@
                                         @if ($line_id == $g_line_id)
 
                                         <h1 class='text-center'
-                                                    style="color:rgb(40, 115, 206);position: relative;left:285px;top:-40px;width:250px;
+                                                    style="color:rgb(40, 115, 206);position: relative;left:285px;top:-10px;width:250px;
                                                     font-size:50px;font-weight: 900;font-family: Arial, Helvetica, sans-serif;">
                                                     Line-{{ $g_line_name }}</h1>
 
@@ -78,14 +78,14 @@
 
 
 
-                <div style='position: relative;top:72px;right:0px;
+                <div style='position: relative;top:102.4px;right:0px;
                 margin-left:90px;height:34px;padding: 0 0 0 0;font-size:24px;max-width:120px;margin-bottom:10px;
                                 text-align:center;font-size:19px;background: linear-gradient(0deg, rgb(234, 229, 229) 34%, rgb(231, 52, 73) 63%)'>
                             <h3>
                                 </h3></div>
-                <table class="text-center table table-bordered table-sm border-white" style="margin-left:30px;max-width:120px;position:relative;top:70px;left:60px;">
+                <table class="text-center table table-bordered table-sm border-white" style="margin-left:30px;max-width:120px;position:relative;top:100.7px;left:60px;">
                     <tr>
-                        <td style="height:35px;background: linear-gradient(0deg, rgb(234, 229, 229) 34%, rgb(7, 233, 105) 63%);">
+                        <td style="height:35px;background: linear-gradient(0deg, rgb(234, 229, 229) 34%, rgb(11, 189, 88) 63%);">
                             <span style="font-size:17px;font-weight:bold;"
                             class="">
                              Target
@@ -98,7 +98,7 @@
 
 
                     <tr class="text-dark">
-                        <td style="height:34px;" class="">
+                        <td style="height:34px; background: linear-gradient(0deg, rgb(234, 229, 229)  34%, rgba(0,108,255,1) 63%);" class="">
                             <span style="font-size:17px;font-weight:bold;"
                                 class="">Production</span>&nbsp;&nbsp; <span style="font-size:17px;font-weight:bold;">:</span>
                         </td>
@@ -126,7 +126,7 @@
 <div>
     @foreach($target_total as $t_1_total)
 
-<div style='position: relative;top:-120px;left:60px;
+<div style='position: relative;top:-90px;left:60px;
 margin-left:155px;height:34px;padding: 0 0 0 0;font-size:24px;max-width:120px;margin-bottom:10px;
                 text-align:center;font-size:19px;background: linear-gradient(0deg, rgb(234, 229, 229) 34%, rgb(231, 52, 73) 63%);'>
             <h3>
@@ -153,9 +153,9 @@ margin-left:155px;height:34px;padding: 0 0 0 0;font-size:24px;max-width:120px;ma
              @if ($g_line_id == $a_total->line_id)
 
              {{-- kmk --}}
-             <table class="w-100 text-center table table-bordered table-sm border-white" id="total_table" style="margin-left:155px;max-width:120px;position:relative;top:-121.6px;left:60px;">
+             <table class="w-100 text-center table table-bordered table-sm border-white" id="total_table" style="margin-left:155px;max-width:120px;position:relative;top:-91.6px;left:60px;">
                     <tr>
-                        <td style="height:35px;background: linear-gradient(0deg, rgba(234,229,229) 34%, rgb(7, 233, 105) 63%);">
+                        <td style="height:35px;background: linear-gradient(0deg, rgba(234,229,229) 34%, rgb(11, 189, 88) 63%);">
                             <span style="font-size:17px;"
                             class="right_table_text1 fw-bold t_1_total_{{ $t_1_total->line_id }}">
                               {{ $a_total->total_div_target }}
@@ -168,7 +168,7 @@ margin-left:155px;height:34px;padding: 0 0 0 0;font-size:24px;max-width:120px;ma
 
 
                     <tr class="text-dark">
-                        <td style="height:34px;" class="fw-bold td_a_total1_{{ $t_1_total->line_id }}">
+                        <td style="height:34px;background: linear-gradient(0deg, rgb(234, 229, 229)  34%, rgba(0,108,255,1) 63%);" class="fw-bold td_a_total1_{{ $t_1_total->line_id }}">
                             <span style="font-size:17px;"
                                 class="right_table_text2 a_total1_{{ $t_1_total->line_id }}">{{ $a_total->total_actual_target }}</span>
                         </td>
@@ -183,6 +183,8 @@ margin-left:155px;height:34px;padding: 0 0 0 0;font-size:24px;max-width:120px;ma
                         <td style="height:41px;"
                             class="fw-bold td_t_percent1_{{ $t_1_total->line_id }}">
                             <span style="font-size:20px;" class="right_table_text3 t_percent1_{{ $t_1_total->line_id }}"></span>
+
+                            <span id="present_third_value" style="display: none"></span>
                         </td>
                     </tr>
                 </table>
@@ -204,6 +206,11 @@ margin-left:155px;height:34px;padding: 0 0 0 0;font-size:24px;max-width:120px;ma
                             var line_column = $(".line_column_{{ $t_1_total->line_id }}");
                             var percent_name = $("#percent_val");
 
+
+                            var present_third_value = $("#present_third_value");
+
+
+
                             if (Number.isNaN(t_1_total)) {
                                 t_percent_span.text("");
                             }
@@ -217,6 +224,8 @@ margin-left:155px;height:34px;padding: 0 0 0 0;font-size:24px;max-width:120px;ma
 
 
                                     if (parseInt(t_percent_span.text()) <= 80) {
+
+
                                         td_t_percent.css('color', 'black');
                                         td_a_percent.css('color', 'black');
 
@@ -225,34 +234,39 @@ margin-left:155px;height:34px;padding: 0 0 0 0;font-size:24px;max-width:120px;ma
                                         percent_name.css('background', 'linear-gradient(0deg, rgb(234, 229, 229) 34%, rgb(231, 52, 73) 63%)');
 
                                         line_column.addClass('bounce');
-                                        line_column.css('background-color', 'red');
+                                        line_column.css('background-color', '#FF0000');
+
+                                        present_third_value.text("red");
                                     }
                                     if (parseInt(t_percent_span.text()) > 80) {
                                         td_t_percent.css('color', 'black');
                                         td_a_percent.css('color', 'black');
 
                                         // td_t_percent.css({'background-color':'#FF8000','color':'#fff'});
-                                        td_a_percent.css({
-                                            'background-color': '#FF8000',
-                                            'color': '#fff'
-                                        });
+                                        td_a_percent.css({'background': 'linear-gradient(0deg, rgba(234, 229, 229) 34%, rgba(255,128,0,1) 63%)',});
+                                        percent_name.css('background', 'linear-gradient(0deg, rgba(234, 229, 229) 34%, rgba(255,128,0,1) 63%)');
+
                                         line_column.addClass('bounce');
                                         line_column.css('background-color', '#FF8000');
+
+                                        present_third_value.text("orange");
                                     }
                                     if (parseInt(t_percent_span.text()) >= 100) {
                                         td_t_percent.css('color', 'black');
                                         td_a_percent.css('color', 'black');
 
                                         // td_t_percent.css({'background-color':'rgba(30,113,0,1)','color':'#fff'});
-                                        td_a_percent.css({
-                                            'background-color': 'rgba(30,113,0,1)',
-                                            'color': '#fff'
-                                        });
+                                        td_a_percent.css({'background': 'linear-gradient(0deg, rgba(234,229,229) 34%, rgb(11, 189, 88) 63%)',});
+                                        percent_name.css('background', 'linear-gradient(0deg, rgba(234,229,229) 34%, rgb(11, 189, 88) 63%)');
+
                                         line_column.addClass('bounce');
                                         line_column.css('background-color', 'rgba(30,113,0,1)');
+
+                                        present_third_value.text("green");
                                     }
 
                                     t_percent_span.append('%');
+
                                 }
                             }
                         });
@@ -486,7 +500,7 @@ style="width: 100px;position: relative;right:40px;top:-30px;" id="ranking_table"
             @foreach ($top_line as $t_line)
               @if ($g_line_id == $t_line->l_id)
                     <div class="m-auto text-start text-center"
-                        style="position: relative;right:425px;top:-190px;" id="ranking_table">
+                        style="position: relative;right:425px;top:-160px;" id="ranking_table">
                         <div>
                             <div>
                                 <div style="vertical-align: middle;">
@@ -502,14 +516,15 @@ style="width: 100px;position: relative;right:40px;top:-30px;" id="ranking_table"
                     </div>
 
 
-                <div style="font-size:10px;vertical-align: middle;min-width:210px;height:100px;position:relative;right:710px;top:85px;padding: 15px 0 0 0;border-radius:10px;"
+                <div style="font-size:10px;vertical-align: middle;min-width:210px;height:100px;position:relative;right:710px;top:120px;padding: 15px 0 0 0;
+                border-radius:10px;border-style: solid;border-color: #86630b;"
                             class="t_line_{{ $t_line->row_num }} t_line_count">
                             <span class="input_row_num_{{ $t_line->row_num }} input_row_num"
                                 style="display:none;">
                                 <h3>{{ $t_line->row_num }}</h3>
                             </span>
                             <span>
-                                <h3 class="text-white" style="font-size: 50px;font-weight: bold;">
+                                <h3 class="text-dark" style="font-size: 50px;font-weight: bold;">
                                     {{ $t_line->diff_target_percent }}%
                                 </h3>
                             </span>
@@ -537,27 +552,27 @@ style="width: 100px;position: relative;right:40px;top:-30px;" id="ranking_table"
 
         if (top_1 != '') {
             $('.t_line_' + top_1).css({
-                'background-color': 'green',
-                'color': '#fff'
+                'background': 'linear-gradient(0deg, rgb(234, 229, 229) 0%, rgba(124,233,11,0.8715861344537815) 100%)',
+                'color': '#000'
             });
         }
         if (top_2 != '') {
             $('.t_line_' + top_2).css({
-                'background-color': 'green',
-                'color': '#fff'
+                'background-color': 'linear-gradient(0deg, rgb(234, 229, 229) 0%, rgba(124,233,11,0.8715861344537815) 100%)',
+                'color': '#000'
             });
         }
         if (top_3 != '') {
             $('.t_line_' + top_3).css({
-                'background-color': 'green',
-                'color': '#fff'
+                'background-color': 'linear-gradient(0deg, rgb(234, 229, 229) 0%, rgba(124,233,11,0.8715861344537815) 100%)',
+                'color': '#000'
             });
         }
 
 
         $(".t_line_" + 10).css({
-            'background-color': 'red',
-            'color': '#fff'
+            'background': 'linear-gradient(0deg, rgb(234, 229, 229) 0%, rgb(231, 52, 73) 100%)',
+            'color': '#000'
         });
     });
 </script>
@@ -598,8 +613,6 @@ style="width: 100px;position: relative;right:40px;top:-30px;" id="ranking_table"
 
 
 
-
-
  {{-- Total target percentage start by msn--}}
         <td>
             <table
@@ -628,7 +641,7 @@ style="width: 100px;position: relative;right:40px;top:-30px;" id="ranking_table"
                 @foreach ($actual_target_total as $a_total)
                     @if ($g_line_id == $a_total->line_id)
                         <tr>
-                            <td style="height: 12px;background: linear-gradient(0deg, rgb(234, 229, 229) 34%, rgb(7, 233, 105) 63%);"><span
+                            <td style="height: 12px;background: linear-gradient(0deg, rgb(234, 229, 229) 34%, rgb(11, 189, 88) 63%);"><span
                                     class="right_table_text1 fw-bold t_2_total_{{ $t_2_total->line_id }}">
                                     @if($g_ot_main_target
                                     !=
@@ -644,7 +657,7 @@ style="width: 100px;position: relative;right:40px;top:-30px;" id="ranking_table"
 
 
                         <tr class="text-dark">
-                            <td style="height:2px;" class="fw-bold td_a_total_{{ $t_2_total->line_id }}">
+                            <td style="height:2px;background:linear-gradient(0deg, rgb(234, 229, 229)  34%, rgba(0,108,255,1) 63%);" class="fw-bold td_a_total_{{ $t_2_total->line_id }}">
                                 <span
                                     class="right_table_text2 a_total_{{ $t_2_total->line_id }}">{{ $a_total->total_actual_target }}</span>
                             </td>
@@ -681,6 +694,11 @@ style="width: 100px;position: relative;right:40px;top:-30px;" id="ranking_table"
                                 var g_main_target = $("#g_main_target_{{ $t_2_total->line_id }}");
                                 var line_column = $(".line_column_{{ $t_2_total->line_id }}");
 
+                                var present_third_value = $("#present_third_value");
+                                var present_third_value_color = present_third_value.text();
+
+
+
                                 if (Number.isNaN(t_2_total)) {
                                     t_percent_span.text("");
                                 }
@@ -692,8 +710,7 @@ style="width: 100px;position: relative;right:40px;top:-30px;" id="ranking_table"
                                     if (!Number.isNaN(t_percent)) {
                                         t_percent_span.text(parseInt(t_percent));
 
-
-                                        if (parseInt(t_percent_span.text()) <= 80) {
+                                        if (present_third_value_color == "red") {
                                             td_t_percent.css('color', 'black');
                                             td_a_percent.css('color', 'black');
 
@@ -702,30 +719,58 @@ style="width: 100px;position: relative;right:40px;top:-30px;" id="ranking_table"
                                             line_column.addClass('bounce');
                                             line_column.css('background-color', 'red');
                                         }
-                                        if (parseInt(t_percent_span.text()) > 80) {
+
+                                        if (present_third_value_color == "orange") {
                                             td_t_percent.css('color', 'black');
                                             td_a_percent.css('color', 'black');
 
                                             // td_t_percent.css({'background-color':'#FF8000','color':'#fff'});
-                                            td_a_percent.css({
-                                                'background-color': '#FF8000',
-                                                'color': '#fff'
-                                            });
+                                            td_a_percent.css({'background': 'linear-gradient(0deg, rgba(234, 229, 229) 34%, rgba(255,128,0,1) 63%)',});
                                             line_column.addClass('bounce');
                                             line_column.css('background-color', '#FF8000');
                                         }
-                                        if (parseInt(t_percent_span.text()) >= 100) {
+
+                                        if (present_third_value_color == "green") {
                                             td_t_percent.css('color', 'black');
                                             td_a_percent.css('color', 'black');
 
                                             // td_t_percent.css({'background-color':'rgba(30,113,0,1)','color':'#fff'});
-                                            td_a_percent.css({
-                                                'background-color': 'rgba(30,113,0,1)',
-                                                'color': '#fff'
-                                            });
+                                            td_a_percent.css({'background': 'linear-gradient(0deg, rgba(234,229,229) 34%, rgb(11, 189, 88) 63%)',});
                                             line_column.addClass('bounce');
                                             line_column.css('background-color', 'rgba(30,113,0,1)');
                                         }
+
+                                        // if (parseInt(t_percent_span.text()) <= 80) {
+                                        //     td_t_percent.css('color', 'black');
+                                        //     td_a_percent.css('color', 'black');
+
+                                        //     // td_t_percent.css('background-color','rgba(255,0,0,0.8)');
+                                        //     td_a_percent.css('background', 'linear-gradient(0deg, rgb(234, 229, 229) 34%, rgb(231, 52, 73) 63%)');
+                                        //     line_column.addClass('bounce');
+                                        //     line_column.css('background-color', 'red');
+                                        // }
+                                        // if (parseInt(t_percent_span.text()) > 80) {
+                                        //     td_t_percent.css('color', 'black');
+                                        //     td_a_percent.css('color', 'black');
+
+                                        //     // td_t_percent.css({'background-color':'#FF8000','color':'#fff'});
+                                        //     td_a_percent.css({
+                                        //         'background-color': '#FF8000',
+                                        //     });
+                                        //     line_column.addClass('bounce');
+                                        //     line_column.css('background-color', '#FF8000');
+                                        // }
+                                        // if (parseInt(t_percent_span.text()) >= 100) {
+                                        //     td_t_percent.css('color', 'black');
+                                        //     td_a_percent.css('color', 'black');
+
+                                        //     // td_t_percent.css({'background-color':'rgba(30,113,0,1)','color':'#fff'});
+                                        //     td_a_percent.css({
+                                        //         'background-color': 'rgba(30,113,0,1)',
+                                        //     });
+                                        //     line_column.addClass('bounce');
+                                        //     line_column.css('background-color', 'rgba(30,113,0,1)');
+                                        // }
 
                                         t_percent_span.append('%');
                                     }
@@ -811,26 +856,29 @@ style="width: 100px;position: relative;right:40px;top:-30px;" id="ranking_table"
                         }
 
                         echo "
-            <div class='bottom_rank' style='display: flex;margin:auto;width:750px;position: relative;top:-75px;margin-left:485px;'>" .
+            <div class='bottom_rank' style='display: flex;margin:auto;width:370px;position: relative;top:-215px;margin-left:465px;height:28px;
+            background:linear-gradient(0deg, rgb(234, 229, 229) 0%, rgba(124,233,11,0.8715861344537815) 100%);'>" .
                             "<div style='display: flex;min-width:220px;margin-right:-67px;'>
-                <h3><i class='bi bi-arrow-down' style='background:#ff0000;color:white;font-size:19px;position:relative;bottom:5px;'></i></h3>&nbsp;
-                <h3 style='font-weight: bold;font-size:19px;'>Line </h3>           &nbsp;&nbsp;
-                <h3 style='font-weight: bold;font-size:19px;'>" .
+
+
+                <h3><i class='bi bi-arrow-down' style='background:#ff0000;color:white;font-size:17px;position:relative;bottom:5px;'></i></h3>&nbsp;
+                <h3 style='font-weight: bold;font-size:17px;background:'>Line </h3>           &nbsp;&nbsp;
+                <h3 style='font-weight: bold;font-size:17px;'>" .
                             $magic .
                             "</h3>
                     </div>" .
-                            "<h3 style='font-weight: bold;font-size:19px;'>Rank</h3>           &nbsp;&nbsp;&nbsp;
+                            "<h3 style='font-weight: bold;font-size:17px;'>Rank</h3>           &nbsp;&nbsp;&nbsp;
 
-                <h3 style='margin-right: -17px;font-weight: bold;min-width:50px;font-size:19px;'>" .
+                <h3 style='margin-right: -17px;font-weight: bold;min-width:50px;font-size:17px;'>" .
                             $t_line2->row_num .
                             '</h3>' .
-                            "<p style='font-size:19px;position: relative;bottom:3px;padding:0 0 0 0;min-width:68px;height:31px;background:#ff0000;text-align: center;'
+                            "<p style='font-size:17px;position: relative;bottom:3px;padding:0 0 0 0;min-width:28px;height:28px;background:#ff0000;text-align: center;'
                     class='text-white'>" .
                             $t_line2->diff_target_percent .
                             '%' .
                             "</p>" . $t_line->diff_target_percent-$t_line2->diff_target_percent .
 
-                "</div>
+                "</div><br>
                     ";
                  }
                 }
@@ -858,7 +906,7 @@ style="width: 100px;position: relative;right:40px;top:-30px;" id="ranking_table"
                 <h3 style='margin-right: -17px;font-weight: bold;min-width:50px;font-size:19px;'>" .
                             $t_line2->row_num .
                             '</h3>' .
-                            "<p style='font-size:19px;position: relative;bottom:3px;padding:0 0 0 0;min-width:68px;height:31px;background:#1e7100;text-align: center;'
+                            "<p style='font-size:19px;position: relative;bottom:3px;padding:0 0 0 0;min-width:31px;height:31px;background:#1e7100;text-align: center;'
                     class='text-white'>" .
                             $t_line2->diff_target_percent .
                             '%' .
