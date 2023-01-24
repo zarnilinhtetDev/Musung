@@ -79,11 +79,11 @@
 
 
                 <div style='position: relative;top:102.4px;right:0px;
-                margin-left:90px;height:34px;padding: 0 0 0 0;font-size:24px;max-width:120px;margin-bottom:10px;
+                margin-left:60px;height:34px;padding: 0 0 0 0;font-size:24px;max-width:120px;margin-bottom:10px;
                                 text-align:center;font-size:19px;background: linear-gradient(0deg, rgb(234, 229, 229) 34%, rgb(231, 52, 73) 63%)'>
                             <h3>
                                 </h3></div>
-                <table class="text-center table table-bordered table-sm border-white" style="margin-left:30px;max-width:120px;position:relative;top:100.7px;left:60px;">
+                <table class="text-center table table-bordered table-sm border-white" style="margin-left:30px;max-width:120px;position:relative;top:100.7px;left:30px;">
                     <tr>
                         <td style="height:35px;background: linear-gradient(0deg, rgb(234, 229, 229) 34%, rgb(11, 189, 88) 63%);">
                             <span style="font-size:17px;font-weight:bold;"
@@ -126,7 +126,7 @@
 <div>
     @foreach($target_total as $t_1_total)
 
-<div style='position: relative;top:-90px;left:60px;
+<div style='position: relative;top:-90px;left:30px;
 margin-left:155px;height:34px;padding: 0 0 0 0;font-size:24px;max-width:120px;margin-bottom:10px;
                 text-align:center;font-size:19px;background: linear-gradient(0deg, rgb(234, 229, 229) 34%, rgb(231, 52, 73) 63%);'>
             <h3>
@@ -153,7 +153,7 @@ margin-left:155px;height:34px;padding: 0 0 0 0;font-size:24px;max-width:120px;ma
              @if ($g_line_id == $a_total->line_id)
 
              {{-- kmk --}}
-             <table class="w-100 text-center table table-bordered table-sm border-white" id="total_table" style="margin-left:155px;max-width:120px;position:relative;top:-91.6px;left:60px;">
+             <table class="w-100 text-center table table-bordered table-sm border-white" id="total_table" style="margin-left:155px;max-width:120px;position:relative;top:-91.6px;left:30px;">
                     <tr>
                         <td style="height:35px;background: linear-gradient(0deg, rgba(234,229,229) 34%, rgb(11, 189, 88) 63%);">
                             <span style="font-size:17px;"
@@ -516,7 +516,7 @@ style="width: 100px;position: relative;right:40px;top:-30px;" id="ranking_table"
                     </div>
 
 
-                <div style="font-size:10px;vertical-align: middle;min-width:210px;height:100px;position:relative;right:710px;top:120px;padding: 15px 0 0 0;
+                <div style="font-size:10px;vertical-align: middle;min-width:210px;height:100px;position:relative;right:760px;top:120px;padding: 15px 0 0 0;
                 border-radius:10px;border-style: solid;border-color: #86630b;"
                             class="t_line_{{ $t_line->row_num }} t_line_count">
                             <span class="input_row_num_{{ $t_line->row_num }} input_row_num"
@@ -856,27 +856,34 @@ style="width: 100px;position: relative;right:40px;top:-30px;" id="ranking_table"
                         }
 
                         echo "
-            <div class='bottom_rank' style='display: flex;margin:auto;width:370px;position: relative;top:-215px;margin-left:465px;height:28px;
+            <div class='bottom_rank' style='padding: 3px 0 0 0;display: flex;margin:auto;width:340px;position: relative;top:-215px;margin-left:435px;height:28px;
             background:linear-gradient(0deg, rgb(234, 229, 229) 0%, rgba(124,233,11,0.8715861344537815) 100%);'>" .
-                            "<div style='display: flex;min-width:220px;margin-right:-67px;'>
+                            "<div style='display: flex;min-width:220px;margin-right:60px;'>" .
+
+                                "<h3 style='font-weight: bold;font-size:17px;margin-left:8px;'>Rank</h3>           &nbsp;&nbsp;
+                <h3 style='margin-right: :0px;font-weight: bold;min-width:50px;font-size:17px;'>" .
+                            $t_line2->row_num .
+                            '</h3>'.
 
 
-                <h3><i class='bi bi-arrow-down' style='background:#ff0000;color:white;font-size:17px;position:relative;bottom:5px;'></i></h3>&nbsp;
-                <h3 style='font-weight: bold;font-size:17px;background:'>Line </h3>           &nbsp;&nbsp;
+                "
+                <h3 style='font-weight: bold;font-size:17px;margin-left:45px;'>Line -</h3>           &nbsp;
                 <h3 style='font-weight: bold;font-size:17px;'>" .
                             $magic .
                             "</h3>
                     </div>" .
-                            "<h3 style='font-weight: bold;font-size:17px;'>Rank</h3>           &nbsp;&nbsp;&nbsp;
 
-                <h3 style='margin-right: -17px;font-weight: bold;min-width:50px;font-size:17px;'>" .
-                            $t_line2->row_num .
-                            '</h3>' .
                             "<p style='font-size:17px;position: relative;bottom:3px;padding:0 0 0 0;min-width:28px;height:28px;background:#ff0000;text-align: center;'
                     class='text-white'>" .
                             $t_line2->diff_target_percent .
                             '%' .
-                            "</p>" . $t_line->diff_target_percent-$t_line2->diff_target_percent .
+                            "</p>" .
+
+                            "<p style='font-size:17px;color:black;font-weight:bold;margin-left:55px;'>" . $t_line->diff_target_percent-$t_line2->diff_target_percent
+                                . "%" .
+                                "</p> &nbsp;" .
+
+                            "<h3><i class='bi bi-arrow-down' style='background:#ff0000;color:white;font-size:17px;position:relative;bottom:5px;'></i></h3>" .
 
                 "</div><br>
                     ";
@@ -1419,8 +1426,11 @@ style="width: 100px;position: relative;right:40px;top:-30px;" id="ranking_table"
 
                         echo "
             <div class='top_rank' style='display: flex;margin:auto;width:750px;position: relative;top:-110px;margin-left:323px;'>" .
-                            "<div style='display: flex;min-width:220px;margin-right:-67px;'>
-                <h3><i class='bi bi-arrow-up' style='background:#1e7100;color:white;font-size:19px;position:relative;bottom:5px;'></i></h3>&nbsp;
+                            "<div style='display: flex;min-width:220px;margin-right:-67px;'>" .
+
+
+
+                "<h3><i class='bi bi-arrow-up' style='background:#1e7100;color:white;font-size:19px;position:relative;bottom:5px;'></i></h3>&nbsp;
                 <h3 style='font-weight: bold;font-size:19px;'>Line </h3>           &nbsp;&nbsp;
                 <h3 style='font-weight: bold;font-size:19px;'>" .
                             $magic .
