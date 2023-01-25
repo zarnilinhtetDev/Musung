@@ -879,13 +879,13 @@ style="width: 100px;position: relative;right:40px;top:-30px;" id="ranking_table"
                             "</p></div>" .
 
                             "<div style='display: flex;background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
-                                    min-width:75px;margin-left:30px;padding: 0 0 0 13px;
+                                    min-width:70px;margin-left:30px;padding: 0 0 0 13px;
                                     position: relative;bottom:2px;
-                                    '><h3 style='font-size:15px;color:black;font-weight:900;padding: 4px 0 0 0;'>" . $t_line->diff_target_percent-$t_line2->diff_target_percent
+                                    '><h3 style='font-size:17px;color:black;font-weight:900;padding: 3px 0 0 0;'>" . $t_line->diff_target_percent-$t_line2->diff_target_percent
                                 . "%" .
                                 "</h3> &nbsp;" .
 
-                            "<h3><i class='bi bi-arrow-down' style='color:red;font-weight:900;font-size:15px;position:relative;bottom:6px;'></i></h3></div>" .
+                            "<h3><i class='bi bi-arrow-down' style='color:red;font-weight:900;font-size:17px;position:relative;bottom:5px;'></i></h3></div>" .
 
                 "</div><br>
                     ";
@@ -927,7 +927,7 @@ style="width: 100px;position: relative;right:40px;top:-30px;" id="ranking_table"
                             "</p></div>" .
 
                             "<div style='display: flex;background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
-                                    min-width:65px;margin-left:30px;padding: 0 0 0 10px;
+                                    min-width:70px;margin-left:30px;padding: 0 0 0 10px;
                                     position: relative;bottom:2px;
                                     '><h3 style='font-size:17px;color:black;font-weight:900;padding: 3px 0 0 0;'>" . $t_line2->diff_target_percent-$t_line->diff_target_percent
                                 . "%" .
@@ -972,7 +972,7 @@ style="width: 100px;position: relative;right:40px;top:-30px;" id="ranking_table"
                             "</p></div>" .
 
                             "<div style='display: flex;background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
-                                    min-width:65px;margin-left:30px;padding: 0 0 0 10px;
+                                    min-width:70px;margin-left:30px;padding: 0 0 0 13px;
                                     position: relative;bottom:2px;
                                     '><h3 style='font-size:17px;color:black;font-weight:900;padding: 3px 0 0 0;'>" . $t_line->diff_target_percent-$t_line2->diff_target_percent
                                 . "%" .
