@@ -80,7 +80,7 @@
 
                 <div style='position: relative;top:102.4px;right:0px;
                 margin-left:60px;height:34px;padding: 0 0 0 0;font-size:24px;max-width:120px;margin-bottom:10px;
-                                text-align:center;font-size:19px;background: linear-gradient(0deg, rgb(234, 229, 229) 34%, rgb(231, 52, 73) 63%)'>
+                                text-align:center;font-size:19px;background: #ED1C24;'>
                             <h3>
                                 </h3></div>
                 <table class="text-center table table-bordered table-sm border-white" style="margin-left:30px;max-width:120px;position:relative;top:100.7px;left:30px;">
@@ -128,7 +128,7 @@
 
 <div style='position: relative;top:-90px;left:30px;
 margin-left:155px;height:34px;padding: 0 0 0 0;font-size:24px;max-width:120px;margin-bottom:10px;
-                text-align:center;background: linear-gradient(0deg, rgb(234, 229, 229) 34%, rgb(231, 52, 73) 63%);'>
+                text-align:center;background: #ED1C24;'>
             <h3 style="font-size: 22px;color:black;padding: 2px 0 0 0;font-family: Times New Roman;font-weigth:900;">
                 Present</h3></div>
 
@@ -230,8 +230,8 @@ margin-left:155px;height:34px;padding: 0 0 0 0;font-size:24px;max-width:120px;ma
                                         td_a_percent.css('color', 'black');
 
                                         // td_t_percent.css('background-color','rgba(255,0,0,0.8)');
-                                        td_a_percent.css('background', 'linear-gradient(0deg, rgb(234, 229, 229) 34%, rgb(231, 52, 73) 63%)');
-                                        percent_name.css('background', 'linear-gradient(0deg, rgb(234, 229, 229) 34%, rgb(231, 52, 73) 63%)');
+                                        td_a_percent.css('background', '#ED1C24');
+                                        percent_name.css('background', '#ED1C24');
 
                                         line_column.addClass('bounce');
                                         line_column.css('background-color', '#FF0000');
@@ -616,7 +616,7 @@ style="width: 100px;position: relative;right:40px;top:-30px;" id="ranking_table"
             <table
             class="w-100 text-center table m-0 totalTable table-bordered table-sm border-white right_table">
 
-                <h3 class="rank_heading" style="font-size: 22px;color:black;padding: 2px 0 0 0;font-family: Times New Roman;font-weigth:900;">
+                <h3 class="rank_heading" style="font-size: 22px;color:black;padding: 2px 0 0 0;">
                     Daily</h3>
 @if(isset($actual_target_total))
 
@@ -713,7 +713,7 @@ style="width: 100px;position: relative;right:40px;top:-30px;" id="ranking_table"
                                             td_a_percent.css('color', 'black');
 
                                             // td_t_percent.css('background-color','rgba(255,0,0,0.8)');
-                                            td_a_percent.css('background', 'linear-gradient(0deg, rgb(234, 229, 229) 34%, rgb(231, 52, 73) 63%)');
+                                            td_a_percent.css('background', '#ED1C24');
                                             line_column.addClass('bounce');
                                             line_column.css('background-color', 'red');
                                         }
@@ -871,9 +871,9 @@ style="width: 100px;position: relative;right:40px;top:-30px;" id="ranking_table"
                             "</h3>
                     </div>" .
 
-                            "<div style='display:flex;position: relative;top:1px;padding:0 0 0 0;min-width:28px;height:20px;background:#ff0000;text-align: center;'>
+                            "<div style='display:flex;position: relative;top:1px;padding:0 0 0 0;min-width:40px;height:20px;background:#ff0000;text-align: center;'>
                                 <p style='font-size:17px;position: relative;bottom:3px;'
-                    class='text-dark'>" .
+                    class='text-light'>" .
                             $t_line2->diff_target_percent .
                             '%' .
                             "</p></div>" .
@@ -919,9 +919,9 @@ style="width: 100px;position: relative;right:40px;top:-30px;" id="ranking_table"
                             "</h3>
                     </div>" .
 
-                            "<div style='display:flex;position: relative;top:1px;padding:0 0 0 0;min-width:28px;height:20px;background:#09ff00;text-align: center;'>
+                            "<div style='display:flex;position: relative;top:1px;padding:0 0 0 0;min-width:40px;height:20px;background:#09ff00;text-align: center;'>
                                 <p style='font-size:17px;position: relative;bottom:3px;'
-                    class='text-dark'>" .
+                    class='text-light'>" .
                             $t_line2->diff_target_percent .
                             '%' .
                             "</p></div>" .
@@ -964,9 +964,9 @@ style="width: 100px;position: relative;right:40px;top:-30px;" id="ranking_table"
                             "</h3>
                     </div>" .
 
-                            "<div style='display:flex;position: relative;top:1px;padding:0 0 0 0;min-width:28px;height:20px;background:#ff0000;text-align: center;'>
+                            "<div style='display:flex;position: relative;top:1px;padding:0 0 0 0;min-width:40px;height:20px;background:#ff0000;text-align: center;'>
                                 <p style='font-size:17px;position: relative;bottom:3px;'
-                    class='text-dark'>" .
+                    class='text-light'>" .
                             $t_line2->diff_target_percent .
                             '%' .
                             "</p></div>" .
@@ -1012,9 +1012,9 @@ style="width: 100px;position: relative;right:40px;top:-30px;" id="ranking_table"
                             "</h3>
                     </div>" .
 
-                            "<div style='display:flex;position: relative;top:1px;padding:0 0 0 0;min-width:28px;height:20px;background:#09ff00;text-align: center;'>
+                            "<div style='display:flex;position: relative;top:1px;padding:0 0 0 0;min-width:40px;height:20px;background:#09ff00;text-align: center;'>
                                 <p style='font-size:17px;position: relative;bottom:3px;'
-                    class='text-dark'>" .
+                    class='text-light'>" .
                             $t_line2->diff_target_percent .
                             '%' .
                             "</p></div>" .
@@ -1057,9 +1057,9 @@ style="width: 100px;position: relative;right:40px;top:-30px;" id="ranking_table"
                             "</h3>
                     </div>" .
 
-                            "<div style='display:flex;position: relative;top:1px;padding:0 0 0 0;min-width:28px;height:20px;background:#ff0000;text-align: center;'>
+                            "<div style='display:flex;position: relative;top:1px;padding:0 0 0 0;min-width:40px;height:20px;background:#ff0000;text-align: center;'>
                                 <p style='font-size:17px;position: relative;bottom:3px;'
-                    class='text-dark'>" .
+                    class='text-light'>" .
                             $t_line2->diff_target_percent .
                             '%' .
                             "</p></div>" .
@@ -1105,9 +1105,9 @@ style="width: 100px;position: relative;right:40px;top:-30px;" id="ranking_table"
                             "</h3>
                     </div>" .
 
-                            "<div style='display:flex;position: relative;top:1px;padding:0 0 0 0;min-width:28px;height:20px;background:#09ff00;text-align: center;'>
+                            "<div style='display:flex;position: relative;top:1px;padding:0 0 0 0;min-width:40px;height:20px;background:#09ff00;text-align: center;'>
                                 <p style='font-size:17px;position: relative;bottom:3px;'
-                    class='text-dark'>" .
+                    class='text-light'>" .
                             $t_line2->diff_target_percent .
                             '%' .
                             "</p></div>" .
@@ -1150,9 +1150,9 @@ style="width: 100px;position: relative;right:40px;top:-30px;" id="ranking_table"
                             "</h3>
                     </div>" .
 
-                            "<div style='display:flex;position: relative;top:1px;padding:0 0 0 0;min-width:28px;height:20px;background:#ff0000;text-align: center;'>
+                            "<div style='display:flex;position: relative;top:1px;padding:0 0 0 0;min-width:40px;height:20px;background:#ff0000;text-align: center;'>
                                 <p style='font-size:17px;position: relative;bottom:3px;'
-                    class='text-dark'>" .
+                    class='text-light'>" .
                             $t_line2->diff_target_percent .
                             '%' .
                             "</p></div>" .
@@ -1198,9 +1198,9 @@ style="width: 100px;position: relative;right:40px;top:-30px;" id="ranking_table"
                             "</h3>
                     </div>" .
 
-                            "<div style='display:flex;position: relative;top:1px;padding:0 0 0 0;min-width:28px;height:20px;background:#09ff00;text-align: center;'>
+                            "<div style='display:flex;position: relative;top:1px;padding:0 0 0 0;min-width:40px;height:20px;background:#09ff00;text-align: center;'>
                                 <p style='font-size:17px;position: relative;bottom:3px;'
-                    class='text-dark'>" .
+                    class='text-light'>" .
                             $t_line2->diff_target_percent .
                             '%' .
                             "</p></div>" .
@@ -1243,9 +1243,9 @@ style="width: 100px;position: relative;right:40px;top:-30px;" id="ranking_table"
                             "</h3>
                     </div>" .
 
-                            "<div style='display:flex;position: relative;top:1px;padding:0 0 0 0;min-width:28px;height:20px;background:#ff0000;text-align: center;'>
+                            "<div style='display:flex;position: relative;top:1px;padding:0 0 0 0;min-width:40px;height:20px;background:#ff0000;text-align: center;'>
                                 <p style='font-size:17px;position: relative;bottom:3px;'
-                    class='text-dark'>" .
+                    class='text-light'>" .
                             $t_line2->diff_target_percent .
                             '%' .
                             "</p></div>" .
@@ -1291,9 +1291,9 @@ style="width: 100px;position: relative;right:40px;top:-30px;" id="ranking_table"
                             "</h3>
                     </div>" .
 
-                            "<div style='display:flex;position: relative;top:1px;padding:0 0 0 0;min-width:28px;height:20px;background:#09ff00;text-align: center;'>
+                            "<div style='display:flex;position: relative;top:1px;padding:0 0 0 0;min-width:40px;height:20px;background:#09ff00;text-align: center;'>
                                 <p style='font-size:17px;position: relative;bottom:3px;'
-                    class='text-dark'>" .
+                    class='text-light'>" .
                             $t_line2->diff_target_percent .
                             '%' .
                             "</p></div>" .
@@ -1336,9 +1336,9 @@ style="width: 100px;position: relative;right:40px;top:-30px;" id="ranking_table"
                             "</h3>
                     </div>" .
 
-                            "<div style='display:flex;position: relative;top:1px;padding:0 0 0 0;min-width:28px;height:20px;background:#ff0000;text-align: center;'>
+                            "<div style='display:flex;position: relative;top:1px;padding:0 0 0 0;min-width:40px;height:20px;background:#ff0000;text-align: center;'>
                                 <p style='font-size:17px;position: relative;bottom:3px;'
-                    class='text-dark'>" .
+                    class='text-light'>" .
                             $t_line2->diff_target_percent .
                             '%' .
                             "</p></div>" .
@@ -1386,9 +1386,9 @@ style="width: 100px;position: relative;right:40px;top:-30px;" id="ranking_table"
                             "</h3>
                     </div>" .
 
-                            "<div style='display:flex;position: relative;top:1px;padding:0 0 0 0;min-width:28px;height:20px;background:#09ff00;text-align: center;'>
+                            "<div style='display:flex;position: relative;top:1px;padding:0 0 0 0;min-width:40px;height:20px;background:#09ff00;text-align: center;'>
                                 <p style='font-size:17px;position: relative;bottom:3px;'
-                    class='text-dark'>" .
+                    class='text-light'>" .
                             $t_line2->diff_target_percent .
                             '%' .
                             "</p></div>" .
