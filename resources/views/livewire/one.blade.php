@@ -499,8 +499,8 @@ style="width: 100px;position: relative;right:40px;top:-30px;" id="ranking_table"
 
             @foreach ($top_line as $t_line)
               @if ($g_line_id == $t_line->l_id)
-                    <div class="m-auto text-start text-center"
-                        style="position: relative;right:425px;top:-160px;" id="ranking_table">
+                    <div class="m-auto text-start text-center k_rank_head"
+                        style="" id="ranking_table">
                         <div>
                             <div>
                                 <div style="vertical-align: middle;">
@@ -516,15 +516,13 @@ style="width: 100px;position: relative;right:40px;top:-30px;" id="ranking_table"
                     </div>
 
 
-                <div style="font-size:10px;vertical-align: middle;min-width:210px;height:100px;position:relative;right:760px;top:120px;padding: 15px 0 0 0;
-                border-radius:10px;border-style: solid;border-color: #86630b;"
-                            class="t_line_{{ $t_line->row_num }} t_line_count">
+                <div class="t_line_{{ $t_line->row_num }} t_line_count k_main_percent" style="">
                             <span class="input_row_num_{{ $t_line->row_num }} input_row_num"
                                 style="display:none;">
                                 <h3>{{ $t_line->row_num }}</h3>
                             </span>
                             <span>
-                                <h3 class="text-dark" style="font-size: 50px;font-weight: bold;">
+                                <h3 class="text-dark" style="font-size: 50px;font-weight: bold;font-family: Times New Roman;">
                                     {{ $t_line->diff_target_percent }}%
                                 </h3>
                             </span>
@@ -881,7 +879,7 @@ style="width: 100px;position: relative;right:40px;top:-30px;" id="ranking_table"
                             "</p></div>" .
 
                             "<div style='display: flex;background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
-                                    min-width:65px;margin-left:30px;padding: 0 0 0 10px;
+                                    min-width:75px;margin-left:30px;padding: 0 0 0 13px;
                                     position: relative;bottom:2px;
                                     '><h3 style='font-size:17px;color:black;font-weight:900;padding: 3px 0 0 0;'>" . $t_line->diff_target_percent-$t_line2->diff_target_percent
                                 . "%" .

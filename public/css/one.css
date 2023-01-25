@@ -11,6 +11,15 @@ html, body {
     top: -65px;
 }
 
+.k_rank_head {
+    position: relative;right:425px;top:-160px;
+}
+
+.k_main_percent {
+    font-size:10px;vertical-align: middle;min-width:210px;height:100px;position:relative;right:760px;top:120px;padding: 15px 0 0 0;
+    border-radius:10px;border-style: solid;border-color: #86630b;
+}
+
 
 .kbody {
     zoom: 210%;
@@ -33,7 +42,7 @@ html, body {
 
 
 .js_time {
-    font-weight:bold;font-size:49px;width:400px;text-align:center;position: relative;left:0px;letter-spacing: 5px;bottom:20px;
+    font-weight:bold;font-size:49px;width:400px;text-align:center;position: relative;left:0px;letter-spacing: 5px;bottom:20px;font-family: Times New Roman;
 }
 
 
