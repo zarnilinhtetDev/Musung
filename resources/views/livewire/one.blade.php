@@ -128,8 +128,8 @@
 
 <div style='position: relative;top:-90px;left:30px;
 margin-left:155px;height:34px;padding: 0 0 0 0;font-size:24px;max-width:120px;margin-bottom:10px;
-                text-align:center;font-size:19px;background: linear-gradient(0deg, rgb(234, 229, 229) 34%, rgb(231, 52, 73) 63%);'>
-            <h3>
+                text-align:center;background: linear-gradient(0deg, rgb(234, 229, 229) 34%, rgb(231, 52, 73) 63%);'>
+            <h3 style="font-size: 22px;color:black;padding: 2px 0 0 0;font-family: Times New Roman;font-weigth:900;">
                 Present</h3></div>
 
                 <table class="w-100 text-center table table-bordered table-sm border-white" id="total_table" style="margin-left:105px;max-width:120px;position:relative;top:30px;left:60px;">
@@ -618,7 +618,7 @@ style="width: 100px;position: relative;right:40px;top:-30px;" id="ranking_table"
             <table
             class="w-100 text-center table m-0 totalTable table-bordered table-sm border-white right_table">
 
-                <h3 class="rank_heading">
+                <h3 class="rank_heading" style="font-size: 22px;color:black;padding: 2px 0 0 0;font-family: Times New Roman;font-weigth:900;">
                     Daily</h3>
 @if(isset($actual_target_total))
 
