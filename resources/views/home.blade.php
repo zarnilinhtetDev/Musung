@@ -6,6 +6,14 @@
 // echo $hash;
 @endphp
 @section('content_2')
+
+
+@LiveTV
+<script type="text/javascript">
+    window.location = "{{url('live_dash')}}";
+</script>
+@endLiveTV
+
 @viewer
 <script type="text/javascript">
     window.location = "{{url('live_dash')}}";

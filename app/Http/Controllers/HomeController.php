@@ -29,8 +29,15 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $role = Auth::user()->role;
+        $one = 1;
+        // $name = $role->username;
+        // $name = strval($name);
+        if ($role == 3) {
+            return view('onepaper', compact('one'));
+        }
 
         return view('home');
     }
-    
+
 }

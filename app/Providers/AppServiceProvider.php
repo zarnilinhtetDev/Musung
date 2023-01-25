@@ -46,5 +46,8 @@ class AppServiceProvider extends ServiceProvider
         Blade::if('viewer', function () {     ///Viewer
             return Auth::user()->role == 97;
         });
+        Blade::if('LiveTV', function () {     ///Viewer
+            return Auth::user()->role == 3;
+        });
     }
 }

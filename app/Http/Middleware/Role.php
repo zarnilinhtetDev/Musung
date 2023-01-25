@@ -35,5 +35,8 @@ class Role
         if (Auth::user()->role == 2) {
             return $next($request);
         }
+        if (Auth::user()->role == 3) {
+            return $next($request);
+        }
     }
 }
