@@ -932,7 +932,7 @@ style="width: 100px;position: relative;right:430px;top:-99.7px;" id="ranking_tab
                                 . "%" .
                                 "</h3> &nbsp;" .
 
-                            "<h3><i class='bi bi-arrow-down' style='background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
+                            "<h3><i class='bi bi-caret-down-fill' style='background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
                             color:red;font-weight:900;font-size:20px;position:relative;bottom:4.3px;'></i></h3></div>" .
 
                 "</div><br>
@@ -982,7 +982,7 @@ style="width: 100px;position: relative;right:430px;top:-99.7px;" id="ranking_tab
                                 . "%" .
                                 "</h3> &nbsp;" .
 
-                            "<h3><i class='bi bi-arrow-up' style='background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
+                            "<h3><i class='bi bi-caret-up-fill' style='background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
                             color:#79ff4d;font-weight:900;font-size:20px;position:relative;bottom:4.3px;'></i></h3></div>" .
 
                 "</div><br>
@@ -1029,7 +1029,7 @@ style="width: 100px;position: relative;right:430px;top:-99.7px;" id="ranking_tab
                                 . "%" .
                                 "</h3> &nbsp;" .
 
-                            "<h3><i class='bi bi-arrow-down' style='background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
+                            "<h3><i class='bi bi-caret-down-fill' style='background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
                             color:red;font-weight:900;font-size:20px;position:relative;bottom:4.3px;'></i></h3></div>" .
 
                 "</div><br>
@@ -1079,7 +1079,7 @@ style="width: 100px;position: relative;right:430px;top:-99.7px;" id="ranking_tab
                                 . "%" .
                                 "</h3> &nbsp;" .
 
-                            "<h3><i class='bi bi-arrow-up' style='background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
+                            "<h3><i class='bi bi-caret-up-fill' style='background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
                             color:#79ff4d;font-weight:900;font-size:20px;position:relative;bottom:4.3px;'></i></h3></div>" .
 
                 "</div><br>
@@ -1126,7 +1126,7 @@ style="width: 100px;position: relative;right:430px;top:-99.7px;" id="ranking_tab
                                 . "%" .
                                 "</h3> &nbsp;" .
 
-                            "<h3><i class='bi bi-arrow-down' style='background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
+                            "<h3><i class='bi bi-caret-down-fill' style='background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
                             color:red;font-weight:900;font-size:20px;position:relative;bottom:4.3px;'></i></h3></div>" .
 
                 "</div><br>
@@ -1176,7 +1176,7 @@ style="width: 100px;position: relative;right:430px;top:-99.7px;" id="ranking_tab
                                 . "%" .
                                 "</h3> &nbsp;" .
 
-                            "<h3><i class='bi bi-arrow-up' style='background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
+                            "<h3><i class='bi bi-caret-up-fill' style='background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
                             color:#79ff4d;font-weight:900;font-size:20px;position:relative;bottom:4.3px;'></i></h3></div>" .
 
                 "</div><br>
@@ -1223,7 +1223,7 @@ style="width: 100px;position: relative;right:430px;top:-99.7px;" id="ranking_tab
                                 . "%" .
                                 "</h3> &nbsp;" .
 
-                            "<h3><i class='bi bi-arrow-down' style='background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
+                            "<h3><i class='bi bi-caret-down-fill' style='background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
                             color:red;font-weight:900;font-size:20px;position:relative;bottom:4.3px;'></i></h3></div>" .
 
                 "</div><br>
@@ -1273,7 +1273,7 @@ style="width: 100px;position: relative;right:430px;top:-99.7px;" id="ranking_tab
                                 . "%" .
                                 "</h3> &nbsp;" .
 
-                            "<h3><i class='bi bi-arrow-up' style='background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
+                            "<h3><i class='bi bi-caret-up-fill' style='background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
                             color:#79ff4d;font-weight:900;font-size:20px;position:relative;bottom:4.3px;'></i></h3></div>" .
 
                 "</div><br>
@@ -1320,7 +1320,7 @@ style="width: 100px;position: relative;right:430px;top:-99.7px;" id="ranking_tab
                                 . "%" .
                                 "</h3> &nbsp;" .
 
-                            "<h3><i class='bi bi-arrow-down' style='background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
+                            "<h3><i class='bi bi-caret-down-fill' style='background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
                             color:red;font-weight:900;font-size:20px;position:relative;bottom:4.3px;'></i></h3></div>" .
 
                 "</div><br>
@@ -1370,7 +1370,7 @@ style="width: 100px;position: relative;right:430px;top:-99.7px;" id="ranking_tab
                                 . "%" .
                                 "</h3> &nbsp;" .
 
-                            "<h3><i class='bi bi-arrow-up' style='background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
+                            "<h3><i class='bi bi-caret-up-fill' style='background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
                             color:#79ff4d;font-weight:900;font-size:20px;position:relative;bottom:4.3px;'></i></h3></div>" .
 
                 "</div><br>
@@ -1417,7 +1417,7 @@ style="width: 100px;position: relative;right:430px;top:-99.7px;" id="ranking_tab
                                 . "%" .
                                 "</h3> &nbsp;" .
 
-                            "<h3><i class='bi bi-arrow-down' style='background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
+                            "<h3><i class='bi bi-caret-down-fill' style='background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
                             color:red;font-weight:900;font-size:20px;position:relative;bottom:4.3px;'></i></h3></div>" .
 
                 "</div><br>
@@ -1469,7 +1469,7 @@ style="width: 100px;position: relative;right:430px;top:-99.7px;" id="ranking_tab
                                 . "%" .
                                 "</h3> &nbsp;" .
 
-                            "<h3><i class='bi bi-arrow-up' style='background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
+                            "<h3><i class='bi bi-caret-up-fill' style='background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
                             color:#79ff4d;font-weight:900;font-size:20px;position:relative;bottom:4.3px;'></i></h3></div>" .
 
                 "</div><br>
@@ -1517,7 +1517,7 @@ style="width: 100px;position: relative;right:430px;top:-99.7px;" id="ranking_tab
                                 . "%" .
                                 "</h3> &nbsp;" .
 
-                            "<h3><i class='bi bi-arrow-down' style='background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
+                            "<h3><i class='bi bi-caret-down-fill' style='background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
                             color:red;font-weight:900;font-size:20px;position:relative;bottom:4.3px;'></i></h3></div>" .
 
                 "</div><br>
@@ -1568,7 +1568,7 @@ style="width: 100px;position: relative;right:430px;top:-99.7px;" id="ranking_tab
                                 . "%" .
                                 "</h3> &nbsp;" .
 
-                            "<h3><i class='bi bi-arrow-up' style='background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
+                            "<h3><i class='bi bi-caret-up-fill' style='background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
                             color:#79ff4d;font-weight:900;font-size:20px;position:relative;bottom:4.3px;'></i></h3></div>" .
 
                 "</div><br>
@@ -1615,7 +1615,7 @@ style="width: 100px;position: relative;right:430px;top:-99.7px;" id="ranking_tab
                                 . "%" .
                                 "</h3> &nbsp;" .
 
-                            "<h3><i class='bi bi-arrow-down' style='background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
+                            "<h3><i class='bi bi-caret-down-fill' style='background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
                             color:red;font-weight:900;font-size:20px;position:relative;bottom:4.3px;'></i></h3></div>" .
 
                 "</div><br>
@@ -1665,7 +1665,7 @@ style="width: 100px;position: relative;right:430px;top:-99.7px;" id="ranking_tab
                                 . "%" .
                                 "</h3> &nbsp;" .
 
-                            "<h3><i class='bi bi-arrow-up' style='background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
+                            "<h3><i class='bi bi-caret-up-fill' style='background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
                             color:#79ff4d;font-weight:900;font-size:20px;position:relative;bottom:4.3px;'></i></h3></div>" .
 
                 "</div><br>
@@ -1712,7 +1712,7 @@ style="width: 100px;position: relative;right:430px;top:-99.7px;" id="ranking_tab
                                 . "%" .
                                 "</h3> &nbsp;" .
 
-                            "<h3><i class='bi bi-arrow-down' style='background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
+                            "<h3><i class='bi bi-caret-down-fill' style='background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
                             color:red;font-weight:900;font-size:20px;position:relative;bottom:4.3px;'></i></h3></div>" .
 
                 "</div><br>
@@ -1763,7 +1763,7 @@ style="width: 100px;position: relative;right:430px;top:-99.7px;" id="ranking_tab
                                 . "%" .
                                 "</h3> &nbsp;" .
 
-                            "<h3><i class='bi bi-arrow-up' style='background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
+                            "<h3><i class='bi bi-caret-up-fill' style='background:linear-gradient(0deg, rgb(199, 195, 195) 0%, rgba(131, 132, 131, 0.872) 100%);
                             color:#79ff4d;font-weight:900;font-size:20px;position:relative;bottom:4.3px;'></i></h3></div>" .
 
                 "</div><br>

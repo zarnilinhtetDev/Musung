@@ -59,7 +59,7 @@ class One extends Component
 
         $date_string = date("d.m.Y");
 
-        // $u_id = Auth::user()->id;
+        $u_id = Auth::user()->id;
 
         $time = DB::select('SELECT time_name FROM time
         JOIN line_assign ON "time".assign_id="line_assign".assign_id AND

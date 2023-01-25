@@ -19,7 +19,7 @@ Route::view('/', 'auth.login')->name('login_1');
 Auth::routes();
 
 
-Route::get('/one_line/{id}', 'OnepaperController@index')->name('one_line');
+Route::get('/one_line/{id}', 'OnepaperController@index')->name('one_line')->middleware('auth');
 Route::get('/one_line/{id}/{assign_id}/{date}', 'OnepaperController@index')->name('one_line');
 // Route::get('/one_line/{id}/{assign_id}/{date}', 'OnepaperController@index')->name('one_line')->middleware('auth');
 // Route::get('/one_line/{id}/{assign_id}/{date}', [OnepaperController::class, 'index'])->name('one_line')->middleware('auth');
