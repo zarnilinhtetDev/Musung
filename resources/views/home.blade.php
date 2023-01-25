@@ -8,11 +8,11 @@
 @section('content_2')
 
 
-@LiveTV
+{{-- @LiveTV
 <script type="text/javascript">
     window.location = "{{url('live_dash')}}";
 </script>
-@endLiveTV
+@endLiveTV --}}
 
 @viewer
 <script type="text/javascript">
