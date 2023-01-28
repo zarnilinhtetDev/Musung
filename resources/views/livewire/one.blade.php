@@ -108,7 +108,7 @@
                 <tr><td></td></tr>
 
 
-                    <tr class="text-dark" style="background-color: #E9E9E9;">
+                    <tr class="text-light" style="background-color: #2980B9;">
                         <td style="height:40.7px;" id="percent_val"
                             class="">
                             <span style="font-size:17px;font-weight:bold;" class="">
@@ -126,7 +126,7 @@
     @foreach($target_total as $t_1_total)
 
 <div class='present_head' style=''>
-            <h3 style="font-size: 22px;padding: 2px 0 0 0;" class="text-dark">
+            <h3 style="font-size: 22px;padding: 2px 0 0 0;" class="text-light">
                 Present</h3></div>
 
                 <table class="w-100 text-center table table-bordered table-sm border-white present_table" id="total_table" style="">
@@ -153,7 +153,7 @@
                 <tr><td></td></tr>
 
 
-                    <tr class="text-light" style="background-color: #E9E9E9;">
+                    <tr class="text-light" style="background-color: #2980B9;">
                         <td style="height:40px;"
                             class="">
                             <span style="font-size:20px;" class=""></span>
@@ -496,7 +496,7 @@ style="width: 100px;position: relative;right:430px;top:-91.7px;" id="ranking_tab
         <td style="vertical-align: middle;">
             {{-- <td style="vertical-align: middle;" class="t_line_{{ $t_line->row_num }} t_line_count fw-bold"> ******************************** --}}
             <h3 style="font-size: 35px;font-weight: 900;color:#000;font-family: Arial, Helvetica, sans-serif;
-                                    border-bottom: 1px solid #86630b;width: 810px;">Rank
+                                    width: 810px;">Rank
             </h3>
         </td>
     </tr>
@@ -521,7 +521,7 @@ style="width: 100px;position: relative;right:430px;top:-91.7px;" id="ranking_tab
                                 <div style="vertical-align: middle;">
                                     {{-- <div style="vertical-align: middle;" class="t_line_{{ $t_line->row_num }} t_line_count fw-bold"> ******************************** --}}
                                     <h3 style="font-size: 35px;font-weight: 900;color:#000;font-family: Arial, Helvetica, sans-serif;
-                                    border-bottom: 1px solid #86630b;width: 810px;">Rank
+                                    width: 810px;">Rank
                                         {{ $t_line->row_num }}
                                     </h3>
 
@@ -565,19 +565,19 @@ style="width: 100px;position: relative;right:430px;top:-91.7px;" id="ranking_tab
 
         if (top_1 != '') {
             $('.t_line_' + top_1).css({
-                'background': '#00c400',
+                'background': '#008000',
                 'color': '#000'
             });
         }
         if (top_2 != '') {
             $('.t_line_' + top_2).css({
-                'background-color': '#00c400',
+                'background-color': '#008000',
                 'color': '#000'
             });
         }
         if (top_3 != '') {
             $('.t_line_' + top_3).css({
-                'background-color': '#00c400',
+                'background-color': '#008000',
                 'color': '#000'
             });
         }
@@ -634,9 +634,9 @@ style="width: 100px;position: relative;right:430px;top:-91.7px;" id="ranking_tab
             style="height:0;position:relative;right:1106px;top:224.7px;"
             >
 
-                <h3 class="text-dark" style="
-    height:34px;min-width:120px;font-size:24px;position: relative;right:986px;top:182.1px;color:black;text-align:center;
-    background: #ED1C24;
+                <h3 class="text-light" style="
+    height:34px;min-width:120px;font-size:24px;position: relative;right:986px;top:182.1px;color:white;text-align:center;
+    background: #EA6153;
                 font-size: 22px;padding: 2px 0 0 0;" id="tcurrent_head">
                     Daily</h3>
 @if(isset($actual_target_total))
@@ -644,7 +644,7 @@ style="width: 100px;position: relative;right:430px;top:-91.7px;" id="ranking_tab
 
 {{-- kmk --}}
                 <tr id="tcurrent1">
-                            <td style="height: 35.5px;background: #00c400;"><span
+                            <td style="height: 35.5px;background: #E9E9E9;"><span
                                     class="text-light">
 
                                 </span>
@@ -654,7 +654,7 @@ style="width: 100px;position: relative;right:430px;top:-91.7px;" id="ranking_tab
                 <tr id="tcurrent2"><td></td></tr>
 
                         <tr class="text-light" id="tcurrent3">
-                            <td style="height: 36.6px;background:#1a75ff;" class="">
+                            <td style="height: 36.6px;background:#E9E9E9;" class="">
                                 <span
                                     class=""></span>
                             </td>
@@ -663,7 +663,7 @@ style="width: 100px;position: relative;right:430px;top:-91.7px;" id="ranking_tab
                         <tr id="tcurrent4"><td></td></tr>
 
                         <tr class="text-light" id="tcurrent5">
-                            <td style="height: 40.5px;min-width:120px;background:#ED1C24;"
+                            <td style="height: 40.5px;min-width:120px;background:#2980B9;"
                                 class="">
                                 <span class=""></span>
                             </td>
@@ -675,11 +675,11 @@ style="width: 100px;position: relative;right:430px;top:-91.7px;" id="ranking_tab
                     @if ($g_line_id == $a_total->line_id)
                     <table
             class="w-100 text-center table m-0 totalTable table-bordered table-sm border-white right_table">
-                    <h3 class="rank_heading text-dark" style="font-size: 22px;padding: 2px 0 0 0;">
+                    <h3 class="rank_heading text-light" style="font-size: 22px;padding: 2px 0 0 0;">
                     Daily</h3>
-                        <tr>
-                            <td style="height: 12px;background: #00c400;"><span
-                                    class="text-light right_table_text1 fw-bold t_2_total_{{ $t_2_total->line_id }}">
+                        <tr class="text-dark">
+                            <td style="height: 12px;background: #E9E9E9;"><span
+                                    class="right_table_text1 fw-bold t_2_total_{{ $t_2_total->line_id }}">
                                     @if($g_ot_main_target
                                     !=
                                     '') {{ number_format($g_main_target + $g_ot_main_target) }}
@@ -693,8 +693,8 @@ style="width: 100px;position: relative;right:430px;top:-91.7px;" id="ranking_tab
                 <tr><td></td></tr>
 
 
-                        <tr class="text-light">
-                            <td style="height:2px;background:#1a75ff;" class="fw-bold td_a_total_{{ $t_2_total->line_id }}">
+                        <tr class="text-dark">
+                            <td style="height:2px;background:#E9E9E9;" class="fw-bold td_a_total_{{ $t_2_total->line_id }}">
                                 <span
                                     class="right_table_text2 a_total_{{ $t_2_total->line_id }}">{{ $a_total->total_actual_target }}</span>
                             </td>
@@ -756,31 +756,31 @@ style="width: 100px;position: relative;right:430px;top:-91.7px;" id="ranking_tab
                                         t_percent_span.text(parseInt(t_percent));
 
                                         if (present_third_value_color == "red") {
-                                            td_t_percent.css('color', 'white');
+                                            td_t_percent.css('color', 'black');
                                             td_a_percent.css('color', 'white');
 
                                             // td_t_percent.css('background-color','rgba(255,0,0,0.8)');
-                                            td_a_percent.css('background', '#ED1C24');
+                                            td_a_percent.css('background', '#2980B9');
                                             line_column.addClass('bounce');
                                             line_column.css('background-color', 'red');
                                         }
 
                                         if (present_third_value_color == "orange") {
-                                            td_t_percent.css('color', 'white');
+                                            td_t_percent.css('color', 'black');
                                             td_a_percent.css('color', 'white');
 
                                             // td_t_percent.css({'background-color':'#FF8000','color':'#fff'});
-                                            td_a_percent.css({'background': '#e68a00',});
+                                            td_a_percent.css({'background': '#2980B9',});
                                             line_column.addClass('bounce');
                                             line_column.css('background-color', '#FF8000');
                                         }
 
                                         if (present_third_value_color == "green") {
-                                            td_t_percent.css('color', 'white');
+                                            td_t_percent.css('color', 'black');
                                             td_a_percent.css('color', 'white');
 
                                             // td_t_percent.css({'background-color':'rgba(30,113,0,1)','color':'#fff'});
-                                            td_a_percent.css({'background': '#00c400',});
+                                            td_a_percent.css({'background': '#2980B9',});
                                             line_column.addClass('bounce');
                                             line_column.css('background-color', 'rgba(30,113,0,1)');
                                         }

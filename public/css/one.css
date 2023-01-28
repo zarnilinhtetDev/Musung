@@ -18,7 +18,7 @@ html, body {
 
 .k_main_percent {
     font-size:10px;vertical-align: middle;min-width:210px;height:100px;position:relative;right:730px;top:120px;padding: 15px 0 0 0;
-    border-radius:10px;border-style: solid;border-color: #86630b;
+    border-radius:10px;
 }
 
 
@@ -55,7 +55,7 @@ html, body {
 
 
 .rank_heading {
-    height:34px;min-width:120px;font-size:24px;position: relative;right:1194px;top:177.1px;color:black;text-align:center;
+    height:34px;min-width:120px;font-size:24px;position: relative;right:1194px;top:177.1px;color:white;text-align:center;
     background: #EA6153;
 }
 
