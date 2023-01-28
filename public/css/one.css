@@ -56,13 +56,13 @@ html, body {
 
 .rank_heading {
     height:34px;min-width:120px;font-size:24px;position: relative;right:1194px;top:177.1px;color:black;text-align:center;
-    background: #ED1C24;
+    background: #EA6153;
 }
 
 .present_head {
     position: relative;right:0px;top: -82.7px;margin-left:13px;
     height:34px;padding: 0 0 0 0;font-size:24px;max-width:120px;margin-bottom:10px;
-    text-align:center;font-size:19px;background: #ED1C24;
+    text-align:center;font-size:19px;background: #EA6153;
 }
 
 .present_table {
@@ -73,7 +73,7 @@ html, body {
 .left_head {
     position: relative;right:0px;top: -90px;left: 30px;
     height:34px;padding: 0 0 0 0;font-size:24px;max-width:120px;margin-bottom:10px;
-    text-align:center;font-size:19px;background: #ED1C24;
+    text-align:center;font-size:19px;
 }
 
 .left_table {
@@ -89,7 +89,7 @@ html, body {
     width: 50%;
     height: 200px;
     float: left;
-}  
+}
 
 /* @media(max-width:3200px) {
     .present_head {
@@ -141,7 +141,7 @@ html, body {
 
 
 @media(max-width:1920) {
-    
+
 }
 
 

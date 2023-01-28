@@ -84,7 +84,7 @@
                                 </h3></div>
                 <table class="text-center table table-bordered table-sm border-white left_table" style="">
                     <tr class="text-dark">
-                        <td style="height:35px;background: #00c400;">
+                        <td style="height:35px;background: #E9E9E9;">
                             <span style="font-size:17px;font-weight:bold;"
                             class="">
                              Target
@@ -97,7 +97,7 @@
 
 
                     <tr class="text-dark">
-                        <td style="height:34px; background: #1a75ff;" class="">
+                        <td style="height:34px; background: #E9E9E9;" class="">
                             <span style="font-size:17px;font-weight:bold;"
                                 class="">Production</span>&nbsp;&nbsp; <span style="font-size:17px;font-weight:bold;">:</span>
                         </td>
@@ -108,7 +108,7 @@
                 <tr><td></td></tr>
 
 
-                    <tr class="text-dark" style="background-color: #ED1C24;">
+                    <tr class="text-dark" style="background-color: #E9E9E9;">
                         <td style="height:40.7px;" id="percent_val"
                             class="">
                             <span style="font-size:17px;font-weight:bold;" class="">
@@ -131,7 +131,7 @@
 
                 <table class="w-100 text-center table table-bordered table-sm border-white present_table" id="total_table" style="">
                     <tr class="text-light">
-                        <td style="height:36px;background: #00c400">
+                        <td style="height:36px;background: #E9E9E9">
                             <span style="font-size:17px;">
                             </span>
                         </td>
@@ -142,7 +142,7 @@
 
 
                     <tr class="text-light">
-                        <td style="height:36px;background: #1a75ff;" class="">
+                        <td style="height:36px;background: #E9E9E9;" class="">
                             <span style="font-size:17px;"
                                 class=""></span>
                         </td>
@@ -153,7 +153,7 @@
                 <tr><td></td></tr>
 
 
-                    <tr class="text-light" style="background-color: #ED1C24;">
+                    <tr class="text-light" style="background-color: #E9E9E9;">
                         <td style="height:40px;"
                             class="">
                             <span style="font-size:20px;" class=""></span>
@@ -168,8 +168,8 @@
 
              {{-- kmk --}}
              <table class="w-100 text-center table table-bordered table-sm border-white present_table" id="total_table" style="">
-                    <tr class="text-light">
-                        <td style="height:35px;background: #00c400">
+                    <tr class="text-dark">
+                        <td style="height:35px;background: #E9E9E9">
                             <span style="font-size:17px;"
                             class="right_table_text1 fw-bold t_1_total_{{ $t_1_total->line_id }}">
                               {{ $a_total->total_div_target }}
@@ -181,8 +181,8 @@
                     <tr><td></td></tr>
 
 
-                    <tr class="text-light">
-                        <td style="height:34px;background: #1a75ff;" class="fw-bold td_a_total1_{{ $t_1_total->line_id }}">
+                    <tr class="text-dark">
+                        <td style="height:34px;background: #E9E9E9;" class="fw-bold td_a_total1_{{ $t_1_total->line_id }}">
                             <span style="font-size:17px;"
                                 class="right_table_text2 a_total1_{{ $t_1_total->line_id }}">{{ $a_total->total_actual_target }}</span>
                         </td>
@@ -193,7 +193,7 @@
                 <tr><td></td></tr>
 
 
-                    <tr class="text-light">
+                    <tr class="text-dark">
                         <td style="height:40px;"
                             class="fw-bold td_t_percent1_{{ $t_1_total->line_id }}">
                             <span style="font-size:20px;" class="right_table_text3 t_percent1_{{ $t_1_total->line_id }}"></span>
@@ -240,12 +240,12 @@
                                     if (parseInt(t_percent_span.text()) <= 80) {
 
 
-                                        td_t_percent.css('color', 'white');
+                                        td_t_percent.css('color', 'black');
                                         td_a_percent.css('color', 'white');
 
                                         // td_t_percent.css('background-color','rgba(255,0,0,0.8)');
-                                        td_a_percent.css('background', '#ED1C24');
-                                        percent_name.css('background', '#ED1C24');
+                                        td_a_percent.css('background', '#2980B9');
+                                        percent_name.css('background', '#2980B9');
 
                                         line_column.addClass('bounce');
                                         line_column.css('background-color', '#FF0000');
@@ -253,12 +253,12 @@
                                         present_third_value.text("red");
                                     }
                                     if (parseInt(t_percent_span.text()) > 80) {
-                                        td_t_percent.css('color', 'white');
+                                        td_t_percent.css('color', 'black');
                                         td_a_percent.css('color', 'white');
 
                                         // td_t_percent.css({'background-color':'#FF8000','color':'#fff'});
-                                        td_a_percent.css({'background': '#e68a00',});
-                                        percent_name.css('background', '#e68a00');
+                                        td_a_percent.css({'background': '#2980B9',});
+                                        percent_name.css('background', '#2980B9');
 
                                         line_column.addClass('bounce');
                                         line_column.css('background-color', '#FF8000');
@@ -266,12 +266,12 @@
                                         present_third_value.text("orange");
                                     }
                                     if (parseInt(t_percent_span.text()) >= 100) {
-                                        td_t_percent.css('color', 'white');
+                                        td_t_percent.css('color', 'black');
                                         td_a_percent.css('color', 'white');
 
                                         // td_t_percent.css({'background-color':'rgba(30,113,0,1)','color':'#fff'});
-                                        td_a_percent.css({'background': '#00c400',});
-                                        percent_name.css('background', '#00c400');
+                                        td_a_percent.css({'background': '#2980B9',});
+                                        percent_name.css('background', '#2980B9');
 
                                         line_column.addClass('bounce');
                                         line_column.css('background-color', 'rgba(30,113,0,1)');
@@ -646,7 +646,7 @@ style="width: 100px;position: relative;right:430px;top:-91.7px;" id="ranking_tab
                 <tr id="tcurrent1">
                             <td style="height: 35.5px;background: #00c400;"><span
                                     class="text-light">
-                                    
+
                                 </span>
                             </td>
                         </tr>
