@@ -52,7 +52,7 @@
                                         @if ($line_id == $g_line_id)
 
                                         <h1 class='text-center'
-                                                    style="color:rgb(40, 115, 206);position: relative;left:285px;top:-10px;width:250px;
+                                                    style="color:#0070C0;position: relative;left:285px;top:-10px;width:250px;
                                                     font-size:50px;font-weight: 900;font-family: Arial, Helvetica, sans-serif;">
                                                     Line-{{ $g_line_name }}</h1>
 
@@ -902,7 +902,7 @@ style="width: 100px;position: relative;right:430px;top:-91.7px;" id="ranking_tab
 
                         echo "
             <div class='bottom_rank' style='padding: 3px 0 0 0;display: flex;margin:auto;width:340px;position: relative;top:-215px;margin-left:460px;height:28px;
-            background:#00c400;'>" .
+            border: solid 1px;'>" .
                             "<div style='display: flex;min-width:240px;margin-right:40px;'>" .
 
                                 "<h3 style='font-weight: bold;font-size:17px;margin-left:8px;'>Rank</h3>           &nbsp;&nbsp;
@@ -912,8 +912,8 @@ style="width: 100px;position: relative;right:430px;top:-91.7px;" id="ranking_tab
 
 
                 "
-                <h3 style='font-weight: bold;font-size:17px;margin-left:45px;'>Line -</h3>           &nbsp;
-                <h3 style='font-weight: bold;font-size:17px;'>" .
+                <h3 style='font-weight: bold;font-size:17px;margin-left:45px;color:#0070C0;'>Line -</h3>           &nbsp;
+                <h3 style='font-weight: bold;font-size:17px;color:#0070C0;'>" .
                             $magic .
                             "</h3>
                     </div>" .
