@@ -923,13 +923,13 @@ style="width: 100px;position: relative;right:450px;top:-71.7px;" id="ranking_tab
 
                     "<h3 style='
                                     min-width:55px;min-height:28px;text-align:center;
-                                    position: relative;bottom:3px;right:19.7px;
+                                    position: relative;bottom:3px;right:24.7px;
                                     font-size:24px;color:#ED3334;font-weight:bold;padding: 3px 0 0 7px;'>" . "-" .
                                     $t_line->diff_target_percent-$t_line2->diff_target_percent
                                 . "%" .
                                 "</h3> &nbsp;" .
 
-                            "<div style='margin-left:12px;display:flex;position: relative;bottom:2px;right:27px;
+                            "<div style='margin-left:18px;display:flex;position: relative;bottom:2px;right:27px;
                             padding:0 0 0 0;min-width:70px;height:33px;background:#ED3334;text-align: center;
                             justify-content:center;'>
                             <p style='font-size:24px;position: relative;bottom:3px;font-weight:bold;'
@@ -975,13 +975,13 @@ style="width: 100px;position: relative;right:450px;top:-71.7px;" id="ranking_tab
 
                     "<h3 style='
                                     min-width:55px;min-height:28px;text-align:center;
-                                    position: relative;bottom:3px;right:19.7px;
+                                    position: relative;bottom:3px;right:24.7px;
                                     font-size:24px;color:#008000;font-weight:bold;padding: 3px 0 0 7px;'>" . "+" .
                                     $t_line2->diff_target_percent-$t_line->diff_target_percent
                                 . "%" .
                                 "</h3> &nbsp;" .
 
-                            "<div style='margin-left:12px;display:flex;position: relative;bottom:2px;right:27px;
+                            "<div style='margin-left:18px;display:flex;position: relative;bottom:2px;right:27px;
                             padding:0 0 0 0;min-width:70px;height:33px;background:#008000;text-align: center;
                             justify-content:center;'>
                             <p style='font-size:24px;position: relative;bottom:3px;font-weight:bold;'
@@ -1024,13 +1024,13 @@ style="width: 100px;position: relative;right:450px;top:-71.7px;" id="ranking_tab
 
                     "<h3 style='
                                     min-width:55px;min-height:28px;text-align:center;
-                                    position: relative;bottom:3px;right:19.7px;
+                                    position: relative;bottom:3px;right:24.7px;
                                     font-size:24px;color:#ED3334;font-weight:bold;padding: 3px 0 0 7px;'>" . "-" .
                                     $t_line->diff_target_percent-$t_line2->diff_target_percent
                                 . "%" .
                                 "</h3> &nbsp;" .
 
-                            "<div style='margin-left:12px;display:flex;position: relative;bottom:2px;right:27px;
+                            "<div style='margin-left:18px;display:flex;position: relative;bottom:2px;right:27px;
                             padding:0 0 0 0;min-width:70px;height:33px;background:#ED3334;text-align: center;
                             justify-content:center;'>
                             <p style='font-size:24px;position: relative;bottom:3px;font-weight:bold;'
@@ -1076,13 +1076,13 @@ style="width: 100px;position: relative;right:450px;top:-71.7px;" id="ranking_tab
 
                     "<h3 style='
                                     min-width:55px;min-height:28px;text-align:center;
-                                    position: relative;bottom:3px;right:19.7px;
+                                    position: relative;bottom:3px;right:24.7px;
                                     font-size:24px;color:#008000;font-weight:bold;padding: 3px 0 0 7px;'>" . "+" .
                                     $t_line2->diff_target_percent-$t_line->diff_target_percent
                                 . "%" .
                                 "</h3> &nbsp;" .
 
-                            "<div style='margin-left:12px;display:flex;position: relative;bottom:2px;right:27px;
+                            "<div style='margin-left:18px;display:flex;position: relative;bottom:2px;right:27px;
                             padding:0 0 0 0;min-width:70px;height:33px;background:#008000;text-align: center;
                             justify-content:center;'>
                             <p style='font-size:24px;position: relative;bottom:3px;font-weight:bold;'
@@ -1125,13 +1125,13 @@ style="width: 100px;position: relative;right:450px;top:-71.7px;" id="ranking_tab
 
                     "<h3 style='
                                     min-width:55px;min-height:28px;text-align:center;
-                                    position: relative;bottom:3px;right:19.7px;
+                                    position: relative;bottom:3px;right:24.7px;
                                     font-size:24px;color:#ED3334;font-weight:bold;padding: 3px 0 0 7px;'>" . "-" .
                                     $t_line->diff_target_percent-$t_line2->diff_target_percent
                                 . "%" .
                                 "</h3> &nbsp;" .
 
-                            "<div style='margin-left:12px;display:flex;position: relative;bottom:2px;right:27px;
+                            "<div style='margin-left:18px;display:flex;position: relative;bottom:2px;right:27px;
                             padding:0 0 0 0;min-width:70px;height:33px;background:#ED3334;text-align: center;
                             justify-content:center;'>
                             <p style='font-size:24px;position: relative;bottom:3px;font-weight:bold;'
@@ -1177,13 +1177,13 @@ style="width: 100px;position: relative;right:450px;top:-71.7px;" id="ranking_tab
 
                     "<h3 style='
                                     min-width:55px;min-height:28px;text-align:center;
-                                    position: relative;bottom:3px;right:19.7px;
+                                    position: relative;bottom:3px;right:24.7px;
                                     font-size:24px;color:#008000;font-weight:bold;padding: 3px 0 0 7px;'>" . "+" .
                                     $t_line2->diff_target_percent-$t_line->diff_target_percent
                                 . "%" .
                                 "</h3> &nbsp;" .
 
-                            "<div style='margin-left:12px;display:flex;position: relative;bottom:2px;right:27px;
+                            "<div style='margin-left:18px;display:flex;position: relative;bottom:2px;right:27px;
                             padding:0 0 0 0;min-width:70px;height:33px;background:#008000;text-align: center;
                             justify-content:center;'>
                             <p style='font-size:24px;position: relative;bottom:3px;font-weight:bold;'
@@ -1226,13 +1226,13 @@ style="width: 100px;position: relative;right:450px;top:-71.7px;" id="ranking_tab
 
                     "<h3 style='
                                     min-width:55px;min-height:28px;text-align:center;
-                                    position: relative;bottom:3px;right:19.7px;
+                                    position: relative;bottom:3px;right:24.7px;
                                     font-size:24px;color:#ED3334;font-weight:bold;padding: 3px 0 0 7px;'>" . "-" .
                                     $t_line->diff_target_percent-$t_line2->diff_target_percent
                                 . "%" .
                                 "</h3> &nbsp;" .
 
-                            "<div style='margin-left:12px;display:flex;position: relative;bottom:2px;right:27px;
+                            "<div style='margin-left:18px;display:flex;position: relative;bottom:2px;right:27px;
                             padding:0 0 0 0;min-width:70px;height:33px;background:#ED3334;text-align: center;
                             justify-content:center;'>
                             <p style='font-size:24px;position: relative;bottom:3px;font-weight:bold;'
@@ -1278,13 +1278,13 @@ style="width: 100px;position: relative;right:450px;top:-71.7px;" id="ranking_tab
 
                     "<h3 style='
                                     min-width:55px;min-height:28px;text-align:center;
-                                    position: relative;bottom:3px;right:19.7px;
+                                    position: relative;bottom:3px;right:24.7px;
                                     font-size:24px;color:#008000;font-weight:bold;padding: 3px 0 0 7px;'>" . "+" .
                                     $t_line2->diff_target_percent-$t_line->diff_target_percent
                                 . "%" .
                                 "</h3> &nbsp;" .
 
-                            "<div style='margin-left:12px;display:flex;position: relative;bottom:2px;right:27px;
+                            "<div style='margin-left:18px;display:flex;position: relative;bottom:2px;right:27px;
                             padding:0 0 0 0;min-width:70px;height:33px;background:#008000;text-align: center;
                             justify-content:center;'>
                             <p style='font-size:24px;position: relative;bottom:3px;font-weight:bold;'
@@ -1327,13 +1327,13 @@ style="width: 100px;position: relative;right:450px;top:-71.7px;" id="ranking_tab
 
                     "<h3 style='
                                     min-width:55px;min-height:28px;text-align:center;
-                                    position: relative;bottom:3px;right:19.7px;
+                                    position: relative;bottom:3px;right:24.7px;
                                     font-size:24px;color:#ED3334;font-weight:bold;padding: 3px 0 0 7px;'>" . "-" .
                                     $t_line->diff_target_percent-$t_line2->diff_target_percent
                                 . "%" .
                                 "</h3> &nbsp;" .
 
-                            "<div style='margin-left:12px;display:flex;position: relative;bottom:2px;right:27px;
+                            "<div style='margin-left:18px;display:flex;position: relative;bottom:2px;right:27px;
                             padding:0 0 0 0;min-width:70px;height:33px;background:#ED3334;text-align: center;
                             justify-content:center;'>
                             <p style='font-size:24px;position: relative;bottom:3px;font-weight:bold;'
@@ -1379,13 +1379,13 @@ style="width: 100px;position: relative;right:450px;top:-71.7px;" id="ranking_tab
 
                     "<h3 style='
                                     min-width:55px;min-height:28px;text-align:center;
-                                    position: relative;bottom:3px;right:19.7px;
+                                    position: relative;bottom:3px;right:24.7px;
                                     font-size:24px;color:#008000;font-weight:bold;padding: 3px 0 0 7px;'>" . "+" .
                                     $t_line2->diff_target_percent-$t_line->diff_target_percent
                                 . "%" .
                                 "</h3> &nbsp;" .
 
-                            "<div style='margin-left:12px;display:flex;position: relative;bottom:2px;right:27px;
+                            "<div style='margin-left:18px;display:flex;position: relative;bottom:2px;right:27px;
                             padding:0 0 0 0;min-width:70px;height:33px;background:#008000;text-align: center;
                             justify-content:center;'>
                             <p style='font-size:24px;position: relative;bottom:3px;font-weight:bold;'
@@ -1428,13 +1428,13 @@ style="width: 100px;position: relative;right:450px;top:-71.7px;" id="ranking_tab
 
                     "<h3 style='
                                     min-width:55px;min-height:28px;text-align:center;
-                                    position: relative;bottom:3px;right:19.7px;
+                                    position: relative;bottom:3px;right:24.7px;
                                     font-size:24px;color:#ED3334;font-weight:bold;padding: 3px 0 0 7px;'>" . "-" .
                                     $t_line->diff_target_percent-$t_line2->diff_target_percent
                                 . "%" .
                                 "</h3> &nbsp;" .
 
-                            "<div style='margin-left:12px;display:flex;position: relative;bottom:2px;right:27px;
+                            "<div style='margin-left:18px;display:flex;position: relative;bottom:2px;right:27px;
                             padding:0 0 0 0;min-width:70px;height:33px;background:#ED3334;text-align: center;
                             justify-content:center;'>
                             <p style='font-size:24px;position: relative;bottom:3px;font-weight:bold;'
@@ -1482,13 +1482,13 @@ style="width: 100px;position: relative;right:450px;top:-71.7px;" id="ranking_tab
 
                     "<h3 style='
                                     min-width:55px;min-height:28px;text-align:center;
-                                    position: relative;bottom:3px;right:19.7px;
+                                    position: relative;bottom:3px;right:24.7px;
                                     font-size:24px;color:#008000;font-weight:bold;padding: 3px 0 0 7px;'>" . "+" .
                                     $t_line2->diff_target_percent-$t_line->diff_target_percent
                                 . "%" .
                                 "</h3> &nbsp;" .
 
-                            "<div style='margin-left:12px;display:flex;position: relative;bottom:2px;right:27px;
+                            "<div style='margin-left:18px;display:flex;position: relative;bottom:2px;right:27px;
                             padding:0 0 0 0;min-width:70px;height:33px;background:#008000;text-align: center;
                             justify-content:center;'>
                             <p style='font-size:24px;position: relative;bottom:3px;font-weight:bold;'
@@ -1532,13 +1532,13 @@ style="width: 100px;position: relative;right:450px;top:-71.7px;" id="ranking_tab
 
                     "<h3 style='
                                     min-width:55px;min-height:28px;text-align:center;
-                                    position: relative;bottom:3px;right:19.7px;
+                                    position: relative;bottom:3px;right:24.7px;
                                     font-size:24px;color:#ED3334;font-weight:bold;padding: 3px 0 0 7px;'>" . "-" .
                                     $t_line->diff_target_percent-$t_line2->diff_target_percent
                                 . "%" .
                                 "</h3> &nbsp;" .
 
-                            "<div style='margin-left:12px;display:flex;position: relative;bottom:2px;right:27px;
+                            "<div style='margin-left:18px;display:flex;position: relative;bottom:2px;right:27px;
                             padding:0 0 0 0;min-width:70px;height:33px;background:#ED3334;text-align: center;
                             justify-content:center;'>
                             <p style='font-size:24px;position: relative;bottom:3px;font-weight:bold;'
@@ -1585,13 +1585,13 @@ style="width: 100px;position: relative;right:450px;top:-71.7px;" id="ranking_tab
 
                     "<h3 style='
                                     min-width:55px;min-height:28px;text-align:center;
-                                    position: relative;bottom:3px;right:19.7px;
+                                    position: relative;bottom:3px;right:24.7px;
                                     font-size:24px;color:#008000;font-weight:bold;padding: 3px 0 0 7px;'>" . "+" .
                                     $t_line2->diff_target_percent-$t_line->diff_target_percent
                                 . "%" .
                                 "</h3> &nbsp;" .
 
-                            "<div style='margin-left:12px;display:flex;position: relative;bottom:2px;right:27px;
+                            "<div style='margin-left:18px;display:flex;position: relative;bottom:2px;right:27px;
                             padding:0 0 0 0;min-width:70px;height:33px;background:#008000;text-align: center;
                             justify-content:center;'>
                             <p style='font-size:24px;position: relative;bottom:3px;font-weight:bold;'
@@ -1634,13 +1634,13 @@ style="width: 100px;position: relative;right:450px;top:-71.7px;" id="ranking_tab
 
                     "<h3 style='
                                     min-width:55px;min-height:28px;text-align:center;
-                                    position: relative;bottom:3px;right:19.7px;
+                                    position: relative;bottom:3px;right:24.7px;
                                     font-size:24px;color:#ED3334;font-weight:bold;padding: 3px 0 0 7px;'>" . "-" .
                                     $t_line->diff_target_percent-$t_line2->diff_target_percent
                                 . "%" .
                                 "</h3> &nbsp;" .
 
-                            "<div style='margin-left:12px;display:flex;position: relative;bottom:2px;right:27px;
+                            "<div style='margin-left:18px;display:flex;position: relative;bottom:2px;right:27px;
                             padding:0 0 0 0;min-width:70px;height:33px;background:#ED3334;text-align: center;
                             justify-content:center;'>
                             <p style='font-size:24px;position: relative;bottom:3px;font-weight:bold;'
@@ -1686,13 +1686,13 @@ style="width: 100px;position: relative;right:450px;top:-71.7px;" id="ranking_tab
 
                     "<h3 style='
                                     min-width:55px;min-height:28px;text-align:center;
-                                    position: relative;bottom:3px;right:19.7px;
+                                    position: relative;bottom:3px;right:24.7px;
                                     font-size:24px;color:#008000;font-weight:bold;padding: 3px 0 0 7px;'>" . "+" .
                                     $t_line2->diff_target_percent-$t_line->diff_target_percent
                                 . "%" .
                                 "</h3> &nbsp;" .
 
-                            "<div style='margin-left:12px;display:flex;position: relative;bottom:2px;right:27px;
+                            "<div style='margin-left:18px;display:flex;position: relative;bottom:2px;right:27px;
                             padding:0 0 0 0;min-width:70px;height:33px;background:#008000;text-align: center;
                             justify-content:center;'>
                             <p style='font-size:24px;position: relative;bottom:3px;font-weight:bold;'
@@ -1735,13 +1735,13 @@ style="width: 100px;position: relative;right:450px;top:-71.7px;" id="ranking_tab
 
                     "<h3 style='
                                     min-width:55px;min-height:28px;text-align:center;
-                                    position: relative;bottom:3px;right:19.7px;
+                                    position: relative;bottom:3px;right:24.7px;
                                     font-size:24px;color:#ED3334;font-weight:bold;padding: 3px 0 0 7px;'>" . "-" .
                                     $t_line->diff_target_percent-$t_line2->diff_target_percent
                                 . "%" .
                                 "</h3> &nbsp;" .
 
-                            "<div style='margin-left:12px;display:flex;position: relative;bottom:2px;right:27px;
+                            "<div style='margin-left:18px;display:flex;position: relative;bottom:2px;right:27px;
                             padding:0 0 0 0;min-width:70px;height:33px;background:#ED3334;text-align: center;
                             justify-content:center;'>
                             <p style='font-size:24px;position: relative;bottom:3px;font-weight:bold;'
@@ -1788,13 +1788,13 @@ style="width: 100px;position: relative;right:450px;top:-71.7px;" id="ranking_tab
 
                     "<h3 style='
                                     min-width:55px;min-height:28px;text-align:center;
-                                    position: relative;bottom:3px;right:19.7px;
+                                    position: relative;bottom:3px;right:24.7px;
                                     font-size:24px;color:#008000;font-weight:bold;padding: 3px 0 0 7px;'>" . "+" .
                                     $t_line2->diff_target_percent-$t_line->diff_target_percent
                                 . "%" .
                                 "</h3> &nbsp;" .
 
-                            "<div style='margin-left:12px;display:flex;position: relative;bottom:2px;right:27px;
+                            "<div style='margin-left:18px;display:flex;position: relative;bottom:2px;right:27px;
                             padding:0 0 0 0;min-width:70px;height:33px;background:#008000;text-align: center;
                             justify-content:center;'>
                             <p style='font-size:24px;position: relative;bottom:3px;font-weight:bold;'
