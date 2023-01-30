@@ -1,4 +1,4 @@
-<div class="wrapper d-flex align-items-stretch">
+<div class="wrapper d-flex align-items-stretch" style="height:1036px;">
 
 
     <nav id="sidebar" class="d-flex flex-column flex-shrink-0 justify-content-between active">
