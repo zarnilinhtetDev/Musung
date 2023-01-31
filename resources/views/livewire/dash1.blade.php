@@ -590,11 +590,21 @@ if(parseInt(t_percent_span.text()) >= 100){
 
                     @endif
                     @endforeach
+
+
+                    @php
+                        $lis = array();
+                        foreach ($getLine as $g_line) {
+                            array_push($lis, $g_line);
+                        }
+                    @endphp
+
                     <script>
                         window.addEventListener('additionalInit', event => {
 
-        var t_line_count = $('.input_row_num').text();
-var val_arr = [];
+                        var line_counter = "<?php echo count($lis); ?>";
+                        var t_line_count = $('.input_row_num').text();
+                        var val_arr = [];
 
 for (var i = 0; i < t_line_count.length; i++) {
     if (t_line_count[i] != ' ' && t_line_count[i] != '\n') {
@@ -626,6 +636,56 @@ if(top_3 != ''){
         'color': '#fff'
     });
 }
+
+
+        if (line_counter == 2){
+            $(".t_line_" + 2).css({
+            'background': '#ED1C24',
+            'color': '#fff'
+        });
+        }
+        if (line_counter == 3){
+            $(".t_line_" + 3).css({
+            'background': '#ED1C24',
+            'color': '#fff'
+        });
+        }
+        if (line_counter == 4){
+            $(".t_line_" + 4).css({
+            'background': '#ED1C24',
+            'color': '#fff'
+        });
+        }
+        if (line_counter == 5){
+            $(".t_line_" + 5).css({
+            'background': '#ED1C24',
+            'color': '#fff'
+        });
+        }
+        if (line_counter == 6){
+            $(".t_line_" + 6).css({
+            'background': '#ED1C24',
+            'color': '#fff'
+        });
+        }
+        if (line_counter == 7){
+            $(".t_line_" + 7).css({
+            'background': '#ED1C24',
+            'color': '#fff'
+        });
+        }
+        if (line_counter == 8){
+            $(".t_line_" + 8).css({
+            'background': '#ED1C24',
+            'color': '#fff'
+        });
+        }
+        if (line_counter == 9){
+            $(".t_line_" + 9).css({
+            'background': '#ED1C24',
+            'color': '#fff'
+        });
+        }
 
   /// Do not delete (get last rank data)
                                     // var max_num = Math.max(...val_arr);

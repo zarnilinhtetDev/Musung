@@ -543,8 +543,19 @@ style="width: 100px;position: relative;right:450px;top:-71.7px;" id="ranking_tab
                             </span>
                         </div>
 
+
+                        @php
+                        $lis = array();
+                        foreach ($getLine as $g_line) {
+                            array_push($lis, $g_line);
+                        }
+                        @endphp
+
+
 <script>
     window.addEventListener('additionalInit10', event => {
+        var line_counter = "<?php echo count($lis); ?>";
+
         var r = document.getElementById("ranking_table");
         r.style.display = "none";
 
@@ -580,6 +591,56 @@ style="width: 100px;position: relative;right:450px;top:-71.7px;" id="ranking_tab
                 'background-color': '#008000',
                 'color': '#000'
             });
+        }
+
+
+        if (line_counter == 2){
+            $(".t_line_" + 2).css({
+            'background': '#ED1C24',
+            'color': '#000'
+        });
+        }
+        if (line_counter == 3){
+            $(".t_line_" + 3).css({
+            'background': '#ED1C24',
+            'color': '#000'
+        });
+        }
+        if (line_counter == 4){
+            $(".t_line_" + 4).css({
+            'background': '#ED1C24',
+            'color': '#000'
+        });
+        }
+        if (line_counter == 5){
+            $(".t_line_" + 5).css({
+            'background': '#ED1C24',
+            'color': '#000'
+        });
+        }
+        if (line_counter == 6){
+            $(".t_line_" + 6).css({
+            'background': '#ED1C24',
+            'color': '#000'
+        });
+        }
+        if (line_counter == 7){
+            $(".t_line_" + 7).css({
+            'background': '#ED1C24',
+            'color': '#000'
+        });
+        }
+        if (line_counter == 8){
+            $(".t_line_" + 8).css({
+            'background': '#ED1C24',
+            'color': '#000'
+        });
+        }
+        if (line_counter == 9){
+            $(".t_line_" + 9).css({
+            'background': '#ED1C24',
+            'color': '#000'
+        });
         }
 
 
@@ -891,6 +952,7 @@ style="width: 100px;position: relative;right:450px;top:-71.7px;" id="ranking_tab
         @php
 
             if ($t_line->row_num == 1) {
+                echo "<div style='margin-top:-500px;'></div>";
                 foreach ($top_line as $t_line2) {
                     if ($t_line2->row_num == 2 || $t_line2->row_num == 3 || $t_line2->row_num == 4) {
                         foreach ($getLine as $g_line) {
@@ -901,7 +963,7 @@ style="width: 100px;position: relative;right:450px;top:-71.7px;" id="ranking_tab
                         }
 
                         echo "
-            <div class='bottom_rank' style='padding: 10px 0 0 0;display: flex;margin:auto;width:410px;position: relative;top:30px;margin-top:-120px;margin-left:478px;height:50px;
+            <div class='bottom_rank' style='padding: 10px 0 0 0;display: flex;margin:auto;width:410px;position: relative;top:30px;margin-left:478px;height:50px;
             border: solid 1.7px;'>" .
                             "<div style='display: flex;min-width:270px;margin-right:5px;margin-left:5px;'>" .
 
@@ -945,6 +1007,7 @@ style="width: 100px;position: relative;right:450px;top:-71.7px;" id="ranking_tab
             } elseif ($t_line->row_num == 2) {
                 foreach ($top_line as $t_line2) {
                     if ($t_line2->row_num == 1) {
+                        echo "<div style='margin-top:-500px;'></div>";
                         foreach ($getLine as $g_line) {
                             if ($t_line2->l_id == $g_line->l_id) {
                                 $magic = $g_line->l_name;
@@ -953,7 +1016,7 @@ style="width: 100px;position: relative;right:450px;top:-71.7px;" id="ranking_tab
                         }
 
                         echo "
-            <div class='bottom_rank' style='padding: 10px 0 0 0;display: flex;margin:auto;width:410px;position: relative;top:30px;margin-top:-120px;margin-left:478px;height:50px;
+            <div class='bottom_rank' style='padding: 10px 0 0 0;display: flex;margin:auto;width:410px;position: relative;top:30px;margin-left:478px;height:50px;
             border: solid 1.7px;'>" .
                             "<div style='display: flex;min-width:270px;margin-right:5px;margin-left:5px;'>" .
 
@@ -1002,7 +1065,7 @@ style="width: 100px;position: relative;right:450px;top:-71.7px;" id="ranking_tab
                         }
 
                         echo "
-            <div class='bottom_rank' style='padding: 10px 0 0 0;display: flex;margin:auto;width:410px;position: relative;top:30px;margin-top:-120px;margin-left:478px;height:50px;
+            <div class='bottom_rank' style='padding: 10px 0 0 0;display: flex;margin:auto;width:410px;position: relative;top:30px;margin-left:478px;height:50px;
             border: solid 1.7px;'>" .
                             "<div style='display: flex;min-width:270px;margin-right:5px;margin-left:5px;'>" .
 
@@ -1044,6 +1107,7 @@ style="width: 100px;position: relative;right:450px;top:-71.7px;" id="ranking_tab
                     }
                 }
             } elseif ($t_line->row_num == 3) {
+                echo "<div style='margin-top:-500px;'></div>";
                 foreach ($top_line as $t_line2) {
                     if ($t_line2->row_num == 1 || $t_line2->row_num == 2) {
                         foreach ($getLine as $g_line) {
@@ -1054,7 +1118,7 @@ style="width: 100px;position: relative;right:450px;top:-71.7px;" id="ranking_tab
                         }
 
                         echo "
-            <div class='bottom_rank' style='padding: 10px 0 0 0;display: flex;margin:auto;width:410px;position: relative;top:30px;margin-top:-120px;margin-left:478px;height:50px;
+            <div class='bottom_rank' style='padding: 10px 0 0 0;display: flex;margin:auto;width:410px;position: relative;top:30px;margin-left:478px;height:50px;
             border: solid 1.7px;'>" .
                             "<div style='display: flex;min-width:270px;margin-right:5px;margin-left:5px;'>" .
 
@@ -1103,7 +1167,7 @@ style="width: 100px;position: relative;right:450px;top:-71.7px;" id="ranking_tab
                         }
 
                         echo "
-            <div class='bottom_rank' style='padding: 10px 0 0 0;display: flex;margin:auto;width:410px;position: relative;top:30px;margin-top:-120px;margin-left:478px;height:50px;
+            <div class='bottom_rank' style='padding: 10px 0 0 0;display: flex;margin:auto;width:410px;position: relative;top:30px;margin-left:478px;height:50px;
             border: solid 1.7px;'>" .
                             "<div style='display: flex;min-width:270px;margin-right:5px;margin-left:5px;'>" .
 
@@ -1145,6 +1209,7 @@ style="width: 100px;position: relative;right:450px;top:-71.7px;" id="ranking_tab
                     }
                 }
             } elseif ($t_line->row_num == 4) {
+                echo "<div style='margin-top:-500px;'></div>";
                 foreach ($top_line as $t_line2) {
                     if ($t_line2->row_num == 2 || $t_line2->row_num == 3) {
                         foreach ($getLine as $g_line) {
@@ -1155,7 +1220,7 @@ style="width: 100px;position: relative;right:450px;top:-71.7px;" id="ranking_tab
                         }
 
                         echo "
-            <div class='bottom_rank' style='padding: 10px 0 0 0;display: flex;margin:auto;width:410px;position: relative;top:30px;margin-top:-120px;margin-left:478px;height:50px;
+            <div class='bottom_rank' style='padding: 10px 0 0 0;display: flex;margin:auto;width:410px;position: relative;top:30px;margin-left:478px;height:50px;
             border: solid 1.7px;'>" .
                             "<div style='display: flex;min-width:270px;margin-right:5px;margin-left:5px;'>" .
 
@@ -1204,7 +1269,7 @@ style="width: 100px;position: relative;right:450px;top:-71.7px;" id="ranking_tab
                         }
 
                         echo "
-            <div class='bottom_rank' style='padding: 10px 0 0 0;display: flex;margin:auto;width:410px;position: relative;top:30px;margin-top:-120px;margin-left:478px;height:50px;
+            <div class='bottom_rank' style='padding: 10px 0 0 0;display: flex;margin:auto;width:410px;position: relative;top:30px;margin-left:478px;height:50px;
             border: solid 1.7px;'>" .
                             "<div style='display: flex;min-width:270px;margin-right:5px;margin-left:5px;'>" .
 
@@ -1246,6 +1311,7 @@ style="width: 100px;position: relative;right:450px;top:-71.7px;" id="ranking_tab
                     }
                 }
             } elseif ($t_line->row_num == 5) {
+                echo "<div style='margin-top:-500px;'></div>";
                 foreach ($top_line as $t_line2) {
                     if ($t_line2->row_num == 3 || $t_line2->row_num == 4) {
                         foreach ($getLine as $g_line) {
@@ -1256,7 +1322,7 @@ style="width: 100px;position: relative;right:450px;top:-71.7px;" id="ranking_tab
                         }
 
                         echo "
-            <div class='bottom_rank' style='padding: 10px 0 0 0;display: flex;margin:auto;width:410px;position: relative;top:30px;margin-top:-120px;margin-left:478px;height:50px;
+            <div class='bottom_rank' style='padding: 10px 0 0 0;display: flex;margin:auto;width:410px;position: relative;top:30px;margin-left:478px;height:50px;
             border: solid 1.7px;'>" .
                             "<div style='display: flex;min-width:270px;margin-right:5px;margin-left:5px;'>" .
 
@@ -1305,7 +1371,7 @@ style="width: 100px;position: relative;right:450px;top:-71.7px;" id="ranking_tab
                         }
 
                         echo "
-            <div class='bottom_rank' style='padding: 10px 0 0 0;display: flex;margin:auto;width:410px;position: relative;top:30px;margin-top:-120px;margin-left:478px;height:50px;
+            <div class='bottom_rank' style='padding: 10px 0 0 0;display: flex;margin:auto;width:410px;position: relative;top:30px;margin-left:478px;height:50px;
             border: solid 1.7px;'>" .
                             "<div style='display: flex;min-width:270px;margin-right:5px;margin-left:5px;'>" .
 
@@ -1347,6 +1413,7 @@ style="width: 100px;position: relative;right:450px;top:-71.7px;" id="ranking_tab
                     }
                 }
             } elseif ($t_line->row_num == 6) {
+                echo "<div style='margin-top:-500px;'></div>";
                 foreach ($top_line as $t_line2) {
                     if ($t_line2->row_num == 4 || $t_line2->row_num == 5) {
                         foreach ($getLine as $g_line) {
@@ -1357,7 +1424,7 @@ style="width: 100px;position: relative;right:450px;top:-71.7px;" id="ranking_tab
                         }
 
                         echo "
-            <div class='bottom_rank' style='padding: 10px 0 0 0;display: flex;margin:auto;width:410px;position: relative;top:30px;margin-top:-120px;margin-left:478px;height:50px;
+            <div class='bottom_rank' style='padding: 10px 0 0 0;display: flex;margin:auto;width:410px;position: relative;top:30px;margin-left:478px;height:50px;
             border: solid 1.7px;'>" .
                             "<div style='display: flex;min-width:270px;margin-right:5px;margin-left:5px;'>" .
 
@@ -1406,7 +1473,7 @@ style="width: 100px;position: relative;right:450px;top:-71.7px;" id="ranking_tab
                         }
 
                         echo "
-            <div class='bottom_rank' style='padding: 10px 0 0 0;display: flex;margin:auto;width:410px;position: relative;top:30px;margin-top:-120px;margin-left:478px;height:50px;
+            <div class='bottom_rank' style='padding: 10px 0 0 0;display: flex;margin:auto;width:410px;position: relative;top:30px;margin-left:478px;height:50px;
             border: solid 1.7px;'>" .
                             "<div style='display: flex;min-width:270px;margin-right:5px;margin-left:5px;'>" .
 
@@ -1448,6 +1515,7 @@ style="width: 100px;position: relative;right:450px;top:-71.7px;" id="ranking_tab
                     }
                 }
             } elseif ($t_line->row_num == 7) {
+                echo "<div style='margin-top:-500px;'></div>";
                 $next = null;
                 foreach ($top_line as $t_line2) {
                     if ($t_line2->row_num == 5 || $t_line2->row_num == 6) {
@@ -1460,7 +1528,7 @@ style="width: 100px;position: relative;right:450px;top:-71.7px;" id="ranking_tab
                         }
 
                         echo "
-            <div class='bottom_rank' style='padding: 10px 0 0 0;display: flex;margin:auto;width:410px;position: relative;top:30px;margin-top:-120px;margin-left:478px;height:50px;
+            <div class='bottom_rank' style='padding: 10px 0 0 0;display: flex;margin:auto;width:410px;position: relative;top:30px;margin-left:478px;height:50px;
             border: solid 1.7px;'>" .
                             "<div style='display: flex;min-width:270px;margin-right:5px;margin-left:5px;'>" .
 
@@ -1510,7 +1578,7 @@ style="width: 100px;position: relative;right:450px;top:-71.7px;" id="ranking_tab
                         }
 
                         echo "
-            <div class='bottom_rank' style='padding: 10px 0 0 0;display: flex;margin:auto;width:410px;position: relative;top:30px;margin-top:-120px;margin-left:478px;height:50px;
+            <div class='bottom_rank' style='padding: 10px 0 0 0;display: flex;margin:auto;width:410px;position: relative;top:30px;margin-left:478px;height:50px;
             border: solid 1.7px;'>" .
                             "<div style='display: flex;min-width:270px;margin-right:5px;margin-left:5px;'>" .
 
@@ -1553,6 +1621,7 @@ style="width: 100px;position: relative;right:450px;top:-71.7px;" id="ranking_tab
 
                 }
             } elseif ($t_line->row_num == 8) {
+                echo "<div style='margin-top:-500px;'></div>";
                 foreach ($top_line as $t_line2) {
                     if ($t_line2->row_num == 6  || $t_line2->row_num == 7) {
                         foreach ($getLine as $g_line) {
@@ -1563,7 +1632,7 @@ style="width: 100px;position: relative;right:450px;top:-71.7px;" id="ranking_tab
                         }
 
                         echo "
-            <div class='bottom_rank' style='padding: 10px 0 0 0;display: flex;margin:auto;width:410px;position: relative;top:30px;margin-top:-120px;margin-left:478px;height:50px;
+            <div class='bottom_rank' style='padding: 10px 0 0 0;display: flex;margin:auto;width:410px;position: relative;top:30px;margin-left:478px;height:50px;
             border: solid 1.7px;'>" .
                             "<div style='display: flex;min-width:270px;margin-right:5px;margin-left:5px;'>" .
 
@@ -1612,7 +1681,7 @@ style="width: 100px;position: relative;right:450px;top:-71.7px;" id="ranking_tab
                         }
 
                         echo "
-            <div class='bottom_rank' style='padding: 10px 0 0 0;display: flex;margin:auto;width:410px;position: relative;top:30px;margin-top:-120px;margin-left:478px;height:50px;
+            <div class='bottom_rank' style='padding: 10px 0 0 0;display: flex;margin:auto;width:410px;position: relative;top:30px;margin-left:478px;height:50px;
             border: solid 1.7px;'>" .
                             "<div style='display: flex;min-width:270px;margin-right:5px;margin-left:5px;'>" .
 
@@ -1654,6 +1723,7 @@ style="width: 100px;position: relative;right:450px;top:-71.7px;" id="ranking_tab
                     }
                 }
             } elseif ($t_line->row_num == 9) {
+                echo "<div style='margin-top:-500px;'></div>";
                 foreach ($top_line as $t_line2) {
                     if ($t_line2->row_num == 7  || $t_line2->row_num == 8) {
                         foreach ($getLine as $g_line) {
@@ -1664,7 +1734,7 @@ style="width: 100px;position: relative;right:450px;top:-71.7px;" id="ranking_tab
                         }
 
                         echo "
-            <div class='bottom_rank' style='padding: 10px 0 0 0;display: flex;margin:auto;width:410px;position: relative;top:30px;margin-top:-120px;margin-left:478px;height:50px;
+            <div class='bottom_rank' style='padding: 10px 0 0 0;display: flex;margin:auto;width:410px;position: relative;top:30px;margin-left:478px;height:50px;
             border: solid 1.7px;'>" .
                             "<div style='display: flex;min-width:270px;margin-right:5px;margin-left:5px;'>" .
 
@@ -1713,7 +1783,7 @@ style="width: 100px;position: relative;right:450px;top:-71.7px;" id="ranking_tab
                         }
 
                         echo "
-            <div class='bottom_rank' style='padding: 10px 0 0 0;display: flex;margin:auto;width:410px;position: relative;top:30px;margin-top:-120px;margin-left:478px;height:50px;
+            <div class='bottom_rank' style='padding: 10px 0 0 0;display: flex;margin:auto;width:410px;position: relative;top:30px;margin-left:478px;height:50px;
             border: solid 1.7px;'>" .
                             "<div style='display: flex;min-width:270px;margin-right:5px;margin-left:5px;'>" .
 
@@ -1756,6 +1826,7 @@ style="width: 100px;position: relative;right:450px;top:-71.7px;" id="ranking_tab
 
                 }
             } elseif ($t_line->row_num == 10) {
+                echo "<div style='margin-top:-500px;'></div>";
                 foreach ($top_line as $t_line2) {
                     if ($t_line2->row_num == 7 || $t_line2->row_num == 8 || $t_line2->row_num == 9) {
                         foreach ($getLine as $g_line) {
@@ -1766,7 +1837,7 @@ style="width: 100px;position: relative;right:450px;top:-71.7px;" id="ranking_tab
                         }
 
                         echo "
-            <div class='bottom_rank' style='padding: 10px 0 0 0;display: flex;margin:auto;width:410px;position: relative;top:30px;margin-top:-120px;margin-left:478px;height:50px;
+            <div class='bottom_rank' style='padding: 10px 0 0 0;display: flex;margin:auto;width:410px;position: relative;top:30px;margin-left:478px;height:50px;
             border: solid 1.7px;'>" .
                             "<div style='display: flex;min-width:270px;margin-right:5px;margin-left:5px;'>" .
 
