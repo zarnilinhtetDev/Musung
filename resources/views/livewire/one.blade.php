@@ -131,7 +131,7 @@
                 <table class="w-100 text-center table table-bordered table-sm border-white present_table" id="total_table" style="">
                     <tr class="text-light">
                         <td style="height:60px;background: #E9E9E9">
-                            <span style="font-size:38px;">
+                            <span style="font-size:24px;">
                             </span>
                         </td>
                     </tr>
@@ -142,7 +142,7 @@
 
                     <tr class="text-light">
                         <td style="height:60px;background: #E9E9E9;" class="">
-                            <span style="font-size:38px;"
+                            <span style="font-size:24px;"
                                 class=""></span>
                         </td>
                     </tr>
@@ -155,7 +155,7 @@
                     <tr class="text-light" style="background-color: #2980B9;">
                         <td style="height:60px;"
                             class="">
-                            <span style="font-size:38px;" class=""></span>
+                            <span style="font-size:24px;" class=""></span>
                             <span id="present_third_value" style="display: none"></span>
                         </td>
                     </tr>
@@ -195,7 +195,7 @@
                     <tr class="">
                         <td style="height:60px;"
                             class="fw-bold td_t_percent1_{{ $t_1_total->line_id }}">
-                            <span style="font-size:30px;position:relative;top:3px;"
+                            <span style="font-size:31px;position:relative;top:3px;"
                             class="right_table_text3 t_percent1_{{ $t_1_total->line_id }}"></span>
 
                             <span id="present_third_value" style="display: none"></span>
@@ -675,7 +675,7 @@ style="width: 100px;position: relative;right:450px;top:-71.7px;" id="ranking_tab
                     @if ($g_line_id == $a_total->line_id)
                     <table
             class="w-100 text-center table m-0 totalTable table-bordered table-sm border-white right_table">
-                    <h3 class="rank_heading text-light" style="font-size: 28px;min-width:130px;">
+                    <h3 class="rank_heading text-light" style="font-size: 24px;min-width:130px;">
                     Daily</h3>
                         <tr class="">
                             <td style="height: 60px;background: #E9E9E9;color:black;min-width:130px;"><span
