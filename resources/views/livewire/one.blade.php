@@ -169,7 +169,7 @@
              <table class="w-100 text-center table table-bordered table-sm border-white present_table" id="total_table" style="">
                     <tr class="">
                         <td style="height:60px;background: #E9E9E9">
-                            <span style="font-size:24px;position:relative;top:7px;color:black;font-weight:inherit"
+                            <span style="font-size:31px;position:relative;top:3px;color:black;"
                             class="right_table_text1 fw-bold t_1_total_{{ $t_1_total->line_id }}">
                               {{ $a_total->total_div_target }}
                             </span>
@@ -182,7 +182,7 @@
 
                     <tr class="">
                         <td style="height:60px;background: #E9E9E9;" class="fw-bold td_a_total1_{{ $t_1_total->line_id }}">
-                            <span style="font-size:24px;position:relative;top:7px;color:black;"
+                            <span style="font-size:31px;position:relative;top:3px;color:black;"
                                 class="right_table_text2 a_total1_{{ $t_1_total->line_id }}">{{ $a_total->total_actual_target }}</span>
                         </td>
                     </tr>
@@ -195,7 +195,7 @@
                     <tr class="">
                         <td style="height:60px;"
                             class="fw-bold td_t_percent1_{{ $t_1_total->line_id }}">
-                            <span style="font-size:24px;position:relative;top:7px;"
+                            <span style="font-size:30px;position:relative;top:3px;"
                             class="right_table_text3 t_percent1_{{ $t_1_total->line_id }}"></span>
 
                             <span id="present_third_value" style="display: none"></span>
