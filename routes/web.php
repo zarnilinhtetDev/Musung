@@ -28,7 +28,7 @@ Route::get('/one_line/{id}/{assign_id}/{date}', 'OnepaperController@index')->nam
 // Route::get('/one_line2/{id}/{assign_id}/{date}', [One::class, 'render'])->name('one_line2')->middleware('auth');
 
 //
- Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
+Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
 
 Route::get('/menu', 'MainMenuController@index')->name('menu')->middleware('auth');
 
@@ -114,3 +114,7 @@ Route::get('buyer_search', 'LineAssignController@buyerSearch')->middleware('auth
 Route::get('item_search', 'LineAssignController@itemSearch')->middleware('auth');
 
 
+// Edit Output
+
+
+Route::get('edit_output', 'ReportDashController@edit_output')->middleware('auth');

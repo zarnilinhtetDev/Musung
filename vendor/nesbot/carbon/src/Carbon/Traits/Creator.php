@@ -69,7 +69,8 @@ trait Creator
         // instance then override as required
         $isNow = empty($time) || $time === 'now';
 
-        if (method_exists(static::class, 'hasTestNow') &&
+        if (
+            method_exists(static::class, 'hasTestNow') &&
             method_exists(static::class, 'getTestNow') &&
             static::hasTestNow() &&
             ($isNow || static::hasRelativeKeywords($time))
@@ -187,7 +188,7 @@ trait Creator
             $date = @static::now($tz)->change($time);
 
             if (!$date) {
-                throw new InvalidFormatException("Could not parse '$time': ".$exception->getMessage(), 0, $exception);
+                throw new InvalidFormatException("Could not parse '$time': " . $exception->getMessage(), 0, $exception);
             }
 
             return $date;
@@ -413,7 +414,7 @@ trait Creator
             $year = 9999;
         }
 
-        $second = ($second < 10 ? '0' : '').number_format($second, 6);
+        $second = ($second < 10 ? '0' : '') . number_format($second, 6);
         $instance = static::rawCreateFromFormat('!Y-n-j G:i:s.u', sprintf('%s-%s-%s %s:%02s:%02s', $year, $month, $day, $hour, $minute, $second), $tz);
 
         if ($fixYear !== null) {
@@ -625,7 +626,8 @@ trait Creator
         // Work-around for https://bugs.php.net/bug.php?id=80141
         $format = preg_replace('/(?<!\\\\)((?:\\\\{2})*)c/', '$1Y-m-d\TH:i:sP', $format);
 
-        if (preg_match('/(?<!\\\\)(?:\\\\{2})*(a|A)/', $format, $aMatches, PREG_OFFSET_CAPTURE) &&
+        if (
+            preg_match('/(?<!\\\\)(?:\\\\{2})*(a|A)/', $format, $aMatches, PREG_OFFSET_CAPTURE) &&
             preg_match('/(?<!\\\\)(?:\\\\{2})*(h|g|H|G)/', $format, $hMatches, PREG_OFFSET_CAPTURE) &&
             $aMatches[1][1] < $hMatches[1][1] &&
             preg_match('/(am|pm|AM|PM)/', $time)
@@ -657,8 +659,8 @@ trait Creator
 
             // Prepend mock datetime only if the format does not contain non escaped unix epoch reset flag.
             if (!preg_match("/{$nonEscaped}[!|]/", $format)) {
-                $format = static::MOCK_DATETIME_FORMAT.' '.$format;
-                $time = ($mock instanceof self ? $mock->rawFormat(static::MOCK_DATETIME_FORMAT) : $mock->format(static::MOCK_DATETIME_FORMAT)).' '.$time;
+                $format = static::MOCK_DATETIME_FORMAT . ' ' . $format;
+                $time = ($mock instanceof self ? $mock->rawFormat(static::MOCK_DATETIME_FORMAT) : $mock->format(static::MOCK_DATETIME_FORMAT)) . ' ' . $time;
             }
 
             // Regenerate date from the modified format to base result on the mocked instance instead of now.
@@ -748,7 +750,7 @@ trait Creator
             );
         }, $format);
 
-        $format = preg_replace_callback('/(?<!\\\\)(\\\\{2})*('.CarbonInterface::ISO_FORMAT_REGEXP.'|[A-Za-z])/', function ($match) {
+        $format = preg_replace_callback('/(?<!\\\\)(\\\\{2})*(' . CarbonInterface::ISO_FORMAT_REGEXP . '|[A-Za-z])/', function ($match) {
             [$code] = $match;
 
             static $replacements = null;
@@ -907,7 +909,8 @@ trait Creator
         if (\is_string($var)) {
             $var = trim($var);
 
-            if (!preg_match('/^P[0-9T]/', $var) &&
+            if (
+                !preg_match('/^P[0-9T]/', $var) &&
                 !preg_match('/^R[0-9]/', $var) &&
                 preg_match('/[a-z0-9]/i', $var)
             ) {
@@ -925,7 +928,7 @@ trait Creator
      *
      * @return void
      */
-    private static function setLastErrors(array $lastErrors)
+    private static function setLastErrors($lastErrors)
     {
         static::$lastErrors = $lastErrors;
     }

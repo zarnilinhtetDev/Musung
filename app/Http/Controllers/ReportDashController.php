@@ -110,6 +110,17 @@ class ReportDashController extends Controller
         return view('report_management.report', ['chart' => $chart->build(), 'category_chart' => $category_chart->build()], compact('category', 'target', 'time', 'daily_report', 'daily_report_product', 'daily_report_product_2', 'p_detail_total'));
     }
 
+
+
+    // public function edit_output(Request $request, $id)
+    // {
+    //     $test = ProductDetail::find($id);
+    //     $test->cat_actual_target = $request->cat_actual_target;
+    //     $test->save();
+
+    //     return view('report_management.report', compact('test'));
+    // }
+
     public function cmpPut()
     {
         @$boxes = request()->post('boxes');
@@ -252,6 +263,8 @@ class ReportDashController extends Controller
 
 
         /// Sewing Post (Input)
+
+        //Sewing Output
         for ($j = 0; $j < count($sewing_post); $j++) {
             $sewing_l_id = $sewing_post[$j]['sewing_l_id'];
             $sewing_a_id = $sewing_post[$j]['sewing_a_id'];
@@ -277,7 +290,7 @@ class ReportDashController extends Controller
                     ->update(['sewing_input' => $sewing_val_input]);
             }
         }
-
+        //Sewing Output end
         //// S,L,ADM OP post
         for ($j = 0; $j < count($m_power_2_post); $j++) {
             $m_power_l_id_2 = $m_power_2_post[$j]['m_power_l_id_2'];
@@ -536,6 +549,11 @@ WHERE "line_assign".assign_date=\'' . $date_string . '\'');
                             $man_actual_target = $daily_report_history_decode[$i]['man_actual_target'];
                             $assign_id_2 = $daily_report_history_decode[$i]['assign_id'];
                             $remark = $daily_report_history_decode[$i]['remark'];
+
+                            //test
+
+                            $output = $daily_report_history_decode[$i]['output'];
+
                         ?>
                             <tr>
                                 <td><?php echo $l_name; ?></td>
